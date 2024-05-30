@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "765138550704",
+    "project_id": "sellerkitapp-5ad52",
+    "storage_bucket": "sellerkitapp-5ad52.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765138550704:android:1ded51031c2e7b57586075",
+        "android_client_info": {
+          "package_name": "com.busondigitalservice.sellerkit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfhHmEadUgcsrS1wu9ipzrsSqediL6d1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765138550704:android:56faac7c043c0173586075",
+        "android_client_info": {
+          "package_name": "com.busondigitalservice.sellerkit3033"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfhHmEadUgcsrS1wu9ipzrsSqediL6d1s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

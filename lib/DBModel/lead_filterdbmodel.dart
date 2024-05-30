@@ -1,0 +1,47 @@
+const String tableLeadfilter = "Leadfilter";
+
+class LeadfilterDBcolumns{
+  static const String leadDocEntry = 'LeadDocEntry';
+  static const String followupEntry = 'FollowupEntry';
+  static const String leadNum = 'LeadNum';
+  static const String mobile = 'Mobile';
+  static const String customerName = 'CustomerName';
+  static const String docDate = 'DocDate';
+  static const String city = 'City';
+  static const String nextFollowup = 'NextFollowup';
+  static const String product = 'Product';
+  static const String value = 'Value';
+  static const String status = 'Status';
+  static const String lastUpdateMessage = 'LastUpdateMessage';
+  static const String lastUpdateTime = 'LastUpdateTime';
+  static const String customermob = 'Customermob';
+  static const String cusEmail = 'CusEmail';
+  static const String companyname = 'Companyname';
+  static const String cusgroup = 'Cusgroup';
+  static const String storecode = 'Storecode';
+  static const String add1 = 'Add1';
+  static const String add2 = 'Add2';
+  static const String area = 'Area';
+  static const String district = 'District';
+  static const String state = 'State';
+  static const String country = 'Country';
+  static const String pincode = 'Pincode';
+  static const String gender = 'Gender';
+  static const String agegroup = 'Agegroup';
+  static const String cameAs = 'CameAs';
+  static const String headcount = 'Headcount';
+  static const String maxbudget = 'Maxbudget';
+  static const String assignedTo = 'AssignedTo';
+  static const String refferal = 'Refferal';
+  static const String purchasePlan = 'PurchasePlan';
+  static const String dealDescription = 'DealDescription';
+  static const String lastFollowupDate = 'LastFollowupDate';
+  static const String createdBy = 'CreatedBy';
+  static const String createdDate = 'CreatedDate';
+  static const String updatedBy = 'UpdatedBy';
+  static const String updatedDate = 'UpdatedDate';
+  static const String traceId = 'TraceId';
+  static const String isselected = 'Isselected';
+  static const String interestLevel = 'InterestLevel';
+  static const String orderType = 'OrderType';
+}
