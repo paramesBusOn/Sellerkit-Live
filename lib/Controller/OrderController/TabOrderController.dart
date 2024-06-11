@@ -1,12 +1,15 @@
 // ignore_for_file: empty_constructor_bodies, unnecessary_new
 
+import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 import 'package:sellerkit/Services/PostQueryApi/OrdersApi/paymentmode.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
+import 'package:sellerkit/Services/userDialApi/userdialapi.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import 'package:path_provider/path_provider.dart';
@@ -161,6 +164,9 @@ addgoogle(String? title){
 
   clearAllListData() {datagotByApi=false;
      GetAllData.clear();
+      iscalltrue=false;
+    userid='';
+    usernumber='';
     assigncolumn.clear();
     cusgroupcolumn.clear();
     enqstatuscolumn.clear();
@@ -228,6 +234,7 @@ addgoogle(String? title){
    await callinitApi();
    await callGetAllApi();
    await callpaymodeApi();
+ await  callusermobileApi();
    
     // callSummaryApi();
 
@@ -1495,6 +1502,7 @@ log("filesz::"+filesz.length.toString());
     openlea();
     wonlea();
      await callpaymodeApi();
+     await callusermobileApi();
     // lostlea();
 
     notifyListeners();
@@ -2127,6 +2135,84 @@ List<PaymodeModalData> paymode = [];
       }
     });
   }
+
+
+  
+callusermobileApi()async{
+ await userbyidApi.getData(ConstantValues.UserId).then((value){
+ if (value.stcode! >= 200 && value.stcode! <= 210) {
+ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
+log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
+getfirebase();
+ }
+   
+  });
+}
+String? apidate;
+  bool iscalltrue=false;
+  String? userid='';
+  String? usernumber='';
+  calldialApi(String? number)async{
+    
+    usernumber='';
+     iscalltrue=true;
+    notifyListeners();
+    Future.delayed(Duration(seconds: 40),(){
+      log("secondsoverrr:::");
+  iscalltrue=false;
+    notifyListeners();
+    });
+
+    // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+   
+   
+//     FirebaseProduct.get().then((value) {
+// value.docs.forEach((element) {
+//   usernumber=element!['mobile'].toString();
+//   userid=element!['id'].toString();
+// log("fsdfdf::"+userid.toString());
+  // if(ConstantValues.userbyidmobile==usernumber){
+    log("fsdfdf::user number match");
+ UserdialApi.getdata(userid!, number!).then((value) {
+
+    });
+  // }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+  
+
+// });
+    // });
+   
+  }
+getfirebase()async{
+  userid='';
+  notifyListeners();
+    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+   
+   
+   await FirebaseProduct.get().then((value) {
+value.docs.forEach((element) {
+  usernumber=element!['mobile'].toString();
+  
+log("fsdfdf::"+usernumber.toString());
+  if(ConstantValues.userbyidmobile==usernumber){
+    log("fsdfdf::user number match");
+    userid=element!['id'].toString();
+    notifyListeners();
+//  UserdialApi.getdata(userid!, number!).then((value) {
+
+//     });
+  }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+  
+
+});
+    });
+}
   callGetLeadDeatilsApi(String leadDocEnt) async {
     forwardSuccessMsg = '';
     leadLoadingdialog = true;

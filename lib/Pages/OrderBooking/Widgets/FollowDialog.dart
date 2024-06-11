@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/pdfviewdetail.dart';
 import '../../../Constant/Screen.dart';
@@ -57,7 +58,21 @@ class _FollowDialogState extends State<FollowDialog> {
       contentPadding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       content: //UpdateFollowup(context, theme),
-          (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
+          // (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
+          //         context.watch<OrderTabController>().getleadForwarddialog ==
+          //             false &&
+          //         context.watch<OrderTabController>().getleadLoadingdialog ==
+          //             false &&
+          //         context.watch<OrderTabController>().getviewDetailsdialog ==
+          //             false &&
+          //         context
+          //             .watch<OrderTabController>()
+          //             .getforwardSuccessMsg
+          //             .isEmpty &&
+          //         context.watch<OrderTabController>().getisSameBranch == true)
+          //         &&
+                  (context.read<OrderTabController>().iscalltrue ==
+                  true )?callLoadingPage(context): (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
                   context.watch<OrderTabController>().getleadForwarddialog ==
                       false &&
                   context.watch<OrderTabController>().getleadLoadingdialog ==
@@ -2193,7 +2208,29 @@ SizedBox(
       ),
     );
   }
-
+Container callLoadingPage(BuildContext context) {
+    return Container(
+      // color: Colors.amber,
+        width: Screens.width(context) * 0.9,
+        height: Screens.bodyheight(context) * 0.1,
+        padding: EdgeInsets.all(10),
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              // width: Screens.width(context) * 0.1,
+              child: CircularProgressIndicator()),
+              SizedBox(
+                width:Screens.width(context) * 0.1 ,
+              ),
+              Container(
+              
+              child: Text("Connecting ....")),
+          ],
+        ));
+  }
   Container CallDialog(BuildContext context, ThemeData theme) {
     return Container(
       width: Screens.width(context),
@@ -2215,10 +2252,23 @@ SizedBox(
             height: Screens.bodyheight(context) * 0.06,
             child: ElevatedButton(
                 onPressed: () {
-                  context.read<OrderTabController>().makePhoneCall(context
-                      .read<OrderTabController>()
-                      .getAllLeadData[widget.index]
-                      .Mobile!);
+                  log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
+                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && context
+                                  .read<OrderTabController>().userid !=''){
+                              context
+                                  .read<OrderTabController>()
+                                  . calldialApi(widget.leadOpenAllData!.Mobile!);
+
+                              }else{
+                                context
+                                  .read<OrderTabController>()
+                                  .makePhoneCall(widget.leadOpenAllData!.Mobile!);
+
+                              }
+                  // context.read<OrderTabController>().makePhoneCall(context
+                  //     .read<OrderTabController>()
+                  //     .getAllLeadData[widget.index]
+                  //     .Mobile!);
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
@@ -2933,9 +2983,26 @@ SizedBox(
                                   .isEmpty
                           ? Container():  InkWell(
                         onTap: (){
-                           context.read<OrderTabController>().makePhoneCall(context
+                           log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
+                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && context
+                                  .read<OrderTabController>().userid !=''){
+                              context
+                                  .read<OrderTabController>()
+                                  . calldialApi(context
                       .read<OrderTabController>()
                       .getleadDeatilsQTHData![0].CardCode!);
+
+                              }else{
+                                context
+                                  .read<OrderTabController>()
+                                  .makePhoneCall(context
+                      .read<OrderTabController>()
+                      .getleadDeatilsQTHData![0].CardCode!);
+
+                              }
+                      //      context.read<OrderTabController>().makePhoneCall(context
+                      // .read<OrderTabController>()
+                      // .getleadDeatilsQTHData![0].CardCode!);
                         },
                         child: Container(
                           width: Screens.width(context) * 0.4,

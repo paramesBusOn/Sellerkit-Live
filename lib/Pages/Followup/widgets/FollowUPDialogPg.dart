@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
@@ -64,11 +67,41 @@ class _FollowUPDialogPGState extends State<FollowUPDialogPG> {
                                             false &&
                                         fUPCon.getupdateFrowardDialog == true)
                                     ? UpdateFollowup(context, theme, fUPCon)
-                                    : CallDialog(context, theme, fUPCon));
+                                    :
+                                    (fUPCon.getisLodingDialog == false &&
+                                        fUPCon.getforwardSuccessMsg == '' &&
+                                        fUPCon.getviewDetailsClicked == false &&
+                                        fUPCon.getforwardDialogClicked ==
+                                            false &&
+                                        fUPCon.getupdateFrowardDialog == false&&fUPCon.getiscalltrue ==
+                  true)?callLoadingPage(context): 
+                                     CallDialog(context, theme, fUPCon));
           });
         });
   }
-
+Container callLoadingPage(BuildContext context) {
+    return Container(
+      // color: Colors.amber,
+        width: Screens.width(context) * 0.9,
+        height: Screens.bodyheight(context) * 0.1,
+        padding: EdgeInsets.all(10),
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              // width: Screens.width(context) * 0.1,
+              child: CircularProgressIndicator()),
+              SizedBox(
+                width:Screens.width(context) * 0.1 ,
+              ),
+              Container(
+              
+              child: Text("Connecting ....")),
+          ],
+        ));
+  }
   Container CallDialog(
       BuildContext context, ThemeData theme, FollowupController fUPCon) {
     return Container(
@@ -84,7 +117,16 @@ class _FollowUPDialogPGState extends State<FollowUPDialogPG> {
             height: Screens.bodyheight(context) * 0.06,
             child: ElevatedButton(
                 onPressed: () {
-                   fUPCon.makePhoneCall(widget.followUPListData.Phone!);
+                  log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
+                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && fUPCon.getuserid !=''){
+                              fUPCon
+                                  . calldialApi(widget.followUPListData.Phone!);
+
+                              }else{
+                                fUPCon.makePhoneCall(widget.followUPListData.Phone!);
+
+                              }
+                  //  fUPCon.makePhoneCall(widget.followUPListData.Phone!);
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(

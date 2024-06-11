@@ -32,6 +32,7 @@ static String? EncryptedSetup='';
 static String? Storecode='';
 static String? Usercode='';
 static String? Password='';
+static String? userbyidmobile='';
 //
 static String? Country='INDIA';
 static int? slidevalue=10;

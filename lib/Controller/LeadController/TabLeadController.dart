@@ -1,8 +1,11 @@
 // ignore_for_file: empty_constructor_bodies, unnecessary_new, unused_import, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings
 
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+
+import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
@@ -21,6 +24,7 @@ import 'package:sellerkit/Services/PostQueryApi/LeadsApi/CancelLeadWonApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/GetLeadDeatilsQTH.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/NewopenAPi.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/Newphoneapi.dart';
+import 'package:sellerkit/Services/userDialApi/userdialapi.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Constant/ConstantSapValues.dart';
@@ -141,6 +145,9 @@ void showfromDate(BuildContext context) {
 
   clearAllListData() {
     clearbool();
+    iscalltrue=false;
+    userid='';
+    usernumber='';
     VisitTime='';
     errorVisitTime = "";
  forwarderrorVisitTime = "";
@@ -238,10 +245,89 @@ filteruserLtData[i].color=0;
     refershAfterClosedialog();
    await clearAllListData();
   await  callGetAllApi();
+  await callusermobileApi();
     // callSummaryApi();
 
     //});
   }
+
+
+  
+callusermobileApi()async{
+ await userbyidApi.getData(ConstantValues.UserId).then((value){
+ if (value.stcode! >= 200 && value.stcode! <= 210) {
+ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
+log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
+getfirebase();
+ }
+   
+  });
+}
+String? apidate;
+  bool iscalltrue=false;
+  String? userid='';
+  String? usernumber='';
+  calldialApi(String? number)async{
+    
+    usernumber='';
+     iscalltrue=true;
+    notifyListeners();
+    Future.delayed(Duration(seconds: 40),(){
+      log("secondsoverrr:::");
+  iscalltrue=false;
+    notifyListeners();
+    });
+
+    // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+   
+   
+//     FirebaseProduct.get().then((value) {
+// value.docs.forEach((element) {
+//   usernumber=element!['mobile'].toString();
+//   userid=element!['id'].toString();
+// log("fsdfdf::"+userid.toString());
+  // if(ConstantValues.userbyidmobile==usernumber){
+    log("fsdfdf::user number match");
+ UserdialApi.getdata(userid!, number!).then((value) {
+
+    });
+  // }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+  
+
+// });
+    // });
+   
+  }
+getfirebase()async{
+  userid='';
+  notifyListeners();
+    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+   
+   
+  await  FirebaseProduct.get().then((value) {
+value.docs.forEach((element) {
+  usernumber=element!['mobile'].toString();
+  
+log("fsdfdf::"+usernumber.toString());
+  if(ConstantValues.userbyidmobile==usernumber){
+    log("fsdfdf::user number match");
+    userid=element!['id'].toString();
+    notifyListeners();
+//  UserdialApi.getdata(userid!, number!).then((value) {
+
+//     });
+  }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+  
+
+});
+    });
+}
 List<Distcolumn> assigncolumn = [];
    List<Distcusgroupcolumn> cusgroupcolumn = [];
  List<DistEnqstatuscolumn> enqstatuscolumn = [];
@@ -661,7 +747,7 @@ String lottie='';
         leadCheckDataExcep =
             '${value.message}..!! ${value.exception}..!!';
             
-      } else if (value.stcode == 500) {
+      } else {
          isbool=false;
          datagotByApi=true;
            notifyListeners();
@@ -672,6 +758,7 @@ String lottie='';
       }
       notifyListeners();
     });
+
     // log("GetAll Lead Exception :::" + leadCheckDataExcep.toString());
   }
   
@@ -823,6 +910,7 @@ String lottie='';
     }
     await callSummaryApi();
   await  callinitApi();
+ await callusermobileApi();
    
           // notifyListeners();
     notifyListeners();

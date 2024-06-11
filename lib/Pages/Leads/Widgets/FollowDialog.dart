@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetAllLeadModel.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Controller/LeadController/TabLeadController.dart';
@@ -53,7 +54,22 @@ class _FollowDialogState extends State<FollowDialog> {
       contentPadding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       content: //UpdateFollowup(context, theme),
-          (context.watch<LeadTabController>().getupdateFollowUpDialog == false &&
+        // (context.watch<LeadTabController>().getupdateFollowUpDialog == false &&
+        //           context.watch<LeadTabController>().getleadForwarddialog ==
+        //               false &&
+        //           context.watch<LeadTabController>().getleadLoadingdialog ==
+        //               false &&
+        //           context.watch<LeadTabController>().getviewDetailsdialog ==
+        //               false &&
+        //           context.watch<LeadTabController>().getupdateConvertToQuatationUpdialog ==
+        //               false &&
+        //           context
+        //               .watch<LeadTabController>()
+        //               .getforwardSuccessMsg
+        //               .isEmpty &&
+        //           context.watch<LeadTabController>().getisSameBranch == true) &&
+                  (context.read<LeadTabController>().iscalltrue ==
+                  true )?callLoadingPage(context):  (context.watch<LeadTabController>().getupdateFollowUpDialog == false &&
                   context.watch<LeadTabController>().getleadForwarddialog ==
                       false &&
                   context.watch<LeadTabController>().getleadLoadingdialog ==
@@ -139,7 +155,29 @@ class _FollowDialogState extends State<FollowDialog> {
                                       : UpdateFollowup(context, theme),
     );
   }
-
+Container callLoadingPage(BuildContext context) {
+    return Container(
+      // color: Colors.amber,
+        width: Screens.width(context) * 0.9,
+        height: Screens.bodyheight(context) * 0.1,
+        padding: EdgeInsets.all(10),
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              // width: Screens.width(context) * 0.1,
+              child: CircularProgressIndicator()),
+              SizedBox(
+                width:Screens.width(context) * 0.1 ,
+              ),
+              Container(
+              
+              child: Text("Connecting ....")),
+          ],
+        ));
+  }
   Container loadingDialog(BuildContext context) {
     return Container(
         width: Screens.width(context),
@@ -1431,8 +1469,23 @@ class _FollowDialogState extends State<FollowDialog> {
             height: Screens.bodyheight(context) * 0.06,
             child: ElevatedButton(
                 onPressed: () {
-                  context.read<LeadTabController>().makePhoneCall(widget.leadopenalldata
+                   log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
+                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && context
+                                  .read<LeadTabController>().userid !=''){
+                              context
+                                  .read<LeadTabController>()
+                                  . calldialApi(widget.leadopenalldata
                       .Mobile!);
+
+                              }else{
+                                context
+                                  .read<LeadTabController>()
+                                  .makePhoneCall(widget.leadopenalldata
+                      .Mobile!);
+
+                              }
+                  // context.read<LeadTabController>().makePhoneCall(widget.leadopenalldata
+                  //     .Mobile!);
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
@@ -1979,9 +2032,26 @@ class _FollowDialogState extends State<FollowDialog> {
                           ? Container()
                           :  InkWell(
                             onTap: () {
-                  context.read<LeadTabController>().makePhoneCall(context
+                              log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
+                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && context
+                                  .read<LeadTabController>().userid !=''){
+                              context
+                                  .read<LeadTabController>()
+                                  . calldialApi(context
                       .read<LeadTabController>()
                       .getleadDeatilsQTHData![0].CardCode!);
+
+                              }else{
+                                context
+                                  .read<LeadTabController>()
+                                  .makePhoneCall(context
+                      .read<LeadTabController>()
+                      .getleadDeatilsQTHData![0].CardCode!);
+
+                              }
+                  // context.read<LeadTabController>().makePhoneCall(context
+                  //     .read<LeadTabController>()
+                  //     .getleadDeatilsQTHData![0].CardCode!);
                 },
                             child: Container(
                                                   width: Screens.width(context) * 0.35,

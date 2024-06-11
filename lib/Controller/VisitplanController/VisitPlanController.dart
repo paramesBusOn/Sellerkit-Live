@@ -2,10 +2,13 @@
 
 import 'dart:developer';
 
+import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Controller/VisitplanController/NewVisitController.dart';
 import 'package:sellerkit/Models/purposeofvistModel/purposeofvisitmodel.dart';
 import 'package:sellerkit/Pages/VisitPlans/Screens/NewVisitPlan.dart';
@@ -13,6 +16,7 @@ import 'package:sellerkit/Services/VisitApi/cancelvisitApi.dart';
 import 'package:sellerkit/Services/getvisitscheduleAPi/getvistitApi.dart';
 
 import 'package:sellerkit/Services/purposeofvisitApi/purposeofvisit.dart';
+import 'package:sellerkit/Services/userDialApi/userdialapi.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../Constant/Configuration.dart';
@@ -28,6 +32,7 @@ class VisitplanController extends ChangeNotifier {
     clearAll();
     getallvisitdata();
     getvisitpurpose();
+    callusermobileApi();
   }
   Future<void> makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
@@ -266,8 +271,85 @@ String lottie='';
   //   ];
   //   notifyListeners();
   // }
+callusermobileApi()async{
+ await userbyidApi.getData(ConstantValues.UserId).then((value){
+ if (value.stcode! >= 200 && value.stcode! <= 210) {
+ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
+log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
+getfirebase();
+ }
+   
+  });
+}
+String? apidate;
+  bool iscalltrue=false;
+  String? userid='';
+  String? usernumber='';
+  calldialApi(String? number)async{
+    
+    usernumber='';
+     iscalltrue=true;
+    notifyListeners();
+    Future.delayed(Duration(seconds: 40),(){
+      log("secondsoverrr:::");
+  iscalltrue=false;
+    notifyListeners();
+    });
 
+    // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+   
+   
+//     FirebaseProduct.get().then((value) {
+// value.docs.forEach((element) {
+//   usernumber=element!['mobile'].toString();
+//   userid=element!['id'].toString();
+// log("fsdfdf::"+userid.toString());
+  // if(ConstantValues.userbyidmobile==usernumber){
+    log("fsdfdf::user number match");
+ UserdialApi.getdata(userid!, number!).then((value) {
+
+    });
+  // }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+  
+
+// });
+    // });
+   
+  }
+getfirebase()async{
+  userid='';
+  notifyListeners();
+    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+   
+   
+  await  FirebaseProduct.get().then((value) {
+value.docs.forEach((element) {
+  usernumber=element!['mobile'].toString();
+  
+log("fsdfdf::"+usernumber.toString());
+  if(ConstantValues.userbyidmobile==usernumber){
+    log("fsdfdf::user number match");
+    userid=element!['id'].toString();
+    notifyListeners();
+//  UserdialApi.getdata(userid!, number!).then((value) {
+
+//     });
+  }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+  
+
+});
+    });
+}
   clearAll() async{
+     iscalltrue=false;
+    userid='';
+    usernumber='';
     isloading = false;
     errortabMsg = '';
     dropdownvalue = "";

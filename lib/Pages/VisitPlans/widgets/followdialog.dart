@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Controller/VisitplanController/VisitPlanController.dart';
 import 'package:sellerkit/Models/getvisitmodel/getvisitmodel.dart';import '../../../Constant/Screen.dart';
 import 'package:timeline_tile/timeline_tile.dart';
@@ -126,11 +127,36 @@ class _FollowDialogState extends State<FollowDialog> {
                                       context.watch<VisitplanController>().leadLoadingdialog == false&&
                                       context.watch<VisitplanController>().forwardSuccessMsg.isNotEmpty )
                                   ? displayDialog(context, theme)
-                                  : 
+                                  :  (context.watch<VisitplanController>().leadLoadingdialog == false&&
+                                      context.watch<VisitplanController>().forwardSuccessMsg.isEmpty
+                                      &&context.watch<VisitplanController>().iscalltrue ==
+                  true )?callLoadingPage(context):
           CallDialog(context, theme),
     );
   }
-
+Container callLoadingPage(BuildContext context) {
+    return Container(
+      // color: Colors.amber,
+        width: Screens.width(context) * 0.9,
+        height: Screens.bodyheight(context) * 0.1,
+        padding: EdgeInsets.all(10),
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              // width: Screens.width(context) * 0.1,
+              child: CircularProgressIndicator()),
+              SizedBox(
+                width:Screens.width(context) * 0.1 ,
+              ),
+              Container(
+              
+              child: Text("Connecting ....")),
+          ],
+        ));
+  }
   Container loadingDialog(BuildContext context) {
     return Container(
         width: Screens.width(context),
@@ -2119,9 +2145,26 @@ class _FollowDialogState extends State<FollowDialog> {
             height: Screens.bodyheight(context) * 0.06,
             child: ElevatedButton(
                 onPressed: () {
-                  context.read<VisitplanController>().makePhoneCall(widget
+                   log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
+                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && context
+                                  .read<VisitplanController>().userid !=''){
+                              context
+                                  .read<VisitplanController>()
+                                  . calldialApi(widget
                       .openVisitData!
                       .customercode!);
+
+                              }else{
+                                context
+                                  .read<VisitplanController>()
+                                  .makePhoneCall(widget
+                      .openVisitData!
+                      .customercode!);
+
+                              }
+                  // context.read<VisitplanController>().makePhoneCall(widget
+                  //     .openVisitData!
+                  //     .customercode!);
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(

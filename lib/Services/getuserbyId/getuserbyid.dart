@@ -2,26 +2,28 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
+import 'package:sellerkit/Models/getuserbyidModel/getuserbyidmodel.dart';
 import 'package:sellerkit/Models/leadexmodel/agemodel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
 import '../../../Constant/DataBaseConfig.dart';
+import '../../../Models/PostQueryModel/EnquiriesModel/ResonModel.dart';
 
-class PaymodeApi {
-  static Future<PaymodeModal> getData(
-    sapUserID,
+class userbyidApi {
+  static Future<useidModal> getData(
+   String sapUserID,
   ) async {
     int resCode = 500;
     try {
       
 Config config = Config();
-      log("URL:"+Url.queryApi+'SkClientPortal/GetallMaster?MasterTypeId=18');
-      await config.getSetup(); final response = await http.get(Uri.parse('${Url.queryApi}SkClientPortal/GetallMaster?MasterTypeId=18'),
+      log("URL:"+Url.queryApi+'SkClientPortal/getusersById?Id=$sapUserID');
+      await config.getSetup(); final response = await http.get(Uri.parse(Url.queryApi+'SkClientPortal/getusersById?Id=$sapUserID'),
           headers: {
             "content-type": "application/json",
-            "Authorization": 'bearer ${ConstantValues.token}',"Location":'${ConstantValues.EncryptedSetup}'
+            "Authorization": 'bearer '+ ConstantValues.token,
+            "Location":'${ConstantValues.EncryptedSetup}'
           },
           // body: jsonEncode({
           //   "constr":
@@ -32,19 +34,19 @@ Config config = Config();
 
       resCode = response.statusCode;
       // print(response.statusCode.toString());
-      
+       log("ResonAgeApi:"+response.body);
       if (response.statusCode == 200) {
-        log("paymodeApi:${json.decode(response.body)}");
+        //
         // Map data = json.decode(response.body);
-        return PaymodeModal.fromJson(
-            json.decode(response.body), response.statusCode);
+        return useidModal.fromJson(
+            json.decode(response.body), resCode);
       } else {
         log("Errorreson: ${json.decode(response.body).toString()}");
-        return PaymodeModal.error('Error', response.statusCode);
+        return useidModal.error('Error', resCode);
       }
     } catch (e) {
-      print("Exception1: $e");
-      return PaymodeModal.error(e.toString(), resCode);
+      print("Exception1: " + e.toString());
+      return useidModal.error(e.toString(), resCode);
     }
   }
 }

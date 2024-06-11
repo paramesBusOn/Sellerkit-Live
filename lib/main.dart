@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
@@ -15,9 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:get_ip_address/get_ip_address.dart';
 import 'package:flutter_background_service_android/flutter_background_service_android.dart';
-
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
@@ -1141,7 +1138,7 @@ checkLocation() async {
     } else if (result.name == 'mobile') {
       if (Platform.isAndroid) {
         final MobileNetworkInfo mobileNetworkInfo = MobileNetworkInfo();
-        final String? name = await Config.getipaddress();
+        final String name = await Config.getipaddress();
 
         // List<String>? wifiiInfo = await config.setNetwork();
         //

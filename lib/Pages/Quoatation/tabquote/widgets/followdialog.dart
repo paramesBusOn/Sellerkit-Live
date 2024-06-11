@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Models/QuoteModel/quotesgetallModel.dart';
 import 'package:sellerkit/Pages/Quoatation/tabquote/widgets/pdfviewdetail.dart';
@@ -56,36 +57,36 @@ class _FollowDialogState extends State<FollowDialog> {
       contentPadding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       content: //UpdateFollowup(context, theme),
-          (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
-                  context.watch<QuotestabController>().getleadForwarddialog ==
-                      false &&
-                  context.watch<QuotestabController>().getleadLoadingdialog ==
-                      false &&
-                  context.watch<QuotestabController>().getviewDetailsdialog ==
-                      false &&
-                  context
-                      .watch<QuotestabController>()
-                      .getforwardSuccessMsg
-                      .isEmpty &&
-                  context.watch<QuotestabController>().getisSameBranch == true)
-              ? CallDialog(context, theme)
+          // (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
+          //           context.watch<QuotestabController>().getleadForwarddialog ==
+          //               false &&
+          //           context.watch<QuotestabController>().getleadLoadingdialog ==
+          //               false &&
+          //           context.watch<QuotestabController>().getviewDetailsdialog ==
+          //               false &&
+          //           context
+          //               .watch<QuotestabController>()
+          //               .getforwardSuccessMsg
+          //               .isEmpty &&
+          //           context.watch<QuotestabController>().getisSameBranch == true)
+          //          &&
+          (context.read<QuotestabController>().iscalltrue == true)
+              ? callLoadingPage(context)
               : (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
                       context.watch<QuotestabController>().getleadForwarddialog ==
                           false &&
                       context.watch<QuotestabController>().getleadLoadingdialog ==
                           false &&
                       context.watch<QuotestabController>().getviewDetailsdialog ==
-                          true &&
+                          false &&
                       context
                           .watch<QuotestabController>()
                           .getforwardSuccessMsg
                           .isEmpty &&
                       context.watch<QuotestabController>().getisSameBranch ==
                           true)
-                  ? detailsDialog(context, theme)
-                  :
-                  //
-                  (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
+                  ? CallDialog(context, theme)
+                  : (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
                           context.watch<QuotestabController>().getleadForwarddialog ==
                               false &&
                           context.watch<QuotestabController>().getleadLoadingdialog ==
@@ -97,34 +98,32 @@ class _FollowDialogState extends State<FollowDialog> {
                               .getforwardSuccessMsg
                               .isEmpty &&
                           context.watch<QuotestabController>().getisSameBranch ==
-                              false)
-                      ? detailsDialogLead(context, theme)
-
+                              true)
+                      ? detailsDialog(context, theme)
+                      :
                       //
-                      : (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
+                      (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
                               context.watch<QuotestabController>().getleadForwarddialog ==
-                                  true &&
+                                  false &&
                               context.watch<QuotestabController>().getleadLoadingdialog ==
                                   false &&
                               context.watch<QuotestabController>().getviewDetailsdialog ==
-                                  false &&
+                                  true &&
                               context
                                   .watch<QuotestabController>()
                                   .getforwardSuccessMsg
                                   .isEmpty &&
                               context.watch<QuotestabController>().getisSameBranch ==
-                                  true)
-                          ? forwardDialog(context, theme)
+                                  false)
+                          ? detailsDialogLead(context, theme)
+
+                          //
                           : (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
                                   context.watch<QuotestabController>().getleadForwarddialog ==
                                       true &&
-                                  context
-                                          .watch<QuotestabController>()
-                                          .getleadLoadingdialog ==
-                                      true &&
-                                  context
-                                          .watch<QuotestabController>()
-                                          .getviewDetailsdialog ==
+                                  context.watch<QuotestabController>().getleadLoadingdialog ==
+                                      false &&
+                                  context.watch<QuotestabController>().getviewDetailsdialog ==
                                       false &&
                                   context
                                       .watch<QuotestabController>()
@@ -132,15 +131,29 @@ class _FollowDialogState extends State<FollowDialog> {
                                       .isEmpty &&
                                   context.watch<QuotestabController>().getisSameBranch ==
                                       true)
-                              ? loadingDialog(context)
+                              ? forwardDialog(context, theme)
                               : (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
-                                      context.watch<QuotestabController>().getleadForwarddialog == true &&
-                                      context.watch<QuotestabController>().getleadLoadingdialog == false &&
-                                      context.watch<QuotestabController>().getviewDetailsdialog == false &&
-                                      context.watch<QuotestabController>().getforwardSuccessMsg.isNotEmpty &&
-                                      context.watch<QuotestabController>().getisSameBranch == true)
-                                  ? displayDialog(context, theme)
-                                  : UpdateFollowup(context, theme),
+                                      context.watch<QuotestabController>().getleadForwarddialog ==
+                                          true &&
+                                      context.watch<QuotestabController>().getleadLoadingdialog ==
+                                          true &&
+                                      context.watch<QuotestabController>().getviewDetailsdialog ==
+                                          false &&
+                                      context
+                                          .watch<QuotestabController>()
+                                          .getforwardSuccessMsg
+                                          .isEmpty &&
+                                      context.watch<QuotestabController>().getisSameBranch ==
+                                          true)
+                                  ? loadingDialog(context)
+                                  : (context.watch<QuotestabController>().getupdateFollowUpDialog == false &&
+                                          context.watch<QuotestabController>().getleadForwarddialog == true &&
+                                          context.watch<QuotestabController>().getleadLoadingdialog == false &&
+                                          context.watch<QuotestabController>().getviewDetailsdialog == false &&
+                                          context.watch<QuotestabController>().getforwardSuccessMsg.isNotEmpty &&
+                                          context.watch<QuotestabController>().getisSameBranch == true)
+                                      ? displayDialog(context, theme)
+                                      : UpdateFollowup(context, theme),
     );
   }
 
@@ -292,162 +305,157 @@ class _FollowDialogState extends State<FollowDialog> {
   Container UpdateFollowup(BuildContext context, ThemeData theme) {
     return Container(
       width: Screens.width(context),
-      child: 
-      SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Column(
-           mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-               width: Screens.width(context),
-                      //  height: Screens.bodyheight(context)*0.5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: EdgeInsets.only(
-                        left: Screens.width(context) * 0.05,
-                        right: Screens.width(context) * 0.05,
-                        top: Screens.bodyheight(context) * 0.03,
-                        //  bottom: Screens.bodyheight(context)*0.03,
-                      ),
+              width: Screens.width(context),
+              //  height: Screens.bodyheight(context)*0.5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              padding: EdgeInsets.only(
+                left: Screens.width(context) * 0.05,
+                right: Screens.width(context) * 0.05,
+                top: Screens.bodyheight(context) * 0.03,
+                //  bottom: Screens.bodyheight(context)*0.03,
+              ),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
-                                ),
+                    SizedBox(
+                      height: Screens.bodyheight(context) * 0.01,
+                    ),
                     Column(
-                       crossAxisAlignment: CrossAxisAlignment.start,
-                                           
-                                            children: [
-                                            SizedBox(
-                                                height: Screens.bodyheight(context) * 0.001,
-                                              ),
-                                              
-                                               Container(
-                                                  width: Screens.width(context),
-                                            // height: Screens.,
-                                            padding:
-                                                EdgeInsets.only(top: 1, left: 10, right: 10),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(color: Colors.grey),
-                                                borderRadius: BorderRadius.circular(8)),
-                                                 child: DropdownButton(
-                                                                               hint: Text(
-                                                  context
-                                                      .watch<QuotestabController>()
-                                                      .gethinttextforcancel!,
-                                                  style: theme.textTheme.bodyText2?.copyWith(
-                                                      color: context
-                                                              .watch<QuotestabController>()
-                                                              .gethinttextforcancel!
-                                                              .contains(" *")
-                                                          ? Colors.red
-                                                          : Colors.grey),
-                                                                               ),
-                                                                               value: context
-                                                    .read<QuotestabController>()
-                                                    .valuecancelStatus,
-                                                                               //dropdownColor:Colors.green,
-                                                                               icon: Icon(Icons.arrow_drop_down),
-                                                                               iconSize: 30,
-                                                                               style: TextStyle(
-                                                    color: Colors.black, fontSize: 16),
-                                                                               isExpanded: true,
-                                                                               onChanged: (val) {
-                                                  setState(() {
-                                                    context
-                                                        .read<QuotestabController>()
-                                                        .choosedcancelStatus(val.toString());
-                                                  });
-                                                                               },
-                                                                               items: context
-                                                    .read<QuotestabController>()
-                                                    .orderdialogdata
-                                                    .map((e) {
-                                                  return DropdownMenuItem(
-                                                      // ignore: unnecessary_brace_in_string_interps
-                                                      value: "${e.code}",
-                                                      child: Container(
-                                                          // height: Screens.bodyheight(context)*0.1,
-                                                          child: Text("${e.name}")));
-                                                                               }).toList(),
-                                                                             ),
-                                               ),
-              SizedBox(
-                                                height: Screens.bodyheight(context) * 0.01,
-                                              ),
-                                                Container(
-                                      child: Text(
-                                        context
-                                            .watch<QuotestabController>()
-                                            .getfeedbackcancel!, // "Feedback",
-                                        style: theme.textTheme.bodyText2?.copyWith(
-                                          color: context
-                                                  .watch<QuotestabController>()
-                                                  .getfeedbackcancel!
-                                                  .contains(" *")
-                                              ? Colors.red
-                                              : Colors.grey,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                                height: Screens.bodyheight(context) * 0.01,
-                                              ),
-                                               TextFormField(
-                                      controller:
-                                          context.read<QuotestabController>().mycontroller[5],
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(color: Colors.grey[400]!),
-                                          borderRadius: BorderRadius.circular(6),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[400]!, width: 2.0),
-                                          borderRadius: BorderRadius.circular(6),
-                                        ),
-                                      ),
-                                    ),
-                                 
-                                          ],),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: Screens.bodyheight(context) * 0.001,
+                        ),
+                        Container(
+                          width: Screens.width(context),
+                          // height: Screens.,
+                          padding: EdgeInsets.only(top: 1, left: 10, right: 10),
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: DropdownButton(
+                            hint: Text(
+                              context
+                                  .watch<QuotestabController>()
+                                  .gethinttextforcancel!,
+                              style: theme.textTheme.bodyText2?.copyWith(
+                                  color: context
+                                          .watch<QuotestabController>()
+                                          .gethinttextforcancel!
+                                          .contains(" *")
+                                      ? Colors.red
+                                      : Colors.grey),
+                            ),
+                            value: context
+                                .read<QuotestabController>()
+                                .valuecancelStatus,
+                            //dropdownColor:Colors.green,
+                            icon: Icon(Icons.arrow_drop_down),
+                            iconSize: 30,
+                            style: TextStyle(color: Colors.black, fontSize: 16),
+                            isExpanded: true,
+                            onChanged: (val) {
+                              setState(() {
+                                context
+                                    .read<QuotestabController>()
+                                    .choosedcancelStatus(val.toString());
+                              });
+                            },
+                            items: context
+                                .read<QuotestabController>()
+                                .orderdialogdata
+                                .map((e) {
+                              return DropdownMenuItem(
+                                  // ignore: unnecessary_brace_in_string_interps
+                                  value: "${e.code}",
+                                  child: Container(
+                                      // height: Screens.bodyheight(context)*0.1,
+                                      child: Text("${e.name}")));
+                            }).toList(),
+                          ),
+                        ),
+                        SizedBox(
+                          height: Screens.bodyheight(context) * 0.01,
+                        ),
+                        Container(
+                          child: Text(
+                            context
+                                .watch<QuotestabController>()
+                                .getfeedbackcancel!, // "Feedback",
+                            style: theme.textTheme.bodyText2?.copyWith(
+                              color: context
+                                      .watch<QuotestabController>()
+                                      .getfeedbackcancel!
+                                      .contains(" *")
+                                  ? Colors.red
+                                  : Colors.grey,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: Screens.bodyheight(context) * 0.01,
+                        ),
+                        TextFormField(
+                          controller: context
+                              .read<QuotestabController>()
+                              .mycontroller[5],
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.grey[400]!),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[400]!, width: 2.0),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
             ),
-               SizedBox(
-                                                height: Screens.bodyheight(context) * 0.01,
-                                              ),
-         Container(
-                            width: Screens.width(context),
-                            height: Screens.bodyheight(context) * 0.06,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  // if (OrderTabController.comeFromEnq == -1) {
-                                    context.read<QuotestabController>().clickLeadSaveBtn(
-                                        widget.leadOpenAllData!.FollowupEntry.toString(),
-                                        widget.leadOpenAllData!.OrderDocEntry.toString());
-                                  
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  textStyle: TextStyle(
-                                      // fontSize: 12,
-                                      ),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
-                                  )), //Radius.circular(6)
-                                ),
-                                child:Text("Confirm Cancel")),
-                          ),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.01,
+            ),
+            Container(
+              width: Screens.width(context),
+              height: Screens.bodyheight(context) * 0.06,
+              child: ElevatedButton(
+                  onPressed: () {
+                    // if (OrderTabController.comeFromEnq == -1) {
+                    context.read<QuotestabController>().clickLeadSaveBtn(
+                        widget.leadOpenAllData!.FollowupEntry.toString(),
+                        widget.leadOpenAllData!.OrderDocEntry.toString());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(
+                        // fontSize: 12,
+                        ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10),
+                    )), //Radius.circular(6)
+                  ),
+                  child: Text("Confirm Cancel")),
+            ),
           ],
         ),
       ),
-                            
+
 //       SingleChildScrollView(
 //         child: Column(
 //           mainAxisSize: MainAxisSize.min,
@@ -2194,7 +2202,7 @@ class _FollowDialogState extends State<FollowDialog> {
 //                               SizedBox(
 //                                   height: Screens.bodyheight(context) * 0.001,
 //                                 ),
-                                
+
 //                                  Container(
 //                                     width: Screens.width(context),
 //                               // height: Screens.,
@@ -2329,6 +2337,28 @@ class _FollowDialogState extends State<FollowDialog> {
     );
   }
 
+  Container callLoadingPage(BuildContext context) {
+    return Container(
+        // color: Colors.amber,
+        width: Screens.width(context) * 0.9,
+        height: Screens.bodyheight(context) * 0.1,
+        padding: EdgeInsets.all(10),
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+                // width: Screens.width(context) * 0.1,
+                child: CircularProgressIndicator()),
+            SizedBox(
+              width: Screens.width(context) * 0.1,
+            ),
+            Container(child: Text("Connecting ....")),
+          ],
+        ));
+  }
+
   Container CallDialog(BuildContext context, ThemeData theme) {
     return Container(
       width: Screens.width(context),
@@ -2350,10 +2380,20 @@ class _FollowDialogState extends State<FollowDialog> {
             height: Screens.bodyheight(context) * 0.06,
             child: ElevatedButton(
                 onPressed: () {
-                  context.read<QuotestabController>().makePhoneCall(context
-                      .read<QuotestabController>()
-                      .QuotesOpenAllData[widget.index]
-                      .Mobile!);
+                  log("ConstantValues.tenetID::${widget.index}::" +
+                      ConstantValues.tenetID.toString());
+                  if (ConstantValues.tenetID!
+                          .toLowerCase()
+                          .contains("bus002") &&
+                      context.read<QuotestabController>().userid != '') {
+                    context.read<QuotestabController>().calldialApi(widget.leadOpenAllData!.Mobile!);
+                  } else {
+                    context.read<QuotestabController>().makePhoneCall(widget.leadOpenAllData!.Mobile!);
+                  }
+                  // context.read<QuotestabController>().makePhoneCall(context
+                  //     .read<QuotestabController>()
+                  //     .QuotesOpenAllData[widget.index]
+                  //     .Mobile!);
                 },
                 style: ElevatedButton.styleFrom(
                   textStyle: TextStyle(
@@ -2405,73 +2445,79 @@ class _FollowDialogState extends State<FollowDialog> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                         Container(
-              width: Screens.width(context)*0.35,
-              height: Screens.bodyheight(context) * 0.06,
-              child: ElevatedButton(
-                  onPressed: () {
-                    context.read<QuotestabController>().mapvaluesmodify(widget.leadOpenAllData);
-                   
-                    // if (QuotestabController.comeFromEnq == -1) {
-                    //   context.read<QuotestabController>().clickLeadSaveBtn(
-                    //       context
-                    //           .read<QuotestabController>()
-                    //           .getAllLeadData[widget.index]
-                    //           .FollowupEntry
-                    //           .toString(),
-                    //       context
-                    //           .read<QuotestabController>()
-                    //           .getAllLeadData[widget.index]
-                    //           .LeadDocEntry
-                    //           .toString());
-                    // } else {
-                    //   context.read<QuotestabController>().clickLeadSaveBtn(
-                    //       context
-                    //           .read<QuotestabController>()
-                    //           .leadDeatilsLData[0]
-                    //           .FollowupEntry
-                    //           .toString(),
-                    //       QuotestabController.comeFromEnq.toString());
-                    // }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    textStyle: TextStyle(
-                        // fontSize: 12,
-                        ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(6))), //Radius.circular(6)
-                  ),
-                  child: Text("Modify")),
-            ),
-             Container(
-              width: Screens.width(context)*0.35,
-              height: Screens.bodyheight(context) * 0.06,
-              child: ElevatedButton(
-                  onPressed: () {
-                      setState(() {
-                                  context
-                                        .read<QuotestabController>()
-                                        .caseStatusSelectBtn("Cancel");
+                        Container(
+                          width: Screens.width(context) * 0.35,
+                          height: Screens.bodyheight(context) * 0.06,
+                          child: ElevatedButton(
+                              onPressed: () {
                                 context
-                                        .read<QuotestabController>()
-                                        .changetoFolloweUp();
-                              });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    textStyle: TextStyle(
-                        // fontSize: 12,
+                                    .read<QuotestabController>()
+                                    .mapvaluesmodify(widget.leadOpenAllData);
+
+                                // if (QuotestabController.comeFromEnq == -1) {
+                                //   context.read<QuotestabController>().clickLeadSaveBtn(
+                                //       context
+                                //           .read<QuotestabController>()
+                                //           .getAllLeadData[widget.index]
+                                //           .FollowupEntry
+                                //           .toString(),
+                                //       context
+                                //           .read<QuotestabController>()
+                                //           .getAllLeadData[widget.index]
+                                //           .LeadDocEntry
+                                //           .toString());
+                                // } else {
+                                //   context.read<QuotestabController>().clickLeadSaveBtn(
+                                //       context
+                                //           .read<QuotestabController>()
+                                //           .leadDeatilsLData[0]
+                                //           .FollowupEntry
+                                //           .toString(),
+                                //       QuotestabController.comeFromEnq.toString());
+                                // }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                textStyle: TextStyle(
+                                    // fontSize: 12,
+                                    ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            6))), //Radius.circular(6)
+                              ),
+                              child: Text("Modify")),
                         ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(6))), //Radius.circular(6)
-                  ),
-                  child: Text("Cancel")),
-            ),
-            
+                        Container(
+                          width: Screens.width(context) * 0.35,
+                          height: Screens.bodyheight(context) * 0.06,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  context
+                                      .read<QuotestabController>()
+                                      .caseStatusSelectBtn("Cancel");
+                                  context
+                                      .read<QuotestabController>()
+                                      .changetoFolloweUp();
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                textStyle: TextStyle(
+                                    // fontSize: 12,
+                                    ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            6))), //Radius.circular(6)
+                              ),
+                              child: Text("Cancel")),
+                        ),
+
                         // Container(
                         //   width: Screens.width(context) * 0.35,
                         //   //  height: Screens.padingHeight(context)*0.2,
                         //   child: ElevatedButton(
-                        //     onPressed: 
+                        //     onPressed:
                         //     widget.leadOpenAllData!.isDelivered ==
                         //                 1 ||
                         //             widget.leadOpenAllData!.isDelivered == 1 &&
@@ -2648,7 +2694,6 @@ class _FollowDialogState extends State<FollowDialog> {
                         //     ),
                         //   ),
                         // ),
-                     
                       ],
                     ),
 
@@ -2660,50 +2705,54 @@ class _FollowDialogState extends State<FollowDialog> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                         Container(
-              width: Screens.width(context) *0.80,
-              height: Screens.bodyheight(context) * 0.06,
-              child: ElevatedButton(
-                  onPressed: () {
-                     context.read<QuotestabController>().mapvaluestoorder(widget.leadOpenAllData);
-                   
-                    
-                    // context.read<QuotestabController>().convertToQuatatioMethod();
-                    // if (QuotestabController.comeFromEnq == -1) {
-                    //   context.read<QuotestabController>().clickLeadSaveBtn(
-                    //       context
-                    //           .read<QuotestabController>()
-                    //           .getAllLeadData[widget.index]
-                    //           .FollowupEntry
-                    //           .toString(),
-                    //       context
-                    //           .read<QuotestabController>()
-                    //           .getAllLeadData[widget.index]
-                    //           .LeadDocEntry
-                    //           .toString());
-                    // } else {
-                    //   context.read<QuotestabController>().clickLeadSaveBtn(
-                    //       context
-                    //           .read<QuotestabController>()
-                    //           .leadDeatilsLData[0]
-                    //           .FollowupEntry
-                    //           .toString(),
-                    //       QuotestabController.comeFromEnq.toString());
-                    // }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    textStyle: TextStyle(
-                      
-                        // fontSize: 12,
+                        Container(
+                          width: Screens.width(context) * 0.80,
+                          height: Screens.bodyheight(context) * 0.06,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                context
+                                    .read<QuotestabController>()
+                                    .mapvaluestoorder(widget.leadOpenAllData);
+
+                                // context.read<QuotestabController>().convertToQuatatioMethod();
+                                // if (QuotestabController.comeFromEnq == -1) {
+                                //   context.read<QuotestabController>().clickLeadSaveBtn(
+                                //       context
+                                //           .read<QuotestabController>()
+                                //           .getAllLeadData[widget.index]
+                                //           .FollowupEntry
+                                //           .toString(),
+                                //       context
+                                //           .read<QuotestabController>()
+                                //           .getAllLeadData[widget.index]
+                                //           .LeadDocEntry
+                                //           .toString());
+                                // } else {
+                                //   context.read<QuotestabController>().clickLeadSaveBtn(
+                                //       context
+                                //           .read<QuotestabController>()
+                                //           .leadDeatilsLData[0]
+                                //           .FollowupEntry
+                                //           .toString(),
+                                //       QuotestabController.comeFromEnq.toString());
+                                // }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                textStyle: TextStyle(
+
+                                    // fontSize: 12,
+                                    ),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                            6))), //Radius.circular(6)
+                              ),
+                              child: Text(
+                                "Convert To Order",
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                              )),
                         ),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(6))), //Radius.circular(6)
-                  ),
-                  child: Text("Convert To Order",
-                  maxLines: 2,
-                  textAlign: TextAlign.center,
-                  )),
-            ),
                         // Container(
                         //   width: Screens.width(context) * 0.35,
                         //   child: ElevatedButton(
@@ -2711,14 +2760,14 @@ class _FollowDialogState extends State<FollowDialog> {
                         //         // widget.leadOpenAllData!.isDelivered == 1 &&
                         //         //         widget.leadOpenAllData!.isInvoiced == 1
                         //         //    ? () {}
-                        //         //     : 
+                        //         //     :
                         //             () {
                         //                 context
                         //                     .read<QuotestabController>()
                         //                     .mapvaluesmodify(
                         //                         widget.leadOpenAllData);
                         //               },
-                        //     style: 
+                        //     style:
                         //     // widget.leadOpenAllData!.isDelivered == 1 &&
                         //     //         widget.leadOpenAllData!.isInvoiced == 1
                         //     //     ? ElevatedButton.styleFrom(
@@ -2768,14 +2817,14 @@ class _FollowDialogState extends State<FollowDialog> {
                         //           child: Text(
                         //             "Modify",
                         //             style: theme.textTheme.bodyText1!.copyWith(
-                        //                 color: 
+                        //                 color:
                         //                 // widget.leadOpenAllData!
                         //                 //                 .isDelivered ==
                         //                 //             1 &&
                         //                 //         widget.leadOpenAllData!
                         //                 //                 .isInvoiced ==
                         //                 //             1
-                        //                 //     ? 
+                        //                 //     ?
                         //                     // theme.primaryColor
                         //                     // :
                         //                     Colors.white
@@ -2848,7 +2897,6 @@ class _FollowDialogState extends State<FollowDialog> {
                         //     ),
                         //   ),
                         // ),
-                     
                       ],
                     )
 
@@ -2925,8 +2973,8 @@ class _FollowDialogState extends State<FollowDialog> {
             child: ElevatedButton(
                 onPressed: () {
                   // if (QuotestabController.comeFromEnq == -1) {
-                    context.read<QuotestabController>().callGetLeadDeatilsApi(
-                        widget.leadOpenAllData!.OrderDocEntry!.toString());
+                  context.read<QuotestabController>().callGetLeadDeatilsApi(
+                      widget.leadOpenAllData!.OrderDocEntry!.toString());
                   // } else {
                   //   //   Navigator.pop(context);
                   //   //       context.read<QuotestabController>().comeFromEnqApi(
@@ -3007,7 +3055,6 @@ class _FollowDialogState extends State<FollowDialog> {
           Container(
             width: Screens.width(context),
             height: Screens.bodyheight(context) * 0.77,
-            
             padding: EdgeInsets.only(
               top: Screens.bodyheight(context) * 0.01,
               bottom: Screens.bodyheight(context) * 0.01,
@@ -3017,7 +3064,6 @@ class _FollowDialogState extends State<FollowDialog> {
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-               
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
@@ -3119,9 +3165,12 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "Created on " +
-                              context.watch<QuotestabController>().config.alignDate3(
-                                  "${context.watch<QuotestabController>().getleadDeatilsQTHData![0].OrderCreatedDate}" //.LastFUPUpdate
-                                  ),
+                              context
+                                  .watch<QuotestabController>()
+                                  .config
+                                  .alignDate3(
+                                      "${context.watch<QuotestabController>().getleadDeatilsQTHData![0].OrderCreatedDate}" //.LastFUPUpdate
+                                      ),
                           style: theme.textTheme.bodyText2?.copyWith(),
                         ),
                       ),
@@ -3145,20 +3194,49 @@ class _FollowDialogState extends State<FollowDialog> {
                                   .getleadDeatilsQTHData![0]
                                   .CardCode!
                                   .isEmpty
-                          ? Container():  InkWell(
-                        onTap: (){
-                           context.read<QuotestabController>().makePhoneCall(context
-                      .read<QuotestabController>()
-                      .getleadDeatilsQTHData![0].CardCode!);
-                        },
-                        child: Container(
-                          width: Screens.width(context) * 0.4,
-                          child: Text(
-                            "${context.watch<QuotestabController>().getleadDeatilsQTHData![0].CardCode}",
-                            style: theme.textTheme.bodyText2?.copyWith(decoration:  TextDecoration.underline,color:Colors.blue),
-                          ),
-                        ),
-                      ),
+                          ? Container()
+                          : InkWell(
+                              onTap: () {
+                                log("ConstantValues.tenetID::" +
+                                    ConstantValues.tenetID.toString());
+                                if (ConstantValues.tenetID!
+                                        .toLowerCase()
+                                        .contains("bus002") &&
+                                    context
+                                            .read<QuotestabController>()
+                                            .userid !=
+                                        '') {
+                                  context
+                                      .read<QuotestabController>()
+                                      .calldialApi(context
+                                          .read<QuotestabController>()
+                                          .getleadDeatilsQTHData![0]
+                                          .CardCode!);
+                                } else {
+                                  context
+                                      .read<QuotestabController>()
+                                      .makePhoneCall(context
+                                          .read<QuotestabController>()
+                                          .getleadDeatilsQTHData![0]
+                                          .CardCode!);
+                                }
+                                context
+                                    .read<QuotestabController>()
+                                    .makePhoneCall(context
+                                        .read<QuotestabController>()
+                                        .getleadDeatilsQTHData![0]
+                                        .CardCode!);
+                              },
+                              child: Container(
+                                width: Screens.width(context) * 0.4,
+                                child: Text(
+                                  "${context.watch<QuotestabController>().getleadDeatilsQTHData![0].CardCode}",
+                                  style: theme.textTheme.bodyText2?.copyWith(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blue),
+                                ),
+                              ),
+                            ),
                       // Container(
                       //   width: Screens.width(context) * 0.4,
                       //   child: Text(
@@ -3369,9 +3447,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<QuotestabController>()
-                                    .config.slpitCurrency22 (context.watch<QuotestabController>().getleadDeatilsQTHData![0].subtotal!.toString())}",
+                                          "${context.read<QuotestabController>().config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].subtotal!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3395,9 +3471,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<QuotestabController>()
-                                    .config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].basetotal!.toString())}",
+                                          "${context.read<QuotestabController>().config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].basetotal!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3421,9 +3495,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<QuotestabController>()
-                                    .config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].taxAmount!.toString())}",
+                                          "${context.read<QuotestabController>().config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].taxAmount!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3447,9 +3519,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<QuotestabController>()
-                                    .config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].RoundOff!.toString())}",
+                                          "${context.read<QuotestabController>().config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].RoundOff!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3473,9 +3543,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<QuotestabController>()
-                                    .config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].DocTotal!.toString())}",
+                                          "${context.read<QuotestabController>().config.slpitCurrency22(context.watch<QuotestabController>().getleadDeatilsQTHData![0].DocTotal!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3510,18 +3578,21 @@ class _FollowDialogState extends State<FollowDialog> {
                           child: Column(
                             children: [
                               Container(
-                                 width: Screens.width(context)*0.8,
+                                width: Screens.width(context) * 0.8,
                                 alignment: Alignment.centerLeft,
-                                child: Text("Delivered on " +
-                                    context
-                                        .watch<QuotestabController>()
-                                        .config
-                                        .alignDate(
-                                            '${context.watch<QuotestabController>().getleadDeatilsQTHData![0].DeliveryDate}') +
-                                    " by referenced " +
-                                    "${context.watch<QuotestabController>().getleadDeatilsQTHData![0].DeliveryNo}" +
-                                    "", style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.black),),
+                                child: Text(
+                                  "Delivered on " +
+                                      context
+                                          .watch<QuotestabController>()
+                                          .config
+                                          .alignDate(
+                                              '${context.watch<QuotestabController>().getleadDeatilsQTHData![0].DeliveryDate}') +
+                                      " by referenced " +
+                                      "${context.watch<QuotestabController>().getleadDeatilsQTHData![0].DeliveryNo}" +
+                                      "",
+                                  style: theme.textTheme.bodyText1!
+                                      .copyWith(color: Colors.black),
+                                ),
                               )
                             ],
                           ),
@@ -3540,12 +3611,12 @@ class _FollowDialogState extends State<FollowDialog> {
                                   .watch<QuotestabController>()
                                   .getleadDeatilsQTHData![0]
                                   .DeliveryURL1 !=
-                              null  &&
+                              null &&
                           context
                                   .watch<QuotestabController>()
                                   .getleadDeatilsQTHData![0]
                                   .DeliveryURL2 !=
-                              null 
+                              null
                       ? Container(
                           width: Screens.width(context),
                           padding: EdgeInsets.symmetric(
@@ -3593,17 +3664,20 @@ class _FollowDialogState extends State<FollowDialog> {
                             children: [
                               Container(
                                 alignment: Alignment.centerLeft,
-                                width: Screens.width(context)*0.8,
-                                child: Text("Invoiced on " +
-                                    context
-                                        .watch<QuotestabController>()
-                                        .config
-                                        .alignDate(
-                                            '${context.watch<QuotestabController>().getleadDeatilsQTHData![0].InvoiceDate}') +
-                                    " by referenced " +
-                                    "${context.watch<QuotestabController>().getleadDeatilsQTHData![0].InvoiceNo}" +
-                                    "", style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.black),),
+                                width: Screens.width(context) * 0.8,
+                                child: Text(
+                                  "Invoiced on " +
+                                      context
+                                          .watch<QuotestabController>()
+                                          .config
+                                          .alignDate(
+                                              '${context.watch<QuotestabController>().getleadDeatilsQTHData![0].InvoiceDate}') +
+                                      " by referenced " +
+                                      "${context.watch<QuotestabController>().getleadDeatilsQTHData![0].InvoiceNo}" +
+                                      "",
+                                  style: theme.textTheme.bodyText1!
+                                      .copyWith(color: Colors.black),
+                                ),
                               )
                             ],
                           ),
@@ -3622,12 +3696,12 @@ class _FollowDialogState extends State<FollowDialog> {
                                   .watch<QuotestabController>()
                                   .getleadDeatilsQTHData![0]
                                   .InvoiceURL1 !=
-                              null ) &&
+                              null) &&
                           (context
                                   .watch<QuotestabController>()
                                   .getleadDeatilsQTHData![0]
                                   .InvoiceURL2 !=
-                              null )
+                              null)
                       ? Container(
                           width: Screens.width(context),
                           padding: EdgeInsets.symmetric(
@@ -3661,34 +3735,56 @@ class _FollowDialogState extends State<FollowDialog> {
                   //     itemCount: 10,
                   //   ),
                   // ),
-                    InkWell(
-                                onTap: ()async{
-                   await context.read<QuotestabController>(). callcustomerapi();
- for(int i=0;i<context.read<QuotestabController>().paymode.length;i++){
-        if(context.read<QuotestabController>().paymode[i].CODE ==context.read<QuotestabController>().getleadDeatilsQTHData![0].PaymentTerms){
- pdfviewState.paymode =context.read<QuotestabController>(). paymode[i].description.toString();
-        }
-
-       } pdfviewState. customermodeldata =context.read<QuotestabController>().customermodeldata;
-                                  pdfviewState.data=context.read<QuotestabController>().getleadDeatilsQTLData;
-                                pdfviewState. orderMasterdata2=context.read<QuotestabController>().getleadDeatilsQTHData;
-                                // PdfPreview(build: (format)=>pdfState().generatePdf(format, 'title'),);
-                                // pdfviewState.paymode=paymode;
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>pdfview()));
-                                },
-                                 child: Container(
-                                   child: Text(
-                                    
-                                    "Convert as Pdf",
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle(
-                                      
-                                      decoration: TextDecoration.underline,
-                                      color: Colors.blue
-                                    ),
-                                                               ),
-                                 ),
-                               ),
+                  InkWell(
+                    onTap: () async {
+                      await context
+                          .read<QuotestabController>()
+                          .callcustomerapi();
+                      for (int i = 0;
+                          i <
+                              context
+                                  .read<QuotestabController>()
+                                  .paymode
+                                  .length;
+                          i++) {
+                        if (context
+                                .read<QuotestabController>()
+                                .paymode[i]
+                                .CODE ==
+                            context
+                                .read<QuotestabController>()
+                                .getleadDeatilsQTHData![0]
+                                .PaymentTerms) {
+                          pdfviewState.paymode = context
+                              .read<QuotestabController>()
+                              .paymode[i]
+                              .description
+                              .toString();
+                        }
+                      }
+                      pdfviewState.customermodeldata =
+                          context.read<QuotestabController>().customermodeldata;
+                      pdfviewState.data = context
+                          .read<QuotestabController>()
+                          .getleadDeatilsQTLData;
+                      pdfviewState.orderMasterdata2 = context
+                          .read<QuotestabController>()
+                          .getleadDeatilsQTHData;
+                      // PdfPreview(build: (format)=>pdfState().generatePdf(format, 'title'),);
+                      // pdfviewState.paymode=paymode;
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => pdfview()));
+                    },
+                    child: Container(
+                      child: Text(
+                        "Convert as Pdf",
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -4533,7 +4629,6 @@ class _FollowDialogState extends State<FollowDialog> {
           //     ),
           //   ],
           // )
-       
         ],
       ),
     );
@@ -4577,5 +4672,4 @@ class _FollowDialogState extends State<FollowDialog> {
   //     ),
   //   );
   // }
-
 }

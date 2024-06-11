@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+
+import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
@@ -24,6 +27,7 @@ import 'package:sellerkit/Services/PostQueryApi/QuotatationApi/QuotesQTHApi.dart
 import 'package:sellerkit/Services/PostQueryApi/QuotatationApi/cancelApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/QuotatationApi/quotegetAllApi.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
+import 'package:sellerkit/Services/userDialApi/userdialapi.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -516,7 +520,85 @@ class QuotestabController extends ChangeNotifier {
   }
 
   String? levelofInterest;
+  callusermobileApi()async{
+ await userbyidApi.getData(ConstantValues.UserId).then((value){
+ if (value.stcode! >= 200 && value.stcode! <= 210) {
+ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
+log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
+getfirebase();
+ }
+   
+  });
+}
+String? apidate;
+  bool iscalltrue=false;
+  String? userid='';
+  String? usernumber='';
+  calldialApi(String? number)async{
+    
+    usernumber='';
+     iscalltrue=true;
+    notifyListeners();
+    Future.delayed(Duration(seconds: 40),(){
+      log("secondsoverrr:::");
+  iscalltrue=false;
+    notifyListeners();
+    });
+
+    // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+   
+   
+//     FirebaseProduct.get().then((value) {
+// value.docs.forEach((element) {
+//   usernumber=element!['mobile'].toString();
+//   userid=element!['id'].toString();
+// log("fsdfdf::"+userid.toString());
+  // if(ConstantValues.userbyidmobile==usernumber){
+    log("fsdfdf::user number match");
+ UserdialApi.getdata(userid!, number!).then((value) {
+
+    });
+  // }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+  
+
+// });
+    // });
+   
+  }
+getfirebase()async{
+  userid='';
+  notifyListeners();
+    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+   
+   
+   await FirebaseProduct.get().then((value) {
+value.docs.forEach((element) {
+  usernumber=element['mobile'].toString();
+  
+log("fsdfdf::"+usernumber.toString());
+  if(ConstantValues.userbyidmobile==usernumber){
+    log("fsdfdf::user number match");
+    userid=element['id'].toString();
+    notifyListeners();
+//  UserdialApi.getdata(userid!, number!).then((value) {
+
+//     });
+  }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+  
+
+});
+    });
+}
   clearAllListData() async {
+     iscalltrue=false;
+    userid='';
+    usernumber='';
     quotFilterList = [];
     final Database db = (await DBHelper.getInstance())!;
     orderdialogdata.clear();
@@ -969,6 +1051,7 @@ class QuotestabController extends ChangeNotifier {
   Future<void> swipeRefreshIndiactor(BuildContext context) async {
     await clearAllListData();
     await callgetAllApi(context);
+   await callusermobileApi();
   }
 
   String? filterapiwonpurchaseDate = '';
@@ -1098,6 +1181,7 @@ String lottie='';
     });
     await callpaymodeApi();
     await callinitApi();
+    await callusermobileApi();
   }
 
   bool leadOpenSaveClicked = false;
@@ -1429,6 +1513,7 @@ String lottie='';
   refershAfterClosedialog(BuildContext context) async {
     await clearAllListData();
     await callgetAllApi(context);
+    await callusermobileApi();
     notifyListeners();
   }
 

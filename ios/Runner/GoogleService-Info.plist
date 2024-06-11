@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyDSD6WNJsOk6tzABxtWh90bIUiz58QPfhg</string>
+	<string>AIzaSyAbJQGZGAG_0xaR9y_idILtCpY7I_QfU_w</string>
 	<key>GCM_SENDER_ID</key>
-	<string>316119488075</string>
+	<string>765138550704</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.busondigitalservice.sellerkit</string>
 	<key>PROJECT_ID</key>
-	<string>sellerkitnotify</string>
+	<string>sellerkitapp-5ad52</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sellerkitnotify.appspot.com</string>
+	<string>sellerkitapp-5ad52.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:316119488075:ios:f670b7bd054b6055c21fce</string>
+	<string>1:765138550704:ios:8c4505938dc3d7ca586075</string>
 </dict>
 </plist>

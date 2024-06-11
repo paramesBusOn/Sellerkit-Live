@@ -38,11 +38,26 @@ class AssignedToDialogUserState extends State<AssignedToDialogUser> {
               context.read<EnquiryUserContoller>().getstatusUpdateApiResp ==
                   '' &&
               context.read<EnquiryUserContoller>().getisAnotherBranchEnq ==
+                  false && context.read<EnquiryUserContoller>().iscalltrue ==
                   false
 
           ///
           ? enqDetailsPage(context, theme)
-          : context.read<EnquiryUserContoller>().getassignto == false &&
+          :context.read<EnquiryUserContoller>().getassignto == false &&
+              context.read<EnquiryUserContoller>().getassigntoApiCall ==
+                  false &&
+              context.read<EnquiryUserContoller>().getassignedToApiActResp ==
+                  '' &&
+              context.read<EnquiryUserContoller>().getstatusUpdate == false &&
+              context.read<EnquiryUserContoller>().getstatusUpdateLoading ==
+                  false &&
+              context.read<EnquiryUserContoller>().getstatusUpdateApiResp ==
+                  '' &&
+              context.read<EnquiryUserContoller>().getisAnotherBranchEnq ==
+                  false && context.read<EnquiryUserContoller>().iscalltrue ==
+                  true? 
+                  callLoadingPage(context):
+                  context.read<EnquiryUserContoller>().getassignto == false &&
                   context.read<EnquiryUserContoller>().getassigntoApiCall ==
                       false &&
                   context.read<EnquiryUserContoller>().getassignedToApiActResp ==
@@ -105,6 +120,30 @@ class AssignedToDialogUserState extends State<AssignedToDialogUser> {
     );
   }
 
+
+Container callLoadingPage(BuildContext context) {
+    return Container(
+      // color: Colors.amber,
+        width: Screens.width(context) * 0.9,
+        height: Screens.bodyheight(context) * 0.1,
+        padding: EdgeInsets.all(10),
+        child: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              // width: Screens.width(context) * 0.1,
+              child: CircularProgressIndicator()),
+              SizedBox(
+                width:Screens.width(context) * 0.1 ,
+              ),
+              Container(
+              
+              child: Text("Connecting ....")),
+          ],
+        ));
+  }
   Row assignedToPageBtn(BuildContext context, ThemeData theme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1119,17 +1158,19 @@ Text(
                                       BorderRadius.all(Radius.circular(6))),
                             ),
                             onPressed: () {
-                              // log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
-                              // if(ConstantValues.tenetID!.toLowerCase().contains("bus002")){
-                              //   log("sppppsppppsppsppppspppp");
+                              log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
+                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && context
+                                  .read<EnquiryUserContoller>().userid !=''){
+                              context
+                                  .read<EnquiryUserContoller>()
+                                  . calldialApi(widget.openenqdata.CardCode!);
 
-                              // }else{
+                              }else{
                                 context
                                   .read<EnquiryUserContoller>()
                                   .makePhoneCall(widget.openenqdata.CardCode!);
 
-                              // }
-                              
+                              }
                             },
                             child: Icon(Icons.call,
                                 color: Colors.white,
