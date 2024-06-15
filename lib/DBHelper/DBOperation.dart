@@ -2384,7 +2384,7 @@ SELECT * FROM OrderType;
 SELECT * FROM CusTagType;
 ''');
 
-    log("Saved AllocATE: " + result.toList().toString());
+    // log("Saved AllocATE: " + result.toList().toString());
     // log("Saved AllocATE length: " + result.length.toString());
 
     return List.generate(result.length, (i) {
@@ -2978,7 +2978,7 @@ SELECT DISTINCT $column
 WHERE $column IS NOT '';
 ''');
 
-    log("Saved AllocATE: " + result.toList().toString());
+    // log("Saved AllocATE: " + result.toList().toString());
     // log("Saved AllocATE length: " + result.length.toString());
     return result;
     // return List.generate(result.length, (i) {
@@ -3014,7 +3014,7 @@ SELECT DISTINCT $column
 WHERE $column IS NOT '';
 ''');
 
-    log("Saved AllocATE: " + result.toList().toString());
+    // log("Saved AllocATE: " + result.toList().toString());
     // log("Saved AllocATE length: " + result.length.toString());
     return result;
    

@@ -1,8 +1,9 @@
 import 'dart:async';
 
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -57,22 +58,22 @@ class AccountsContoller extends ChangeNotifier {
   int get getcount => count!;
   int? counti = 1;
   int get getcounti => counti!;
-   List<CustomerTagTypeData> customerTagTypeData = [];
-    String isSelectedCusTag = '';
+  List<CustomerTagTypeData> customerTagTypeData = [];
+  String isSelectedCusTag = '';
   String isSelectedCusTagcode = '';
   String get getisSelectedCusTag => isSelectedCusTag;
-   getCustomerTag(String tag) async {
+  getCustomerTag(String tag) async {
     customerTagTypeData = [];
     final Database db = (await DBHelper.getInstance())!;
     customerTagTypeData = await DBOperation.getCusTagData(db);
     notifyListeners();
     choosecustag(tag);
-     notifyListeners();
+    notifyListeners();
   }
 
   String? apidate;
-  bool iscalltrue=false;
-  String? userid='';
+  bool iscalltrue = false;
+  String? userid = '';
 //   calldialApi(String? number)async{
 //     userid='';
 //      iscalltrue=true;
@@ -84,8 +85,7 @@ class AccountsContoller extends ChangeNotifier {
 //     });
 
 //     final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
+
 //     FirebaseProduct.get().then((value) {
 // value.docs.forEach((element) {
 //   userid=element!['id'].toString();
@@ -96,24 +96,26 @@ class AccountsContoller extends ChangeNotifier {
 //     });
 // });
 //     });
-   
+
 //   }
-  choosecustag(String tag){
+  choosecustag(String tag) {
     for (int i = 0; i < customerTagTypeData.length; i++) {
-      if (customerTagTypeData[i].Name ==  tag) {
+      if (customerTagTypeData[i].Name == tag) {
         isSelectedCusTagcode = customerTagTypeData[i].Code.toString();
         notifyListeners();
       }
     }
     notifyListeners();
   }
-   Future<void> makePhoneCall(String phoneNumber) async {
+
+  Future<void> makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
       path: phoneNumber,
     );
     await launchUrl(launchUri);
   }
+
   callApi(String? cuscode, BuildContext context) {
     detaildataLead.clear();
     detaildataEnq.clear();
@@ -151,20 +153,20 @@ class AccountsContoller extends ChangeNotifier {
 //   // log("leaddetails::"+leaddetails!.length.toString());
 //                 }
                 // else if(value.itemdata!.enquirydetails![i].DocType =="Enquiry"){
-                 if(value.itemdata!.enquirydetails![i].DocType =="Order"){
-                detaildataEnq!.add(GetenquiryData(
-                    DocType: value.itemdata!.enquirydetails![i].DocType,
-                    AssignedTo: value.itemdata!.enquirydetails![i].AssignedTo,
-                    BusinessValue:
-                        value.itemdata!.enquirydetails![i].BusinessValue,
-                    CurrentStatus:
-                        value.itemdata!.enquirydetails![i].CurrentStatus,
-                    DocDate: value.itemdata!.enquirydetails![i].DocDate,
-                    DocNum: value.itemdata!.enquirydetails![i].DocNum,
-                    Status: value.itemdata!.enquirydetails![i].Status,
-                    Store: value.itemdata!.enquirydetails![i].Store));
+                if (value.itemdata!.enquirydetails![i].DocType == "Order") {
+                  detaildataEnq!.add(GetenquiryData(
+                      DocType: value.itemdata!.enquirydetails![i].DocType,
+                      AssignedTo: value.itemdata!.enquirydetails![i].AssignedTo,
+                      BusinessValue:
+                          value.itemdata!.enquirydetails![i].BusinessValue,
+                      CurrentStatus:
+                          value.itemdata!.enquirydetails![i].CurrentStatus,
+                      DocDate: value.itemdata!.enquirydetails![i].DocDate,
+                      DocNum: value.itemdata!.enquirydetails![i].DocNum,
+                      Status: value.itemdata!.enquirydetails![i].Status,
+                      Store: value.itemdata!.enquirydetails![i].Store));
 
-                // log("enquirydetails::"+enquirydetails!.length.toString());     // }
+                  // log("enquirydetails::"+enquirydetails!.length.toString());     // }
                 }
                 isLoading = false;
 
@@ -228,17 +230,17 @@ class AccountsContoller extends ChangeNotifier {
   //
   Future<void> swipeRefreshIndiactor() async {
     AccountsData.clear();
-     iscalltrue=false;
-    userid='';
-    usernumber='';
+    iscalltrue = false;
+    userid = '';
+    usernumber = '';
     notifyListeners();
     callAccountsApi();
   }
 
   boolmethod() {
-     iscalltrue=false;
-    userid='';
-    usernumber='';
+    iscalltrue = false;
+    userid = '';
+    usernumber = '';
     cartLoading = true;
     notifyListeners();
     Future.delayed(Duration(seconds: 5), () {
@@ -246,9 +248,8 @@ class AccountsContoller extends ChangeNotifier {
       notifyListeners();
     });
   }
-showcalldialog(){
 
-}
+  showcalldialog() {}
   bool ismoredata = false;
   bool get getismoredata => ismoredata;
   loadmore() {
@@ -290,7 +291,8 @@ showcalldialog(){
     OrderNewController.datafromAcc.add(AccountsDataFilter[ind].Bil_Address2!);
     OrderNewController.datafromAcc.add(AccountsDataFilter[ind].Bil_Pincode!);
     OrderNewController.datafromAcc.add(AccountsDataFilter[ind].Bil_City!);
-    OrderNewController.datafromAcc.add(AccountsDataFilter[ind].AlternateMobileNo!);
+    OrderNewController.datafromAcc
+        .add(AccountsDataFilter[ind].AlternateMobileNo!);
     OrderNewController.datafromAcc.add(AccountsDataFilter[ind].CustomerEmail!);
     OrderNewController.datafromAcc.add(AccountsDataFilter[ind].CustomerGroup!);
     OrderNewController.datafromAcc.add(AccountsDataFilter[ind].ContactName!);
@@ -306,23 +308,33 @@ showcalldialog(){
     OrderBookNewState.iscomfromLead = true;
     Get.toNamed(ConstantRoutes.ordernew);
   }
+
   createOutstanding(int ind) {
     log("SUCCSS" + AccountsDataFilter[ind].toString());
     Outstandingcontroller.datafromAcc.clear();
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].CustomerCode!);
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].CustomerName!);
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Bil_Address1!);
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Bil_Address2!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].CustomerCode!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].CustomerName!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].Bil_Address1!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].Bil_Address2!);
     Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Bil_Pincode!);
     Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Bil_City!);
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].AlternateMobileNo!);
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].CustomerEmail!);
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].CustomerGroup!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].AlternateMobileNo!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].CustomerEmail!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].CustomerGroup!);
     Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].ContactName!);
     Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Bil_Area!);
     Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Bil_State!);
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Del_Address1!);
-    Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Del_Address2!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].Del_Address1!);
+    Outstandingcontroller.datafromAcc
+        .add(AccountsDataFilter[ind].Del_Address2!);
     Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Del_Area!);
     Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Del_City!);
     Outstandingcontroller.datafromAcc.add(AccountsDataFilter[ind].Del_Pincode!);
@@ -335,58 +347,84 @@ showcalldialog(){
   createCollection(int ind) {
     log("SUCCSS" + AccountsDataFilter[ind].toString());
     NewCollectionContoller.comefromAcc.clear();
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].CustomerCode!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].CustomerName!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Bil_Address1!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Bil_Address2!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Bil_Pincode!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].CustomerCode!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].CustomerName!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].Bil_Address1!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].Bil_Address2!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].Bil_Pincode!);
     NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Bil_City!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].AlternateMobileNo!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].CustomerEmail!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].CustomerGroup!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].ContactName!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].AlternateMobileNo!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].CustomerEmail!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].CustomerGroup!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].ContactName!);
     NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Bil_Area!);
     NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Bil_State!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Del_Address1!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Del_Address2!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].Del_Address1!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].Del_Address2!);
     NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Del_Area!);
     NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Del_City!);
-    NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Del_Pincode!);
+    NewCollectionContoller.comefromAcc
+        .add(AccountsDataFilter[ind].Del_Pincode!);
     NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].Del_State!);
     NewCollectionContoller.comefromAcc.add(AccountsDataFilter[ind].GSTNo!);
     // OrderBookNewState.iscomfromLead = true;
     Get.toNamed(ConstantRoutes.newcollection);
   }
-   createVisitplan(int ind) {
+
+  createVisitplan(int ind) {
     log("SUCCSS" + AccountsDataFilter[ind].toString());
     NewVisitplanController.datafromAcc.clear();
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].CustomerCode!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].CustomerName!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Bil_Address1!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Bil_Address2!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Bil_Pincode!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].CustomerCode!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].CustomerName!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].Bil_Address1!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].Bil_Address2!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].Bil_Pincode!);
     NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Bil_City!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].AlternateMobileNo!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].CustomerEmail!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].CustomerGroup!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].ContactName!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].AlternateMobileNo!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].CustomerEmail!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].CustomerGroup!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].ContactName!);
     NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Bil_Area!);
     NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Bil_State!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Del_Address1!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Del_Address2!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].Del_Address1!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].Del_Address2!);
     NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Del_Area!);
     NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Del_City!);
-    NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Del_Pincode!);
+    NewVisitplanController.datafromAcc
+        .add(AccountsDataFilter[ind].Del_Pincode!);
     NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].Del_State!);
     NewVisitplanController.datafromAcc.add(AccountsDataFilter[ind].GSTNo!);
     NewVisitPlanState.iscomfromLead = true;
     Get.toNamed(ConstantRoutes.newvisitplan);
   }
-  double? AccoundBalance=0.0;
-  bool? outloading=false;
-GetAllOutstandingscall(String name) async {
-   outloading=true;
-   notifyListeners();
+
+  double? AccoundBalance = 0.0;
+  bool? outloading = false;
+  GetAllOutstandingscall(String name) async {
+    outloading = true;
+    notifyListeners();
     // outsatandingmodel outsatandingModel = await GetoutstandingApi.getData();
     await GetoutstandingApi.getData().then((value) async {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
@@ -394,43 +432,42 @@ GetAllOutstandingscall(String name) async {
             value.outstandhead!.outstanddata!.isNotEmpty &&
             value.outstandhead!.outstandline != null &&
             value.outstandhead!.outstandline!.isNotEmpty) {
-         
           notifyListeners();
-          for(int i=0;i<value.outstandhead!.outstandline!.length;i++){
-            log("ssss::"+value.outstandhead!.outstandline![i].customerName.toString());
-          if(value.outstandhead!.outstandline![i].customerName ==name){
-AccoundBalance =AccoundBalance! + value.outstandhead!.outstandline![i].balanceToPay!;
-log("AccoundBalance::"+AccoundBalance.toString());
+          for (int i = 0; i < value.outstandhead!.outstandline!.length; i++) {
+            log("ssss::" +
+                value.outstandhead!.outstandline![i].customerName.toString());
+            if (value.outstandhead!.outstandline![i].customerName == name) {
+              AccoundBalance = AccoundBalance! +
+                  value.outstandhead!.outstandline![i].balanceToPay!;
+              log("AccoundBalance::" + AccoundBalance.toString());
+            } else {
+              AccoundBalance = AccoundBalance;
+              log("AccoundBalance222::" + AccoundBalance.toString());
+            }
+          }
 
-          }  
-          else{
-          AccoundBalance=AccoundBalance;  
-          log("AccoundBalance222::"+AccoundBalance.toString());
-          }
-          }
-          
-          outloading=false;
-   notifyListeners();
+          outloading = false;
+          notifyListeners();
         } else {
           // apiloading = true;
           // log("NODAta on outstanding");
           // errormsg = 'No Outstanding..!!';
-          AccoundBalance=0.0;    
-          outloading=false;
-   notifyListeners();
+          AccoundBalance = 0.0;
+          outloading = false;
+          notifyListeners();
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-        AccoundBalance=0.0;  
-          outloading=false;
-   notifyListeners();
+        AccoundBalance = 0.0;
+        outloading = false;
+        notifyListeners();
         // apiloading = true;
         // errormsg = '${value.message}..${value.exception}..!!';
         notifyListeners();
       } else if (value.stcode! == 500) {
-        AccoundBalance=0.0;  
-          outloading=false;
-   notifyListeners();
+        AccoundBalance = 0.0;
+        outloading = false;
+        notifyListeners();
         // apiloading = true;
         // errormsg = '${value.exception}..${value.message}..!!';
 
@@ -438,6 +475,7 @@ log("AccoundBalance::"+AccoundBalance.toString());
       }
     });
   }
+
   Mapvaluestomodify(int ind) {
     NewCustomerContoller.datafrommodify.clear();
     //  NewCustomerContoller.datafrommodify.add(AccountsDataFilter[ind]!.OrderDocEntry.toString());
@@ -585,12 +623,12 @@ log("AccoundBalance::"+AccoundBalance.toString());
   //   );
   // }
 
-String lottie='';
+  String lottie = '';
   callAccountsApi() async {
     AccountsData.clear();
     AccountsDataFilter.clear();
     isLoading = true;
-    lottie='';
+    lottie = '';
     notifyListeners();
 
     //  int  counti=100;
@@ -609,22 +647,21 @@ String lottie='';
 
           // counti = counti! + 1;
           notifyListeners();
+        } else if (value.itemdata!.childdata == null ||
+            value.itemdata!.childdata!.isEmpty) {
+          // counti = 1;
+          log("hiiii");
+          // i = 2;
+          isLoading = false;
+          exception = true;
+          lottie = 'Assets/no-data.png';
+          errorMsg = 'No Data..!!';
+          notifyListeners();
         }
-        else if (value.itemdata!.childdata == null ||
-          value.itemdata!.childdata!.isEmpty) {
-        // counti = 1;
-        log("hiiii");
-        // i = 2;
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
         isLoading = false;
         exception = true;
-         lottie='Assets/no-data.png';
-        errorMsg = 'No Data..!!';
-        notifyListeners();
-      }
-      }  else if (value.stcode! >= 400 && value.stcode! <= 410) {
-        isLoading = false;
-        exception = true;
-        lottie='';
+        lottie = '';
         errorMsg = '${value.message}..!!${value.exception}..!!';
         notifyListeners();
       } else if (value.stcode == 500) {
@@ -632,7 +669,7 @@ String lottie='';
         if (value.exception == 'No route to host') {
           errorMsg = 'Check your Internet Connection...!!';
         } else {
-            lottie='Assets/NetworkAnimation.json';
+          lottie = 'Assets/NetworkAnimation.json';
           errorMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         }
         exception = true;
@@ -646,7 +683,7 @@ String lottie='';
     count = count! + AccountsData.length;
     notifyListeners();
     // }
- await callusermobileApi();
+    await callusermobileApi();
     // print("accountdata outside legnth:" + AccountsData.length.toString());
     // print(counti);
     // log("Totalll: " + count.toString());
@@ -698,84 +735,78 @@ String lottie='';
       // AccountsData = value.itemdata!;
       AccountsDataFilter = AccountsData;
       isLoading = false;
-      exception=false;
+      exception = false;
       notifyListeners();
       // log("AccountsDataFilter::" + AccountsDataFilter[k].cardname.toString());
     }
-  
   }
-callusermobileApi()async{
- await userbyidApi.getData(ConstantValues.UserId).then((value){
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
-log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
-getfirebase();
- }
-   
-  });
-}
-  String? usernumber='';
-  calldialApi(String? number,BuildContext context)async{
-    
+
+  callusermobileApi() async {
+    await userbyidApi.getData(ConstantValues.UserId).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        log("ConstantValues. userbyidmobile:::" +
+            ConstantValues.userbyidmobile.toString());
+        getfirebase();
+      }
+    });
+  }
+
+  String? usernumber = '';
+  calldialApi(String? number, BuildContext context) async {
     //  iscalltrue=true;
-    
-    Future.delayed(Duration(seconds: 40),(){
+
+    Future.delayed(Duration(seconds: 40), () {
       log("secondsoverrr:::");
-  // iscalltrue=false;
-  Navigator.pop(context);
-    notifyListeners();
+      // iscalltrue=false;
+      Navigator.pop(context);
+      notifyListeners();
     });
 
     // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
+
 //     FirebaseProduct.get().then((value) {
 // value.docs.forEach((element) {
 //   usernumber=element!['mobile'].toString();
 //   userid=element!['id'].toString();
 // log("fsdfdf::"+userid.toString());
-  // if(ConstantValues.userbyidmobile==usernumber){
+    // if(ConstantValues.userbyidmobile==usernumber){
     log("fsdfdf::user number match");
- UserdialApi.getdata(userid!, number!).then((value) {
-
-    });
-  // }
+    UserdialApi.getdata(userid!, number!).then((value) {});
+    // }
 //   else{
 // log("fsdfdf::no user number not match");
 //   }
-  
 
 // });
     // });
-   
   }
-getfirebase()async{
-  userid='';
-  notifyListeners();
-    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
-  await  FirebaseProduct.get().then((value) {
-value.docs.forEach((element) {
-  usernumber=element!['mobile'].toString();
-  
-log("fsdfdf::"+usernumber.toString());
-  if(ConstantValues.userbyidmobile==usernumber){
-    log("fsdfdf::user number match");
-    userid=element!['id'].toString();
-    notifyListeners();
-//  UserdialApi.getdata(userid!, number!).then((value) {
 
+  getfirebase() async {
+    userid = '';
+    notifyListeners();
+//     final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+
+//     await FirebaseProduct.get().then((value) {
+//       value.docs.forEach((element) {
+//         usernumber = element!['mobile'].toString();
+
+//         log("fsdfdf::" + usernumber.toString());
+//         if (ConstantValues.userbyidmobile == usernumber) {
+//           log("fsdfdf::user number match");
+//           userid = element!['id'].toString();
+//           notifyListeners();
+// //  UserdialApi.getdata(userid!, number!).then((value) {
+
+// //     });
+//         }
+// //   else{
+// // log("fsdfdf::no user number not match");
+// //   }
+//       });
 //     });
   }
-//   else{
-// log("fsdfdf::no user number not match");
-//   }
-  
 
-});
-    });
-}
   SearchFilter(String v) {
     print('saearch :' + v);
     if (v.isNotEmpty) {

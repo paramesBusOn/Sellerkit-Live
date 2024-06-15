@@ -13,6 +13,8 @@ import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/DBHelper/DBHelper.dart';
 import 'package:sellerkit/DBHelper/DBOperation.dart';
 import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
+import 'package:sellerkit/Models/PostQueryModel/ItemMasterModelNew.dart/itemviewModel.dart';
+import 'package:sellerkit/Services/PostQueryApi/ItemMasterApi/itemviewApi.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../Services/PostQueryApi/ItemMasterUpdateApi.dart/ItemMasterUpdateApiNew.dart';
 import '../../Services/ServiceLayerApi/ItemMasterPriceUpdateApi/ItemMasterPriceApi.dart';
@@ -50,6 +52,47 @@ class PriceListController extends ChangeNotifier {
 
   // view all page
 
+bool isloading=false;
+String errortabMsg='';
+List<ItemViewNewData> itemviewdata=[];
+viewstockdet(String itemcode)async{
+  itemviewdata.clear();
+  errortabMsg='';
+  isloading=true;
+  notifyListeners();
+  await ItemViewApiNew.getData(itemcode).then((value) {
+  if (value.stcode! >= 200 && value.stcode! <= 210) {
+        if (value.itemdatahead!.itemdata! != null && value.itemdatahead!.itemdata!.isNotEmpty) {
+         itemviewdata=value.itemdatahead!.itemdata!;
+          // spilitDatafirst(value.getvisitheaddata!.getvisitdetailsdata!);
+          isloading = false;
+          log("itemviewdata:::"+itemviewdata.length.toString());
+          notifyListeners();
+        } else if (value.itemdatahead!.itemdata == null|| value.itemdatahead!.itemdata!.isEmpty) {
+          isloading = false;
+          // lottie='Assets/no-data.png';
+          errortabMsg = 'No data..!!';
+        
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        //   lottie='';
+        isloading = false;
+        errortabMsg =
+            '${value.exception}..${value.message}..!!';
+        
+        notifyListeners();
+      } else if (value.stcode == 500) {
+        isloading = false;
+          // lottie='Assets/NetworkAnimation.json';
+        errortabMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+       
+        notifyListeners();
+      }
+  });
+
+}
   List<ItemMasterDBModel> viewAll = [];
   List<ItemMasterDBModel> get getviewAll => viewAll;
    List<ItemMasterDBModel> searchviewAll = [];

@@ -1,7 +1,7 @@
 // ignore_for_file: empty_constructor_bodies, unnecessary_new, unused_import, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, prefer_interpolation_to_compose_strings
 
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
@@ -53,8 +53,8 @@ class LeadTabController extends ChangeNotifier {
       List.generate(25, (i) => TextEditingController());
 
   Config config = new Config();
- List<GetAllLeadData> GetAllEnqData = [];
- List<GetAllLeadData> GetfromdbEnqData = [];
+  List<GetAllLeadData> GetAllEnqData = [];
+  List<GetAllLeadData> GetfromdbEnqData = [];
   List<GetAllLeadData> leadOpenAllData = [];
   List<GetAllLeadData> get getAllLeadData => leadOpenAllData;
   List<GetAllLeadData> filterleadOpenAllData = [];
@@ -76,8 +76,8 @@ class LeadTabController extends ChangeNotifier {
   List<UserListData> filteruserLtData = [];
   List<UserListData> get getfiltergetuserLtData => filteruserLtData;
 
-String? filterapiwonpurchaseDate='';
- void showtoastforall() {
+  String? filterapiwonpurchaseDate = '';
+  void showtoastforall() {
     Fluttertoast.showToast(
         msg: "Select User..!!",
         toastLength: Toast.LENGTH_SHORT,
@@ -87,7 +87,8 @@ String? filterapiwonpurchaseDate='';
         textColor: Colors.white,
         fontSize: 14.0);
   }
-void showfromDate(BuildContext context) {
+
+  void showfromDate(BuildContext context) {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -110,6 +111,7 @@ void showfromDate(BuildContext context) {
       notifyListeners();
     });
   }
+
   void showToDate(BuildContext context) {
     showDatePicker(
       context: context,
@@ -133,6 +135,7 @@ void showfromDate(BuildContext context) {
       notifyListeners();
     });
   }
+
   printLogic() {
     log("leadCheckDataExcep: ${leadCheckDataExcep}");
     log("leadSummaryLost: ${leadSummaryLost.length}");
@@ -145,15 +148,15 @@ void showfromDate(BuildContext context) {
 
   clearAllListData() {
     clearbool();
-    iscalltrue=false;
-    userid='';
-    usernumber='';
-    VisitTime='';
+    iscalltrue = false;
+    userid = '';
+    usernumber = '';
+    VisitTime = '';
     errorVisitTime = "";
- forwarderrorVisitTime = "";
+    forwarderrorVisitTime = "";
     mycontroller[1].clear();
     mycontroller[0].clear();
-    datagotByApi=false;
+    datagotByApi = false;
     leadCheckDataExcep = '';
     leadSummaryOpen.clear();
     leadSummaryWon.clear();
@@ -163,42 +166,42 @@ void showfromDate(BuildContext context) {
     filterleadClosedAllData.clear();
     filterleadLostAllData.clear();
     GetAllEnqData.clear();
-     GetfromdbEnqData.clear();
+    GetfromdbEnqData.clear();
     leadLostAllData.clear();
     leadClosedAllData.clear();
-     leadDeatilsQTHData!.clear();
-     leadDeatilsQTLData.clear();
-      leadDeatilsLData.clear();
+    leadDeatilsQTHData!.clear();
+    leadDeatilsQTLData.clear();
+    leadDeatilsLData.clear();
     mycontroller[5].clear();
-    caseStatusSelectedcode="";
-    caseStatusSelected="";
-    isSelectedFollowUp='';
-    isSelectedFollowUpcode='';
-     iscorectime=false;
-    iscorectime2=false;
+    caseStatusSelectedcode = "";
+    caseStatusSelected = "";
+    isSelectedFollowUp = '';
+    isSelectedFollowUpcode = '';
+    iscorectime = false;
+    iscorectime2 = false;
 
     notifyListeners();
   }
 
   refershAfterClosedialog() {
     clearbool();
-    forwaVisitTime='';
-    forwardnextWonFD='';
-    nextpurchasedate='';
-    nextpurchasedate='';
+    forwaVisitTime = '';
+    forwardnextWonFD = '';
+    nextpurchasedate = '';
+    nextpurchasedate = '';
     mycontroller[5].clear();
     leadCheckDataExcep = '';
-    iscorectime=false;
-    iscorectime2=false;
+    iscorectime = false;
+    iscorectime2 = false;
     // leadOpenAllData.clear();
     // leadClosedAllData.clear();
     // leadLostAllData.clear();
     // filterleadOpenAllData.clear();
-    
+
     // filterleadClosedAllData.clear();
     // filterleadClosedAllData.clear();
     leadSummaryOpen.clear();
-    
+
     leadSummaryWon.clear();
     leadSummaryLost.clear();
     comeFromEnq = -1;
@@ -210,23 +213,23 @@ void showfromDate(BuildContext context) {
     mycontroller[4].text = "";
     forwardSuccessMsg = "";
     updateConvertToQuatationUpdialog = false;
-    caseStatusSelectedcode="";
-    caseStatusSelected="";
-    isSelectedFollowUp='';
-    isSelectedFollowUpcode='';
-    assignVisitTime="Followup Time";
-     leadDeatilsQTHData!.clear();
-     leadDeatilsQTLData.clear();
-      leadDeatilsLData.clear();
-      selectedUserList='';
-     
-     
+    caseStatusSelectedcode = "";
+    caseStatusSelected = "";
+    isSelectedFollowUp = '';
+    isSelectedFollowUpcode = '';
+    assignVisitTime = "Followup Time";
+    leadDeatilsQTHData!.clear();
+    leadDeatilsQTLData.clear();
+    leadDeatilsLData.clear();
+    selectedUserList = '';
+
     notifyListeners();
   }
-filterListAssignData(String v) {
-   for(int i=0;i<filteruserLtData.length;i++){
-filteruserLtData[i].color=0;
-  }
+
+  filterListAssignData(String v) {
+    for (int i = 0; i < filteruserLtData.length; i++) {
+      filteruserLtData[i].color = 0;
+    }
     if (v.isNotEmpty) {
       filteruserLtData = userLtData
           .where((e) => e.UserName!.toLowerCase().contains(v.toLowerCase())
@@ -240,275 +243,283 @@ filteruserLtData[i].color=0;
       notifyListeners();
     }
   }
+
   Future<void> swipeRefreshIndiactor() async {
     // return Future.delayed(Duration.zero,(){
     refershAfterClosedialog();
-   await clearAllListData();
-  await  callGetAllApi();
-  await callusermobileApi();
+    await clearAllListData();
+    await callGetAllApi();
+    await callusermobileApi();
     // callSummaryApi();
 
     //});
   }
 
+  callusermobileApi() async {
+    await userbyidApi.getData(ConstantValues.UserId).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        log("ConstantValues. userbyidmobile:::" +
+            ConstantValues.userbyidmobile.toString());
+        getfirebase();
+      }
+    });
+  }
 
-  
-callusermobileApi()async{
- await userbyidApi.getData(ConstantValues.UserId).then((value){
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
-log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
-getfirebase();
- }
-   
-  });
-}
-String? apidate;
-  bool iscalltrue=false;
-  String? userid='';
-  String? usernumber='';
-  calldialApi(String? number)async{
-    
-    usernumber='';
-     iscalltrue=true;
+  String? apidate;
+  bool iscalltrue = false;
+  String? userid = '';
+  String? usernumber = '';
+  calldialApi(String? number) async {
+    usernumber = '';
+    iscalltrue = true;
     notifyListeners();
-    Future.delayed(Duration(seconds: 40),(){
+    Future.delayed(Duration(seconds: 40), () {
       log("secondsoverrr:::");
-  iscalltrue=false;
-    notifyListeners();
+      iscalltrue = false;
+      notifyListeners();
     });
 
     // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
+
 //     FirebaseProduct.get().then((value) {
 // value.docs.forEach((element) {
 //   usernumber=element!['mobile'].toString();
 //   userid=element!['id'].toString();
 // log("fsdfdf::"+userid.toString());
-  // if(ConstantValues.userbyidmobile==usernumber){
+    // if(ConstantValues.userbyidmobile==usernumber){
     log("fsdfdf::user number match");
- UserdialApi.getdata(userid!, number!).then((value) {
-
-    });
-  // }
+    UserdialApi.getdata(userid!, number!).then((value) {});
+    // }
 //   else{
 // log("fsdfdf::no user number not match");
 //   }
-  
 
 // });
     // });
-   
   }
-getfirebase()async{
-  userid='';
-  notifyListeners();
-    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
-  await  FirebaseProduct.get().then((value) {
-value.docs.forEach((element) {
-  usernumber=element!['mobile'].toString();
-  
-log("fsdfdf::"+usernumber.toString());
-  if(ConstantValues.userbyidmobile==usernumber){
-    log("fsdfdf::user number match");
-    userid=element!['id'].toString();
-    notifyListeners();
-//  UserdialApi.getdata(userid!, number!).then((value) {
 
+  getfirebase() async {
+    userid = '';
+    notifyListeners();
+//     final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+
+//     await FirebaseProduct.get().then((value) {
+//       value.docs.forEach((element) {
+//         usernumber = element!['mobile'].toString();
+
+//         log("fsdfdf::" + usernumber.toString());
+//         if (ConstantValues.userbyidmobile == usernumber) {
+//           log("fsdfdf::user number match");
+//           userid = element!['id'].toString();
+//           notifyListeners();
+// //  UserdialApi.getdata(userid!, number!).then((value) {
+
+// //     });
+//         }
+// //   else{
+// // log("fsdfdf::no user number not match");
+// //   }
+//       });
 //     });
   }
-//   else{
-// log("fsdfdf::no user number not match");
-//   }
-  
 
-});
-    });
-}
-List<Distcolumn> assigncolumn = [];
-   List<Distcusgroupcolumn> cusgroupcolumn = [];
- List<DistEnqstatuscolumn> enqstatuscolumn = [];
- List<Distlookingforcolumn> lookingforcolumn = [];
- List<Distlookingforcolumn> filterlookingforcolumn = [];
- List<Distlookingforcolumn> lookingforcolumnforshow = [];
- List<Distlevelcolumn> intlevelcolumn = [];
- List<Distordercolumn> ordercolumn = [];
- List<Distcustnamecolumn> cusnamecolumn = [];
- List<String> selectedinterest=[];
- List<String> selectedorder=[];
- List<String> selectedlookingfor=[];
- List<String> selectedenqstatus=[];
- List<String> selectedcusgoup=[];
-  List<String> selectedcusname=[];
- List<String> selectedassignto=[];
- bool isenqstatus=false;
- bool islookingfor=false;
- bool iscusgroup=false;
- bool iscusname=false;
- bool isassignto=false;
- bool isinterest=false;
- bool isorder=false;
- ontaporder(){
-   isorder = !isorder;
-   notifyListeners();
-    }
-    ontapinterest(){
-   isinterest = !isinterest;
-   notifyListeners();
-    }
- ontapassignto(){
-   isassignto = !isassignto;
-   notifyListeners();
-    }
-     itemselectinterest(String itemvalue,bool isselected){
-      interestlevelvalue='';
-  if(isselected){
-    selectedinterest.add(itemvalue);
-  }else{
-    selectedinterest.remove(itemvalue);
+  List<Distcolumn> assigncolumn = [];
+  List<Distcusgroupcolumn> cusgroupcolumn = [];
+  List<DistEnqstatuscolumn> enqstatuscolumn = [];
+  List<Distlookingforcolumn> lookingforcolumn = [];
+  List<Distlookingforcolumn> filterlookingforcolumn = [];
+  List<Distlookingforcolumn> lookingforcolumnforshow = [];
+  List<Distlevelcolumn> intlevelcolumn = [];
+  List<Distordercolumn> ordercolumn = [];
+  List<Distcustnamecolumn> cusnamecolumn = [];
+  List<String> selectedinterest = [];
+  List<String> selectedorder = [];
+  List<String> selectedlookingfor = [];
+  List<String> selectedenqstatus = [];
+  List<String> selectedcusgoup = [];
+  List<String> selectedcusname = [];
+  List<String> selectedassignto = [];
+  bool isenqstatus = false;
+  bool islookingfor = false;
+  bool iscusgroup = false;
+  bool iscusname = false;
+  bool isassignto = false;
+  bool isinterest = false;
+  bool isorder = false;
+  ontaporder() {
+    isorder = !isorder;
+    notifyListeners();
   }
-  interestlevelvalue=selectedinterest.join(', ');
-  log("selectedinterest::"+selectedinterest.toString());
-  log("interestlevelvalue::"+interestlevelvalue.toString());
-  notifyListeners();
- }
-     itemselectorder(String itemvalue,bool isselected){
-      ordertypevalue='';
-  if(isselected){
-    selectedorder.add(itemvalue);
-  }else{
-    selectedorder.remove(itemvalue);
+
+  ontapinterest() {
+    isinterest = !isinterest;
+    notifyListeners();
   }
-  ordertypevalue=selectedorder.join(', ');
-  log("selectedorder::"+selectedorder.toString());
-  log("ordertypevalue::"+ordertypevalue.toString());
-  notifyListeners();
- }
- itemselectassignto(String itemvalue,bool isselected){
-  assignvalue='';
-  if(isselected){
-    selectedassignto.add(itemvalue);
-  }else{
-    selectedassignto.remove(itemvalue);
+
+  ontapassignto() {
+    isassignto = !isassignto;
+    notifyListeners();
   }
-  assignvalue=selectedassignto.join(', ');
-  log("selectedassignto::"+selectedassignto.toString());
-  log("assignvalue::"+assignvalue.toString());
-  notifyListeners();
- }
- itemselectCusgroup(String itemvalue,bool isselected){
-  cusnamevalue ='';
-  if(isselected){
-    selectedcusgoup.add(itemvalue);
-  }else{
-    selectedcusgoup.remove(itemvalue);
-  }
-  cusnamevalue=selectedcusgoup.join(', ');
-  log("selectedcusgoup::"+selectedcusgoup.toString());
-   log("cusnamevalue::"+cusnamevalue.toString());
-  notifyListeners();
- }
- itemselectCusname(String itemvalue,bool isselected){
-  cardnamevalue ='';
-  if(isselected){
-    selectedcusname.add(itemvalue);
-  }else{
-    selectedcusname.remove(itemvalue);
-  }
-  cardnamevalue=selectedcusname.join(', ');
-  log("selectedcusname::"+selectedcusname.toString());
-   log("cardnamevalue::"+cardnamevalue.toString());
-  notifyListeners();
- }
- ontapcusgroup(){
-   iscusgroup = !iscusgroup;
-   notifyListeners();
+
+  itemselectinterest(String itemvalue, bool isselected) {
+    interestlevelvalue = '';
+    if (isselected) {
+      selectedinterest.add(itemvalue);
+    } else {
+      selectedinterest.remove(itemvalue);
     }
-    ontapcusname(){
-   iscusname = !iscusname;
-   notifyListeners();
-    }
- ontaplooking(){
-   islookingfor = !islookingfor;
-   notifyListeners();
-    }
-    onenqstatus(){
-   isenqstatus = !isenqstatus;
-   notifyListeners();
-    }
-     itemselectenqstatus(String itemvalue,bool isselected){
-      Enquirystatusvalue='';
-  if(isselected){
-    selectedenqstatus.add(itemvalue);
-  }else{
-    selectedenqstatus.remove(itemvalue);
+    interestlevelvalue = selectedinterest.join(', ');
+    log("selectedinterest::" + selectedinterest.toString());
+    log("interestlevelvalue::" + interestlevelvalue.toString());
+    notifyListeners();
   }
-  Enquirystatusvalue=selectedenqstatus.join(', ');
-  log("selectedlookingfor::"+selectedenqstatus.toString());
-   log("Enquirystatusvalue::"+Enquirystatusvalue.toString());
-  notifyListeners();
- }
- itemselect(String itemvalue,bool isselected){
-  lookingforvalue='';
-  if(isselected){
-    selectedlookingfor.add(itemvalue);
-  }else{
-    selectedlookingfor.remove(itemvalue);
+
+  itemselectorder(String itemvalue, bool isselected) {
+    ordertypevalue = '';
+    if (isselected) {
+      selectedorder.add(itemvalue);
+    } else {
+      selectedorder.remove(itemvalue);
+    }
+    ordertypevalue = selectedorder.join(', ');
+    log("selectedorder::" + selectedorder.toString());
+    log("ordertypevalue::" + ordertypevalue.toString());
+    notifyListeners();
   }
-  lookingforvalue=selectedlookingfor.join(', ');
-  log("selectedlookingfor::"+selectedlookingfor.toString());
-  log("lookingforvalue::"+lookingforvalue.toString());
-  notifyListeners();
- }
- String? assignvalue;
-   String? cusnamevalue;
-   String? cardnamevalue;
-   String? Enquirystatusvalue;
-   String? lookingforvalue;
-   
-    String? interestlevelvalue;
-     String? ordertypevalue;
-     
-bool? islookloading=false;
+
+  itemselectassignto(String itemvalue, bool isselected) {
+    assignvalue = '';
+    if (isselected) {
+      selectedassignto.add(itemvalue);
+    } else {
+      selectedassignto.remove(itemvalue);
+    }
+    assignvalue = selectedassignto.join(', ');
+    log("selectedassignto::" + selectedassignto.toString());
+    log("assignvalue::" + assignvalue.toString());
+    notifyListeners();
+  }
+
+  itemselectCusgroup(String itemvalue, bool isselected) {
+    cusnamevalue = '';
+    if (isselected) {
+      selectedcusgoup.add(itemvalue);
+    } else {
+      selectedcusgoup.remove(itemvalue);
+    }
+    cusnamevalue = selectedcusgoup.join(', ');
+    log("selectedcusgoup::" + selectedcusgoup.toString());
+    log("cusnamevalue::" + cusnamevalue.toString());
+    notifyListeners();
+  }
+
+  itemselectCusname(String itemvalue, bool isselected) {
+    cardnamevalue = '';
+    if (isselected) {
+      selectedcusname.add(itemvalue);
+    } else {
+      selectedcusname.remove(itemvalue);
+    }
+    cardnamevalue = selectedcusname.join(', ');
+    log("selectedcusname::" + selectedcusname.toString());
+    log("cardnamevalue::" + cardnamevalue.toString());
+    notifyListeners();
+  }
+
+  ontapcusgroup() {
+    iscusgroup = !iscusgroup;
+    notifyListeners();
+  }
+
+  ontapcusname() {
+    iscusname = !iscusname;
+    notifyListeners();
+  }
+
+  ontaplooking() {
+    islookingfor = !islookingfor;
+    notifyListeners();
+  }
+
+  onenqstatus() {
+    isenqstatus = !isenqstatus;
+    notifyListeners();
+  }
+
+  itemselectenqstatus(String itemvalue, bool isselected) {
+    Enquirystatusvalue = '';
+    if (isselected) {
+      selectedenqstatus.add(itemvalue);
+    } else {
+      selectedenqstatus.remove(itemvalue);
+    }
+    Enquirystatusvalue = selectedenqstatus.join(', ');
+    log("selectedlookingfor::" + selectedenqstatus.toString());
+    log("Enquirystatusvalue::" + Enquirystatusvalue.toString());
+    notifyListeners();
+  }
+
+  itemselect(String itemvalue, bool isselected) {
+    lookingforvalue = '';
+    if (isselected) {
+      selectedlookingfor.add(itemvalue);
+    } else {
+      selectedlookingfor.remove(itemvalue);
+    }
+    lookingforvalue = selectedlookingfor.join(', ');
+    log("selectedlookingfor::" + selectedlookingfor.toString());
+    log("lookingforvalue::" + lookingforvalue.toString());
+    notifyListeners();
+  }
+
+  String? assignvalue;
+  String? cusnamevalue;
+  String? cardnamevalue;
+  String? Enquirystatusvalue;
+  String? lookingforvalue;
+
+  String? interestlevelvalue;
+  String? ordertypevalue;
+
+  bool? islookloading = false;
 
   bool datagotByApi = false;
-clearfilterval() {
-   checkdate=null;
+  clearfilterval() {
+    checkdate = null;
     assignvalue = null;
     cusnamevalue = null;
-    cardnamevalue=null;
-    islookingfor=false;
+    cardnamevalue = null;
+    islookingfor = false;
     selectedlookingfor.clear();
-    isenqstatus=false;
+    isenqstatus = false;
     selectedenqstatus.clear();
     selectedcusgoup.clear();
-    iscusgroup=false;
-    iscusname=false;
-    isassignto=false;
-    isorder=false;
-    isinterest=false;
+    iscusgroup = false;
+    iscusname = false;
+    isassignto = false;
+    isorder = false;
+    isinterest = false;
     selectedinterest.clear();
     selectedorder.clear();
     selectedassignto.clear();
-    Enquirystatusvalue=null;
-    lookingforvalue=null;
-    ordertypevalue=null;
-    islookloading=false;
-    interestlevelvalue=null;
+    Enquirystatusvalue = null;
+    lookingforvalue = null;
+    ordertypevalue = null;
+    islookloading = false;
+    interestlevelvalue = null;
     lookingforcolumn.clear();
     lookingforcolumnforshow.clear();
     selectedcusname.clear();
     mycontroller[21].clear();
     mycontroller[22].clear();
     mycontroller[23].clear();
-    
 
     notifyListeners();
   }
-Future<void> dataget(List<Map<String, Object?>> assignDB,cusgropDB,enqstatusDB,intlevelDB,ordertypeDB,cusnametype) async {
+
+  Future<void> dataget(List<Map<String, Object?>> assignDB, cusgropDB,
+      enqstatusDB, intlevelDB, ordertypeDB, cusnametype) async {
     assigncolumn.clear();
     cusgroupcolumn.clear();
     enqstatuscolumn.clear();
@@ -518,56 +529,62 @@ Future<void> dataget(List<Map<String, Object?>> assignDB,cusgropDB,enqstatusDB,i
     intlevelcolumn.clear();
     ordercolumn.clear();
     cusnamecolumn.clear();
-   
+
     notifyListeners();
     for (int i = 0; i < assignDB.length; i++) {
       assigncolumn.add(Distcolumn(name: assignDB[i]['AssignedTo'].toString()));
-      assigncolumn.sort((a,b)=>a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      assigncolumn
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
       log("assigncolumn::" + assigncolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < cusgropDB.length; i++) {
-      cusgroupcolumn.add(Distcusgroupcolumn(name: cusgropDB[i]['Cusgroup'].toString()));
+      cusgroupcolumn
+          .add(Distcusgroupcolumn(name: cusgropDB[i]['Cusgroup'].toString()));
       log("cusgroupcolumn::" + cusgroupcolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < enqstatusDB.length; i++) {
-      enqstatuscolumn.add(DistEnqstatuscolumn(name: enqstatusDB[i]['Status'].toString()));
+      enqstatuscolumn
+          .add(DistEnqstatuscolumn(name: enqstatusDB[i]['Status'].toString()));
       log("enqstatuscolumn::" + enqstatuscolumn.length.toString());
       notifyListeners();
     }
     // for (int i = 0; i < lookingforDB.length; i++) {
     //   lookingforcolumn.add(Distlookingforcolumn(name: lookingforDB[i]['Lookingfor'].toString(),ischecck: false));
-     
+
     //    filterlookingforcolumn=lookingforcolumn;
     //   //   log("lookingforcolumn::" + filterlookingforcolumn.length.toString());
-        
+
     //   notifyListeners();
     // }
-  //  for(int i=0;i<lookingforcolumn.length;i++){
-  //   filterlookingforcolumn.add(Distlookingforcolumn(name: lookingforcolumn[i].name.toString(),ischecck: lookingforcolumn[i].ischecck));
-  //    log("lookingforcolumn::" + filterlookingforcolumn[i].ischecck.toString());
-  //    notifyListeners();
-  //  }
+    //  for(int i=0;i<lookingforcolumn.length;i++){
+    //   filterlookingforcolumn.add(Distlookingforcolumn(name: lookingforcolumn[i].name.toString(),ischecck: lookingforcolumn[i].ischecck));
+    //    log("lookingforcolumn::" + filterlookingforcolumn[i].ischecck.toString());
+    //    notifyListeners();
+    //  }
     notifyListeners();
     for (int i = 0; i < intlevelDB.length; i++) {
-      intlevelcolumn.add(Distlevelcolumn(name: intlevelDB[i]['InterestLevel'].toString()));
+      intlevelcolumn.add(
+          Distlevelcolumn(name: intlevelDB[i]['InterestLevel'].toString()));
       log("intlevelcolumn::" + intlevelcolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < ordertypeDB.length; i++) {
-      ordercolumn.add(Distordercolumn(name: ordertypeDB[i]['OrderType'].toString()));
+      ordercolumn
+          .add(Distordercolumn(name: ordertypeDB[i]['OrderType'].toString()));
       log("assigncolumn::" + ordercolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < cusnametype.length; i++) {
-      cusnamecolumn.add(Distcustnamecolumn(name: cusnametype[i]['CustomerName'].toString()));
+      cusnamecolumn.add(
+          Distcustnamecolumn(name: cusnametype[i]['CustomerName'].toString()));
       log("cusnamecolumn::" + cusnamecolumn.length.toString());
       notifyListeners();
     }
-   
   }
-   getdbmodel()async{
+
+  getdbmodel() async {
     GetfromdbEnqData.clear();
     leadOpenAllData.clear();
     leadClosedAllData.clear();
@@ -575,35 +592,35 @@ Future<void> dataget(List<Map<String, Object?>> assignDB,cusgropDB,enqstatusDB,i
     filterleadOpenAllData.clear();
     filterleadClosedAllData.clear();
     filterleadLostAllData.clear();
-     final Database db = (await DBHelper.getInstance())!;
-GetfromdbEnqData = await DBOperation.getLeaddatafilter(db);
-log("GetfromdbEnqData::"+GetfromdbEnqData.length.toString());
- List<Map<String, Object?>> assignDB =
+    final Database db = (await DBHelper.getInstance())!;
+    GetfromdbEnqData = await DBOperation.getLeaddatafilter(db);
+    log("GetfromdbEnqData::" + GetfromdbEnqData.length.toString());
+    List<Map<String, Object?>> assignDB =
         await DBOperation.getleadftr("AssignedTo", db);
-        List<Map<String, Object?>> cusgropDB =
+    List<Map<String, Object?>> cusgropDB =
         await DBOperation.getleadftr("Cusgroup", db);
-        List<Map<String, Object?>> enqstatusDB =
+    List<Map<String, Object?>> enqstatusDB =
         await DBOperation.getleadftr("Status", db);
-        // List<Map<String, Object?>> lookingforDB =
-        // await DBOperation.getleadftr("Mobile", db);
-        List<Map<String, Object?>> intlevelDB =
+    // List<Map<String, Object?>> lookingforDB =
+    // await DBOperation.getleadftr("Mobile", db);
+    List<Map<String, Object?>> intlevelDB =
         await DBOperation.getleadftr("InterestLevel", db);
-        List<Map<String, Object?>> ordertypeDB =
+    List<Map<String, Object?>> ordertypeDB =
         await DBOperation.getleadftr("OrderType", db);
-         List<Map<String, Object?>> cusnametypeDB =
+    List<Map<String, Object?>> cusnametypeDB =
         await DBOperation.getleadftr("CustomerName", db);
-        notifyListeners();
-        
-        await dataget(assignDB,cusgropDB,enqstatusDB,intlevelDB,ordertypeDB,cusnametypeDB);
- await mapValues(GetfromdbEnqData);
-          notifyListeners();
+    notifyListeners();
+
+    await dataget(assignDB, cusgropDB, enqstatusDB, intlevelDB, ordertypeDB,
+        cusnametypeDB);
+    await mapValues(GetfromdbEnqData);
+    notifyListeners();
   }
-   
+
   String dbfilterpurchaseDate = '';
- 
- DateTime? checkdate;
-void showfromDatefilter(BuildContext context) {
- 
+
+  DateTime? checkdate;
+  void showfromDatefilter(BuildContext context) {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -613,9 +630,9 @@ void showfromDatefilter(BuildContext context) {
       if (value == null) {
         return;
       }
-       mycontroller[22].clear();
+      mycontroller[22].clear();
       String chooseddate = value.toString();
-        checkdate=value;
+      checkdate = value;
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -628,11 +645,12 @@ void showfromDatefilter(BuildContext context) {
       notifyListeners();
     });
   }
+
   void showToDatefilter(BuildContext context) {
     showDatePicker(
       context: context,
-      initialDate:checkdate ?? DateTime.now(),
-      firstDate:checkdate ?? DateTime(2020),
+      initialDate: checkdate ?? DateTime.now(),
+      firstDate: checkdate ?? DateTime(2020),
       lastDate: DateTime(2050),
     ).then((value) {
       if (value == null) {
@@ -651,124 +669,122 @@ void showfromDatefilter(BuildContext context) {
       notifyListeners();
     });
   }
- onfilterapply()async{
-     final Database db = (await DBHelper.getInstance())!;
-    
-      await DBOperation.getleadfilterapply(
-            db,
-            assignvalue == null ? '' : assignvalue!,
-            cardnamevalue== null ? '' : cardnamevalue!,
-            cusnamevalue == null ? '' : cusnamevalue!,
-            Enquirystatusvalue == null ? '' : Enquirystatusvalue!,
-          
-              interestlevelvalue == null ? '' : interestlevelvalue!,
-            ordertypevalue == null ? '' : ordertypevalue!,
-             mycontroller[23].text.isEmpty ? 0.0 : double.parse(mycontroller[23].text),
-          
-            mycontroller[21].text.isEmpty ? '0000-00-00' : config.alignDate1(mycontroller[21].text),
-            mycontroller[22].text.isEmpty ? '9999-12-31' : config.alignDate1(mycontroller[22].text),
-           
-           )
-        .then((value) async {
-     
+
+  onfilterapply() async {
+    final Database db = (await DBHelper.getInstance())!;
+
+    await DBOperation.getleadfilterapply(
+      db,
+      assignvalue == null ? '' : assignvalue!,
+      cardnamevalue == null ? '' : cardnamevalue!,
+      cusnamevalue == null ? '' : cusnamevalue!,
+      Enquirystatusvalue == null ? '' : Enquirystatusvalue!,
+      interestlevelvalue == null ? '' : interestlevelvalue!,
+      ordertypevalue == null ? '' : ordertypevalue!,
+      mycontroller[23].text.isEmpty ? 0.0 : double.parse(mycontroller[23].text),
+      mycontroller[21].text.isEmpty
+          ? '0000-00-00'
+          : config.alignDate1(mycontroller[21].text),
+      mycontroller[22].text.isEmpty
+          ? '9999-12-31'
+          : config.alignDate1(mycontroller[22].text),
+    ).then((value) async {
 //  GetAllEnqData.clear();
-     GetfromdbEnqData.clear();
-     
-    leadOpenAllData.clear();
-    leadClosedAllData.clear();
-    leadLostAllData.clear();
-    filterleadOpenAllData.clear();
-    filterleadClosedAllData.clear();
-    filterleadLostAllData.clear();
-    notifyListeners();
-      GetfromdbEnqData = value;
-      log("GetfromdbEnqData::"+GetfromdbEnqData.length.toString());
-      datagotByApi=false;
+      GetfromdbEnqData.clear();
+
+      leadOpenAllData.clear();
+      leadClosedAllData.clear();
+      leadLostAllData.clear();
+      filterleadOpenAllData.clear();
+      filterleadClosedAllData.clear();
+      filterleadLostAllData.clear();
       notifyListeners();
-       await mapValues(GetfromdbEnqData);
+      GetfromdbEnqData = value;
+      log("GetfromdbEnqData::" + GetfromdbEnqData.length.toString());
+      datagotByApi = false;
+      notifyListeners();
+      await mapValues(GetfromdbEnqData);
       clearfilterval();
-      
-      log("datagotByApi::"+datagotByApi.toString());
-      log("leadCheckDataExcep::"+leadCheckDataExcep.toString());
+
+      log("datagotByApi::" + datagotByApi.toString());
+      log("leadCheckDataExcep::" + leadCheckDataExcep.toString());
       notifyListeners();
     });
-
   }
-   tableinsert(List<GetAllLeadData> enqadddata)async{
- final Database db = (await DBHelper.getInstance())!;
- await DBOperation.truncareleadfilter(db);
 
+  tableinsert(List<GetAllLeadData> enqadddata) async {
+    final Database db = (await DBHelper.getInstance())!;
+    await DBOperation.truncareleadfilter(db);
 
-   await DBOperation.insertleaddata(enqadddata, db);
-   notifyListeners();
-   await getdbmodel();
-   notifyListeners();
-  }
-bool isbool=false;
-String lottie='';
-  callGetAllApi() async {
-    leadCheckDataExcep='';
-    datagotByApi=false;
+    await DBOperation.insertleaddata(enqadddata, db);
     notifyListeners();
-     GetAllEnqData.clear();
-     GetfromdbEnqData.clear();
+    await getdbmodel();
+    notifyListeners();
+  }
+
+  bool isbool = false;
+  String lottie = '';
+  callGetAllApi() async {
+    leadCheckDataExcep = '';
+    datagotByApi = false;
+    notifyListeners();
+    GetAllEnqData.clear();
+    GetfromdbEnqData.clear();
     leadOpenAllData.clear();
     leadClosedAllData.clear();
     leadLostAllData.clear();
-    lottie='';
+    lottie = '';
     // filterleadOpenAllData.clear();
-    
+
     // filterleadClosedAllData.clear();
     // filterleadLostAllData.clear();
-    log("leadOpenAllData::"+leadOpenAllData.length.toString());
-    log("filterleadOpenAllData::"+filterleadOpenAllData.length.toString());
-    isbool=true;
+    log("leadOpenAllData::" + leadOpenAllData.length.toString());
+    log("filterleadOpenAllData::" + filterleadOpenAllData.length.toString());
+    isbool = true;
     //  final Database db = (await DBHelper.getInstance())!;
     // leadStatusLost = await DBOperation.getLeadStatusLost(db);
     await GetAllLeadApi.getData(ConstantValues.slpcode).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        if (value.leadcheckheader!.leadcheckdata != null && value.leadcheckheader!.leadcheckdata!.isNotEmpty) {
+        if (value.leadcheckheader!.leadcheckdata != null &&
+            value.leadcheckheader!.leadcheckdata!.isNotEmpty) {
           // log("not null"+value.leadcheckheader!.length.toString());
-         GetAllEnqData=value.leadcheckheader!.leadcheckdata!;
-         tableinsert(GetAllEnqData);
+          GetAllEnqData = value.leadcheckheader!.leadcheckdata!;
+          tableinsert(GetAllEnqData);
           // mapValues(value.leadcheckheader!.leadcheckdata!);
-        } 
-        else if (value.leadcheckheader!.leadcheckdata == null || value.leadcheckheader!.leadcheckdata!.isEmpty) {
-          datagotByApi=true;
-          lottie='Assets/no-data.png';
+        } else if (value.leadcheckheader!.leadcheckdata == null ||
+            value.leadcheckheader!.leadcheckdata!.isEmpty) {
+          datagotByApi = true;
+          lottie = 'Assets/no-data.png';
           leadCheckDataExcep = 'No Leads..!!';
-          log("ANBU"+leadCheckDataExcep.toString());
+          log("ANBU" + leadCheckDataExcep.toString());
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-         lottie='';
-         isbool=false;
-         datagotByApi=true;
-           notifyListeners();
-        leadCheckDataExcep =
-            '${value.message}..!! ${value.exception}..!!';
-            
+        lottie = '';
+        isbool = false;
+        datagotByApi = true;
+        notifyListeners();
+        leadCheckDataExcep = '${value.message}..!! ${value.exception}..!!';
       } else {
-         isbool=false;
-         datagotByApi=true;
-           notifyListeners();
-            lottie='Assets/NetworkAnimation.json';
+        isbool = false;
+        datagotByApi = true;
+        notifyListeners();
+        lottie = 'Assets/NetworkAnimation.json';
         leadCheckDataExcep =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
-            notifyListeners();
+        notifyListeners();
       }
       notifyListeners();
     });
 
     // log("GetAll Lead Exception :::" + leadCheckDataExcep.toString());
   }
-  
 
   mapValues(List<GetAllLeadData> leadcheckdata) async {
     for (int i = 0; i < leadcheckdata.length; i++) {
       if (leadcheckdata[i].Status == "Open") {
         print("Open Lead follDate" + leadcheckdata[i].NextFollowup.toString());
         leadOpenAllData.add(GetAllLeadData(
-          InterestLevel:leadcheckdata[i].InterestLevel ,
+          InterestLevel: leadcheckdata[i].InterestLevel,
           OrderType: leadcheckdata[i].OrderType,
           LeadDocEntry: leadcheckdata[i].LeadDocEntry,
           LeadNum: leadcheckdata[i].LeadNum,
@@ -812,25 +828,25 @@ String lottie='';
           traceId: leadcheckdata[i].traceId,
         ));
         filterleadOpenAllData = leadOpenAllData;
-      // await  mapvaluestoDB(filterleadOpenAllData);
-       } else if (leadcheckdata[i].Status == "Won") {
+        // await  mapvaluestoDB(filterleadOpenAllData);
+      } else if (leadcheckdata[i].Status == "Won") {
         leadClosedAllData.add(GetAllLeadData(
-          InterestLevel:leadcheckdata[i].InterestLevel ,
+          InterestLevel: leadcheckdata[i].InterestLevel,
           OrderType: leadcheckdata[i].OrderType,
-            LeadDocEntry: leadcheckdata[i].LeadDocEntry,
-            LeadNum: leadcheckdata[i].LeadNum,
-            Mobile: leadcheckdata[i].Mobile,
-            CustomerName: leadcheckdata[i].CustomerName,
-            DocDate: leadcheckdata[i].DocDate,
-            City: leadcheckdata[i].City,
-            NextFollowup: leadcheckdata[i].NextFollowup,
-            Product: leadcheckdata[i].Product,
-            Value: leadcheckdata[i].Value,
-            Status: leadcheckdata[i].Status,
-            LastUpdateMessage: leadcheckdata[i].LastUpdateMessage,
-            LastUpdateTime: leadcheckdata[i].LastUpdateTime,
-            FollowupEntry: leadcheckdata[i].FollowupEntry,
-            customermob: leadcheckdata[i].customermob,
+          LeadDocEntry: leadcheckdata[i].LeadDocEntry,
+          LeadNum: leadcheckdata[i].LeadNum,
+          Mobile: leadcheckdata[i].Mobile,
+          CustomerName: leadcheckdata[i].CustomerName,
+          DocDate: leadcheckdata[i].DocDate,
+          City: leadcheckdata[i].City,
+          NextFollowup: leadcheckdata[i].NextFollowup,
+          Product: leadcheckdata[i].Product,
+          Value: leadcheckdata[i].Value,
+          Status: leadcheckdata[i].Status,
+          LastUpdateMessage: leadcheckdata[i].LastUpdateMessage,
+          LastUpdateTime: leadcheckdata[i].LastUpdateTime,
+          FollowupEntry: leadcheckdata[i].FollowupEntry,
+          customermob: leadcheckdata[i].customermob,
           cusEmail: leadcheckdata[i].cusEmail,
           companyname: leadcheckdata[i].companyname,
           cusgroup: leadcheckdata[i].cusgroup,
@@ -857,27 +873,26 @@ String lottie='';
           updatedBy: leadcheckdata[i].updatedBy,
           updatedDate: leadcheckdata[i].updatedDate,
           traceId: leadcheckdata[i].traceId,
-            
-            ));
+        ));
         filterleadClosedAllData = leadClosedAllData;
       } else if (leadcheckdata[i].Status == "Lost") {
         leadLostAllData.add(GetAllLeadData(
-          InterestLevel:leadcheckdata[i].InterestLevel ,
+          InterestLevel: leadcheckdata[i].InterestLevel,
           OrderType: leadcheckdata[i].OrderType,
-            LeadDocEntry: leadcheckdata[i].LeadDocEntry,
-            LeadNum: leadcheckdata[i].LeadNum,
-            Mobile: leadcheckdata[i].Mobile,
-            CustomerName: leadcheckdata[i].CustomerName,
-            DocDate: leadcheckdata[i].DocDate,
-            City: leadcheckdata[i].City,
-            NextFollowup: leadcheckdata[i].NextFollowup,
-            Product: leadcheckdata[i].Product,
-            Value: leadcheckdata[i].Value,
-            Status: leadcheckdata[i].Status,
-            LastUpdateMessage: leadcheckdata[i].LastUpdateMessage,
-            LastUpdateTime: leadcheckdata[i].LastUpdateTime,
-            FollowupEntry: leadcheckdata[i].FollowupEntry,
-            customermob: leadcheckdata[i].customermob,
+          LeadDocEntry: leadcheckdata[i].LeadDocEntry,
+          LeadNum: leadcheckdata[i].LeadNum,
+          Mobile: leadcheckdata[i].Mobile,
+          CustomerName: leadcheckdata[i].CustomerName,
+          DocDate: leadcheckdata[i].DocDate,
+          City: leadcheckdata[i].City,
+          NextFollowup: leadcheckdata[i].NextFollowup,
+          Product: leadcheckdata[i].Product,
+          Value: leadcheckdata[i].Value,
+          Status: leadcheckdata[i].Status,
+          LastUpdateMessage: leadcheckdata[i].LastUpdateMessage,
+          LastUpdateTime: leadcheckdata[i].LastUpdateTime,
+          FollowupEntry: leadcheckdata[i].FollowupEntry,
+          customermob: leadcheckdata[i].customermob,
           cusEmail: leadcheckdata[i].cusEmail,
           companyname: leadcheckdata[i].companyname,
           cusgroup: leadcheckdata[i].cusgroup,
@@ -904,69 +919,70 @@ String lottie='';
           updatedBy: leadcheckdata[i].updatedBy,
           updatedDate: leadcheckdata[i].updatedDate,
           traceId: leadcheckdata[i].traceId,
-            ));
+        ));
         filterleadLostAllData = leadLostAllData;
       }
     }
     await callSummaryApi();
-  await  callinitApi();
- await callusermobileApi();
-   
-          // notifyListeners();
+    await callinitApi();
+    await callusermobileApi();
+
+    // notifyListeners();
     notifyListeners();
   }
-List<leadopenDBmodel> leadopendb=[];
-mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
-  for(int i=0;i<=leadOpenAllData.length;i++){
-    leadopendb.add(leadopenDBmodel(
-      City: leadOpenAllData[i].City, 
-      CustomerName: leadOpenAllData[i].CustomerName, 
-      DocDate: leadOpenAllData[i].DocDate, 
-      FollowupEntry: leadOpenAllData[i].FollowupEntry, 
-      LastUpdateMessage: leadOpenAllData[i].LastUpdateMessage, 
-      LastUpdateTime: leadOpenAllData[i].LastUpdateTime, 
-      LeadDocEntry: leadOpenAllData[i].LeadDocEntry, 
-      LeadNum: leadOpenAllData[i].LeadNum, 
-      Mobile: leadOpenAllData[i].Mobile, 
-      NextFollowup: leadOpenAllData[i].NextFollowup, 
-      Product: leadOpenAllData[i].Product, 
-      Status: leadOpenAllData[i].Status, 
-      Value: leadOpenAllData[i].Value, 
-      add1: leadOpenAllData[i].add1, 
-      add2: leadOpenAllData[i].add2, 
-      agegroup: leadOpenAllData[i].agegroup, 
-      area: leadOpenAllData[i].area, 
-      assignedTo: leadOpenAllData[i].assignedTo, 
-      cameAs: leadOpenAllData[i].cameAs, 
-      companyname: leadOpenAllData[i].companyname, 
-      country: leadOpenAllData[i].country, 
-      createdBy: leadOpenAllData[i].createdBy, 
-      createdDate: leadOpenAllData[i].createdDate, 
-      cusEmail: leadOpenAllData[i].cusEmail, 
-      cusgroup: leadOpenAllData[i].cusgroup, 
-      customermob: leadOpenAllData[i].customermob, 
-      dealDescription: leadOpenAllData[i].dealDescription, 
-      district: leadOpenAllData[i].district, 
-      gender: leadOpenAllData[i].gender, 
-      headcount: leadOpenAllData[i].headcount, 
-      lastFollowupDate: leadOpenAllData[i].lastFollowupDate, 
-      maxbudget: leadOpenAllData[i].maxbudget, 
-      pincode: leadOpenAllData[i].pincode, 
-      purchasePlan: leadOpenAllData[i].purchasePlan, 
-      refferal: leadOpenAllData[i].refferal, 
-      state: leadOpenAllData[i].state, 
-      storecode: leadOpenAllData[i].storecode, 
-      traceId: leadOpenAllData[i].traceId, 
-      updatedBy: leadOpenAllData[i].updatedBy, 
-      updatedDate: leadOpenAllData[i].updatedDate));
-    
-  }
-  notifyListeners();
-   final Database db = (await DBHelper.getInstance())!;
-   log("leadopendb: " + leadopendb.length.toString());
+
+  List<leadopenDBmodel> leadopendb = [];
+  mapvaluestoDB(List<GetAllLeadData> leadOpenAllData) async {
+    for (int i = 0; i <= leadOpenAllData.length; i++) {
+      leadopendb.add(leadopenDBmodel(
+          City: leadOpenAllData[i].City,
+          CustomerName: leadOpenAllData[i].CustomerName,
+          DocDate: leadOpenAllData[i].DocDate,
+          FollowupEntry: leadOpenAllData[i].FollowupEntry,
+          LastUpdateMessage: leadOpenAllData[i].LastUpdateMessage,
+          LastUpdateTime: leadOpenAllData[i].LastUpdateTime,
+          LeadDocEntry: leadOpenAllData[i].LeadDocEntry,
+          LeadNum: leadOpenAllData[i].LeadNum,
+          Mobile: leadOpenAllData[i].Mobile,
+          NextFollowup: leadOpenAllData[i].NextFollowup,
+          Product: leadOpenAllData[i].Product,
+          Status: leadOpenAllData[i].Status,
+          Value: leadOpenAllData[i].Value,
+          add1: leadOpenAllData[i].add1,
+          add2: leadOpenAllData[i].add2,
+          agegroup: leadOpenAllData[i].agegroup,
+          area: leadOpenAllData[i].area,
+          assignedTo: leadOpenAllData[i].assignedTo,
+          cameAs: leadOpenAllData[i].cameAs,
+          companyname: leadOpenAllData[i].companyname,
+          country: leadOpenAllData[i].country,
+          createdBy: leadOpenAllData[i].createdBy,
+          createdDate: leadOpenAllData[i].createdDate,
+          cusEmail: leadOpenAllData[i].cusEmail,
+          cusgroup: leadOpenAllData[i].cusgroup,
+          customermob: leadOpenAllData[i].customermob,
+          dealDescription: leadOpenAllData[i].dealDescription,
+          district: leadOpenAllData[i].district,
+          gender: leadOpenAllData[i].gender,
+          headcount: leadOpenAllData[i].headcount,
+          lastFollowupDate: leadOpenAllData[i].lastFollowupDate,
+          maxbudget: leadOpenAllData[i].maxbudget,
+          pincode: leadOpenAllData[i].pincode,
+          purchasePlan: leadOpenAllData[i].purchasePlan,
+          refferal: leadOpenAllData[i].refferal,
+          state: leadOpenAllData[i].state,
+          storecode: leadOpenAllData[i].storecode,
+          traceId: leadOpenAllData[i].traceId,
+          updatedBy: leadOpenAllData[i].updatedBy,
+          updatedDate: leadOpenAllData[i].updatedDate));
+    }
+    notifyListeners();
+    final Database db = (await DBHelper.getInstance())!;
+    log("leadopendb: " + leadopendb.length.toString());
     await DBOperation.insertopenleadMaster(leadopendb, db);
     notifyListeners();
-}
+  }
+
   // call summary api
   List<SummaryLeadData> leadSummaryOpen = [];
   List<SummaryLeadData> leadSummaryWon = [];
@@ -980,34 +996,34 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
     leadSummaryOpen.clear();
     leadSummaryWon.clear();
     leadSummaryLost.clear();
-    lottie='';
+    lottie = '';
     // openlea();
     await GetLeadSummaryApi.getData(ConstantValues.slpcode).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         if (value.leadSummaryheader != null) {
           mapValuesSummary(value.leadSummaryheader!.leadSumarydata!);
-          isbool=false;
+          isbool = false;
           notifyListeners();
         } else if (value.leadSummaryheader == null) {
-           datagotByApi = true;
-           lottie='Assets/no-data.png';
+          datagotByApi = true;
+          lottie = 'Assets/no-data.png';
           leadCheckDataExcep = 'No Leads..!!';
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-         isbool=false;
-          datagotByApi = true;
-          lottie='';
+        isbool = false;
+        datagotByApi = true;
+        lottie = '';
         leadCheckDataExcep =
             'Some thing went wrong \n${value.message} ${value.exception}..!!';
-            notifyListeners();
+        notifyListeners();
       } else if (value.stcode == 500) {
-         isbool=false;
-          datagotByApi = true;
-            lottie='Assets/NetworkAnimation.json';
+        isbool = false;
+        datagotByApi = true;
+        lottie = 'Assets/NetworkAnimation.json';
         leadCheckDataExcep =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
-     notifyListeners();
+        notifyListeners();
       }
       notifyListeners();
     });
@@ -1048,11 +1064,11 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
   /////  for fialog
   String isSelectedFollowUp = '';
   String get getisSelectedFollowUp => isSelectedFollowUp;
-  String isSelectedFollowUpcode='';
+  String isSelectedFollowUpcode = '';
   String get getisSelectedFollowUpcode => isSelectedFollowUpcode;
-  selectFollowUp(String selected,String selectcode) {
+  selectFollowUp(String selected, String selectcode) {
     isSelectedFollowUp = selected;
-    isSelectedFollowUpcode=selectcode;
+    isSelectedFollowUpcode = selectcode;
     notifyListeners();
   }
 
@@ -1102,7 +1118,7 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
         return;
       }
       String chooseddate = value.toString();
-      VisitTime='';
+      VisitTime = '';
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -1118,7 +1134,7 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
 
   String apiWonFDate = '';
   String nextWonFD = '';
-   String apiwonpurchaseDate = '';
+  String apiwonpurchaseDate = '';
   String nextpurchasedate = '';
   String get getnextWonFD => nextWonFD;
   void showFollowupWonDate(BuildContext context) {
@@ -1144,7 +1160,6 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
       notifyListeners();
     });
   }
-
 
   void showpurchaseupateDate(BuildContext context) {
     showDatePicker(
@@ -1212,7 +1227,7 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
         return;
       }
       String chooseddate = value.toString();
-      forwaVisitTime='';
+      forwaVisitTime = '';
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -1234,7 +1249,7 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
     leadForwarddialog = false;
     leadWondialog = false;
     leadLostdialog = false;
-    nextpurchasedate='';
+    nextpurchasedate = '';
     leadLoadingdialog = false;
     valueChosedReason = null;
     valueChosedStatus = null;
@@ -1244,9 +1259,9 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
     caseStatusSelected = '';
     selectedUserList = '';
     forwardnextWonFD = '';
-    forwaVisitTime='';
-    iscorectime=false;
-    iscorectime2=false;
+    forwaVisitTime = '';
+    iscorectime = false;
+    iscorectime2 = false;
     hinttextforOpenLead = 'Select Status:* ';
     hinttextforWonLead = 'Select Status:* ';
     hinttextforLostLead = 'Select Reason*';
@@ -1256,7 +1271,7 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
     mycontroller[0].clear();
     mycontroller[2].clear();
     mycontroller[5].clear();
-    selectedUserList='';
+    selectedUserList = '';
 
     hinttextforWonLead = "Select Status:*";
     hinttextforLostLead = "Select Status:*";
@@ -1267,17 +1282,16 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
     orderBillDate = 'Order/Bill Date:*';
     followup = 'How you made the follow up?*';
     forwardNextFollowDate = 'Next FollowUp:*';
-    assignVisitTime='FollowUp Time*';
+    assignVisitTime = 'FollowUp Time*';
     leadOpenSaveClicked = false;
     leadWonSaveClicked = false;
     leadLostSaveClicked = false;
     nextWonFD = '';
     quataDate = '';
     userLtData = await DBOperation.getUserList(db);
-     filteruserLtData = userLtData;
+    filteruserLtData = userLtData;
     setForwardDataList();
-   
-    
+
     notifyListeners();
   }
 
@@ -1375,7 +1389,7 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
   }
 
   choosedStatus(String val) {
-    log("val::"+val.toString());
+    log("val::" + val.toString());
     valueChosedStatus = val;
     notifyListeners();
   }
@@ -1392,11 +1406,11 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
   String emptyQuataDate = ''; //cl
   String? get getemptyQuataDate => emptyQuataDate;
 
-  caseStatusSelectBtn(String val,String code) {
+  caseStatusSelectBtn(String val, String code) {
     caseStatusSelected = val;
-    caseStatusSelectedcode=code;
-    log("caseStatusSelected::"+caseStatusSelected.toString());
-     log("caseStatusSelectedcode::"+caseStatusSelectedcode.toString());
+    caseStatusSelectedcode = code;
+    log("caseStatusSelected::" + caseStatusSelected.toString());
+    log("caseStatusSelectedcode::" + caseStatusSelectedcode.toString());
     notifyListeners();
   }
 
@@ -1412,7 +1426,6 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
 
   List<UserListData> userLtData = [];
   List<UserListData> get getuserLtData => userLtData;
-  
 
   String selectedUserList = '';
   String get getselectedUserList => selectedUserList;
@@ -1435,7 +1448,6 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
     userLtData = await DBOperation.getUserList(db);
     filteruserLtData = userLtData;
     setForwardDataList();
-   
 
     notifyListeners();
   }
@@ -1478,7 +1490,7 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
 
   getSelectedUserSalesEmpId(int i) {
     selectedUserList = filteruserLtData[i].userCode.toString();
-    log("selectedUserList::"+selectedUserList.toString());
+    log("selectedUserList::" + selectedUserList.toString());
     selectUser(i);
   }
 
@@ -1518,7 +1530,8 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
   bool leadWonSaveClicked = false;
   bool leadLostSaveClicked = false;
 
-  clickLeadSaveBtn(String followDocEntry, String leadDocEntry,String purchasedate) {
+  clickLeadSaveBtn(
+      String followDocEntry, String leadDocEntry, String purchasedate) {
     if (caseStatusSelected == 'Open') {
       leadOpenSaveClicked = true;
       leadWonSaveClicked = false;
@@ -1526,7 +1539,7 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
       log("followDocEntry: $followDocEntry");
       log("leadDocEntry: $leadDocEntry");
 
-      callRequiredOpen(followDocEntry,leadDocEntry,purchasedate);
+      callRequiredOpen(followDocEntry, leadDocEntry, purchasedate);
     } else if (caseStatusSelected == 'Won') {
       leadWonSaveClicked = true;
       leadOpenSaveClicked = false;
@@ -1539,12 +1552,14 @@ mapvaluestoDB(List<GetAllLeadData> leadOpenAllData)async{
       callRequiredLost(followDocEntry, leadDocEntry);
     }
   }
-String errorVisitTime = "";
- String VisitTime = '';
- String forwarderrorVisitTime = "";
- String forwaVisitTime = '';
+
+  String errorVisitTime = "";
+  String VisitTime = '';
+  String forwarderrorVisitTime = "";
+  String forwaVisitTime = '';
   String get getVsitTime => VisitTime;
-  callRequiredOpen(String followDocEntry,String leadDocEntry,String purchasedate) {
+  callRequiredOpen(
+      String followDocEntry, String leadDocEntry, String purchasedate) {
     int i = 0;
     if (valueChosedStatus == null) {
       i = i + 1;
@@ -1564,12 +1579,12 @@ String errorVisitTime = "";
     } else {
       nextFollowupDate = 'Next Follow up:*';
     }
-     if (VisitTime == '') {
+    if (VisitTime == '') {
       i = i + 1;
       nextVisitTime = 'Followup Time: *';
-     } else {
+    } else {
       nextVisitTime = 'Followup Time:*';
-      }
+    }
     if (isSelectedFollowUp == '') {
       print("4");
 
@@ -1584,8 +1599,9 @@ String errorVisitTime = "";
     hinttextforLostLead = 'Select Reason:*';
     if (i < 1) {
       print("ssssss");
-      Allfollowupupdate(followDocEntry,leadDocEntry, mycontroller[1].text, apiFDate,"", "","","",purchasedate);
-    
+      Allfollowupupdate(followDocEntry, leadDocEntry, mycontroller[1].text,
+          apiFDate, "", "", "", "", purchasedate);
+
       // openSave(
       //     followDocEntry, valueChosedStatus, mycontroller[1].text, apiFDate);
     }
@@ -1612,10 +1628,10 @@ String errorVisitTime = "";
     if (mycontroller[1].text.isEmpty) {
       i = i + 1;
       print("2");
-feedbackLead = 'Give your feedback *';
+      feedbackLead = 'Give your feedback *';
       // orderBillRefer = 'Order/Bill Reference: *';
     } else {
-     feedbackLead = 'Give your feedback*';
+      feedbackLead = 'Give your feedback*';
     }
     if (nextWonFD == '') {
       print("3");
@@ -1633,15 +1649,16 @@ feedbackLead = 'Give your feedback *';
     } else {
       followup = 'How you made the follow up?*';
     }
-    
+
     nextFollowupDate = 'Next Follow up:*';
     hinttextforLostLead = 'Select Reason:*';
     hinttextforOpenLead = "Select Status:*";
     print(i);
     if (i < 1) {
       print("ssssss");
-      Allfollowupupdate(followDocEntry,leadDocEntry, mycontroller[1].text, "",apiWonFDate, mycontroller[0].text,'',"",'');
-      
+      Allfollowupupdate(followDocEntry, leadDocEntry, mycontroller[1].text, "",
+          apiWonFDate, mycontroller[0].text, '', "", '');
+
       // WonSave(
       //     followDocEntry,
       //     leadDocEntry,
@@ -1680,8 +1697,9 @@ feedbackLead = 'Give your feedback *';
     nextFollowupDate = 'Next Follow up:*';
     hinttextforOpenLead = "Select Status:*";
     if (i < 1) {
-Allfollowupupdate(followDocEntry,leadDocEntry, mycontroller[1].text, "","", "","","",'');
-     
+      Allfollowupupdate(followDocEntry, leadDocEntry, mycontroller[1].text, "",
+          "", "", "", "", '');
+
       // lostSave(followDocEntry, leadDocEntry, valueChosedReason,
       //     mycontroller[1].text, isSelectedFollowUp);
     }
@@ -1695,13 +1713,13 @@ Allfollowupupdate(followDocEntry,leadDocEntry, mycontroller[1].text, "","", "","
         feedbackLead = 'Give your feedback *';
         nextFollowupDate = 'Next Follow up: *';
         followup = 'How you made the follow up? *';
-        nextVisitTime='Followup Time: *';
+        nextVisitTime = 'Followup Time: *';
       } else {
         hinttextforOpenLead = "Select Status:";
         feedbackLead = 'Give your feedback*';
         nextFollowupDate = 'Next Follow up:*';
         followup = 'How you made the follow up?*';
-        nextVisitTime='Followup Time:*';
+        nextVisitTime = 'Followup Time:*';
       }
     } else {}
 
@@ -1709,7 +1727,7 @@ Allfollowupupdate(followDocEntry,leadDocEntry, mycontroller[1].text, "","", "","
       if (leadWonSaveClicked == true) {
         hinttextforWonLead = "Select Status: *";
         orderBillRefer = 'Order/Bill Reference *';
-         feedbackLead = 'Give your feedback *';
+        feedbackLead = 'Give your feedback *';
         followup = 'How you made the follow up? *';
       } else {
         hinttextforWonLead = "Select Status:*";
@@ -1805,7 +1823,8 @@ Allfollowupupdate(followDocEntry,leadDocEntry, mycontroller[1].text, "","", "","
           leadLoadingdialog = false;
           notifyListeners();
         } else if (value.stCode == 500) {
-          forwardSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+          forwardSuccessMsg =
+              '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
           leadLoadingdialog = false;
           notifyListeners();
         }
@@ -1813,30 +1832,32 @@ Allfollowupupdate(followDocEntry,leadDocEntry, mycontroller[1].text, "","", "","
       checkValues();
     }
   }
-   clearbool(){
-  visitDt='';
-  VisitTime='';
-  errorVisitTime='';
-  notifyListeners();
- }
- String visitDt = '';
- String? nextVisitTime = 'Followup Time:';
+
+  clearbool() {
+    visitDt = '';
+    VisitTime = '';
+    errorVisitTime = '';
+    notifyListeners();
+  }
+
+  String visitDt = '';
+  String? nextVisitTime = 'Followup Time:';
   String? get getnextVisitTime => nextVisitTime;
-  String? assignvisitDt='';
-String? assignVisitTime = 'Followup Time:';
+  String? assignvisitDt = '';
+  String? assignVisitTime = 'Followup Time:';
   String? get getassignVisitTime => assignVisitTime;
- bool iscorectime=false;
-   selectVisitTime(BuildContext context) async {
+  bool iscorectime = false;
+  selectVisitTime(BuildContext context) async {
     TimeOfDay timee = TimeOfDay.now();
-    TimeOfDay   startTime = TimeOfDay(hour: 7, minute: 0);
-  TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0); 
+    TimeOfDay startTime = TimeOfDay(hour: 7, minute: 0);
+    TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0);
     if (nextFD.isNotEmpty) {
       errorVisitTime = "";
       final TimeOfDay? newTime = await showTimePicker(
         context: context,
         initialTime: timee,
       );
-      
+
       if (newTime != null) {
         timee = newTime;
 //          if (timee.hour < startTime.hour ||
@@ -1847,54 +1868,56 @@ String? assignVisitTime = 'Followup Time:';
 //             notifyListeners();
 //               }else{
 
-            log("date::"+DateFormat('dd-MM-yyyy').format(DateTime.now()));
-        if (nextFD ==
-            DateFormat('dd-MM-yyyy').format(DateTime.now())) {
-          if (timee.hour < TimeOfDay.now().hour ||(timee.hour == TimeOfDay.now().hour && timee.minute < TimeOfDay.now().minute)) {
+        log("date::" + DateFormat('dd-MM-yyyy').format(DateTime.now()));
+        if (nextFD == DateFormat('dd-MM-yyyy').format(DateTime.now())) {
+          if (timee.hour < TimeOfDay.now().hour ||
+              (timee.hour == TimeOfDay.now().hour &&
+                  timee.minute < TimeOfDay.now().minute)) {
             errorVisitTime = "Please Choose Correct Time";
             VisitTime = "";
-             iscorectime=true;
+            iscorectime = true;
             notifyListeners();
             print("error");
           } else {
             errorVisitTime = "";
             print("correct11");
-             iscorectime=false;
+            iscorectime = false;
             VisitTime = timee.format(context).toString();
           }
         } else {
           errorVisitTime = "";
           print("correct22");
           timee = newTime;
-           iscorectime=false;
+          iscorectime = false;
           VisitTime = timee.format(context).toString();
         }
- nextVisitTime = 'Followup Time';
+        nextVisitTime = 'Followup Time';
         notifyListeners();
-    // }
+        // }
       }
-       
+
       notifyListeners();
     } else {
       VisitTime = "";
       errorVisitTime = "Please Choose First Date";
-       iscorectime=true;
+      iscorectime = true;
       notifyListeners();
     }
     notifyListeners();
   }
-bool iscorectime2=false;
+
+  bool iscorectime2 = false;
   forwardVisitTime(BuildContext context) async {
     TimeOfDay timee = TimeOfDay.now();
-    TimeOfDay   startTime = TimeOfDay(hour: 7, minute: 0);
-  TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0); 
+    TimeOfDay startTime = TimeOfDay(hour: 7, minute: 0);
+    TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0);
     if (forwardnextWonFD.isNotEmpty) {
       forwarderrorVisitTime = "";
       final TimeOfDay? newTime = await showTimePicker(
         context: context,
         initialTime: timee,
       );
-      
+
       if (newTime != null) {
         timee = newTime;
 
@@ -1905,30 +1928,31 @@ bool iscorectime2=false;
 //             assignVisitTime = 'Followup Time:*';
 //             notifyListeners();
 //               }else{
-log("DATTTA::"+DateFormat('dd-MM-yyyy').format(DateTime.now()));
+        log("DATTTA::" + DateFormat('dd-MM-yyyy').format(DateTime.now()));
 
-log("DATTTA222::"+forwardnextWonFD.toString());
+        log("DATTTA222::" + forwardnextWonFD.toString());
 
-             
         if (forwardnextWonFD ==
             DateFormat('dd-MM-yyyy').format(DateTime.now())) {
-          if (timee.hour < TimeOfDay.now().hour ||(timee.hour == TimeOfDay.now().hour && timee.minute < TimeOfDay.now().minute)) {
+          if (timee.hour < TimeOfDay.now().hour ||
+              (timee.hour == TimeOfDay.now().hour &&
+                  timee.minute < TimeOfDay.now().minute)) {
             forwarderrorVisitTime = "Please Choose Correct Time";
             forwaVisitTime = "";
-            iscorectime2=true;
+            iscorectime2 = true;
             notifyListeners();
             print("error");
           } else {
             errorVisitTime = "";
             print("correct11");
-            iscorectime2=false;
+            iscorectime2 = false;
             forwaVisitTime = timee.format(context).toString();
           }
         } else {
           errorVisitTime = "";
           print("correct22");
           timee = newTime;
-           iscorectime2=false;
+          iscorectime2 = false;
           forwaVisitTime = timee.format(context).toString();
         }
 //  }
@@ -1938,14 +1962,23 @@ log("DATTTA222::"+forwardnextWonFD.toString());
     } else {
       VisitTime = "";
       forwarderrorVisitTime = "Please Choose First Date";
-      iscorectime2=true;
+      iscorectime2 = true;
       notifyListeners();
     }
     notifyListeners();
   }
- 
- Allfollowupupdate(String followDocEntry,String leadDocEntry, feedback, nextFPdate,billwonDate, billreference,String salesPersonEmpId,String checkstatus,purchasedate) async {
-    log("purchasedate:::"+purchasedate.toString());
+
+  Allfollowupupdate(
+      String followDocEntry,
+      String leadDocEntry,
+      feedback,
+      nextFPdate,
+      billwonDate,
+      billreference,
+      String salesPersonEmpId,
+      String checkstatus,
+      purchasedate) async {
+    log("purchasedate:::" + purchasedate.toString());
     forwardSuccessMsg = '';
     leadLoadingdialog = true;
     leadForwarddialog = true;
@@ -1953,104 +1986,103 @@ log("DATTTA222::"+forwardnextWonFD.toString());
     String? reasondetails;
     ForwardLeadUserDataOpen forwardLeadUserDataOpen =
         new ForwardLeadUserDataOpen();
-        log("valueChosedStatus::"+valueChosedStatus.toString());
-    if(caseStatusSelected == "Open"){
- for(int i=0;i<leadStatusOpen.length;i++){
-  if(leadStatusOpen[i].code==valueChosedStatus){
-reasondetails=leadStatusOpen[i].name;
-log("reasondetails::"+reasondetails.toString());
-  }
-  notifyListeners();
- }
-  if(VisitTime != ''){
-      Config config=Config();
+    log("valueChosedStatus::" + valueChosedStatus.toString());
+    if (caseStatusSelected == "Open") {
+      for (int i = 0; i < leadStatusOpen.length; i++) {
+        if (leadStatusOpen[i].code == valueChosedStatus) {
+          reasondetails = leadStatusOpen[i].name;
+          log("reasondetails::" + reasondetails.toString());
+        }
+        notifyListeners();
+      }
+      if (VisitTime != '') {
+        Config config = Config();
 
-forwardLeadUserDataOpen.nextFD=
-config.alignDateforFollow(VisitTime,nextFPdate);
- 
-    }else{
-forwardLeadUserDataOpen.nextFD = nextFPdate;
-    }
-    forwardLeadUserDataOpen.visitdate=null;
-    forwardLeadUserDataOpen.curentDate = config.currentDate();
-    forwardLeadUserDataOpen.ReasonCode = valueChosedStatus;
-    forwardLeadUserDataOpen.Reasoname=reasondetails;
-    forwardLeadUserDataOpen.Purchasedate=nextpurchasedate==null||nextpurchasedate==''||nextpurchasedate.isEmpty?purchasedate:apiwonpurchaseDate;
-    forwardLeadUserDataOpen.followupMode = isSelectedFollowUpcode;
-    
-    forwardLeadUserDataOpen.updatedBy = ConstantValues.slpcode;
-    forwardLeadUserDataOpen.feedback = feedback;
-    forwardLeadUserDataOpen.status=caseStatusSelectedcode;
-    notifyListeners();
-    }
-    else if(caseStatusSelected == "Won"){
-       for(int i=0;i<leadStatusWon.length;i++){
-  if(leadStatusWon[i].code==valueChosedStatusWon){
-reasondetails=leadStatusWon[i].name;
-log("reasondetails::"+reasondetails.toString());
-  }
-  notifyListeners();
- }
+        forwardLeadUserDataOpen.nextFD =
+            config.alignDateforFollow(VisitTime, nextFPdate);
+      } else {
+        forwardLeadUserDataOpen.nextFD = nextFPdate;
+      }
+      forwardLeadUserDataOpen.visitdate = null;
+      forwardLeadUserDataOpen.curentDate = config.currentDate();
+      forwardLeadUserDataOpen.ReasonCode = valueChosedStatus;
+      forwardLeadUserDataOpen.Reasoname = reasondetails;
+      forwardLeadUserDataOpen.Purchasedate = nextpurchasedate == null ||
+              nextpurchasedate == '' ||
+              nextpurchasedate.isEmpty
+          ? purchasedate
+          : apiwonpurchaseDate;
+      forwardLeadUserDataOpen.followupMode = isSelectedFollowUpcode;
 
-    forwardLeadUserDataOpen.ReasonCode = valueChosedStatusWon;
-    forwardLeadUserDataOpen.Reasoname=reasondetails;
-    forwardLeadUserDataOpen.billDate = billwonDate;
-    forwardLeadUserDataOpen.billRef = billreference;
-    forwardLeadUserDataOpen.curentDate = config.currentDate();
-    forwardLeadUserDataOpen.feedback = feedback;
-   forwardLeadUserDataOpen.followupMode = isSelectedFollowUpcode;
-    forwardLeadUserDataOpen.nextFD = null;
-    forwardLeadUserDataOpen.updatedBy = ConstantValues.slpcode;
-     forwardLeadUserDataOpen.status=caseStatusSelectedcode;
-     notifyListeners();
+      forwardLeadUserDataOpen.updatedBy = ConstantValues.slpcode;
+      forwardLeadUserDataOpen.feedback = feedback;
+      forwardLeadUserDataOpen.status = caseStatusSelectedcode;
+      notifyListeners();
+    } else if (caseStatusSelected == "Won") {
+      for (int i = 0; i < leadStatusWon.length; i++) {
+        if (leadStatusWon[i].code == valueChosedStatusWon) {
+          reasondetails = leadStatusWon[i].name;
+          log("reasondetails::" + reasondetails.toString());
+        }
+        notifyListeners();
+      }
 
-    }else if(caseStatusSelected == "Lost"){
-      for(int i=0;i<leadStatusLost.length;i++){
-  if(leadStatusLost[i].code==valueChosedReason){
-reasondetails=leadStatusLost[i].code;
-log("reasondetails::"+reasondetails.toString());
-  }
-  notifyListeners();
- }
-  forwardLeadUserDataOpen.ReasonCode = valueChosedReason;
-    forwardLeadUserDataOpen.Reasoname=reasondetails;
-    forwardLeadUserDataOpen.curentDate = config.currentDate();
-    forwardLeadUserDataOpen.feedback = feedback;
-   forwardLeadUserDataOpen.followupMode = isSelectedFollowUpcode;
-    forwardLeadUserDataOpen.nextFD = null;
-    forwardLeadUserDataOpen.updatedBy = ConstantValues.slpcode;
-     forwardLeadUserDataOpen.status=caseStatusSelectedcode;
-     notifyListeners();
-    }else {
-       
-    
- 
-    
-    
-for(int i=0;i<leadStatusOpen.length;i++){
-  if(leadStatusOpen[i].name==checkstatus){
-reasondetails=leadStatusOpen[i].code;
-log("reasondetails::"+reasondetails.toString());
-  }
-  
-  notifyListeners();
- }
-    Config config=Config();
+      forwardLeadUserDataOpen.ReasonCode = valueChosedStatusWon;
+      forwardLeadUserDataOpen.Reasoname = reasondetails;
+      forwardLeadUserDataOpen.billDate = billwonDate;
+      forwardLeadUserDataOpen.billRef = billreference;
+      forwardLeadUserDataOpen.curentDate = config.currentDate();
+      forwardLeadUserDataOpen.feedback = feedback;
+      forwardLeadUserDataOpen.followupMode = isSelectedFollowUpcode;
+      forwardLeadUserDataOpen.nextFD = null;
+      forwardLeadUserDataOpen.updatedBy = ConstantValues.slpcode;
+      forwardLeadUserDataOpen.status = caseStatusSelectedcode;
+      notifyListeners();
+    } else if (caseStatusSelected == "Lost") {
+      for (int i = 0; i < leadStatusLost.length; i++) {
+        if (leadStatusLost[i].code == valueChosedReason) {
+          reasondetails = leadStatusLost[i].code;
+          log("reasondetails::" + reasondetails.toString());
+        }
+        notifyListeners();
+      }
+      forwardLeadUserDataOpen.ReasonCode = valueChosedReason;
+      forwardLeadUserDataOpen.Reasoname = reasondetails;
+      forwardLeadUserDataOpen.curentDate = config.currentDate();
+      forwardLeadUserDataOpen.feedback = feedback;
+      forwardLeadUserDataOpen.followupMode = isSelectedFollowUpcode;
+      forwardLeadUserDataOpen.nextFD = null;
+      forwardLeadUserDataOpen.updatedBy = ConstantValues.slpcode;
+      forwardLeadUserDataOpen.status = caseStatusSelectedcode;
+      notifyListeners();
+    } else {
+      for (int i = 0; i < leadStatusOpen.length; i++) {
+        if (leadStatusOpen[i].name == checkstatus) {
+          reasondetails = leadStatusOpen[i].code;
+          log("reasondetails::" + reasondetails.toString());
+        }
 
-forwardLeadUserDataOpen.nextFD=
-config.alignDateforFollow(forwaVisitTime,apiforwardNextFollowUPDate);
-    forwardLeadUserDataOpen.ReasonCode =reasondetails==null||reasondetails.isEmpty? leadStatusOpen[0].code:reasondetails;
-    forwardLeadUserDataOpen.Reasoname=reasondetails==null||reasondetails.isEmpty?leadStatusOpen[0].name:checkstatus;
- forwardLeadUserDataOpen.status="01";
- forwardLeadUserDataOpen.curentDate = config.currentDate();
-    
+        notifyListeners();
+      }
+      Config config = Config();
+
+      forwardLeadUserDataOpen.nextFD =
+          config.alignDateforFollow(forwaVisitTime, apiforwardNextFollowUPDate);
+      forwardLeadUserDataOpen.ReasonCode =
+          reasondetails == null || reasondetails.isEmpty
+              ? leadStatusOpen[0].code
+              : reasondetails;
+      forwardLeadUserDataOpen.Reasoname =
+          reasondetails == null || reasondetails.isEmpty
+              ? leadStatusOpen[0].name
+              : checkstatus;
+      forwardLeadUserDataOpen.status = "01";
+      forwardLeadUserDataOpen.curentDate = config.currentDate();
+
       forwardLeadUserDataOpen.nextUser = salesPersonEmpId;
       notifyListeners();
-      
     }
-   
 
-   
     await AllSaveLeadApi.getData(leadDocEntry, forwardLeadUserDataOpen)
         .then((value) {
       if (value.stCode >= 200 && value.stCode <= 210) {
@@ -2062,7 +2094,8 @@ config.alignDateforFollow(forwaVisitTime,apiforwardNextFollowUPDate);
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardSuccessMsg = "${value.stCode!}..!!Network Issue..\nTry again Later..!!";
+        forwardSuccessMsg =
+            "${value.stCode!}..!!Network Issue..\nTry again Later..!!";
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -2135,7 +2168,8 @@ config.alignDateforFollow(forwaVisitTime,apiforwardNextFollowUPDate);
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -2174,7 +2208,8 @@ config.alignDateforFollow(forwaVisitTime,apiforwardNextFollowUPDate);
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -2226,7 +2261,7 @@ config.alignDateforFollow(forwaVisitTime,apiforwardNextFollowUPDate);
   //   });
   // }
 
- List< GetLeadDeatilsQTHData>? leadDeatilsQTHData=[];
+  List<GetLeadDeatilsQTHData>? leadDeatilsQTHData = [];
   List<GetLeadDeatilsQTHData>? get getleadDeatilsQTHData => leadDeatilsQTHData;
 
   List<GetLeadQTLData> leadDeatilsQTLData = [];
@@ -2234,67 +2269,69 @@ config.alignDateforFollow(forwaVisitTime,apiforwardNextFollowUPDate);
 
   List<GetLeadDeatilsLData> leadDeatilsLData = [];
   List<GetLeadDeatilsLData> get getleadDeatilsLeadData => leadDeatilsLData;
-List<GetLeadopenData> leadopendata=[];
-List<GetLeadopenData> get getleadopendata=>leadopendata;
- List<GetLeadPhoneData> leadphonedata=[];
-  List<GetLeadPhoneData> get getleadphonedata=>leadphonedata;
-callinitApi()async{
-   await GetLeadopenApi.getData().then((value) {
+  List<GetLeadopenData> leadopendata = [];
+  List<GetLeadopenData> get getleadopendata => leadopendata;
+  List<GetLeadPhoneData> leadphonedata = [];
+  List<GetLeadPhoneData> get getleadphonedata => leadphonedata;
+  callinitApi() async {
+    await GetLeadopenApi.getData().then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-       leadopendata=value.leadopendata!;
+        leadopendata = value.leadopendata!;
         notifyListeners();
       } else if (value.stcode! >= 400 && value.stcode! <= 490) {
-       leadCheckDataExcep="Something went wrong";
+        leadCheckDataExcep = "Something went wrong";
         notifyListeners();
       } else {
-       leadCheckDataExcep="${value.stcode!}..!!Network Issue..\nTry again Later..!!";
-        
+        leadCheckDataExcep =
+            "${value.stcode!}..!!Network Issue..\nTry again Later..!!";
+
         notifyListeners();
       }
     });
-     await GetLeadphoneApi.getData().then((value) {
+    await GetLeadphoneApi.getData().then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        leadphonedata=value.leadphonedata!;
-       
+        leadphonedata = value.leadphonedata!;
+
         notifyListeners();
       } else if (value.stcode! >= 400 && value.stcode! <= 490) {
-       leadCheckDataExcep="No data..!!";
+        leadCheckDataExcep = "No data..!!";
         notifyListeners();
       } else {
-      leadCheckDataExcep="${value.stcode!}..!!Network Issue..\nTry again Later..!!";
+        leadCheckDataExcep =
+            "${value.stcode!}..!!Network Issue..\nTry again Later..!!";
         notifyListeners();
       }
     });
-}
+  }
 
-
-setForwardDataList(){
-    List<UserListData> filteruserLtData2 =[];
+  setForwardDataList() {
+    List<UserListData> filteruserLtData2 = [];
 // print("List Length"+filteruserLtData.length.toString());
-    for(int i=0;i<filteruserLtData.length;i++){
+    for (int i = 0; i < filteruserLtData.length; i++) {
       // print("User slp::${ConstantValues.slpcode}--${filteruserLtData[i].slpcode}");
-      if(filteruserLtData[i].slpcode != ConstantValues.slpcode){
-      filteruserLtData2.add(UserListData(
-        userCode: filteruserLtData[i].userCode,
-        storeid: filteruserLtData[i].storeid,
-      mngSlpcode: filteruserLtData[i].mngSlpcode,
-      UserName: filteruserLtData[i].UserName,
-      color: filteruserLtData[i].color,
-      slpcode: filteruserLtData[i].slpcode,
-      SalesEmpID: filteruserLtData[i].SalesEmpID) );
+      if (filteruserLtData[i].slpcode != ConstantValues.slpcode) {
+        filteruserLtData2.add(UserListData(
+            userCode: filteruserLtData[i].userCode,
+            storeid: filteruserLtData[i].storeid,
+            mngSlpcode: filteruserLtData[i].mngSlpcode,
+            UserName: filteruserLtData[i].UserName,
+            color: filteruserLtData[i].color,
+            slpcode: filteruserLtData[i].slpcode,
+            SalesEmpID: filteruserLtData[i].SalesEmpID));
       }
     }
 
-    if(filteruserLtData2.isNotEmpty){
-    filteruserLtData=[];
-    filteruserLtData=filteruserLtData2;
+    if (filteruserLtData2.isNotEmpty) {
+      filteruserLtData = [];
+      filteruserLtData = filteruserLtData2;
     }
     notifyListeners();
   }
+
   callGetLeadDeatilsApi(String leadDocEnt) async {
     leadDeatilsQTHData!.clear();
-     leadDeatilsQTLData.clear();
-      leadDeatilsLData.clear();
+    leadDeatilsQTLData.clear();
+    leadDeatilsLData.clear();
     forwardSuccessMsg = '';
     leadLoadingdialog = true;
     leadForwarddialog = true;
@@ -2302,38 +2339,32 @@ setForwardDataList(){
     notifyListeners();
     await GetLeadQTHApi.getData(leadDocEnt).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        if(value.leadDeatilheadsData !=null ){
- leadDeatilsQTHData = value.leadDeatilheadsData!.leadcheckQTHdata!;
- leadDeatilsQTLData = value.leadDeatilheadsData!.leadDeatilsQTLData!;
-if(value.leadDeatilheadsData!.leadDeatilsLeadData !=null){
-leadDeatilsLData = value.leadDeatilheadsData!.leadDeatilsLeadData!;
+        if (value.leadDeatilheadsData != null) {
+          leadDeatilsQTHData = value.leadDeatilheadsData!.leadcheckQTHdata!;
+          leadDeatilsQTLData = value.leadDeatilheadsData!.leadDeatilsQTLData!;
+          if (value.leadDeatilheadsData!.leadDeatilsLeadData != null) {
+            leadDeatilsLData = value.leadDeatilheadsData!.leadDeatilsLeadData!;
 
 // log("leadDeatilsLData::"+leadDeatilsLData[4].Feedback.toString());
-}
+          }
 
-leadLoadingdialog = false;
-        leadForwarddialog = false;
-        updateFollowUpDialog = false;
-        viewDetailsdialog = true;
-        notifyListeners();
- 
-        
-       
+          leadLoadingdialog = false;
+          leadForwarddialog = false;
+          updateFollowUpDialog = false;
+          viewDetailsdialog = true;
+          notifyListeners();
         }
-       
       } else if (value.stcode! >= 400 && value.stcode! <= 490) {
         forwardSuccessMsg = '${value.message}..!!${value.exception}..!!';
         leadLoadingdialog = false;
         notifyListeners();
       } else {
-        forwardSuccessMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
     });
-
-   
-    
   }
 
   ///
@@ -2345,51 +2376,53 @@ leadLoadingdialog = false;
   mapValuestoorder(GetAllLeadData leadOpenAllData) {
     // log("AAAAA" + ind.toString());
     OrderNewController.datafromlead.clear();
-    log("leadOpenAllData[ind].City!::"+leadOpenAllData.City!.toString());
+    log("leadOpenAllData[ind].City!::" + leadOpenAllData.City!.toString());
     // OrderNewController.datafromlead.add(leadOpenAllData[ind].)
     OrderNewController.datafromlead.add(leadOpenAllData.Mobile!);
     OrderNewController.datafromlead.add(leadOpenAllData.CustomerName!);
     OrderNewController.datafromlead.add(leadOpenAllData.add1!.toString());
     OrderNewController.datafromlead.add(leadOpenAllData.add2!.toString());
     OrderNewController.datafromlead.add(leadOpenAllData.pincode!.toString());
-    OrderNewController.datafromlead.add(leadOpenAllData.City!.toString()); //isSelectedCsTag
+    OrderNewController.datafromlead
+        .add(leadOpenAllData.City!.toString()); //isSelectedCsTag
     OrderNewController.datafromlead.add(leadOpenAllData.LeadNum.toString());
     OrderNewController.datafromlead.add(leadOpenAllData.cusEmail.toString());
     OrderNewController.datafromlead.add(leadOpenAllData.state.toString());
     OrderNewController.datafromlead.add(leadOpenAllData.cusgroup.toString());
-    
+
     OrderNewController.datafromlead.add(leadOpenAllData.area.toString());
     OrderNewController.datafromlead.add(leadOpenAllData.OrderType.toString());
 
-OrderBookNewState.iscomfromLead = true;
-          Get.toNamed(ConstantRoutes.ordernew);
-          notifyListeners();
-   
+    OrderBookNewState.iscomfromLead = true;
+    Get.toNamed(ConstantRoutes.ordernew);
+    notifyListeners();
   }
-mapValuestoquotes(GetAllLeadData leadOpenAllData) {
+
+  mapValuestoquotes(GetAllLeadData leadOpenAllData) {
     // log("AAAAA" + ind.toString());
     NewquoteController.datafromlead.clear();
-    log("leadOpenAllData[ind].City!::"+leadOpenAllData.City!.toString());
+    log("leadOpenAllData[ind].City!::" + leadOpenAllData.City!.toString());
     // OrderNewController.datafromlead.add(leadOpenAllData[ind].)
     NewquoteController.datafromlead.add(leadOpenAllData.Mobile!);
     NewquoteController.datafromlead.add(leadOpenAllData.CustomerName!);
     NewquoteController.datafromlead.add(leadOpenAllData.add1!.toString());
     NewquoteController.datafromlead.add(leadOpenAllData.add2!.toString());
     NewquoteController.datafromlead.add(leadOpenAllData.pincode!.toString());
-    NewquoteController.datafromlead.add(leadOpenAllData.City!.toString()); //isSelectedCsTag
+    NewquoteController.datafromlead
+        .add(leadOpenAllData.City!.toString()); //isSelectedCsTag
     NewquoteController.datafromlead.add(leadOpenAllData.LeadNum.toString());
     NewquoteController.datafromlead.add(leadOpenAllData.cusEmail.toString());
     NewquoteController.datafromlead.add(leadOpenAllData.state.toString());
     NewquoteController.datafromlead.add(leadOpenAllData.cusgroup.toString());
-    
+
     NewquoteController.datafromlead.add(leadOpenAllData.area.toString());
     NewquoteController.datafromlead.add(leadOpenAllData.OrderType.toString());
 
-QuoteNewState.iscomfromLead = true;
-          Get.toNamed(ConstantRoutes.quotesnew);
-          notifyListeners();
-   
+    QuoteNewState.iscomfromLead = true;
+    Get.toNamed(ConstantRoutes.quotesnew);
+    notifyListeners();
   }
+
   SearchFilterOpenTab(String v) {
     print('saearch :' + v);
     if (v.isNotEmpty) {
@@ -2414,7 +2447,11 @@ QuoteNewState.iscomfromLead = true;
                   .toString()
                   .toLowerCase()
                   .contains(v.toLowerCase()) ||
-              (e).customermob.toString().toLowerCase().contains(v.toLowerCase()))
+              (e)
+                  .customermob
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()))
           .toList();
       notifyListeners();
     } else if (v.isEmpty) {
@@ -2447,7 +2484,11 @@ QuoteNewState.iscomfromLead = true;
                   .toString()
                   .toLowerCase()
                   .contains(v.toLowerCase()) ||
-              (e).customermob.toString().toLowerCase().contains(v.toLowerCase()))
+              (e)
+                  .customermob
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()))
           .toList();
       notifyListeners();
     } else if (v.isEmpty) {
@@ -2480,7 +2521,11 @@ QuoteNewState.iscomfromLead = true;
                   .toString()
                   .toLowerCase()
                   .contains(v.toLowerCase()) ||
-              (e).customermob.toString().toLowerCase().contains(v.toLowerCase()))
+              (e)
+                  .customermob
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()))
           .toList();
       notifyListeners();
     } else if (v.isEmpty) {
@@ -2521,7 +2566,8 @@ QuoteNewState.iscomfromLead = true;
         notifyListeners();
       } else {
         isanyExcep = -2;
-        forwardSuccessMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -2628,39 +2674,41 @@ QuoteNewState.iscomfromLead = true;
     print("getforwardSuccessMsg: " + getforwardSuccessMsg.toString());
   }
 }
+
 class Distcolumn {
   String name;
   Distcolumn({
     required this.name,
   });
 }
- 
+
 class Distcusgroupcolumn {
   String name;
   Distcusgroupcolumn({
     required this.name,
   });
 }
+
 class DistEnqstatuscolumn {
   String name;
   DistEnqstatuscolumn({
     required this.name,
   });
 }
+
 class Distlookingforcolumn {
   String name;
   bool ischecck;
-  Distlookingforcolumn({
-    required this.name,
-    required this.ischecck
-  });
+  Distlookingforcolumn({required this.name, required this.ischecck});
 }
+
 class Distlevelcolumn {
   String name;
   Distlevelcolumn({
     required this.name,
   });
 }
+
 class Distordercolumn {
   String name;
   Distordercolumn({

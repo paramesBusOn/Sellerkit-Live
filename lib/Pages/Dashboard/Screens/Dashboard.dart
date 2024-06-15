@@ -211,7 +211,7 @@ void _handleTabChange() {
                           horizontal: Screens.bodyheight(context) * 0.00),
                       child: Column(
                         children: [
-                        controller!.index.toString()=="0"?
+                        // controller!.index.toString()=="0"?
                           Container(
                             height: Screens.bodyheight(context) * 0.06,
                             decoration: BoxDecoration(
@@ -275,11 +275,12 @@ void _handleTabChange() {
                                 ),
                               ),
                             ),
-                          ):Container( 
-                            // child:  Text("ItemMaster length:${pvdDSBD.allProductDetails.length}"
-                        // ,style:TextStyle(color: Colors.white,)
-                        // )
-                        ),
+                          ),
+                        //   :Container( 
+                        //     // child:  Text("ItemMaster length:${pvdDSBD.allProductDetails.length}"
+                        // // ,style:TextStyle(color: Colors.white,)
+                        // // )
+                        // ),
                         //   SizedBox(
                         //     height:Screens.padingHeight(context)*0.01
                         //   ),

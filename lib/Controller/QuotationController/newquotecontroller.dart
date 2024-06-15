@@ -37,6 +37,7 @@ import 'package:sellerkit/Models/stateModel/stateModel.dart';
 import 'package:sellerkit/Pages/OrderBooking/Screens/OrderSuccessPage.dart';
 import 'package:sellerkit/Pages/Quoatation/Succcesspage.dart';
 import 'package:sellerkit/Pages/Quoatation/tabquote/widgets/firstdialog.dart';
+import 'package:sellerkit/Pages/Quoatation/tabquote/widgets/shorefdialog.dart';
 import 'package:sellerkit/Services/PostQueryApi/EnquiriesApi/GetCustomerDetails.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/GetAllLeads.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/GetLeadDeatilsQTH.dart';
@@ -952,7 +953,7 @@ restricteddialog(BuildContext context){
    List<GlobalKey<FormState>> formkey =
       new List.generate(3, (i) => new GlobalKey<FormState>(debugLabel: "Lead"));
   List<TextEditingController> mycontroller =
-      List.generate(40, (i) => TextEditingController());
+      List.generate(50, (i) => TextEditingController());
 
 
   String apiFDate = '';
@@ -1826,7 +1827,7 @@ showBottomSheetInsertforedit(
                                     //     dismissDirection: DismissDirection.down,
                                     //   ),
                                     // );
-                                    if (int.parse(mycontroller[11].text) > 0) {
+                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text) > 0) {
                                       mycontroller[12].clear();
                                       addProductDetails(context);
                                     } else {
@@ -1836,7 +1837,7 @@ showBottomSheetInsertforedit(
                                   child: Text("ok"))
                               : ElevatedButton(
                                   onPressed: () {
-                                    if (int.parse(mycontroller[11].text) > 0) {
+                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text) > 0) {
                                       updateProductDetails(context, i);
                                     } else {
                                       showtoastproduct();
@@ -1855,6 +1856,8 @@ showBottomSheetInsertforedit(
   }
   
 String? DocDateold='';
+
+String? valueChosedrefcode;
  showBottomSheetInsert(BuildContext context, int i,) {
     final theme = Theme.of(context);
     selectedItemName = allProductDetails[i].itemName.toString();
@@ -2078,7 +2081,108 @@ if (val.length > 0) {
                           ),
                         ],
                       ),
-
+// SizedBox(
+//                         height: 10,
+//                       ),
+//                        SizedBox(
+//                         // width: 270,
+//                         // height: 40,
+//                         child: new TextFormField(
+//                           controller: mycontroller[46],
+                          
+//                           readOnly: true ,
+//                           onTap: (){
+//                              showDialog<dynamic>(
+//                                                           context: context,
+//                                                           builder: (_) {
+//                                                             return ShowSearchDialog();
+//                                                           }).then((value) {
+//                                                           //  context
+//                                                           //   .read<
+//                                                           //       NewEnqController>()
+//                                                           //   .setcatagorydata();    
+//                                                             });
+//                           },
+//                           // validator: (value) {
+//                           //   if (value!.isEmpty) {
+//                           //     return "ENTER QUANTITY";
+//                           //   }
+//                           //   return null;
+//                           // },
+                          
+//                           style: TextStyle(fontSize: 15),
+//                           decoration: InputDecoration(
+//                             contentPadding: EdgeInsets.symmetric(
+//                                 vertical: 10, horizontal: 10),
+//                             border: OutlineInputBorder(
+//                               borderRadius: BorderRadius.all(
+//                                 Radius.circular(10),
+//                               ),
+//                             ),
+//                             labelText: "referal partner",
+//                             suffixIcon: Icon(Icons.search)
+//                           ),
+//                         ),
+//                       ),
+                      // Container(
+                      //             // height: Screens.padingHeight(context) * 0.06,
+                      //             width: Screens.width(context),
+                      //             child: DropdownButtonFormField(
+                      //               decoration: InputDecoration(
+                      //                 // hintText: 'Email',
+                      //                 labelText: 'referal partner',
+                      //                 border: UnderlineInputBorder(),
+                      //                 enabledBorder: UnderlineInputBorder(
+                      //                   borderSide:
+                      //                       BorderSide(color: Colors.grey),
+                      //                 ),
+                      //                 focusedBorder: UnderlineInputBorder(
+                      //                   borderSide:
+                      //                       BorderSide(color: Colors.grey),
+                      //                 ),
+                      //                 errorBorder: UnderlineInputBorder(),
+                      //                 focusedErrorBorder:
+                      //                     UnderlineInputBorder(),
+                      //               ),
+                      //               // hint: Text(
+                      //               //   context
+                      //               //       .watch<NewEnqController>()
+                      //               //       .gethinttextforOpenLead!,
+                      //               //   style: theme.textTheme.bodyText2?.copyWith(
+                      //               //       color: context
+                      //               //               .watch<NewEnqController>()
+                      //               //               .gethinttextforOpenLead!
+                      //               //               .contains(" *")
+                      //               //           ? Colors.red
+                      //               //           : Colors.black),
+                      //               // ),
+                      //               value:valueChosedrefcode,
+                      //               //dropdownColor:Colors.green,
+                      //               icon: Icon(Icons.arrow_drop_down),
+                      //               iconSize: 30,
+                      //               style: TextStyle(
+                      //                   color: Colors.black, fontSize: 16),
+                      //               isExpanded: true,
+                      //               onChanged: (String? val) {
+                      //                 // setState(() {
+                      //                   st((){
+                      //                     valueChosedrefcode=val!;
+                      //                   });
+                      //                   // choosedrefer(val.toString());
+                      //                 // });
+                      //               },
+                      //               items: <String>['data1', 'data2', 'data3', 'data4']
+                      //                   .map((e) {
+                      //                 return DropdownMenuItem(
+                      //                     // ignore: unnecessary_brace_in_string_interps
+                      //                     value: "${e}",
+                      //                     child: Container(
+                      //                         // height: Screens.bodyheight(context)*0.1,
+                      //                         child: Text("${e}")));
+                      //               }).toList(),
+                      //             ),
+                      //           ),
+                       
                       SizedBox(
                         height: 5,
                       ),
@@ -2111,7 +2215,7 @@ if (val.length > 0) {
         //     dismissDirection: DismissDirection.down,
         //   ),
         // );
-                                    if(int.parse(mycontroller[11].text)>0){
+                                    if(mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text)>0){
   mycontroller[12].clear();
                                     addProductDetails(context);
                                     }else{
@@ -2125,7 +2229,7 @@ if (val.length > 0) {
                                   child: Text("ok"))
                               : ElevatedButton(
                                   onPressed: () {
-                                     if(int.parse(mycontroller[11].text)>0){
+                                     if(mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text)>0){
  updateProductDetails(context, i);
                                      }else{
 

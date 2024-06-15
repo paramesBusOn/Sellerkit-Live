@@ -5,6 +5,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellerkit/Models/getuserbyidModel/getuserbyidmodel.dart';
+
+import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/DataBaseConfig.dart';
@@ -15,6 +18,7 @@ import 'package:sellerkit/DBModel/testdbmodel2.dart';
 import 'package:sellerkit/Models/OfferZone/OfferZoneModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/OrderTypeModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestModel.dart';
+import 'package:sellerkit/Models/PostQueryModel/ItemMasterModelNew.dart/itemviewModel.dart';
 import 'package:sellerkit/Models/TestModel.dart';
 import 'package:sellerkit/Models/stateModel/stateModel.dart';
 import 'package:sellerkit/Services/OfferZoneApi/OfferZoneAPi.dart';
@@ -49,6 +53,7 @@ import '../../Services/PostQueryApi/EnquiriesApi/GetEnqReffers.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/GetEnqType.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/GetUserApi.dart';
 import '../../Services/PostQueryApi/ItemMasterApi/ItemMasterApiNew.dart';
+import '../../Services/PostQueryApi/ItemMasterApi/itemviewApi.dart';
 import '../../Services/PostQueryApi/LeadsApi/GetLeadStatusApi.dart';
 import '../../Services/PostQueryApi/ProfileApi/ProfileApi.dart';
 import '../../Services/URL/LocalUrl.dart';
@@ -838,11 +843,51 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
       }
   //     });
      await   DBOperation.insertItemMaster(valuesInserMaster, db);
-   List<Map<String, Object?>> assignDB =
-        await DBOperation.getstorecode("StoreCode", db);
- log("assignDBaaaa:::"+assignDB.toString());
-        log("assignDB:::"+assignDB.length.toString());
-        if(assignDB.length>1){
+  //  List<Map<String, Object?>> assignDB =
+  //       await DBOperation.getstorecode("ItemCode", db);
+  storelistdata.clear();
+await userbyidApi.getData(ConstantValues.UserId).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        storelistdata=value.ageLtData!.storelistdata!;
+        
+      
+      }
+    });
+  //       await ItemViewApiNew.getData(assignDB[0]["ItemCode"].toString()).then((value) {
+  // if (value.stcode! >= 200 && value.stcode! <= 210) {
+  //       if (value.itemdatahead!.itemdata! != null && value.itemdatahead!.itemdata!.isNotEmpty) {
+  //        itemviewdata=value.itemdatahead!.itemdata!;
+  //         // spilitDatafirst(value.getvisitheaddata!.getvisitdetailsdata!);
+  //         isloading = false;
+  //         log("itemviewdata:::"+itemviewdata.length.toString());
+  //         notifyListeners();
+  //       } else if (value.itemdatahead!.itemdata == null|| value.itemdatahead!.itemdata!.isEmpty) {
+  //         isloading = false;
+  //         // lottie='Assets/no-data.png';
+  //         errortabMsg = 'No data..!!';
+        
+  //         notifyListeners();
+  //       }
+  //     } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+  //       //   lottie='';
+  //       isloading = false;
+  //       errortabMsg =
+  //           '${value.exception}..${value.message}..!!';
+        
+  //       notifyListeners();
+  //     } else if (value.stcode == 500) {
+  //       isloading = false;
+  //         // lottie='Assets/NetworkAnimation.json';
+  //       errortabMsg =
+  //           '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+       
+  //       notifyListeners();
+  //     }
+  // });
+//  log("itemviewdata:::"+storelistdata.toString());
+        log("itemviewdata:::"+storelistdata.length.toString());
+        if(storelistdata.length>1){
         ConstantValues.  multistoreuser =1;
         notifyListeners();
         }else{
@@ -863,6 +908,12 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
     notifyListeners();
       // Get.offAllNamed(ConstantRoutes.dashboard);
   }
+  
+bool isloading=false;
+String errortabMsg='';
+
+List<storesListDtos> storelistdata=[];
+List<ItemViewNewData> itemviewdata=[];
 insetitemMaste(List<ItemMasterDBModel> valuesInserMaster)async{
    final stopwatch = Stopwatch()..start();
         log("Start:insetitemMaste " );

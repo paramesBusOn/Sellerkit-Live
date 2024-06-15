@@ -9,6 +9,8 @@ class LoginModel {
   LoginModelData? data;
   int? resCode;
   String? excep;
+  String? token;
+
   List<LoginVerificationList>? loginVerifiList;
 
   LoginModel(
@@ -17,6 +19,7 @@ class LoginModel {
       required this.loginVerifiList,
       this.data,
       this.excep,
+      this.token,
       required this.resCode});
 
   factory LoginModel.fromJson(Map<String, dynamic> jsons,
@@ -31,7 +34,9 @@ class LoginModel {
           data: LoginModelData.fromJson(jsons),
           excep: null,
           loginVerifiList: null,
-          resCode: rescode); 
+          resCode: rescode,
+           token: verifijsons['token']
+          ); 
       }else{
 List<LoginVerificationList> dataList =
           list.map((data) => LoginVerificationList.fromJson(data)).toList();
@@ -43,6 +48,7 @@ List<LoginVerificationList> dataList =
         loginVerifiList: dataList,
         resCode: rescode,
         excep: null,
+         token: verifijsons['token']
       );
       }
       

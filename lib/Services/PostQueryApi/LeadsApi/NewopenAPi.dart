@@ -33,7 +33,7 @@ class GetLeadopenApi {
 
       resCode = response.statusCode;
       // print("LEAD_STATUS_REASONcode"+response.statusCode.toString());
-      // log("LEAD_STATUS_open"+response.body.toString());
+      log("NEWWWWWWLEAD_STATUS_open"+response.body.toString());
       if (response.statusCode == 200) {
       //    ReceivePort port  = new ReceivePort();
       //  final islol =await Isolate.spawn<List<dynamic>>(deserialize, [port.sendPort,response.body,response.statusCode]);

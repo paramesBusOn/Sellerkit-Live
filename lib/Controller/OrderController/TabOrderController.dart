@@ -4,7 +4,7 @@ import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 import 'package:sellerkit/Services/PostQueryApi/OrdersApi/paymentmode.dart';
@@ -63,7 +63,7 @@ class OrderTabController extends ChangeNotifier {
 
   List<GetAllOrderData> leadOpenAllData = [];
   List<GetAllOrderData> get getAllLeadData => leadOpenAllData;
-   List<GetAllOrderData> filterleadOpenAllData = [];
+  List<GetAllOrderData> filterleadOpenAllData = [];
   List<GetAllOrderData> get getFilterleadOpenAllData => filterleadOpenAllData;
   //
   List<GetAllOrderData> leadClosedAllData = [];
@@ -71,15 +71,17 @@ class OrderTabController extends ChangeNotifier {
   List<GetAllOrderData> leadinProcessAllData = [];
   List<GetAllOrderData> get getleadinProcessAllData => leadinProcessAllData;
   List<GetAllOrderData> filterleadinProcessAllData = [];
-  List<GetAllOrderData> get getfilterleadinProcessAllData => filterleadinProcessAllData;
+  List<GetAllOrderData> get getfilterleadinProcessAllData =>
+      filterleadinProcessAllData;
   List<GetAllOrderData> filterleadClosedAllData = [];
-  List<GetAllOrderData> get getFilterleadClosedAllData=> filterleadClosedAllData;
+  List<GetAllOrderData> get getFilterleadClosedAllData =>
+      filterleadClosedAllData;
   // List<GetAllOrderData> leadLostAllData = [];
   // List<GetAllOrderData> get getleadLostAllData => leadLostAllData;
   String leadCheckDataExcep = '';
   String get getLeadCheckDataExcep => leadCheckDataExcep;
-bool opendialogbool=false;
-bool reminderOn=false;
+  bool opendialogbool = false;
+  bool reminderOn = false;
   printLogic() {
     log("leadCheckDataExcep: ${leadCheckDataExcep}");
     // log("leadSummaryLost: ${leadSummaryLost.length}");
@@ -89,10 +91,11 @@ bool reminderOn=false;
     log("leadClosedAllData: ${leadClosedAllData.length}");
     // log("leadLostAllData: ${leadLostAllData.length}");
   }
-  String? filterapiwonpurchaseDate='';
- 
- DateTime? checkdate;
-void showfromDate(BuildContext context) {
+
+  String? filterapiwonpurchaseDate = '';
+
+  DateTime? checkdate;
+  void showfromDate(BuildContext context) {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -104,7 +107,7 @@ void showfromDate(BuildContext context) {
       }
       mycontroller[22].clear();
       String chooseddate = value.toString();
-      checkdate=value;
+      checkdate = value;
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -117,11 +120,12 @@ void showfromDate(BuildContext context) {
       notifyListeners();
     });
   }
+
   void showToDate(BuildContext context) {
     showDatePicker(
       context: context,
-     initialDate:checkdate ?? DateTime.now(),
-      firstDate:checkdate ?? DateTime(2020),
+      initialDate: checkdate ?? DateTime.now(),
+      firstDate: checkdate ?? DateTime(2020),
       lastDate: DateTime(2050),
     ).then((value) {
       if (value == null) {
@@ -140,33 +144,37 @@ void showfromDate(BuildContext context) {
       notifyListeners();
     });
   }
-int? reyear;
-int? remonth;
-int? reday;
-int? rehours;
-int? reminutes;
-setReminderOnMethod(bool val,String? title){
-reminderOn=val;
-if(reminderOn ==true){
+
+  int? reyear;
+  int? remonth;
+  int? reday;
+  int? rehours;
+  int? reminutes;
+  setReminderOnMethod(bool val, String? title) {
+    reminderOn = val;
+    if (reminderOn == true) {
       addgoogle(title);
       notifyListeners();
     }
-notifyListeners();
-}
-addgoogle(String? title){
-   Config config2 = Config();
-    tz.TZDateTime? tzChosenDate;
-  final DateTime chosenDate = DateTime(reyear!, remonth!, reday!, rehours!, reminutes!);
- final tz.Location indian = tz.getLocation('Asia/Kolkata');
-         tzChosenDate = tz.TZDateTime.from(chosenDate, indian);
-          config2.  addEventToCalendar(tzChosenDate!,"$title","Lead");
-}
+    notifyListeners();
+  }
 
-  clearAllListData() {datagotByApi=false;
-     GetAllData.clear();
-      iscalltrue=false;
-    userid='';
-    usernumber='';
+  addgoogle(String? title) {
+    Config config2 = Config();
+    tz.TZDateTime? tzChosenDate;
+    final DateTime chosenDate =
+        DateTime(reyear!, remonth!, reday!, rehours!, reminutes!);
+    final tz.Location indian = tz.getLocation('Asia/Kolkata');
+    tzChosenDate = tz.TZDateTime.from(chosenDate, indian);
+    config2.addEventToCalendar(tzChosenDate!, "$title", "Lead");
+  }
+
+  clearAllListData() {
+    datagotByApi = false;
+    GetAllData.clear();
+    iscalltrue = false;
+    userid = '';
+    usernumber = '';
     assigncolumn.clear();
     cusgroupcolumn.clear();
     enqstatuscolumn.clear();
@@ -176,19 +184,20 @@ addgoogle(String? title){
     intlevelcolumn.clear();
     ordercolumn.clear();
     GetfromdborderData.clear();
-      orderInvBillRefer = 'Invoice Reference*';
-      orderInvvalue = 'Invoice Value*';
-        orderInvvalue = 'Invoice Value*';
+    orderInvBillRefer = 'Invoice Reference*';
+    orderInvvalue = 'Invoice Value*';
+    orderInvvalue = 'Invoice Value*';
     files.clear();
-    reminderOn=false;
-      reyear=null;
- remonth=null;
- reday=null;
- rehours=null;
- reminutes=null;
+    reminderOn = false;
+    reyear = null;
+    remonth = null;
+    reday = null;
+    rehours = null;
+    reminutes = null;
     filedata.clear();
     leadCheckDataExcep = '';
-    apiInvFDate="";nextInvFD="";
+    apiInvFDate = "";
+    nextInvFD = "";
     mycontroller[0].clear();
     mycontroller[2].clear();
     mycontroller[1].clear();
@@ -199,7 +208,8 @@ addgoogle(String? title){
     // leadSummaryLost.clear();
     leadOpenAllData.clear();
     // leadLostAllData.clear();
-    leadClosedAllData.clear();mycontroller[5].clear();
+    leadClosedAllData.clear();
+    mycontroller[5].clear();
     mycontroller[10].clear();
     notifyListeners();
   }
@@ -207,7 +217,8 @@ addgoogle(String? title){
   refershAfterClosedialog() {
     files.clear();
     filedata.clear();
-    apiInvFDate="";nextInvFD="";
+    apiInvFDate = "";
+    nextInvFD = "";
     leadCheckDataExcep = '';
     leadOpenAllData.clear();
     leadClosedAllData.clear();
@@ -216,247 +227,261 @@ addgoogle(String? title){
     filterleadClosedAllData.clear();
     filterleadinProcessAllData.clear();
     // leadLostAllData.clear();
+    iscalltrue = false;
     leadSummaryOpen.clear();
     leadSummaryWon.clear();
-     leadSummaryinprocess.clear();
+    leadSummaryinprocess.clear();
     // leadSummaryLost.clear();
     comeFromEnq = -1;
     viewDetailsdialog = false;
     mycontroller[5].clear();
-     mycontroller[10].clear();
+    mycontroller[10].clear();
     notifyListeners();
   }
 
   Future<void> swipeRefreshIndiactor() async {
     // return Future.delayed(Duration.zero,(){
     // refershAfterClosedialog();
-   await clearAllListData();
-   await callinitApi();
-   await callGetAllApi();
-   await callpaymodeApi();
- await  callusermobileApi();
-   
+    await clearAllListData();
+    await callinitApi();
+    await callGetAllApi();
+    await callpaymodeApi();
+    await callusermobileApi();
+
     // callSummaryApi();
 
     //});
   }
-List<GetOrderdialogData> orderdialogdata=[];
-  callinitApi()async{
-   await GetcanceldialogApi.getData().then((value) {
+
+  List<GetOrderdialogData> orderdialogdata = [];
+  callinitApi() async {
+    await GetcanceldialogApi.getData().then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-       orderdialogdata=value.orderdialogdata!;
+        orderdialogdata = value.orderdialogdata!;
         notifyListeners();
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
         leadCheckDataExcep = '${value.exception}..!!';
         notifyListeners();
       } else {
-        leadCheckDataExcep = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
-        
+        leadCheckDataExcep =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+
         notifyListeners();
       }
     });
-    
-}
-customerdetData? customermodeldata;
-callcustomerapi()async{
-  await customerDetailApi.getData().then((value) {
-    if(value.stcode! >= 200 && value.stcode! <= 210){
-customermodeldata=value.leadcheckdata;
-    }
-  });
+  }
 
-}
+  customerdetData? customermodeldata;
+  callcustomerapi() async {
+    await customerDetailApi.getData().then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        customermodeldata = value.leadcheckdata;
+      }
+    });
+  }
 
- List<GetAllOrderData> GetAllData = [];
- List<GetAllOrderData> GetfromdborderData = [];
- onfilterapply()async{
-     final Database db = (await DBHelper.getInstance())!;
-    
-      await DBOperation.getorderfilterapply(
-            db,
-            assignvalue == null ? '' : assignvalue!,
-            cusnamevalue == null ? '' : cusnamevalue!,
-            lookingforvalue == null ? '' : lookingforvalue!,
-            Enquirystatusvalue == null ? '' : Enquirystatusvalue!,
-            ordertypevalue == null ? '' : ordertypevalue!,
-            mycontroller[23].text.isEmpty ? 0.0 : double.parse(mycontroller[23].text),
-            mycontroller[21].text.isEmpty ? '0000-00-00' : config.alignDate1(mycontroller[21].text),
-            mycontroller[22].text.isEmpty ? '9999-12-31' :config.alignDate1( mycontroller[22].text),
-           
-           )
-        .then((value) async {
-    //  GetAllData.clear();
-    GetfromdborderData.clear();
-    leadOpenAllData.clear();
-    leadClosedAllData.clear();
-    leadinProcessAllData.clear();
-    filterleadOpenAllData.clear();
-    filterleadClosedAllData.clear();
-    filterleadinProcessAllData.clear();
+  List<GetAllOrderData> GetAllData = [];
+  List<GetAllOrderData> GetfromdborderData = [];
+  onfilterapply() async {
+    final Database db = (await DBHelper.getInstance())!;
+
+    await DBOperation.getorderfilterapply(
+      db,
+      assignvalue == null ? '' : assignvalue!,
+      cusnamevalue == null ? '' : cusnamevalue!,
+      lookingforvalue == null ? '' : lookingforvalue!,
+      Enquirystatusvalue == null ? '' : Enquirystatusvalue!,
+      ordertypevalue == null ? '' : ordertypevalue!,
+      mycontroller[23].text.isEmpty ? 0.0 : double.parse(mycontroller[23].text),
+      mycontroller[21].text.isEmpty
+          ? '0000-00-00'
+          : config.alignDate1(mycontroller[21].text),
+      mycontroller[22].text.isEmpty
+          ? '9999-12-31'
+          : config.alignDate1(mycontroller[22].text),
+    ).then((value) async {
+      //  GetAllData.clear();
+      GetfromdborderData.clear();
+      leadOpenAllData.clear();
+      leadClosedAllData.clear();
+      leadinProcessAllData.clear();
+      filterleadOpenAllData.clear();
+      filterleadClosedAllData.clear();
+      filterleadinProcessAllData.clear();
       GetfromdborderData = value;
-       await mapValues(GetfromdborderData);
+      await mapValues(GetfromdborderData);
       clearfilterval();
       notifyListeners();
     });
-
   }
 
-   
-bool? islookloading=false;
+  bool? islookloading = false;
   clearfilterval() {
-    checkdate=null;
+    checkdate = null;
     assignvalue = null;
     cusnamevalue = null;
-    islookingfor=false;
+    islookingfor = false;
     selectedlookingfor.clear();
-    isenqstatus=false;
+    isenqstatus = false;
     selectedenqstatus.clear();
     selectedcusgoup.clear();
-    iscusgroup=false;
-    isassignto=false;
-    isorder=false;
-    isinterest=false;
+    iscusgroup = false;
+    isassignto = false;
+    isorder = false;
+    isinterest = false;
     selectedinterest.clear();
     selectedorder.clear();
     selectedassignto.clear();
-    Enquirystatusvalue=null;
-    lookingforvalue=null;
-    ordertypevalue=null;
-    islookloading=false;
-    interestlevelvalue=null;
+    Enquirystatusvalue = null;
+    lookingforvalue = null;
+    ordertypevalue = null;
+    islookloading = false;
+    interestlevelvalue = null;
     customernameforcolumn.clear();
     lookingforcolumnforshow.clear();
     mycontroller[21].clear();
     mycontroller[22].clear();
     mycontroller[23].clear();
-    
 
     notifyListeners();
   }
-  
-List<Distcolumn> assigncolumn = [];
-   List<Distcusgroupcolumn> cusgroupcolumn = [];
- List<DistEnqstatuscolumn> enqstatuscolumn = [];
- List<Distlookingforcolumn> customernameforcolumn = [];
- List<Distlookingforcolumn> filterlookingforcolumn = [];
- List<Distlookingforcolumn> lookingforcolumnforshow = [];
- List<Distlevelcolumn> intlevelcolumn = [];
- List<Distordercolumn> ordercolumn = [];
- List<String> selectedinterest=[];
- List<String> selectedorder=[];
- List<String> selectedlookingfor=[];
- List<String> selectedenqstatus=[];
- List<String> selectedcusgoup=[];
- List<String> selectedassignto=[];
- bool isenqstatus=false;
- bool islookingfor=false;
- bool iscusgroup=false;
- bool isassignto=false;
- bool isinterest=false;
- bool isorder=false;
- String? assignvalue;
-   String? cusnamevalue;
-   String? Enquirystatusvalue;
-   String? lookingforvalue;
-    String? interestlevelvalue;
-     String? ordertypevalue;
- ontaporder(){
-   isorder = !isorder;
-   notifyListeners();
-    }
-    ontapinterest(){
-   isinterest = !isinterest;
-   notifyListeners();
-    }
- ontapassignto(){
-   isassignto = !isassignto;
-   notifyListeners();
-    }
-     itemselectinterest(String itemvalue,bool isselected){
-      interestlevelvalue='';
-  if(isselected){
-    selectedinterest.add(itemvalue);
-  }else{
-    selectedinterest.remove(itemvalue);
+
+  List<Distcolumn> assigncolumn = [];
+  List<Distcusgroupcolumn> cusgroupcolumn = [];
+  List<DistEnqstatuscolumn> enqstatuscolumn = [];
+  List<Distlookingforcolumn> customernameforcolumn = [];
+  List<Distlookingforcolumn> filterlookingforcolumn = [];
+  List<Distlookingforcolumn> lookingforcolumnforshow = [];
+  List<Distlevelcolumn> intlevelcolumn = [];
+  List<Distordercolumn> ordercolumn = [];
+  List<String> selectedinterest = [];
+  List<String> selectedorder = [];
+  List<String> selectedlookingfor = [];
+  List<String> selectedenqstatus = [];
+  List<String> selectedcusgoup = [];
+  List<String> selectedassignto = [];
+  bool isenqstatus = false;
+  bool islookingfor = false;
+  bool iscusgroup = false;
+  bool isassignto = false;
+  bool isinterest = false;
+  bool isorder = false;
+  String? assignvalue;
+  String? cusnamevalue;
+  String? Enquirystatusvalue;
+  String? lookingforvalue;
+  String? interestlevelvalue;
+  String? ordertypevalue;
+  ontaporder() {
+    isorder = !isorder;
+    notifyListeners();
   }
-  interestlevelvalue=selectedinterest.join(', ');
-  log("selectedinterest::"+selectedinterest.toString());
-  log("interestlevelvalue::"+interestlevelvalue.toString());
-  notifyListeners();
- }
-     itemselectorder(String itemvalue,bool isselected){
-      ordertypevalue='';
-  if(isselected){
-    selectedorder.add(itemvalue);
-  }else{
-    selectedorder.remove(itemvalue);
+
+  ontapinterest() {
+    isinterest = !isinterest;
+    notifyListeners();
   }
-  ordertypevalue=selectedorder.join(', ');
-  log("selectedorder::"+selectedorder.toString());
-  log("ordertypevalue::"+ordertypevalue.toString());
-  notifyListeners();
- }
- itemselectassignto(String itemvalue,bool isselected){
-  assignvalue='';
-  if(isselected){
-    selectedassignto.add(itemvalue);
-  }else{
-    selectedassignto.remove(itemvalue);
+
+  ontapassignto() {
+    isassignto = !isassignto;
+    notifyListeners();
   }
-  assignvalue=selectedassignto.join(', ');
-  log("selectedassignto::"+selectedassignto.toString());
-  log("assignvalue::"+assignvalue.toString());
-  notifyListeners();
- }
- itemselectCusgroup(String itemvalue,bool isselected){
-  cusnamevalue ='';
-  if(isselected){
-    selectedcusgoup.add(itemvalue);
-  }else{
-    selectedcusgoup.remove(itemvalue);
-  }
-  cusnamevalue=selectedcusgoup.join(', ');
-  log("selectedcusgoup::"+selectedcusgoup.toString());
-   log("cusnamevalue::"+cusnamevalue.toString());
-  notifyListeners();
- }
- ontapcusgroup(){
-   iscusgroup = !iscusgroup;
-   notifyListeners();
+
+  itemselectinterest(String itemvalue, bool isselected) {
+    interestlevelvalue = '';
+    if (isselected) {
+      selectedinterest.add(itemvalue);
+    } else {
+      selectedinterest.remove(itemvalue);
     }
- ontaplooking(){
-   islookingfor = !islookingfor;
-   notifyListeners();
-    }
-    onenqstatus(){
-   isenqstatus = !isenqstatus;
-   notifyListeners();
-    }
-     itemselectenqstatus(String itemvalue,bool isselected){
-      Enquirystatusvalue='';
-  if(isselected){
-    selectedenqstatus.add(itemvalue);
-  }else{
-    selectedenqstatus.remove(itemvalue);
+    interestlevelvalue = selectedinterest.join(', ');
+    log("selectedinterest::" + selectedinterest.toString());
+    log("interestlevelvalue::" + interestlevelvalue.toString());
+    notifyListeners();
   }
-  Enquirystatusvalue=selectedenqstatus.join(', ');
-  log("selectedlookingfor::"+selectedenqstatus.toString());
-   log("Enquirystatusvalue::"+Enquirystatusvalue.toString());
-  notifyListeners();
- }
- itemselect(String itemvalue,bool isselected){
-  lookingforvalue='';
-  if(isselected){
-    selectedlookingfor.add(itemvalue);
-  }else{
-    selectedlookingfor.remove(itemvalue);
+
+  itemselectorder(String itemvalue, bool isselected) {
+    ordertypevalue = '';
+    if (isselected) {
+      selectedorder.add(itemvalue);
+    } else {
+      selectedorder.remove(itemvalue);
+    }
+    ordertypevalue = selectedorder.join(', ');
+    log("selectedorder::" + selectedorder.toString());
+    log("ordertypevalue::" + ordertypevalue.toString());
+    notifyListeners();
   }
-  lookingforvalue=selectedlookingfor.join(', ');
-  log("selectedlookingfor::"+selectedlookingfor.toString());
-  log("lookingforvalue::"+lookingforvalue.toString());
-  notifyListeners();
- }
- Future<void> dataget(List<Map<String, Object?>> assignDB,cusgropDB,enqstatusDB,ordertypeDB,customernameDB) async {
+
+  itemselectassignto(String itemvalue, bool isselected) {
+    assignvalue = '';
+    if (isselected) {
+      selectedassignto.add(itemvalue);
+    } else {
+      selectedassignto.remove(itemvalue);
+    }
+    assignvalue = selectedassignto.join(', ');
+    log("selectedassignto::" + selectedassignto.toString());
+    log("assignvalue::" + assignvalue.toString());
+    notifyListeners();
+  }
+
+  itemselectCusgroup(String itemvalue, bool isselected) {
+    cusnamevalue = '';
+    if (isselected) {
+      selectedcusgoup.add(itemvalue);
+    } else {
+      selectedcusgoup.remove(itemvalue);
+    }
+    cusnamevalue = selectedcusgoup.join(', ');
+    log("selectedcusgoup::" + selectedcusgoup.toString());
+    log("cusnamevalue::" + cusnamevalue.toString());
+    notifyListeners();
+  }
+
+  ontapcusgroup() {
+    iscusgroup = !iscusgroup;
+    notifyListeners();
+  }
+
+  ontaplooking() {
+    islookingfor = !islookingfor;
+    notifyListeners();
+  }
+
+  onenqstatus() {
+    isenqstatus = !isenqstatus;
+    notifyListeners();
+  }
+
+  itemselectenqstatus(String itemvalue, bool isselected) {
+    Enquirystatusvalue = '';
+    if (isselected) {
+      selectedenqstatus.add(itemvalue);
+    } else {
+      selectedenqstatus.remove(itemvalue);
+    }
+    Enquirystatusvalue = selectedenqstatus.join(', ');
+    log("selectedlookingfor::" + selectedenqstatus.toString());
+    log("Enquirystatusvalue::" + Enquirystatusvalue.toString());
+    notifyListeners();
+  }
+
+  itemselect(String itemvalue, bool isselected) {
+    lookingforvalue = '';
+    if (isselected) {
+      selectedlookingfor.add(itemvalue);
+    } else {
+      selectedlookingfor.remove(itemvalue);
+    }
+    lookingforvalue = selectedlookingfor.join(', ');
+    log("selectedlookingfor::" + selectedlookingfor.toString());
+    log("lookingforvalue::" + lookingforvalue.toString());
+    notifyListeners();
+  }
+
+  Future<void> dataget(List<Map<String, Object?>> assignDB, cusgropDB,
+      enqstatusDB, ordertypeDB, customernameDB) async {
     assigncolumn.clear();
     cusgroupcolumn.clear();
     enqstatuscolumn.clear();
@@ -465,37 +490,41 @@ List<Distcolumn> assigncolumn = [];
     lookingforcolumnforshow.clear();
     intlevelcolumn.clear();
     ordercolumn.clear();
-   
+
     notifyListeners();
     for (int i = 0; i < assignDB.length; i++) {
       assigncolumn.add(Distcolumn(name: assignDB[i]['AssignedTo'].toString()));
-      assigncolumn.sort((a,b)=>a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      assigncolumn
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
       log("assigncolumn::" + assigncolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < cusgropDB.length; i++) {
-      cusgroupcolumn.add(Distcusgroupcolumn(name: cusgropDB[i]['CustomerGroup'].toString()));
+      cusgroupcolumn.add(
+          Distcusgroupcolumn(name: cusgropDB[i]['CustomerGroup'].toString()));
       log("cusgroupcolumn::" + cusgroupcolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < enqstatusDB.length; i++) {
-      enqstatuscolumn.add(DistEnqstatuscolumn(name: enqstatusDB[i]['OrderStatus'].toString()));
+      enqstatuscolumn.add(
+          DistEnqstatuscolumn(name: enqstatusDB[i]['OrderStatus'].toString()));
       log("enqstatuscolumn::" + enqstatuscolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < customernameDB.length; i++) {
-      customernameforcolumn.add(Distlookingforcolumn(name: customernameDB[i]['CustomerName'].toString(),ischecck: false));
-     
-       filterlookingforcolumn=customernameforcolumn;
+      customernameforcolumn.add(Distlookingforcolumn(
+          name: customernameDB[i]['CustomerName'].toString(), ischecck: false));
+
+      filterlookingforcolumn = customernameforcolumn;
       //   log("lookingforcolumn::" + filterlookingforcolumn.length.toString());
-        
+
       notifyListeners();
     }
-  //  for(int i=0;i<lookingforcolumn.length;i++){
-  //   filterlookingforcolumn.add(Distlookingforcolumn(name: lookingforcolumn[i].name.toString(),ischecck: lookingforcolumn[i].ischecck));
-  //    log("lookingforcolumn::" + filterlookingforcolumn[i].ischecck.toString());
-  //    notifyListeners();
-  //  }
+    //  for(int i=0;i<lookingforcolumn.length;i++){
+    //   filterlookingforcolumn.add(Distlookingforcolumn(name: lookingforcolumn[i].name.toString(),ischecck: lookingforcolumn[i].ischecck));
+    //    log("lookingforcolumn::" + filterlookingforcolumn[i].ischecck.toString());
+    //    notifyListeners();
+    //  }
     notifyListeners();
     // for (int i = 0; i < customernameDB.length; i++) {
     //   customernameforcolumn.add(Distlookingforcolumn(name: customernameDB[i]['InterestLevel'].toString()));
@@ -503,58 +532,14 @@ List<Distcolumn> assigncolumn = [];
     //   notifyListeners();
     // }
     for (int i = 0; i < ordertypeDB.length; i++) {
-      ordercolumn.add(Distordercolumn(name: ordertypeDB[i]['OrderType'].toString()));
+      ordercolumn
+          .add(Distordercolumn(name: ordertypeDB[i]['OrderType'].toString()));
       log("assigncolumn::" + ordercolumn.length.toString());
       notifyListeners();
     }
-   
   }
- getdbmodel()async{
-  GetfromdborderData.clear();
-   leadOpenAllData.clear();
-    leadClosedAllData.clear();
-    leadinProcessAllData.clear();
-    filterleadOpenAllData.clear();
-    filterleadClosedAllData.clear();
-    filterleadinProcessAllData.clear();
-     final Database db = (await DBHelper.getInstance())!;
-GetfromdborderData = await DBOperation.getorderdatafilter(db);
-log("GetfromdbEnqData::"+GetfromdborderData.length.toString());
- List<Map<String, Object?>> assignDB =
-        await DBOperation.getorderftr("AssignedTo", db);
-        List<Map<String, Object?>> cusgropDB =
-        await DBOperation.getorderftr("CustomerGroup", db);
-        List<Map<String, Object?>> enqstatusDB =
-        await DBOperation.getorderftr("OrderStatus", db);
-       List<Map<String, Object?>> customernameforDB =
-         await DBOperation.getorderftr("CustomerName", db);
-        // List<Map<String, Object?>> intlevelDB =
-        // await DBOperation.getorderftr("InterestLevel", db);
-        List<Map<String, Object?>> ordertypeDB =
-        await DBOperation.getorderftr("OrderType", db);
-        notifyListeners();
-        
-        await dataget(assignDB,cusgropDB,enqstatusDB,ordertypeDB,customernameforDB);
- await mapValues(GetfromdborderData);
-          notifyListeners();
-  }
-tableinsert(List<GetAllOrderData> getalldata)async{
- final Database db = (await DBHelper.getInstance())!;
- await DBOperation.truncareorderfilter(db);
 
-
-   await DBOperation.insertOrderdata(getalldata, db);
-   notifyListeners();
-   await getdbmodel();
-   notifyListeners();
-  }
-  bool datagotByApi = false;
-  
-String lottie='';
-  callGetAllApi() async {
-    datagotByApi=false;
-    notifyListeners();
-     GetAllData.clear();
+  getdbmodel() async {
     GetfromdborderData.clear();
     leadOpenAllData.clear();
     leadClosedAllData.clear();
@@ -562,7 +547,54 @@ String lottie='';
     filterleadOpenAllData.clear();
     filterleadClosedAllData.clear();
     filterleadinProcessAllData.clear();
-    lottie='';
+    final Database db = (await DBHelper.getInstance())!;
+    GetfromdborderData = await DBOperation.getorderdatafilter(db);
+    log("GetfromdbEnqData::" + GetfromdborderData.length.toString());
+    List<Map<String, Object?>> assignDB =
+        await DBOperation.getorderftr("AssignedTo", db);
+    List<Map<String, Object?>> cusgropDB =
+        await DBOperation.getorderftr("CustomerGroup", db);
+    List<Map<String, Object?>> enqstatusDB =
+        await DBOperation.getorderftr("OrderStatus", db);
+    List<Map<String, Object?>> customernameforDB =
+        await DBOperation.getorderftr("CustomerName", db);
+    // List<Map<String, Object?>> intlevelDB =
+    // await DBOperation.getorderftr("InterestLevel", db);
+    List<Map<String, Object?>> ordertypeDB =
+        await DBOperation.getorderftr("OrderType", db);
+    notifyListeners();
+
+    await dataget(
+        assignDB, cusgropDB, enqstatusDB, ordertypeDB, customernameforDB);
+    await mapValues(GetfromdborderData);
+    notifyListeners();
+  }
+
+  tableinsert(List<GetAllOrderData> getalldata) async {
+    final Database db = (await DBHelper.getInstance())!;
+    await DBOperation.truncareorderfilter(db);
+
+    await DBOperation.insertOrderdata(getalldata, db);
+    notifyListeners();
+    await getdbmodel();
+    notifyListeners();
+  }
+
+  bool datagotByApi = false;
+
+  String lottie = '';
+  callGetAllApi() async {
+    datagotByApi = false;
+    notifyListeners();
+    GetAllData.clear();
+    GetfromdborderData.clear();
+    leadOpenAllData.clear();
+    leadClosedAllData.clear();
+    leadinProcessAllData.clear();
+    filterleadOpenAllData.clear();
+    filterleadClosedAllData.clear();
+    filterleadinProcessAllData.clear();
+    lottie = '';
     //  final Database db = (await DBHelper.getInstance())!;
     // leadStatusLost = await DBOperation.getLeadStatusLost(db);
     // log(leadStatusLost.length.toString());
@@ -571,62 +603,61 @@ String lottie='';
       log("Step 2" + value.stcode.toString());
 
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        log("Step 3"+value.Ordercheckdatageader.toString());
+        log("Step 3" + value.Ordercheckdatageader.toString());
 
-        if (value.Ordercheckdatageader != null && value.Ordercheckdatageader!.Ordercheckdata!.isNotEmpty) {
+        if (value.Ordercheckdatageader != null &&
+            value.Ordercheckdatageader!.Ordercheckdata!.isNotEmpty) {
           log("not null");
-  GetAllData=value.Ordercheckdatageader!.Ordercheckdata!;
+          GetAllData = value.Ordercheckdatageader!.Ordercheckdata!;
           tableinsert(GetAllData);
 
           // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
-        } else if (value.Ordercheckdatageader == null||value.Ordercheckdatageader!.Ordercheckdata!.isEmpty) {
+        } else if (value.Ordercheckdatageader == null ||
+            value.Ordercheckdatageader!.Ordercheckdata!.isEmpty) {
           log("Order data null");
-          datagotByApi=true;
-          lottie='Assets/no-data.png';
+          datagotByApi = true;
+          lottie = 'Assets/no-data.png';
           leadCheckDataExcep = 'No Orders..!!';
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-        datagotByApi=true;
-         lottie='';
+        datagotByApi = true;
+        lottie = '';
         leadCheckDataExcep = '${value.message}..!!${value.exception}....!!';
         notifyListeners();
-      } else  {
-        datagotByApi=true;
-         lottie='Assets/NetworkAnimation.json';
-        leadCheckDataExcep = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
-     notifyListeners();
+      } else {
+        datagotByApi = true;
+        lottie = 'Assets/NetworkAnimation.json';
+        leadCheckDataExcep =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        notifyListeners();
       }
       notifyListeners();
     });
-   
+
     notifyListeners();
   }
-SearchFilterOpenTab(String v) {
+
+  SearchFilterOpenTab(String v) {
     print('saearch :' + v);
     if (v.isNotEmpty) {
       filterleadOpenAllData = leadOpenAllData
-           .where((e) => (e)
-              .CustomerName!
-              
-              .toLowerCase()
-              .contains(v.toLowerCase())||(e)
-              .Product!
-              
-              .toLowerCase()
-              .contains(v.toLowerCase())||(e)
-              .OrderNum!.toInt().toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-              ||(e)
-              .Value!.toDouble().toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-               ||(e)
-              .Mobile .toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-              )
+          .where((e) =>
+              (e).CustomerName!.toLowerCase().contains(v.toLowerCase()) ||
+              (e).Product!.toLowerCase().contains(v.toLowerCase()) ||
+              (e)
+                  .OrderNum!
+                  .toInt()
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()) ||
+              (e)
+                  .Value!
+                  .toDouble()
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()) ||
+              (e).Mobile.toString().toLowerCase().contains(v.toLowerCase()))
           .toList();
       notifyListeners();
     } else if (v.isEmpty) {
@@ -634,67 +665,60 @@ SearchFilterOpenTab(String v) {
       notifyListeners();
     }
   }
-setListData(){
-        filterleadOpenAllData = leadOpenAllData;
-      filterleadClosedAllData = leadClosedAllData;
-notifyListeners();
-}
-SearchFilterlostTab(String v){
-if (v.isNotEmpty) {
+
+  setListData() {
+    filterleadOpenAllData = leadOpenAllData;
+    filterleadClosedAllData = leadClosedAllData;
+    notifyListeners();
+  }
+
+  SearchFilterlostTab(String v) {
+    if (v.isNotEmpty) {
       filterleadClosedAllData = leadClosedAllData
-          .where((e) => (e)
-              .CustomerName!
-              
-              .toLowerCase()
-              .contains(v.toLowerCase())||(e)
-              .Product!
-              
-              .toLowerCase()
-              .contains(v.toLowerCase())||(e)
-              .OrderNum!.toInt().toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-              ||(e)
-              .Value!.toDouble().toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-               ||(e)
-              .Mobile .toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-              )
+          .where((e) =>
+              (e).CustomerName!.toLowerCase().contains(v.toLowerCase()) ||
+              (e).Product!.toLowerCase().contains(v.toLowerCase()) ||
+              (e)
+                  .OrderNum!
+                  .toInt()
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()) ||
+              (e)
+                  .Value!
+                  .toDouble()
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()) ||
+              (e).Mobile.toString().toLowerCase().contains(v.toLowerCase()))
           .toList();
       notifyListeners();
     } else if (v.isEmpty) {
       filterleadClosedAllData = leadClosedAllData;
       notifyListeners();
     }
-}
+  }
+
   SearchFilterWonTab(String v) {
     print('saearch :' + v);
     if (v.isNotEmpty) {
       filterleadinProcessAllData = leadinProcessAllData
-          .where((e) => (e)
-              .CustomerName!
-              
-              .toLowerCase()
-              .contains(v.toLowerCase())||(e)
-              .Product!
-              
-              .toLowerCase()
-              .contains(v.toLowerCase())||(e)
-              .OrderNum!.toInt().toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-              ||(e)
-              .Value!.toDouble().toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-               ||(e)
-              .Mobile .toString()
-              .toLowerCase()
-              .contains(v.toLowerCase())
-              )
+          .where((e) =>
+              (e).CustomerName!.toLowerCase().contains(v.toLowerCase()) ||
+              (e).Product!.toLowerCase().contains(v.toLowerCase()) ||
+              (e)
+                  .OrderNum!
+                  .toInt()
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()) ||
+              (e)
+                  .Value!
+                  .toDouble()
+                  .toString()
+                  .toLowerCase()
+                  .contains(v.toLowerCase()) ||
+              (e).Mobile.toString().toLowerCase().contains(v.toLowerCase()))
           .toList();
       notifyListeners();
     } else if (v.isEmpty) {
@@ -702,259 +726,259 @@ if (v.isNotEmpty) {
       notifyListeners();
     }
   }
-  mapValues(List<GetAllOrderData> leadcheckdata) async{
-    log("inside method"+leadcheckdata.length.toString());
+
+  mapValues(List<GetAllOrderData> leadcheckdata) async {
+    log("inside method" + leadcheckdata.length.toString());
     for (int i = 0; i < leadcheckdata.length; i++) {
-
-
-      if(leadcheckdata[i].Status.toString().toLowerCase() == "open") {
-
-          leadOpenAllData.add(GetAllOrderData(
-            CustomerGroup:leadcheckdata[i].CustomerGroup  ,
-            OrderType:leadcheckdata[i].OrderType  ,
-            createdon:leadcheckdata[i].createdon ,
-  isDelivered: leadcheckdata[i].isDelivered ,
-  isInvoiced:leadcheckdata[i].isInvoiced ,
+      if (leadcheckdata[i].Status.toString().toLowerCase() == "open") {
+        leadOpenAllData.add(GetAllOrderData(
+          CustomerGroup: leadcheckdata[i].CustomerGroup,
+          OrderType: leadcheckdata[i].OrderType,
+          createdon: leadcheckdata[i].createdon,
+          isDelivered: leadcheckdata[i].isDelivered,
+          isInvoiced: leadcheckdata[i].isInvoiced,
           OrderDocEntry: leadcheckdata[i].OrderDocEntry,
-           OrderNum: leadcheckdata[i].OrderNum, 
-           Mobile: leadcheckdata[i].Mobile, 
-           CustomerName: leadcheckdata[i].CustomerName, 
-           DocDate: leadcheckdata[i].DocDate, 
-           AssignedTo: leadcheckdata[i].AssignedTo, 
-           AttachURL1: leadcheckdata[i].AttachURL1, 
-           AttachURL2: leadcheckdata[i].AttachURL2, 
-           AttachURL3: leadcheckdata[i].AttachURL3, 
-           BaseDocDate: leadcheckdata[i].BaseDocDate, 
-           BaseID: leadcheckdata[i].BaseID,
-            BaseType: leadcheckdata[i].BaseType, 
-           CurrentStatus: leadcheckdata[i].CurrentStatus, 
-           DealID: leadcheckdata[i].DealID, 
-           Del_Address2: leadcheckdata[i].Del_Address2, 
-           Del_Address3: leadcheckdata[i].Del_Address3, 
-           Del_Area: leadcheckdata[i].Del_Area, 
-           Del_City: leadcheckdata[i].Del_City, 
-           Del_Country: leadcheckdata[i].Del_Country, 
-           Del_District: leadcheckdata[i].Del_District, 
-           Del_Pincode: leadcheckdata[i].Del_Pincode, 
-           Del_State: leadcheckdata[i].Del_State, 
-           DeliveryFrom: leadcheckdata[i].DeliveryFrom, 
-           Discount: leadcheckdata[i].Discount, 
-           FollowupEntry: leadcheckdata[i].FollowupEntry, 
-           LastUpdateMessage: leadcheckdata[i].LastUpdateMessage, 
-           GrossTotal: leadcheckdata[i].GrossTotal, 
-           LastUpdateTime: leadcheckdata[i].LastUpdateTime, 
-           OrderStatus: leadcheckdata[i].OrderStatus, 
-           Product: leadcheckdata[i].Product, 
-           RoundOff: leadcheckdata[i].RoundOff, 
-           Status: leadcheckdata[i].Status, 
-           StoreCode: leadcheckdata[i].StoreCode, 
-           SubTotal: leadcheckdata[i].SubTotal, 
-           TaxAmount: leadcheckdata[i].TaxAmount, 
-           Value: leadcheckdata[i].Value, 
-           alternateMobileNo: leadcheckdata[i].alternateMobileNo, 
-           bil_Address1: leadcheckdata[i].bil_Address1, 
-           bil_Address2: leadcheckdata[i].bil_Address2, 
-           bil_Address3: leadcheckdata[i].bil_Address3, 
-           bil_Area: leadcheckdata[i].bil_Area, 
-           bil_City: leadcheckdata[i].bil_City, 
-           bil_Country: leadcheckdata[i].bil_Country, 
-           bil_District: leadcheckdata[i].bil_District, 
-           bil_Pincode: leadcheckdata[i].bil_Pincode, 
-           bil_State: leadcheckdata[i].bil_State, 
-           companyName: leadcheckdata[i].companyName, 
-           contactName: leadcheckdata[i].contactName, 
-           customerEmail: leadcheckdata[i].customerEmail, 
-           customerPORef: leadcheckdata[i].customerPORef, 
-           del_Address1: leadcheckdata[i].del_Address1, 
-           deliveryDueDate: leadcheckdata[i].deliveryDueDate, 
-           enqid: leadcheckdata[i].enqid, gSTNo: leadcheckdata[i].gSTNo, 
-           leadid: leadcheckdata[i].leadid, 
-           pAN: leadcheckdata[i].pAN, 
-           paymentDueDate: leadcheckdata[i].paymentDueDate,
-           ));
-          filterleadOpenAllData = leadOpenAllData;
-          notifyListeners();
-log("isDelivered::"+filterleadOpenAllData[0].isDelivered.toString());
-      } else if(leadcheckdata[i].Status.toString().toLowerCase() == "in-process"){
-         leadinProcessAllData.add(GetAllOrderData(
-          CustomerGroup:leadcheckdata[i].CustomerGroup  ,
-           OrderType:leadcheckdata[i].OrderType  ,
-          createdon:leadcheckdata[i].createdon ,
-  isDelivered: leadcheckdata[i].isDelivered ,
-  isInvoiced:leadcheckdata[i].isInvoiced ,
+          OrderNum: leadcheckdata[i].OrderNum,
+          Mobile: leadcheckdata[i].Mobile,
+          CustomerName: leadcheckdata[i].CustomerName,
+          DocDate: leadcheckdata[i].DocDate,
+          AssignedTo: leadcheckdata[i].AssignedTo,
+          AttachURL1: leadcheckdata[i].AttachURL1,
+          AttachURL2: leadcheckdata[i].AttachURL2,
+          AttachURL3: leadcheckdata[i].AttachURL3,
+          BaseDocDate: leadcheckdata[i].BaseDocDate,
+          BaseID: leadcheckdata[i].BaseID,
+          BaseType: leadcheckdata[i].BaseType,
+          CurrentStatus: leadcheckdata[i].CurrentStatus,
+          DealID: leadcheckdata[i].DealID,
+          Del_Address2: leadcheckdata[i].Del_Address2,
+          Del_Address3: leadcheckdata[i].Del_Address3,
+          Del_Area: leadcheckdata[i].Del_Area,
+          Del_City: leadcheckdata[i].Del_City,
+          Del_Country: leadcheckdata[i].Del_Country,
+          Del_District: leadcheckdata[i].Del_District,
+          Del_Pincode: leadcheckdata[i].Del_Pincode,
+          Del_State: leadcheckdata[i].Del_State,
+          DeliveryFrom: leadcheckdata[i].DeliveryFrom,
+          Discount: leadcheckdata[i].Discount,
+          FollowupEntry: leadcheckdata[i].FollowupEntry,
+          LastUpdateMessage: leadcheckdata[i].LastUpdateMessage,
+          GrossTotal: leadcheckdata[i].GrossTotal,
+          LastUpdateTime: leadcheckdata[i].LastUpdateTime,
+          OrderStatus: leadcheckdata[i].OrderStatus,
+          Product: leadcheckdata[i].Product,
+          RoundOff: leadcheckdata[i].RoundOff,
+          Status: leadcheckdata[i].Status,
+          StoreCode: leadcheckdata[i].StoreCode,
+          SubTotal: leadcheckdata[i].SubTotal,
+          TaxAmount: leadcheckdata[i].TaxAmount,
+          Value: leadcheckdata[i].Value,
+          alternateMobileNo: leadcheckdata[i].alternateMobileNo,
+          bil_Address1: leadcheckdata[i].bil_Address1,
+          bil_Address2: leadcheckdata[i].bil_Address2,
+          bil_Address3: leadcheckdata[i].bil_Address3,
+          bil_Area: leadcheckdata[i].bil_Area,
+          bil_City: leadcheckdata[i].bil_City,
+          bil_Country: leadcheckdata[i].bil_Country,
+          bil_District: leadcheckdata[i].bil_District,
+          bil_Pincode: leadcheckdata[i].bil_Pincode,
+          bil_State: leadcheckdata[i].bil_State,
+          companyName: leadcheckdata[i].companyName,
+          contactName: leadcheckdata[i].contactName,
+          customerEmail: leadcheckdata[i].customerEmail,
+          customerPORef: leadcheckdata[i].customerPORef,
+          del_Address1: leadcheckdata[i].del_Address1,
+          deliveryDueDate: leadcheckdata[i].deliveryDueDate,
+          enqid: leadcheckdata[i].enqid,
+          gSTNo: leadcheckdata[i].gSTNo,
+          leadid: leadcheckdata[i].leadid,
+          pAN: leadcheckdata[i].pAN,
+          paymentDueDate: leadcheckdata[i].paymentDueDate,
+        ));
+        filterleadOpenAllData = leadOpenAllData;
+        notifyListeners();
+        log("isDelivered::" + filterleadOpenAllData[0].isDelivered.toString());
+      } else if (leadcheckdata[i].Status.toString().toLowerCase() ==
+          "in-process") {
+        leadinProcessAllData.add(GetAllOrderData(
+          CustomerGroup: leadcheckdata[i].CustomerGroup,
+          OrderType: leadcheckdata[i].OrderType,
+          createdon: leadcheckdata[i].createdon,
+          isDelivered: leadcheckdata[i].isDelivered,
+          isInvoiced: leadcheckdata[i].isInvoiced,
           OrderDocEntry: leadcheckdata[i].OrderDocEntry,
-           OrderNum: leadcheckdata[i].OrderNum, 
-           Mobile: leadcheckdata[i].Mobile, 
-           CustomerName: leadcheckdata[i].CustomerName, 
-           DocDate: leadcheckdata[i].DocDate, 
-           AssignedTo: leadcheckdata[i].AssignedTo, 
-           AttachURL1: leadcheckdata[i].AttachURL1, 
-           AttachURL2: leadcheckdata[i].AttachURL2, 
-           AttachURL3: leadcheckdata[i].AttachURL3, 
-           BaseDocDate: leadcheckdata[i].BaseDocDate, 
-           BaseID: leadcheckdata[i].BaseID,
-            BaseType: leadcheckdata[i].BaseType, 
-           CurrentStatus: leadcheckdata[i].CurrentStatus, 
-           DealID: leadcheckdata[i].DealID, 
-           Del_Address2: leadcheckdata[i].Del_Address2, 
-           Del_Address3: leadcheckdata[i].Del_Address3, 
-           Del_Area: leadcheckdata[i].Del_Area, 
-           Del_City: leadcheckdata[i].Del_City, 
-           Del_Country: leadcheckdata[i].Del_Country, 
-           Del_District: leadcheckdata[i].Del_District, 
-           Del_Pincode: leadcheckdata[i].Del_Pincode, 
-           Del_State: leadcheckdata[i].Del_State, 
-           DeliveryFrom: leadcheckdata[i].DeliveryFrom, 
-           Discount: leadcheckdata[i].Discount, 
-           FollowupEntry: leadcheckdata[i].FollowupEntry, 
-           LastUpdateMessage: leadcheckdata[i].LastUpdateMessage, 
-           GrossTotal: leadcheckdata[i].GrossTotal, 
-           LastUpdateTime: leadcheckdata[i].LastUpdateTime, 
-           OrderStatus: leadcheckdata[i].OrderStatus, 
-           Product: leadcheckdata[i].Product, 
-           RoundOff: leadcheckdata[i].RoundOff, 
-           Status: leadcheckdata[i].Status, 
-           StoreCode: leadcheckdata[i].StoreCode, 
-           SubTotal: leadcheckdata[i].SubTotal, 
-           TaxAmount: leadcheckdata[i].TaxAmount, 
-           Value: leadcheckdata[i].Value, 
-           alternateMobileNo: leadcheckdata[i].alternateMobileNo, 
-           bil_Address1: leadcheckdata[i].bil_Address1, 
-           bil_Address2: leadcheckdata[i].bil_Address2, 
-           bil_Address3: leadcheckdata[i].bil_Address3, 
-           bil_Area: leadcheckdata[i].bil_Area, 
-           bil_City: leadcheckdata[i].bil_City, 
-           bil_Country: leadcheckdata[i].bil_Country, 
-           bil_District: leadcheckdata[i].bil_District, 
-           bil_Pincode: leadcheckdata[i].bil_Pincode, 
-           bil_State: leadcheckdata[i].bil_State, 
-           companyName: leadcheckdata[i].companyName, 
-           contactName: leadcheckdata[i].contactName, 
-           customerEmail: leadcheckdata[i].customerEmail, 
-           customerPORef: leadcheckdata[i].customerPORef, 
-           del_Address1: leadcheckdata[i].del_Address1, 
-           deliveryDueDate: leadcheckdata[i].deliveryDueDate, 
-           enqid: leadcheckdata[i].enqid, gSTNo: leadcheckdata[i].gSTNo, 
-           leadid: leadcheckdata[i].leadid, 
-           pAN: leadcheckdata[i].pAN, 
-           paymentDueDate: leadcheckdata[i].paymentDueDate,
-           ));
-          filterleadinProcessAllData = leadinProcessAllData;
-          notifyListeners();
+          OrderNum: leadcheckdata[i].OrderNum,
+          Mobile: leadcheckdata[i].Mobile,
+          CustomerName: leadcheckdata[i].CustomerName,
+          DocDate: leadcheckdata[i].DocDate,
+          AssignedTo: leadcheckdata[i].AssignedTo,
+          AttachURL1: leadcheckdata[i].AttachURL1,
+          AttachURL2: leadcheckdata[i].AttachURL2,
+          AttachURL3: leadcheckdata[i].AttachURL3,
+          BaseDocDate: leadcheckdata[i].BaseDocDate,
+          BaseID: leadcheckdata[i].BaseID,
+          BaseType: leadcheckdata[i].BaseType,
+          CurrentStatus: leadcheckdata[i].CurrentStatus,
+          DealID: leadcheckdata[i].DealID,
+          Del_Address2: leadcheckdata[i].Del_Address2,
+          Del_Address3: leadcheckdata[i].Del_Address3,
+          Del_Area: leadcheckdata[i].Del_Area,
+          Del_City: leadcheckdata[i].Del_City,
+          Del_Country: leadcheckdata[i].Del_Country,
+          Del_District: leadcheckdata[i].Del_District,
+          Del_Pincode: leadcheckdata[i].Del_Pincode,
+          Del_State: leadcheckdata[i].Del_State,
+          DeliveryFrom: leadcheckdata[i].DeliveryFrom,
+          Discount: leadcheckdata[i].Discount,
+          FollowupEntry: leadcheckdata[i].FollowupEntry,
+          LastUpdateMessage: leadcheckdata[i].LastUpdateMessage,
+          GrossTotal: leadcheckdata[i].GrossTotal,
+          LastUpdateTime: leadcheckdata[i].LastUpdateTime,
+          OrderStatus: leadcheckdata[i].OrderStatus,
+          Product: leadcheckdata[i].Product,
+          RoundOff: leadcheckdata[i].RoundOff,
+          Status: leadcheckdata[i].Status,
+          StoreCode: leadcheckdata[i].StoreCode,
+          SubTotal: leadcheckdata[i].SubTotal,
+          TaxAmount: leadcheckdata[i].TaxAmount,
+          Value: leadcheckdata[i].Value,
+          alternateMobileNo: leadcheckdata[i].alternateMobileNo,
+          bil_Address1: leadcheckdata[i].bil_Address1,
+          bil_Address2: leadcheckdata[i].bil_Address2,
+          bil_Address3: leadcheckdata[i].bil_Address3,
+          bil_Area: leadcheckdata[i].bil_Area,
+          bil_City: leadcheckdata[i].bil_City,
+          bil_Country: leadcheckdata[i].bil_Country,
+          bil_District: leadcheckdata[i].bil_District,
+          bil_Pincode: leadcheckdata[i].bil_Pincode,
+          bil_State: leadcheckdata[i].bil_State,
+          companyName: leadcheckdata[i].companyName,
+          contactName: leadcheckdata[i].contactName,
+          customerEmail: leadcheckdata[i].customerEmail,
+          customerPORef: leadcheckdata[i].customerPORef,
+          del_Address1: leadcheckdata[i].del_Address1,
+          deliveryDueDate: leadcheckdata[i].deliveryDueDate,
+          enqid: leadcheckdata[i].enqid,
+          gSTNo: leadcheckdata[i].gSTNo,
+          leadid: leadcheckdata[i].leadid,
+          pAN: leadcheckdata[i].pAN,
+          paymentDueDate: leadcheckdata[i].paymentDueDate,
+        ));
+        filterleadinProcessAllData = leadinProcessAllData;
+        notifyListeners();
+      } else {
+        log("inside Open Docentry  " + leadcheckdata[i].Status.toString());
 
+        leadClosedAllData.add(GetAllOrderData(
+          CustomerGroup: leadcheckdata[i].CustomerGroup,
+          OrderType: leadcheckdata[i].OrderType,
+          createdon: leadcheckdata[i].createdon,
+          isDelivered: leadcheckdata[i].isDelivered,
+          isInvoiced: leadcheckdata[i].isInvoiced,
+          OrderDocEntry: leadcheckdata[i].OrderDocEntry,
+          OrderNum: leadcheckdata[i].OrderNum,
+          Mobile: leadcheckdata[i].Mobile,
+          CustomerName: leadcheckdata[i].CustomerName,
+          DocDate: leadcheckdata[i].DocDate,
+          AssignedTo: leadcheckdata[i].AssignedTo,
+          AttachURL1: leadcheckdata[i].AttachURL1,
+          AttachURL2: leadcheckdata[i].AttachURL2,
+          AttachURL3: leadcheckdata[i].AttachURL3,
+          BaseDocDate: leadcheckdata[i].BaseDocDate,
+          BaseID: leadcheckdata[i].BaseID,
+          BaseType: leadcheckdata[i].BaseType,
+          CurrentStatus: leadcheckdata[i].CurrentStatus,
+          DealID: leadcheckdata[i].DealID,
+          Del_Address2: leadcheckdata[i].Del_Address2,
+          Del_Address3: leadcheckdata[i].Del_Address3,
+          Del_Area: leadcheckdata[i].Del_Area,
+          Del_City: leadcheckdata[i].Del_City,
+          Del_Country: leadcheckdata[i].Del_Country,
+          Del_District: leadcheckdata[i].Del_District,
+          Del_Pincode: leadcheckdata[i].Del_Pincode,
+          Del_State: leadcheckdata[i].Del_State,
+          DeliveryFrom: leadcheckdata[i].DeliveryFrom,
+          Discount: leadcheckdata[i].Discount,
+          FollowupEntry: leadcheckdata[i].FollowupEntry,
+          LastUpdateMessage: leadcheckdata[i].LastUpdateMessage,
+          GrossTotal: leadcheckdata[i].GrossTotal,
+          LastUpdateTime: leadcheckdata[i].LastUpdateTime,
+          OrderStatus: leadcheckdata[i].OrderStatus,
+          Product: leadcheckdata[i].Product,
+          RoundOff: leadcheckdata[i].RoundOff,
+          Status: leadcheckdata[i].Status,
+          StoreCode: leadcheckdata[i].StoreCode,
+          SubTotal: leadcheckdata[i].SubTotal,
+          TaxAmount: leadcheckdata[i].TaxAmount,
+          Value: leadcheckdata[i].Value,
+          alternateMobileNo: leadcheckdata[i].alternateMobileNo,
+          bil_Address1: leadcheckdata[i].bil_Address1,
+          bil_Address2: leadcheckdata[i].bil_Address2,
+          bil_Address3: leadcheckdata[i].bil_Address3,
+          bil_Area: leadcheckdata[i].bil_Area,
+          bil_City: leadcheckdata[i].bil_City,
+          bil_Country: leadcheckdata[i].bil_Country,
+          bil_District: leadcheckdata[i].bil_District,
+          bil_Pincode: leadcheckdata[i].bil_Pincode,
+          bil_State: leadcheckdata[i].bil_State,
+          companyName: leadcheckdata[i].companyName,
+          contactName: leadcheckdata[i].contactName,
+          customerEmail: leadcheckdata[i].customerEmail,
+          customerPORef: leadcheckdata[i].customerPORef,
+          del_Address1: leadcheckdata[i].del_Address1,
+          deliveryDueDate: leadcheckdata[i].deliveryDueDate,
+          enqid: leadcheckdata[i].enqid,
+          gSTNo: leadcheckdata[i].gSTNo,
+          leadid: leadcheckdata[i].leadid,
+          pAN: leadcheckdata[i].pAN,
+          paymentDueDate: leadcheckdata[i].paymentDueDate,
+        ));
+        filterleadClosedAllData = leadClosedAllData;
+
+        notifyListeners();
       }
-   else    {
-            log("inside Open Docentry  "+leadcheckdata[i].Status.toString());
-
- leadClosedAllData.add(GetAllOrderData(
-  CustomerGroup:leadcheckdata[i].CustomerGroup  ,
-   OrderType:leadcheckdata[i].OrderType  ,
-  createdon:leadcheckdata[i].createdon ,
-  isDelivered: leadcheckdata[i].isDelivered ,
-  isInvoiced:leadcheckdata[i].isInvoiced ,
-            OrderDocEntry: leadcheckdata[i].OrderDocEntry,
-           OrderNum: leadcheckdata[i].OrderNum, 
-           Mobile: leadcheckdata[i].Mobile, 
-           CustomerName: leadcheckdata[i].CustomerName, 
-           DocDate: leadcheckdata[i].DocDate, 
-           AssignedTo: leadcheckdata[i].AssignedTo, 
-           AttachURL1: leadcheckdata[i].AttachURL1, 
-           AttachURL2: leadcheckdata[i].AttachURL2, 
-           AttachURL3: leadcheckdata[i].AttachURL3, 
-           BaseDocDate: leadcheckdata[i].BaseDocDate, 
-           BaseID: leadcheckdata[i].BaseID,
-            BaseType: leadcheckdata[i].BaseType, 
-           CurrentStatus: leadcheckdata[i].CurrentStatus, 
-           DealID: leadcheckdata[i].DealID, 
-           Del_Address2: leadcheckdata[i].Del_Address2, 
-           Del_Address3: leadcheckdata[i].Del_Address3, 
-           Del_Area: leadcheckdata[i].Del_Area, 
-           Del_City: leadcheckdata[i].Del_City, 
-           Del_Country: leadcheckdata[i].Del_Country, 
-           Del_District: leadcheckdata[i].Del_District, 
-           Del_Pincode: leadcheckdata[i].Del_Pincode, 
-           Del_State: leadcheckdata[i].Del_State, 
-           DeliveryFrom: leadcheckdata[i].DeliveryFrom, 
-           Discount: leadcheckdata[i].Discount, 
-           FollowupEntry: leadcheckdata[i].FollowupEntry, 
-           LastUpdateMessage: leadcheckdata[i].LastUpdateMessage, 
-           GrossTotal: leadcheckdata[i].GrossTotal, 
-           LastUpdateTime: leadcheckdata[i].LastUpdateTime, 
-           OrderStatus: leadcheckdata[i].OrderStatus, 
-           Product: leadcheckdata[i].Product, 
-           RoundOff: leadcheckdata[i].RoundOff, 
-           Status: leadcheckdata[i].Status, 
-           StoreCode: leadcheckdata[i].StoreCode, 
-           SubTotal: leadcheckdata[i].SubTotal, 
-           TaxAmount: leadcheckdata[i].TaxAmount, 
-           Value: leadcheckdata[i].Value, 
-           alternateMobileNo: leadcheckdata[i].alternateMobileNo, 
-           bil_Address1: leadcheckdata[i].bil_Address1, 
-           bil_Address2: leadcheckdata[i].bil_Address2, 
-           bil_Address3: leadcheckdata[i].bil_Address3, 
-           bil_Area: leadcheckdata[i].bil_Area, 
-           bil_City: leadcheckdata[i].bil_City, 
-           bil_Country: leadcheckdata[i].bil_Country, 
-           bil_District: leadcheckdata[i].bil_District, 
-           bil_Pincode: leadcheckdata[i].bil_Pincode, 
-           bil_State: leadcheckdata[i].bil_State, 
-           companyName: leadcheckdata[i].companyName, 
-           contactName: leadcheckdata[i].contactName, 
-           customerEmail: leadcheckdata[i].customerEmail, 
-           customerPORef: leadcheckdata[i].customerPORef, 
-           del_Address1: leadcheckdata[i].del_Address1, 
-           deliveryDueDate: leadcheckdata[i].deliveryDueDate, 
-           enqid: leadcheckdata[i].enqid, gSTNo: leadcheckdata[i].gSTNo, 
-           leadid: leadcheckdata[i].leadid, 
-           pAN: leadcheckdata[i].pAN, 
-           paymentDueDate: leadcheckdata[i].paymentDueDate,));
-                  filterleadClosedAllData = leadClosedAllData;
-
-      
-                           
-                              notifyListeners();
-
-      } 
-    
     }
- 
+
     notifyListeners();
     await callSummaryApi();
-  await callinitApi();
-  datagotByApi=true;
+    await callinitApi();
+    datagotByApi = true;
     notifyListeners();
   }
 
   // call summary api
   List<SummaryOrderData> leadSummaryOpen = [];
   List<SummaryOrderData> leadSummaryWon = [];
-   List<SummaryOrderData> leadSummaryinprocess = [];
+  List<SummaryOrderData> leadSummaryinprocess = [];
   // List<SummaryOrderData> leadSummaryLost = [];
-List<SummaryOrderData> get getleadSummaryinprocess => leadSummaryinprocess;
+  List<SummaryOrderData> get getleadSummaryinprocess => leadSummaryinprocess;
   List<SummaryOrderData> get getleadSummaryOpen => leadSummaryOpen;
   List<SummaryOrderData> get getleadSummaryWon => leadSummaryWon;
   // List<SummaryOrderData> get getleadSummaryLost => leadSummaryLost;
 
   callSummaryApi() async {
-     lottie='';
+    lottie = '';
     // openlea();
     await GetOrderSummaryApi.getData(ConstantValues.slpcode).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-          // log("summary stcode"+value.stcode.toString());
-          // log("summary stcode"+value.OrderSumarydata.toString());
+        // log("summary stcode"+value.stcode.toString());
+        // log("summary stcode"+value.OrderSumarydata.toString());
         if (value.OrderSummaryheader!.OrderSumarydata != null) {
           // log("summary"+value.OrderSumarydata.toString());
           mapValuesSummary(value.OrderSummaryheader!.OrderSumarydata!);
         } else if (value.OrderSummaryheader!.OrderSumarydata == null) {
           log("OrderSummary data null");
-          lottie='Assets/no-data.png';
-          leadCheckDataExcep = 'No Oders..!! ${value.stcode} ${value.exception}';
+          lottie = 'Assets/no-data.png';
+          leadCheckDataExcep =
+              'No Oders..!! ${value.stcode} ${value.exception}';
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-        leadCheckDataExcep = 'Some thing went wrong..!! ${value.stcode} ${value.exception}';
+        leadCheckDataExcep =
+            'Some thing went wrong..!! ${value.stcode} ${value.exception}';
       } else if (value.stcode == 500) {
-         lottie='Assets/NetworkAnimation.json';
-        leadCheckDataExcep = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        lottie = 'Assets/NetworkAnimation.json';
+        leadCheckDataExcep =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
       }
       notifyListeners();
     });
@@ -964,7 +988,7 @@ List<SummaryOrderData> get getleadSummaryinprocess => leadSummaryinprocess;
     for (int i = 0; i < leadcheckdata.length; i++) {
       if (leadcheckdata[i].Status == "Open") {
         leadSummaryOpen.add(SummaryOrderData(
-          BTG:leadcheckdata[i].BTG ,
+            BTG: leadcheckdata[i].BTG,
             Caption: leadcheckdata[i].Caption,
             Target: leadcheckdata[i].Target,
             Value: leadcheckdata[i].Value,
@@ -972,15 +996,15 @@ List<SummaryOrderData> get getleadSummaryinprocess => leadSummaryinprocess;
             column: leadcheckdata[i].column));
       } else if (leadcheckdata[i].Status == "Closed") {
         leadSummaryWon.add(SummaryOrderData(
-           BTG:leadcheckdata[i].BTG ,
+            BTG: leadcheckdata[i].BTG,
             Caption: leadcheckdata[i].Caption,
             Target: leadcheckdata[i].Target,
             Value: leadcheckdata[i].Value,
             Status: leadcheckdata[i].Status,
             column: leadcheckdata[i].column));
-      }else if (leadcheckdata[i].Status == "In-Process") {
+      } else if (leadcheckdata[i].Status == "In-Process") {
         leadSummaryinprocess.add(SummaryOrderData(
-           BTG:leadcheckdata[i].BTG ,
+            BTG: leadcheckdata[i].BTG,
             Caption: leadcheckdata[i].Caption,
             Target: leadcheckdata[i].Target,
             Value: leadcheckdata[i].Value,
@@ -1025,54 +1049,69 @@ List<SummaryOrderData> get getleadSummaryinprocess => leadSummaryinprocess;
     updateFollowUpDialog = true;
     notifyListeners();
   }
-  mapvaluesmodify(GetAllOrderData? leadOpenAllData){
-OrderNewController.datafrommodify.clear();
-OrderNewController.datafrommodify.add(leadOpenAllData!.OrderDocEntry.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.Mobile.toString());
+  mapvaluesmodify(GetAllOrderData? leadOpenAllData) {
+    OrderNewController.datafrommodify.clear();
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.OrderDocEntry.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.CustomerName.toString());
+    OrderNewController.datafrommodify.add(leadOpenAllData!.Mobile.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.alternateMobileNo.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.CustomerName.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.customerEmail.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.alternateMobileNo.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.contactName.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.customerEmail.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.bil_Address1.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.contactName.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.bil_Address2.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.bil_Address1.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.bil_Area.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.bil_Address2.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.bil_City.toString());
+    OrderNewController.datafrommodify.add(leadOpenAllData!.bil_Area.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.bil_Pincode.toString());
+    OrderNewController.datafrommodify.add(leadOpenAllData!.bil_City.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.bil_State.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.bil_Pincode.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.del_Address1.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.bil_State.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.Del_Address2.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.del_Address1.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.Del_Area.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.Del_Address2.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.Del_City.toString());
+    OrderNewController.datafrommodify.add(leadOpenAllData!.Del_Area.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.Del_Pincode.toString());
+    OrderNewController.datafrommodify.add(leadOpenAllData!.Del_City.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.Del_State.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.Del_Pincode.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.OrderNum.toString());
-OrderNewController.datafrommodify.add(leadOpenAllData!.gSTNo.toString());
-OrderNewController.datafrommodify.add(leadOpenAllData!.CustomerGroup.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.Del_State.toString());
 
-OrderNewController.datafrommodify.add(leadOpenAllData!.OrderType.toString());
-OrderNewController.datafrommodify.add(leadOpenAllData!.DocDate.toString());
- OrderBookNewState.iscomfromLead = true;
-          Get.toNamed(ConstantRoutes.ordernew);
-          notifyListeners();
- 
+    OrderNewController.datafrommodify.add(leadOpenAllData!.OrderNum.toString());
+    OrderNewController.datafrommodify.add(leadOpenAllData!.gSTNo.toString());
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.CustomerGroup.toString());
+
+    OrderNewController.datafrommodify
+        .add(leadOpenAllData!.OrderType.toString());
+    OrderNewController.datafrommodify.add(leadOpenAllData!.DocDate.toString());
+    OrderBookNewState.iscomfromLead = true;
+    Get.toNamed(ConstantRoutes.ordernew);
+    notifyListeners();
   }
 
   String apiFDate = '';
@@ -1129,10 +1168,11 @@ OrderNewController.datafrommodify.add(leadOpenAllData!.DocDate.toString());
       notifyListeners();
     });
   }
+
   String apiInvFDate = '';
   String nextInvFD = '';
   String get getnextInvFD => nextInvFD;
-   void showFollowupInvDate(BuildContext context) {
+  void showFollowupInvDate(BuildContext context) {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -1195,19 +1235,19 @@ OrderNewController.datafrommodify.add(leadOpenAllData!.DocDate.toString());
     valueChosedReason = null;
     valueChosedStatus = null;
     valueChosedStatusWon = null;
-    valuecancelStatus=null;
+    valuecancelStatus = null;
     viewDetailsdialog = false;
     forwardSuccessMsg = '';
     caseStatusSelected = '';
     selectedUserList = '';
     forwardnextWonFD = '';
     hinttextforOpenLead = 'Select Status:* ';
-    hinttextforcancel = 'Cancellation Reason:* '; 
+    hinttextforcancel = 'Cancellation Reason:* ';
     hinttextforWonLead = 'Select Status:* ';
     hinttextforLostLead = 'Select Reason*';
     feedbackLead = 'Feed back:*';
-    
-feedbackcancel ='Give your feedback*';
+
+    feedbackcancel = 'Give your feedback*';
     nextFollowupDate = 'Next Follow up:';
     mycontroller[1].clear();
     mycontroller[0].clear();
@@ -1219,9 +1259,9 @@ feedbackcancel ='Give your feedback*';
     feedbackLead = 'Give your feedback*';
     nextFollowupDate = 'Next Follow up:';
     orderBillDate = 'Delivery Date*';
-      orderInvBillRefer = 'Invoice Reference*';
-      orderInvvalue = 'Invoice Value*';
-        orderInvvalue = 'Invoice Value*';
+    orderInvBillRefer = 'Invoice Reference*';
+    orderInvvalue = 'Invoice Value*';
+    orderInvvalue = 'Invoice Value*';
     followup = 'How you made the follow up?';
     forwardNextFollowDate = 'Next FollowUp';
     leadOpenSaveClicked = false;
@@ -1283,8 +1323,8 @@ feedbackcancel ='Give your feedback*';
   String? valueChosedStatusWon; //cl
   String? get getvalueChosedStatusWon => valueChosedStatusWon;
   List<String> data = ['', 'a'];
-String? hinttextforcancel = 'Cancellation Reason:* '; 
-String? get gethinttextforcancel => hinttextforcancel;
+  String? hinttextforcancel = 'Cancellation Reason:* ';
+  String? get gethinttextforcancel => hinttextforcancel;
   String? hinttextforOpenLead = 'Select Status:* '; //cl
   String? get gethinttextforOpenLead => hinttextforOpenLead;
   String? hinttextforWonLead = 'Select Status:* '; //cl
@@ -1299,10 +1339,10 @@ String? get gethinttextforcancel => hinttextforcancel;
   String? get getnextFollowupDate => nextFollowupDate;
   String? orderBillRefer = 'Delivery Reference*'; //cl
   String? get getorderBillRefer => orderBillRefer;
-  
+
   String? orderBillDate = 'Delivery Date*'; //cl
   String? get getorderBillDate => orderBillDate;
-   String? orderInvBillDate = 'Invoice Date*'; //cl
+  String? orderInvBillDate = 'Invoice Date*'; //cl
   String? get getorderInvBillDate => orderInvBillDate;
   String? orderInvvalue = 'Invoice Value*'; //cl
   String? get getorderInvvalue => orderInvvalue;
@@ -1324,11 +1364,11 @@ String? get gethinttextforcancel => hinttextforcancel;
     valueChosedStatus = val;
     notifyListeners();
   }
-   choosedcancelStatus(String val) {
+
+  choosedcancelStatus(String val) {
     valuecancelStatus = val;
     notifyListeners();
   }
-
 
   choosedStatusWon(String val) {
     valueChosedStatusWon = val;
@@ -1342,58 +1382,56 @@ String? get gethinttextforcancel => hinttextforcancel;
     caseStatusSelected = val;
     notifyListeners();
   }
- FilePickerResult? result;
+
+  FilePickerResult? result;
   //  filesz = [];
   List<File> files = [];
   bool? fileValidation = false;
 
-   Future imagetoBinary(ImageSource source) async {
-    List<File> filesz=[];
-   await LocationTrack.checkcamlocation();
+  Future imagetoBinary(ImageSource source) async {
+    List<File> filesz = [];
+    await LocationTrack.checkcamlocation();
     final image = await ImagePicker().pickImage(source: source);
     if (image == null) return;
     // files.add(File(image.path));
     // filedata.clear();
-    if(filedata.isEmpty){
- filedata.clear();
- filesz.clear();
+    if (filedata.isEmpty) {
+      filedata.clear();
+      filesz.clear();
     }
-     filesz.add(File(image.path));
+    filesz.add(File(image.path));
     notifyListeners();
 
     if (files.length <= 1) {
       for (int i = 0; i < filesz.length; i++) {
-         files.add(filesz[i]);
+        files.add(filesz[i]);
         List<int> intdata = filesz[i].readAsBytesSync();
-         String fileName = filesz[i].path.split('/').last;
-          String fileBytes = base64Encode(intdata);
-           String tempPath='';
-           if(Platform.isAndroid){
-
-         tempPath = (await getExternalStorageDirectory())!.path;
-        
-        }else if(Platform.isIOS){
- tempPath = (await getApplicationDocumentsDirectory())!.path;
+        String fileName = filesz[i].path.split('/').last;
+        String fileBytes = base64Encode(intdata);
+        String tempPath = '';
+        if (Platform.isAndroid) {
+          tempPath = (await getExternalStorageDirectory())!.path;
+        } else if (Platform.isIOS) {
+          tempPath = (await getApplicationDocumentsDirectory())!.path;
         }
-       
-           String fullPath = '$tempPath/$fileName'; 
+
+        String fullPath = '$tempPath/$fileName';
         await filesz[i].copy(fullPath);
-         File(fullPath).writeAsBytesSync(intdata);
-  final result = await ImageGallerySaver.saveFile(fullPath,isReturnPathOfIOS: true);
-    
-              if(Platform.isAndroid){
-filedata.add(FilesData(
-            fileBytes: base64Encode(intdata),
-            fileName: fullPath
-            // files[i].path.split('/').last
-            ));
-             }else{
-              filedata.add(FilesData(
-            fileBytes: base64Encode(intdata),
-            fileName: image.path
-            // files[i].path.split('/').last
-            ));
-             }
+        File(fullPath).writeAsBytesSync(intdata);
+        final result =
+            await ImageGallerySaver.saveFile(fullPath, isReturnPathOfIOS: true);
+
+        if (Platform.isAndroid) {
+          filedata.add(
+              FilesData(fileBytes: base64Encode(intdata), fileName: fullPath
+                  // files[i].path.split('/').last
+                  ));
+        } else {
+          filedata.add(
+              FilesData(fileBytes: base64Encode(intdata), fileName: image.path
+                  // files[i].path.split('/').last
+                  ));
+        }
         // filedata.add(FilesData(
         //     fileBytes: base64Encode(intdata),
         //     fileName: fullPath));
@@ -1412,7 +1450,8 @@ filedata.add(FilesData(
 
     notifyListeners();
   }
- void showtoast() {
+
+  void showtoast() {
     Fluttertoast.showToast(
         msg: "More than 2 Document Not Allowed..",
         toastLength: Toast.LENGTH_SHORT,
@@ -1422,54 +1461,56 @@ filedata.add(FilesData(
         textColor: Colors.white,
         fontSize: 14.0);
   }
-selectattachment() async {
-  List<File> filesz=[];
+
+  selectattachment() async {
+    List<File> filesz = [];
     log(files.length.toString());
 
     result = await FilePicker.platform.pickFiles(allowMultiple: true);
     notifyListeners();
 
     if (result != null) {
-     if(filedata.isEmpty){
-      files.clear();
-      filesz.clear();
-  filedata.clear();
-  notifyListeners();
-    }
+      if (filedata.isEmpty) {
+        files.clear();
+        filesz.clear();
+        filedata.clear();
+        notifyListeners();
+      }
 
-       filesz = result!.paths.map((path) => File(path!)).toList();
-log("filesz::"+filesz.length.toString());
+      filesz = result!.paths.map((path) => File(path!)).toList();
+      log("filesz::" + filesz.length.toString());
       // if (filesz.length != 0) {
-        log("filedata::"+filedata.length.toString());
-        int remainingSlots = 2 - files.length;
-        log("remainingSlots::"+remainingSlots.toString());
-         if (filesz.length <= remainingSlots) {
+      log("filedata::" + filedata.length.toString());
+      int remainingSlots = 2 - files.length;
+      log("remainingSlots::" + remainingSlots.toString());
+      if (filesz.length <= remainingSlots) {
         for (int i = 0; i < filesz.length; i++) {
           // createAString();
 
-         
-            // showtoast();
-            files.add(filesz[i]);
-            // log("Files Lenght :::::" + files.length.toString());
-            List<int> intdata = filesz[i].readAsBytesSync();
-            filedata.add(FilesData(
-                fileBytes: base64Encode(intdata), fileName: filesz[i].path));
-            notifyListeners();
+          // showtoast();
+          files.add(filesz[i]);
+          // log("Files Lenght :::::" + files.length.toString());
+          List<int> intdata = filesz[i].readAsBytesSync();
+          filedata.add(FilesData(
+              fileBytes: base64Encode(intdata), fileName: filesz[i].path));
+          notifyListeners();
 
-            // return null;
-          }
-        } else {
-            showtoast();
-            notifyListeners();
-          }
+          // return null;
+        }
+      } else {
+        showtoast();
+        notifyListeners();
+      }
       // }
       notifyListeners();
     }
     notifyListeners();
   }
+
   List<FilesData> filedata = [];
   List<String> filelink = [];
   List<String> fileException = [];
+
   ///get lead status api
   List<GetOrderStatusData> leadStatusOpen = [];
   // List<GetOrderStatusData> leadStatusLost = [];
@@ -1501,8 +1542,8 @@ log("filesz::"+filesz.length.toString());
     userLtData = await DBOperation.getUserList(db);
     openlea();
     wonlea();
-     await callpaymodeApi();
-     await callusermobileApi();
+    await callpaymodeApi();
+    await callusermobileApi();
     // lostlea();
 
     notifyListeners();
@@ -1586,11 +1627,10 @@ log("filesz::"+filesz.length.toString());
   bool leadLostSaveClicked = false;
 
   clickLeadSaveBtn(String followDocEntry, String leadDocEntry) {
-      log("followDocEntry: $followDocEntry");
-      log("leadDocEntry: $leadDocEntry");
+    log("followDocEntry: $followDocEntry");
+    log("leadDocEntry: $leadDocEntry");
 
-      log("caseStatusSelected: $caseStatusSelected");
-
+    log("caseStatusSelected: $caseStatusSelected");
 
     if (caseStatusSelected == 'Open') {
       leadOpenSaveClicked = true;
@@ -1610,30 +1650,29 @@ log("filesz::"+filesz.length.toString());
       leadOpenSaveClicked = false;
       leadWonSaveClicked = false;
       callRequiredLost(followDocEntry, leadDocEntry);
-    }
-    else if (caseStatusSelected == 'Cancel') {
+    } else if (caseStatusSelected == 'Cancel') {
       leadLostSaveClicked = false;
       leadOpenSaveClicked = true;
       leadWonSaveClicked = false;
       callRequiredCancel(followDocEntry);
     }
   }
- callRequiredCancel(String followDocEntry) {
+
+  callRequiredCancel(String followDocEntry) {
     int i = 0;
     if (valuecancelStatus == null) {
       i = i + 1;
-      hinttextforcancel  = "Cancellation Reason: *";
+      hinttextforcancel = "Cancellation Reason: *";
     } else {
-      hinttextforcancel  = "Cancellation Reason:*";
+      hinttextforcancel = "Cancellation Reason:*";
     }
     if (mycontroller[5].text.isEmpty) {
       i = i + 1;
-      feedbackcancel  = 'Give your feedback *';
+      feedbackcancel = 'Give your feedback *';
     } else {
-      feedbackcancel  = 'Give your feedback*';
+      feedbackcancel = 'Give your feedback*';
     }
-  
-   
+
     hinttextforWonLead = "Select Status:";
     orderBillRefer = 'Delivery Reference';
     orderBillDate = 'Delivery Date*';
@@ -1641,10 +1680,14 @@ log("filesz::"+filesz.length.toString());
     if (i < 1) {
       print("ssssss");
       openSave(
-          followDocEntry, valueChosedStatus, mycontroller[5].text,);
+        followDocEntry,
+        valueChosedStatus,
+        mycontroller[5].text,
+      );
     }
     notifyListeners();
   }
+
   callRequiredOpen(String followDocEntry) {
     int i = 0;
     if (valueChosedStatus == null) {
@@ -1679,8 +1722,7 @@ log("filesz::"+filesz.length.toString());
     hinttextforLostLead = 'Select Reason:';
     if (i < 1) {
       print("ssssss");
-      openSave(
-          followDocEntry, valueChosedStatus, mycontroller[1].text);
+      openSave(followDocEntry, valueChosedStatus, mycontroller[1].text);
     }
     notifyListeners();
   }
@@ -1725,14 +1767,8 @@ log("filesz::"+filesz.length.toString());
     print(i);
     if (i < 1) {
       print("ssssss");
-      WonSave(
-          followDocEntry,
-          leadDocEntry,
-          valueChosedStatusWon,
-          
-          isSelectedFollowUp,
-          apiWonFDate,
-          mycontroller[0].text);
+      WonSave(followDocEntry, leadDocEntry, valueChosedStatusWon,
+          isSelectedFollowUp, apiWonFDate, mycontroller[0].text);
     }
     notifyListeners();
   }
@@ -1808,28 +1844,27 @@ log("filesz::"+filesz.length.toString());
 
     if (caseStatusSelected == "Invoice") {
       if (leadLostSaveClicked == true) {
-       orderInvBillRefer = 'Invoice Reference *';
-      orderInvvalue = 'Invoice Value *';
+        orderInvBillRefer = 'Invoice Reference *';
+        orderInvvalue = 'Invoice Value *';
         orderInvvalue = 'Invoice Value *';
       } else {
-    orderInvBillRefer = 'Invoice Reference*';
-      orderInvvalue = 'Invoice Value*';
+        orderInvBillRefer = 'Invoice Reference*';
+        orderInvvalue = 'Invoice Value*';
         orderInvvalue = 'Invoice Value*';
       }
       nextInvFD = '';
       nextInvFD = '';
     } else {}
 
-     if (caseStatusSelected == "Cancel") {
+    if (caseStatusSelected == "Cancel") {
       if (leadOpenSaveClicked == true) {
-hinttextforcancel  = "Cancellation Reason: *";
-feedbackcancel ='Give your feedback *';
-  
-    } else {
-      hinttextforcancel  = "Cancellation Reason:*";
-feedbackcancel ='Give your feedback*';
+        hinttextforcancel = "Cancellation Reason: *";
+        feedbackcancel = 'Give your feedback *';
+      } else {
+        hinttextforcancel = "Cancellation Reason:*";
+        feedbackcancel = 'Give your feedback*';
       }
-     }
+    }
     notifyListeners();
   }
 
@@ -1861,7 +1896,8 @@ feedbackcancel ='Give your feedback*';
           leadLoadingdialog = false;
           notifyListeners();
         } else if (value.stCode == 500) {
-          forwardSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+          forwardSuccessMsg =
+              '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
           leadLoadingdialog = false;
           notifyListeners();
         }
@@ -1893,11 +1929,12 @@ feedbackcancel ='Give your feedback*';
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stCode >= 400 && value.stCode <= 410) {
-        forwardSuccessMsg ='${value.errorTitle}..${value.message}..!!';
+        forwardSuccessMsg = '${value.errorTitle}..${value.message}..!!';
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -1905,16 +1942,16 @@ feedbackcancel ='Give your feedback*';
     checkValues();
   }
 
-  WonSave(followDocEntry, String leadDocEntry, status,  followup,
-      billwonDate, billreference) async {
+  WonSave(followDocEntry, String leadDocEntry, status, followup, billwonDate,
+      billreference) async {
     forwardSuccessMsg = '';
     leadLoadingdialog = true;
     leadForwarddialog = true;
     updateFollowUpDialog = false;
 
     notifyListeners();
-     PostOrder? postLead = new PostOrder();
-     List<String> filename = [];
+    PostOrder? postLead = new PostOrder();
+    List<String> filename = [];
     List<String>? fileError = [];
 
     if (filedata != null || filedata.isNotEmpty) {
@@ -1934,14 +1971,13 @@ feedbackcancel ='Give your feedback*';
             } else if (i == 1) {
               log("message");
               postLead.attachmenturl2 = value;
-            } 
+            }
           }
         });
       }
     }
     log("filename:::${filename.length}");
 
-   
     String errorFiles = "";
     if (fileError != null) {
       for (int i = 0; i < fileError.length; i++) {
@@ -1949,10 +1985,10 @@ feedbackcancel ='Give your feedback*';
       }
     }
     notifyListeners();
-    
+
     ForwardOrderUserDataWon forwardLeadUserDataWon =
         new ForwardOrderUserDataWon();
-   
+
     forwardLeadUserDataWon.billDate = apiWonFDate;
     forwardLeadUserDataWon.billRef = billreference;
     forwardLeadUserDataWon.curentDate = config.currentDateOnly();
@@ -1962,7 +1998,8 @@ feedbackcancel ='Give your feedback*';
     forwardLeadUserDataWon.updatedBy = ConstantValues.slpcode;
 
     //WonSaveLeadApi.prinjson( followDocEntry,forwardLeadUserDataWon);
-    await WonSaveOrderApi.getData(followDocEntry, forwardLeadUserDataWon,postLead)
+    await WonSaveOrderApi.getData(
+            followDocEntry, forwardLeadUserDataWon, postLead)
         .then((value) {
       if (value.stCode >= 200 && value.stCode <= 210) {
         forwardSuccessMsg = 'Successfully Saved..!!';
@@ -1974,7 +2011,8 @@ feedbackcancel ='Give your feedback*';
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -1982,16 +2020,21 @@ feedbackcancel ='Give your feedback*';
     checkValues();
   }
 
-  lostSave(followDocEntry, String leadDocEntry, reason, refrence,
-      value,) async {
+  lostSave(
+    followDocEntry,
+    String leadDocEntry,
+    reason,
+    refrence,
+    value,
+  ) async {
     forwardSuccessMsg = '';
     leadLoadingdialog = true;
     leadForwarddialog = true;
     updateFollowUpDialog = false;
     notifyListeners();
 
- PostOrder? postLead = new PostOrder();
-     List<String> filename = [];
+    PostOrder? postLead = new PostOrder();
+    List<String> filename = [];
     List<String>? fileError = [];
 
     if (filedata != null || filedata.isNotEmpty) {
@@ -2011,14 +2054,13 @@ feedbackcancel ='Give your feedback*';
             } else if (i == 1) {
               log("message");
               postLead.attachmenturl2 = value;
-            } 
+            }
           }
         });
       }
     }
     log("filename:::${filename.length}");
 
-   
     String errorFiles = "";
     if (fileError != null) {
       for (int i = 0; i < fileError.length; i++) {
@@ -2026,22 +2068,21 @@ feedbackcancel ='Give your feedback*';
       }
     }
     notifyListeners();
-    
 
     ForwardOrderUserDataLost forwardLeadUserDataLost =
         new ForwardOrderUserDataLost();
 
-   
     forwardLeadUserDataLost.curentDate = config.currentDateOnly();
     forwardLeadUserDataLost.feedback = refrence;
-  
+
     forwardLeadUserDataLost.nextFD = apiInvFDate;
-   
-    forwardLeadUserDataLost.value=double.parse(value);
+
+    forwardLeadUserDataLost.value = double.parse(value);
 
     //LostSaveLeadApi.prinjson(followDocEntry,forwardLeadUserDataLost);
 
-    await LostSaveLeadApi.getData(followDocEntry, forwardLeadUserDataLost,postLead)
+    await LostSaveLeadApi.getData(
+            followDocEntry, forwardLeadUserDataLost, postLead)
         .then((value) {
       if (value.stCode >= 200 && value.stCode <= 210) {
         forwardSuccessMsg = 'Successfully Saved..!!';
@@ -2053,7 +2094,8 @@ feedbackcancel ='Give your feedback*';
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -2105,15 +2147,15 @@ feedbackcancel ='Give your feedback*';
   //   });
   // }
 
- List <GetOrderDeatilsQTHData> leadDeatilsQTHData=[];
- List <GetOrderDeatilsQTHData> get getleadDeatilsQTHData => leadDeatilsQTHData;
+  List<GetOrderDeatilsQTHData> leadDeatilsQTHData = [];
+  List<GetOrderDeatilsQTHData> get getleadDeatilsQTHData => leadDeatilsQTHData;
 
   List<GetOrderQTLData> leadDeatilsQTLData = [];
   List<GetOrderQTLData> get getleadDeatilsQTLData => leadDeatilsQTLData;
 
   List<GetOrderDeatilsLData> leadDeatilsLData = [];
   List<GetOrderDeatilsLData> get getleadDeatilsLeadData => leadDeatilsLData;
-List<PaymodeModalData> paymode = [];
+  List<PaymodeModalData> paymode = [];
   callpaymodeApi() async {
     paymode.clear();
     notifyListeners();
@@ -2136,83 +2178,75 @@ List<PaymodeModalData> paymode = [];
     });
   }
 
+  callusermobileApi() async {
+    await userbyidApi.getData(ConstantValues.UserId).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        log("ConstantValues. userbyidmobile:::" +
+            ConstantValues.userbyidmobile.toString());
+        getfirebase();
+      }
+    });
+  }
 
-  
-callusermobileApi()async{
- await userbyidApi.getData(ConstantValues.UserId).then((value){
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
-log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
-getfirebase();
- }
-   
-  });
-}
-String? apidate;
-  bool iscalltrue=false;
-  String? userid='';
-  String? usernumber='';
-  calldialApi(String? number)async{
-    
-    usernumber='';
-     iscalltrue=true;
+  String? apidate;
+  bool iscalltrue = false;
+  String? userid = '';
+  String? usernumber = '';
+  calldialApi(String? number) async {
+    usernumber = '';
+    iscalltrue = true;
     notifyListeners();
-    Future.delayed(Duration(seconds: 40),(){
+    Future.delayed(Duration(seconds: 40), () {
       log("secondsoverrr:::");
-  iscalltrue=false;
-    notifyListeners();
+      iscalltrue = false;
+      notifyListeners();
     });
 
     // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
+
 //     FirebaseProduct.get().then((value) {
 // value.docs.forEach((element) {
 //   usernumber=element!['mobile'].toString();
 //   userid=element!['id'].toString();
 // log("fsdfdf::"+userid.toString());
-  // if(ConstantValues.userbyidmobile==usernumber){
+    // if(ConstantValues.userbyidmobile==usernumber){
     log("fsdfdf::user number match");
- UserdialApi.getdata(userid!, number!).then((value) {
-
-    });
-  // }
+    UserdialApi.getdata(userid!, number!).then((value) {});
+    // }
 //   else{
 // log("fsdfdf::no user number not match");
 //   }
-  
 
 // });
     // });
-   
   }
-getfirebase()async{
-  userid='';
-  notifyListeners();
-    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
-   await FirebaseProduct.get().then((value) {
-value.docs.forEach((element) {
-  usernumber=element!['mobile'].toString();
-  
-log("fsdfdf::"+usernumber.toString());
-  if(ConstantValues.userbyidmobile==usernumber){
-    log("fsdfdf::user number match");
-    userid=element!['id'].toString();
-    notifyListeners();
-//  UserdialApi.getdata(userid!, number!).then((value) {
 
+  getfirebase() async {
+    userid = '';
+    notifyListeners();
+//     final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+
+//     await FirebaseProduct.get().then((value) {
+//       value.docs.forEach((element) {
+//         usernumber = element!['mobile'].toString();
+
+//         log("fsdfdf::" + usernumber.toString());
+//         if (ConstantValues.userbyidmobile == usernumber) {
+//           log("fsdfdf::user number match");
+//           userid = element!['id'].toString();
+//           notifyListeners();
+// //  UserdialApi.getdata(userid!, number!).then((value) {
+
+// //     });
+//         }
+// //   else{
+// // log("fsdfdf::no user number not match");
+// //   }
+//       });
 //     });
   }
-//   else{
-// log("fsdfdf::no user number not match");
-//   }
-  
 
-});
-    });
-}
   callGetLeadDeatilsApi(String leadDocEnt) async {
     forwardSuccessMsg = '';
     leadLoadingdialog = true;
@@ -2222,24 +2256,26 @@ log("fsdfdf::"+usernumber.toString());
     await GetOrderQTHApi.getData(leadDocEnt).then((value) {
       log("ststus code");
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        if(value.OrderDeatilsheaderData !=null){
-  leadDeatilsQTHData = value.OrderDeatilsheaderData!.OrderDeatilsQTHData!;
-        leadDeatilsQTLData = value.OrderDeatilsheaderData!.OrderDeatilsQTLData!;
-        forwardSuccessMsg = '';
-        leadLoadingdialog = false;
-        leadForwarddialog = false;
-        updateFollowUpDialog = false;
-        viewDetailsdialog = true;
-        
-        notifyListeners();
+        if (value.OrderDeatilsheaderData != null) {
+          leadDeatilsQTHData =
+              value.OrderDeatilsheaderData!.OrderDeatilsQTHData!;
+          leadDeatilsQTLData =
+              value.OrderDeatilsheaderData!.OrderDeatilsQTLData!;
+          forwardSuccessMsg = '';
+          leadLoadingdialog = false;
+          leadForwarddialog = false;
+          updateFollowUpDialog = false;
+          viewDetailsdialog = true;
+
+          notifyListeners();
         }
-      
       } else if (value.stcode! >= 400 && value.stcode! <= 490) {
         forwardSuccessMsg = '${value.stcode!}..!!..${value.exception}';
         leadLoadingdialog = false;
         notifyListeners();
       } else {
-        forwardSuccessMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -2310,8 +2346,10 @@ log("fsdfdf::"+usernumber.toString());
     await GetOrderQTHApi.getData(comeFromEnqdata).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         if (value.OrderDeatilsheaderData != null) {
-          leadDeatilsQTHData = value.OrderDeatilsheaderData!.OrderDeatilsQTHData!;
-          leadDeatilsQTLData = value.OrderDeatilsheaderData!.OrderDeatilsQTLData!;
+          leadDeatilsQTHData =
+              value.OrderDeatilsheaderData!.OrderDeatilsQTHData!;
+          leadDeatilsQTLData =
+              value.OrderDeatilsheaderData!.OrderDeatilsQTLData!;
         } else {
           isanyExcep = -2;
           forwardSuccessMsg = 'Some internal error..!!';
@@ -2325,7 +2363,8 @@ log("fsdfdf::"+usernumber.toString());
         notifyListeners();
       } else {
         isanyExcep = -2;
-        forwardSuccessMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -2377,7 +2416,8 @@ log("fsdfdf::"+usernumber.toString());
         notifyListeners();
       } else {
         isanyExcep = -2;
-        forwardSuccessMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
@@ -2408,7 +2448,7 @@ log("fsdfdf::"+usernumber.toString());
     Get.toNamed(ConstantRoutes.leads);
   }
 
-  showLeadDeatilsDialog(BuildContext context) async{
+  showLeadDeatilsDialog(BuildContext context) async {
     showDialog<dynamic>(
         context: context,
         builder: (_) {
@@ -2431,39 +2471,41 @@ log("fsdfdf::"+usernumber.toString());
     print("getforwardSuccessMsg: " + getforwardSuccessMsg.toString());
   }
 }
+
 class Distcolumn {
   String name;
   Distcolumn({
     required this.name,
   });
 }
- 
+
 class Distcusgroupcolumn {
   String name;
   Distcusgroupcolumn({
     required this.name,
   });
 }
+
 class DistEnqstatuscolumn {
   String name;
   DistEnqstatuscolumn({
     required this.name,
   });
 }
+
 class Distlookingforcolumn {
   String name;
   bool ischecck;
-  Distlookingforcolumn({
-    required this.name,
-    required this.ischecck
-  });
+  Distlookingforcolumn({required this.name, required this.ischecck});
 }
+
 class Distlevelcolumn {
   String name;
   Distlevelcolumn({
     required this.name,
   });
 }
+
 class Distordercolumn {
   String name;
   Distordercolumn({

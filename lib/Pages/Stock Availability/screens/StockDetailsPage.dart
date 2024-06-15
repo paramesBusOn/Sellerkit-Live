@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Pages/Stock%20Availability/screens/showdialogst.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 import '../../../Constant/padings.dart';
 import '../../../Controller/StockAvailabilityController/StockListController.dart';
@@ -166,7 +167,26 @@ onWillPop: onbackpress,
                                 .length,
                             itemBuilder: (BuildContext context, int i) {
                               return  InkWell(
+                                onDoubleTap: (){
+                                   context
+                                      .read<StockListController>()
+                                      .   viewstockdet(context
+                                .read<StockListController>()
+                                .getlistPriceAvail[i].itemCode.toString());
+                                showDialog<dynamic>(
+                                  context: context,
+                                  builder: (_) {
+                                  
+                                    // widget.provi.updateFollowUpDialog = false;
+                                    // context.read<LeadTabController>().resetValues();
+                                    return showdialogst(
+                                      // index: i,
+                                      // leadopenalldata: widget.leadOpenAllData[i],
+                                    );
+                                  });
+                                },
                                 onTap: () {
+                                 
                                 context
                                       .read<StockListController>()
                                       .  onvisiblefeature(i);
@@ -184,6 +204,7 @@ onWillPop: onbackpress,
                                   //             .id!,
                                   //         i);
                                 },
+                                
                                 child: Card(
                                   elevation: 5,
                                   child: 

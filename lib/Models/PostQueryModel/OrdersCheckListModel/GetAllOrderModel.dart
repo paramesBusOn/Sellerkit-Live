@@ -62,8 +62,11 @@ class GetAllOrderDataheader{
     required this.Ordercheckdata
    });
 factory GetAllOrderDataheader.fromJson(Map<String,dynamic> jsons,){
+ print("jsonsjsons::"+jsons.toString());
   if(jsons['data'] != null){
+    
 var list = json.decode(jsons['data']) as List;
+ 
       List<GetAllOrderData> dataList =
           list.map((data) => GetAllOrderData.fromJson(data)).toList();
   return GetAllOrderDataheader(

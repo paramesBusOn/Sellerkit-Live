@@ -1,8 +1,9 @@
 // ignore_for_file: unnecessary_new, prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_brace_in_string_interps, unnecessary_string_interpolations
 
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sellerkit/Models/getuserbyidModel/getuserbyidmodel.dart';
 import 'package:sellerkit/Pages/OrderBooking/NewOrder.dart';
 
 import 'package:flutter/material.dart';
@@ -330,10 +331,13 @@ class EnquiryUserContoller extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<storesListDtos> storelistdata = [];
   callusermobileApi() async {
+    storelistdata.clear();
     await userbyidApi.getData(ConstantValues.UserId).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        storelistdata = value.ageLtData!.storelistdata!;
         log("ConstantValues. userbyidmobile:::" +
             ConstantValues.userbyidmobile.toString());
         getfirebase();
@@ -344,26 +348,26 @@ class EnquiryUserContoller extends ChangeNotifier {
   getfirebase() async {
     userid = '';
     notifyListeners();
-    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+    // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
 
-   await FirebaseProduct.get().then((value) {
-      value.docs.forEach((element) {
-        usernumber = element['mobile'].toString();
+    // await FirebaseProduct.get().then((value) {
+    //   value.docs.forEach((element) {
+    //     usernumber = element['mobile'].toString();
 
-        log("fsdfdf::" + usernumber.toString());
-        if (ConstantValues.userbyidmobile == usernumber) {
-          log("fsdfdf::user number match");
-          userid = element['id'].toString();
-          notifyListeners();
-//  UserdialApi.getdata(userid!, number!).then((value) {
+    //     log("fsdfdf::" + usernumber.toString());
+    //     if (ConstantValues.userbyidmobile == usernumber) {
+    //       log("fsdfdf::user number match");
+    //       userid = element['id'].toString();
+    //       notifyListeners();
+    //       //  UserdialApi.getdata(userid!, number!).then((value) {
 
-//     });
-        }
-//   else{
-// log("fsdfdf::no user number not match");
-//   }
-      });
-    });
+    //     //     });
+    //     }
+    //     //   else{
+    //     // log("fsdfdf::no user number not match");
+    //     //   }
+    //   });
+    // });
   }
 
   filterListAssignData(String v) {

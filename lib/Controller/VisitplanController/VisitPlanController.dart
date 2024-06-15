@@ -3,7 +3,7 @@
 import 'dart:developer';
 
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
@@ -34,6 +34,7 @@ class VisitplanController extends ChangeNotifier {
     getvisitpurpose();
     callusermobileApi();
   }
+
   Future<void> makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
@@ -41,7 +42,8 @@ class VisitplanController extends ChangeNotifier {
     );
     await launchUrl(launchUri);
   }
- List<TextEditingController> mycontroller =
+
+  List<TextEditingController> mycontroller =
       List.generate(20, (i) => TextEditingController());
   List<getvisitdetails> visitdetailsdata = [];
   List<getvisitdetails> get getvisitdetailsdata => visitdetailsdata;
@@ -76,72 +78,86 @@ class VisitplanController extends ChangeNotifier {
   // }
   bool isloading = false;
   String errortabMsg = '';
-   Future<void> swipeRefreshIndiactor() async {
-    
-   await  clearAll();
-   
-   await     getallvisitdata();
-  //  await     getvisitpurpose();
-notifyListeners();
+  Future<void> swipeRefreshIndiactor() async {
+    await clearAll();
+
+    await getallvisitdata();
+    //  await     getvisitpurpose();
+    notifyListeners();
     // callSummaryApi();
 
     //});
   }
-  mapvaluesmodify(getvisitdetails? openVisitData){
-    NewVisitplanController.datafrommodify.clear();
-    NewVisitplanController.datafrommodify.add(openVisitData!.visitplan!.toString());
-    NewVisitplanController.datafrommodify.add(openVisitData!.customercode!.toString());
-    NewVisitplanController.datafrommodify.add(openVisitData!.customername!.toString());
-    NewVisitplanController.datafrommodify.add(openVisitData!.contactname!.toString());
-    NewVisitplanController.datafrommodify.add(openVisitData!.address1!.toString());
 
-    NewVisitplanController.datafrommodify.add(openVisitData!.address2!.toString());
+  mapvaluesmodify(getvisitdetails? openVisitData) {
+    NewVisitplanController.datafrommodify.clear();
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.visitplan!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.customercode!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.customername!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.contactname!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.address1!.toString());
+
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.address2!.toString());
     NewVisitplanController.datafrommodify.add(openVisitData!.area!.toString());
     NewVisitplanController.datafrommodify.add(openVisitData!.city!.toString());
-    NewVisitplanController.datafrommodify.add(openVisitData!.pincode!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.pincode!.toString());
     NewVisitplanController.datafrommodify.add(openVisitData!.state!.toString());
-    NewVisitplanController.datafrommodify.add(openVisitData!.LookingFor!.toString());
-    NewVisitplanController.datafrommodify.add(openVisitData!.purposeofvisit!.toString());
-     NewVisitplanController.datafrommodify.add(openVisitData!.cusemail!.toString());
-     NewVisitplanController.datafrommodify.add(openVisitData!.BaseId!.toString());
-     NewVisitplanController.datafrommodify.add(openVisitData!.BaseType!.toString());
-     NewVisitplanController.datafrommodify.add(openVisitData!.PotentialBusinessValue!.toString());
-      // NewVisitplanController.datafrommodify.add(openVisitData!.!.toString());
-    NewVisitPlanState.iscomfromLead=true;
- Get.toNamed(ConstantRoutes.newvisitplan);
- notifyListeners();
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.LookingFor!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.purposeofvisit!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.cusemail!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.BaseId!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.BaseType!.toString());
+    NewVisitplanController.datafrommodify
+        .add(openVisitData!.PotentialBusinessValue!.toString());
+    // NewVisitplanController.datafrommodify.add(openVisitData!.!.toString());
+    NewVisitPlanState.iscomfromLead = true;
+    Get.toNamed(ConstantRoutes.newvisitplan);
+    notifyListeners();
   }
-  
-String lottie='';
+
+  String lottie = '';
   getallvisitdata() async {
-     lottie='';
+    lottie = '';
     isloading = true;
     notifyListeners();
     await getvisitApi.getdata().then((value) async {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        if (value.getvisitheaddata!.getvisitdetailsdata != null && value.getvisitheaddata!.getvisitdetailsdata!.isNotEmpty) {
+        if (value.getvisitheaddata!.getvisitdetailsdata != null &&
+            value.getvisitheaddata!.getvisitdetailsdata!.isNotEmpty) {
           spilitDatafirst(value.getvisitheaddata!.getvisitdetailsdata!);
           // isloading = false;
           notifyListeners();
-        } else if (value.getvisitheaddata!.getvisitdetailsdata == null|| value.getvisitheaddata!.getvisitdetailsdata!.isEmpty) {
+        } else if (value.getvisitheaddata!.getvisitdetailsdata == null ||
+            value.getvisitheaddata!.getvisitdetailsdata!.isEmpty) {
           isloading = false;
-          lottie='Assets/no-data.png';
+          lottie = 'Assets/no-data.png';
           errortabMsg = 'No data..!!';
           // exception = true;
           //       errorMsg = 'No data found..!!';
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-          lottie='';
+        lottie = '';
         isloading = false;
-        errortabMsg =
-            '${value.exception}..${value.message}..!!';
+        errortabMsg = '${value.exception}..${value.message}..!!';
         // exception = true;
         //       errorMsg = 'Some thing went wrong.!';
         notifyListeners();
       } else if (value.stcode == 500) {
         isloading = false;
-          lottie='Assets/NetworkAnimation.json';
+        lottie = 'Assets/NetworkAnimation.json';
         errortabMsg =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         // datagotByApi = false;
@@ -152,13 +168,14 @@ String lottie='';
     });
     notifyListeners();
   }
+
   String forwardSuccessMsg = '';
-  bool leadLoadingdialog=false;
+  bool leadLoadingdialog = false;
   cancelvisit(int followDocEntry) async {
-    log("followDocEntry::"+followDocEntry.toString());
+    log("followDocEntry::" + followDocEntry.toString());
     forwardSuccessMsg = '';
     leadLoadingdialog = true;
-   
+
     // ForwardOrderUserDataOpen forwardLeadUserDataOpen =
     //     new ForwardOrderUserDataOpen();
     // forwardLeadUserDataOpen.curentDate = config.currentDate();
@@ -170,23 +187,24 @@ String lottie='';
     notifyListeners();
 
     //OpenSaveLeadApi.printjson(followDocEntry,forwardLeadUserDataOpen);
-    await CancelVisitApi.getData(followDocEntry,)
-        .then((value) {
+    await CancelVisitApi.getData(
+      followDocEntry,
+    ).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         forwardSuccessMsg = 'Visit cancelled successfully..!!';
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-        forwardSuccessMsg ='${value.exception}..${value.message}..!!';
+        forwardSuccessMsg = '${value.exception}..${value.message}..!!';
         leadLoadingdialog = false;
         notifyListeners();
       } else if (value.stcode == 500) {
-        forwardSuccessMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        forwardSuccessMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         leadLoadingdialog = false;
         notifyListeners();
       }
     });
-   
   }
 
   List<visitpurpose>? purposevisit = [];
@@ -206,21 +224,21 @@ String lottie='';
     });
   }
 
- getPurposeofVisitName(String id) {
-    String? temp='';
+  getPurposeofVisitName(String id) {
+    String? temp = '';
     if (purposevisit != null) {
       for (int i = 0; i < purposevisit!.length; i++) {
         if (id == purposevisit![i].description) {
-          temp= purposevisit![i].description;
+          temp = purposevisit![i].description;
           return temp;
-          
         }
       }
     }
-    if(temp!.isEmpty){
+    if (temp!.isEmpty) {
       return '';
     }
   }
+
   // getData() {
   //   visitLists = [
   //     VisitPlanData(
@@ -271,164 +289,157 @@ String lottie='';
   //   ];
   //   notifyListeners();
   // }
-callusermobileApi()async{
- await userbyidApi.getData(ConstantValues.UserId).then((value){
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
-log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
-getfirebase();
- }
-   
-  });
-}
-String? apidate;
-  bool iscalltrue=false;
-  String? userid='';
-  String? usernumber='';
-  calldialApi(String? number)async{
-    
-    usernumber='';
-     iscalltrue=true;
+  callusermobileApi() async {
+    await userbyidApi.getData(ConstantValues.UserId).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        log("ConstantValues. userbyidmobile:::" +
+            ConstantValues.userbyidmobile.toString());
+        getfirebase();
+      }
+    });
+  }
+
+  String? apidate;
+  bool iscalltrue = false;
+  String? userid = '';
+  String? usernumber = '';
+  calldialApi(String? number) async {
+    usernumber = '';
+    iscalltrue = true;
     notifyListeners();
-    Future.delayed(Duration(seconds: 40),(){
+    Future.delayed(Duration(seconds: 40), () {
       log("secondsoverrr:::");
-  iscalltrue=false;
-    notifyListeners();
+      iscalltrue = false;
+      notifyListeners();
     });
 
     // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
+
 //     FirebaseProduct.get().then((value) {
 // value.docs.forEach((element) {
 //   usernumber=element!['mobile'].toString();
 //   userid=element!['id'].toString();
 // log("fsdfdf::"+userid.toString());
-  // if(ConstantValues.userbyidmobile==usernumber){
+    // if(ConstantValues.userbyidmobile==usernumber){
     log("fsdfdf::user number match");
- UserdialApi.getdata(userid!, number!).then((value) {
-
-    });
-  // }
+    UserdialApi.getdata(userid!, number!).then((value) {});
+    // }
 //   else{
 // log("fsdfdf::no user number not match");
 //   }
-  
 
 // });
     // });
-   
   }
-getfirebase()async{
-  userid='';
-  notifyListeners();
-    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
-  await  FirebaseProduct.get().then((value) {
-value.docs.forEach((element) {
-  usernumber=element!['mobile'].toString();
-  
-log("fsdfdf::"+usernumber.toString());
-  if(ConstantValues.userbyidmobile==usernumber){
-    log("fsdfdf::user number match");
-    userid=element!['id'].toString();
-    notifyListeners();
-//  UserdialApi.getdata(userid!, number!).then((value) {
 
+  getfirebase() async {
+    userid = '';
+    notifyListeners();
+//     final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+
+//     await FirebaseProduct.get().then((value) {
+//       value.docs.forEach((element) {
+//         usernumber = element!['mobile'].toString();
+
+//         log("fsdfdf::" + usernumber.toString());
+//         if (ConstantValues.userbyidmobile == usernumber) {
+//           log("fsdfdf::user number match");
+//           userid = element!['id'].toString();
+//           notifyListeners();
+// //  UserdialApi.getdata(userid!, number!).then((value) {
+
+// //     });
+//         }
+// //   else{
+// // log("fsdfdf::no user number not match");
+// //   }
+//       });
 //     });
   }
-//   else{
-// log("fsdfdf::no user number not match");
-//   }
-  
 
-});
-    });
-}
-  clearAll() async{
-     iscalltrue=false;
-    userid='';
-    usernumber='';
+  clearAll() async {
+    iscalltrue = false;
+    userid = '';
+    usernumber = '';
     isloading = false;
     errortabMsg = '';
     dropdownvalue = "";
-  forwardSuccessMsg = '';
-   leadLoadingdialog=false;
+    forwardSuccessMsg = '';
+    leadLoadingdialog = false;
     testlistData.clear();
     visitLists.clear();
     openVisitData.clear();
     closedVisitdata.clear();
     missedVisitUserdata.clear();
-    
   }
-spilitDatafirst(List<getvisitdetails> getvisitdetailsdata){
-  visitdetailsdata.clear();
-   for (int i = 0; i < getvisitdetailsdata.length; i++) {
-    if(getvisitdetailsdata[i].visitstatus=='Planned'){
-visitdetailsdata.add(getvisitdetails(
-          address1: getvisitdetailsdata[i].address1, 
-          address2: getvisitdetailsdata[i].address2, 
-          address3: getvisitdetailsdata[i].address3, 
-          city: getvisitdetailsdata[i].city, 
-          closed: getvisitdetailsdata[i].closed, 
-          createdby: getvisitdetailsdata[i].createdby, 
-          customercode: getvisitdetailsdata[i].customercode, 
-          customername: getvisitdetailsdata[i].customername, 
-          meetingtime: getvisitdetailsdata[i].meetingtime, 
-          product: getvisitdetailsdata[i].product, 
-          purposeofvisit: getvisitdetailsdata[i].purposeofvisit, 
-          userid: getvisitdetailsdata[i].userid, 
-          visitplan: getvisitdetailsdata[i].visitplan, 
-          visitstatus: getvisitdetailsdata[i].visitstatus, 
-          pincode: getvisitdetailsdata[i].pincode, 
-          state: getvisitdetailsdata[i].state, 
-          cusmobile: getvisitdetailsdata[i].cusmobile, 
-          cusemail: getvisitdetailsdata[i].cusemail, 
-          contactname: getvisitdetailsdata[i].contactname, 
-          AssignedTo: getvisitdetailsdata[i].AssignedTo, 
-          Att1: getvisitdetailsdata[i].Att1, 
-          Att2: getvisitdetailsdata[i].Att2, 
-          Att3: getvisitdetailsdata[i].Att3, 
-          Att4: getvisitdetailsdata[i].Att4, 
-          BaseId: getvisitdetailsdata[i].BaseId, 
-          BaseType: getvisitdetailsdata[i].BaseType, 
-          CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
-           CheckinLat: getvisitdetailsdata[i].CheckinLat, 
-           CheckinLong: getvisitdetailsdata[i].CheckinLong, 
-           CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime, 
-           CheckoutLat: getvisitdetailsdata[i].CheckoutLat, 
-           CheckoutLong: getvisitdetailsdata[i].CheckoutLong, 
-           CreatedBy: getvisitdetailsdata[i].CreatedBy, 
-           CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime, 
-           IsClosed: getvisitdetailsdata[i].IsClosed, 
-           LookingFor: getvisitdetailsdata[i].LookingFor, 
-           PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue, 
-           TargetId: getvisitdetailsdata[i].TargetId, 
-           TargetType: getvisitdetailsdata[i].TargetType, 
-           UpdatedBy: getvisitdetailsdata[i].UpdatedBy, 
-           UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime, 
-           VisitOutcome: getvisitdetailsdata[i].VisitOutcome, 
-           VisitStatus: getvisitdetailsdata[i].VisitStatus, 
-           area: getvisitdetailsdata[i].area, 
-           country: getvisitdetailsdata[i].country, 
-           district: getvisitdetailsdata[i].district, 
-           plannedDate: getvisitdetailsdata[i].plannedDate, 
-           storecode: getvisitdetailsdata[i].storecode, 
-           traceid: getvisitdetailsdata[i].traceid));
-    }
 
-   }
-   notifyListeners();
-  spilitData(visitdetailsdata);
-  log("visitdetailsdata::"+visitdetailsdata.length.toString());
-  notifyListeners();
-}
+  spilitDatafirst(List<getvisitdetails> getvisitdetailsdata) {
+    visitdetailsdata.clear();
+    for (int i = 0; i < getvisitdetailsdata.length; i++) {
+      if (getvisitdetailsdata[i].visitstatus == 'Planned') {
+        visitdetailsdata.add(getvisitdetails(
+            address1: getvisitdetailsdata[i].address1,
+            address2: getvisitdetailsdata[i].address2,
+            address3: getvisitdetailsdata[i].address3,
+            city: getvisitdetailsdata[i].city,
+            closed: getvisitdetailsdata[i].closed,
+            createdby: getvisitdetailsdata[i].createdby,
+            customercode: getvisitdetailsdata[i].customercode,
+            customername: getvisitdetailsdata[i].customername,
+            meetingtime: getvisitdetailsdata[i].meetingtime,
+            product: getvisitdetailsdata[i].product,
+            purposeofvisit: getvisitdetailsdata[i].purposeofvisit,
+            userid: getvisitdetailsdata[i].userid,
+            visitplan: getvisitdetailsdata[i].visitplan,
+            visitstatus: getvisitdetailsdata[i].visitstatus,
+            pincode: getvisitdetailsdata[i].pincode,
+            state: getvisitdetailsdata[i].state,
+            cusmobile: getvisitdetailsdata[i].cusmobile,
+            cusemail: getvisitdetailsdata[i].cusemail,
+            contactname: getvisitdetailsdata[i].contactname,
+            AssignedTo: getvisitdetailsdata[i].AssignedTo,
+            Att1: getvisitdetailsdata[i].Att1,
+            Att2: getvisitdetailsdata[i].Att2,
+            Att3: getvisitdetailsdata[i].Att3,
+            Att4: getvisitdetailsdata[i].Att4,
+            BaseId: getvisitdetailsdata[i].BaseId,
+            BaseType: getvisitdetailsdata[i].BaseType,
+            CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
+            CheckinLat: getvisitdetailsdata[i].CheckinLat,
+            CheckinLong: getvisitdetailsdata[i].CheckinLong,
+            CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime,
+            CheckoutLat: getvisitdetailsdata[i].CheckoutLat,
+            CheckoutLong: getvisitdetailsdata[i].CheckoutLong,
+            CreatedBy: getvisitdetailsdata[i].CreatedBy,
+            CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime,
+            IsClosed: getvisitdetailsdata[i].IsClosed,
+            LookingFor: getvisitdetailsdata[i].LookingFor,
+            PotentialBusinessValue:
+                getvisitdetailsdata[i].PotentialBusinessValue,
+            TargetId: getvisitdetailsdata[i].TargetId,
+            TargetType: getvisitdetailsdata[i].TargetType,
+            UpdatedBy: getvisitdetailsdata[i].UpdatedBy,
+            UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime,
+            VisitOutcome: getvisitdetailsdata[i].VisitOutcome,
+            VisitStatus: getvisitdetailsdata[i].VisitStatus,
+            area: getvisitdetailsdata[i].area,
+            country: getvisitdetailsdata[i].country,
+            district: getvisitdetailsdata[i].district,
+            plannedDate: getvisitdetailsdata[i].plannedDate,
+            storecode: getvisitdetailsdata[i].storecode,
+            traceid: getvisitdetailsdata[i].traceid));
+      }
+    }
+    notifyListeners();
+    spilitData(visitdetailsdata);
+    log("visitdetailsdata::" + visitdetailsdata.length.toString());
+    notifyListeners();
+  }
 
   String? dropdownvalue;
 
   spilitData(List<getvisitdetails> getvisitdetailsdata) {
-
     String currentdate;
     String? nextfollowdate;
     DateTime curentdate2;
@@ -436,275 +447,275 @@ visitdetailsdata.add(getvisitdetails(
     currentdate = config.currentDateOnly();
     curentdate2 = DateTime.parse(currentdate);
     for (int i = 0; i < getvisitdetailsdata.length; i++) {
-
-        nextfollowdate = config.aligndatefollow(getvisitdetailsdata[i].plannedDate!);
+      nextfollowdate =
+          config.aligndatefollow(getvisitdetailsdata[i].plannedDate!);
       nextfollowdate2 = DateTime.parse(nextfollowdate);
       // log("Open:::" + getvisitdetailsdata[i].visitstatus.toString());
-if (nextfollowdate2.isBefore(curentdate2)) {
-  missedVisitUserdata.add(getvisitdetails(
-            address1: getvisitdetailsdata[i].address1, 
-          address2: getvisitdetailsdata[i].address2, 
-          address3: getvisitdetailsdata[i].address3, 
-          city: getvisitdetailsdata[i].city, 
-          closed: getvisitdetailsdata[i].closed, 
-          createdby: getvisitdetailsdata[i].createdby, 
-          customercode: getvisitdetailsdata[i].customercode, 
-          customername: getvisitdetailsdata[i].customername, 
-          meetingtime: getvisitdetailsdata[i].meetingtime, 
-          product: getvisitdetailsdata[i].product, 
-          purposeofvisit: getvisitdetailsdata[i].purposeofvisit, 
-          userid: getvisitdetailsdata[i].userid, 
-          visitplan: getvisitdetailsdata[i].visitplan, 
-          visitstatus: getvisitdetailsdata[i].visitstatus, 
-          pincode: getvisitdetailsdata[i].pincode, 
-          state: getvisitdetailsdata[i].state, 
-          cusmobile: getvisitdetailsdata[i].cusmobile, 
-          cusemail: getvisitdetailsdata[i].cusemail, 
-          contactname: getvisitdetailsdata[i].contactname, 
-          AssignedTo: getvisitdetailsdata[i].AssignedTo, 
-          Att1: getvisitdetailsdata[i].Att1, 
-          Att2: getvisitdetailsdata[i].Att2, 
-          Att3: getvisitdetailsdata[i].Att3, 
-          Att4: getvisitdetailsdata[i].Att4, 
-          BaseId: getvisitdetailsdata[i].BaseId, 
-          BaseType: getvisitdetailsdata[i].BaseType, 
-          CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
-           CheckinLat: getvisitdetailsdata[i].CheckinLat, 
-           CheckinLong: getvisitdetailsdata[i].CheckinLong, 
-           CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime, 
-           CheckoutLat: getvisitdetailsdata[i].CheckoutLat, 
-           CheckoutLong: getvisitdetailsdata[i].CheckoutLong, 
-           CreatedBy: getvisitdetailsdata[i].CreatedBy, 
-           CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime, 
-           IsClosed: getvisitdetailsdata[i].IsClosed, 
-           LookingFor: getvisitdetailsdata[i].LookingFor, 
-           PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue, 
-           TargetId: getvisitdetailsdata[i].TargetId, 
-           TargetType: getvisitdetailsdata[i].TargetType, 
-           UpdatedBy: getvisitdetailsdata[i].UpdatedBy, 
-           UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime, 
-           VisitOutcome: getvisitdetailsdata[i].VisitOutcome, 
-           VisitStatus: getvisitdetailsdata[i].VisitStatus, 
-           area: getvisitdetailsdata[i].area, 
-           country: getvisitdetailsdata[i].country, 
-           district: getvisitdetailsdata[i].district, 
-           plannedDate: getvisitdetailsdata[i].plannedDate, 
-           storecode: getvisitdetailsdata[i].storecode, 
-           traceid: getvisitdetailsdata[i].traceid));
-}else{
- openVisitData.add(getvisitdetails(
-          address1: getvisitdetailsdata[i].address1, 
-          address2: getvisitdetailsdata[i].address2, 
-          address3: getvisitdetailsdata[i].address3, 
-          city: getvisitdetailsdata[i].city, 
-          closed: getvisitdetailsdata[i].closed, 
-          createdby: getvisitdetailsdata[i].createdby, 
-          customercode: getvisitdetailsdata[i].customercode, 
-          customername: getvisitdetailsdata[i].customername, 
-          meetingtime: getvisitdetailsdata[i].meetingtime, 
-          product: getvisitdetailsdata[i].product, 
-          purposeofvisit: getvisitdetailsdata[i].purposeofvisit, 
-          userid: getvisitdetailsdata[i].userid, 
-          visitplan: getvisitdetailsdata[i].visitplan, 
-          visitstatus: getvisitdetailsdata[i].visitstatus, 
-          pincode: getvisitdetailsdata[i].pincode, 
-          state: getvisitdetailsdata[i].state, 
-          cusmobile: getvisitdetailsdata[i].cusmobile, 
-          cusemail: getvisitdetailsdata[i].cusemail, 
-          contactname: getvisitdetailsdata[i].contactname, 
-          AssignedTo: getvisitdetailsdata[i].AssignedTo, 
-          Att1: getvisitdetailsdata[i].Att1, 
-          Att2: getvisitdetailsdata[i].Att2, 
-          Att3: getvisitdetailsdata[i].Att3, 
-          Att4: getvisitdetailsdata[i].Att4, 
-          BaseId: getvisitdetailsdata[i].BaseId, 
-          BaseType: getvisitdetailsdata[i].BaseType, 
-          CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
-           CheckinLat: getvisitdetailsdata[i].CheckinLat, 
-           CheckinLong: getvisitdetailsdata[i].CheckinLong, 
-           CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime, 
-           CheckoutLat: getvisitdetailsdata[i].CheckoutLat, 
-           CheckoutLong: getvisitdetailsdata[i].CheckoutLong, 
-           CreatedBy: getvisitdetailsdata[i].CreatedBy, 
-           CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime, 
-           IsClosed: getvisitdetailsdata[i].IsClosed, 
-           LookingFor: getvisitdetailsdata[i].LookingFor, 
-           PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue, 
-           TargetId: getvisitdetailsdata[i].TargetId, 
-           TargetType: getvisitdetailsdata[i].TargetType, 
-           UpdatedBy: getvisitdetailsdata[i].UpdatedBy, 
-           UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime, 
-           VisitOutcome: getvisitdetailsdata[i].VisitOutcome, 
-           VisitStatus: getvisitdetailsdata[i].VisitStatus, 
-           area: getvisitdetailsdata[i].area, 
-           country: getvisitdetailsdata[i].country, 
-           district: getvisitdetailsdata[i].district, 
-           plannedDate: getvisitdetailsdata[i].plannedDate, 
-           storecode: getvisitdetailsdata[i].storecode, 
-           traceid: getvisitdetailsdata[i].traceid));
-
- 
-}
+      if (nextfollowdate2.isBefore(curentdate2)) {
+        missedVisitUserdata.add(getvisitdetails(
+            address1: getvisitdetailsdata[i].address1,
+            address2: getvisitdetailsdata[i].address2,
+            address3: getvisitdetailsdata[i].address3,
+            city: getvisitdetailsdata[i].city,
+            closed: getvisitdetailsdata[i].closed,
+            createdby: getvisitdetailsdata[i].createdby,
+            customercode: getvisitdetailsdata[i].customercode,
+            customername: getvisitdetailsdata[i].customername,
+            meetingtime: getvisitdetailsdata[i].meetingtime,
+            product: getvisitdetailsdata[i].product,
+            purposeofvisit: getvisitdetailsdata[i].purposeofvisit,
+            userid: getvisitdetailsdata[i].userid,
+            visitplan: getvisitdetailsdata[i].visitplan,
+            visitstatus: getvisitdetailsdata[i].visitstatus,
+            pincode: getvisitdetailsdata[i].pincode,
+            state: getvisitdetailsdata[i].state,
+            cusmobile: getvisitdetailsdata[i].cusmobile,
+            cusemail: getvisitdetailsdata[i].cusemail,
+            contactname: getvisitdetailsdata[i].contactname,
+            AssignedTo: getvisitdetailsdata[i].AssignedTo,
+            Att1: getvisitdetailsdata[i].Att1,
+            Att2: getvisitdetailsdata[i].Att2,
+            Att3: getvisitdetailsdata[i].Att3,
+            Att4: getvisitdetailsdata[i].Att4,
+            BaseId: getvisitdetailsdata[i].BaseId,
+            BaseType: getvisitdetailsdata[i].BaseType,
+            CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
+            CheckinLat: getvisitdetailsdata[i].CheckinLat,
+            CheckinLong: getvisitdetailsdata[i].CheckinLong,
+            CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime,
+            CheckoutLat: getvisitdetailsdata[i].CheckoutLat,
+            CheckoutLong: getvisitdetailsdata[i].CheckoutLong,
+            CreatedBy: getvisitdetailsdata[i].CreatedBy,
+            CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime,
+            IsClosed: getvisitdetailsdata[i].IsClosed,
+            LookingFor: getvisitdetailsdata[i].LookingFor,
+            PotentialBusinessValue:
+                getvisitdetailsdata[i].PotentialBusinessValue,
+            TargetId: getvisitdetailsdata[i].TargetId,
+            TargetType: getvisitdetailsdata[i].TargetType,
+            UpdatedBy: getvisitdetailsdata[i].UpdatedBy,
+            UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime,
+            VisitOutcome: getvisitdetailsdata[i].VisitOutcome,
+            VisitStatus: getvisitdetailsdata[i].VisitStatus,
+            area: getvisitdetailsdata[i].area,
+            country: getvisitdetailsdata[i].country,
+            district: getvisitdetailsdata[i].district,
+            plannedDate: getvisitdetailsdata[i].plannedDate,
+            storecode: getvisitdetailsdata[i].storecode,
+            traceid: getvisitdetailsdata[i].traceid));
+      } else {
+        openVisitData.add(getvisitdetails(
+            address1: getvisitdetailsdata[i].address1,
+            address2: getvisitdetailsdata[i].address2,
+            address3: getvisitdetailsdata[i].address3,
+            city: getvisitdetailsdata[i].city,
+            closed: getvisitdetailsdata[i].closed,
+            createdby: getvisitdetailsdata[i].createdby,
+            customercode: getvisitdetailsdata[i].customercode,
+            customername: getvisitdetailsdata[i].customername,
+            meetingtime: getvisitdetailsdata[i].meetingtime,
+            product: getvisitdetailsdata[i].product,
+            purposeofvisit: getvisitdetailsdata[i].purposeofvisit,
+            userid: getvisitdetailsdata[i].userid,
+            visitplan: getvisitdetailsdata[i].visitplan,
+            visitstatus: getvisitdetailsdata[i].visitstatus,
+            pincode: getvisitdetailsdata[i].pincode,
+            state: getvisitdetailsdata[i].state,
+            cusmobile: getvisitdetailsdata[i].cusmobile,
+            cusemail: getvisitdetailsdata[i].cusemail,
+            contactname: getvisitdetailsdata[i].contactname,
+            AssignedTo: getvisitdetailsdata[i].AssignedTo,
+            Att1: getvisitdetailsdata[i].Att1,
+            Att2: getvisitdetailsdata[i].Att2,
+            Att3: getvisitdetailsdata[i].Att3,
+            Att4: getvisitdetailsdata[i].Att4,
+            BaseId: getvisitdetailsdata[i].BaseId,
+            BaseType: getvisitdetailsdata[i].BaseType,
+            CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
+            CheckinLat: getvisitdetailsdata[i].CheckinLat,
+            CheckinLong: getvisitdetailsdata[i].CheckinLong,
+            CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime,
+            CheckoutLat: getvisitdetailsdata[i].CheckoutLat,
+            CheckoutLong: getvisitdetailsdata[i].CheckoutLong,
+            CreatedBy: getvisitdetailsdata[i].CreatedBy,
+            CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime,
+            IsClosed: getvisitdetailsdata[i].IsClosed,
+            LookingFor: getvisitdetailsdata[i].LookingFor,
+            PotentialBusinessValue:
+                getvisitdetailsdata[i].PotentialBusinessValue,
+            TargetId: getvisitdetailsdata[i].TargetId,
+            TargetType: getvisitdetailsdata[i].TargetType,
+            UpdatedBy: getvisitdetailsdata[i].UpdatedBy,
+            UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime,
+            VisitOutcome: getvisitdetailsdata[i].VisitOutcome,
+            VisitStatus: getvisitdetailsdata[i].VisitStatus,
+            area: getvisitdetailsdata[i].area,
+            country: getvisitdetailsdata[i].country,
+            district: getvisitdetailsdata[i].district,
+            plannedDate: getvisitdetailsdata[i].plannedDate,
+            storecode: getvisitdetailsdata[i].storecode,
+            traceid: getvisitdetailsdata[i].traceid));
+      }
       // if (getvisitdetailsdata[i].visitstatus == "Planned") {
       //   openVisitData.add(getvisitdetails(
-      //     address1: getvisitdetailsdata[i].address1, 
-      //     address2: getvisitdetailsdata[i].address2, 
-      //     address3: getvisitdetailsdata[i].address3, 
-      //     city: getvisitdetailsdata[i].city, 
-      //     closed: getvisitdetailsdata[i].closed, 
-      //     createdby: getvisitdetailsdata[i].createdby, 
-      //     customercode: getvisitdetailsdata[i].customercode, 
-      //     customername: getvisitdetailsdata[i].customername, 
-      //     meetingtime: getvisitdetailsdata[i].meetingtime, 
-      //     product: getvisitdetailsdata[i].product, 
-      //     purposeofvisit: getvisitdetailsdata[i].purposeofvisit, 
-      //     userid: getvisitdetailsdata[i].userid, 
-      //     visitplan: getvisitdetailsdata[i].visitplan, 
-      //     visitstatus: getvisitdetailsdata[i].visitstatus, 
-      //     pincode: getvisitdetailsdata[i].pincode, 
-      //     state: getvisitdetailsdata[i].state, 
-      //     cusmobile: getvisitdetailsdata[i].cusmobile, 
-      //     cusemail: getvisitdetailsdata[i].cusemail, 
-      //     contactname: getvisitdetailsdata[i].contactname, 
-      //     AssignedTo: getvisitdetailsdata[i].AssignedTo, 
-      //     Att1: getvisitdetailsdata[i].Att1, 
-      //     Att2: getvisitdetailsdata[i].Att2, 
-      //     Att3: getvisitdetailsdata[i].Att3, 
-      //     Att4: getvisitdetailsdata[i].Att4, 
-      //     BaseId: getvisitdetailsdata[i].BaseId, 
-      //     BaseType: getvisitdetailsdata[i].BaseType, 
+      //     address1: getvisitdetailsdata[i].address1,
+      //     address2: getvisitdetailsdata[i].address2,
+      //     address3: getvisitdetailsdata[i].address3,
+      //     city: getvisitdetailsdata[i].city,
+      //     closed: getvisitdetailsdata[i].closed,
+      //     createdby: getvisitdetailsdata[i].createdby,
+      //     customercode: getvisitdetailsdata[i].customercode,
+      //     customername: getvisitdetailsdata[i].customername,
+      //     meetingtime: getvisitdetailsdata[i].meetingtime,
+      //     product: getvisitdetailsdata[i].product,
+      //     purposeofvisit: getvisitdetailsdata[i].purposeofvisit,
+      //     userid: getvisitdetailsdata[i].userid,
+      //     visitplan: getvisitdetailsdata[i].visitplan,
+      //     visitstatus: getvisitdetailsdata[i].visitstatus,
+      //     pincode: getvisitdetailsdata[i].pincode,
+      //     state: getvisitdetailsdata[i].state,
+      //     cusmobile: getvisitdetailsdata[i].cusmobile,
+      //     cusemail: getvisitdetailsdata[i].cusemail,
+      //     contactname: getvisitdetailsdata[i].contactname,
+      //     AssignedTo: getvisitdetailsdata[i].AssignedTo,
+      //     Att1: getvisitdetailsdata[i].Att1,
+      //     Att2: getvisitdetailsdata[i].Att2,
+      //     Att3: getvisitdetailsdata[i].Att3,
+      //     Att4: getvisitdetailsdata[i].Att4,
+      //     BaseId: getvisitdetailsdata[i].BaseId,
+      //     BaseType: getvisitdetailsdata[i].BaseType,
       //     CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
-      //      CheckinLat: getvisitdetailsdata[i].CheckinLat, 
-      //      CheckinLong: getvisitdetailsdata[i].CheckinLong, 
-      //      CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime, 
-      //      CheckoutLat: getvisitdetailsdata[i].CheckoutLat, 
-      //      CheckoutLong: getvisitdetailsdata[i].CheckoutLong, 
-      //      CreatedBy: getvisitdetailsdata[i].CreatedBy, 
-      //      CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime, 
-      //      IsClosed: getvisitdetailsdata[i].IsClosed, 
-      //      LookingFor: getvisitdetailsdata[i].LookingFor, 
-      //      PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue, 
-      //      TargetId: getvisitdetailsdata[i].TargetId, 
-      //      TargetType: getvisitdetailsdata[i].TargetType, 
-      //      UpdatedBy: getvisitdetailsdata[i].UpdatedBy, 
-      //      UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime, 
-      //      VisitOutcome: getvisitdetailsdata[i].VisitOutcome, 
-      //      VisitStatus: getvisitdetailsdata[i].VisitStatus, 
-      //      area: getvisitdetailsdata[i].area, 
-      //      country: getvisitdetailsdata[i].country, 
-      //      district: getvisitdetailsdata[i].district, 
-      //      plannedDate: getvisitdetailsdata[i].plannedDate, 
-      //      storecode: getvisitdetailsdata[i].storecode, 
+      //      CheckinLat: getvisitdetailsdata[i].CheckinLat,
+      //      CheckinLong: getvisitdetailsdata[i].CheckinLong,
+      //      CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime,
+      //      CheckoutLat: getvisitdetailsdata[i].CheckoutLat,
+      //      CheckoutLong: getvisitdetailsdata[i].CheckoutLong,
+      //      CreatedBy: getvisitdetailsdata[i].CreatedBy,
+      //      CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime,
+      //      IsClosed: getvisitdetailsdata[i].IsClosed,
+      //      LookingFor: getvisitdetailsdata[i].LookingFor,
+      //      PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue,
+      //      TargetId: getvisitdetailsdata[i].TargetId,
+      //      TargetType: getvisitdetailsdata[i].TargetType,
+      //      UpdatedBy: getvisitdetailsdata[i].UpdatedBy,
+      //      UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime,
+      //      VisitOutcome: getvisitdetailsdata[i].VisitOutcome,
+      //      VisitStatus: getvisitdetailsdata[i].VisitStatus,
+      //      area: getvisitdetailsdata[i].area,
+      //      country: getvisitdetailsdata[i].country,
+      //      district: getvisitdetailsdata[i].district,
+      //      plannedDate: getvisitdetailsdata[i].plannedDate,
+      //      storecode: getvisitdetailsdata[i].storecode,
       //      traceid: getvisitdetailsdata[i].traceid));
       //   log("Open:::" + openVisitData.length.toString());
       // }
       // if (getvisitdetailsdata[i].visitstatus == "Closed") {
       //   closedVisitdata.add(getvisitdetails(
-      //       address1: getvisitdetailsdata[i].address1, 
-      //     address2: getvisitdetailsdata[i].address2, 
-      //     address3: getvisitdetailsdata[i].address3, 
-      //     city: getvisitdetailsdata[i].city, 
-      //     closed: getvisitdetailsdata[i].closed, 
-      //     createdby: getvisitdetailsdata[i].createdby, 
-      //     customercode: getvisitdetailsdata[i].customercode, 
-      //     customername: getvisitdetailsdata[i].customername, 
-      //     meetingtime: getvisitdetailsdata[i].meetingtime, 
-      //     product: getvisitdetailsdata[i].product, 
-      //     purposeofvisit: getvisitdetailsdata[i].purposeofvisit, 
-      //     userid: getvisitdetailsdata[i].userid, 
-      //     visitplan: getvisitdetailsdata[i].visitplan, 
-      //     visitstatus: getvisitdetailsdata[i].visitstatus, 
-      //     pincode: getvisitdetailsdata[i].pincode, 
-      //     state: getvisitdetailsdata[i].state, 
-      //     cusmobile: getvisitdetailsdata[i].cusmobile, 
-      //     cusemail: getvisitdetailsdata[i].cusemail, 
-      //     contactname: getvisitdetailsdata[i].contactname, 
-      //     AssignedTo: getvisitdetailsdata[i].AssignedTo, 
-      //     Att1: getvisitdetailsdata[i].Att1, 
-      //     Att2: getvisitdetailsdata[i].Att2, 
-      //     Att3: getvisitdetailsdata[i].Att3, 
-      //     Att4: getvisitdetailsdata[i].Att4, 
-      //     BaseId: getvisitdetailsdata[i].BaseId, 
-      //     BaseType: getvisitdetailsdata[i].BaseType, 
+      //       address1: getvisitdetailsdata[i].address1,
+      //     address2: getvisitdetailsdata[i].address2,
+      //     address3: getvisitdetailsdata[i].address3,
+      //     city: getvisitdetailsdata[i].city,
+      //     closed: getvisitdetailsdata[i].closed,
+      //     createdby: getvisitdetailsdata[i].createdby,
+      //     customercode: getvisitdetailsdata[i].customercode,
+      //     customername: getvisitdetailsdata[i].customername,
+      //     meetingtime: getvisitdetailsdata[i].meetingtime,
+      //     product: getvisitdetailsdata[i].product,
+      //     purposeofvisit: getvisitdetailsdata[i].purposeofvisit,
+      //     userid: getvisitdetailsdata[i].userid,
+      //     visitplan: getvisitdetailsdata[i].visitplan,
+      //     visitstatus: getvisitdetailsdata[i].visitstatus,
+      //     pincode: getvisitdetailsdata[i].pincode,
+      //     state: getvisitdetailsdata[i].state,
+      //     cusmobile: getvisitdetailsdata[i].cusmobile,
+      //     cusemail: getvisitdetailsdata[i].cusemail,
+      //     contactname: getvisitdetailsdata[i].contactname,
+      //     AssignedTo: getvisitdetailsdata[i].AssignedTo,
+      //     Att1: getvisitdetailsdata[i].Att1,
+      //     Att2: getvisitdetailsdata[i].Att2,
+      //     Att3: getvisitdetailsdata[i].Att3,
+      //     Att4: getvisitdetailsdata[i].Att4,
+      //     BaseId: getvisitdetailsdata[i].BaseId,
+      //     BaseType: getvisitdetailsdata[i].BaseType,
       //     CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
-      //      CheckinLat: getvisitdetailsdata[i].CheckinLat, 
-      //      CheckinLong: getvisitdetailsdata[i].CheckinLong, 
-      //      CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime, 
-      //      CheckoutLat: getvisitdetailsdata[i].CheckoutLat, 
-      //      CheckoutLong: getvisitdetailsdata[i].CheckoutLong, 
-      //      CreatedBy: getvisitdetailsdata[i].CreatedBy, 
-      //      CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime, 
-      //      IsClosed: getvisitdetailsdata[i].IsClosed, 
-      //      LookingFor: getvisitdetailsdata[i].LookingFor, 
-      //      PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue, 
-      //      TargetId: getvisitdetailsdata[i].TargetId, 
-      //      TargetType: getvisitdetailsdata[i].TargetType, 
-      //      UpdatedBy: getvisitdetailsdata[i].UpdatedBy, 
-      //      UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime, 
-      //      VisitOutcome: getvisitdetailsdata[i].VisitOutcome, 
-      //      VisitStatus: getvisitdetailsdata[i].VisitStatus, 
-      //      area: getvisitdetailsdata[i].area, 
-      //      country: getvisitdetailsdata[i].country, 
-      //      district: getvisitdetailsdata[i].district, 
-      //      plannedDate: getvisitdetailsdata[i].plannedDate, 
-      //      storecode: getvisitdetailsdata[i].storecode, 
+      //      CheckinLat: getvisitdetailsdata[i].CheckinLat,
+      //      CheckinLong: getvisitdetailsdata[i].CheckinLong,
+      //      CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime,
+      //      CheckoutLat: getvisitdetailsdata[i].CheckoutLat,
+      //      CheckoutLong: getvisitdetailsdata[i].CheckoutLong,
+      //      CreatedBy: getvisitdetailsdata[i].CreatedBy,
+      //      CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime,
+      //      IsClosed: getvisitdetailsdata[i].IsClosed,
+      //      LookingFor: getvisitdetailsdata[i].LookingFor,
+      //      PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue,
+      //      TargetId: getvisitdetailsdata[i].TargetId,
+      //      TargetType: getvisitdetailsdata[i].TargetType,
+      //      UpdatedBy: getvisitdetailsdata[i].UpdatedBy,
+      //      UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime,
+      //      VisitOutcome: getvisitdetailsdata[i].VisitOutcome,
+      //      VisitStatus: getvisitdetailsdata[i].VisitStatus,
+      //      area: getvisitdetailsdata[i].area,
+      //      country: getvisitdetailsdata[i].country,
+      //      district: getvisitdetailsdata[i].district,
+      //      plannedDate: getvisitdetailsdata[i].plannedDate,
+      //      storecode: getvisitdetailsdata[i].storecode,
       //      traceid: getvisitdetailsdata[i].traceid));
       // }
       // if (getvisitdetailsdata[i].visitstatus == "Missed") {
       //   missedVisitUserdata.add(getvisitdetails(
-      //       address1: getvisitdetailsdata[i].address1, 
-      //     address2: getvisitdetailsdata[i].address2, 
-      //     address3: getvisitdetailsdata[i].address3, 
-      //     city: getvisitdetailsdata[i].city, 
-      //     closed: getvisitdetailsdata[i].closed, 
-      //     createdby: getvisitdetailsdata[i].createdby, 
-      //     customercode: getvisitdetailsdata[i].customercode, 
-      //     customername: getvisitdetailsdata[i].customername, 
-      //     meetingtime: getvisitdetailsdata[i].meetingtime, 
-      //     product: getvisitdetailsdata[i].product, 
-      //     purposeofvisit: getvisitdetailsdata[i].purposeofvisit, 
-      //     userid: getvisitdetailsdata[i].userid, 
-      //     visitplan: getvisitdetailsdata[i].visitplan, 
-      //     visitstatus: getvisitdetailsdata[i].visitstatus, 
-      //     pincode: getvisitdetailsdata[i].pincode, 
-      //     state: getvisitdetailsdata[i].state, 
-      //     cusmobile: getvisitdetailsdata[i].cusmobile, 
-      //     cusemail: getvisitdetailsdata[i].cusemail, 
-      //     contactname: getvisitdetailsdata[i].contactname, 
-      //     AssignedTo: getvisitdetailsdata[i].AssignedTo, 
-      //     Att1: getvisitdetailsdata[i].Att1, 
-      //     Att2: getvisitdetailsdata[i].Att2, 
-      //     Att3: getvisitdetailsdata[i].Att3, 
-      //     Att4: getvisitdetailsdata[i].Att4, 
-      //     BaseId: getvisitdetailsdata[i].BaseId, 
-      //     BaseType: getvisitdetailsdata[i].BaseType, 
+      //       address1: getvisitdetailsdata[i].address1,
+      //     address2: getvisitdetailsdata[i].address2,
+      //     address3: getvisitdetailsdata[i].address3,
+      //     city: getvisitdetailsdata[i].city,
+      //     closed: getvisitdetailsdata[i].closed,
+      //     createdby: getvisitdetailsdata[i].createdby,
+      //     customercode: getvisitdetailsdata[i].customercode,
+      //     customername: getvisitdetailsdata[i].customername,
+      //     meetingtime: getvisitdetailsdata[i].meetingtime,
+      //     product: getvisitdetailsdata[i].product,
+      //     purposeofvisit: getvisitdetailsdata[i].purposeofvisit,
+      //     userid: getvisitdetailsdata[i].userid,
+      //     visitplan: getvisitdetailsdata[i].visitplan,
+      //     visitstatus: getvisitdetailsdata[i].visitstatus,
+      //     pincode: getvisitdetailsdata[i].pincode,
+      //     state: getvisitdetailsdata[i].state,
+      //     cusmobile: getvisitdetailsdata[i].cusmobile,
+      //     cusemail: getvisitdetailsdata[i].cusemail,
+      //     contactname: getvisitdetailsdata[i].contactname,
+      //     AssignedTo: getvisitdetailsdata[i].AssignedTo,
+      //     Att1: getvisitdetailsdata[i].Att1,
+      //     Att2: getvisitdetailsdata[i].Att2,
+      //     Att3: getvisitdetailsdata[i].Att3,
+      //     Att4: getvisitdetailsdata[i].Att4,
+      //     BaseId: getvisitdetailsdata[i].BaseId,
+      //     BaseType: getvisitdetailsdata[i].BaseType,
       //     CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
-      //      CheckinLat: getvisitdetailsdata[i].CheckinLat, 
-      //      CheckinLong: getvisitdetailsdata[i].CheckinLong, 
-      //      CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime, 
-      //      CheckoutLat: getvisitdetailsdata[i].CheckoutLat, 
-      //      CheckoutLong: getvisitdetailsdata[i].CheckoutLong, 
-      //      CreatedBy: getvisitdetailsdata[i].CreatedBy, 
-      //      CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime, 
-      //      IsClosed: getvisitdetailsdata[i].IsClosed, 
-      //      LookingFor: getvisitdetailsdata[i].LookingFor, 
-      //      PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue, 
-      //      TargetId: getvisitdetailsdata[i].TargetId, 
-      //      TargetType: getvisitdetailsdata[i].TargetType, 
-      //      UpdatedBy: getvisitdetailsdata[i].UpdatedBy, 
-      //      UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime, 
-      //      VisitOutcome: getvisitdetailsdata[i].VisitOutcome, 
-      //      VisitStatus: getvisitdetailsdata[i].VisitStatus, 
-      //      area: getvisitdetailsdata[i].area, 
-      //      country: getvisitdetailsdata[i].country, 
-      //      district: getvisitdetailsdata[i].district, 
-      //      plannedDate: getvisitdetailsdata[i].plannedDate, 
-      //      storecode: getvisitdetailsdata[i].storecode, 
+      //      CheckinLat: getvisitdetailsdata[i].CheckinLat,
+      //      CheckinLong: getvisitdetailsdata[i].CheckinLong,
+      //      CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime,
+      //      CheckoutLat: getvisitdetailsdata[i].CheckoutLat,
+      //      CheckoutLong: getvisitdetailsdata[i].CheckoutLong,
+      //      CreatedBy: getvisitdetailsdata[i].CreatedBy,
+      //      CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime,
+      //      IsClosed: getvisitdetailsdata[i].IsClosed,
+      //      LookingFor: getvisitdetailsdata[i].LookingFor,
+      //      PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue,
+      //      TargetId: getvisitdetailsdata[i].TargetId,
+      //      TargetType: getvisitdetailsdata[i].TargetType,
+      //      UpdatedBy: getvisitdetailsdata[i].UpdatedBy,
+      //      UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime,
+      //      VisitOutcome: getvisitdetailsdata[i].VisitOutcome,
+      //      VisitStatus: getvisitdetailsdata[i].VisitStatus,
+      //      area: getvisitdetailsdata[i].area,
+      //      country: getvisitdetailsdata[i].country,
+      //      district: getvisitdetailsdata[i].district,
+      //      plannedDate: getvisitdetailsdata[i].plannedDate,
+      //      storecode: getvisitdetailsdata[i].storecode,
       //      traceid: getvisitdetailsdata[i].traceid));
       //   // log("ANBUUUU:::"+missedVisitUserdata.)
       // }
     }
-    isloading=false;
+    isloading = false;
     notifyListeners();
   }
 

@@ -1,8 +1,7 @@
 import 'dart:developer';
 
-
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
@@ -520,85 +519,79 @@ class QuotestabController extends ChangeNotifier {
   }
 
   String? levelofInterest;
-  callusermobileApi()async{
- await userbyidApi.getData(ConstantValues.UserId).then((value){
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
-log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
-getfirebase();
- }
-   
-  });
-}
-String? apidate;
-  bool iscalltrue=false;
-  String? userid='';
-  String? usernumber='';
-  calldialApi(String? number)async{
-    
-    usernumber='';
-     iscalltrue=true;
+  callusermobileApi() async {
+    await userbyidApi.getData(ConstantValues.UserId).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        log("ConstantValues. userbyidmobile:::" +
+            ConstantValues.userbyidmobile.toString());
+        getfirebase();
+      }
+    });
+  }
+
+  String? apidate;
+  bool iscalltrue = false;
+  String? userid = '';
+  String? usernumber = '';
+  calldialApi(String? number) async {
+    usernumber = '';
+    iscalltrue = true;
     notifyListeners();
-    Future.delayed(Duration(seconds: 40),(){
+    Future.delayed(Duration(seconds: 40), () {
       log("secondsoverrr:::");
-  iscalltrue=false;
-    notifyListeners();
+      iscalltrue = false;
+      notifyListeners();
     });
 
     // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
+
 //     FirebaseProduct.get().then((value) {
 // value.docs.forEach((element) {
 //   usernumber=element!['mobile'].toString();
 //   userid=element!['id'].toString();
 // log("fsdfdf::"+userid.toString());
-  // if(ConstantValues.userbyidmobile==usernumber){
+    // if(ConstantValues.userbyidmobile==usernumber){
     log("fsdfdf::user number match");
- UserdialApi.getdata(userid!, number!).then((value) {
-
-    });
-  // }
+    UserdialApi.getdata(userid!, number!).then((value) {});
+    // }
 //   else{
 // log("fsdfdf::no user number not match");
 //   }
-  
 
 // });
     // });
-   
   }
-getfirebase()async{
-  userid='';
-  notifyListeners();
-    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
-   await FirebaseProduct.get().then((value) {
-value.docs.forEach((element) {
-  usernumber=element['mobile'].toString();
-  
-log("fsdfdf::"+usernumber.toString());
-  if(ConstantValues.userbyidmobile==usernumber){
-    log("fsdfdf::user number match");
-    userid=element['id'].toString();
-    notifyListeners();
-//  UserdialApi.getdata(userid!, number!).then((value) {
 
+  getfirebase() async {
+    userid = '';
+    notifyListeners();
+//     final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+
+//     await FirebaseProduct.get().then((value) {
+//       value.docs.forEach((element) {
+//         usernumber = element['mobile'].toString();
+
+//         log("fsdfdf::" + usernumber.toString());
+//         if (ConstantValues.userbyidmobile == usernumber) {
+//           log("fsdfdf::user number match");
+//           userid = element['id'].toString();
+//           notifyListeners();
+// //  UserdialApi.getdata(userid!, number!).then((value) {
+
+// //     });
+//         }
+// //   else{
+// // log("fsdfdf::no user number not match");
+// //   }
+//       });
 //     });
   }
-//   else{
-// log("fsdfdf::no user number not match");
-//   }
-  
 
-});
-    });
-}
   clearAllListData() async {
-     iscalltrue=false;
-    userid='';
-    usernumber='';
+    iscalltrue = false;
+    userid = '';
+    usernumber = '';
     quotFilterList = [];
     final Database db = (await DBHelper.getInstance())!;
     orderdialogdata.clear();
@@ -1008,7 +1001,8 @@ log("fsdfdf::"+usernumber.toString());
     notifyListeners();
     for (int i = 0; i < assignDB.length; i++) {
       assigncolumn.add(Distcolumn(name: assignDB[i]['AssignedTo'].toString()));
-      assigncolumn.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      assigncolumn
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
       log("assigncolumn::${assigncolumn.length}");
       notifyListeners();
     }
@@ -1051,7 +1045,7 @@ log("fsdfdf::"+usernumber.toString());
   Future<void> swipeRefreshIndiactor(BuildContext context) async {
     await clearAllListData();
     await callgetAllApi(context);
-   await callusermobileApi();
+    await callusermobileApi();
   }
 
   String? filterapiwonpurchaseDate = '';
@@ -1141,10 +1135,10 @@ log("fsdfdf::"+usernumber.toString());
 
   String forwardSuccessMsg = '';
   String get getforwardSuccessMsg => forwardSuccessMsg;
-  
-String lottie='';
+
+  String lottie = '';
   callgetAllApi(BuildContext context) async {
-    lottie='';
+    lottie = '';
     datagotByApi = false;
     notifyListeners();
     await GetAllQuotesApi.getData().then((value) {
@@ -1160,18 +1154,18 @@ String lottie='';
         } else if (value.Quotescheckdatageader == null ||
             value.Quotescheckdatageader!.Quotescheckdata!.isEmpty) {
           log("Order data null");
-           lottie='Assets/no-data.png';
+          lottie = 'Assets/no-data.png';
           leadCheckDataExcep = 'No Quotations..!!';
           datagotByApi == true;
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-         lottie='';
+        lottie = '';
         leadCheckDataExcep = '${value.message}..!!${value.exception}....!!';
         datagotByApi == true;
         notifyListeners();
       } else if (value.stcode == 500) {
-         lottie='Assets/NetworkAnimation.json';
+        lottie = 'Assets/NetworkAnimation.json';
         leadCheckDataExcep =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         datagotByApi == true;
@@ -1571,8 +1565,9 @@ String lottie='';
     NewquoteController.datafrommodify.add(leadOpenAllData!.OrderNum.toString());
     NewquoteController.datafrommodify.add(leadOpenAllData!.gSTNo.toString());
     NewquoteController.datafrommodify.add(leadOpenAllData!.cusgroup.toString());
-     NewquoteController.datafrommodify.add(leadOpenAllData!.OrderType.toString());
-     NewquoteController.datafrommodify.add(leadOpenAllData!.DocDate.toString());
+    NewquoteController.datafrommodify
+        .add(leadOpenAllData!.OrderType.toString());
+    NewquoteController.datafrommodify.add(leadOpenAllData!.DocDate.toString());
     QuoteNewState.iscomfromLead = true;
     Get.toNamed(ConstantRoutes.quotesnew);
     notifyListeners();

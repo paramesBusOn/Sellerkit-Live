@@ -6,15 +6,15 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:ui';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:get/get.dart';
-import 'package:flutter_background_service_android/flutter_background_service_android.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
@@ -22,6 +22,7 @@ import 'package:sellerkit/Constant/Encripted.dart';
 import 'package:sellerkit/Constant/Helper.dart';
 import 'package:sellerkit/Constant/LocationTrack.dart';
 import 'package:sellerkit/Constant/LocationTrackIos.dart';
+import 'package:sellerkit/Constant/flutter_background_service_utils.dart';
 import 'package:sellerkit/Constant/methodchannel.dart';
 // import 'package:sellerkit/Constant/LocationTrackIos.dart';
 import 'package:sellerkit/Controller/AccountsController/AccountsController.dart';
@@ -323,6 +324,8 @@ fetchData() async {
   return data.toString();
 }
 
+
+
 LocalNotificationService localNotificationService =
     new LocalNotificationService();
 Config config = Config();
@@ -571,7 +574,7 @@ Future<void> initializeService() async {
   await service.configure(
     androidConfiguration: AndroidConfiguration(
       // this will be executed when app is in foreground or background in separated isolate
-      onStart: onStart,
+      onStart: onStart(),
 
       // auto start service
       autoStart: true,
@@ -582,7 +585,7 @@ Future<void> initializeService() async {
       autoStart: true,
 
       // this will be executed when app is in foreground in separated isolate
-      onForeground: onStart,
+      onForeground: onStart(),
 
       // you have to enable background fetch capability on xcode project
       onBackground: onIosBackground,
@@ -592,6 +595,12 @@ Future<void> initializeService() async {
 // to ensure this is executed
 // run app from xcode, then from xcode menu, select Simulate Background Fetch
 
+void dismissKeyboard(BuildContext context) {
+  FocusScopeNode currentFocus = FocusScope.of(context);
+  if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
+    FocusManager.instance.primaryFocus?.unfocus();
+  }
+}
 @pragma('vm:entry-point')
 Future<bool> onIosBackground(ServiceInstance service) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -608,73 +617,80 @@ Future<bool> onIosBackground(ServiceInstance service) async {
 
 int temp = 0;
 @pragma('vm:entry-point')
-void onStart(ServiceInstance service) async {
-  // Only available for flutter 3.0.0 and later
+
+onStart() async {
+  WidgetsFlutterBinding.ensureInitialized();
   DartPluginRegistrant.ensureInitialized();
 
-  // For flutter prior to version 3.0.0
-  // We have to register the plugin manually
-
-  SharedPreferences preferences = await SharedPreferences.getInstance();
-  await preferences.setString("hello", "world");
-
-  /// OPTIONAL when use custom notification
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-
-  if (service is AndroidServiceInstance) {
-    service.on('setAsForeground').listen((event) {
-      service.setAsForegroundService();
-    });
-
-    service.on('setAsBackground').listen((event) {
-      service.setAsBackgroundService();
-    });
-  }
-
-  service.on('stopService').listen((event) {
-    service.stopSelf();
-  });
-
-  // bring to foreground
-  Timer.periodic(const Duration(hours: 1), (timer) async {
-    await checkLocation();
-    if (service is AndroidServiceInstance) {
-      if (await service.isForegroundService()) {}
-    }
-
-    /// you can see this log in logcat
-    print('FLUTTER BACKGROUND SERVICE: ${DateTime.now()}');
-    // test using external plugin
-    final deviceInfo = DeviceInfoPlugin();
-    String? device;
-    if (Platform.isAndroid) {
-      final androidInfo = await deviceInfo.androidInfo;
-      device = androidInfo.model;
-    }
-
-    if (Platform.isIOS) {
-      final iosInfo = await deviceInfo.iosInfo;
-      device = iosInfo.model;
-    }
-
-    service.invoke(
-      'update',
-      {
-        "current_date": DateTime.now().toIso8601String(),
-        "device": device,
-      },
-    );
-    temp = temp + 1;
-
-    String? getUrl = '';
-    getUrl = await HelperFunctions.getHostDSP();
-    print("URL1:" + getUrl.toString());
-    if (getUrl != null && getUrl != 'null' && getUrl != '') {
-      await refreshData();
-    }
-  });
+  // await startMonitoringService();
 }
+// void onStart(ServiceInstance service) async {
+//   // Only available for flutter 3.0.0 and later
+//   DartPluginRegistrant.ensureInitialized();
+
+//   // For flutter prior to version 3.0.0
+//   // We have to register the plugin manually
+
+//   SharedPreferences preferences = await SharedPreferences.getInstance();
+//   await preferences.setString("hello", "world");
+
+//   /// OPTIONAL when use custom notification
+//   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//       FlutterLocalNotificationsPlugin();
+
+//   if (service is AndroidServiceInstance) {
+//     service.on('setAsForeground').listen((event) {
+//       service.setAsForegroundService();
+//     });
+
+//     service.on('setAsBackground').listen((event) {
+//       service.setAsBackgroundService();
+//     });
+//   }
+
+//   service.on('stopService').listen((event) {
+//     service.stopSelf();
+//   });
+
+//   // bring to foreground
+//   Timer.periodic(const Duration(hours: 1), (timer) async {
+//     await checkLocation();
+//     if (service is AndroidServiceInstance) {
+//       if (await service.isForegroundService()) {}
+//     }
+
+//     /// you can see this log in logcat
+//     print('FLUTTER BACKGROUND SERVICE: ${DateTime.now()}');
+//     // test using external plugin
+//     final deviceInfo = DeviceInfoPlugin();
+//     String? device;
+//     if (Platform.isAndroid) {
+//       final androidInfo = await deviceInfo.androidInfo;
+//       device = androidInfo.model;
+//     }
+
+//     if (Platform.isIOS) {
+//       final iosInfo = await deviceInfo.iosInfo;
+//       device = iosInfo.model;
+//     }
+
+//     service.invoke(
+//       'update',
+//       {
+//         "current_date": DateTime.now().toIso8601String(),
+//         "device": device,
+//       },
+//     );
+//     temp = temp + 1;
+
+//     String? getUrl = '';
+//     getUrl = await HelperFunctions.getHostDSP();
+//     print("URL1:" + getUrl.toString());
+//     if (getUrl != null && getUrl != 'null' && getUrl != '') {
+//       await refreshData();
+//     }
+//   });
+// }
 
 String? token = '';
 
@@ -839,13 +855,37 @@ postLoginData. devicename='${brand} ${model}';
     ),
   );
 }
-
+// getOverlayPermission() async {
+//     bool status = await FlutterOverlayWindow.isPermissionGranted();
+//     if (!status) {
+//       // Navigator.pop(context);
+//        openAppSettings();
+//       // status = await FlutterOverlayWindow.isPermissionGranted();
+//       if (!status){
+//         print("hi this is Anbu");
+//       }
+//     }
+//   }
+Future getPermissionUser() async {
+  //  bool status = await FlutterOverlayWindow.isPermissionGranted();
+  //   if (!status) {
+  //     await FlutterOverlayWindow.requestPermission();
+  //   }
+  if (await Permission.phone.request().isGranted) {
+  } else {
+    await Permission.phone.request();
+  }
+  if (await Permission.contacts.request().isGranted) {
+  } else {
+    await Permission.contacts.request();
+  }
+}
 void main() async {
   tzdata.initializeTimeZones();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
- 
-
+//  await getPermissionUser();
+// await getOverlayPermission();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 //  
  var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -912,14 +952,15 @@ switch (notificationResponse.notificationResponseType) {
   
 
   onReciveFCM();
-  if (Platform.isAndroid) {
-    await LocationTrack.determinePosition();
-  } else {
-    await LocationTrack2.determinePosition();
-  }
+  // if (Platform.isAndroid) {
+  //   await LocationTrack.determinePosition();
+  // } else {
+  //   await LocationTrack2.determinePosition();
+  // }
 // await firebasemethod();
 
   await checkLocation();
+  // await getOverlayPermission();
   // await initializeService();
    await checkLoginVerification();
 
@@ -964,6 +1005,71 @@ firebasemethod()async{
  
   
 }
+
+
+
+//overlay Method
+@pragma("vm:entry-point")
+// void overlayMain() async {
+//   // debugPrint("Starting Alerting Window Isolate!");
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+
+//   onStart();
+//   // await createDB();
+//   runApp(const Overlay());
+// }
+
+// class Overlay extends StatefulWidget {
+//   const Overlay({
+//     Key? key,
+//   }): super(key: key);
+
+//   @override
+//   State<Overlay> createState() => _OverlayState();
+// }
+
+// class _OverlayState extends State<Overlay> {
+//   // final _messagingService = MessagingService();
+//   @override
+//   void initState() {
+//     // _messagingService.init(context);
+//     super.initState();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiProvider(
+//         key: navigatorKey,
+//         providers: [
+//           ChangeNotifierProvider(create: (_) => ThemeManager()),
+//           // ChangeNotifierProvider(create: (_) => LocaleProvider()),
+//           // ChangeNotifierProvider(
+//           //     create: (_) => LoginwithSellerkitContoller(context)),
+//           // ChangeNotifierProvider(create: (_) => DashboardController()),
+//           // ChangeNotifierProvider(create: (_) => SplashController()),
+//           ChangeNotifierProvider(create: (_) => DownLoadController()),
+//           // ChangeNotifierProvider(
+//           //     create: (_) => ConfigurationController(context)),
+//           ChangeNotifierProvider(create: (_) => CallNotificationController()),
+//         ],
+//         child: Consumer<ThemeManager>(
+//             builder: (context,  themes, Widget? child) {
+//           return GetMaterialApp(
+//               theme: themes.selectedTheme == 'merron'
+//                   ? merronTheme(context)
+//                   : themes.selectedTheme == 'blue'
+//                       ? blueTheme(context)
+//                       : orangeTheme(context),
+//               debugShowCheckedModeBanner: false,
+//               home: const CustomOverlayNew(),
+//               builder: (context, child) {
+//           return KeyboardContainer(child: child);
+//         },
+//               );
+//         }));
+//   }
+// }
 Future<List<String>> getLocation(String restricdata) async {
   String split1 = restricdata;
   List<String>? clist = split1.split(",");

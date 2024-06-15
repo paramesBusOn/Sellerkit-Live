@@ -11,10 +11,13 @@ import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/OrderTypeModel.da
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/couponModel.dart';
+import 'package:sellerkit/Pages/OrderBooking/Widgets/paymenttermdialog.dart';
+import 'package:sellerkit/Pages/OrderBooking/Widgets/shorefdialog.dart';
 import 'package:sellerkit/Services/PostQueryApi/OrdersApi/couponApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/OrdersApi/paymentmode.dart';
 import 'package:sellerkit/Services/PostQueryApi/QuotatationApi/QuotesQTHApi.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
+import 'package:sellerkit/Services/refrealpartnerApi/refpartnerApi.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import 'package:path_provider/path_provider.dart';
@@ -73,12 +76,17 @@ class OrderNewController extends ChangeNotifier {
      await stateApicallfromDB();
    await getLeveofType();
     await callLeadCheckApi();
-   
+  await callrefparnerApi();
     await callpaymodeApi();
     getCustomerTag();
     // getCustomerListFromDB();
   }
+callrefparnerApi()async{
+  await refpartnerApi.getData().then((value){
 
+  });
+
+}
   List<PaymodeModalData> paymode = [];
   callpaymodeApi() async {
     paymode.clear();
@@ -162,11 +170,16 @@ customermodeldata=value.leadcheckdata;
   List<CustomerData> filterCustomerList = [];
   List<CustomerData> get getfilterCustomerList => filterCustomerList;
 //
+validatepayterm(){
+  if(formkey[5].currentState!.validate()){
 
+  }
+
+}
   List<GlobalKey<FormState>> formkey =
       new List.generate(6, (i) => new GlobalKey<FormState>(debugLabel: "Lead"));
   List<TextEditingController> mycontroller =
-      List.generate(40, (i) => TextEditingController());
+      List.generate(50, (i) => TextEditingController());
 
   Config config = new Config();
 
@@ -296,13 +309,40 @@ List<Custype> custype=[
     // log("AN33:" + isSelectedrefcode.toString());
     notifyListeners();
   }
-
-  selectpaymentTerms(String selected, String refercode, String code) {
+String chequedate='';
+  void showchequeDate(BuildContext context) {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2050),
+    ).then((value) {
+      if (value == null) {
+        return;
+      }
+      String chooseddate = value.toString();
+      var date = DateTime.parse(chooseddate);
+      chooseddate = "";
+      chooseddate =
+          "${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}";
+      chequedate =
+          "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}T${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}:${date.second.toString().padLeft(2, '0')}";
+      print(chequedate);
+      mycontroller[45].text = chooseddate;
+      notifyListeners();
+    });
+  }
+  selectpaymentTerms(String selected, String refercode, String code,BuildContext context) {
     isSelectedpaymentTermsList = selected;
     PaymentTerms = refercode;
     isSelectedpaymentTermsCode = code;
-    // log("AN11:" + isSelectedpaymentTermsList.toString());
-
+    log("AN11:" + PaymentTerms.toString());
+//  showDialog<dynamic>(
+//                               context: context,
+//                               builder: (_) {
+                             
+//                                 return paytermdialog();
+//                               });
     // log("AN22:" + EnqRefer.toString());
 
     // log("AN33:" + isSelectedrefcode.toString());
@@ -4768,16 +4808,56 @@ paymentTerm=true;
                         ),
                       ),
                       //  ),
- SizedBox(
-                        height: 5,
-                      ),
+//  SizedBox(
+//                         height: 10,
+//                       ),
+//                       SizedBox(
+//                         // width: 270,
+//                         // height: 40,
+//                         child: new TextFormField(
+//                           controller: mycontroller[46],
+                          
+//                           readOnly: true ,
+//                           onTap: (){
+//                              showDialog<dynamic>(
+//                                                           context: context,
+//                                                           builder: (_) {
+//                                                             return ShowSearchDialog();
+//                                                           }).then((value) {
+//                                                           //  context
+//                                                           //   .read<
+//                                                           //       NewEnqController>()
+//                                                           //   .setcatagorydata();    
+//                                                             });
+//                           },
+//                           // validator: (value) {
+//                           //   if (value!.isEmpty) {
+//                           //     return "ENTER QUANTITY";
+//                           //   }
+//                           //   return null;
+//                           // },
+                          
+//                           style: TextStyle(fontSize: 15),
+//                           decoration: InputDecoration(
+//                             contentPadding: EdgeInsets.symmetric(
+//                                 vertical: 10, horizontal: 10),
+//                             border: OutlineInputBorder(
+//                               borderRadius: BorderRadius.all(
+//                                 Radius.circular(10),
+//                               ),
+//                             ),
+//                             labelText: "referal partner",
+//                             suffixIcon: Icon(Icons.search)
+//                           ),
+//                         ),
+//                       ),
                       // Container(
-                      //             height: Screens.padingHeight(context) * 0.06,
+                      //             // height: Screens.padingHeight(context) * 0.06,
                       //             width: Screens.width(context),
                       //             child: DropdownButtonFormField(
                       //               decoration: InputDecoration(
                       //                 // hintText: 'Email',
-                      //                 labelText: 'Select refercode',
+                      //                 labelText: 'referal partner',
                       //                 border: UnderlineInputBorder(),
                       //                 enabledBorder: UnderlineInputBorder(
                       //                   borderSide:
@@ -4829,9 +4909,9 @@ paymentTerm=true;
                       //               }).toList(),
                       //             ),
                       //           ),
-                      //  SizedBox(
-                      //   height: 5,
-                      // ),
+                       SizedBox(
+                        height: 5,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -5060,7 +5140,7 @@ notifyListeners();
                                     //     dismissDirection: DismissDirection.down,
                                     //   ),
                                     // );
-                                    if (int.parse(mycontroller[11].text) > 0) {
+                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text) > 0) {
                                       mycontroller[12].clear();
                                       addProductDetails(context);
                                     } else {
@@ -5070,7 +5150,7 @@ notifyListeners();
                                   child: Text("ok"))
                               : ElevatedButton(
                                   onPressed: () {
-                                    if (int.parse(mycontroller[11].text) > 0) {
+                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text) > 0) {
                                       updateProductDetails(context, i);
                                     } else {
                                       showtoastproduct();
@@ -5384,7 +5464,7 @@ notifyListeners();
                                     //     dismissDirection: DismissDirection.down,
                                     //   ),
                                     // );
-                                    if (int.parse(mycontroller[11].text)>0) {
+                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text)>0) {
                                       mycontroller[12].clear();
                                       addProductDetails(context);
                                     } else {
@@ -5394,7 +5474,7 @@ notifyListeners();
                                   child: Text("ok"))
                               : ElevatedButton(
                                   onPressed: () {
-                                    if (int.parse(mycontroller[11].text)>0) {
+                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text)>0) {
                                       updateProductDetails(context, i);
                                     } else {
                                       showtoastproduct();
@@ -5424,6 +5504,10 @@ notifyListeners();
   bool? fileValidation = false;
 
   List<FilesData> filedata = [];
+  List<File> files2 = [];
+  bool? fileValidation2 = false;
+
+  List<FilesData> filedata2 = [];
   List<String> filelink = [];
   List<String> fileException = [];
   List images = [
@@ -5484,7 +5568,56 @@ notifyListeners();
         textColor: Colors.white,
         fontSize: 14.0);
   }
+selectattachment2() async {
+    List<File> filesz2 = [];
+    // log(files.length.toString());
 
+    result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    notifyListeners();
+
+    if (result != null) {
+      if (filedata2.isEmpty) {
+        files2.clear();
+        filesz2.clear();
+        filedata2.clear();
+        notifyListeners();
+      }
+
+      // log("filedata::" + filedata.length.toString());
+
+      filesz2 = result!.paths.map((path) => File(path!)).toList();
+
+      // if (filesz.length != 0) {
+      int remainingSlots = 5 - files.length;
+      if (filesz2.length <= remainingSlots) {
+        for (int i = 0; i < filesz2.length; i++) {
+          // createAString();
+
+          // showtoast();
+          files2.add(filesz2[i]);
+          // log("Files Lenght :::::" + files.length.toString());
+          List<int> intdata = filesz2[i].readAsBytesSync();
+          filedata.add(FilesData(
+              fileBytes: base64Encode(intdata), fileName: filesz2[i].path));
+
+          //New
+          // XFile? photoCompressedFile =await testCompressAndGetFile(filesz[i],filesz[i].path);
+          // await FileStorage.writeCounter('${photoCompressedFile!.name}_1', photoCompressedFile);
+          //
+
+          notifyListeners();
+          // log("filedata222::" + filedata.length.toString());
+          // return null;
+        }
+      } else {
+        showtoast();
+      }
+
+      notifyListeners();
+    }
+
+    notifyListeners();
+  }
   selectattachment() async {
     List<File> filesz = [];
     // log(files.length.toString());
@@ -5547,6 +5680,76 @@ notifyListeners();
     print(file.lengthSync());
 
     return result;
+  }
+
+Future imagetoBinary2(ImageSource source) async {
+    List<File> filesz2 = [];
+    await LocationTrack.checkcamlocation();
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) return;
+    // files.add(File());
+    if (filedata2.isEmpty) {
+      filedata2.clear();
+      filesz2.clear();
+    }
+    filesz2.add(File(image.path));
+
+    notifyListeners();
+    // log("filesz lenghthhhhh::::::" + filedata.length.toString());
+    if (files2.length <= 4) {
+      for (int i = 0; i < filesz2.length; i++) {
+        files2.add(filesz2[i]);
+        List<int> intdata = filesz2[i].readAsBytesSync();
+        String fileName = filesz2[i].path.split('/').last;
+        String fileBytes = base64Encode(intdata);
+        String tempPath='';
+        if(Platform.isAndroid){
+//  Directory tempDir =  await getTemporaryDirectory();
+  
+//         log("tempDir::"+tempDir.toString());
+         tempPath = (await getExternalStorageDirectory())!.path;
+          // String? imagesaver = '$tempPath/$fileName'; 
+    
+       
+ 
+        }else if(Platform.isIOS){
+ tempPath = (await getApplicationDocumentsDirectory())!.path;
+        }
+       
+        String fullPath = '$tempPath/$fileName'; 
+        await filesz2[i].copy(fullPath);
+         File(fullPath).writeAsBytesSync(intdata);
+  final result = await ImageGallerySaver.saveFile(fullPath,isReturnPathOfIOS: true);
+    
+        // log("fullPath::"+fullPath.toString());
+         if(Platform.isAndroid){
+filedata2.add(FilesData(
+            fileBytes: base64Encode(intdata),
+            fileName: fullPath
+            // files[i].path.split('/').last
+            ));
+             }else{
+              filedata2.add(FilesData(
+            fileBytes: base64Encode(intdata),
+            fileName: image.path
+            // files[i].path.split('/').last
+            ));
+             }
+        // filedata.add(
+        //     FilesData(fileBytes: base64Encode(intdata), fileName: fullPath));
+        notifyListeners();
+      }
+      // log("filesz lenghthhhhh::::::" + filedata.length.toString());
+
+      // return null;
+    } else {
+      showtoast();
+    }
+    // log("camera fileslength" + files.length.toString());
+    // log("camera filesdatalength" + filedata.length.toString());
+    // showtoast();
+
+    notifyListeners();
   }
 
   Future imagetoBinary(ImageSource source) async {

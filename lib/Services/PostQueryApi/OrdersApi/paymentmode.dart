@@ -18,10 +18,10 @@ class PaymodeApi {
       
 Config config = Config();
       log("URL:"+Url.queryApi+'SkClientPortal/GetallMaster?MasterTypeId=18');
-      await config.getSetup(); final response = await http.get(Uri.parse('${Url.queryApi}SkClientPortal/GetallMaster?MasterTypeId=18'),
+      await config.getSetup(); final response = await http.get(Uri.parse(Url.queryApi+'SkClientPortal/GetallMaster?MasterTypeId=18'),
           headers: {
             "content-type": "application/json",
-            "Authorization": 'bearer ${ConstantValues.token}',"Location":'${ConstantValues.EncryptedSetup}'
+            "Authorization": 'bearer '+ ConstantValues.token,"Location":'${ConstantValues.EncryptedSetup}'
           },
           // body: jsonEncode({
           //   "constr":
@@ -34,7 +34,7 @@ Config config = Config();
       // print(response.statusCode.toString());
       
       if (response.statusCode == 200) {
-        log("paymodeApi:${json.decode(response.body)}");
+        // log("ResonAgeApi:"+json.decode(response.body).toString());
         // Map data = json.decode(response.body);
         return PaymodeModal.fromJson(
             json.decode(response.body), response.statusCode);
@@ -43,7 +43,7 @@ Config config = Config();
         return PaymodeModal.error('Error', response.statusCode);
       }
     } catch (e) {
-      print("Exception1: $e");
+      print("Exception1: " + e.toString());
       return PaymodeModal.error(e.toString(), resCode);
     }
   }

@@ -27,6 +27,7 @@ import 'package:sellerkit/Models/OutStandingModel/outstandingmodel.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/GetCustomerDetailsModel.dart';
 import 'package:sellerkit/Pages/Dashboard/Screens/Dashboard.dart';
 import 'package:sellerkit/Pages/Dashboard/widgets/SetupAlertBox.dart';
+import 'package:sellerkit/Pages/callerNotification/custom_overlayNew.dart';
 import 'package:sellerkit/Services/AddressGetApi/AddressGetApi.dart';
 import 'package:sellerkit/Services/LocalNotification/LocalNotification.dart';
 import 'package:sellerkit/Services/LoginVerificationApi/LoginVerificationApi.dart';
@@ -61,6 +62,7 @@ class DashBoardController extends ChangeNotifier {
   DashBoardController(BuildContext context) {
     //  getUnSeenNotify();
     //setURL();
+    
     if (isLogout == false) {
       getDefaultValues();
     } else if (isLogout == true) {
@@ -865,6 +867,10 @@ print('Sucess'+value.message);
   // }
 
   Future<int> getDefaultValues() async {
+    //  String? getUrl = await HelperFunctions.getHostDSP();
+    //        log("getUrlgetUrl222::"+getUrl.toString());
+    // CustomOverlayNewState.geturlnew = await HelperFunctions.getHostDSP();
+    // CustomOverlayNewState.gettokennew =await HelperFunctions. getTokenSharedPreference();
     int i = 0;
     await HelperFunctions.getSapURLSharedPreference().then((value) {
       if (value != null) {
@@ -1419,4 +1425,34 @@ class Emojis {
   String? key;
   String? value;
   Emojis({required this.key, required this.value});
+}
+
+class Callloginfo {
+  String? name;
+  String? number;
+  String? duration;
+  Callloginfo({
+    this.name,
+    required this.number,
+    required this.duration,
+  });
+}
+
+class Contact {
+  String? firstName;
+  String? lastName;
+  List<dynamic>? phoneNumbers;
+
+  Contact(
+      {required this.firstName,
+      required this.lastName,
+      required this.phoneNumbers});
+
+  factory Contact.fromJson(Map<String, dynamic> json) {
+    return Contact(
+      firstName: json['firstName'] ?? '',
+      lastName: json['lastName'] ?? '',
+      phoneNumbers: List<dynamic>.from(json['phoneNumbers'] ?? ''),
+    );
+  }
 }

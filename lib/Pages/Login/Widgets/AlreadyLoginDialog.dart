@@ -170,7 +170,7 @@ postLoginData. devicename='${brand} ${model}';
             widget.errormsg = '';
             ConstantValues.userNamePM = widget.userCode;
           });
-
+await HelperFunctions.saveTokenSharedPreference(value.token!);
           await HelperFunctions.saveUserName(widget.userCode.toString());
           await HelperFunctions.saveLicenseKeySharedPreference(
               value.data!.licenseKey);

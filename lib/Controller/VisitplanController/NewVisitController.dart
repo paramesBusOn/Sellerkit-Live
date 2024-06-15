@@ -12,6 +12,7 @@ import 'package:sellerkit/Controller/VisitplanController/NewVisitController.dart
 import 'package:sellerkit/DBHelper/DBHelper.dart';
 import 'package:sellerkit/DBHelper/DBOperation.dart';
 import 'package:sellerkit/Models/AddEnqModel/AddEnqModel.dart';
+import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/GetUserModel.dart';
 import 'package:sellerkit/Models/stateModel/stateModel.dart';
 import 'package:sellerkit/Pages/VisitPlans/widgets/WarningDialog.dart';
 import 'package:sellerkit/Pages/VisitPlans/widgets/successbox.dart';
@@ -40,9 +41,73 @@ class NewVisitplanController extends ChangeNotifier {
     await getvisitpurpose();
     await stateApicallfromDB();
     await catagoryApi();
+   await getUserAssingData();
+   await setdefaultUserName();
     // getDataMethod();
   }
+ List<UserListData> userLtData = [];
+  List<UserListData> get getuserLtData => userLtData;
+  List<UserListData> filteruserLtData = [];
+  List<UserListData> get getfiltergetuserLtData => filteruserLtData;
+filterListAssignData(String v) {
+    for (int i = 0; i < filteruserLtData.length; i++) {
+      filteruserLtData[i].color = 0;
+    }
+    if (v.isNotEmpty) {
+      filteruserLtData = userLtData
+          .where((e) => e.UserName!.toLowerCase().contains(v.toLowerCase())
+              // ||
+              // e.s!.toLowerCase().contains(v.toLowerCase())
+              )
+          .toList();
+      notifyListeners();
+    } else if (v.isEmpty) {
+      filteruserLtData = userLtData;
+      notifyListeners();
+    }
+  }
+  int? selectedIdxFUser = null;
+  String? getslpID;
 
+  selectedAssignedUser() {
+    mycontroller[19].text = userLtData[selectedIdxFUser!].UserName!;
+    notifyListeners();
+  }
+  setUserdata() {
+//   for(int i=0;i<userLtData.length;i++){
+// userLtData[i].color=0;
+//   }
+    filteruserLtData = userLtData;
+
+    notifyListeners();
+  }
+  setdefaultUserName() async {
+    mycontroller[19].text = ConstantValues.firstName.toString();
+    for (int i = 0; i < filteruserLtData.length; i++) {
+      print(
+          "object::${filteruserLtData[i].UserName.toString()}==${ConstantValues.firstName.toString()}");
+      if (filteruserLtData[i].UserName.toString() ==
+          ConstantValues.firstName.toString()) {
+        // selectedIdxFUser = i;
+        mycontroller[19].text = filteruserLtData[i].UserName.toString();
+        selectedIdxFUser = i;
+        await selectUser(i);
+        notifyListeners();
+      }
+    }
+    notifyListeners();
+
+// selectedIdxFUser = ind;
+//           context.read<NewEnqController>().selectUser(ind);
+  }
+   getUserAssingData() async {
+    final Database db = (await DBHelper.getInstance())!;
+
+    userLtData = await DBOperation.getUserList(db);
+    filteruserLtData = userLtData;
+
+    notifyListeners();
+  }
   FocusNode focusNode1 = FocusNode();
   ontapvalid(BuildContext context) {
     methidstate(mycontroller[8].text,context);
@@ -165,6 +230,8 @@ class NewVisitplanController extends ChangeNotifier {
     await getvisitpurpose();
     await stateApicallfromDB();
     await catagoryApi();
+    await getUserAssingData();
+   await setdefaultUserName();
     notifyListeners();
     
     notifyListeners();
@@ -242,6 +309,8 @@ class NewVisitplanController extends ChangeNotifier {
     await getvisitpurpose();
     await stateApicallfromDB();
     await catagoryApi();
+    await getUserAssingData();
+   await setdefaultUserName();
     notifyListeners();
     iscomeforupdate = true;
     notifyListeners();
@@ -837,7 +906,18 @@ enquirydetails!.add(GetenquiryData(
       }
     });
   }
-
+ selectUser(int ij) {
+    for (int i = 0; i < userLtData.length; i++) {
+      if (userLtData[i].slpcode == userLtData[ij].slpcode) {
+        userLtData[i].color = 1;
+        getslpID = userLtData[ij].slpcode;
+        selectedIdxFUser = ij;
+      } else {
+        userLtData[i].color = 0;
+      }
+    }
+    notifyListeners();
+  }
   filterListcatagoryData(String v) {
     // for (int i = 0; i < catagorydata.length; i++) {
     //   catagorydata[i].color = 0;
@@ -893,6 +973,7 @@ enquirydetails!.add(GetenquiryData(
     mycontroller[10].text = "";
     mycontroller[11].text = "";
     mycontroller[16].text = "";
+    mycontroller[19].text = "";
     mycontroller[17].text = "";
     mycontroller[18].text = "";
     isText1Correct = false;

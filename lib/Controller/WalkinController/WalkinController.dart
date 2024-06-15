@@ -51,6 +51,9 @@ class WalkinController extends ChangeNotifier {
    List<ItemMasterDBModel> searchsegmentList = [];
     List<ItemMasterDBModel> get getsegmentList => segmentList;
  getDataFromDB() async {
+  isSelectedPurposeOfVisit = '';
+  isSelectedDivision = '';
+  isSelectedHeadCount = '';
    final Database db = (await DBHelper.getInstance())!;
 
    

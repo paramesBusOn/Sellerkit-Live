@@ -49,18 +49,55 @@ useridData? ageLtData;
 class useridData {
   useridData({
     required this.mobile,
+   required this. storelistdata
     
   });
 
   String? mobile;
+  List<storesListDtos>? storelistdata;
   
 
 
 
-  factory useridData.fromJson(Map<String, dynamic> json) =>
-   useridData(
+  factory useridData.fromJson(Map<String, dynamic> json) {
+if(json !=null){
+ var list = json['storesListDtos'] as List;
+ if(list !=null && list.isNotEmpty){
+List<storesListDtos> datalist =
+          list.map((data) => storesListDtos.fromJson(data)).toList();
+return useridData(
     mobile: json['mobile'], 
-    
+    storelistdata:datalist
     );
+ }else{
+ return useridData(
+    mobile: json['mobile'], 
+    storelistdata:null
+    );
+  }
+      
+  }else{
+ return useridData(
+    mobile: json['mobile'], 
+    storelistdata:null
+    );
+  }
    
+  }
+  
+   
+}
+class storesListDtos{
+  int? storeId;
+  storesListDtos({
+required this.storeId,
+  });
+    factory storesListDtos.fromJson(Map<String, dynamic> json){
+print("newwwww::"+json.toString());
+  return  storesListDtos(
+      storeId: json['storeId'], 
+    );
+    }
+    
+    
 }

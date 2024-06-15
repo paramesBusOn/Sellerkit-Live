@@ -2,6 +2,9 @@
 
 import 'dart:convert';
 import 'dart:developer';
+import 'package:sellerkit/Constant/Helper.dart';
+import 'package:sellerkit/Constant/Utils.dart';
+
 import '../../Constant/Configuration.dart';
 import '../../Constant/ConstantSapValues.dart';
 import '../../Constant/Encripted.dart';
@@ -77,6 +80,8 @@ class LoginAPi {
         Map<String, dynamic> jres2 = jsonDecode("${testData2}");
         log("jres2:::"+jres2.toString());
         Map<String, dynamic> tokenNew=json.decode(response.body);
+        Utils.token = tokenNew['token'];
+      HelperFunctions.saveTokenSharedPreference(tokenNew['token']);
                 log("token::::"+tokenNew['token'].toString());
        ConstantValues.token = tokenNew['token'];
         return LoginModel.fromJson(jres2,json.decode(response.body) ,response.statusCode);

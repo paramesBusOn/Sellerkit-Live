@@ -471,6 +471,7 @@ postLoginData. devicename='${brand} ${model}';
         if (value.loginstatus!.toLowerCase().contains('success') &&
             value.data != null) {
                final Database db = (await DBHelper.getInstance())!;
+               await HelperFunctions.saveTokenSharedPreference(value.token!);
           await DBOperation.truncateLoginVerficationDB(db);
           DashBoardController.isLogout = false;
           await HelperFunctions.saveLicenseKeySharedPreference(

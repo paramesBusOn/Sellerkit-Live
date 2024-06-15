@@ -12,11 +12,14 @@ class HelperFunctions {
   static String sharedPreferenceIPaddress = "IpAddress";
   static String sharedPreferenceIpName = "IPName";
   static String sharedPreferenceLatitude = "Latitude";
-  static String sharedPreferenceLangtitude= "Langtitude";
- //
-  static String sharedPrefPermiLocation= "location";
-  static String sharedPrefPermiCamera= "camera";
-  static String sharedPrefPermiWifi= "wifi";
+  static String sharedPreferenceLangtitude = "Langtitude";
+  //
+  static String sharedPrefPermiLocation = "location";
+  static String sharedPrefPermiCamera = "camera";
+  static String sharedPrefPermiWifi = "wifi";
+
+  static String sharedPreferenceFCMToken = "FCMToken";
+  static String sharedPreferencePageNavigationCount = "NaviCount";
 
 // for login
   static Future<bool> savePasswordSharedPreference(String deviceID) async {
@@ -24,54 +27,77 @@ class HelperFunctions {
     return await preferences.setString(sharedPreferencePaassword, deviceID);
   }
 
+  static Future<bool> saveFCMTokenSharedPreference(String fcmToken) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setString(sharedPreferenceFCMToken, fcmToken);
+  }
+
+  static Future<String?> getFCMTokenSharedPreference() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.getString(sharedPreferenceFCMToken);
+  }
+
   static Future<String?> getPasswordSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferencePaassword);
+    return preferences.getString(sharedPreferencePaassword);
   }
 
 //IpAddress
-static Future<bool> saveIpAddressSharedPreference(String ipAdd) async {
+  static Future<bool> saveIpAddressSharedPreference(String ipAdd) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPreferenceIPaddress, ipAdd);
   }
 
   static Future<String?> getIpAddressSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceIPaddress);
-    }
+    return preferences.getString(sharedPreferenceIPaddress);
+  }
 
 //Ip NAme
-static Future<bool> saveIpNameSharedPreference(String ipName) async {
+  static Future<bool> saveIpNameSharedPreference(String ipName) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPreferenceIpName, ipName);
   }
 
   static Future<String?> getIpNameSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceIpName);
-    }
+    return preferences.getString(sharedPreferenceIpName);
+  }
 
 //Latitude
-static Future<bool> saveLatitudeSharedPreference(String Latitude) async {
+  static Future<bool> saveLatitudeSharedPreference(String Latitude) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPreferenceIpName, Latitude);
   }
 
   static Future<String?> getLatitudeSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceLatitude);
-    }
-    
+    return preferences.getString(sharedPreferenceLatitude);
+  }
+
 //Langtittude
-static Future<bool> saveLangtitudeSharedPreference(String Langtitude) async {
+  static Future<bool> saveLangtitudeSharedPreference(String Langtitude) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPreferenceLangtitude, Langtitude);
   }
 
   static Future<String?> getLangtitudeSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceLangtitude);
-    }
+    return preferences.getString(sharedPreferenceLangtitude);
+  }
+
+  //Navigation
+  static Future<bool> saveNavigationCountSharedPreference(String count) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return await preferences.setString(
+        sharedPreferencePageNavigationCount, count);
+  }
+
+  static Future<String?> getNaviCountSharedPreference() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+   await preferences.reload();
+    return preferences.getString(sharedPreferencePageNavigationCount);
+  }
 
   //New Above
   static String sharedPreferenceLisenceKey = "LicenseKey";
@@ -92,17 +118,19 @@ static Future<bool> saveLangtitudeSharedPreference(String Langtitude) async {
   }
 
   //location
-static Future<bool> saveLocationSharedPref(String location) async {
+  static Future<bool> saveLocationSharedPref(String location) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPrefPermiLocation, location);
   }
+
   //camera
-static Future<bool> savecameraSharedPref(String camera) async {
+  static Future<bool> savecameraSharedPref(String camera) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPrefPermiCamera, camera);
   }
+
   //Wifi
-static Future<bool> saveWifiSharedPref(String wifi) async {
+  static Future<bool> saveWifiSharedPref(String wifi) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPrefPermiWifi, wifi);
   }
@@ -121,7 +149,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString(sharedPreferenceTenetID, userEmail);
   }
-  
+
   static clearCheckedTennetIDSharedPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.remove(sharedPreferenceTenetID);
@@ -142,51 +170,52 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
   // fetching data from sharedpreference
   static Future<bool?> getUserLoggedInSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getBool(sharedPreferenceUserLoggedInKey);
+    return preferences.getBool(sharedPreferenceUserLoggedInKey);
   }
 
   static Future<bool?> getDownloadedSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getBool(sharedPreferenceDownloaded);
+    return preferences.getBool(sharedPreferenceDownloaded);
   }
 
   static Future<bool?> getOnBoardSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getBool(sharedPreferenceUserCheckedOnBoard);
+    return preferences.getBool(sharedPreferenceUserCheckedOnBoard);
   }
 
-    static Future<String?> getLocationSharedPref() async {
+  static Future<String?> getLocationSharedPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPrefPermiLocation);
-    }
- 
-    static Future<String?> getCameraSharedPref() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPrefPermiCamera);
-    }
+    return preferences.getString(sharedPrefPermiLocation);
+  }
 
-    static Future<String?> getWifiSharedPref() async {
+  static Future<String?> getCameraSharedPref() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPrefPermiWifi);
-    }
+    return preferences.getString(sharedPrefPermiCamera);
+  }
+
+  static Future<String?> getWifiSharedPref() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getString(sharedPrefPermiWifi);
+  }
+
   static Future<String?> getDeviceIDSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceDeviceID);
+    return preferences.getString(sharedPreferenceDeviceID);
   }
 
   static Future<String?> getSapUserIDSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceSapUserID);
+    return preferences.getString(sharedPreferenceSapUserID);
   }
 
   static Future<String?> getSapURLSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceSapURl);
+    return preferences.getString(sharedPreferenceSapURl);
   }
 
   static Future<String?> getTenetIDSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceTenetID);
+    return preferences.getString(sharedPreferenceTenetID);
   }
 
   //SAVE LICENSE KEY
@@ -198,7 +227,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getLicenseKeySharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceLisenceKey);
+    return preferences.getString(sharedPreferenceLisenceKey);
   }
 
   static Future<bool> saveLogginUserCodeSharedPreference(
@@ -210,7 +239,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getLogginUserCodeSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceLogginUserCode);
+    return preferences.getString(sharedPreferenceLogginUserCode);
   }
 
   //CLEAR DATA FROM SHAREDPREFERENCE
@@ -251,7 +280,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
   static String sharedPreferenceLastProfilePic = "ProfilePic";
   static String sharedPreferencemanagerphonenum = "ManagerPhone";
 
-  static String sharedPreferenceFCMToken = "FCMToken";
+  static String sharedPreferenceToken = "Token";
 
   static Future<bool> saveProfilePicSharedPreference(String ProfilePic) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -261,7 +290,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getmProfilePicSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceLastProfilePic);
+    return preferences.getString(sharedPreferenceLastProfilePic);
   }
 
   static Future<bool> savemobileSharedPreference(String mobile) async {
@@ -271,7 +300,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getmobileSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceLastmobile);
+    return preferences.getString(sharedPreferenceLastmobile);
   }
 
   static Future<bool> saveemailSharedPreference(String email) async {
@@ -281,7 +310,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getemailSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceLastemail);
+    return preferences.getString(sharedPreferenceLastemail);
   }
 
   static Future<bool> saveBranchSharedPreference(String Branch) async {
@@ -291,7 +320,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getBranchSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceBranch);
+    return preferences.getString(sharedPreferenceBranch);
   }
 
   static Future<bool> saveUSERIDSharedPreference(int USERID) async {
@@ -301,7 +330,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getUSERIDSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceUSERID);
+    return preferences.getString(sharedPreferenceUSERID);
   }
 
   static Future<bool> saveLSTNameSharedPreference(String lastname) async {
@@ -311,7 +340,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getLSTNameSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceLastName);
+    return preferences.getString(sharedPreferenceLastName);
   }
 
   static Future<bool> saveFSTNameSharedPreference(String firstname) async {
@@ -321,7 +350,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getFSTNameSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceFirstName);
+    return preferences.getString(sharedPreferenceFirstName);
   }
 
   static Future<bool> saveManagerPhoneSharedPreference(
@@ -333,17 +362,17 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getManagerPhoneSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferencemanagerphonenum);
+    return preferences.getString(sharedPreferencemanagerphonenum);
   }
 
-  static Future<bool> saveFCMTokenSharedPreference(String fcmToken) async {
+  static Future<bool> saveTokenSharedPreference(String Token) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.setString(sharedPreferenceFCMToken, fcmToken);
+    return await preferences.setString(sharedPreferenceToken, Token);
   }
 
-  static Future<String?> getFCMTokenSharedPreference() async {
+  static Future<String?> getTokenSharedPreference() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(sharedPreferenceFCMToken);
+    return preferences.getString(sharedPreferenceToken);
   }
 
   // config
@@ -352,22 +381,22 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<bool> saveHostSP(String spHost1) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-        // preferences.reload();
+    // preferences.reload();
 
     return await preferences.setString(spHost, spHost1);
   }
 
   static Future<String?> getHostDSP() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-        // preferences.reload();
+    // preferences.reload();
 
-    return await preferences.getString(spHost);
+    return preferences.getString(spHost);
   }
 
   static clearHost() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     // preferences.reload();
-   await preferences.remove(spHost);
+    await preferences.remove(spHost);
   }
 
   static String userName = "UserName";
@@ -379,7 +408,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getUserName() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(userName);
+    return preferences.getString(userName);
   }
 
   static clearUserName() async {
@@ -403,7 +432,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getuserDB() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(userDB);
+    return preferences.getString(userDB);
   }
 
   static clearuserDB() async {
@@ -418,7 +447,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getdbUserName() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(dbUserName);
+    return preferences.getString(dbUserName);
   }
 
   static cleardbUserName() async {
@@ -433,7 +462,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getdbPassword() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(dbPassword);
+    return preferences.getString(dbPassword);
   }
 
   static cleardbPassword() async {
@@ -448,7 +477,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> gethostIP() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(hostip);
+    return preferences.getString(hostip);
   }
 
   static clearhostIP() async {
@@ -463,7 +492,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getUserType() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(userType);
+    return preferences.getString(userType);
   }
 
   static clearUserType() async {
@@ -478,7 +507,7 @@ static Future<bool> saveWifiSharedPref(String wifi) async {
 
   static Future<String?> getSlpCode() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return await preferences.getString(slpCode);
+    return preferences.getString(slpCode);
   }
 
   static clearSlpCode() async {

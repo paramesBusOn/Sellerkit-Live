@@ -220,7 +220,7 @@ class _FollowdialogState extends State<Followdialog> {
           Container(
             alignment: Alignment.topCenter,
             width: Screens.width(context),
-            height: Screens.bodyheight(context) * 0.6,
+            // height: Screens.bodyheight(context) * 0.8,
             // color:Colors.amber,
             padding: EdgeInsets.only(
               top: Screens.bodyheight(context) * 0.01,
@@ -231,6 +231,7 @@ class _FollowdialogState extends State<Followdialog> {
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
+                // mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
@@ -238,6 +239,7 @@ class _FollowdialogState extends State<Followdialog> {
                     children: [
                       Container(
                         width: Screens.width(context) * 0.4,
+                        alignment: Alignment.topLeft,
                         child: Text(
                           "${widget.getalldata.CustomerName}",
                           style: theme.textTheme.bodyText2?.copyWith(),
@@ -258,7 +260,7 @@ class _FollowdialogState extends State<Followdialog> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "Open since 2 days" +
+                                  "Open since" +
                                       context
                                           .read<tabpriceController>()
                                           .config
@@ -307,52 +309,7 @@ class _FollowdialogState extends State<Followdialog> {
                           ),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        width: Screens.width(context) * 0.43,
-                        child: Text(
-                          "Worth of " +
-                              context
-                                  .watch<tabpriceController>()
-                                  .config
-                                  .slpitCurrency22(
-                                    "${widget.getalldata.SP}",
-                                  ) +
-                              '/-',
-                          style: theme.textTheme.bodyText2?.copyWith(
-                            color: theme.primaryColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      //  context
-                      //                     .watch<LeadTabController>()
-                      //                     .getleadDeatilsQTHData![0]
-                      //                     .Address2 ==
-                      //                 null ||
-                      //             context
-                      //                     .watch<LeadTabController>()
-                      //                     .getleadDeatilsQTHData![0]
-                      //                     .Address2 ==
-                      //                 "null" ||
-                      //             context
-                      //                 .watch<LeadTabController>()
-                      //                 .getleadDeatilsQTHData![0]
-                      //                 .Address2!
-                      //                 .isEmpty
-                      //         ? Container()
-                      //         :
-                      Container(
-                        width: Screens.width(context) * 0.4,
-                        child: Text(
-                          "",
-                          style: theme.textTheme.bodyText2?.copyWith(),
-                        ),
-                      ),
+                       
                       Container(
                         alignment: Alignment.centerRight,
                         width: Screens.width(context) * 0.4,
@@ -361,8 +318,62 @@ class _FollowdialogState extends State<Followdialog> {
                           style: theme.textTheme.bodyText2?.copyWith(),
                         ),
                       ),
+                      // Container(
+                      //   alignment: Alignment.centerRight,
+                      //   width: Screens.width(context) * 0.43,
+                      //   child: Text(
+                      //     "Worth of " +
+                      //         context
+                      //             .watch<tabpriceController>()
+                      //             .config
+                      //             .slpitCurrency22(
+                      //               "${widget.getalldata.SP}",
+                      //             ) +
+                      //         '/-',
+                      //     style: theme.textTheme.bodyText2?.copyWith(
+                      //       color: theme.primaryColor,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     //  context
+                  //     //                     .watch<LeadTabController>()
+                  //     //                     .getleadDeatilsQTHData![0]
+                  //     //                     .Address2 ==
+                  //     //                 null ||
+                  //     //             context
+                  //     //                     .watch<LeadTabController>()
+                  //     //                     .getleadDeatilsQTHData![0]
+                  //     //                     .Address2 ==
+                  //     //                 "null" ||
+                  //     //             context
+                  //     //                 .watch<LeadTabController>()
+                  //     //                 .getleadDeatilsQTHData![0]
+                  //     //                 .Address2!
+                  //     //                 .isEmpty
+                  //     //         ? Container()
+                  //     //         :
+                  //     Container(
+                  //       width: Screens.width(context) * 0.4,
+                  //       child: Text(
+                  //         "",
+                  //         style: theme.textTheme.bodyText2?.copyWith(),
+                  //       ),
+                  //     ),
+                  //     Container(
+                  //       alignment: Alignment.centerRight,
+                  //       width: Screens.width(context) * 0.4,
+                  //       child: Text(
+                  //         "# ${widget.getalldata.DocEntry}",
+                  //         style: theme.textTheme.bodyText2?.copyWith(),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -384,23 +395,25 @@ class _FollowdialogState extends State<Followdialog> {
                       //       ? Container()
                       //       :
                       Container(
-                        width: Screens.width(context) * 0.4,
+                        // width: Screens.width(context) * 0.4,
                         child: Text(
-                          "",
+                          "Requested Date: ${context
+                                                      .read<tabpriceController>()
+                                                      .config.alignDate(widget.getalldata.RequestDate.toString())}",
                           style: theme.textTheme.bodyText2?.copyWith(),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        width: Screens.width(context) * 0.4,
-                        child: Text(
-                          "Created on " +
-                              context.watch<tabpriceController>().config.alignDate3(
-                                  "${widget.getalldata.CreatedOn}" //.LastFUPUpdate
-                                  ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
-                        ),
-                      ),
+                      // Container(
+                      //   alignment: Alignment.centerRight,
+                      //   width: Screens.width(context) * 0.4,
+                      //   child: Text(
+                      //     "Created on " +
+                      //         context.watch<tabpriceController>().config.alignDate3(
+                      //             "${widget.getalldata.CreatedOn}" //.LastFUPUpdate
+                      //             ),
+                      //     style: theme.textTheme.bodyText2?.copyWith(),
+                      //   ),
+                      // ),
                     ],
                   ),
                   Row(
@@ -423,13 +436,13 @@ class _FollowdialogState extends State<Followdialog> {
                       //               .isEmpty
                       //       ? Container()
                       //       :
-                      Container(
-                        //  width: Screens.width(context) * 0.35,
-                        child: Text(
-                          "Required Price : ${context.read<tabpriceController>().config.slpitCurrency22(widget.getalldata.RP.toString())}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
-                        ),
-                      ),
+                      // Container(
+                      //   //  width: Screens.width(context) * 0.35,
+                      //   child: Text(
+                      //     "Required Price : ${context.read<tabpriceController>().config.slpitCurrency22(widget.getalldata.RP.toString())}",
+                      //     style: theme.textTheme.bodyText2?.copyWith(),
+                      //   ),
+                      // ),
 
 
                        Container(
@@ -458,8 +471,37 @@ class _FollowdialogState extends State<Followdialog> {
                   ),
                   createTable(theme),
                   SizedBox(
-                    height: Screens.bodyheight(context) * 0.015,
+                    height: Screens.bodyheight(context) * 0.03,
                   ),
+                  createTable2(theme),
+                  SizedBox(
+                    height: Screens.bodyheight(context) * 0.03,
+                  ),
+                  // createTable3(theme),
+                  SizedBox(
+                    height: Screens.bodyheight(context) * 0.03,
+                  ),
+                  //  Align(
+                        //  width: Screens.width(context) * 0.35,
+                        // alignment: Alignment.bottomLeft,
+                        // child: 
+                        Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "Created Date :${context
+                                                        .read<tabpriceController>()
+                                                        .config.alignDate(widget.getalldata.CreatedOn.toString())} ${context
+                                                        .read<tabpriceController>()
+                                                        .config.alignTimenew(widget.getalldata.CreatedOn.toString())} ",
+                            //  ${context.watch<tabpriceController>().config.alignDate3(
+                            //         "${widget.getalldata.CreatedOn}"
+                            //         // )
+                            //         }
+                                    // ",
+                            style: theme.textTheme.bodyText2?.copyWith(color: Colors.grey),
+                          ),
+                        ),
+                      // ),
                 ],
               ),
             ),
@@ -482,11 +524,80 @@ class _FollowdialogState extends State<Followdialog> {
           textAlign: TextAlign.left,
         ),
       ),
+      // Container(
+      //   color: theme.primaryColor,
+      //   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      //   child: Text(
+      //     "Price",
+      //     style: theme.textTheme.bodyText1
+      //         ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+      //     textAlign: TextAlign.left,
+      //   ),
+      // ),
       Container(
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
-          "Price",
+          "Qty",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ]));
+    for (int i = 0; i < 1; ++i) {
+      rows.add(TableRow(children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          child: Text(
+            '${widget.getalldata.ItemName}',
+            textAlign: TextAlign.left,
+            style: theme.textTheme.bodyText1?.copyWith(
+              color: theme.primaryColor,
+            ),
+          ),
+        ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        //   child: Text(
+        //     "${context.read<tabpriceController>().config.slpitCurrency22(widget.getalldata.SP!.toString())}",
+        //     // '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+        //     textAlign: TextAlign.left,
+        //     style: theme.textTheme.bodyText1?.copyWith(
+        //       color: theme.primaryColor,
+        //     ),
+        //   ),
+        // ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          child: Text(
+            '${widget.getalldata.Quantity}',
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodyText1?.copyWith(
+              color: theme.primaryColor,
+            ),
+          ),
+        ),
+      ]));
+    }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(4),
+      // 1: FlexColumnWidth(2.2),
+      2: FlexColumnWidth(0.8),
+    }, children: rows);
+  }
+
+
+
+
+  Widget createTable2(ThemeData theme) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "SP",
           style: theme.textTheme.bodyText1
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
@@ -496,7 +607,17 @@ class _FollowdialogState extends State<Followdialog> {
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
-          "Qty",
+          "Requested Price",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "Dis %",
           style: theme.textTheme.bodyText1
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
@@ -508,7 +629,88 @@ class _FollowdialogState extends State<Followdialog> {
         Padding(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           child: Text(
-            '${widget.getalldata.ItemName}',
+            "${context.read<tabpriceController>().config.slpitCurrency22(widget.getalldata.SP!.toString())}",
+            textAlign: TextAlign.left,
+            style: theme.textTheme.bodyText1?.copyWith(
+              color: theme.primaryColor,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          child: Text("${
+                                          context
+                                                      .read<tabpriceController>()
+                                                      .config.slpitCurrency22(widget.getalldata.RP.toString())
+                                          }",
+            
+            // '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodyText1?.copyWith(
+              color: theme.primaryColor,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          child: Text(
+            "${context
+                            .read<tabpriceController>().Discountcalculation(widget.getalldata.RP, widget.getalldata.SP)}" ,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodyText1?.copyWith(
+              color: theme.primaryColor,
+            ),
+          ),
+        ),
+      ]));
+    }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(2),
+      1: FlexColumnWidth(2.0),
+      2: FlexColumnWidth(0.8),
+    }, children: rows);
+  }
+
+  Widget createTable3(ThemeData theme) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "Slab",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "APM",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      // Container(
+      //   color: theme.primaryColor,
+      //   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      //   child: Text(
+      //     "Qty",
+      //     style: theme.textTheme.bodyText1
+      //         ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+      //     textAlign: TextAlign.left,
+      //   ),
+      // ),
+    ]));
+    for (int i = 0; i < 1; ++i) {
+      rows.add(TableRow(children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          child: Text(
+            '${widget.getalldata.UserType}',
             textAlign: TextAlign.left,
             style: theme.textTheme.bodyText1?.copyWith(
               color: theme.primaryColor,
@@ -526,22 +728,22 @@ class _FollowdialogState extends State<Followdialog> {
             ),
           ),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          child: Text(
-            '${widget.getalldata.Quantity}',
-            textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
-              color: theme.primaryColor,
-            ),
-          ),
-        ),
+        // Padding(
+        //   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        //   child: Text(
+        //     '${widget.getalldata.Quantity}',
+        //     textAlign: TextAlign.center,
+        //     style: theme.textTheme.bodyText1?.copyWith(
+        //       color: theme.primaryColor,
+        //     ),
+        //   ),
+        // ),
       ]));
     }
     return Table(columnWidths: {
-      0: FlexColumnWidth(4),
-      1: FlexColumnWidth(2.2),
-      2: FlexColumnWidth(0.8),
+      0: FlexColumnWidth(3),
+      // 1: FlexColumnWidth(2.2),
+      2: FlexColumnWidth(2),
     }, children: rows);
   }
 

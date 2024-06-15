@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Pages/PriceAvailability/Screen/showdialogst.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 import '../../../Constant/ConstantSapValues.dart';
 import '../../../Constant/padings.dart';
@@ -166,6 +167,24 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                 .length,
                             itemBuilder: (BuildContext context, int i) {
                               return InkWell(
+                                onDoubleTap: (){
+                                  context
+                                      .read<PriceListController>()
+                                      .   viewstockdet(context
+                                .read<PriceListController>()
+                                .getlistPriceAvail[i].itemCode.toString());
+                                showDialog<dynamic>(
+                                  context: context,
+                                  builder: (_) {
+                                  
+                                    // widget.provi.updateFollowUpDialog = false;
+                                    // context.read<LeadTabController>().resetValues();
+                                    return showdialogst(
+                                      // index: i,
+                                      // leadopenalldata: widget.leadOpenAllData[i],
+                                    );
+                                  });
+                                },
                                 onTap: () {
                                    context
                                       .read<PriceListController>()

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Controller/EnquiryController/NewEnqController.dart';
+import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/enqAsign2.dart';
 import '../../Constant/Screen.dart';
 import '../../Constant/ShowSearchDialog.dart';
 import '../../Constant/padings.dart';
@@ -1558,6 +1559,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                         // height:Screens.bodyheight(context)*0.28 ,
                                         decoration: BoxDecoration(
                                             color: theme.primaryColor,
+                                            // border: Border.all(color:theme.primaryColor),
                                             borderRadius:
                                                 BorderRadius.circular(8)),
                                         padding: EdgeInsets.symmetric(
@@ -1585,9 +1587,10 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                             color: Colors.white),
                                                   ),
                                                   Checkbox(
-                                                      checkColor:
-                                                          theme.primaryColor,
-                                                      activeColor: Colors.white,
+                                                      checkColor:theme.primaryColor,
+                                                          // Colors.white,
+                                                      activeColor:Colors.white,
+                                                      //  theme.primaryColor,
                                                       side: BorderSide(
                                                           color: Colors.white),
                                                       value: context
@@ -1983,6 +1986,127 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                           color: Colors.red),
                                                     ),
                                                   ),
+                                            //  context
+                                            //             .read<NewEnqController>()
+                                            //             .sitevisitreq ==
+                                            //         false
+                                            //     ? Container():      Stack(
+                                            //   clipBehavior: Clip.none,
+                                            //   children: [
+                                            //     SizedBox(
+                                            //       // height: Screens.bodyheight(
+                                            //       //                   context) *
+                                            //       //               0.08,
+                                            //       child: TextFormField(
+                                            //         onTap: () {
+                                            //           // context
+                                            //           //   .read<NewEnqController>().setUserdata();
+                                            //           showDialog<dynamic>(
+                                            //               context: context,
+                                            //               builder: (_) {
+                                            //                 return EnqAssignUserDialog2();
+                                            //               }).then((value) {
+                                            //             context
+                                            //                 .read<
+                                            //                     NewEnqController>()
+                                            //                 .setUserdata2();
+                                            //           });
+                                            //         },
+                                            //         validator: (value) {
+                                            //           if (value!.isEmpty) {
+                                            //             return "Enter Assigned To";
+                                            //           }
+                                            //           return null;
+                                            //         },
+                                            //         // readOnly: true,
+                                            //         controller: context
+                                            //             .read<NewEnqController>()
+                                            //             .mycontroller[24],
+                                            //         readOnly: true,
+                                            //         decoration: InputDecoration(
+                                            //           contentPadding:
+                                            //               EdgeInsets.symmetric(
+                                            //                   vertical: 10,
+                                            //                   horizontal: 10),
+                                            //           labelText: "Assigned To:",
+                                            //           labelStyle: TextStyle(
+                                            //               color:
+                                            //                   theme.primaryColor,
+                                            //               fontWeight:
+                                            //                   FontWeight.bold),
+                                            //           border: OutlineInputBorder(
+                                            //             borderRadius:
+                                            //                 BorderRadius.circular(
+                                            //                     8),
+                                            //             borderSide: BorderSide(
+                                            //                 color: theme
+                                            //                     .primaryColor),
+                                            //           ),
+                                            //           enabledBorder:
+                                            //               OutlineInputBorder(
+                                            //             borderRadius:
+                                            //                 BorderRadius.circular(
+                                            //                     8),
+                                            //             borderSide: BorderSide(
+                                            //                 color: theme
+                                            //                     .primaryColor),
+                                            //           ),
+                                            //           focusedBorder:
+                                            //               OutlineInputBorder(
+                                            //             borderRadius:
+                                            //                 BorderRadius.circular(
+                                            //                     8),
+                                            //             borderSide: BorderSide(
+                                            //                 color: theme
+                                            //                     .primaryColor),
+                                            //           ),
+                                            //         ),
+                                            //         // cursorColor: Colors.green,
+                                            //       ),
+                                            //     ),
+                                            //     Positioned(
+                                            //         top: 0,
+                                            //         left: Screens.width(context) *
+                                            //             0.70,
+                                            //         child: InkWell(
+                                            //             onTap: () {
+                                            //               showDialog<dynamic>(
+                                            //                   context: context,
+                                            //                   builder: (_) {
+                                            //                     return EnqAssignUserDialog2();
+                                            //                   });
+                                            //             },
+                                            //             child: Container(
+                                            //                 width: Screens.width(
+                                            //                         context) *
+                                            //                     0.2,
+                                            //                 padding: EdgeInsets
+                                            //                     .symmetric(
+                                            //                         vertical: 11,
+                                            //                         horizontal:
+                                            //                             10),
+                                            //                 // height: Screens.bodyheight(
+                                            //                 //         context) *
+                                            //                 //     0.08,
+                                            //                 decoration:
+                                            //                     BoxDecoration(
+                                            //                         color: theme
+                                            //                             .primaryColor,
+                                            //                         borderRadius:
+                                            //                             BorderRadius
+                                            //                                 .only(
+                                            //                           topRight: Radius
+                                            //                               .circular(
+                                            //                                   8),
+                                            //                           bottomRight:
+                                            //                               Radius.circular(
+                                            //                                   8),
+                                            //                         )),
+                                            //                 child: Icon(
+                                            //                     Icons.search))))
+                                            //   ]),
+
+
                                             //Reminder
                                             Text(
                                               "Reminder On*",
@@ -2351,6 +2475,8 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                           color: Colors.red),
                                                     ),
                                                   ),
+                                        
+                                        
                                           ],
                                         ),
                                       ),

@@ -4,8 +4,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!-- <uses-feature android:name="android.hardware.camera" /> -->
     <!-- <uses-feature android:name="android.hardware.camera.autofocus" /> -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <!-- <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" /> -->
     
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -88,7 +88,7 @@
         android:value="high_importance_channel" />
         <meta-data android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyAdvVumVzr7teF3UDRchglwonf_vjvXtZo"/>
-        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <!-- <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
 <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
     <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED"/>
@@ -96,6 +96,6 @@
         <action android:name="android.intent.action.QUICKBOOT_POWERON" />
         <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
     </intent-filter>
-</receiver>
+</receiver> -->
     </application>
 </manifest>

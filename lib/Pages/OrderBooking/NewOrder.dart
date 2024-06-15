@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Pages/OrderBooking/Widgets/paymenttermdialog.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 import '../../Controller/OrderController/OrderNewController.dart';
 import '../../Widgets/Appbar.dart';
@@ -171,72 +172,349 @@ class OrderBookNewState extends State<OrderBookNew> {
               width: Screens.width(context),
               // height: Screens.bodyheight(context) * 0.82,
 
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: Screens.width(context),
-                    height: Screens.bodyheight(context) * 0.28,
-                    decoration: BoxDecoration(
-                        color: theme.primaryColor,
-                        borderRadius: BorderRadius.circular(8)),
-                    padding: EdgeInsets.only(
-                      left: Screens.width(context) * 0.02,
-                      right: Screens.width(context) * 0.02,
-                      top: Screens.bodyheight(context) * 0.01,
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Payment Terms *",
-                            style: theme.textTheme.bodyText1
-                                ?.copyWith(color: Colors.white),
-                          ),
-                          SizedBox(height: Screens.bodyheight(context) * 0.02),
-                          // Visibility(
-                          //   visible: provi.getvisibleRefferal,
-                          //   child: Column(
-                          //     children: [
-                          //       Text(
-                          //         "Required Referral*",
-                          //         style: theme.textTheme.bodyText1
-                          //             ?.copyWith(color: Colors.white),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                          // SizedBox(
-                          //   height: provi.getvisibleRefferal == true
-                          //       ? Screens.bodyheight(context) * 0.02
-                          //       : Screens.bodyheight(context) * 0.04,
-                          // ),
-                          Center(
-                            child: Wrap(
-                                spacing: 20.0, // width
-                                runSpacing: 8.0, // height
-                                children: listContainersPaymentTerms(theme)),
-                          )
-                        ],
+              child: Form(
+                key: context.read<OrderNewController>().formkey[1],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: Screens.width(context),
+                       height: Screens.bodyheight(context) * 0.28,
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: theme.primaryColor),
+                          color: theme.primaryColor,
+                          
+                          borderRadius: BorderRadius.circular(8)),
+                      padding: EdgeInsets.only(
+                        left: Screens.width(context) * 0.02,
+                        right: Screens.width(context) * 0.02,
+                        top: Screens.bodyheight(context) * 0.01,
+                        bottom: Screens.bodyheight(context) * 0.01,
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Payment Terms *",
+                              style: theme.textTheme.bodyText1
+                                  ?.copyWith(color: Colors.white),
+                            ),
+                            SizedBox(height: Screens.bodyheight(context) * 0.02),
+                            // Visibility(
+                            //   visible: provi.getvisibleRefferal,
+                            //   child: Column(
+                            //     children: [
+                            //       Text(
+                            //         "Required Referral*",
+                            //         style: theme.textTheme.bodyText1
+                            //             ?.copyWith(color: Colors.white),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //   height: provi.getvisibleRefferal == true
+                            //       ? Screens.bodyheight(context) * 0.02
+                            //       : Screens.bodyheight(context) * 0.04,
+                            // ),
+                            Center(
+                              // child: Container(
+                              //   height: Screens.bodyheight(context) * 0.25,
+                              //   child: SingleChildScrollView(
+                              //     child: Column(
+                              //       children: [
+                                  child:    Wrap(
+                                          spacing: 20.0, // width
+                                          runSpacing: 8.0, // height
+                                          children: listContainersPaymentTerms(theme)),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                            ),
+                        //   context
+                        //        .read<OrderNewController>()
+                        //        . PaymentTerms.toString().toLowerCase() =='neft'? Column(
+                        //      children: [
+                        //        TextFormField(
+                        //            controller: context
+                        //                .read<OrderNewController>()
+                        //                .mycontroller[42],
+                        //            validator: context
+                        //       .read<OrderNewController>()
+                        //       . PaymentTerms.toString().toLowerCase()  =='neft'
+                        //                ? (value) {
+                        //                    if (value!.isEmpty) {
+                        //                      return "Enter Reference";
+                        //                    }
+                        //                    return null;
+                        //                  }
+                        //                : (value) {},
+                        //            decoration: InputDecoration(
+                        //              labelText: 'NEFT Reference',
+                        //              labelStyle: theme.textTheme.bodyText1!
+                        //                  .copyWith(color: Colors.grey),
+                        //              enabledBorder: UnderlineInputBorder(
+                        //                borderSide: BorderSide(color: Colors.grey),
+                        //                //  when the TextFormField in unfocused
+                        //              ),
+                        //              focusedBorder: UnderlineInputBorder(
+                        //                borderSide: BorderSide(color: Colors.grey),
+                        //                //  when the TextFormField in focused
+                        //              ),
+                        //              border: UnderlineInputBorder(),
+                        //              // enabledBorder: UnderlineInputBorder(),
+                        //              // focusedBorder: UnderlineInputBorder(),
+                        //              errorBorder: UnderlineInputBorder(),
+                        //              focusedErrorBorder: UnderlineInputBorder(),
+                        //            )),
+                        //      ],
+                        //    ):
+                        // context
+                        //      .read<OrderNewController>()
+                        //      . PaymentTerms.toString().toLowerCase() =='upi'?
+                        //  Column(
+                        //   children: [
+                        //     TextFormField(
+                        //         controller: context
+                        //             .read<OrderNewController>()
+                        //             .mycontroller[43],
+                        //         validator: context
+                        //      .read<OrderNewController>()
+                        //      . PaymentTerms.toString().toLowerCase() =='upi'
+                        //             ? (value) {
+                        //                 if (value!.isEmpty) {
+                        //                   return "Enter Reference";
+                        //                 }
+                        //                 return null;
+                        //               }
+                        //             : (value) {},
+                        //         decoration: InputDecoration(
+                        //           labelText: 'UPI Reference',
+                        //           labelStyle: theme.textTheme.bodyText1!
+                        //               .copyWith(color: Colors.grey),
+                        //           enabledBorder: UnderlineInputBorder(
+                        //             borderSide: BorderSide(color: Colors.grey),
+                        //             //  when the TextFormField in unfocused
+                        //           ),
+                        //           focusedBorder: UnderlineInputBorder(
+                        //             borderSide: BorderSide(color: Colors.grey),
+                        //             //  when the TextFormField in focused
+                        //           ),
+                        //           border: UnderlineInputBorder(),
+                        //           // enabledBorder: UnderlineInputBorder(),
+                        //           // focusedBorder: UnderlineInputBorder(),
+                        //           errorBorder: UnderlineInputBorder(),
+                        //           focusedErrorBorder: UnderlineInputBorder(),
+                        //         )),
+                        //   ],
+                        // ):
+                        // context
+                        //    .read<OrderNewController>()
+                        //    . PaymentTerms.toString().toLowerCase() =='card'?
+                        //  Column(
+                        //   children: [
+                        //     TextFormField(
+                        //         controller: context
+                        //             .read<OrderNewController>()
+                        //             .mycontroller[44],
+                        //         validator: context
+                        //    .read<OrderNewController>()
+                        //    . PaymentTerms.toString().toLowerCase() =='card'
+                        //             ? (value) {
+                        //                 if (value!.isEmpty) {
+                        //                   return "Enter Reference";
+                        //                 }
+                        //                 return null;
+                        //               }
+                        //             : (value) {},
+                        //         decoration: InputDecoration(
+                        //           labelText: 'Card Reference',
+                        //           labelStyle: theme.textTheme.bodyText1!
+                        //               .copyWith(color: Colors.grey),
+                        //           enabledBorder: UnderlineInputBorder(
+                        //             borderSide: BorderSide(color: Colors.grey),
+                        //             //  when the TextFormField in unfocused
+                        //           ),
+                        //           focusedBorder: UnderlineInputBorder(
+                        //             borderSide: BorderSide(color: Colors.grey),
+                        //             //  when the TextFormField in focused
+                        //           ),
+                        //           border: UnderlineInputBorder(),
+                        //           // enabledBorder: UnderlineInputBorder(),
+                        //           // focusedBorder: UnderlineInputBorder(),
+                        //           errorBorder: UnderlineInputBorder(),
+                        //           focusedErrorBorder: UnderlineInputBorder(),
+                        //         )),
+                        //     SizedBox(
+                        //       height: Screens.bodyheight(context) * 0.02,
+                        //     ),
+                        //     GetAttachment(theme, context),
+                        //   ],
+                        // ):
+                        // context
+                        //  .read<OrderNewController>()
+                        //  . PaymentTerms.toString().toLowerCase() =='cheque'?
+                        //  Column(
+                        //   children: [
+                        //     // TextFormField(
+                        //     //     // controller: context
+                        //     //     //     .read<OrderNewController>()
+                        //     //     //     .mycontroller[6],
+                        //     //     // validator: (value) {
+                        //     //     //   if (value!.isEmpty) {
+                        //     //     //     return "Enter Reference";
+                        //     //     //   }
+                        //     //     //   return null;
+                        //     //     // },
+                        //     //     decoration: InputDecoration(
+                        //     //   labelText: 'Cheque No',
+                        //     //   labelStyle: theme.textTheme.bodyText1!
+                        //     //       .copyWith(color: Colors.grey),
+                        //     //   enabledBorder: UnderlineInputBorder(
+                        //     //     borderSide: BorderSide(color: Colors.grey),
+                        //     //     //  when the TextFormField in unfocused
+                        //     //   ),
+                        //     //   focusedBorder: UnderlineInputBorder(
+                        //     //     borderSide: BorderSide(color: Colors.grey),
+                        //     //     //  when the TextFormField in focused
+                        //     //   ),
+                        //     //   border: UnderlineInputBorder(),
+                        //     //   // enabledBorder: UnderlineInputBorder(),
+                        //     //   // focusedBorder: UnderlineInputBorder(),
+                        //     //   errorBorder: UnderlineInputBorder(),
+                        //     //   focusedErrorBorder: UnderlineInputBorder(),
+                        //     // )),
+                        //     TextFormField(
+                        //         controller: context
+                        //             .read<OrderNewController>()
+                        //             .mycontroller[45],
+                        //         onTap: () {
+                        //           context
+                        //               .read<OrderNewController>()
+                        //               .showchequeDate(context);
+                        //         },
+                        //         validator:  context
+                        //  .read<OrderNewController>()
+                        //  . PaymentTerms.toString().toLowerCase() =='cheque'
+                        //             ? (value) {
+                        //                 if (value!.isEmpty) {
+                        //                   return "Enter Cheque Date";
+                        //                 }
+                        //                 return null;
+                        //               }
+                        //             : (value) {},
+                        //             readOnly: true,
+                        //         decoration: InputDecoration(
+                        //           labelText: 'Cheque Date',
+                        //           labelStyle: theme.textTheme.bodyText1!
+                        //               .copyWith(color: Colors.grey),
+                        //           enabledBorder: UnderlineInputBorder(
+                        //             borderSide: BorderSide(color: Colors.grey),
+                        //             //  when the TextFormField in unfocused
+                        //           ),
+                        //           focusedBorder: UnderlineInputBorder(
+                        //             borderSide: BorderSide(color: Colors.grey),
+                        //             //  when the TextFormField in focused
+                        //           ),
+                        //           border: UnderlineInputBorder(),
+                        //           // enabledBorder: UnderlineInputBorder(),
+                        //           // focusedBorder: UnderlineInputBorder(),
+                        //           errorBorder: UnderlineInputBorder(),
+                        //           focusedErrorBorder: UnderlineInputBorder(),
+                        //         )),
+                        //     TextFormField(
+                        //         controller: context
+                        //             .read<OrderNewController>()
+                        //             .mycontroller[46],
+                        //         validator:  context
+                        //  .read<OrderNewController>()
+                        //  . PaymentTerms.toString().toLowerCase() =='cheque'
+                        //             ? (value) {
+                        //                 if (value!.isEmpty) {
+                        //                   return "Enter Reference";
+                        //                 }
+                        //                 return null;
+                        //               }
+                        //             : (value) {},
+                        //         decoration: InputDecoration(
+                        //           labelText: 'Cheque Reference',
+                        //           labelStyle: theme.textTheme.bodyText1!
+                        //               .copyWith(color: Colors.grey),
+                        //           enabledBorder: UnderlineInputBorder(
+                        //             borderSide: BorderSide(color: Colors.grey),
+                        //             //  when the TextFormField in unfocused
+                        //           ),
+                        //           focusedBorder: UnderlineInputBorder(
+                        //             borderSide: BorderSide(color: Colors.grey),
+                        //             //  when the TextFormField in focused
+                        //           ),
+                        //           border: UnderlineInputBorder(),
+                        //           // enabledBorder: UnderlineInputBorder(),
+                        //           // focusedBorder: UnderlineInputBorder(),
+                        //           errorBorder: UnderlineInputBorder(),
+                        //           focusedErrorBorder: UnderlineInputBorder(),
+                        //         )),
+                        
+                        //     SizedBox(
+                        //       height: Screens.bodyheight(context) * 0.02,
+                        //     ),
+                        //     GetAttachment(theme, context),
+                        //   ],
+                        // ):Container(),
+                       
+                        // SizedBox(
+                        //   height: Screens.bodyheight(context) * 0.01,
+                        // ),
+                        // TextFormField(
+                        //     controller: context
+                        //         .read<OrderNewController>()
+                        //         .mycontroller[41],
+                        //     // validator: (value) {
+                        //     //   if (value!.isEmpty) {
+                        //     //     return "Enter Reference";
+                        //     //   }
+                        //     //   return null;
+                        //     // },
+                        //     decoration: InputDecoration(
+                        //       labelText: 'Remarks',
+                        //       labelStyle: theme.textTheme.bodyText1!
+                        //           .copyWith(color: Colors.grey),
+                        //       enabledBorder: UnderlineInputBorder(
+                        //         borderSide: BorderSide(color: Colors.grey),
+                        //         //  when the TextFormField in unfocused
+                        //       ),
+                        //       focusedBorder: UnderlineInputBorder(
+                        //         borderSide: BorderSide(color: Colors.grey),
+                        //         //  when the TextFormField in focused
+                        //       ),
+                        //       border: UnderlineInputBorder(),
+                        //       // enabledBorder: UnderlineInputBorder(),
+                        //       // focusedBorder: UnderlineInputBorder(),
+                        //       errorBorder: UnderlineInputBorder(),
+                        //       focusedErrorBorder: UnderlineInputBorder(),
+                        //     )),
+                      
+                      
+                         
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  context.watch<OrderNewController>().paymentTerm == false
-                      ? Container()
-                      : Text(
-                          "Enter Payment Terms",
-                          style: TextStyle(color: Colors.red),
-                        ),
-                  //SizedBox(height: Screens.bodyheight(context)*0.02,),
-                  // SizedBox(
-                  //   height: Screens.bodyheight(context) * 0.01,
-                  // ),
-                  //dates
-                  Form(
-                    key: context.read<OrderNewController>().formkey[1],
-                    child: Column(
+                    context.watch<OrderNewController>().paymentTerm == false
+                        ? Container()
+                        : Text(
+                            "Enter Payment Terms",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                    //SizedBox(height: Screens.bodyheight(context)*0.02,),
+                    // SizedBox(
+                    //   height: Screens.bodyheight(context) * 0.01,
+                    // ),
+                    //dates
+                    Column(
                       children: [
                         TextFormField(
                             onTap: () {
@@ -363,665 +641,665 @@ class OrderBookNewState extends State<OrderBookNew> {
                         ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: Screens.bodyheight(context) * 0.015,
-                  ),
-                  Container(
-                      //  width: Screens.width(context),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: theme.primaryColor)),
-                      padding: EdgeInsets.only(
-                          top: Screens.padingHeight(context) * 0.01,
-                          left: Screens.padingHeight(context) * 0.01,
-                          bottom: Screens.padingHeight(context) * 0.015,
-                          right: Screens.padingHeight(context) * 0.01),
-                      // height: Screens.padingHeight(context) * 0.14,
-                      // color: Colors.red,
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Attachment',
-                                    style: theme.textTheme.subtitle1?.copyWith(
-                                        color: context
-                                                    .read<OrderNewController>()
-                                                    .fileValidation ==
-                                                true
-                                            ? Colors.red
-                                            : Colors.black)),
-                                Row(
-                                  children: [
-                                    Container(
-                                        // alignment: Alignment.center,
-                                        height: Screens.padingHeight(context) *
-                                            0.06,
-                                        width: Screens.width(context) * 0.13,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                            color: context
-                                                        .read<
-                                                            OrderNewController>()
-                                                        .fileValidation ==
-                                                    true
-                                                ? Colors.red
-                                                : theme.primaryColor
-                                            // shape: BoxShape
-                                            //     .circle
-                                            ),
-                                        child: Center(
-                                          child: IconButton(
-                                              onPressed: context
+                    SizedBox(
+                      height: Screens.bodyheight(context) * 0.015,
+                    ),
+                    Container(
+                        //  width: Screens.width(context),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: theme.primaryColor)),
+                        padding: EdgeInsets.only(
+                            top: Screens.padingHeight(context) * 0.01,
+                            left: Screens.padingHeight(context) * 0.01,
+                            bottom: Screens.padingHeight(context) * 0.015,
+                            right: Screens.padingHeight(context) * 0.01),
+                        // height: Screens.padingHeight(context) * 0.14,
+                        // color: Colors.red,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('Attachment',
+                                      style: theme.textTheme.subtitle1?.copyWith(
+                                          color: context
+                                                      .read<OrderNewController>()
+                                                      .fileValidation ==
+                                                  true
+                                              ? Colors.red
+                                              : Colors.black)),
+                                  Row(
+                                    children: [
+                                      Container(
+                                          // alignment: Alignment.center,
+                                          height: Screens.padingHeight(context) *
+                                              0.06,
+                                          width: Screens.width(context) * 0.13,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                              color: context
                                                           .read<
                                                               OrderNewController>()
-                                                          .files
-                                                          .length >
-                                                      5
-                                                  ? null
-                                                  : () {
-                                                      setState(() {
-                                                        log("files length" +
-                                                            context
-                                                                .read<
-                                                                    OrderNewController>()
-                                                                .files
-                                                                .length
-                                                                .toString());
-                                                        // showtoast();
-                                                        if (context
-                                                                .read<
-                                                                    OrderNewController>()
-                                                                .files
-                                                                .length <=
-                                                            4) {
-                                                          setState(() {
-                                                            context
-                                                                .read<
-                                                                    OrderNewController>()
-                                                                .imagetoBinary(
-                                                                    ImageSource
-                                                                        .camera);
-                                                            context
-                                                                .read<
-                                                                    OrderNewController>()
-                                                                .fileValidation = false;
-                                                          });
-                                                        } else {
-                                                          print("obAAAAAject");
-                                                          context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .showtoast();
-                                                        }
-                                                      });
-                                                    },
-                                              icon: Icon(
-                                                Icons.photo_camera,
-                                                color: Colors.white,
-                                              )),
-                                        )),
-                                    SizedBox(
-                                      width: Screens.width(context) * 0.02,
-                                    ),
-
-                                    //old
-                                    Container(
-                                        // alignment: Alignment.center,
-                                        height: Screens.padingHeight(context) *
-                                            0.06,
-                                        width: Screens.width(context) * 0.13,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(6),
-                                            color: context
-                                                        .read<
-                                                            OrderNewController>()
-                                                        .fileValidation ==
-                                                    true
-                                                ? Colors.red
-                                                : theme.primaryColor
-                                            // shape: BoxShape
-                                            //     .circle
-                                            ),
-                                        child: Center(
-                                          child: IconButton(
-                                              onPressed: context
-                                                          .read<
-                                                              OrderNewController>()
-                                                          .files
-                                                          .length >
-                                                      5
-                                                  ? null
-                                                  : () {
-                                                      setState(() {
-                                                        // log("files length" + files.length.toString());
-                                                        // showtoast();
-                                                        if (context
-                                                                .read<
-                                                                    OrderNewController>()
-                                                                .files
-                                                                .length <=
-                                                            4) {
-                                                          setState(() {
-                                                            context
-                                                                .read<
-                                                                    OrderNewController>()
-                                                                .selectattachment();
-
-                                                            context
-                                                                .read<
-                                                                    OrderNewController>()
-                                                                .fileValidation = false;
-                                                          });
-                                                        } else {
-                                                          print("obAAAAAject");
-
-                                                          context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .showtoast();
-                                                        }
-                                                      });
-                                                    },
-                                              icon: Icon(
-                                                Icons.attach_file,
-                                                color: Colors.white,
-                                              )),
-                                        )),
-                                  ],
-                                )
-                              ],
-                            ),
-                            context.read<OrderNewController>().files == null
-                                ? Container(
-                                    height: Screens.padingHeight(context) * 0.3,
-                                    padding: EdgeInsets.only(
-                                      top:
-                                          Screens.padingHeight(context) * 0.001,
-                                      right:
-                                          Screens.padingHeight(context) * 0.015,
-                                      left:
-                                          Screens.padingHeight(context) * 0.015,
-                                      bottom:
-                                          Screens.padingHeight(context) * 0.015,
-                                    ),
-                                    child: Container(
-                                        alignment: Alignment.center,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Center(
-                                                child: Text(
-                                              "No Files Selected",
-                                              style: theme.textTheme.bodyText1!
-                                                  .copyWith(
-                                                      color: context
-                                                                  .read<
-                                                                      OrderNewController>()
-                                                                  .fileValidation ==
-                                                              true
-                                                          ? Colors.red
-                                                          : Colors.green),
-                                            )),
-                                            Icon(
-                                              Icons.file_present_outlined,
-                                              color: theme.primaryColor,
-                                            )
-                                          ],
-                                        )))
-                                : Container(
-                                    height: context
-                                                .read<OrderNewController>()
-                                                .files
-                                                .length ==
-                                            0
-                                        ? Screens.padingHeight(context) * 0.0
-                                        : Screens.padingHeight(context) * 0.3,
-                                    padding: EdgeInsets.only(
-                                      top:
-                                          Screens.padingHeight(context) * 0.001,
-                                      right:
-                                          Screens.padingHeight(context) * 0.015,
-                                      left:
-                                          Screens.padingHeight(context) * 0.015,
-                                      bottom:
-                                          Screens.padingHeight(context) * 0.015,
-                                    ),
-                                    child: ListView.builder(
-                                        itemCount: context
-                                            .read<OrderNewController>()
-                                            .files
-                                            .length,
-                                        itemBuilder:
-                                            (BuildContext context, int i) {
-                                          if (context
-                                              .read<OrderNewController>()
-                                              .files[i]
-                                              .path
-                                              .split('/')
-                                              .last
-                                              .contains("png")) {
-                                            return Container(
-                                                child: Column(children: [
-                                              SizedBox(
-                                                height: 10,
+                                                          .fileValidation ==
+                                                      true
+                                                  ? Colors.red
+                                                  : theme.primaryColor
+                                              // shape: BoxShape
+                                              //     .circle
                                               ),
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.09,
-                                                        height: Screens
-                                                                .padingHeight(
-                                                                    context) *
-                                                            0.06,
-                                                        child: Center(
-                                                            child: Image.asset(
-                                                                "Assets/img.jpg"))),
-                                                    Container(
-                                                        padding:
-                                                            EdgeInsets.all(10),
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.6,
-                                                        // height: Screens.padingHeight(context) * 0.06,
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Text(
-                                                          context
-                                                              .watch<
-                                                                  OrderNewController>()
-                                                              .files[i]
-                                                              .path
-                                                              .split('/')
-                                                              .last,
-                                                          // overflow: TextOverflow.ellipsis,
-                                                        )),
-                                                    Container(
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.1,
-                                                        height: Screens
-                                                                .padingHeight(
-                                                                    context) *
-                                                            0.06,
-                                                        child: IconButton(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .files
-                                                                    .removeAt(
-                                                                        i);
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .filedata
-                                                                    .removeAt(
-                                                                        i);
-                                                              });
-                                                            },
-                                                            icon: Icon(
-                                                              Icons
-                                                                  .cancel_rounded,
-                                                              color:
-                                                                  Colors.grey,
-                                                            )))
-                                                  ])
-                                            ])
-                                                // )
-                                                );
-                                          } else if (context
-                                              .read<OrderNewController>()
-                                              .files[i]
-                                              .path
-                                              .split('/')
-                                              .last
-                                              .contains("jp")) {
-                                            return Container(
-                                                child: Column(children: [
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.09,
-                                                        height: Screens
-                                                                .padingHeight(
-                                                                    context) *
-                                                            0.06,
-                                                        child: Center(
-                                                            child: Image.asset(
-                                                                "Assets/img.jpg"))),
-                                                    Container(
-                                                        padding:
-                                                            EdgeInsets.all(10),
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.6,
-                                                        // height: Screens.padingHeight(context) * 0.06,
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Text(
-                                                          context
-                                                              .watch<
-                                                                  OrderNewController>()
-                                                              .files[i]
-                                                              .path
-                                                              .split('/')
-                                                              .last,
-                                                        )),
-                                                    Container(
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.1,
-                                                        height: Screens
-                                                                .padingHeight(
-                                                                    context) *
-                                                            0.06,
-                                                        child: IconButton(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .files
-                                                                    .removeAt(
-                                                                        i);
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .filedata
-                                                                    .removeAt(
-                                                                        i);
-                                                              });
-                                                            },
-                                                            icon: Icon(
-                                                              Icons
-                                                                  .cancel_rounded,
-                                                              color:
-                                                                  Colors.grey,
-                                                            )))
-                                                  ])
-                                            ])
-                                                // )
-                                                );
-                                          } else if (context
-                                              .read<OrderNewController>()
-                                              .files[i]
-                                              .path
-                                              .split('/')
-                                              .last
-                                              .contains("pdf")) {
-                                            return Container(
-                                                child: Column(children: [
-                                              SizedBox(
-                                                height: Screens.padingHeight(
-                                                        context) *
-                                                    0.01,
-                                              ),
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      width: Screens.width(
-                                                              context) *
-                                                          0.09,
-                                                      height:
-                                                          Screens.padingHeight(
-                                                                  context) *
-                                                              0.06,
-                                                      child: Center(
-                                                          child: Image.asset(
-                                                              "Assets/PDFimg.png")),
-                                                    ),
-                                                    Container(
-                                                        padding:
-                                                            EdgeInsets.all(10),
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.6,
-                                                        // height: Screens.padingHeight(context) * 0.06,
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Text(
-                                                          context
-                                                              .watch<
-                                                                  OrderNewController>()
-                                                              .files[i]
-                                                              .path
-                                                              .split('/')
-                                                              .last,
-                                                        )),
-                                                    Container(
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.1,
-                                                        height: Screens
-                                                                .padingHeight(
-                                                                    context) *
-                                                            0.06,
-                                                        child: IconButton(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .files
-                                                                    .removeAt(
-                                                                        i);
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .filedata
-                                                                    .removeAt(
-                                                                        i);
-                                                              });
-                                                            },
-                                                            icon: Icon(
-                                                              Icons
-                                                                  .cancel_rounded,
-                                                              color:
-                                                                  Colors.grey,
-                                                            )))
-                                                  ])
-                                            ]));
-                                          } else if (context
-                                              .read<OrderNewController>()
-                                              .files[i]
-                                              .path
-                                              .split('/')
-                                              .last
-                                              .contains("xlsx")) {
-                                            return Container(
-                                                child: Column(children: [
-                                              SizedBox(
-                                                height: Screens.padingHeight(
-                                                        context) *
-                                                    0.01,
-                                              ),
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Container(
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.09,
-                                                        height: Screens
-                                                                .padingHeight(
-                                                                    context) *
-                                                            0.06,
-                                                        child: Center(
-                                                            child: Image.asset(
-                                                                "Assets/xls.png"))),
-                                                    Container(
-                                                        padding:
-                                                            EdgeInsets.all(10),
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.6,
-                                                        // height: Screens.padingHeight(context) * 0.06,
-                                                        alignment: Alignment
-                                                            .centerLeft,
-                                                        child: Text(
-                                                          context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .files[i]
-                                                              .path
-                                                              .split('/')
-                                                              .last,
-                                                        )),
-                                                    Container(
-                                                        width: Screens.width(
-                                                                context) *
-                                                            0.1,
-                                                        height: Screens
-                                                                .padingHeight(
-                                                                    context) *
-                                                            0.06,
-                                                        child: IconButton(
-                                                            onPressed: () {
-                                                              setState(() {
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .files
-                                                                    .removeAt(
-                                                                        i);
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .filedata
-                                                                    .removeAt(
-                                                                        i);
-                                                              });
-                                                            },
-                                                            icon: Icon(
-                                                              Icons
-                                                                  .cancel_rounded,
-                                                              color:
-                                                                  Colors.grey,
-                                                            )))
-                                                  ])
-                                            ])
-                                                // )
-                                                );
-                                          }
-                                          return Container(
-                                              child: Column(children: [
-                                            SizedBox(
-                                              height: Screens.padingHeight(
-                                                      context) *
-                                                  0.01,
-                                            ),
-                                            Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      width: Screens.width(
-                                                              context) *
-                                                          0.09,
-                                                      height:
-                                                          Screens.padingHeight(
-                                                                  context) *
-                                                              0.06,
-                                                      child: Center(
-                                                          child: Image.asset(
-                                                              "Assets/txt.png"))),
-                                                  Container(
-                                                      padding:
-                                                          EdgeInsets.all(10),
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      width: Screens.width(
-                                                              context) *
-                                                          0.6,
-                                                      // height: Screens.padingHeight(context) * 0.06,
-                                                      alignment:
-                                                          Alignment.centerLeft,
-                                                      child: Text(
-                                                        context
-                                                            .watch<
+                                          child: Center(
+                                            child: IconButton(
+                                                onPressed: context
+                                                            .read<
                                                                 OrderNewController>()
-                                                            .files[i]
-                                                            .path
-                                                            .split('/')
-                                                            .last,
-                                                      )),
-                                                  Container(
-                                                      width: Screens.width(
-                                                              context) *
-                                                          0.1,
-                                                      height:
-                                                          Screens.padingHeight(
-                                                                  context) *
-                                                              0.06,
-                                                      child: IconButton(
-                                                          onPressed: () {
-                                                            setState(() {
+                                                            .files
+                                                            .length >
+                                                        5
+                                                    ? null
+                                                    : () {
+                                                        setState(() {
+                                                          log("files length" +
                                                               context
                                                                   .read<
                                                                       OrderNewController>()
                                                                   .files
-                                                                  .removeAt(i);
+                                                                  .length
+                                                                  .toString());
+                                                          // showtoast();
+                                                          if (context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .files
+                                                                  .length <=
+                                                              4) {
+                                                            setState(() {
                                                               context
                                                                   .read<
                                                                       OrderNewController>()
-                                                                  .filedata
-                                                                  .removeAt(i);
+                                                                  .imagetoBinary(
+                                                                      ImageSource
+                                                                          .camera);
+                                                              context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .fileValidation = false;
                                                             });
-                                                          },
-                                                          icon: Icon(
-                                                            Icons
-                                                                .cancel_rounded,
-                                                            color: Colors.grey,
-                                                          )))
-                                                ])
-                                          ]));
-                                        })),
-                          ])),
-                ],
+                                                          } else {
+                                                            print("obAAAAAject");
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .showtoast();
+                                                          }
+                                                        });
+                                                      },
+                                                icon: Icon(
+                                                  Icons.photo_camera,
+                                                  color: Colors.white,
+                                                )),
+                                          )),
+                                      SizedBox(
+                                        width: Screens.width(context) * 0.02,
+                                      ),
+                
+                                      //old
+                                      Container(
+                                          // alignment: Alignment.center,
+                                          height: Screens.padingHeight(context) *
+                                              0.06,
+                                          width: Screens.width(context) * 0.13,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                              color: context
+                                                          .read<
+                                                              OrderNewController>()
+                                                          .fileValidation ==
+                                                      true
+                                                  ? Colors.red
+                                                  : theme.primaryColor
+                                              // shape: BoxShape
+                                              //     .circle
+                                              ),
+                                          child: Center(
+                                            child: IconButton(
+                                                onPressed: context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .files
+                                                            .length >
+                                                        5
+                                                    ? null
+                                                    : () {
+                                                        setState(() {
+                                                          // log("files length" + files.length.toString());
+                                                          // showtoast();
+                                                          if (context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .files
+                                                                  .length <=
+                                                              4) {
+                                                            setState(() {
+                                                              context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .selectattachment();
+                
+                                                              context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .fileValidation = false;
+                                                            });
+                                                          } else {
+                                                            print("obAAAAAject");
+                
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .showtoast();
+                                                          }
+                                                        });
+                                                      },
+                                                icon: Icon(
+                                                  Icons.attach_file,
+                                                  color: Colors.white,
+                                                )),
+                                          )),
+                                    ],
+                                  )
+                                ],
+                              ),
+                              context.read<OrderNewController>().files == null
+                                  ? Container(
+                                      height: Screens.padingHeight(context) * 0.3,
+                                      padding: EdgeInsets.only(
+                                        top:
+                                            Screens.padingHeight(context) * 0.001,
+                                        right:
+                                            Screens.padingHeight(context) * 0.015,
+                                        left:
+                                            Screens.padingHeight(context) * 0.015,
+                                        bottom:
+                                            Screens.padingHeight(context) * 0.015,
+                                      ),
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Center(
+                                                  child: Text(
+                                                "No Files Selected",
+                                                style: theme.textTheme.bodyText1!
+                                                    .copyWith(
+                                                        color: context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .fileValidation ==
+                                                                true
+                                                            ? Colors.red
+                                                            : Colors.green),
+                                              )),
+                                              Icon(
+                                                Icons.file_present_outlined,
+                                                color: theme.primaryColor,
+                                              )
+                                            ],
+                                          )))
+                                  : Container(
+                                      height: context
+                                                  .read<OrderNewController>()
+                                                  .files
+                                                  .length ==
+                                              0
+                                          ? Screens.padingHeight(context) * 0.0
+                                          : Screens.padingHeight(context) * 0.3,
+                                      padding: EdgeInsets.only(
+                                        top:
+                                            Screens.padingHeight(context) * 0.001,
+                                        right:
+                                            Screens.padingHeight(context) * 0.015,
+                                        left:
+                                            Screens.padingHeight(context) * 0.015,
+                                        bottom:
+                                            Screens.padingHeight(context) * 0.015,
+                                      ),
+                                      child: ListView.builder(
+                                          itemCount: context
+                                              .read<OrderNewController>()
+                                              .files
+                                              .length,
+                                          itemBuilder:
+                                              (BuildContext context, int i) {
+                                            if (context
+                                                .read<OrderNewController>()
+                                                .files[i]
+                                                .path
+                                                .split('/')
+                                                .last
+                                                .contains("png")) {
+                                              return Container(
+                                                  child: Column(children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.09,
+                                                          height: Screens
+                                                                  .padingHeight(
+                                                                      context) *
+                                                              0.06,
+                                                          child: Center(
+                                                              child: Image.asset(
+                                                                  "Assets/img.jpg"))),
+                                                      Container(
+                                                          padding:
+                                                              EdgeInsets.all(10),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.6,
+                                                          // height: Screens.padingHeight(context) * 0.06,
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            context
+                                                                .watch<
+                                                                    OrderNewController>()
+                                                                .files[i]
+                                                                .path
+                                                                .split('/')
+                                                                .last,
+                                                            // overflow: TextOverflow.ellipsis,
+                                                          )),
+                                                      Container(
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.1,
+                                                          height: Screens
+                                                                  .padingHeight(
+                                                                      context) *
+                                                              0.06,
+                                                          child: IconButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .files
+                                                                      .removeAt(
+                                                                          i);
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .filedata
+                                                                      .removeAt(
+                                                                          i);
+                                                                });
+                                                              },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .cancel_rounded,
+                                                                color:
+                                                                    Colors.grey,
+                                                              )))
+                                                    ])
+                                              ])
+                                                  // )
+                                                  );
+                                            } else if (context
+                                                .read<OrderNewController>()
+                                                .files[i]
+                                                .path
+                                                .split('/')
+                                                .last
+                                                .contains("jp")) {
+                                              return Container(
+                                                  child: Column(children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.09,
+                                                          height: Screens
+                                                                  .padingHeight(
+                                                                      context) *
+                                                              0.06,
+                                                          child: Center(
+                                                              child: Image.asset(
+                                                                  "Assets/img.jpg"))),
+                                                      Container(
+                                                          padding:
+                                                              EdgeInsets.all(10),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.6,
+                                                          // height: Screens.padingHeight(context) * 0.06,
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            context
+                                                                .watch<
+                                                                    OrderNewController>()
+                                                                .files[i]
+                                                                .path
+                                                                .split('/')
+                                                                .last,
+                                                          )),
+                                                      Container(
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.1,
+                                                          height: Screens
+                                                                  .padingHeight(
+                                                                      context) *
+                                                              0.06,
+                                                          child: IconButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .files
+                                                                      .removeAt(
+                                                                          i);
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .filedata
+                                                                      .removeAt(
+                                                                          i);
+                                                                });
+                                                              },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .cancel_rounded,
+                                                                color:
+                                                                    Colors.grey,
+                                                              )))
+                                                    ])
+                                              ])
+                                                  // )
+                                                  );
+                                            } else if (context
+                                                .read<OrderNewController>()
+                                                .files[i]
+                                                .path
+                                                .split('/')
+                                                .last
+                                                .contains("pdf")) {
+                                              return Container(
+                                                  child: Column(children: [
+                                                SizedBox(
+                                                  height: Screens.padingHeight(
+                                                          context) *
+                                                      0.01,
+                                                ),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.09,
+                                                        height:
+                                                            Screens.padingHeight(
+                                                                    context) *
+                                                                0.06,
+                                                        child: Center(
+                                                            child: Image.asset(
+                                                                "Assets/PDFimg.png")),
+                                                      ),
+                                                      Container(
+                                                          padding:
+                                                              EdgeInsets.all(10),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.6,
+                                                          // height: Screens.padingHeight(context) * 0.06,
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            context
+                                                                .watch<
+                                                                    OrderNewController>()
+                                                                .files[i]
+                                                                .path
+                                                                .split('/')
+                                                                .last,
+                                                          )),
+                                                      Container(
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.1,
+                                                          height: Screens
+                                                                  .padingHeight(
+                                                                      context) *
+                                                              0.06,
+                                                          child: IconButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .files
+                                                                      .removeAt(
+                                                                          i);
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .filedata
+                                                                      .removeAt(
+                                                                          i);
+                                                                });
+                                                              },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .cancel_rounded,
+                                                                color:
+                                                                    Colors.grey,
+                                                              )))
+                                                    ])
+                                              ]));
+                                            } else if (context
+                                                .read<OrderNewController>()
+                                                .files[i]
+                                                .path
+                                                .split('/')
+                                                .last
+                                                .contains("xlsx")) {
+                                              return Container(
+                                                  child: Column(children: [
+                                                SizedBox(
+                                                  height: Screens.padingHeight(
+                                                          context) *
+                                                      0.01,
+                                                ),
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.09,
+                                                          height: Screens
+                                                                  .padingHeight(
+                                                                      context) *
+                                                              0.06,
+                                                          child: Center(
+                                                              child: Image.asset(
+                                                                  "Assets/xls.png"))),
+                                                      Container(
+                                                          padding:
+                                                              EdgeInsets.all(10),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.6,
+                                                          // height: Screens.padingHeight(context) * 0.06,
+                                                          alignment: Alignment
+                                                              .centerLeft,
+                                                          child: Text(
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .files[i]
+                                                                .path
+                                                                .split('/')
+                                                                .last,
+                                                          )),
+                                                      Container(
+                                                          width: Screens.width(
+                                                                  context) *
+                                                              0.1,
+                                                          height: Screens
+                                                                  .padingHeight(
+                                                                      context) *
+                                                              0.06,
+                                                          child: IconButton(
+                                                              onPressed: () {
+                                                                setState(() {
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .files
+                                                                      .removeAt(
+                                                                          i);
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .filedata
+                                                                      .removeAt(
+                                                                          i);
+                                                                });
+                                                              },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .cancel_rounded,
+                                                                color:
+                                                                    Colors.grey,
+                                                              )))
+                                                    ])
+                                              ])
+                                                  // )
+                                                  );
+                                            }
+                                            return Container(
+                                                child: Column(children: [
+                                              SizedBox(
+                                                height: Screens.padingHeight(
+                                                        context) *
+                                                    0.01,
+                                              ),
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.09,
+                                                        height:
+                                                            Screens.padingHeight(
+                                                                    context) *
+                                                                0.06,
+                                                        child: Center(
+                                                            child: Image.asset(
+                                                                "Assets/txt.png"))),
+                                                    Container(
+                                                        padding:
+                                                            EdgeInsets.all(10),
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.6,
+                                                        // height: Screens.padingHeight(context) * 0.06,
+                                                        alignment:
+                                                            Alignment.centerLeft,
+                                                        child: Text(
+                                                          context
+                                                              .watch<
+                                                                  OrderNewController>()
+                                                              .files[i]
+                                                              .path
+                                                              .split('/')
+                                                              .last,
+                                                        )),
+                                                    Container(
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.1,
+                                                        height:
+                                                            Screens.padingHeight(
+                                                                    context) *
+                                                                0.06,
+                                                        child: IconButton(
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .files
+                                                                    .removeAt(i);
+                                                                context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .filedata
+                                                                    .removeAt(i);
+                                                              });
+                                                            },
+                                                            icon: Icon(
+                                                              Icons
+                                                                  .cancel_rounded,
+                                                              color: Colors.grey,
+                                                            )))
+                                                  ])
+                                            ]));
+                                          })),
+                            ])),
+                  ],
+                ),
               ),
             ),
             SizedBox(
@@ -1118,6 +1396,319 @@ class OrderBookNewState extends State<OrderBookNew> {
   bool switched = false;
   bool switched2 = false;
 
+  Container GetAttachment(ThemeData theme, BuildContext context) {
+    return Container(
+        //  width: Screens.width(context),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: theme.primaryColor)),
+        padding: EdgeInsets.only(
+            top: Screens.padingHeight(context) * 0.01,
+            left: Screens.padingHeight(context) * 0.01,
+            bottom: Screens.padingHeight(context) * 0.015,
+            right: Screens.padingHeight(context) * 0.01),
+        // height: Screens.padingHeight(context) * 0.14,
+        // color: Colors.red,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text('Attachment',
+                  style: theme.textTheme.subtitle1?.copyWith(
+                      color: context
+                                  .read<OrderNewController>()
+                                  .fileValidation2 ==
+                              true
+                          ? Colors.red
+                          : Colors.black)),
+              Row(
+                children: [
+                  Container(
+                      // alignment: Alignment.center,
+                      height: Screens.padingHeight(context) * 0.06,
+                      width: Screens.width(context) * 0.13,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: context
+                                      .read<OrderNewController>()
+                                      .fileValidation2 ==
+                                  true
+                              ? Colors.red
+                              : theme.primaryColor
+                          // shape: BoxShape
+                          //     .circle
+                          ),
+                      child: Center(
+                        child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                // showtoast();
+                                if (context
+                                        .read<OrderNewController>()
+                                        .files2
+                                        .length ==
+                                    0) {
+                                  setState(() {
+                                    context
+                                        .read<OrderNewController>()
+                                        .imagetoBinary2(ImageSource.camera);
+                                    context
+                                        .read<OrderNewController>()
+                                        .fileValidation2 = false;
+                                  });
+                                } else {
+                                  print("obAAAAAject");
+                                  context
+                                      .read<OrderNewController>()
+                                      .showtoast();
+                                }
+                              });
+                            },
+                            icon: Icon(
+                              Icons.photo_camera,
+                              color: Colors.white,
+                            )),
+                      )),
+                  SizedBox(
+                    width: Screens.width(context) * 0.02,
+                  ),
+
+                  //old
+                  Container(
+                      // alignment: Alignment.center,
+                      height: Screens.padingHeight(context) * 0.06,
+                      width: Screens.width(context) * 0.13,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: context
+                                      .read<OrderNewController>()
+                                      .fileValidation2 ==
+                                  true
+                              ? Colors.red
+                              : theme.primaryColor
+                          // shape: BoxShape
+                          //     .circle
+                          ),
+                      child: Center(
+                        child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                // log("files length" + files.length.toString());
+                                // showtoast();
+                                if (context
+                                        .read<OrderNewController>()
+                                        .files2
+                                        .length ==
+                                    0) {
+                                  setState(() {
+                                    context
+                                        .read<OrderNewController>()
+                                        .selectattachment2();
+
+                                    context
+                                        .read<OrderNewController>()
+                                        .fileValidation2 = false;
+                                  });
+                                } else {
+                                  print("obAAAAAject");
+
+                                  context
+                                      .read<OrderNewController>()
+                                      .showtoast();
+                                }
+                              });
+                            },
+                            icon: Icon(
+                              Icons.attach_file,
+                              color: Colors.white,
+                            )),
+                      )),
+                ],
+              )
+            ],
+          ),
+          context.read<OrderNewController>().files2 == null
+              ? Container(
+                  height: Screens.padingHeight(context) * 0.3,
+                  padding: EdgeInsets.only(
+                    top: Screens.padingHeight(context) * 0.001,
+                    right: Screens.padingHeight(context) * 0.015,
+                    left: Screens.padingHeight(context) * 0.015,
+                    bottom: Screens.padingHeight(context) * 0.015,
+                  ),
+                  child: Container(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                              child: Text(
+                            "No Files Selected",
+                            style: theme.textTheme.bodyText1!.copyWith(
+                                color: context
+                                            .read<OrderNewController>()
+                                            .fileValidation2 ==
+                                        true
+                                    ? Colors.red
+                                    : Colors.green),
+                          )),
+                          Icon(
+                            Icons.file_present_outlined,
+                            color: theme.primaryColor,
+                          )
+                        ],
+                      )))
+              : Container(
+                  height:
+                      context.read<OrderNewController>().files2.length == 0
+                          ? Screens.padingHeight(context) * 0.0
+                          : Screens.padingHeight(context) * 0.09,
+                  padding: EdgeInsets.only(
+                    top: Screens.padingHeight(context) * 0.001,
+                    right: Screens.padingHeight(context) * 0.015,
+                    left: Screens.padingHeight(context) * 0.015,
+                    bottom: Screens.padingHeight(context) * 0.015,
+                  ),
+                  child: ListView.builder(
+                      itemCount:
+                          context.read<OrderNewController>().files2.length,
+                      itemBuilder: (BuildContext context, int i) {
+                        if (context
+                            .read<OrderNewController>()
+                            .files2[i]
+                            .path
+                            .split('/')
+                            .last
+                            .contains("png")) {
+                          return Container(
+                              child: Column(children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      decoration: BoxDecoration(),
+                                      width: Screens.width(context) * 0.09,
+                                      height:
+                                          Screens.padingHeight(context) * 0.06,
+                                      child: Center(
+                                          child:
+                                              Image.asset("Assets/img.jpg"))),
+                                  Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(),
+                                      width: Screens.width(context) * 0.6,
+                                      // height: Screens.padingHeight(context) * 0.06,
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        context
+                                            .watch<OrderNewController>()
+                                            .files2[i]
+                                            .path
+                                            .split('/')
+                                            .last,
+                                        // overflow: TextOverflow.ellipsis,
+                                      )),
+                                  Container(
+                                      width: Screens.width(context) * 0.1,
+                                      height:
+                                          Screens.padingHeight(context) * 0.06,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              context
+                                                  .read<
+                                                      OrderNewController>()
+                                                  .files2
+                                                  .removeAt(i);
+                                              context
+                                                  .read<
+                                                      OrderNewController>()
+                                                  .filedata2
+                                                  .removeAt(i);
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.cancel_rounded,
+                                            color: Colors.grey,
+                                          )))
+                                ])
+                          ])
+                              // )
+                              );
+                        } else if (context
+                            .read<OrderNewController>()
+                            .files2[i]
+                            .path
+                            .split('/')
+                            .last
+                            .contains("jpg")) {
+                          return Container(
+                              child: Column(children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      decoration: BoxDecoration(),
+                                      width: Screens.width(context) * 0.09,
+                                      height:
+                                          Screens.padingHeight(context) * 0.06,
+                                      child: Center(
+                                          child:
+                                              Image.asset("Assets/img.jpg"))),
+                                  Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(),
+                                      width: Screens.width(context) * 0.6,
+                                      // height: Screens.padingHeight(context) * 0.06,
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        context
+                                            .watch<OrderNewController>()
+                                            .files2[i]
+                                            .path
+                                            .split('/')
+                                            .last,
+                                      )),
+                                  Container(
+                                      width: Screens.width(context) * 0.1,
+                                      height:
+                                          Screens.padingHeight(context) * 0.06,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              context
+                                                  .read<
+                                                      OrderNewController>()
+                                                  .files2
+                                                  .removeAt(i);
+                                              context
+                                                  .read<
+                                                      OrderNewController>()
+                                                  .filedata2
+                                                  .removeAt(i);
+                                            });
+                                          },
+                                          icon: Icon(
+                                            Icons.cancel_rounded,
+                                            color: Colors.grey,
+                                          )))
+                                ])
+                          ])
+                              // )
+                              );
+                        }
+                      
+                      })),
+        ]));
+  }
   Container SecondPage(
     BuildContext context,
     ThemeData theme,
@@ -5503,16 +6094,18 @@ class OrderBookNewState extends State<OrderBookNew> {
       context.read<OrderNewController>().paymode.length,
       (index) => InkWell(
         onTap: () {
-          // context.read<NewEnqController>(). isSelectedenquirytype = context.read<NewEnqController>()
-          // .getenqReffList[index].Name.toString();
-          context.read<OrderNewController>().selectpaymentTerms(
+           context.read<OrderNewController>().selectpaymentTerms(
               context
                   .read<OrderNewController>()
                   .paymode[index]
                   .description
                   .toString(),
               context.read<OrderNewController>().paymode[index].description!,
-              context.read<OrderNewController>().paymode[index].CODE!);
+              context.read<OrderNewController>().paymode[index].CODE!,
+              context
+              );
+       
+          
         },
         child: Container(
           width: Screens.width(context) * 0.4,

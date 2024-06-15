@@ -62,6 +62,8 @@ class NewEnqController extends ChangeNotifier {
   List<UserListData> get getuserLtData => userLtData;
   List<UserListData> filteruserLtData = [];
   List<UserListData> get getfiltergetuserLtData => filteruserLtData;
+  List<UserListData> filteruserLtData2 = [];
+  List<UserListData> get getfiltergetuserLtData2 => filteruserLtData2;
   init() async {
    
     
@@ -71,6 +73,7 @@ class NewEnqController extends ChangeNotifier {
     await getUserAssingData();
  await stateApicallfromDB();
     await setdefaultUserName();
+  await  setdefaultUserName2();
     await getEnqType();
     await getCusTagType();
     await getEnqRefferes();
@@ -673,6 +676,14 @@ errorTime2 = "";
 
     notifyListeners();
   }
+setUserdata2() {
+//   for(int i=0;i<userLtData.length;i++){
+// userLtData[i].color=0;
+//   }
+    filteruserLtData2 = userLtData;
+
+    notifyListeners();
+  }
 
   setcatagorydata() {
 //   for(int i=0;i<userLtData.length;i++){
@@ -681,6 +692,26 @@ errorTime2 = "";
     filtercatagorydata = catagorydata;
 
     notifyListeners();
+  }
+
+  setdefaultUserName2() async {
+    mycontroller[24].text = ConstantValues.firstName.toString();
+    for (int i = 0; i < filteruserLtData2.length; i++) {
+      print(
+          "object::${filteruserLtData2[i].UserName.toString()}==${ConstantValues.firstName.toString()}");
+      if (filteruserLtData2[i].UserName.toString() ==
+          ConstantValues.firstName.toString()) {
+        // selectedIdxFUser = i;
+        mycontroller[24].text = filteruserLtData2[i].UserName.toString();
+        selectedIdxFUser2 = i;
+        await selectUser2(i);
+        notifyListeners();
+      }
+    }
+    notifyListeners();
+
+// selectedIdxFUser = ind;
+//           context.read<NewEnqController>().selectUser(ind);
   }
 
   setdefaultUserName() async {
@@ -791,13 +822,39 @@ errorTime2 = "";
 
     userLtData = await DBOperation.getUserList(db);
     filteruserLtData = userLtData;
+    filteruserLtData2 = userLtData;
 
     notifyListeners();
   }
 
   int? selectedIdxFUser = null;
+  
+  int? selectedIdxFUser2 = null;
   String? getslpID;
   String? managerSlpCode;
+  String? getslpID2;
+  String? managerSlpCode2;
+  selectUser2(int ij) async {
+    log("IJJJ::" + ij.toString());
+    for (int i = 0; i < filteruserLtData2.length; i++) {
+      log("filteruserLtData[i].slpcode == filteruserLtData[ij].slpcode:::" +
+          filteruserLtData2[ij].userCode.toString());
+      if (filteruserLtData2[i].userCode == filteruserLtData2[ij].userCode) {
+        filteruserLtData2[i].color = 1;
+        getslpID = filteruserLtData2[ij].userCode!.isEmpty
+            ? "0"
+            : filteruserLtData2[ij].userCode.toString();
+        managerSlpCode = filteruserLtData2[ij].mngSlpcode;
+        log("User:" + getslpID.toString());
+        // log("Manager" + managerSlpCode.toString());
+        selectedIdxFUser2 = ij;
+      } else {
+        filteruserLtData2[i].color = 0;
+      }
+    }
+    // filteruserLtData=userLtData;
+    notifyListeners();
+  }
   selectUser(int ij) async {
     log("IJJJ::" + ij.toString());
     for (int i = 0; i < filteruserLtData.length; i++) {
@@ -838,6 +895,23 @@ errorTime2 = "";
     }
   }
 
+filterListAssignData2(String v) {
+    for (int i = 0; i < filteruserLtData2.length; i++) {
+      filteruserLtData2[i].color = 0;
+    }
+    if (v.isNotEmpty) {
+      filteruserLtData2 = userLtData
+          .where((e) => e.UserName!.toLowerCase().contains(v.toLowerCase())
+              // ||
+              // e.s!.toLowerCase().contains(v.toLowerCase())
+              )
+          .toList();
+      notifyListeners();
+    } else if (v.isEmpty) {
+      filteruserLtData2 = userLtData;
+      notifyListeners();
+    }
+  }
   filterListAssignData(String v) {
     for (int i = 0; i < filteruserLtData.length; i++) {
       filteruserLtData[i].color = 0;
@@ -854,6 +928,10 @@ errorTime2 = "";
       filteruserLtData = userLtData;
       notifyListeners();
     }
+  }
+  selectedAssignedUser2() {
+    mycontroller[24].text = filteruserLtData2[selectedIdxFUser2!].UserName!;
+    notifyListeners();
   }
 
   selectedAssignedUser() {

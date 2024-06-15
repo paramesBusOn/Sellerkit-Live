@@ -408,12 +408,14 @@ postLoginData. devicename='${brand} ${model}';
           errorMsh = '';
           ConstantValues.userNamePM = mycontroller[0].text;
           await HelperFunctions.saveUserName(mycontroller[0].text);
+          
           await HelperFunctions.saveLicenseKeySharedPreference(
               value.data!.licenseKey);
           await HelperFunctions.saveLogginUserCodeSharedPreference(
               mycontroller[0].text);
           // await HelperFunctions.saveSapUrlSharedPreference(
           //     value.data!.endPointUrl);
+           await HelperFunctions.saveTokenSharedPreference(value.token!);
           await HelperFunctions.saveTenetIDSharedPreference(
               value.data!.tenantId);
           await HelperFunctions.saveUserIDSharedPreference(value.data!.UserID);

@@ -1,11 +1,10 @@
 // ignore_for_file: unnecessary_new, prefer_const_constructors
 
 import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'package:flutter/material.dart';
@@ -49,95 +48,87 @@ class FollowupController extends ChangeNotifier {
     clearAllData();
     // clearData();
     callGetAllApi();
-   
-    getDataOnLoad();
 
+    getDataOnLoad();
   }
-  callusermobileApi()async{
- await userbyidApi.getData(ConstantValues.UserId).then((value){
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-ConstantValues. userbyidmobile =value.ageLtData!.mobile!;
-log("ConstantValues. userbyidmobile:::"+ConstantValues. userbyidmobile.toString());
-getfirebase();
- }
-   
-  });
-}
-String? apidate;
-  bool iscalltrue=false;
+  callusermobileApi() async {
+    await userbyidApi.getData(ConstantValues.UserId).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        log("ConstantValues. userbyidmobile:::" +
+            ConstantValues.userbyidmobile.toString());
+        getfirebase();
+      }
+    });
+  }
+
+  String? apidate;
+  bool iscalltrue = false;
   bool get getiscalltrue => iscalltrue;
-  String userid='';
+  String userid = '';
   String get getuserid => userid;
-  String? usernumber='';
-  calldialApi(String? number)async{
-    
-    usernumber='';
-     iscalltrue=true;
+  String? usernumber = '';
+  calldialApi(String? number) async {
+    usernumber = '';
+    iscalltrue = true;
     notifyListeners();
-    Future.delayed(Duration(seconds: 40),(){
+    Future.delayed(Duration(seconds: 40), () {
       log("secondsoverrr:::");
-  iscalltrue=false;
-    notifyListeners();
+      iscalltrue = false;
+      notifyListeners();
     });
 
     // final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
+
 //     FirebaseProduct.get().then((value) {
 // value.docs.forEach((element) {
 //   usernumber=element!['mobile'].toString();
 //   userid=element!['id'].toString();
 // log("fsdfdf::"+userid.toString());
-  // if(ConstantValues.userbyidmobile==usernumber){
+    // if(ConstantValues.userbyidmobile==usernumber){
     log("fsdfdf::user number match");
- UserdialApi.getdata(userid!, number!).then((value) {
-
-    });
-  // }
+    UserdialApi.getdata(userid!, number!).then((value) {});
+    // }
 //   else{
 // log("fsdfdf::no user number not match");
 //   }
-  
 
 // });
     // });
-   
   }
-getfirebase()async{
-  userid='';
-  notifyListeners();
-    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
-   
-   
- await   FirebaseProduct.get().then((value) {
-value.docs.forEach((element) {
-  usernumber=element!['mobile'].toString();
-  
-log("fsdfdf::"+usernumber.toString());
-  if(ConstantValues.userbyidmobile==usernumber){
-    log("fsdfdf::user number match");
-    userid=element!['id'].toString();
-    notifyListeners();
-//  UserdialApi.getdata(userid!, number!).then((value) {
 
+  getfirebase() async {
+    userid = '';
+    notifyListeners();
+//     final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+
+//     await FirebaseProduct.get().then((value) {
+//       value.docs.forEach((element) {
+//         usernumber = element!['mobile'].toString();
+
+//         log("fsdfdf::" + usernumber.toString());
+//         if (ConstantValues.userbyidmobile == usernumber) {
+//           log("fsdfdf::user number match");
+//           userid = element!['id'].toString();
+//           notifyListeners();
+// //  UserdialApi.getdata(userid!, number!).then((value) {
+
+// //     });
+//         }
+// //   else{
+// // log("fsdfdf::no user number not match");
+// //   }
+//       });
 //     });
   }
-//   else{
-// log("fsdfdf::no user number not match");
-//   }
-  
 
-});
-    });
-}
-clearAllData(){
-   iscalltrue=false;
-    userid='';
-    usernumber='';
-}
+  clearAllData() {
+    iscalltrue = false;
+    userid = '';
+    usernumber = '';
+  }
 
-
-void showtoastforall() {
+  void showtoastforall() {
     Fluttertoast.showToast(
         msg: "Select User..!!",
         toastLength: Toast.LENGTH_SHORT,
@@ -147,6 +138,7 @@ void showtoastforall() {
         textColor: Colors.white,
         fontSize: 14.0);
   }
+
   Config config = new Config();
   bool isLoading = true;
   bool get getisLoading => isLoading;
@@ -212,34 +204,35 @@ void showtoastforall() {
   }
 
   callFollowUPApi() async {
-lottie='';
+    lottie = '';
     followUPKPIOverDue.clear();
     followUPKPIupcoming.clear();
-    
+
     await FollowUPKPIApi.getData().then((value) {
-   
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        if (value.followUPKPIheadr!.followUPKPIData != null && value.followUPKPIheadr!.followUPKPIData!.isNotEmpty) {
+        if (value.followUPKPIheadr!.followUPKPIData != null &&
+            value.followUPKPIheadr!.followUPKPIData!.isNotEmpty) {
           mapvaluessummary(value.followUPKPIheadr!.followUPKPIData!);
-            isLoading = false;
-         notifyListeners();
-        } else if (value.followUPKPIheadr!.followUPKPIData == null || value.followUPKPIheadr!.followUPKPIData!.isEmpty) {
-             isLoading = false;
-             lottie='Assets/no-data.png';
+          isLoading = false;
+          notifyListeners();
+        } else if (value.followUPKPIheadr!.followUPKPIData == null ||
+            value.followUPKPIheadr!.followUPKPIData!.isEmpty) {
+          isLoading = false;
+          lottie = 'Assets/no-data.png';
           excepMsg = 'No data...!!';
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-         lottie='';
+        lottie = '';
         excepMsg = '${value.message}..!!${value.exception}...!!';
       } else if (value.stcode == 500) {
         if (value.exception == 'No route to host') {
-              isLoading = false;
+          isLoading = false;
           excepMsg = 'Check your Internet Connection...!!';
-      notifyListeners();
+          notifyListeners();
         } else {
-             isLoading = false;
-               lottie='Assets/NetworkAnimation.json';
+          isLoading = false;
+          lottie = 'Assets/NetworkAnimation.json';
           excepMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
           notifyListeners();
         }
@@ -248,40 +241,37 @@ lottie='';
     });
   }
 
-mapvaluessummary(List<FollowUPKPIData> followUPKPI){
-  for(int i=0;i<followUPKPI.length;i++){
-    if(followUPKPI[i].OverdueKPI_Head_1 =="Overdue"){
-      followUPKPIOverDue.add(FollowUPKPIData(
-        OverdueKPI_Head_1: followUPKPI[i].OverdueKPI_Head_1, 
-        OverdueKPI_Line_1: followUPKPI[i].OverdueKPI_Line_1, 
-        OverdueKPI_Line_2: followUPKPI[i].OverdueKPI_Line_2, 
-        
+  mapvaluessummary(List<FollowUPKPIData> followUPKPI) {
+    for (int i = 0; i < followUPKPI.length; i++) {
+      if (followUPKPI[i].OverdueKPI_Head_1 == "Overdue") {
+        followUPKPIOverDue.add(FollowUPKPIData(
+          OverdueKPI_Head_1: followUPKPI[i].OverdueKPI_Head_1,
+          OverdueKPI_Line_1: followUPKPI[i].OverdueKPI_Line_1,
+          OverdueKPI_Line_2: followUPKPI[i].OverdueKPI_Line_2,
         ));
-        log("followUPKPIOverDue::"+followUPKPIOverDue.length.toString());
+        log("followUPKPIOverDue::" + followUPKPIOverDue.length.toString());
         notifyListeners();
-
-    }else{
-      followUPKPIupcoming.add(FollowUPKPIData(
-        OverdueKPI_Head_1: followUPKPI[i].OverdueKPI_Head_1, 
-        OverdueKPI_Line_1: followUPKPI[i].OverdueKPI_Line_1, 
-        OverdueKPI_Line_2: followUPKPI[i].OverdueKPI_Line_2, 
-       
+      } else {
+        followUPKPIupcoming.add(FollowUPKPIData(
+          OverdueKPI_Head_1: followUPKPI[i].OverdueKPI_Head_1,
+          OverdueKPI_Line_1: followUPKPI[i].OverdueKPI_Line_1,
+          OverdueKPI_Line_2: followUPKPI[i].OverdueKPI_Line_2,
         ));
+      }
+      notifyListeners();
     }
     notifyListeners();
   }
-notifyListeners();
-}
 
   clearData() {
     errorVisitTime = "";
- errorTime = "";
-forwarderrorVisitTime = "";
+    errorTime = "";
+    forwarderrorVisitTime = "";
     isLoading = true;
     excepMsg = '';
     isSelectedFollowUpcode = '';
     caseStatusSelectedcode = "";
-    iscorectime2=false;
+    iscorectime2 = false;
     leadOpenAllData.clear();
     followUPKPIOverDue.clear();
     followUPKPIupcoming.clear();
@@ -292,43 +282,43 @@ forwarderrorVisitTime = "";
   }
 
   List<GetAllLeadData> leadOpenAllData = [];
-  
-String lottie='';
-String get getlottie => lottie;
+
+  String lottie = '';
+  String get getlottie => lottie;
   callGetAllApi() async {
     leadOpenAllData.clear();
 
-    lottie='';//  final Database db = (await DBHelper.getInstance())!;
+    lottie = ''; //  final Database db = (await DBHelper.getInstance())!;
     // leadStatusLost = await DBOperation.getLeadStatusLost(db);
     await GetAllLeadApi.getData(ConstantValues.slpcode).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        if (value.leadcheckheader!.leadcheckdata != null && value.leadcheckheader!.leadcheckdata!.isNotEmpty ) {
+        if (value.leadcheckheader!.leadcheckdata != null &&
+            value.leadcheckheader!.leadcheckdata!.isNotEmpty) {
           // isLoading = false;
           // log("not null"+value.leadcheckheader!.length.toString());
           mapValues(value.leadcheckheader!.leadcheckdata!);
-        } else if (value.leadcheckheader!.leadcheckdata == null || value.leadcheckheader!.leadcheckdata!.isEmpty) {
-             isLoading = false;
-               lottie='Assets/no-data.png';
+        } else if (value.leadcheckheader!.leadcheckdata == null ||
+            value.leadcheckheader!.leadcheckdata!.isEmpty) {
+          isLoading = false;
+          lottie = 'Assets/no-data.png';
           excepMsg = 'No Data...!!';
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-            isLoading = false;
-              lottie='';
+        isLoading = false;
+        lottie = '';
         excepMsg = '${value.message}..!! ${value.exception}..!!';
-     
-        notifyListeners();
-        
 
-         } else if (value.stcode == 500) {
-     isLoading = false;
-       lottie='Assets/NetworkAnimation.json';
+        notifyListeners();
+      } else if (value.stcode == 500) {
+        isLoading = false;
+        lottie = 'Assets/NetworkAnimation.json';
         excepMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         notifyListeners();
       }
       notifyListeners();
     });
-   await callusermobileApi();
+    await callusermobileApi();
   }
 
   mapValues(List<GetAllLeadData> leadcheckdata) async {
@@ -336,7 +326,7 @@ String get getlottie => lottie;
       if (leadcheckdata[i].Status == "Open") {
         print("Open Lead follDate" + leadcheckdata[i].NextFollowup.toString());
         leadOpenAllData.add(GetAllLeadData(
-          InterestLevel:leadcheckdata[i].InterestLevel ,
+          InterestLevel: leadcheckdata[i].InterestLevel,
           OrderType: leadcheckdata[i].OrderType,
           LeadDocEntry: leadcheckdata[i].LeadDocEntry,
           LeadNum: leadcheckdata[i].LeadNum,
@@ -405,89 +395,88 @@ String get getlottie => lottie;
       nextfollowdate = config.aligndatefollow(leadOpenAllData[i].NextFollowup!);
       nextfollowdate2 = DateTime.parse(nextfollowdate);
       // log("nextfollowdate2::" + nextfollowdate2.toString());
- 
+
       if (nextfollowdate2.isAfter(curentdate2)) {
-      fupUpcmListData.add(FollowUPListData(
-          FollowupDate: leadOpenAllData[i].NextFollowup,
-          LeadDocEntry: leadOpenAllData[i].LeadDocEntry,
-          LeadDocNum: leadOpenAllData[i].LeadNum,
-          FollowupEntry: leadOpenAllData[i].FollowupEntry,
-          Phone: leadOpenAllData[i].Mobile,
-          Customer: leadOpenAllData[i].CustomerName,
-          CretedDate: leadOpenAllData[i].createdDate,
-          LastFollowupDate: leadOpenAllData[i].createdDate,
-          DocTotal: leadOpenAllData[i].Value,
-          Product: leadOpenAllData[i].Product,
-          LastFollowupStatus: leadOpenAllData[i].LastUpdateMessage,
-           add1:leadOpenAllData[i].add1 ,
-          add2:leadOpenAllData[i].add2 ,
-          area: leadOpenAllData[i].area,
-          city: leadOpenAllData[i].City,
-          cusEmail:leadOpenAllData[i].cusEmail ,
-          cusgroup:leadOpenAllData[i].cusgroup ,
-          pincode:leadOpenAllData[i].pincode ,
-          state: leadOpenAllData[i].state
-        )); 
+        fupUpcmListData.add(FollowUPListData(
+            FollowupDate: leadOpenAllData[i].NextFollowup,
+            LeadDocEntry: leadOpenAllData[i].LeadDocEntry,
+            LeadDocNum: leadOpenAllData[i].LeadNum,
+            FollowupEntry: leadOpenAllData[i].FollowupEntry,
+            Phone: leadOpenAllData[i].Mobile,
+            Customer: leadOpenAllData[i].CustomerName,
+            CretedDate: leadOpenAllData[i].createdDate,
+            LastFollowupDate: leadOpenAllData[i].createdDate,
+            DocTotal: leadOpenAllData[i].Value,
+            Product: leadOpenAllData[i].Product,
+            LastFollowupStatus: leadOpenAllData[i].LastUpdateMessage,
+            add1: leadOpenAllData[i].add1,
+            add2: leadOpenAllData[i].add2,
+            area: leadOpenAllData[i].area,
+            city: leadOpenAllData[i].City,
+            cusEmail: leadOpenAllData[i].cusEmail,
+            cusgroup: leadOpenAllData[i].cusgroup,
+            pincode: leadOpenAllData[i].pincode,
+            state: leadOpenAllData[i].state));
         // log("fupUpcmListData::" + fupUpcmListData.length.toString());
       } else {
-         fupODueListData.add(FollowUPListData(
-          FollowupDate: leadOpenAllData[i].NextFollowup,
-          LeadDocEntry: leadOpenAllData[i].LeadDocEntry,
-          LeadDocNum: leadOpenAllData[i].LeadNum,
-          FollowupEntry: leadOpenAllData[i].FollowupEntry,
-          Phone: leadOpenAllData[i].Mobile,
-          Customer: leadOpenAllData[i].CustomerName,
-          CretedDate: leadOpenAllData[i].createdDate,
-          LastFollowupDate: leadOpenAllData[i].lastFollowupDate,
-          DocTotal: leadOpenAllData[i].Value,
-          Product: leadOpenAllData[i].Product,
-          LastFollowupStatus: leadOpenAllData[i].LastUpdateMessage,
-          add1:leadOpenAllData[i].add1 ,
-          add2:leadOpenAllData[i].add2 ,
-          area: leadOpenAllData[i].area,
-          city: leadOpenAllData[i].City,
-          cusEmail:leadOpenAllData[i].cusEmail ,
-          cusgroup:leadOpenAllData[i].cusgroup ,
-          pincode:leadOpenAllData[i].pincode ,
-          state: leadOpenAllData[i].state
+        fupODueListData.add(FollowUPListData(
+            FollowupDate: leadOpenAllData[i].NextFollowup,
+            LeadDocEntry: leadOpenAllData[i].LeadDocEntry,
+            LeadDocNum: leadOpenAllData[i].LeadNum,
+            FollowupEntry: leadOpenAllData[i].FollowupEntry,
+            Phone: leadOpenAllData[i].Mobile,
+            Customer: leadOpenAllData[i].CustomerName,
+            CretedDate: leadOpenAllData[i].createdDate,
+            LastFollowupDate: leadOpenAllData[i].lastFollowupDate,
+            DocTotal: leadOpenAllData[i].Value,
+            Product: leadOpenAllData[i].Product,
+            LastFollowupStatus: leadOpenAllData[i].LastUpdateMessage,
+            add1: leadOpenAllData[i].add1,
+            add2: leadOpenAllData[i].add2,
+            area: leadOpenAllData[i].area,
+            city: leadOpenAllData[i].City,
+            cusEmail: leadOpenAllData[i].cusEmail,
+            cusgroup: leadOpenAllData[i].cusgroup,
+            pincode: leadOpenAllData[i].pincode,
+            state: leadOpenAllData[i].state));
 
-        ));
-       
         // log("fupODueListData::" + fupODueListData.length.toString());
         notifyListeners();
       }
     }
     await callFollowUPApi();
-   await  callinitApi();
+    await callinitApi();
     notifyListeners();
   }
-Future<void> makePhoneCall(String phoneNumber) async {
+
+  Future<void> makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
       path: phoneNumber,
     );
     await launchUrl(launchUri);
   }
+
   mapValuestoorder2(FollowUPListData leadOpenAllData) {
-    
     OrderNewController.datafromfollow.clear();
-OrderNewController.datafromfollow.add(leadOpenAllData.Phone!);
+    OrderNewController.datafromfollow.add(leadOpenAllData.Phone!);
     OrderNewController.datafromfollow.add(leadOpenAllData.Customer!);
     OrderNewController.datafromfollow.add(leadOpenAllData.add1!);
     OrderNewController.datafromfollow.add(leadOpenAllData.add2!);
     OrderNewController.datafromfollow.add(leadOpenAllData.pincode!);
-    OrderNewController.datafromfollow.add(leadOpenAllData.city!); //isSelectedCsTag
-    OrderNewController.datafromfollow.add(leadOpenAllData.LeadDocNum.toString());
+    OrderNewController.datafromfollow
+        .add(leadOpenAllData.city!); //isSelectedCsTag
+    OrderNewController.datafromfollow
+        .add(leadOpenAllData.LeadDocNum.toString());
     OrderNewController.datafromfollow.add(leadOpenAllData.cusEmail.toString());
     OrderNewController.datafromfollow.add(leadOpenAllData.state.toString());
     OrderNewController.datafromfollow.add(leadOpenAllData.cusgroup.toString());
-    
-    OrderNewController.datafromfollow.add(leadOpenAllData.area.toString());
-    
 
-OrderBookNewState.iscomfromLead = true;
-          Get.toNamed(ConstantRoutes.ordernew);
-          notifyListeners();
+    OrderNewController.datafromfollow.add(leadOpenAllData.area.toString());
+
+    OrderBookNewState.iscomfromLead = true;
+    Get.toNamed(ConstantRoutes.ordernew);
+    notifyListeners();
     // GetCutomerDetailsApi.getData(mobile, "${ConstantValues.slpcode}")
     //     .then((value) {
     //   if (value.stcode! >= 200 && value.stcode! <= 210) {
@@ -641,7 +630,8 @@ OrderBookNewState.iscomfromLead = true;
         isLodingDialog = false;
         notifyListeners();
       } else {
-        forwardDialogSuccessMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        forwardDialogSuccessMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         isLodingDialog = false;
         notifyListeners();
       }
@@ -723,7 +713,7 @@ OrderBookNewState.iscomfromLead = true;
     forwaVisitTime = '';
     forwardnextWonFD = '';
     mycontroller[5].clear();
-    iscorectime2=false;
+    iscorectime2 = false;
 
     leadOpenAllData.clear();
 
@@ -751,7 +741,7 @@ OrderBookNewState.iscomfromLead = true;
       // print("User slp::${ConstantValues.slpcode}--${filteruserLtData[i].slpcode}");
       if (filteruserLtData[i].slpcode != ConstantValues.slpcode) {
         filteruserLtData2.add(UserListData(
-          userCode: filteruserLtData[i].userCode,
+            userCode: filteruserLtData[i].userCode,
             storeid: filteruserLtData[i].storeid,
             mngSlpcode: filteruserLtData[i].mngSlpcode,
             UserName: filteruserLtData[i].UserName,
@@ -910,7 +900,7 @@ OrderBookNewState.iscomfromLead = true;
         return;
       }
       String chooseddate = value.toString();
-      forwaVisitTime='';
+      forwaVisitTime = '';
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -927,8 +917,8 @@ OrderBookNewState.iscomfromLead = true;
   String errorVisitTime = "";
   selectVisitTime(BuildContext context) async {
     TimeOfDay timee = TimeOfDay.now();
-    TimeOfDay   startTime = TimeOfDay(hour: 7, minute: 0);
-  TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0); 
+    TimeOfDay startTime = TimeOfDay(hour: 7, minute: 0);
+    TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0);
     if (visitDt.isNotEmpty) {
       errorVisitTime = "";
       final TimeOfDay? newTime = await showTimePicker(
@@ -941,12 +931,14 @@ OrderBookNewState.iscomfromLead = true;
         // if (timee.hour < startTime.hour ||
         //       timee.hour > endTime.hour || (timee.hour == endTime.hour && timee.minute > endTime.minute)) {
         //         VisitTime = "";
- 
-        //     nextVisitTime = 'Visit Time:*'; 
+
+        //     nextVisitTime = 'Visit Time:*';
         //     notifyListeners();
         //       }else{
         if (visitDt == DateFormat('dd-MM-yyyy').format(DateTime.now())) {
-          if (timee.hour < TimeOfDay.now().hour ||(timee.hour == TimeOfDay.now().hour && timee.minute < TimeOfDay.now().minute)) {
+          if (timee.hour < TimeOfDay.now().hour ||
+              (timee.hour == TimeOfDay.now().hour &&
+                  timee.minute < TimeOfDay.now().minute)) {
             errorVisitTime = "Please Choose Correct Time";
             VisitTime = "";
             notifyListeners();
@@ -962,9 +954,9 @@ OrderBookNewState.iscomfromLead = true;
           timee = newTime;
           VisitTime = timee.format(context).toString();
         }
-nextVisitTime = 'Visit Time:';
+        nextVisitTime = 'Visit Time:';
         notifyListeners();
-              // }
+        // }
       }
       notifyListeners();
     } else {
@@ -978,8 +970,8 @@ nextVisitTime = 'Visit Time:';
   String errorTime = "";
   selectTime(BuildContext context) async {
     TimeOfDay timee = TimeOfDay.now();
-     TimeOfDay   startTime = TimeOfDay(hour: 7, minute: 0);
-  TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0); 
+    TimeOfDay startTime = TimeOfDay(hour: 7, minute: 0);
+    TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0);
     if (nextFD.isNotEmpty) {
       errorTime = "";
       final TimeOfDay? newTime = await showTimePicker(
@@ -989,23 +981,27 @@ nextVisitTime = 'Visit Time:';
 
       if (newTime != null) {
         timee = newTime;
+        log("timee:::" + timee.toString());
         // if (timee.hour < startTime.hour ||
         //       timee.hour > endTime.hour|| (timee.hour == endTime.hour && timee.minute > endTime.minute)) {
         //         nextFDTime = "";
- 
+
         //     nextFollowupTime = 'Follow up Time: *';
         //     errorTime=' Choose 7AM to 10PM';
         //     notifyListeners();
         //       }else{
         if (nextFD == DateFormat('dd-MM-yyyy').format(DateTime.now())) {
-          if (timee.hour < TimeOfDay.now().hour ||(timee.hour == TimeOfDay.now().hour && timee.minute < TimeOfDay.now().minute)) {
+          if (timee.hour < TimeOfDay.now().hour ||
+              (timee.hour == TimeOfDay.now().hour &&
+                  timee.minute < TimeOfDay.now().minute)) {
             errorTime = "Please Choose Correct Time";
             nextFDTime = "";
             notifyListeners();
             print("error");
           } else {
             errorTime = "";
-            print("correct11");
+            timee = newTime;
+            print("correct11" + timee.format(context).toString());
             nextFDTime = timee.format(context).toString();
           }
         } else {
@@ -1014,12 +1010,11 @@ nextVisitTime = 'Visit Time:';
           timee = newTime;
           nextFDTime = timee.format(context).toString();
         }
-nextFollowupTime = 'Follow up Time:*';
+        nextFollowupTime = 'Follow up Time:*';
         notifyListeners();
-      //  }
+        //  }
       }
       notifyListeners();
-     
     } else {
       nextFDTime = "";
       errorTime = "Please Choose First Date";
@@ -1124,7 +1119,7 @@ nextFollowupTime = 'Follow up Time:*';
     errorVisitTime = '';
     forwaVisitTime = '';
     forwardnextWonFD = '';
-    iscorectime2=false;
+    iscorectime2 = false;
     notifyListeners();
   }
 
@@ -1272,7 +1267,7 @@ nextFollowupTime = 'Follow up Time:*';
         return;
       }
       String chooseddate = value.toString();
-      VisitTime='';
+      VisitTime = '';
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -1326,27 +1321,27 @@ nextFollowupTime = 'Follow up Time:*';
     } else {
       nextFollowupDate = 'Next Follow up:*';
     }
-   if(nextFDTime ==''){
-    nextFollowupTime = 'Follow up Time: *';
-   } else{
-     nextFollowupTime = 'Follow up Time:*';
-   }
+    if (nextFDTime == '') {
+      nextFollowupTime = 'Follow up Time: *';
+    } else {
+      nextFollowupTime = 'Follow up Time:*';
+    }
 
-    if(sitevisitreq ==true){
-      if(visitDt ==''){
-nextVisitDate = 'Visit Date: *';
-      }else{
+    if (sitevisitreq == true) {
+      if (visitDt == '') {
+        nextVisitDate = 'Visit Date: *';
+      } else {
         nextVisitDate = 'Visit Date:*';
       }
-      
- if (VisitTime == '') {
-      i = i + 1;
-      nextVisitTime = 'Visit Time: *';
-    } else {
-      nextVisitTime = 'Visit Time:*';
+
+      if (VisitTime == '') {
+        i = i + 1;
+        nextVisitTime = 'Visit Time: *';
+      } else {
+        nextVisitTime = 'Visit Time:*';
+      }
     }
-    }
-   
+
     if (isSelectedFollowUp == '') {
       print("4");
 
@@ -1459,7 +1454,8 @@ nextVisitDate = 'Visit Date: *';
     }
     notifyListeners();
   }
-bool iscorectime2=false;
+
+  bool iscorectime2 = false;
   String forwarderrorVisitTime = "";
   String forwaVisitTime = '';
   String get getVisitTime => VisitTime;
@@ -1467,8 +1463,8 @@ bool iscorectime2=false;
   String? assignVisitTime = 'Followup Time:*';
   forwardVisitTime(BuildContext context) async {
     TimeOfDay timee = TimeOfDay.now();
-     TimeOfDay   startTime = TimeOfDay(hour: 7, minute: 0);
-  TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0); 
+    TimeOfDay startTime = TimeOfDay(hour: 7, minute: 0);
+    TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0);
     if (forwardnextWonFD.isNotEmpty) {
       forwarderrorVisitTime = "";
       final TimeOfDay? newTime = await showTimePicker(
@@ -1485,34 +1481,37 @@ bool iscorectime2=false;
 //             assignVisitTime = 'Followup Time:*';
 //             notifyListeners();
 //               }else{
-        if (forwardnextWonFD == DateFormat('dd-MM-yyyy').format(DateTime.now())) {
-          if (timee.hour < TimeOfDay.now().hour ||(timee.hour == TimeOfDay.now().hour && timee.minute < TimeOfDay.now().minute)) {
+        if (forwardnextWonFD ==
+            DateFormat('dd-MM-yyyy').format(DateTime.now())) {
+          if (timee.hour < TimeOfDay.now().hour ||
+              (timee.hour == TimeOfDay.now().hour &&
+                  timee.minute < TimeOfDay.now().minute)) {
             forwarderrorVisitTime = "Please Choose Correct Time";
             forwaVisitTime = "";
-             iscorectime2=true;
+            iscorectime2 = true;
             notifyListeners();
             print("error");
           } else {
             errorVisitTime = "";
             print("correct11");
-            iscorectime2=false;
+            iscorectime2 = false;
             forwaVisitTime = timee.format(context).toString();
           }
         } else {
           errorVisitTime = "";
           print("correct22");
           timee = newTime;
-          iscorectime2=false;
+          iscorectime2 = false;
           forwaVisitTime = timee.format(context).toString();
         }
-              // }
+        // }
         notifyListeners();
       }
       notifyListeners();
     } else {
       forwaVisitTime = "";
       forwarderrorVisitTime = "Please Choose First Date";
-       iscorectime2=true;
+      iscorectime2 = true;
       notifyListeners();
     }
     notifyListeners();
@@ -1555,11 +1554,11 @@ bool iscorectime2=false;
 
       if (visitDt != '') {
         Config config = Config();
- forwardLeadUserDataOpen.visitreq=1;
+        forwardLeadUserDataOpen.visitreq = 1;
         forwardLeadUserDataOpen.visitdate =
             config.alignDateforFollow(VisitTime, apivisitate);
       } else {
-        forwardLeadUserDataOpen.visitreq=0;
+        forwardLeadUserDataOpen.visitreq = 0;
         forwardLeadUserDataOpen.visitdate = null;
       }
       forwardLeadUserDataOpen.curentDate = config.currentDate();
@@ -1650,7 +1649,8 @@ bool iscorectime2=false;
         notifyListeners();
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardDialogSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardDialogSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         isLodingDialog = false;
         notifyListeners();
       }
@@ -1742,7 +1742,8 @@ bool iscorectime2=false;
         isLodingDialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardDialogSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardDialogSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         isLodingDialog = false;
         notifyListeners();
       }
@@ -1780,7 +1781,8 @@ bool iscorectime2=false;
         isLodingDialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardDialogSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardDialogSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         isLodingDialog = false;
         notifyListeners();
       }

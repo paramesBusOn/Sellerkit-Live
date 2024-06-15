@@ -121,6 +121,7 @@ postLoginData. devicename='${brand} ${model}';
         if (value.loginstatus!.toLowerCase().contains('success') &&
             value.data != null) {
               DashBoardController.isLogout = false;
+              await HelperFunctions.saveTokenSharedPreference(value.token!);
           await HelperFunctions.saveLicenseKeySharedPreference(
               value.data!.licenseKey);
           // await HelperFunctions.saveSapUrlSharedPreference(

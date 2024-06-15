@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:dart_ipify/dart_ipify.dart';
 
 import 'package:device_calendar/device_calendar.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get_ip_address/get_ip_address.dart';
 import 'package:timezone/timezone.dart';
 // import 'package:dart_ipify/dart_ipify.dart';
@@ -75,7 +76,10 @@ class Config {
       return NetworkinfoIos;
     }
   }
-
+ final firebaseMessaging = FirebaseMessaging.instance;
+  Future<String?> getToken() async {
+    return await firebaseMessaging.getToken();
+  }
   static Future<String?> getdeviceModel() async {
     var deviceInfo = DeviceInfoPlugin();
     if (Platform.isIOS) {
