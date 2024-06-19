@@ -14,6 +14,7 @@ import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:get/get.dart';
+import 'package:restart_app/restart_app.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
@@ -1327,11 +1328,33 @@ void dispose(){
   super.dispose();
   WidgetsBinding.instance.removeObserver(this);
 }
- void restartApp() {
+void restartApp() async{
     _timer?.cancel(); 
-    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-      print("Appp restarted");
+
+    if(Platform.isAndroid){
+await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    print("Appp restarted::Android");
+    }else{
+
+Restart.restartApp();
+    print("Appp restarted::ios");
+    }
+   // Navigator.of(context).pushReplacement(
+    //   MaterialPageRoute(builder: (context) => SplashPage()),
+    // );
+    // exit(0);
+    
+    // Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+      // Navigator.pushNamedAndRemoveUntil(context,'/',(_) => false);
+// Get.offAllNamed(ConstantRoutes.splash);
+      
+
   }
+//  void restartApp() {
+//     _timer?.cancel(); 
+//     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+//       print("Appp restarted");
+//   }
 @override
 void didChangeAppLifecycleState(AppLifecycleState state){
   super.didChangeAppLifecycleState(state);
@@ -1354,7 +1377,7 @@ void didChangeAppLifecycleState(AppLifecycleState state){
     return MultiProvider(
       key: navigatorKey,
       providers: [
-        ChangeNotifierProvider(create: (_) => DashBoardController(context)),
+        ChangeNotifierProvider(create: (_) => DashBoardController()),
         ChangeNotifierProvider(create: (_) => ThemeManager()),
         ChangeNotifierProvider(create: (_) => ConfigurationContoller()),
         ChangeNotifierProvider(create: (_) => DownLoadController()),

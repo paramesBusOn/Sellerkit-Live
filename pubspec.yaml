@@ -107,12 +107,13 @@ dependencies:
   # firebase_remote_config: ^4.4.4
   # firebase_analytics: ^10.10.4
   font_awesome_flutter: ^10.7.0
-  # firebase_database: ^11.0.1
-  # cloud_firestore: ^5.0.1
+  firebase_database: ^11.0.1
+  cloud_firestore: ^5.0.1
   # phone_state: ^1.0.4
   # call_log: ^4.0.0
   # system_alert_window: ^2.0.0
   external_app_launcher: ^4.0.0
+  restart_app: ^1.2.1
   # flutter_overlay_window: ^0.4.4
   
 

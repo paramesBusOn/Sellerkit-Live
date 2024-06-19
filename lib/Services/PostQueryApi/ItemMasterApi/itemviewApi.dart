@@ -13,7 +13,7 @@ class ItemViewApiNew {
    final http.Client httpClient = http.Client();
   static Future<ItemviewNewModal> getData(String itemcode) async {
     int resCode = 500;
-    log("Item Master Api::"+Url.queryApi + 'Sellerkit_Flexi/v3/Getitempricestocks?ItemCode=$itemcode&UserId=${ConstantValues.UserId}');
+    log("Item Master Api::"+Url.queryApi + 'Sellerkit_Flexi/v3/Getitempricestocks?ItemCode=${Uri.encodeComponent(itemcode)}&UserId=${ConstantValues.UserId}');
     log('token::'+ConstantValues.token);
  
     try {
@@ -21,7 +21,7 @@ class ItemViewApiNew {
     // final Uri uri = Uri.parse(url);
            final stopwatch = Stopwatch()..start();
          
-          final response = await http.get(Uri.parse(Url.queryApi + 'Sellerkit_Flexi/v3/Getitempricestocks?ItemCode=$itemcode&UserId=${ConstantValues.UserId}')
+          final response = await http.get(Uri.parse(Url.queryApi + 'Sellerkit_Flexi/v3/Getitempricestocks?ItemCode=${Uri.encodeComponent(itemcode)}&UserId=${ConstantValues.UserId}')
         ,
         headers: {
           "content-type": "application/json",

@@ -181,6 +181,9 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                     // context.read<LeadTabController>().resetValues();
                                     return showdialogst(
                                       // index: i,
+                                      getalldata: context
+                                .read<PriceListController>()
+                                .getlistPriceAvail[i],
                                       // leadopenalldata: widget.leadOpenAllData[i],
                                     );
                                   });

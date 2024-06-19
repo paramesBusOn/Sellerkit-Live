@@ -48,6 +48,7 @@ import 'package:sellerkit/Services/PostQueryApi/OrdersApi/paymentmode.dart';
 import 'package:sellerkit/Services/PostQueryApi/QuotatationApi/QuotesQTHApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/QuotatationApi/quotesupdateApi.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
+import 'package:sellerkit/Services/refrealpartnerApi/refpartnerApi.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../Pages/Quoatation/tabquote/widgets/warningorder.dart';
@@ -203,6 +204,9 @@ List<LevelofData> leveofdata=[];
   }
     clearAllData() {
       DocDateold='';
+      refpartdata.clear();
+      mycontroller[46].clear();
+  filterrefpartdata.clear();
       paymentTerm=false;
        leveofdata.clear();
     ordertypedata.clear();
@@ -336,10 +340,57 @@ return openleaddialog();
       notifyListeners();
     });
   }
+
+  iscateSeleted(String name ,String code,BuildContext context,){
+selectedapartcode =code.toString();
+mycontroller[46].text=name.toString();
+Navigator.pop(context);
+notifyListeners();
+  }
+  filterListrefData(String v) {
+    if (v.isNotEmpty) {
+      filterrefpartdata = refpartdata
+          .where((e) =>
+              e.PartnerName!.toLowerCase().contains(v.toLowerCase()) ||
+              e.PartnerCode!.toLowerCase().contains(v.toLowerCase()))
+          .toList();
+      notifyListeners();
+    } else if (v.isEmpty) {
+      filterrefpartdata = refpartdata;
+      notifyListeners();
+    }
+  }
+   List<refdetModalData> refpartdata=[];
+   List<refdetModalData> filterrefpartdata=[];
+   String selectedapartcode='';
+callrefparnerApi()async{
+  refpartdata.clear();
+  filterrefpartdata.clear();
+  await refpartnerApi.getData().then((value){
+ if (value.stcode! >= 200 && value.stcode! <= 210) {
+        if (value.itemdata!.itemdata != null && value.itemdata!.itemdata!.isNotEmpty) {
+          refpartdata = value.itemdata!.itemdata!;
+          filterrefpartdata=refpartdata;
+log("refpartdata:::"+refpartdata.length.toString());
+log("filterrefpartdata:::"+filterrefpartdata.length.toString());
+          notifyListeners();
+        } else if (value.itemdata!.itemdata == null  || value.itemdata!.itemdata!.isEmpty) {
+          // log("DONR222");
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        notifyListeners();
+      } else if (value.stcode == 500) {
+        notifyListeners();
+      }
+  });
+
+}
   onindexselect(GetAllLeadData leadOpenAllData)async{
     isloading=true;
      notifyListeners();
  await getdataFromDb();
+ await callrefparnerApi();
  await getLeveofType();
     await  stateApicallfromDB();
    await getCustomerTag();
@@ -1743,6 +1794,53 @@ showBottomSheetInsertforedit(
                       SizedBox(
                         height: 10,
                       ),
+                       SizedBox(
+                        // width: 270,
+                        // height: 40,
+                        child: new TextFormField(
+                          controller: mycontroller[46],
+                          
+                          readOnly: true ,
+                          onTap: (){
+                             showDialog<dynamic>(
+                                                          context: context,
+                                                          builder: (_) {
+                                                            return ShowSearchDialog();
+                                                          }).then((value) {
+                                                            mycontroller[47].clear();
+                                                            filterrefpartdata=refpartdata;
+                                                            notifyListeners();
+                                                          //  context
+                                                          //   .read<
+                                                          //       NewEnqController>()
+                                                          //   .setcatagorydata();    
+                                                            });
+                          },
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "ENTER QUANTITY";
+                          //   }
+                          //   return null;
+                          // },
+                          
+                          style: TextStyle(fontSize: 15),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            labelText: "referal partner",
+                            suffixIcon: Icon(Icons.search)
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      
                       Row(
                         children: [
                           Container(
@@ -1980,7 +2078,7 @@ if (val.length > 0) {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: 10,
                       ),
                       SizedBox(
                         // width: 270,
@@ -2029,6 +2127,52 @@ if (val.length > 0) {
                       SizedBox(
                         height: 10,
                       ),
+                       SizedBox(
+                        // width: 270,
+                        // height: 40,
+                        child: new TextFormField(
+                          controller: mycontroller[46],
+                          
+                          readOnly: true ,
+                          onTap: (){
+                             showDialog<dynamic>(
+                                                          context: context,
+                                                          builder: (_) {
+                                                            return ShowSearchDialog();
+                                                          }).then((value) {
+                                                            mycontroller[47].clear();
+                                                            filterrefpartdata=refpartdata;
+                                                            notifyListeners();
+                                                          //  context
+                                                          //   .read<
+                                                          //       NewEnqController>()
+                                                          //   .setcatagorydata();    
+                                                            });
+                          },
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "ENTER QUANTITY";
+                          //   }
+                          //   return null;
+                          // },
+                          
+                          style: TextStyle(fontSize: 15),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            labelText: "referal partner",
+                            suffixIcon: Icon(Icons.search)
+                          ),
+                        ),
+                      ),
+                       SizedBox(
+                        height: 10,
+                      ),
                       Row(
                         children: [
                           Container(
@@ -2036,6 +2180,10 @@ if (val.length > 0) {
                                 style: theme.textTheme.bodyText1
                                     ?.copyWith(color: theme.primaryColor)),
                           ),
+                          SizedBox(
+                        height: 10,
+                      ),
+                      
                           SizedBox(
                             width: 5,
                           ),
@@ -2081,49 +2229,7 @@ if (val.length > 0) {
                           ),
                         ],
                       ),
-// SizedBox(
-//                         height: 10,
-//                       ),
-//                        SizedBox(
-//                         // width: 270,
-//                         // height: 40,
-//                         child: new TextFormField(
-//                           controller: mycontroller[46],
-                          
-//                           readOnly: true ,
-//                           onTap: (){
-//                              showDialog<dynamic>(
-//                                                           context: context,
-//                                                           builder: (_) {
-//                                                             return ShowSearchDialog();
-//                                                           }).then((value) {
-//                                                           //  context
-//                                                           //   .read<
-//                                                           //       NewEnqController>()
-//                                                           //   .setcatagorydata();    
-//                                                             });
-//                           },
-//                           // validator: (value) {
-//                           //   if (value!.isEmpty) {
-//                           //     return "ENTER QUANTITY";
-//                           //   }
-//                           //   return null;
-//                           // },
-                          
-//                           style: TextStyle(fontSize: 15),
-//                           decoration: InputDecoration(
-//                             contentPadding: EdgeInsets.symmetric(
-//                                 vertical: 10, horizontal: 10),
-//                             border: OutlineInputBorder(
-//                               borderRadius: BorderRadius.all(
-//                                 Radius.circular(10),
-//                               ),
-//                             ),
-//                             labelText: "referal partner",
-//                             suffixIcon: Icon(Icons.search)
-//                           ),
-//                         ),
-//                       ),
+
                       // Container(
                       //             // height: Screens.padingHeight(context) * 0.06,
                       //             width: Screens.width(context),
@@ -2303,6 +2409,8 @@ if (val.length > 0) {
             allownegativestock:allownegativestockorder ,
             alloworderbelowcost: alloworderbelowcostorder,
             storecode:   ConstantValues.Storecode ,
+            partcode:  mycontroller[46].text ==null || mycontroller[46].text.isEmpty?
+   null:mycontroller[46].text,
             deliveryfrom: isselected[0] == true ? "store" : "Whse"));
         // log("productslist" + productDetails.length.toString());
         // log("product" + productDetails[0].deliveryfrom.toString());
@@ -2371,6 +2479,7 @@ updateProductDetails(BuildContext context, int i) {
     mycontroller[10].text = allProductDetails[i].sp!.toStringAsFixed(2);
     //.clear();
     mycontroller[11].clear();
+   mycontroller[46].clear();
   }
  changeVisible() {
     showItemList = !showItemList;
@@ -3286,6 +3395,7 @@ saveToServer(BuildContext context) async {
   mapvaluesfromlead(BuildContext context) async {
      productDetails.clear();
    await getdataFromDb();
+   await callrefparnerApi();
    await getLeveofType();
     await  stateApicallfromDB();
    await getCustomerTag();
@@ -3550,6 +3660,7 @@ valueChosedCusType=ordertypedata[i].Code;
     // log("daataa::"+datafrommodify[22].toString());
     productDetails.clear();
    await getdataFromDb();
+   await callrefparnerApi();
    await getLeveofType();
     await  stateApicallfromDB();
    await getCustomerTag();

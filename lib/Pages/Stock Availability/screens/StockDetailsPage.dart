@@ -182,6 +182,9 @@ onWillPop: onbackpress,
                                     return showdialogst(
                                       // index: i,
                                       // leadopenalldata: widget.leadOpenAllData[i],
+                                      getalldata: context
+                                .read<StockListController>()
+                                .getlistPriceAvail[i],
                                     );
                                   });
                                 },

@@ -81,9 +81,48 @@ class OrderNewController extends ChangeNotifier {
     getCustomerTag();
     // getCustomerListFromDB();
   }
+  iscateSeleted(String name ,String code,BuildContext context,){
+selectedapartcode =code.toString();
+mycontroller[46].text=name.toString();
+Navigator.pop(context);
+notifyListeners();
+  }
+  filterListrefData(String v) {
+    if (v.isNotEmpty) {
+      filterrefpartdata = refpartdata
+          .where((e) =>
+              e.PartnerName!.toLowerCase().contains(v.toLowerCase()) ||
+              e.PartnerCode!.toLowerCase().contains(v.toLowerCase()))
+          .toList();
+      notifyListeners();
+    } else if (v.isEmpty) {
+      filterrefpartdata = refpartdata;
+      notifyListeners();
+    }
+  }
+   List<refdetModalData> refpartdata=[];
+   List<refdetModalData> filterrefpartdata=[];
+   String selectedapartcode='';
 callrefparnerApi()async{
+  refpartdata.clear();
+  filterrefpartdata.clear();
   await refpartnerApi.getData().then((value){
-
+ if (value.stcode! >= 200 && value.stcode! <= 210) {
+        if (value.itemdata!.itemdata != null && value.itemdata!.itemdata!.isNotEmpty) {
+          refpartdata = value.itemdata!.itemdata!;
+          filterrefpartdata=refpartdata;
+log("refpartdata:::"+refpartdata.length.toString());
+log("filterrefpartdata:::"+filterrefpartdata.length.toString());
+          notifyListeners();
+        } else if (value.itemdata!.itemdata == null  || value.itemdata!.itemdata!.isEmpty) {
+          // log("DONR222");
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        notifyListeners();
+      } else if (value.stcode == 500) {
+        notifyListeners();
+      }
   });
 
 }
@@ -146,6 +185,7 @@ customermodeldata=value.leadcheckdata;
     getEnqRefferes();
      getLeveofType();
     callLeadCheckApi();
+     callrefparnerApi();
   }
 
   FocusNode focusNode1 = FocusNode();
@@ -553,6 +593,8 @@ showBottomSheetInsert(context, indexscanning!);
             complementary: assignvalue,
             couponcode: mycontroller[36].text ==null || mycontroller[36].text.isEmpty?
    null:mycontroller[36].text,
+   partcode: mycontroller[46].text ==null || mycontroller[46].text.isEmpty?
+   null:mycontroller[46].text,
             ));
          showItemList = false;
         mycontroller[12].clear();
@@ -733,6 +775,7 @@ List<String> selectedassignto=[];
     //.clear();
     mycontroller[11].clear();
     mycontroller[36].clear();
+    mycontroller[46].clear();
     assignvalue = null;
     iscomplement=false;
     selectedassignto.clear();
@@ -742,6 +785,7 @@ List<String> selectedassignto=[];
     notifyListeners();
   }
 
+ 
   filterList(String v) {
     if (v.isNotEmpty) {
       allProductDetails = filterProductDetails
@@ -1404,6 +1448,7 @@ static List<String> datafromAcc = [];
     await stateApicallfromDB();
     await getLeveofType();
     callLeadCheckApi();
+    await callrefparnerApi();
     getCustomerTag();
     
     await callpaymodeApi();
@@ -1416,6 +1461,7 @@ static List<String> datafromAcc = [];
     getEnqRefferes();
     await stateApicallfromDB();
     await callLeadCheckApi();
+    await callrefparnerApi();
     getCustomerTag();
     await getLeveofType();
     
@@ -1505,6 +1551,7 @@ String? GetleadItemCode;
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
+    await callrefparnerApi();
     await getCustomerTag();
     await callpaymodeApi();
     // getCustomerListFromDB();
@@ -1698,6 +1745,7 @@ mapvaluesfromAccounts(BuildContext context) async {
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
+    await callrefparnerApi();
     await getCustomerTag();
     
     await callpaymodeApi();
@@ -1852,6 +1900,7 @@ mycontroller[24].text = datafromAcc[17] == null ||
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
+    await callrefparnerApi();
     await getCustomerTag();
     await callpaymodeApi();
     // getCustomerListFromDB();
@@ -2049,6 +2098,7 @@ mycontroller[24].text = datafromAcc[17] == null ||
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
+    await callrefparnerApi();
     await getCustomerTag();
     await callpaymodeApi();
     value3 == true;
@@ -2345,6 +2395,7 @@ valueChosedCusType=ordertypedata[i].Code;
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
+    await callrefparnerApi();
     await getCustomerTag();
     await callpaymodeApi();
     // getCustomerListFromDB();
@@ -2617,6 +2668,7 @@ valueChosedCusType=ordertypedata[i].Code;
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
+    await callrefparnerApi();
     await getCustomerTag();
     await callpaymodeApi();
     // getCustomerListFromDB();
@@ -2833,6 +2885,7 @@ valueChosedCusType=ordertypedata[i].Code;
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
+    await callrefparnerApi();
     getCustomerTag();
     await callpaymodeApi();
     for (int i = 0; i < customerTagTypeData.length; i++) {
@@ -2976,6 +3029,9 @@ notifyListeners();
 }
   clearAllData() {
     log("step1");
+    refpartdata.clear();
+      mycontroller[46].clear();
+  filterrefpartdata.clear();
     mycontroller[36].clear();
     getcoupondata.clear();
     couponload=false;
@@ -4808,108 +4864,53 @@ paymentTerm=true;
                         ),
                       ),
                       //  ),
-//  SizedBox(
-//                         height: 10,
-//                       ),
-//                       SizedBox(
-//                         // width: 270,
-//                         // height: 40,
-//                         child: new TextFormField(
-//                           controller: mycontroller[46],
+ SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        // width: 270,
+                        // height: 40,
+                        child: new TextFormField(
+                          controller: mycontroller[46],
                           
-//                           readOnly: true ,
-//                           onTap: (){
-//                              showDialog<dynamic>(
-//                                                           context: context,
-//                                                           builder: (_) {
-//                                                             return ShowSearchDialog();
-//                                                           }).then((value) {
-//                                                           //  context
-//                                                           //   .read<
-//                                                           //       NewEnqController>()
-//                                                           //   .setcatagorydata();    
-//                                                             });
-//                           },
-//                           // validator: (value) {
-//                           //   if (value!.isEmpty) {
-//                           //     return "ENTER QUANTITY";
-//                           //   }
-//                           //   return null;
-//                           // },
+                          readOnly: true ,
+                          onTap: (){
+                             showDialog<dynamic>(
+                                                          context: context,
+                                                          builder: (_) {
+                                                            return ShowSearchDialog();
+                                                          }).then((value) {
+                                                            mycontroller[47].clear();
+                                                            filterrefpartdata=refpartdata;
+                                                            notifyListeners();
+                                                          //  context
+                                                          //   .read<
+                                                          //       NewEnqController>()
+                                                          //   .setcatagorydata();    
+                                                            });
+                          },
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "ENTER QUANTITY";
+                          //   }
+                          //   return null;
+                          // },
                           
-//                           style: TextStyle(fontSize: 15),
-//                           decoration: InputDecoration(
-//                             contentPadding: EdgeInsets.symmetric(
-//                                 vertical: 10, horizontal: 10),
-//                             border: OutlineInputBorder(
-//                               borderRadius: BorderRadius.all(
-//                                 Radius.circular(10),
-//                               ),
-//                             ),
-//                             labelText: "referal partner",
-//                             suffixIcon: Icon(Icons.search)
-//                           ),
-//                         ),
-//                       ),
-                      // Container(
-                      //             // height: Screens.padingHeight(context) * 0.06,
-                      //             width: Screens.width(context),
-                      //             child: DropdownButtonFormField(
-                      //               decoration: InputDecoration(
-                      //                 // hintText: 'Email',
-                      //                 labelText: 'referal partner',
-                      //                 border: UnderlineInputBorder(),
-                      //                 enabledBorder: UnderlineInputBorder(
-                      //                   borderSide:
-                      //                       BorderSide(color: Colors.grey),
-                      //                 ),
-                      //                 focusedBorder: UnderlineInputBorder(
-                      //                   borderSide:
-                      //                       BorderSide(color: Colors.grey),
-                      //                 ),
-                      //                 errorBorder: UnderlineInputBorder(),
-                      //                 focusedErrorBorder:
-                      //                     UnderlineInputBorder(),
-                      //               ),
-                      //               // hint: Text(
-                      //               //   context
-                      //               //       .watch<NewEnqController>()
-                      //               //       .gethinttextforOpenLead!,
-                      //               //   style: theme.textTheme.bodyText2?.copyWith(
-                      //               //       color: context
-                      //               //               .watch<NewEnqController>()
-                      //               //               .gethinttextforOpenLead!
-                      //               //               .contains(" *")
-                      //               //           ? Colors.red
-                      //               //           : Colors.black),
-                      //               // ),
-                      //               value:valueChosedrefcode,
-                      //               //dropdownColor:Colors.green,
-                      //               icon: Icon(Icons.arrow_drop_down),
-                      //               iconSize: 30,
-                      //               style: TextStyle(
-                      //                   color: Colors.black, fontSize: 16),
-                      //               isExpanded: true,
-                      //               onChanged: (String? val) {
-                      //                 // setState(() {
-                      //                   st((){
-                      //                     valueChosedrefcode=val!;
-                      //                   });
-                      //                   // choosedrefer(val.toString());
-                      //                 // });
-                      //               },
-                      //               items: <String>['data1', 'data2', 'data3', 'data4']
-                      //                   .map((e) {
-                      //                 return DropdownMenuItem(
-                      //                     // ignore: unnecessary_brace_in_string_interps
-                      //                     value: "${e}",
-                      //                     child: Container(
-                      //                         // height: Screens.bodyheight(context)*0.1,
-                      //                         child: Text("${e}")));
-                      //               }).toList(),
-                      //             ),
-                      //           ),
-                       SizedBox(
+                          style: TextStyle(fontSize: 15),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            labelText: "referal partner",
+                            suffixIcon: Icon(Icons.search)
+                          ),
+                        ),
+                      ),
+                      SizedBox(
                         height: 5,
                       ),
                       Row(
@@ -5053,6 +5054,7 @@ notifyListeners();
                           ),
                         ],
                       ),
+                      
                       SizedBox(
                         height: 10,
                       ),
@@ -5377,6 +5379,197 @@ notifyListeners();
                         ),
                       ),
                       //  ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        // width: 270,
+                        // height: 40,
+                        child: new TextFormField(
+                          controller: mycontroller[46],
+                          
+                          readOnly: true ,
+                          onTap: (){
+                             showDialog<dynamic>(
+                                                          context: context,
+                                                          builder: (_) {
+                                                            return ShowSearchDialog();
+                                                          }).then((value) {
+                                                            mycontroller[47].clear();
+                                                            filterrefpartdata=refpartdata;
+                                                            notifyListeners();
+                                                          //  context
+                                                          //   .read<
+                                                          //       NewEnqController>()
+                                                          //   .setcatagorydata();    
+                                                            });
+                          },
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "ENTER QUANTITY";
+                          //   }
+                          //   return null;
+                          // },
+                          
+                          style: TextStyle(fontSize: 15),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            labelText: "referal partner",
+                            suffixIcon: Icon(Icons.search)
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                     getcoupondata.isEmpty?Container():     Container(
+                      width: Screens.width(context)*0.5,
+                        alignment: Alignment.centerLeft,
+                            child: TextFormField(
+                              controller: mycontroller[36],
+                              decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 10,
+                    ),
+                                 labelText: 'Couponcode',
+                                      labelStyle: theme.textTheme.bodyText1!
+                                          .copyWith(color: Colors.grey),
+                             enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                        //  when the TextFormField in unfocused
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                        //  when the TextFormField in focused
+                                      ),
+                                      border: UnderlineInputBorder(),
+                                      // enabledBorder: UnderlineInputBorder(),
+                                      // focusedBorder: UnderlineInputBorder(),
+                                      errorBorder: UnderlineInputBorder(),
+                                      focusedErrorBorder:
+                                          UnderlineInputBorder(),
+                              ),
+                            ),
+                           
+                          ),
+                           SizedBox(
+                        height: 5,
+                      ),
+                       
+                               
+                          InkWell(
+                            onTap: ()async{
+                              if(mycontroller[11].text.isEmpty){
+                                st((){
+showtoastforcoupon("Enter QUANTITY");
+                                });
+                          
+                              }else{
+                                st((){
+//  callcouponApi();
+
+ 
+ st((){
+  getcoupondata.clear();
+couponload=true;
+ });
+  
+  notifyListeners();
+ couponmodel coupondata= couponmodel();
+ coupondata.customerCode=mycontroller[0].text;
+ coupondata.itemCode=selectedItemCode;
+ coupondata.storeCode=ConstantValues.Storecode;
+ coupondata.qty =int.parse(mycontroller[11].text);
+ coupondata.totalBillValue=double.parse(mycontroller[10].text);
+ coupondata.requestedBy_UserCode=ConstantValues.Usercode;
+
+ CouponApi.getData(coupondata).then((value) {
+ if (value.stcode! >= 200 && value.stcode! <= 210) {
+        
+
+        if (value.CouponModaldatageader!.Ordercheckdata != null && value.CouponModaldatageader!.Ordercheckdata!.isNotEmpty) {
+          log("not null");
+          st((){
+ getcoupondata = value.CouponModaldatageader!.Ordercheckdata!;
+  log("getcoupondata::"+getcoupondata.length.toString());
+   mycontroller[36].text= getcoupondata[0].CouponCode.toString();
+  mycontroller[10].text =getcoupondata[0].RP!.toStringAsFixed(2);
+  mycontroller[11].text=getcoupondata[0].Quantity!.toStringAsFixed(0);
+   unitPrice =
+                                      double.parse(mycontroller[10].text);
+                                  quantity =
+                                      double.parse(mycontroller[11].text);
+                                  total = unitPrice! * quantity!;
+  //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
+notifyListeners();
+isappliedcoupon=true;
+
+notifyListeners();
+couponload=false;
+ });
+ 
+          // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
+notifyListeners();
+          // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
+        } else if (value.CouponModaldatageader!.Ordercheckdata == null||value.CouponModaldatageader!.Ordercheckdata!.isEmpty) {
+          log("Order data null");
+          st((){
+ couponload=false;
+          
+          showtoastforcoupon("There is no couponcode for this customer");
+          });
+         
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        st((){
+ couponload=false;
+         showtoastforcoupon('${value.message}..!!${value.exception}....!!');
+          });
+       
+        
+        notifyListeners();
+      } else  {
+        st((){ couponload=false;
+        
+         showtoastforcoupon('${value.stcode!}..!!Network Issue..\nTry again Later..!!');
+    
+          });
+         
+     notifyListeners();
+      }
+      notifyListeners();
+});
+                                });
+                          
+                              }
+                              
+                            },
+                            child: Container(
+                              alignment: Alignment.centerRight,
+                              child: Text("Apply Coupon Code",
+                              style: theme.textTheme.bodyText1!.copyWith(
+                                color:theme.primaryColor,
+                                decoration: TextDecoration.underline
+                              ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      
                       SizedBox(
                         height: 10,
                       ),

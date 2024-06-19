@@ -377,9 +377,10 @@ TaxAmount:jsons["TaxAmount"] ?? 0.0,
   bool? isfixedprice;
   bool? allownegativestock;
   bool? alloworderbelowcost;
+  String? partcode;
 
   DocumentLines(
-      {
+      {this.partcode,
          this.alloworderbelowcost,
          this.allownegativestock,
          this.isfixedprice,
@@ -445,7 +446,8 @@ TaxAmount:jsons["TaxAmount"] ?? 0.0,
       "quantity": Quantity!,
       "price": Price,
       "storecode": storecode,
-      "deliveryfrom": deliveryfrom
+      "deliveryfrom": deliveryfrom,
+      "partcode":partcode
      
     };
     return map;

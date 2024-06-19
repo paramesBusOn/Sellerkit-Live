@@ -3,11 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/StockAvailabilityController/StockListController.dart';
+import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/ItemMasterModelNew.dart/itemviewModel.dart';
 
 class showdialogst extends StatefulWidget {
-   showdialogst({super.key,});
- 
+   showdialogst({super.key,required this.getalldata});
+ ItemMasterDBModel getalldata;
   @override
   State<showdialogst> createState() => _showdialogstState();
 }
@@ -237,14 +238,32 @@ class _showdialogstState extends State<showdialogst> {
               child: Text("Item Code",style:  theme.textTheme.bodyText2?.copyWith(color: Colors.grey),),
             ),
              SizedBox(
-                          height: Screens.bodyheight(context) * 0.01,
+                          height: Screens.bodyheight(context) * 0.002,
                         ),
             Container(
-              child: Text("${context.read<StockListController>().itemviewdata[0].itemcode}",style:  theme.textTheme.bodyText2?.copyWith(color: theme.primaryColor)),
+              child: Text("${widget.getalldata.itemCode}",style:  theme.textTheme.bodyText2?.copyWith(color: theme.primaryColor)),
             ),
+
+
              SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
                         ),
+                         Container(
+              child: Text("Item Name",style:  theme.textTheme.bodyText2?.copyWith(color: Colors.grey),),
+            ),
+             SizedBox(
+                          height: Screens.bodyheight(context) * 0.002,
+                        ),
+            Container(
+              child: Text("${widget.getalldata.itemName}",style:  theme.textTheme.bodyText2?.copyWith(color: theme.primaryColor)),
+            ),
+
+
+             SizedBox(
+                          height: Screens.bodyheight(context) * 0.01,
+                        ),
+            
+            
               createTable(theme)
                 ]),
                 

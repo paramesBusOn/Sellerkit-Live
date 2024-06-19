@@ -56,6 +56,7 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
      controller!.addListener(_handleTabChange);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       checkLocation();
+        context.read<DashBoardController>().init(context);
       // context.read<NotificationContoller>().getUnSeenNotify();
       // context.read<NotificationContoller>().onReciveFCM();
       // context.read<DashBoardController>().getDefaultValues();
@@ -156,354 +157,412 @@ void _handleTabChange() {
         //   child:
         WillPopScope(
       onWillPop: onWillPop, // context.read<DashBoardController>().onbackpress ,
-      child: ChangeNotifierProvider<DashBoardController>(
-          create: (context) => DashBoardController(context),
-          builder: (context, child) {
-            return Consumer<DashBoardController>(
-                builder: (BuildContext context, pvdDSBD, Widget? child) {
-              return Scaffold(
-                drawerEnableOpenDragGesture: false,
-
-                key: scaffoldKey,
-                backgroundColor: Colors.grey[200],
-                appBar: AppBar(
-                  backgroundColor: theme.primaryColor,
-                  actions: [
-                    IconButton(
-                        onPressed: () {
-                          setState(() {
-                            pvdDSBD.popupmenu(context);
-                          });
-                        },
-                        icon: Icon(Icons.list))
-                    // PopupMenuButton<String>(
-                    //   onSelected: (value) {
-                    //     // Handle the selected option here
-                    //     print('Selected: $value');
-                    //   },
-                    //   itemBuilder: (BuildContext context) {
-                    //     return <PopupMenuEntry<String>>[
-                    //       PopupMenuItem<String>(
-                    //         value: 'option1',
-                    //         child: Text('${ConstantValues.latitude}'),
-                    //       ),
-                    //       PopupMenuItem<String>(
-                    //         value: 'option2',
-                    //         child: Text('${ConstantValues.langtitude}'),
-                    //       ),
-                    //       PopupMenuItem<String>(
-                    //         value: 'option3',
-                    //         child: Text('${ConstantValues.ipaddress}'),
-                    //       ),
-                    //       PopupMenuItem<String>(
-                    //         value: 'option3',
-                    //         child: Text('${ConstantValues.ipname}'),
-                    //       ),
-                    //     ];
-                    //   },
-                    // ),
-                  ],
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(80),
-                    child: Container(
-                     padding:controller!.index.toString()=="0"? EdgeInsets.symmetric(
-                          horizontal: Screens.bodyheight(context) * 0.02):EdgeInsets.symmetric(
-                          horizontal: Screens.bodyheight(context) * 0.00),
-                      child: Column(
-                        children: [
-                        // controller!.index.toString()=="0"?
-                          Container(
-                            height: Screens.bodyheight(context) * 0.06,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(
-                                    Screens.width(context) * 0.01),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.7),
-                                    spreadRadius: 3,
-                                    blurRadius: 4,
-                                    offset: Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ]),
-                            child: TextField(
-                              controller: context.read<DashBoardController>().mycontroller[0],
-                              onTap: () {
-                                // Get.toNamed(ConstantRoutes.screenshot);
-                              },
-                              autocorrect: false,
-                              onChanged: (v) {
-                                if (v.length == 10) {
-                                    // context.read<DashBoardController>().     showdialog(context,context.read<DashBoardController>().customerdetails!,context.read<DashBoardController>().customerDatalist);
-                     
-  context.read<DashBoardController>().getAllOutstandingscall();
-                             context.read<DashBoardController>().callApi(context, context.read<DashBoardController>().mycontroller[0].text);
-                                }
-                                // pvdDSBD.SearchFilter(v);
-
-                              
-                              },
-                              inputFormatters: [
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
-                                            new LengthLimitingTextInputFormatter(
-                                                10),
-                                          ],
-                                          keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                filled: false,
-                                hintText: 'Search',
-                                enabledBorder: InputBorder.none,
-                                focusedBorder: InputBorder.none,
-                                suffixIcon: InkWell(
-                                  onTap: (){
-                              //         context.read<DashBoardController>().showdialog(
-                              // context,
-                              // );
-                                      
-                        
-                                  },
-                                  child: Icon(
-                                    Icons.search,
-                                    color: theme.primaryColor,
-                                  ),
-                                ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 12,
-                                  horizontal: 5,
-                                ),
-                              ),
-                            ),
-                          ),
-                        //   :Container( 
-                        //     // child:  Text("ItemMaster length:${pvdDSBD.allProductDetails.length}"
-                        // // ,style:TextStyle(color: Colors.white,)
-                        // // )
-                        // ),
-                        //   SizedBox(
-                        //     height:Screens.padingHeight(context)*0.01
-                        //   ),
-                        //  Container(
-                        //   alignment:Alignment.centerLeft,
-                        // child:  Text("ItemMaster length:${pvdDSBD.allProductDetails.length}"
-                        // ,style:TextStyle(color: Colors.white,)
-                        // )
-                        //  ),
-                         
-                          TabBar(
-                            controller: controller,
-                            tabs: myTabs,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  title: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          // color: Colors.amber,
-                              width: Screens.width(context) * 0.5,
-                              // height: Screens.bodyheight(context) * 0.1,
-                          child: Text(
-                            'Hi, ${ConstantValues.firstName}',
-                            textAlign: TextAlign.center,
-                            maxLines: 10,
-                            style: theme.textTheme.subtitle1
-                                ?.copyWith(color: Colors.white),
-                          ),
-                        ),
-                        InkWell(
-                            onTap: () {
-                              Get.toNamed(ConstantRoutes.testing);
-                            },
-                            child: Container(
-                              // color: Colors.amber,
-                              width: Screens.width(context) * 0.12,
-                              height: Screens.bodyheight(context) * 0.055,
-                              child: Stack(
-                                children: [
-                                  Icon(
-                                    Icons.notifications,
-                                    color: Colors.white54,
-                                    size: Screens.bodyheight(context) * 0.05,
-                                  ),
-                                  Positioned(
-                                    // top: Screens.bodyheight(context)*0.005,
-                                    left: Screens.width(context) * 0.05,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: Colors.white),
-                                      padding: EdgeInsets.all(2),
-                                      child: Text(
-                                        context
-                                            .watch<NotificationContoller>()
-                                            .getunSeenNotify
-                                            .toString(),
-                                        //"${pvdDSBD.getunSeenNotify}",
-                                        style: theme.textTheme.bodyText2
-                                            ?.copyWith(
-                                                color: theme.primaryColor),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ))
-                      ],
-                    ),
-                  ),
-                ),
-                // orderAppBar(context,scaffoldKey,"Dashboard"),
-                drawer: drawer3(context),
-                body: GestureDetector(
-                  onTap: () {
+      child: 
+      // Consumer<DashBoardController>(
+      //     builder: (BuildContext context, pvdDSBD, Widget? child) {
+      //   return 
+        Scaffold(
+          drawerEnableOpenDragGesture: false,
+      
+          key: scaffoldKey,
+          backgroundColor: Colors.grey[200],
+          appBar: AppBar(
+            backgroundColor: theme.primaryColor,
+            actions: [
+              IconButton(
+                  onPressed: () {
                     setState(() {
-                      FocusScope.of(context).unfocus();
+                       context 
+                                          .read<DashBoardController>()
+                                          .popupmenu(context);
                     });
                   },
-                  onHorizontalDragUpdate: (details) {
-                    // Check if the user is swiping from left to right
-                    print(details.primaryDelta);
-                    if (details.primaryDelta! > ConstantValues.slidevalue!) {
-                      setState(() {
-                        onWillPop();
-                      });
-                    }
-                  },
-                  child: DashBoardController.isLogout == true
-                      ? Center(child: CircularProgressIndicator())
-                      : TabBarView(
-                          controller: controller,
-                          // physics: const NeverScrollableScrollPhysics(),
-                          children: [
-                              (pvdDSBD.feedData.isNotEmpty &&
-                                      pvdDSBD.feedsApiExcp == '' &&
-                                      pvdDSBD.isloading == false)
-                                  ? FeedsPage(pvdDSBD: pvdDSBD)
-                                  : (pvdDSBD.feedData.isEmpty &&
-                                          pvdDSBD.feedsApiExcp != '' &&
-                                          pvdDSBD.isloading == false)
-                                      ? Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-
-                                               pvdDSBD.lottiurl.isEmpty?Container():
-                                pvdDSBD.lottiurl.isNotEmpty && pvdDSBD.lottiurl.contains(".png")?     InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Image.asset('${pvdDSBD.lottiurl}',
-        //               opacity: AnimationController(
-        //     vsync: this,
-        //     value: 1
-        // ),
-        // color:Colors.transparent,
-                        // animate: true,
-                        // repeat: true,
+                  icon: Icon(Icons.list))
+              // PopupMenuButton<String>(
+              //   onSelected: (value) {
+              //     // Handle the selected option here
+              //     print('Selected: $value');
+              //   },
+              //   itemBuilder: (BuildContext context) {
+              //     return <PopupMenuEntry<String>>[
+              //       PopupMenuItem<String>(
+              //         value: 'option1',
+              //         child: Text('${ConstantValues.latitude}'),
+              //       ),
+              //       PopupMenuItem<String>(
+              //         value: 'option2',
+              //         child: Text('${ConstantValues.langtitude}'),
+              //       ),
+              //       PopupMenuItem<String>(
+              //         value: 'option3',
+              //         child: Text('${ConstantValues.ipaddress}'),
+              //       ),
+              //       PopupMenuItem<String>(
+              //         value: 'option3',
+              //         child: Text('${ConstantValues.ipname}'),
+              //       ),
+              //     ];
+              //   },
+              // ),
+            ],
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(80),
+              child: Container(
+               padding:
+              //  controller!.index.toString()=="0"
+              //  ?
+                EdgeInsets.symmetric(
+                    horizontal: Screens.bodyheight(context) * 0.02),
+                    // :EdgeInsets.symmetric(
+                    // horizontal: Screens.bodyheight(context) * 0.00),
+                child: Column(
+                  children: [
+                  // controller!.index.toString()=="0"?
+                    Container(
+                      height: Screens.bodyheight(context) * 0.06,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(
+                              Screens.width(context) * 0.01),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.7),
+                              spreadRadius: 3,
+                              blurRadius: 4,
+                              offset: Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ]),
+                      child: TextField(
+                        controller: context.read<DashBoardController>().mycontroller[0],
+                        onTap: () {
+                          // Get.toNamed(ConstantRoutes.screenshot);
+                        },
+                        autocorrect: false,
+                        onChanged: (v) {
+                          if (v.length == 10) {
+                              // context.read<DashBoardController>().     showdialog(context,context.read<DashBoardController>().customerdetails!,context.read<DashBoardController>().customerDatalist);
+               
+        context.read<DashBoardController>().getAllOutstandingscall();
+                       context.read<DashBoardController>().callApi(context, context.read<DashBoardController>().mycontroller[0].text);
+                          }
+                          // context
+                                                // .watch<DashBoardController>().SearchFilter(v);
+      
                         
-                        height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                        },
+                        inputFormatters: [
+                                      FilteringTextInputFormatter
+                                          .digitsOnly,
+                                      new LengthLimitingTextInputFormatter(
+                                          10),
+                                    ],
+                                    keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          filled: false,
+                          hintText: 'Search',
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none,
+                          suffixIcon: InkWell(
+                            onTap: (){
+                        //         context.read<DashBoardController>().showdialog(
+                        // context,
+                        // );
+                                
+                  
+                            },
+                            child: Icon(
+                              Icons.search,
+                              color: theme.primaryColor,
+                            ),
+                          ),
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 5,
+                          ),
                         ),
-                  ):              InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Lottie.asset('${pvdDSBD.lottiurl}',
-                        animate: true,
-                        repeat: true,
-                        // height: Screens.padingHeight(context) * 0.3,
-                        width: Screens.width(context) * 0.4),
-                  ),
-                                              Text(pvdDSBD.feedsApiExcp,textAlign: TextAlign.center,),
-                                            ],
-                                          ))
-                                      : Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                              //  Empojii(),
-                              pvdDSBD.getKpiData != null
-                                  ? KPIScreen(
-                                      pvdDSBD: pvdDSBD,
-                                      color: color,
-                                      kpiData: pvdDSBD.getKpiData,
-                                    )
-                                  : (pvdDSBD.getKpiData == null &&
-                                          pvdDSBD.KpiApiExcp != "")
-                                      ? Center(child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                           
-                                        children: [
-
-                                           pvdDSBD.kpilottie.isNotEmpty?               InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Lottie.asset('${pvdDSBD.kpilottie}',
-                        animate: true,
-                        repeat: true,
-                        // height: Screens.padingHeight(context) * 0.3,
-                        width: Screens.width(context) * 0.4),
-                  ):Container(),
-                                          Text(pvdDSBD.KpiApiExcp,textAlign: TextAlign.center,),
-                                        ],
-                                      ))
-                                      : Center(
-                                          child: Column(
-                                             mainAxisAlignment: MainAxisAlignment.center,
-                                          
-                                            children: [
-                                                         InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Image.asset('Assets/no-data.png',
-        //               opacity: AnimationController(
-        //     vsync: this,
-        //     value: 1
-        // ),
-        // color:Colors.transparent,
-                        // animate: true,
-                        // repeat: true,
-                        
-                        height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
-                        ),
-                  ),
-                                              Text("No data..!!",),
-                                            ],
-                                          )
-                                          // CircularProgressIndicator(),
-                                        ),
-                              AnalyticsPage(
-                                data21:
-                                    context.read<DashBoardController>().data21,
-                                dataMap:
-                                    context.read<DashBoardController>().dataMap,
-                              )
-                            ]),
+                      ),
+                    ),
+                  //   :Container( 
+                  //     // child:  Text("ItemMaster length:${context
+                                                // .watch<DashBoardController>().allProductDetails.length}"
+                  // // ,style:TextStyle(color: Colors.white,)
+                  // // )
+                  // ),
+                  //   SizedBox(
+                  //     height:Screens.padingHeight(context)*0.01
+                  //   ),
+                  //  Container(
+                  //   alignment:Alignment.centerLeft,
+                  // child:  Text("ItemMaster length:${context
+                                                // .watch<DashBoardController>().allProductDetails.length}"
+                  // ,style:TextStyle(color: Colors.white,)
+                  // )
+                  //  ),
+                   
+                    TabBar(
+                      controller: controller,
+                      tabs: myTabs,
+                    ),
+                  ],
                 ),
-                //   });
-                // }),
+              ),
+            ),
+            title: Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    // color: Colors.amber,
+                        width: Screens.width(context) * 0.5,
+                        // height: Screens.bodyheight(context) * 0.1,
+                    child: Text(
+                      'Hi, ${ConstantValues.firstName}',
+                      textAlign: TextAlign.center,
+                      maxLines: 10,
+                      style: theme.textTheme.subtitle1
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  InkWell(
+                      onTap: () {
+                        Get.toNamed(ConstantRoutes.testing);
+                      },
+                      child: Container(
+                        // color: Colors.amber,
+                        width: Screens.width(context) * 0.12,
+                        height: Screens.bodyheight(context) * 0.055,
+                        child: Stack(
+                          children: [
+                            Icon(
+                              Icons.notifications,
+                              color: Colors.white54,
+                              size: Screens.bodyheight(context) * 0.05,
+                            ),
+                            Positioned(
+                              // top: Screens.bodyheight(context)*0.005,
+                              left: Screens.width(context) * 0.05,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white),
+                                padding: EdgeInsets.all(2),
+                                child: Text(
+                                  context
+                                      .watch<NotificationContoller>()
+                                      .getunSeenNotify
+                                      .toString(),
+                                  //"${context
+                                                // .watch<DashBoardController>().getunSeenNotify}",
+                                  style: theme.textTheme.bodyText2
+                                      ?.copyWith(
+                                          color: theme.primaryColor),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ))
+                ],
+              ),
+            ),
+          ),
+          // orderAppBar(context,scaffoldKey,"Dashboard"),
+          drawer: drawer3(context),
+          body: GestureDetector(
+            onTap: () {
+              setState(() {
+                FocusScope.of(context).unfocus();
+              });
+            },
+            onHorizontalDragUpdate: (details) {
+              // Check if the user is swiping from left to right
+              print(details.primaryDelta);
+              if (details.primaryDelta! > ConstantValues.slidevalue!) {
+                setState(() {
+                  onWillPop();
+                });
+              }
+            },
+            child: DashBoardController.isLogout == true
+                ? Center(child: CircularProgressIndicator())
+                : TabBarView(
+                    controller: controller,
+                    // physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                        (context .watch<DashBoardController>().feedData.isNotEmpty &&
+                                context .watch<DashBoardController>().feedsApiExcp == '' &&
+                                context .watch<DashBoardController>().isloading == false)
+                            ? FeedsPage(pvdDSBD: context .watch<DashBoardController>())
+                            : (context .watch<DashBoardController>().feedData.isEmpty &&
+                                    context.watch<DashBoardController>().feedsApiExcp != '' &&
+                                    context.watch<DashBoardController>().isloading == false)
+                                ? Center(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+     context  .watch<DashBoardController>().lottiurl.isEmpty?Container():
+                          context
+                                                .watch<DashBoardController>().lottiurl.isNotEmpty && context
+                                                .watch<DashBoardController>().lottiurl.contains(".png")?     InkWell(
+              onTap: () {
+                // HelperFunctions.clearCheckedOnBoardSharedPref();
+                // HelperFunctions.clearUserLoggedInSharedPref();
+              },
+              child: Image.asset('${context
+                                                .watch<DashBoardController>().lottiurl}',
+              //               opacity: AnimationController(
+              //     vsync: this,
+              //     value: 1
+              // ),
+              // color:Colors.transparent,
+                  // animate: true,
+                  // repeat: true,
+                  
+                  height: Screens.padingHeight(context) * 0.2,
+                  width: Screens.width(context)*0.5
+                  ),
+            ):              InkWell(
+              onTap: () {
+                // HelperFunctions.clearCheckedOnBoardSharedPref();
+                // HelperFunctions.clearUserLoggedInSharedPref();
+              },
+              child: Lottie.asset('${context
+                                                .watch<DashBoardController>().lottiurl}',
+                  animate: true,
+                  repeat: true,
+                  // height: Screens.padingHeight(context) * 0.3,
+                  width: Screens.width(context) * 0.4),
+            ),
+                                        Text(context
+                                                .watch<DashBoardController>().feedsApiExcp,textAlign: TextAlign.center,),
+                                      ],
+                                    ))
+  : Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
 
-                // floatingActionButton: FloatingActionButton(
-                //   child: Icon(Icons.add,
-                //   ),
-                //   onPressed: (){
-                //       Get.toNamed(ConstantRoutes.feedsCreation);
-                // }),
-              );
-            });
-          }),
+                                (context
+                                                .watch<DashBoardController>()
+                                                .getNewKpiData2!
+                                                .length <
+                                            1 ||
+                                        context
+                                                .watch<DashBoardController>()
+                                                .getNewKpiData2 ==
+                                            null) &&
+                                    context
+                                            .watch<DashBoardController>()
+                                            .KpiApiExcp ==
+                                        "" &&
+                                    context
+                                        .watch<DashBoardController>()
+                                        .kpilottie
+                                        .isEmpty
+                                ? Center(
+                                    child: CircularProgressIndicator()
+                                  )
+                              
+                                : context
+                                                .watch<DashBoardController>()
+                                                .getNewKpiData2!
+                                                .length >
+                                            0 ||
+                                        context
+                                            .watch<DashBoardController>()
+                                            .getNewKpiData2!
+                                            .isNotEmpty
+                                    ? KPIScreen(
+                                        color: color, kpiData:  context
+                                            .watch<DashBoardController>()
+                                            .getNewKpiData2!,
+                                      )
+                                    : ((context
+                                                        .watch<
+                                                            DashBoardController>()
+                                                        .getNewKpiData2!
+                                                        .length <
+                                                    1 ||
+                                                context
+                                                    .watch<
+                                                        DashBoardController>()
+                                                    .getNewKpiData2!
+                                                    .isEmpty) &&
+                                            context
+                                                .watch<DashBoardController>()
+                                                .KpiApiExcp
+                                                .isNotEmpty)? Center(child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                     
+                                  children: [
+      
+                                     context
+                                                .watch<DashBoardController>().kpilottie.isNotEmpty?               InkWell(
+              onTap: () {
+                // HelperFunctions.clearCheckedOnBoardSharedPref();
+                // HelperFunctions.clearUserLoggedInSharedPref();
+              },
+              child: Lottie.asset('${context
+                                                .watch<DashBoardController>().kpilottie}',
+                  animate: true,
+                  repeat: true,
+                  // height: Screens.padingHeight(context) * 0.3,
+                  width: Screens.width(context) * 0.4),
+            ):Container(),
+                                    Text(context
+                                                .watch<DashBoardController>().KpiApiExcp,textAlign: TextAlign.center,),
+                                  ],
+                                ))
+                                : Center(
+                                    child: Column(
+                                       mainAxisAlignment: MainAxisAlignment.center,
+                                    
+                                      children: [
+                                                   InkWell(
+              onTap: () {
+                // HelperFunctions.clearCheckedOnBoardSharedPref();
+                // HelperFunctions.clearUserLoggedInSharedPref();
+              },
+              child: Image.asset('Assets/no-data.png',
+              //               opacity: AnimationController(
+              //     vsync: this,
+              //     value: 1
+              // ),
+              // color:Colors.transparent,
+                  // animate: true,
+                  // repeat: true,
+                  
+                  height: Screens.padingHeight(context) * 0.2,
+                  width: Screens.width(context)*0.5
+                  ),
+            ),
+                                        Text("No data..!!",),
+                                      ],
+                                    )
+                                    // CircularProgressIndicator(),
+                                  ),
+                        AnalyticsPage(
+                          data21:
+                              context.read<DashBoardController>().data21,
+                          dataMap:
+                              context.read<DashBoardController>().dataMap,
+                        )
+                      ]),
+          ),
+          //   });
+          // }),
+      
+          // floatingActionButton: FloatingActionButton(
+          //   child: Icon(Icons.add,
+          //   ),
+          //   onPressed: (){
+          //       Get.toNamed(ConstantRoutes.feedsCreation);
+          // }),
+        )
+     
+     
+      // }),
     );
   }
 

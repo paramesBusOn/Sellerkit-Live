@@ -125,21 +125,49 @@ var list = json.decode(jsons['data']) as List;
 }
 class refdetModalData {
   refdetModalData({
-    required this.Code,
-    required this.Name,
+    required this.DocEntry,
+    required this.StoreCode,
+    required this.CreatedBy,
+    required this.PartnerAddress,
+    required this.PartnerArea,
+    required this.PartnerCode,
+    required this.PartnerContact,
+    required this.PartnerEmail,
+    required this.PartnerName,
+    required this.PayOn,
+    required this.Status
 
 
   });
 
-  String? Code;
-  String? Name;
+  int? DocEntry;
+  String? StoreCode;
+  String? PartnerCode;
+  String? PartnerName;
+  String? PartnerContact;
+  String? PartnerEmail;
+  String? PartnerAddress;
+  String? PartnerArea;
+  String? Status;
+  String? PayOn;
+  int? CreatedBy;
+  
 
 
   factory refdetModalData.fromJson(Map<String, dynamic> json) =>
    refdetModalData(
-     Code: json['code'] ?? 00,
-     Name: json['description'] ?? '',
-     );
+    DocEntry: json['DocEntry']??0, 
+    StoreCode: json['StoreCode']??"", 
+    CreatedBy: json['CreatedBy']??0, 
+    PartnerAddress: json['PartnerAddress']??"", 
+    PartnerArea: json['PartnerArea']??"", 
+    PartnerCode: json['PartnerCode']??"", 
+    PartnerContact: json['PartnerContact']??"", 
+    PartnerEmail: json['PartnerEmail']??"", 
+    PartnerName: json['PartnerName']??"", 
+    PayOn: json['PayOn']??"", 
+    Status: json['Status']??""
+    );
    
   
 }

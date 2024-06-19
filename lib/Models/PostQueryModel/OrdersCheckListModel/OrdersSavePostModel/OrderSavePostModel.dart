@@ -407,11 +407,12 @@ class DocumentLines {
   bool? alloworderbelowcost;
   String? complementary;
   String? couponcode;
+  String? partcode;
 
   
 
   DocumentLines(
-      {
+      {this.partcode,
         this.couponcode,
         this.complementary,
         this.MRP,
@@ -480,7 +481,8 @@ class DocumentLines {
       "price": Price,
       "storecode": storecode,
       "deliveryfrom": deliveryfrom,
-      "couponcode":couponcode
+      "couponcode":couponcode,
+      "partcode":partcode
      
     };
     return map;

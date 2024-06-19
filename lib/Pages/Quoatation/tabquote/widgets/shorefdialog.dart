@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
 import '../../../../Constant/Screen.dart';
 
 
@@ -21,7 +22,7 @@ class ShowSearchDialogState extends State<ShowSearchDialog> {
               child: Column(
                 children: [
                    TextFormField(
-                           // controller:  context.read<PriceListController>().mycontroller[0],
+                           controller:  context.read<NewquoteController>().mycontroller[47],
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Required *";
@@ -30,7 +31,7 @@ class ShowSearchDialogState extends State<ShowSearchDialog> {
                             },
                              onChanged: (v) {
                                 setState(() {
-                      // context.read<NewEnqController>().filterListcatagoryData(v);
+                      context.read<NewquoteController>().filterListrefData(v);
                                 });
                               },
                             decoration: InputDecoration(
@@ -48,36 +49,37 @@ class ShowSearchDialogState extends State<ShowSearchDialog> {
                                  child: Icon(Icons.search,color: theme.primaryColor))
                             )),
 
-                  // Expanded(child: ListView.builder(
-                  //   itemCount:context.watch<NewEnqController>().filtercatagorydata.length,
-                  //   itemBuilder: (BuildContext context, int index) {
-                  //     return InkWell(
-                  //       onTap: (){
-                  //          context.read<NewEnqController>().iscateSeleted(context,
-                  //          context.read<NewEnqController>().filtercatagorydata[index]
-                  //          );  
-                  //       },
-                  //       child: Container(
-                  //         width: Screens.width(context),
-                  //         padding: EdgeInsets.all(5),
-                  //         child: Container(
-                  //           alignment: Alignment.centerLeft,
-                  //         width: Screens.width(context),
-                  //           child: Column(
-                  //             mainAxisAlignment: MainAxisAlignment.start,
-                  //             crossAxisAlignment: CrossAxisAlignment.start,
-                  //             children: [
-                  //               Text(
-                  //                 context.watch<NewEnqController>().filtercatagorydata[index]
-                  //               ),
-                  //               Divider()
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  // ),)
+                  Expanded(child: ListView.builder(
+                    itemCount:context.watch<NewquoteController>().filterrefpartdata.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: (){
+                           context.read<NewquoteController>().iscateSeleted( context.read<NewquoteController>().filterrefpartdata[index].PartnerName.toString(),
+                            context.read<NewquoteController>().filterrefpartdata[index].PartnerCode.toString()
+                         ,context  );  
+                        },
+                        child: Container(
+                          width: Screens.width(context),
+                          padding: EdgeInsets.all(5),
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                          width: Screens.width(context),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  context.watch<NewquoteController>().filterrefpartdata[index].PartnerName.toString()
+
+                                ),
+                                Divider()
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),)
                 ],
               ),
             )

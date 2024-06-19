@@ -2,6 +2,7 @@
 
 import 'dart:developer';
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -100,26 +101,26 @@ class FollowupController extends ChangeNotifier {
   getfirebase() async {
     userid = '';
     notifyListeners();
-//     final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
+    final FirebaseProduct = FirebaseFirestore.instance.collection("myoperator");
 
-//     await FirebaseProduct.get().then((value) {
-//       value.docs.forEach((element) {
-//         usernumber = element!['mobile'].toString();
+    await FirebaseProduct.get().then((value) {
+      value.docs.forEach((element) {
+        usernumber = element!['mobile'].toString();
 
-//         log("fsdfdf::" + usernumber.toString());
-//         if (ConstantValues.userbyidmobile == usernumber) {
-//           log("fsdfdf::user number match");
-//           userid = element!['id'].toString();
-//           notifyListeners();
-// //  UserdialApi.getdata(userid!, number!).then((value) {
+        log("fsdfdf::" + usernumber.toString());
+        if (ConstantValues.userbyidmobile == usernumber) {
+          log("fsdfdf::user number match");
+          userid = element!['id'].toString();
+          notifyListeners();
+//  UserdialApi.getdata(userid!, number!).then((value) {
 
-// //     });
-//         }
-// //   else{
-// // log("fsdfdf::no user number not match");
-// //   }
-//       });
 //     });
+        }
+//   else{
+// log("fsdfdf::no user number not match");
+//   }
+      });
+    });
   }
 
   clearAllData() {

@@ -9,6 +9,7 @@ import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/OrderTypeModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestModel.dart';
 import 'package:sellerkit/Pages/Leads/Widgets/shorefdialog.dart';
+import 'package:sellerkit/Services/refrealpartnerApi/refpartnerApi.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 import 'package:sellerkit/Constant/Configuration.dart';
@@ -58,6 +59,7 @@ class LeadNewController extends ChangeNotifier {
     // checkComeFromEnq();
     getCusTagType();
     getdataFromDb();
+     callrefparnerApi();
     getLeveofType();
     stateApicallfromDB();
     callAgeApi();
@@ -69,6 +71,7 @@ class LeadNewController extends ChangeNotifier {
     clearAllData();
    await getdataFromDb();
    await  getLeveofType();
+   await callrefparnerApi();
    await callAgeApi();
    await getEnqRefferes();
   await  callLeadCheckApi();
@@ -148,7 +151,7 @@ showBottomSheetInsert(context, indexscanning!);
   List<GlobalKey<FormState>> formkey =
       new List.generate(3, (i) => new GlobalKey<FormState>(debugLabel: "Lead"));
   List<TextEditingController> mycontroller =
-      List.generate(20, (i) => TextEditingController());
+      List.generate(50, (i) => TextEditingController());
 
   Config config = new Config();
 
@@ -306,7 +309,51 @@ notifyListeners();
     isSelectedcomeas = selected;
     notifyListeners();
   }
+iscateSeleted(String name ,String code,BuildContext context,){
+selectedapartcode =code.toString();
+mycontroller[46].text=name.toString();
+Navigator.pop(context);
+notifyListeners();
+  }
+  filterListrefData(String v) {
+    if (v.isNotEmpty) {
+      filterrefpartdata = refpartdata
+          .where((e) =>
+              e.PartnerName!.toLowerCase().contains(v.toLowerCase()) ||
+              e.PartnerCode!.toLowerCase().contains(v.toLowerCase()))
+          .toList();
+      notifyListeners();
+    } else if (v.isEmpty) {
+      filterrefpartdata = refpartdata;
+      notifyListeners();
+    }
+  }
+   List<refdetModalData> refpartdata=[];
+   List<refdetModalData> filterrefpartdata=[];
+   String selectedapartcode='';
+callrefparnerApi()async{
+  refpartdata.clear();
+  filterrefpartdata.clear();
+  await refpartnerApi.getData().then((value){
+ if (value.stcode! >= 200 && value.stcode! <= 210) {
+        if (value.itemdata!.itemdata != null && value.itemdata!.itemdata!.isNotEmpty) {
+          refpartdata = value.itemdata!.itemdata!;
+          filterrefpartdata=refpartdata;
+log("refpartdata:::"+refpartdata.length.toString());
+log("filterrefpartdata:::"+filterrefpartdata.length.toString());
+          notifyListeners();
+        } else if (value.itemdata!.itemdata == null  || value.itemdata!.itemdata!.isEmpty) {
+          // log("DONR222");
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        notifyListeners();
+      } else if (value.stcode == 500) {
+        notifyListeners();
+      }
+  });
 
+}
   selectAdvertisement(String selected) {
     isSelectedAdvertisement = selected;
     notifyListeners();
@@ -366,6 +413,8 @@ notifyListeners();
             TaxCode: "notax",
             TaxLiable: "tNO",
             isfixedprice:  isfixedpriceorder,
+            partcode: mycontroller[46].text ==null || mycontroller[46].text.isEmpty?
+   null:mycontroller[46].text,
           ),
         );
 
@@ -424,6 +473,7 @@ void showtoastforall() {
     mycontroller[10].text = allProductDetails[i].sp!.toStringAsFixed(2);
     //.clear();
     mycontroller[11].clear();
+    mycontroller[46].clear();
   }
 
   filterList(String v) {
@@ -445,6 +495,7 @@ void showtoastforall() {
     await getCusTagType();
     await getdataFromDb();
    await  getLeveofType();
+   await callrefparnerApi();
     await stateApicallfromDB();
     await callAgeApi();
     await getEnqRefferes();
@@ -1091,7 +1142,7 @@ restricteddialog(BuildContext context){
     await  getLeveofType();
     await getCusTagType();
     await getdataFromDb();
-   
+   await callrefparnerApi();
     await stateApicallfromDB();
     await callAgeApi();
     await getEnqRefferes();
@@ -1102,6 +1153,7 @@ restricteddialog(BuildContext context){
   mapvaluessiteout() async{
     await getCusTagType();
     await getdataFromDb();
+    await callrefparnerApi();
    await  getLeveofType();
     await stateApicallfromDB();
     await callAgeApi();
@@ -1169,6 +1221,7 @@ for (int i = 0; i < filterstateData.length; i++) {
   mapValues3() async {
     await getCusTagType();
     await getdataFromDb();
+    await callrefparnerApi();
    await  getLeveofType();
     await stateApicallfromDB();
     await callAgeApi();
@@ -1332,6 +1385,9 @@ valueChosedCusType=ordertypedata[i].Code;
   clearAllData() {
     excError='';
     errorTime='';
+     refpartdata.clear();
+      mycontroller[46].clear();
+  filterrefpartdata.clear();
     leveofdata.clear();
     ordertypedata.clear();
      enquirydetails.clear();
@@ -2308,6 +2364,52 @@ showBottomSheetInsertedit(BuildContext context, int i) {
                         ),
                       ),
                       //  ),
+                       SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        // width: 270,
+                        // height: 40,
+                        child: new TextFormField(
+                          controller: mycontroller[46],
+                          
+                          readOnly: true ,
+                          onTap: (){
+                             showDialog<dynamic>(
+                                                          context: context,
+                                                          builder: (_) {
+                                                            return ShowSearchDialog();
+                                                          }).then((value) {
+                                                            mycontroller[29].clear();
+                                                            filterrefpartdata=refpartdata;
+                                                            notifyListeners();
+                                                          //  context
+                                                          //   .read<
+                                                          //       NewEnqController>()
+                                                          //   .setcatagorydata();    
+                                                            });
+                          },
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "ENTER QUANTITY";
+                          //   }
+                          //   return null;
+                          // },
+                          
+                          style: TextStyle(fontSize: 15),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            labelText: "referal partner",
+                            suffixIcon: Icon(Icons.search)
+                          ),
+                        ),
+                      ),
                       SizedBox(
                         height: 15,
                       ),
@@ -2492,49 +2594,52 @@ String? valueChosedrefcode;
                         ),
                       ),
                       //  ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // SizedBox(
-                      //   // width: 270,
-                      //   // height: 40,
-                      //   child: new TextFormField(
-                      //     controller: mycontroller[46],
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        // width: 270,
+                        // height: 40,
+                        child: new TextFormField(
+                          controller: mycontroller[46],
                           
-                      //     readOnly: true ,
-                      //     onTap: (){
-                      //        showDialog<dynamic>(
-                      //                                     context: context,
-                      //                                     builder: (_) {
-                      //                                       return ShowSearchDialog();
-                      //                                     }).then((value) {
-                      //                                     //  context
-                      //                                     //   .read<
-                      //                                     //       NewEnqController>()
-                      //                                     //   .setcatagorydata();    
-                      //                                       });
-                      //     },
-                      //     // validator: (value) {
-                      //     //   if (value!.isEmpty) {
-                      //     //     return "ENTER QUANTITY";
-                      //     //   }
-                      //     //   return null;
-                      //     // },
+                          readOnly: true ,
+                          onTap: (){
+                             showDialog<dynamic>(
+                                                          context: context,
+                                                          builder: (_) {
+                                                            return ShowSearchDialog();
+                                                          }).then((value) {
+                                                            mycontroller[29].clear();
+                                                            filterrefpartdata=refpartdata;
+                                                            notifyListeners();
+                                                          //  context
+                                                          //   .read<
+                                                          //       NewEnqController>()
+                                                          //   .setcatagorydata();    
+                                                            });
+                          },
+                          // validator: (value) {
+                          //   if (value!.isEmpty) {
+                          //     return "ENTER QUANTITY";
+                          //   }
+                          //   return null;
+                          // },
                           
-                      //     style: TextStyle(fontSize: 15),
-                      //     decoration: InputDecoration(
-                      //       contentPadding: EdgeInsets.symmetric(
-                      //           vertical: 10, horizontal: 10),
-                      //       border: OutlineInputBorder(
-                      //         borderRadius: BorderRadius.all(
-                      //           Radius.circular(10),
-                      //         ),
-                      //       ),
-                      //       labelText: "referal partner",
-                      //       suffixIcon: Icon(Icons.search)
-                      //     ),
-                      //   ),
-                      // ),
+                          style: TextStyle(fontSize: 15),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            labelText: "referal partner",
+                            suffixIcon: Icon(Icons.search)
+                          ),
+                        ),
+                      ),
                       // Container(
                       //             // height: Screens.padingHeight(context) * 0.06,
                       //             width: Screens.width(context),

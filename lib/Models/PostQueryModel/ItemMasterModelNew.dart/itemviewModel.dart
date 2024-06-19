@@ -167,7 +167,7 @@ class ItemViewNewData {
         validTill: json['ValidTill'] ?? '',
         whseCode: json['WhseCode'] ?? '',
         calcType: json['CalcType'] ?? '',
-        Cost: json['Cost'] ?? '',
+        Cost: json['Cost'] ?? 0.0,
         CreatedBy:json['CreatedBy'] ?? 0, 
         payOn: json['PayOn'] ?? '');
   }

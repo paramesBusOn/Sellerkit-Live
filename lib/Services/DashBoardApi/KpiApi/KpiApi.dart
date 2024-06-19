@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
 import '../../../Constant/ConstantSapValues.dart';
 import '../../../Constant/DataBaseConfig.dart';
-import '../../../Models/KpiModel/KpiModel.dart';
+import '../../../Models/KpiModel/KpiModelList.dart';
 import '../../URL/LocalUrl.dart';
 // import 'package:sellerkit/main.dart';
 

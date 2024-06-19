@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../Models/GridContainerModels/GridContainerModel.dart';
-import '../../Models/KpiModel/KpiModel.dart';
+import '../../Models/KpiModel/KpiModelList.dart';
 import '../../Services/DashBoardApi/KpiApi/KpiApi.dart';
+import '../../Services/DashBoardApi/KpiApi/NewKPIAPI.dart';
 
 class KPIController extends ChangeNotifier {
 
@@ -26,9 +27,9 @@ class KPIController extends ChangeNotifier {
 //     GridConValue("Run Rate","96%",'ebfaef'),
 //   ];
 
-  KpiModelData? kpiData;
+  List <KpiModelData2>? kpiData=[];
 
-  KpiModelData? get  getKpiData =>kpiData;
+  List <KpiModelData2>? get  getKpiData =>kpiData;
   bool exception = false;
 
   Future<void> swipeRefreshIndiactor()async{
@@ -38,8 +39,8 @@ class KPIController extends ChangeNotifier {
   }
 
   callKpiApi()async{
-   await KpiApi.sampleDetails().then((value) {
-      if(value.resCode!>=200 && value.resCode!<=210){
+   await NewKpiApi.sampleDetails().then((value) {
+      if(value.stsCode!>=200 && value.stsCode!<=210){
         if(value.data !=  null){
           kpiData = value.data!;
           notifyListeners();

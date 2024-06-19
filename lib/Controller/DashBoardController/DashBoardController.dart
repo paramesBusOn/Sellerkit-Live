@@ -45,11 +45,12 @@ import '../../Constant/Screen.dart';
 import '../../Models/DashBoardModels/SegementWiseModel.dart';
 import '../../Models/DashBoardModels/TargetAchievementsModel.dart';
 import '../../Models/GridContainerModels/GridContainerModel.dart';
-import '../../Models/KpiModel/KpiModel.dart';
+import '../../Models/KpiModel/KpiModelList.dart';
 import '../../Models/PostQueryModel/FeedsModel/FeedsModel.dart';
 import '../../Services/DashBoardApi/FeedsApi/FeedsApi.dart';
 import '../../Services/DashBoardApi/FeedsApi/ReactionApi.dart';
 import '../../Services/DashBoardApi/KpiApi/KpiApi.dart';
+import '../../Services/DashBoardApi/KpiApi/NewKPIAPI.dart';
 import '../../Services/URL/LocalUrl.dart';
 // import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:http/http.dart' as http;
@@ -59,11 +60,12 @@ class DashBoardController extends ChangeNotifier {
       LocalNotificationService();
   final ScreenCaptureEvent screenListener = ScreenCaptureEvent();
   Config config = Config();
-  DashBoardController(BuildContext context) {
+  init(BuildContext context) {
     //  getUnSeenNotify();
     //setURL();
     
     if (isLogout == false) {
+      clearAllData();
       getDefaultValues();
     } else if (isLogout == true) {
       logoutSession();
@@ -102,6 +104,52 @@ class DashBoardController extends ChangeNotifier {
     notifyListeners();
   }
 
+  clearAllData() {
+    loadOrderViewDtlsApi = false;
+    errorOrderViewDtls = '';
+    viewOrderDtls = false;
+    viewLeadDtls = false;
+    viewOutStatndingDtls = false;
+    viewDefault = true;
+    data = '';
+    feedint = 0;
+    customerdetails = [];
+    enquirydetails = [];
+    leaddetails = [];
+    quotationdetails = [];
+    orderdetails = [];
+    customerDatalist = [];
+    adrress = '';
+    permission = null;
+    locationbool = false;
+    camerabool = false;
+    notificationbool = false;
+    docentry = '';
+    adrress = '';
+    totaloutstanding = 0.0;
+    overdue = 0.0;
+    upcoming = 0.0;
+    valueDBmodel = [];
+    valueDBmodelchild = [];
+    outstandingkpi = [];
+    outstanddata = [];
+    outstandline = [];
+    ontapKpi2 = [];
+    newKpiData2 = [];
+    apiOutloading = false;
+    errorOutstdmsg = '';
+    mycontroller = List.generate(30, (i) => TextEditingController());
+    reactionvisible = false;
+    feedsApiExcp = '';
+    lottiurl = '';
+    KpiApiExcp = '';
+    isloading = false;
+    feedData = [];
+    allProductDetails = [];
+    feeddata2;
+    searchfeedfilter = [];
+    notifyListeners();
+  }
   // viewDetailsMethod(String mobile, String docentry, String doctype,
   //     BuildContext context) async {
   //   String doctype2 = doctype;
@@ -945,7 +993,7 @@ print('Sucess'+value.message);
     notifyListeners();
     await callFeedsApi();
    await getdataFromDb();
-    // await callKpiApi();
+    await callKpiApi();
     notifyListeners();
     // notifyListeners();
     return i;
@@ -1386,39 +1434,66 @@ getdataFromDb() async {
 
   ////kpi controller
 
-  KpiModelData? kpiData;
+  // KpiModelData? kpiData;
+  // KpiModelData? get getKpiData => kpiData;
+    List<KpiModelData2> newKpiData2 = [];
 
-  KpiModelData? get getKpiData => kpiData;
+  List<KpiModelData2>? get getNewKpiData2 => newKpiData2;
   bool exception = false;
 
   Future<void> swipeRefreshIndiactor() async {
-    kpiData = null;
+    newKpiData2 = [];
     notifyListeners();
     callKpiApi();
   }
 String kpilottie='';
   callKpiApi() async {
-    kpilottie='';
-    await KpiApi.sampleDetails().then((value) {
-      if (value.resCode! >= 200 && value.resCode! <= 210) {
-        if (value.data != null) {
-          kpiData = value.data!;
+    newKpiData2 = [];
+    kpilottie = '';
+    await NewKpiApi.sampleDetails().then((value) {
+      if (value.stsCode! >= 200 && value.stsCode! <= 210) {
+        if (value.data != null && value.data!.length > 0) {
+          newKpiData2 = value.data!;
           notifyListeners();
-        } else if (value.data == null) {
-           kpilottie='Assets/Nodata2Animation.json';
+        } else if (value.data == null || value.data!.length < 1) {
+          kpilottie = 'Assets/Nodata2Animation.json';
           KpiApiExcp = "No Data..!!";
+          notifyListeners();
         }
-      } else if (value.resCode! >= 400 && value.resCode! <= 410) {
-        kpilottie='';
-        KpiApiExcp = "No Data..!!";
+      } else if (value.stsCode! >= 400 && value.stsCode! <= 410) {
+        kpilottie = '';
+        KpiApiExcp = "Something Went Wrong ..!!";
+        // \n Try again after some times..!!";
         notifyListeners();
-      } else if (value.resCode == 500) {
-        kpilottie='Assets/NetworkAnimation.json';
+      } else if (value.stsCode == 500) {
+        kpilottie = 'Assets/NetworkAnimation.json';
         KpiApiExcp = "500..!!Network Issue..\nTry again Later..!!'";
         notifyListeners();
       }
     });
   }
+  // callKpiApi() async {
+  //   kpilottie='';
+  //   await KpiApi.sampleDetails().then((value) {
+  //     if (value.resCode! >= 200 && value.resCode! <= 210) {
+  //       if (value.data != null) {
+  //         kpiData = value.data!;
+  //         notifyListeners();
+  //       } else if (value.data == null) {
+  //          kpilottie='Assets/Nodata2Animation.json';
+  //         KpiApiExcp = "No Data..!!";
+  //       }
+  //     } else if (value.resCode! >= 400 && value.resCode! <= 410) {
+  //       kpilottie='';
+  //       KpiApiExcp = "No Data..!!";
+  //       notifyListeners();
+  //     } else if (value.resCode == 500) {
+  //       kpilottie='Assets/NetworkAnimation.json';
+  //       KpiApiExcp = "500..!!Network Issue..\nTry again Later..!!'";
+  //       notifyListeners();
+  //     }
+  //   });
+  // }
 }
 
 class Emojis {
