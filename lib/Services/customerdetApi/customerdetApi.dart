@@ -34,7 +34,7 @@ try {
 
       resCode = response.statusCode;
       print(response.statusCode.toString());
-      log("CutomerdetModal11: "+response.body.toString());
+      // log("CutomerdetModal11: "+response.body.toString());
       if (response.statusCode == 200) {
         return CutomerdetModal.fromJson(
             json.decode(response.body), response.statusCode);

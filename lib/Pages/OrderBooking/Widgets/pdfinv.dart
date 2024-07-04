@@ -23,6 +23,7 @@ static customerdetData? customermodeldata;
   static List<DocumentLines> data2 = [];
   static List<ordermaster>? orderMasterdata2 = [];
   static List<ordermaster>? orderMasterdata = [];
+static  List<paymentorders>? orderpayment=[];
    static String paymode = '';
 // int i=0;
 //  int pageNumber=i+1;
@@ -833,15 +834,59 @@ Container(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 12,
                                             ))),
-                                    Container(
+                                    // Container(
+                                    //     width: PdfPageFormat.a4.width * 0.15,
+                                    //     child: Text("${paymode}",
+                                    //         style: TextStyle(
+                                    //           font: Calibrifont,
+                                    //           fontWeight: FontWeight.bold,
+                                    //           fontSize: 12,
+                                    //         ))),
+                                  ]),
+                                  Container(
+                                    child: ListView.builder(
+                                       itemCount: orderpayment!.length,
+                                      itemBuilder: (context,ind){
+                                        return Container(
+                                          child: Column(
+                                            children: [
+                                              Row(children: [
+                                              Container(
+                                                alignment: Alignment.center,
+
                                         width: PdfPageFormat.a4.width * 0.15,
-                                        child: Text("${paymode}",
+                                        child: Text("${orderpayment![ind].ModeName.toString()}",
+                                        textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              
+                                              font: Calibrifontbold,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 10,
+                                            ))),
+                                    Container(
+                                        // width: PdfPageFormat.a4.width * 0.15,
+                                        child: Text(": ",
                                             style: TextStyle(
                                               font: Calibrifont,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 12,
                                             ))),
-                                  ]),
+                                            Container(
+                                        width: PdfPageFormat.a4.width * 0.15,
+                                        child: Text("${config.slpitCurrencypdf(orderpayment![ind].Amount!.toStringAsFixed(2))}",
+                                            style: TextStyle(
+                                              font: Calibrifont,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                            ))),
+                                              ])
+                                            ]
+                                          )
+                                        );
+                                      }, 
+                                     
+                                      )
+                                  )
                                 ]),
                           ),
                           Container(

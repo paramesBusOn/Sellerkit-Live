@@ -36,6 +36,64 @@ class NewpriceController extends ChangeNotifier {
   bool isinitialloading = false;
   bool isselectitem = false;
   String? isselectedprice = '';
+  scannerreset(){
+itemAlreadyscanned = false;
+  indexscanning=null;
+  notifyListeners();
+  }
+  int? indexscanning;
+  bool itemAlreadyscanned = false;
+  String? Scancode;
+  scanneddataget(BuildContext context){
+  // log("code:::::"+code.toString());
+
+  
+
+
+   
+   notifyListeners();
+  
+  // Get.back();
+// Navigator.pop(context);
+notifyListeners();
+   for (int ij=0;ij<filterdataprice.length;ij++){
+    if(filterdataprice[ij].itemCode ==Scancode){
+      itemAlreadyscanned=true;
+      indexscanning =ij;
+        notifyListeners();
+      break;
+    
+    }
+   
+   }
+    if(itemAlreadyscanned ==true){
+//       resetItems(indexscanning!);
+fixingitems(indexscanning!);
+// showBottomSheetInsert(context, indexscanning!);
+ notifyListeners();
+   }else{
+    showtoastforscanning2();
+     notifyListeners();
+   }
+   
+ 
+
+
+//  checkscannedcode(code);
+ notifyListeners();
+
+  }
+
+  void showtoastforscanning2() {
+    Fluttertoast.showToast(
+        msg: "No Data Found..!!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 14.0);
+  }
   init() {
     clearAlldata();
     getdataFromDb();
@@ -558,7 +616,7 @@ notifyListeners();
       ),
     );
   }
-  List<GetCustomerData>? customerdetails;
+  List<GetCustomerData> customerdetails=[];
   List<GetenquiryData> enquirydetails = [];
   List<GetenquiryData> leaddetails = [];
   List<GetenquiryData>? quotationdetails;
@@ -579,7 +637,7 @@ callApi(BuildContext context) {
         if (value.itemdata != null) {
           if (value.itemdata!.customerdetails!.isNotEmpty &&
               value.itemdata!.customerdetails != null) {
-            customerdetails = value.itemdata!.customerdetails;
+            customerdetails = value.itemdata!.customerdetails!;
             mapValues(value.itemdata!.customerdetails![0]);
             
             notifyListeners();
@@ -602,8 +660,8 @@ callApi(BuildContext context) {
             //           orderdetails = value.itemdata!.orderdetails;
             //           alertDialogOpenLeadOREnq(context,"Orders");
             //         }
-            if (value.itemdata!.enquirydetails!.isNotEmpty &&
-                value.itemdata!.enquirydetails != null) {
+            if (value.itemdata!.enquirydetails != null&&value.itemdata!.enquirydetails!.isNotEmpty 
+                ) {
               log("Anbulead");
               for (int i = 0; i < value.itemdata!.enquirydetails!.length; i++) {
                 if (value.itemdata!.enquirydetails![i].DocType == "Lead") {

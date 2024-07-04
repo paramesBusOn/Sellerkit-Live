@@ -10,7 +10,7 @@ class NotificationModel{
  String seenTime;
  String imgUrl;
  String naviScn;
- int? jobid;
+ String? jobid;
 
 
 NotificationModel({

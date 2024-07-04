@@ -48,13 +48,14 @@ class DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
-    setState(() {
-      context.read<DashBoardController>().mycontroller[0].clear();
-      locationCheck();
-    });
+    
      controller = new TabController(vsync: this, length: 3, initialIndex: 0);
      controller!.addListener(_handleTabChange);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      setState(() {
+      context.read<DashBoardController>().mycontroller[0].clear();
+      locationCheck();
+    });
       checkLocation();
         context.read<DashBoardController>().init(context);
       // context.read<NotificationContoller>().getUnSeenNotify();

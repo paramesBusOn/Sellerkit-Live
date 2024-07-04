@@ -11,6 +11,8 @@ import 'package:sellerkit/Constant/GetLDB.dart';
 import 'package:sellerkit/Constant/Helper.dart';
 import 'package:sellerkit/DBHelper/DBHelper.dart';
 import 'package:sellerkit/DBHelper/DBOperation.dart';
+import 'package:sellerkit/Models/newNotificationModel/newnotifyModel.dart';
+import 'package:sellerkit/Services/NotificationApi/NotificationApi.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../DBModel/NotificationModel.dart';
 import '../../Services/LocalNotification/LocalNotification.dart';
@@ -28,6 +30,46 @@ class NotificationContoller extends ChangeNotifier {
   List<NotificationModel> notify = [];
   List<NotificationModel> notifyreverse = [];
   List<NotificationModel> get getnotify => notify;
+  List<NEWnotifyData> notifydatanew=[];
+  bool isloading=false;
+  getdatafromApi()async{
+    notifydatanew.clear();
+isloading=true;
+notifyListeners();
+   await getNotificationApi.getData().then((value) {
+        if (value.stcode! >= 200 && value.stcode! <= 210) {
+        if (value.getsiteInDetail != null &&
+            value.getsiteInDetail!.isNotEmpty) {
+              notifydatanew=value.getsiteInDetail!.reversed.toList();
+              log("notifydatanew:::"+notifydatanew.length.toString());
+               log("notifydatanew:::"+notifydatanew[0].title.toString());
+          // spilitDatafirst(value.getvisitheaddata!.getvisitdetailsdata!,context);
+          isloading = false;
+          notifyListeners();
+        } else if (value.getsiteInDetail! == null ||
+            value.getsiteInDetail!.isEmpty) {
+          isloading = false;
+          //   lottie='Assets/no-data.png';
+          // errortabMsg = 'No data..!!';
+        
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        //  lottie='';
+        isloading = false;
+        // errortabMsg = '${value.message}..!!${value.exception}....!!';
+        
+        notifyListeners();
+      } else if (value.stcode == 500) {
+        isloading = false;
+        //   lottie='Assets/NetworkAnimation.json';
+        // errortabMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+       
+        notifyListeners();
+      }
+  
+    });
+  }
 
   int? unSeenNotify;
   int get getunSeenNotify => unSeenNotify != null ? unSeenNotify! : 0;
@@ -63,11 +105,12 @@ class NotificationContoller extends ChangeNotifier {
   }
 
   swipeRefreshIndiactor() async {
-   await getUnSeenNotify();
-       final Database db = (await DBHelper.getInstance())!;
-    notifyreverse = await DBOperation.getNotification(db);
-    notify =  notifyreverse.reversed.toList();
-    notifyListeners();
+   await getdatafromApi();
+  //  await getUnSeenNotify();
+  //      final Database db = (await DBHelper.getInstance())!;
+  //   notifyreverse = await DBOperation.getNotification(db);
+  //   notify =  notifyreverse.reversed.toList();
+  //   notifyListeners();
   }
 
   updateApi({int? docEntry, String? seenTime,String? deliveryTime}) async {

@@ -817,6 +817,32 @@ context.read<LeadNewController>().isdatevalid == false
                                           )),
                                     ],
                                   ),
+                                  SizedBox(height: 5),
+                        (context
+                                                      .read<
+                                                          LeadNewController>()
+                                                      .getProduct[index]
+                                                      .partname !=null &&        context
+                                                      .read<
+                                                          LeadNewController>()
+                                                      .getProduct[index]
+                                                      .partname!.isNotEmpty)?      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                        context
+                                                      .read<
+                                                          LeadNewController>()
+                                                      .getProduct[index]
+                                                      .partname !=null?  Container(
+                                            child:Text("${context
+                                                      .read<
+                                                          LeadNewController>()
+                                                      .getProduct[index]
+                                                      .partname}")
+                                          ):Container(),
+                               
+
+                                      ],):Container(),
                                   SizedBox(height: 10),
                                   Padding(
                                     padding:
@@ -930,7 +956,7 @@ context.read<LeadNewController>().isdatevalid == false
 
                                                   context
                                                       .read<LeadNewController>()
-                                                      .showBottomSheetInsert(
+                                                      .showBottomSheetInsertedit(
                                                           context, index);
                                                 },
                                                 child: Icon(

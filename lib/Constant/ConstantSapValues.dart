@@ -37,4 +37,22 @@ static String? userbyidmobile='';
 static String? Country='INDIA';
 static int? slidevalue=10;
 
+//itemtable
+static String? ssp1='';
+static String? ssp2='';
+static String? ssp3='';
+static String? ssp4='';
+static String? ssp5='';
+static String? ssp1_Inc='';
+static String? ssp2_Inc='';
+static String? ssp3_Inc='';
+static String? ssp4_Inc='';
+static String? ssp5_Inc='';
+static String? ageslab1='';
+static String? ageslab2='';
+static String? ageslab3='';
+static String? ageslab4='';
+static String? ageslab5='';
+
+
 }

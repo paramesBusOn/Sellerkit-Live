@@ -260,7 +260,7 @@ class _FollowdialogState extends State<Followdialog> {
                               ),
                               child: Center(
                                 child: Text(
-                                  "Open since" +
+                                  "Open since " +
                                       context
                                           .read<tabpriceController>()
                                           .config

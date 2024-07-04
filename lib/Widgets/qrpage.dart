@@ -11,6 +11,7 @@ import 'package:sellerkit/Controller/OrderController/OrderNewController.dart';
 import 'package:sellerkit/Controller/PriceListController/PriceListController.dart';
 import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
 import 'package:sellerkit/Controller/StockAvailabilityController/StockListController.dart';
+import 'package:sellerkit/Controller/specialpricecontroller/newpagecontroller.dart';
 
 class qrscanner extends StatefulWidget {
    qrscanner({Key? key}) : super(key: key);
@@ -25,6 +26,7 @@ class qrscannerState extends State<qrscanner> {
   static bool quotescan=false;
   static bool stockscan=false;
   static bool pricelistscan=false;
+  static bool spreqscan=false;
  
   
     
@@ -115,6 +117,13 @@ class qrscannerState extends State<qrscanner> {
                 Navigator.pop(context);
                 pricelistscan =false;
                 context.read<PriceListController>().scanneddataget(context);
+                  }
+                  else if(spreqscan ==true){
+                  
+                context.read<NewpriceController>().Scancode=barcode.rawValue ??'';
+                Navigator.pop(context);
+                spreqscan =false;
+                context.read<NewpriceController>().scanneddataget(context);
                   }
                 // context.read<OrderNewController>().scanneddataget(barcode.rawValue ??'',context);
                 }

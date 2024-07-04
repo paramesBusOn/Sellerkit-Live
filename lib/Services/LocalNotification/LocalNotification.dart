@@ -234,14 +234,14 @@ if (Platform.isIOS || Platform.isMacOS) {
     String? filePath;
     String? url = _getImageUrl(message.notification!);
     log("url::"+url.toString());
-    if(url !=null ||url !="") {
+    if(url !=null &&url !="") {
  List<String> data = url!.split("/");
       filePath = await _downloadAndSavePicture(url, data.last);
   
     }
   
    DataNoti datano = DataNoti(docentry: int.parse(message.data['DocEntry']??''), image: message.data['image']??'',
-   naviscreen: message.data['NaviScreen']??'',JobId: int.parse(message.data['JobId']??'')
+   naviscreen: message.data['NaviScreen']??'',JobId: message.data['JobId']??''
    
    );
 var datass =jsonEncode(datano.tojson());
@@ -284,7 +284,7 @@ class DataNoti {
   int docentry;
   String naviscreen;
   String image;
-  int? JobId;
+  String? JobId;
 
   DataNoti({
     required this.docentry,

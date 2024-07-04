@@ -819,7 +819,7 @@ setState(() {
                                                               0.06,
                                                       child: Center(
                                                           child: Image.asset(
-                                                              "Assets/PDFimg.png")),
+                                                              "Assets/pdfimg.png")),
                                                     ),
                                                     Container(
                                                         padding:
@@ -1434,6 +1434,32 @@ setState(() {
                                           )),
                                     ],
                                   ),
+                                   SizedBox(height: 5),
+                        (context
+                                                      .read<
+                                                          NewquoteController>()
+                                                      .getProduct[index]
+                                                      .partname !=null &&        context
+                                                      .read<
+                                                          NewquoteController>()
+                                                      .getProduct[index]
+                                                      .partname!.isNotEmpty)?      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                        context
+                                                      .read<
+                                                          NewquoteController>()
+                                                      .getProduct[index]
+                                                      .partcode !=null?  Container(
+                                            child:Text("${context
+                                                      .read<
+                                                          NewquoteController>()
+                                                      .getProduct[index]
+                                                      .partname}")
+                                          ):Container(),
+                               
+
+                                      ],):Container(),
                                   SizedBox(height: 10),
                                   Padding(
                                     padding:
@@ -7304,16 +7330,16 @@ validator: (value) {
               context
                   .read<NewquoteController>()
                   .paymode[index]
-                  .description
+                  .ModeName
                   .toString(),
               context
                   .read<NewquoteController>()
                   .paymode[index]
-                  .description!,
+                  .ModeName!,
               context
                   .read<NewquoteController>()
                   .paymode[index]
-                  .CODE!);
+                  .Code!);
         },
         child: Container(
           width: Screens.width(context) * 0.4,
@@ -7326,7 +7352,7 @@ validator: (value) {
                       context
                           .read<NewquoteController>()
                           .paymode[index]
-                          .CODE
+                          .Code
                           .toString()
                   ? Color(0xffB299A5) //theme.primaryColor.withOpacity(0.5)
                   : Colors.white,
@@ -7339,7 +7365,7 @@ validator: (value) {
                   context
                       .read<NewquoteController>()
                       .paymode[index]
-                      .description
+                      .ModeName
                       .toString(),
                   maxLines: 8,
                   overflow: TextOverflow.ellipsis,
@@ -7350,7 +7376,7 @@ validator: (value) {
                             context
                                 .read<NewquoteController>()
                                 .paymode[index]
-                                .CODE
+                                .Code
                                 .toString()
                         ? theme.primaryColor //,Colors.white
                         : theme.primaryColor,

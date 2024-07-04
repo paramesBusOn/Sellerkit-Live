@@ -6,7 +6,6 @@ import 'dart:io';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:sellerkit/Constant/GetFilePath.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/OrderTypeModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
@@ -53,7 +52,6 @@ import '../../Models/PostQueryModel/EnquiriesModel/GetCustomerDetailsModel.dart'
 import '../../Models/PostQueryModel/OrdersCheckListModel/GetOrderCheckListModel.dart';
 import '../../Pages/OrderBooking/Screens/OrderSuccessPage.dart';
 import '../../Pages/OrderBooking/Widgets/OrderWarningDialog.dart';
-import '../../Services/PostQueryApi/EnquiriesApi/CheckEnqCutomerDeatils.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/GetCustomerDetails.dart';
 import '../../Services/PostQueryApi/OrdersApi/AttachmentFileLinkApi.dart';
 import '../../Services/PostQueryApi/OrdersApi/OrderCheckListApi.dart';
@@ -73,20 +71,27 @@ class OrderNewController extends ChangeNotifier {
     clearAllData();
     getdataFromDb();
     getEnqRefferes();
-     await stateApicallfromDB();
-   await getLeveofType();
+    await stateApicallfromDB();
+    await getLeveofType();
     await callLeadCheckApi();
-  await callrefparnerApi();
+    await callrefparnerApi();
     await callpaymodeApi();
     getCustomerTag();
     // getCustomerListFromDB();
   }
-  iscateSeleted(String name ,String code,BuildContext context,){
-selectedapartcode =code.toString();
-mycontroller[46].text=name.toString();
-Navigator.pop(context);
-notifyListeners();
+
+  iscateSeleted(
+    String name,
+    String code,
+    BuildContext context,
+  ) {
+    selectedapartcode = code.toString();
+    mycontroller[48].text = name.toString();
+    selectedapartname=name.toString();
+    Navigator.pop(context);
+    notifyListeners();
   }
+
   filterListrefData(String v) {
     if (v.isNotEmpty) {
       filterrefpartdata = refpartdata
@@ -100,21 +105,25 @@ notifyListeners();
       notifyListeners();
     }
   }
-   List<refdetModalData> refpartdata=[];
-   List<refdetModalData> filterrefpartdata=[];
-   String selectedapartcode='';
-callrefparnerApi()async{
-  refpartdata.clear();
-  filterrefpartdata.clear();
-  await refpartnerApi.getData().then((value){
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-        if (value.itemdata!.itemdata != null && value.itemdata!.itemdata!.isNotEmpty) {
+
+  List<refdetModalData> refpartdata = [];
+  List<refdetModalData> filterrefpartdata = [];
+  String selectedapartcode = '';
+  String selectedapartname = '';
+  callrefparnerApi() async {
+    refpartdata.clear();
+    filterrefpartdata.clear();
+    await refpartnerApi.getData().then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        if (value.itemdata!.itemdata != null &&
+            value.itemdata!.itemdata!.isNotEmpty) {
           refpartdata = value.itemdata!.itemdata!;
-          filterrefpartdata=refpartdata;
-log("refpartdata:::"+refpartdata.length.toString());
-log("filterrefpartdata:::"+filterrefpartdata.length.toString());
+          filterrefpartdata = refpartdata;
+          log("refpartdata:::" + refpartdata.length.toString());
+          log("filterrefpartdata:::" + filterrefpartdata.length.toString());
           notifyListeners();
-        } else if (value.itemdata!.itemdata == null  || value.itemdata!.itemdata!.isEmpty) {
+        } else if (value.itemdata!.itemdata == null ||
+            value.itemdata!.itemdata!.isEmpty) {
           // log("DONR222");
           notifyListeners();
         }
@@ -123,19 +132,26 @@ log("filterrefpartdata:::"+filterrefpartdata.length.toString());
       } else if (value.stcode == 500) {
         notifyListeners();
       }
-  });
+    });
+  }
 
-}
   List<PaymodeModalData> paymode = [];
+  List<paymenttermdata> postpaymentdata = [];
+  List<PaymodeModalist> paymodeModallist = [];
+  List<PaymodeModalist> valueDroplist = [];
   callpaymodeApi() async {
     paymode.clear();
+    paymodeModallist.clear();
     notifyListeners();
     await PaymodeApi.getData("${ConstantValues.slpcode}").then((value) {
       //
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         if (value.paymode != null) {
-          paymode = value.paymode!;
+          paymode = value.paymode!.paymodeModalData!;
+          paymodeModallist = value.paymode!.paymodeModallist!;
+          log("paymode:::" + paymode.length.toString());
 
+          log("paymodeModallist:::" + paymodeModallist.length.toString());
           notifyListeners();
         } else if (value.paymode == null) {
           // log("DONR222");
@@ -148,27 +164,28 @@ log("filterrefpartdata:::"+filterrefpartdata.length.toString());
       }
     });
   }
- List<LevelofData> leveofdata=[];
- List<OrderTypeData> ordertypedata=[];
-   getLeveofType() async {
+
+  List<LevelofData> leveofdata = [];
+  List<OrderTypeData> ordertypedata = [];
+  getLeveofType() async {
     leveofdata.clear();
     ordertypedata.clear();
     final Database db = (await DBHelper.getInstance())!;
 
     leveofdata = await DBOperation.getlevelofData(db);
-    ordertypedata=await DBOperation.getordertypeData(db);
+    ordertypedata = await DBOperation.getordertypeData(db);
     notifyListeners();
   }
-customerdetData? customermodeldata;
-callcustomerapi()async{
-  await customerDetailApi.getData().then((value) {
-    if(value.stcode! >= 200 && value.stcode! <= 210){
-customermodeldata=value.leadcheckdata;
-// log("customermodeldata::"+customermodeldata!.storeLogoUrl.toString());
-    }
-  });
 
-}
+  customerdetData? customermodeldata;
+  callcustomerapi() async {
+    await customerDetailApi.getData().then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        customermodeldata = value.leadcheckdata;
+// log("customermodeldata::"+customermodeldata!.storeLogoUrl.toString());
+      }
+    });
+  }
 
   bool isTextFieldEnabled = true;
   bool customerbool = false;
@@ -183,9 +200,9 @@ customermodeldata=value.leadcheckdata;
     clearAllData();
     getdataFromDb();
     getEnqRefferes();
-     getLeveofType();
+    getLeveofType();
     callLeadCheckApi();
-     callrefparnerApi();
+    callrefparnerApi();
   }
 
   FocusNode focusNode1 = FocusNode();
@@ -210,11 +227,228 @@ customermodeldata=value.leadcheckdata;
   List<CustomerData> filterCustomerList = [];
   List<CustomerData> get getfilterCustomerList => filterCustomerList;
 //
-validatepayterm(){
-  if(formkey[5].currentState!.validate()){
+getpaymenttot2(int index){
+  double amount=0.0;
+  double? pendingamount;
+  // double payTermTotal = double.parse(paytermtotal!
+  //                                 .toStringAsFixed(2));
+                                   double fullpayment2 = double.parse(fullpayment!
+                                  .toStringAsFixed(2));
+                                 
+ for(int i=0;i<postpaymentdata.length;i++){
+ amount = amount + postpaymentdata[i].amount! ;
+log("paytermtotal:::"+paytermtotal.toString());
+    }
+      pendingamount= amount -postpaymentdata[index].amount!;
+      log("pendingamount::"+pendingamount.toString());
+      final pendingfullcash=fullpayment2-pendingamount;
+      // log("pendingfullcash::"+fullpayment2-pendingamount+"aaa"+pendingfullcash.toString());
+    return pendingfullcash;
+}
+validateupdate(int index,PaymodeModalData paymode,BuildContext context){
+   if (formkey[5].currentState!.validate()) {
+     payloading=true;
+     notifyListeners();
+     updatepayterm(index,paymode,context);
+     notifyListeners();
+}
+}
+updatepayterm(int index,PaymodeModalData paymode,BuildContext context)async{
+  log("payindhhh::"+postpaymentdata.length.toString());
+  log("payindex::"+payindex.toString());
+   double parsedValue = double.parse(mycontroller[46].text.toString());
+                              double fullpayment2  = double.parse(fullpayment!
+                                  .toStringAsFixed(2));
+//  if(parsedValue <= fullpayment2){
+ postpaymentdata.removeAt(index);
+   
+//  }
+  getTotalaoyAmount();
+  
+    
+     
+    
+     List<String> filename2 = [];
+      List<String>? fileError2 = [];
+      String? attachment;
+      attachment = '';
+      if (filedata2 != null || filedata2.isNotEmpty) {
+        for (int i = 0; i < filedata2.length; i++) {
+          // log("savetoserverNames::" + filedata[i].fileName.toString());
+          await OrderAttachmentApiApi.getData(
+            filedata2[i].fileName,
+          ).then((value) {
+            // log("OrderAttachmentApiApi::" + value.toString());
+            if (value == 'No Data Found..!!') {
+              fileError2.add(filedata2[i].fileName);
+              // filename.add("");
+            } else {
+              // filename.add(value);
+              if (i == 0) {
+                // log("message");
+                attachment = value;
+              }
+            }
+          });
+        }
+      }
 
+      postpaymentdata.add(paymenttermdata(
+          paymodcode: paymode.Code,
+          paymodename: paymode.ModeName,
+          ref1: mycontroller[43].text == null ||
+                  mycontroller[43].text == '' ||
+                  mycontroller[43].text.isEmpty
+              ? null
+              : mycontroller[43].text,
+          ref2: mycontroller[44].text == null ||
+                  mycontroller[44].text == '' ||
+                  mycontroller[44].text.isEmpty
+              ? null
+              : mycontroller[44].text,
+          listtype: selecteditem == null || selecteditem!.isEmpty
+              ? null
+              : selecteditem,
+          dateref: chequedate == null ||
+                  chequedate == '' ||
+                  chequedate.isEmpty
+              ? null
+              : chequedate,
+          attachment1:
+              attachment == null || attachment == '' || attachment!.isEmpty
+                  ? null
+                  : attachment,
+          amount: mycontroller[46].text == null ||
+                  mycontroller[46].text == '' ||
+                  mycontroller[46].text.isEmpty
+              ? 0.0
+              : double.parse(mycontroller[46].text)));
+      
+    //  postpaymentdata[index] .    paymodcode= paymode.Code;
+    //     postpaymentdata[index] .  paymodename= paymode.ModeName;
+    //     postpaymentdata[index] .  ref1= mycontroller[43].text == null ||
+    //               mycontroller[43].text == '' ||
+    //               mycontroller[43].text.isEmpty
+    //           ? null
+    //           : mycontroller[43].text;
+    //     postpaymentdata[index] .  ref2= mycontroller[44].text == null ||
+    //               mycontroller[44].text == '' ||
+    //               mycontroller[44].text.isEmpty
+    //           ? null
+    //           : mycontroller[44].text;
+    //    postpaymentdata[index] .   listtype=selecteditem == null || selecteditem!.isEmpty
+    //           ? null
+    //           : selecteditem;
+    //    postpaymentdata[index] .   dateref=mycontroller[45].text == null ||
+    //               mycontroller[45].text == '' ||
+    //               mycontroller[45].text.isEmpty
+    //           ? null
+    //           : mycontroller[45].text;
+    //    postpaymentdata[index] .   attachment1=
+    //           attachment == null || attachment == '' || attachment!.isEmpty
+    //               ? null
+    //               : attachment;
+    //   postpaymentdata[index] .    amount= mycontroller[46].text == null ||
+    //               mycontroller[46].text == '' ||
+    //               mycontroller[46].text.isEmpty
+    //           ? 0.0
+    //           : double.parse(mycontroller[46].text);
+    //            notifyListeners();
+    //             paymode.isselected = !paymode.isselected!;
+      paymode.amount=mycontroller[46].text;
+      paytermtotal =double.parse(paytermtotal!.toStringAsFixed(2)) -double.parse(mycontroller[46].text);
+      //  getTotalaoyAmount();
+      // isSelectedpaymentTermsCode=paymode.Code.toString();
+      payloading=false;
+     
+     notifyListeners();
+Navigator.pop(context);
+   
+}
+bool? payloading=false;
+  validatepayterm(PaymodeModalData paymode,BuildContext context) async {
+    if (formkey[5].currentState!.validate()) {
+      payloading=true;
+     notifyListeners();
+    //  Future.delayed(Duration(seconds: 3),(){});
+      List<String> filename2 = [];
+      List<String>? fileError2 = [];
+      String? attachment;
+      attachment = '';
+      if (filedata2 != null || filedata2.isNotEmpty) {
+        for (int i = 0; i < filedata2.length; i++) {
+          // log("savetoserverNames::" + filedata[i].fileName.toString());
+          await OrderAttachmentApiApi.getData(
+            filedata2[i].fileName,
+          ).then((value) {
+            // log("OrderAttachmentApiApi::" + value.toString());
+            if (value == 'No Data Found..!!') {
+              fileError2.add(filedata2[i].fileName);
+              // filename.add("");
+            } else {
+              // filename.add(value);
+              if (i == 0) {
+                // log("message");
+                attachment = value;
+              }
+            }
+          });
+        }
+      }
+
+      postpaymentdata.add(paymenttermdata(
+          paymodcode: paymode.Code,
+          paymodename: paymode.ModeName,
+          ref1: mycontroller[43].text == null ||
+                  mycontroller[43].text == '' ||
+                  mycontroller[43].text.isEmpty
+              ? null
+              : mycontroller[43].text,
+          ref2: mycontroller[44].text == null ||
+                  mycontroller[44].text == '' ||
+                  mycontroller[44].text.isEmpty
+              ? null
+              : mycontroller[44].text,
+          listtype: selecteditem == null || selecteditem!.isEmpty
+              ? null
+              : selecteditem,
+          dateref: chequedate == null ||
+                  chequedate == '' ||
+                  chequedate.isEmpty
+              ? null
+              : chequedate,
+          attachment1:
+              attachment == null || attachment == '' || attachment!.isEmpty
+                  ? null
+                  : attachment,
+          amount: mycontroller[46].text == null ||
+                  mycontroller[46].text == '' ||
+                  mycontroller[46].text.isEmpty
+              ? 0.0
+              : double.parse(mycontroller[46].text)));
+      paymode.isselected = !paymode.isselected!;
+      paymode.amount=mycontroller[46].text;
+      paytermtotal =double.parse(paytermtotal!.toStringAsFixed(2)) -double.parse(mycontroller[46].text);
+      // getTotalaoyAmount();
+      // isSelectedpaymentTermsCode=paymode.Code.toString();
+      payloading=false;
+     
+     notifyListeners();
+Navigator.pop(context);
+      log("paymode!.isselected::" + paymode.isselected.toString());
+       log("paymode!.isselected::" + postpaymentdata.length.toString());
+    }
   }
-
+deletepaymode(paymenttermdata paymentdata,int index){
+  // log("postpaymentdata[index].paymodename::"+postpaymentdata[index].paymodename.toString());
+  for(int i=0;i<paymode.length;i++){
+    if(paymode[i].ModeName ==paymentdata.paymodename ){
+       paymode[i].isselected = !paymode[i].isselected!;
+       paymode[i].amount='';
+      //  postpaymentdata.removeAt(index);
+       notifyListeners();
+    }
+  }
 }
   List<GlobalKey<FormState>> formkey =
       new List.generate(6, (i) => new GlobalKey<FormState>(debugLabel: "Lead"));
@@ -275,21 +509,20 @@ validatepayterm(){
   double? unitPrice;
   double? quantity;
   double? taxvalue;
- 
+
   double total = 0.00;
-List<Custype> custype=[
-  Custype(name: "Single"),
-   Custype(name: "Bulk"),
+  List<Custype> custype = [
+    Custype(name: "Single"),
+    Custype(name: "Bulk"),
     Custype(name: "Chain Order")
- 
   ];
-  double? sporder =0.00;
-  double? slppriceorder=0.00;
-  double? storestockorder=0.00;
-  double? whsestockorder=0.00;
-  bool? isfixedpriceorder=false;
-  bool? allownegativestockorder=false;
-  bool? alloworderbelowcostorder=false;
+  double? sporder = 0.00;
+  double? slppriceorder = 0.00;
+  double? storestockorder = 0.00;
+  double? whsestockorder = 0.00;
+  bool? isfixedpriceorder = false;
+  bool? allownegativestockorder = false;
+  bool? alloworderbelowcostorder = false;
   List<EnquiryTypeData> enqList = [];
   List<EnquiryTypeData> get getEnqList => enqList;
 
@@ -349,7 +582,8 @@ List<Custype> custype=[
     // log("AN33:" + isSelectedrefcode.toString());
     notifyListeners();
   }
-String chequedate='';
+
+  String chequedate = '';
   void showchequeDate(BuildContext context) {
     showDatePicker(
       context: context,
@@ -372,17 +606,78 @@ String chequedate='';
       notifyListeners();
     });
   }
-  selectpaymentTerms(String selected, String refercode, String code,BuildContext context) {
+
+  String? selecteditem;
+  String? selectedpaycode;
+  onselectdrop(String val) {
+    selecteditem = val;
+    for (int i = 0; i < valueDroplist.length; i++) {
+      if (valueDroplist[i].ListName.toString() == val)
+        selectedpaycode = valueDroplist[i].ListCode;
+      break;
+    }
+    notifyListeners();
+  }
+
+  dropdownvalue(int ind) {
+    valueDroplist.clear();
+    log("value::" + ind.toString());
+    for (int i = 0; i < paymodeModallist.length; i++) {
+      if (paymodeModallist[i].Code == paymode[ind].Code) {
+        valueDroplist.add(PaymodeModalist(
+            Code: paymodeModallist[i].Code,
+            ListCode: paymodeModallist[i].ListCode,
+            ListName: paymodeModallist[i].ListName,
+            Status: paymodeModallist[i].Status));
+      }
+      log("valueDroplist::" + valueDroplist.length.toString());
+      notifyListeners();
+    }
+  }
+int? payindex;
+bool? payupdate=false;
+  selectpaymentTerms(String selected, String refercode, String code,
+      BuildContext context, PaymodeModalData paymode, int index) {
+        payindex=null;
+        payupdate=false;
+
+        notifyListeners();
     isSelectedpaymentTermsList = selected;
     PaymentTerms = refercode;
+    clearpaydata();
     isSelectedpaymentTermsCode = code;
+
+    dropdownvalue(index);
+    if(postpaymentdata.isNotEmpty){
+      for(int i=0;i<postpaymentdata.length;i++){
+        if(postpaymentdata[i].paymodename ==paymode.ModeName){
+          mycontroller[43].text=postpaymentdata[i].ref1==null||postpaymentdata[i].ref1!.isEmpty?
+          '':postpaymentdata[i].ref1.toString();
+           mycontroller[44].text=postpaymentdata[i].ref2==null||
+           postpaymentdata[i].ref2!.isEmpty?
+          '':postpaymentdata[i].ref2.toString();
+          //   mycontroller[45].text=postpaymentdata[i].dateref ==null||postpaymentdata[i].dateref!.isEmpty?
+          // '':postpaymentdata[i].dateref.toString();
+             mycontroller[46].text=postpaymentdata[i].amount==null?
+          '':postpaymentdata[i].amount!.toStringAsFixed(2);
+          selecteditem=postpaymentdata[i].listtype==null||postpaymentdata[i].listtype!.isEmpty?
+          '':postpaymentdata[i].listtype.toString();
+          payindex=i;
+          payupdate=true;
+          log("payupdate=true;");
+          notifyListeners();
+          
+        }
+      }
+    }
+    getTotalaoyAmount();
+    notifyListeners();
     log("AN11:" + PaymentTerms.toString());
-//  showDialog<dynamic>(
-//                               context: context,
-//                               builder: (_) {
-                             
-//                                 return paytermdialog();
-//                               });
+    showDialog<dynamic>(
+        context: context,
+        builder: (_) {
+          return paytermdialog(paymode: paymode);
+        });
     // log("AN22:" + EnqRefer.toString());
 
     // log("AN33:" + isSelectedrefcode.toString());
@@ -442,55 +737,46 @@ String chequedate='';
     enqList = await DBOperation.getEnqData(db);
     notifyListeners();
   }
-  scannerreset(){
-itemAlreadyscanned = false;
-  indexscanning=null;
-  notifyListeners();
+
+  scannerreset() {
+    itemAlreadyscanned = false;
+    indexscanning = null;
+    notifyListeners();
   }
+
   int? indexscanning;
   bool itemAlreadyscanned = false;
   String? Scancode;
-  scanneddataget(BuildContext context){
-  // log("code:::::"+code.toString());
+  scanneddataget(BuildContext context) {
+    // log("code:::::"+code.toString());
 
-  
+    notifyListeners();
 
-
-   
-   notifyListeners();
-  
-  // Get.back();
+    // Get.back();
 // Navigator.pop(context);
-notifyListeners();
-   for (int ij=0;ij<allProductDetails.length;ij++){
-    if(allProductDetails[ij].itemCode ==Scancode){
-      itemAlreadyscanned=true;
-      indexscanning =ij;
+    notifyListeners();
+    for (int ij = 0; ij < allProductDetails.length; ij++) {
+      if (allProductDetails[ij].itemCode == Scancode) {
+        itemAlreadyscanned = true;
+        indexscanning = ij;
         notifyListeners();
-      break;
-    
+        break;
+      }
     }
-   
-   }
-    if(itemAlreadyscanned ==true){
+    if (itemAlreadyscanned == true) {
       resetItems(indexscanning!);
-showBottomSheetInsert(context, indexscanning!);
- notifyListeners();
-   }else{
-    showtoastforscanning();
-     notifyListeners();
-   }
-   
- 
-
+      showBottomSheetInsert(context, indexscanning!);
+      notifyListeners();
+    } else {
+      showtoastforscanning();
+      notifyListeners();
+    }
 
 //  checkscannedcode(code);
- notifyListeners();
-
+    notifyListeners();
   }
   // checkscannedcode(String code){
   //    log("code:::::"+code.toString());
-     
 
   // }
   getdataFromDb() async {
@@ -571,195 +857,206 @@ showBottomSheetInsert(context, indexscanning!);
         // );
       } else {
         productDetails.add(DocumentLines(
-            id: 0,
-            docEntry: 0,
-            linenum: 0,
-            ItemCode: selectedItemCode,
-            ItemDescription: selectedItemName,
-            Quantity: quantity,
-            LineTotal: total,
-            Price: unitPrice,
-            TaxCode: taxvalue,
-            TaxLiable: "tNO",
-            storecode:  ConstantValues.Storecode ,
-            deliveryfrom: isselected[0] == true ? "store" : "Whse",
-            sp: sporder,
-            slpprice: slppriceorder,
-            storestock: storestockorder,
-            whsestock:whsestockorder ,
-            isfixedprice: isfixedpriceorder,
-            allownegativestock:allownegativestockorder ,
-            alloworderbelowcost: alloworderbelowcostorder,
-            complementary: assignvalue,
-            couponcode: mycontroller[36].text ==null || mycontroller[36].text.isEmpty?
-   null:mycontroller[36].text,
-   partcode: mycontroller[46].text ==null || mycontroller[46].text.isEmpty?
-   null:mycontroller[46].text,
-            ));
-         showItemList = false;
+          id: 0,
+          docEntry: 0,
+          linenum: 0,
+          ItemCode: selectedItemCode,
+          ItemDescription: selectedItemName,
+          Quantity: quantity,
+          LineTotal: total,
+          Price: unitPrice,
+          TaxCode: taxvalue,
+          TaxLiable: "tNO",
+          storecode: ConstantValues.Storecode,
+          deliveryfrom: isselected[0] == true ? "store" : "Whse",
+          sp: sporder,
+          slpprice: slppriceorder,
+          storestock: storestockorder,
+          whsestock: whsestockorder,
+          isfixedprice: isfixedpriceorder,
+          allownegativestock: allownegativestockorder,
+          alloworderbelowcost: alloworderbelowcostorder,
+          complementary: assignvalue,
+          couponcode:
+              mycontroller[36].text == null || mycontroller[36].text.isEmpty
+                  ? null
+                  : mycontroller[36].text,
+          partcode:
+              selectedapartcode == null || selectedapartcode.isEmpty
+                  ? null
+                  : selectedapartcode,
+                  partname: selectedapartname==null||selectedapartname.isEmpty?
+                  null:selectedapartname,
+        ));
+        showItemList = false;
         mycontroller[12].clear();
         Navigator.pop(context);
-        
+
         isUpdateClicked = false;
         // showComplementry(context);
-        
+
         // log("productslist" + productDetails.length.toString());
         // log("product" + productDetails[0].deliveryfrom.toString());
-       
+
         notifyListeners();
       }
     }
   }
 
-  addfinalproduct(BuildContext context){
-   productDetails.add(DocumentLines(
-            id: 0,
-            docEntry: 0,
-            linenum: 0,
-            ItemCode: selectedItemCode,
-            ItemDescription: selectedItemName,
-            Quantity: quantity,
-            LineTotal: total,
-            Price: unitPrice,
-            TaxCode: taxvalue,
-            TaxLiable: "tNO",
-            storecode:  ConstantValues.Storecode ,
-            deliveryfrom: isselected[0] == true ? "store" : "Whse",
-            sp: sporder,
-            slpprice: slppriceorder,
-            storestock: storestockorder,
-            whsestock:whsestockorder ,
-            isfixedprice: isfixedpriceorder,
-            allownegativestock:allownegativestockorder ,
-            alloworderbelowcost: alloworderbelowcostorder,
-            complementary: assignvalue
-            ));
-             showItemList = false;
-        // mycontroller[12].clear();
-      
-        
-        isUpdateClicked = false;
-            Navigator.pop(context);
-           
-            notifyListeners(); 
-           
+  addfinalproduct(BuildContext context) {
+    productDetails.add(DocumentLines(
+        id: 0,
+        docEntry: 0,
+        linenum: 0,
+        ItemCode: selectedItemCode,
+        ItemDescription: selectedItemName,
+        Quantity: quantity,
+        LineTotal: total,
+        Price: unitPrice,
+        TaxCode: taxvalue,
+        TaxLiable: "tNO",
+        storecode: ConstantValues.Storecode,
+        deliveryfrom: isselected[0] == true ? "store" : "Whse",
+        sp: sporder,
+        slpprice: slppriceorder,
+        storestock: storestockorder,
+        whsestock: whsestockorder,
+        isfixedprice: isfixedpriceorder,
+        allownegativestock: allownegativestockorder,
+        alloworderbelowcost: alloworderbelowcostorder,
+        complementary: assignvalue));
+    showItemList = false;
+    // mycontroller[12].clear();
+
+    isUpdateClicked = false;
+    Navigator.pop(context);
+
+    notifyListeners();
   }
-showComplementry(BuildContext context){
-  final theme = Theme.of(context);
-  showModalBottomSheet(
-    isDismissible :false,
-    context: context, 
-    builder: (context)=>
-    StatefulBuilder(builder: (context,st){
-      return Container(
-        padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-        child: Column(
-          // mainAxisSize: MainAxisSize.min,
+
+  showComplementry(BuildContext context) {
+    final theme = Theme.of(context);
+    showModalBottomSheet(
+        isDismissible: false,
+        context: context,
+        builder: (context) => StatefulBuilder(builder: (context, st) {
+              return Container(
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                child: Column(
+                  // mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Complementry Items",
-              style: theme.textTheme.bodyText1!.copyWith(
-                color: theme.primaryColor
-              ),
-            ),
-            // if(){
+                  children: [
+                    Text(
+                      "Complementry Items",
+                      style: theme.textTheme.bodyText1!
+                          .copyWith(color: theme.primaryColor),
+                    ),
+                    // if(){
 
-            // }else{
-              
-            // }
-           iscomplement == false?Container(): Container(
-              child: Text("* Select Complementary",style:TextStyle(color:Colors.red)),
-            ),
-          Container(
-            height: Screens.padingHeight(context)*0.3,
-            width: Screens.width(context),
-            child:SingleChildScrollView(
-              child: ListBody(
-                                        children:allProductDetails.take(10)
-                                       . map((item )
-                                         => CheckboxListTile(
-                                          value:selectedassignto.contains(item.itemCode) ,
-                                          title: Text(item.itemCode.toString()),
-                                          controlAffinity: ListTileControlAffinity.leading,
-                                          onChanged: (ischecked)=>
-                                          st((){
- itemselectassignto(item.itemCode.toString(),ischecked!);
-                                         
-                                          })
-                                           ,
-                                    
-                                         )
-                                         ).toList()
-                                      ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: ElevatedButton(onPressed: (){
-              if(assignvalue==null || assignvalue!.isEmpty){
-                st((){
-             
-            iscomplement=true;
-            });
-              }
-            st((){
-              addfinalproduct(context);
-            });
-            }, child: Text("save")),
-          )
-        ],),
-      );
+                    // }else{
 
-    })
-    );
+                    // }
+                    iscomplement == false
+                        ? Container()
+                        : Container(
+                            child: Text("* Select Complementary",
+                                style: TextStyle(color: Colors.red)),
+                          ),
+                    Container(
+                      height: Screens.padingHeight(context) * 0.3,
+                      width: Screens.width(context),
+                      child: SingleChildScrollView(
+                        child: ListBody(
+                            children: allProductDetails
+                                .take(10)
+                                .map((item) => CheckboxListTile(
+                                      value: selectedassignto
+                                          .contains(item.itemCode),
+                                      title: Text(item.itemCode.toString()),
+                                      controlAffinity:
+                                          ListTileControlAffinity.leading,
+                                      onChanged: (ischecked) => st(() {
+                                        itemselectassignto(
+                                            item.itemCode.toString(),
+                                            ischecked!);
+                                      }),
+                                    ))
+                                .toList()),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (assignvalue == null || assignvalue!.isEmpty) {
+                              st(() {
+                                iscomplement = true;
+                              });
+                            }
+                            st(() {
+                              addfinalproduct(context);
+                            });
+                          },
+                          child: Text("save")),
+                    )
+                  ],
+                ),
+              );
+            }));
+  }
 
-}
-
-splitcomplement(String products){
-
-
-  List<String> productList = products.split(',').map((item) => item.trim()).toList();
-return ListView.builder(
-  shrinkWrap : true,
-  physics: NeverScrollableScrollPhysics(),
+  splitcomplement(String products) {
+    List<String> productList =
+        products.split(',').map((item) => item.trim()).toList();
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: productList.length,
       itemBuilder: (context, index) {
-        return  Column(
+        return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('* ${productList[index]}', style: TextStyle(fontSize: 15)),
-            SizedBox(height: 5,)
+            SizedBox(
+              height: 5,
+            )
           ],
         );
-          
-        
       },
     );
-
-}
-bool iscomplement=false;
-String? assignvalue;
- itemselectassignto(String itemvalue,bool isselected){
-  assignvalue='';
-  if(isselected){
-    selectedassignto.add(itemvalue);
-  }else{
-    selectedassignto.remove(itemvalue);
   }
-  assignvalue=selectedassignto.join(', ');
-  log("selectedassignto::"+selectedassignto.toString());
-  log("assignvalue::"+assignvalue.toString());
-  notifyListeners();
- }
 
-List<String> selectedassignto=[];
+  bool iscomplement = false;
+  String? assignvalue;
+  itemselectassignto(String itemvalue, bool isselected) {
+    assignvalue = '';
+    if (isselected) {
+      selectedassignto.add(itemvalue);
+    } else {
+      selectedassignto.remove(itemvalue);
+    }
+    assignvalue = selectedassignto.join(', ');
+    log("selectedassignto::" + selectedassignto.toString());
+    log("assignvalue::" + assignvalue.toString());
+    notifyListeners();
+  }
+
+  List<String> selectedassignto = [];
   updateProductDetails(BuildContext context, int i) {
     if (formkey[1].currentState!.validate()) {
       productDetails[i].Quantity = quantity;
       productDetails[i].Price = unitPrice;
       productDetails[i].LineTotal = total;
+      productDetails[i].partcode=selectedapartcode == null || selectedapartcode.isEmpty
+                  ? productDetails[i].partcode
+                  : selectedapartcode;
+                  productDetails[i].partname=selectedapartname==null||selectedapartname.isEmpty?
+                  productDetails[i].partname:selectedapartname;
+                  productDetails[i].couponcode=mycontroller[36].text == null || mycontroller[36].text.isEmpty
+                  ? productDetails[i].couponcode
+                  : mycontroller[36].text;
       showItemList = false;
       Navigator.pop(context);
       isUpdateClicked = false;
@@ -775,17 +1072,19 @@ List<String> selectedassignto=[];
     //.clear();
     mycontroller[11].clear();
     mycontroller[36].clear();
-    mycontroller[46].clear();
+    mycontroller[48].clear();
+    selectedapartcode='';
+    selectedapartname='';
     assignvalue = null;
-    iscomplement=false;
+    iscomplement = false;
     selectedassignto.clear();
     getcoupondata.clear();
-    couponload=false;
-    isappliedcoupon=false;
+    couponload = false;
+    
+    isappliedcoupon = false;
     notifyListeners();
   }
 
- 
   filterList(String v) {
     if (v.isNotEmpty) {
       allProductDetails = filterProductDetails
@@ -810,10 +1109,10 @@ List<String> selectedassignto=[];
   String exceptionOnApiCall = '';
   String get getexceptionOnApiCall => exceptionOnApiCall;
   bool isAnother = true;
-  List<GetenquiryData> enquirydetails=[];
-  List<GetenquiryData> leaddetails=[];
-  List<GetenquiryData> quotationdetails=[];
-  List<GetenquiryData> orderdetails=[];
+  List<GetenquiryData> enquirydetails = [];
+  List<GetenquiryData> leaddetails = [];
+  List<GetenquiryData> quotationdetails = [];
+  List<GetenquiryData> orderdetails = [];
   callApi(BuildContext context) {
     //
     //fs
@@ -832,120 +1131,116 @@ List<String> selectedassignto=[];
             mapValues(value.itemdata!.customerdetails![0]);
             oldcutomer = true;
             notifyListeners();
-  // if (
-  //               value.itemdata!.enquirydetails!.isNotEmpty &&
-  //               value.itemdata!.enquirydetails != null) {
-  //             AssignedToDialogUserState.LookingFor =
-  //                 value.itemdata!.enquirydetails![0].DocType;
-  //             AssignedToDialogUserState.Store =
-  //                 value.itemdata!.enquirydetails![0].Store;
-  //             AssignedToDialogUserState.handledby =
-  //                 value.itemdata!.enquirydetails![0].AssignedTo;
-  //             AssignedToDialogUserState.currentstatus =
-  //                 value.itemdata!.enquirydetails![0].CurrentStatus;
-  //             alertDialogOpenLeadOREnq2(context, "enquiry");
-  //           }
+            // if (
+            //               value.itemdata!.enquirydetails!.isNotEmpty &&
+            //               value.itemdata!.enquirydetails != null) {
+            //             AssignedToDialogUserState.LookingFor =
+            //                 value.itemdata!.enquirydetails![0].DocType;
+            //             AssignedToDialogUserState.Store =
+            //                 value.itemdata!.enquirydetails![0].Store;
+            //             AssignedToDialogUserState.handledby =
+            //                 value.itemdata!.enquirydetails![0].AssignedTo;
+            //             AssignedToDialogUserState.currentstatus =
+            //                 value.itemdata!.enquirydetails![0].CurrentStatus;
+            //             alertDialogOpenLeadOREnq2(context, "enquiry");
+            //           }
             //  else       if (value.itemdata!.orderdetails!.isNotEmpty &&
             //             value.itemdata!.orderdetails != null) {
             //                log("Anbuenq");
             //           orderdetails = value.itemdata!.orderdetails;
             //           alertDialogOpenLeadOREnq(context,"Orders");
             //         }
-             if (value.itemdata!.enquirydetails!.isNotEmpty &&
+            if (value.itemdata!.enquirydetails!.isNotEmpty &&
                 value.itemdata!.enquirydetails != null) {
               // log("Anbulead");
-              for(int i=0;i<value.itemdata!.enquirydetails!.length;i++){
-                if(value.itemdata!.enquirydetails![i].DocType =="Lead"){
-leaddetails!.add(GetenquiryData(
-  DocType: value.itemdata!.enquirydetails![i].DocType, 
-  AssignedTo: value.itemdata!.enquirydetails![i].AssignedTo, 
-  BusinessValue: value.itemdata!.enquirydetails![i].BusinessValue, 
-  CurrentStatus: value.itemdata!.enquirydetails![i].CurrentStatus, 
-  DocDate: value.itemdata!.enquirydetails![i].DocDate, 
-  DocNum: value.itemdata!.enquirydetails![i].DocNum, 
-  Status: value.itemdata!.enquirydetails![i].Status, 
-  Store: value.itemdata!.enquirydetails![i].Store
-  ));
-                }else if(value.itemdata!.enquirydetails![i].DocType =="Enquiry"){
-enquirydetails!.add(GetenquiryData(
-  DocType: value.itemdata!.enquirydetails![i].DocType, 
-  AssignedTo: value.itemdata!.enquirydetails![i].AssignedTo, 
-  BusinessValue: value.itemdata!.enquirydetails![i].BusinessValue, 
-  CurrentStatus: value.itemdata!.enquirydetails![i].CurrentStatus, 
-  DocDate: value.itemdata!.enquirydetails![i].DocDate, 
-  DocNum: value.itemdata!.enquirydetails![i].DocNum, 
-  Status: value.itemdata!.enquirydetails![i].Status, 
-  Store: value.itemdata!.enquirydetails![i].Store
-  ));
-                }else if(value.itemdata!.enquirydetails![i].DocType =="Order"){
-orderdetails!.add(GetenquiryData(
-  DocType: value.itemdata!.enquirydetails![i].DocType, 
-  AssignedTo: value.itemdata!.enquirydetails![i].AssignedTo, 
-  BusinessValue: value.itemdata!.enquirydetails![i].BusinessValue, 
-  CurrentStatus: value.itemdata!.enquirydetails![i].CurrentStatus, 
-  DocDate: value.itemdata!.enquirydetails![i].DocDate, 
-  DocNum: value.itemdata!.enquirydetails![i].DocNum, 
-  Status: value.itemdata!.enquirydetails![i].Status, 
-  Store: value.itemdata!.enquirydetails![i].Store
-  ));
+              for (int i = 0; i < value.itemdata!.enquirydetails!.length; i++) {
+                if (value.itemdata!.enquirydetails![i].DocType == "Lead") {
+                  leaddetails!.add(GetenquiryData(
+                      DocType: value.itemdata!.enquirydetails![i].DocType,
+                      AssignedTo: value.itemdata!.enquirydetails![i].AssignedTo,
+                      BusinessValue:
+                          value.itemdata!.enquirydetails![i].BusinessValue,
+                      CurrentStatus:
+                          value.itemdata!.enquirydetails![i].CurrentStatus,
+                      DocDate: value.itemdata!.enquirydetails![i].DocDate,
+                      DocNum: value.itemdata!.enquirydetails![i].DocNum,
+                      Status: value.itemdata!.enquirydetails![i].Status,
+                      Store: value.itemdata!.enquirydetails![i].Store));
+                } else if (value.itemdata!.enquirydetails![i].DocType ==
+                    "Enquiry") {
+                  enquirydetails!.add(GetenquiryData(
+                      DocType: value.itemdata!.enquirydetails![i].DocType,
+                      AssignedTo: value.itemdata!.enquirydetails![i].AssignedTo,
+                      BusinessValue:
+                          value.itemdata!.enquirydetails![i].BusinessValue,
+                      CurrentStatus:
+                          value.itemdata!.enquirydetails![i].CurrentStatus,
+                      DocDate: value.itemdata!.enquirydetails![i].DocDate,
+                      DocNum: value.itemdata!.enquirydetails![i].DocNum,
+                      Status: value.itemdata!.enquirydetails![i].Status,
+                      Store: value.itemdata!.enquirydetails![i].Store));
+                } else if (value.itemdata!.enquirydetails![i].DocType ==
+                    "Order") {
+                  orderdetails!.add(GetenquiryData(
+                      DocType: value.itemdata!.enquirydetails![i].DocType,
+                      AssignedTo: value.itemdata!.enquirydetails![i].AssignedTo,
+                      BusinessValue:
+                          value.itemdata!.enquirydetails![i].BusinessValue,
+                      CurrentStatus:
+                          value.itemdata!.enquirydetails![i].CurrentStatus,
+                      DocDate: value.itemdata!.enquirydetails![i].DocDate,
+                      DocNum: value.itemdata!.enquirydetails![i].DocNum,
+                      Status: value.itemdata!.enquirydetails![i].Status,
+                      Store: value.itemdata!.enquirydetails![i].Store));
                 }
-
               }
-             if(leaddetails!.isNotEmpty){
- AssignedToDialogUserState.LookingFor =
-                  leaddetails![0].DocType;
-              AssignedToDialogUserState.Store =
-                  leaddetails![0].Store;
-              AssignedToDialogUserState.handledby =
-                 leaddetails![0].AssignedTo;
-              AssignedToDialogUserState.currentstatus =
-                  leaddetails![0].CurrentStatus;
+              if (leaddetails!.isNotEmpty) {
+                AssignedToDialogUserState.LookingFor = leaddetails![0].DocType;
+                AssignedToDialogUserState.Store = leaddetails![0].Store;
+                AssignedToDialogUserState.handledby =
+                    leaddetails![0].AssignedTo;
+                AssignedToDialogUserState.currentstatus =
+                    leaddetails![0].CurrentStatus;
 
-              alertDialogOpenLeadOREnq2(context, "Lead");
-             } else if(enquirydetails!.isNotEmpty){
-  AssignedToDialogUserState.LookingFor =
-                  enquirydetails![0].DocType;
-              AssignedToDialogUserState.Store =
-                  enquirydetails![0].Store;
-              AssignedToDialogUserState.handledby =
-                  enquirydetails![0].AssignedTo;
-              AssignedToDialogUserState.currentstatus =
-                  enquirydetails![0].CurrentStatus;
+                alertDialogOpenLeadOREnq2(context, "Lead");
+              } else if (enquirydetails!.isNotEmpty) {
+                AssignedToDialogUserState.LookingFor =
+                    enquirydetails![0].DocType;
+                AssignedToDialogUserState.Store = enquirydetails![0].Store;
+                AssignedToDialogUserState.handledby =
+                    enquirydetails![0].AssignedTo;
+                AssignedToDialogUserState.currentstatus =
+                    enquirydetails![0].CurrentStatus;
 
-              alertDialogOpenLeadOREnq2(context, "enquiry");
-             }else if(orderdetails!.isNotEmpty){
-AssignedToDialogUserState.LookingFor =
-                  orderdetails![0].DocType;
-              AssignedToDialogUserState.Store =
-                  orderdetails![0].Store;
-              AssignedToDialogUserState.handledby =
-                  orderdetails![0].AssignedTo;
-              AssignedToDialogUserState.currentstatus =
-                  orderdetails![0].CurrentStatus;
+                alertDialogOpenLeadOREnq2(context, "enquiry");
+              } else if (orderdetails!.isNotEmpty) {
+                AssignedToDialogUserState.LookingFor = orderdetails![0].DocType;
+                AssignedToDialogUserState.Store = orderdetails![0].Store;
+                AssignedToDialogUserState.handledby =
+                    orderdetails![0].AssignedTo;
+                AssignedToDialogUserState.currentstatus =
+                    orderdetails![0].CurrentStatus;
 
-              alertDialogOpenLeadOREnq2(context, "Order");
-             }
-             
-            } 
+                alertDialogOpenLeadOREnq2(context, "Order");
+              }
+            }
             // else if (value.itemdata!.enquirydetails!.isNotEmpty &&
             //     value.itemdata!.enquirydetails != null) {
             //       for(int i=0;i<value.itemdata!.enquirydetails!.length;i++){
-                
 
             //   }
             //   log("Anbuenq");
             //   // enquirydetails = value.itemdata!.enquirydetails;
-            
+
             // }
             // else if (value.itemdata!.enquirydetails!.isNotEmpty &&
             //     value.itemdata!.enquirydetails != null) {
             //       for(int i=0;i<value.itemdata!.enquirydetails!.length;i++){
-                
 
             //   }
             //   log("Anbuenq");
             //   // orderdetails = value.itemdata!.enquirydetails;
-              
+
             // }
             // if (value.itemdata!.leaddetails!.isNotEmpty &&
             //         value.itemdata!.leaddetails != null ||
@@ -1193,7 +1488,8 @@ AssignedToDialogUserState.LookingFor =
     customerapicLoading = false;
     notifyListeners();
   }
-   clearwarning() {
+
+  clearwarning() {
     value3 = false;
     mycontroller[19].clear();
     mycontroller[20].clear();
@@ -1331,7 +1627,8 @@ AssignedToDialogUserState.LookingFor =
         : itemdata.email!;
     mycontroller[4].text = itemdata.Pincode == null ||
             itemdata.Pincode!.isEmpty ||
-            itemdata.Pincode == 'null'||itemdata.Pincode == '0'
+            itemdata.Pincode == 'null' ||
+            itemdata.Pincode == '0'
         ? ''
         : itemdata.Pincode!;
     mycontroller[5].text = itemdata.City == null ||
@@ -1355,7 +1652,7 @@ AssignedToDialogUserState.LookingFor =
             itemdata.Address_Line_2!.isEmpty
         ? ''
         : itemdata.Address_Line_2!;
-//          
+//
     customerapicLoading = false;
     for (int i = 0; i < customerTagTypeData.length; i++) {
       if (customerTagTypeData[i].Name == itemdata.customerGroup) {
@@ -1365,7 +1662,8 @@ AssignedToDialogUserState.LookingFor =
     }
     notifyListeners();
   }
-static List<String> datafromAcc = [];
+
+  static List<String> datafromAcc = [];
   static List<String> datafrommodify = [];
   static List<String> datafromquotes = [];
   static List<String> datafromlead = [];
@@ -1405,7 +1703,7 @@ static List<String> datafromAcc = [];
       notifyListeners();
     }
     if (dataenq.length > 0) {
-       clearAllData();
+      clearAllData();
       print("datatatatata: .....");
       customerapicLoading = true;
       mapValues3();
@@ -1450,7 +1748,7 @@ static List<String> datafromAcc = [];
     callLeadCheckApi();
     await callrefparnerApi();
     getCustomerTag();
-    
+
     await callpaymodeApi();
     // getCustomerListFromDB();
     notifyListeners();
@@ -1464,7 +1762,7 @@ static List<String> datafromAcc = [];
     await callrefparnerApi();
     getCustomerTag();
     await getLeveofType();
-    
+
     await callpaymodeApi();
     // getCustomerListFromDB();
     mycontroller[0].text = datafromsiteout[1] == null ||
@@ -1493,7 +1791,8 @@ static List<String> datafromAcc = [];
         ? ""
         : datafromsiteout[7];
     mycontroller[4].text = datafromsiteout[12] == null ||
-            datafromsiteout[12] == "null" ||datafromsiteout[12] == "0"||
+            datafromsiteout[12] == "null" ||
+            datafromsiteout[12] == "0" ||
             datafromsiteout[12].isEmpty
         ? ""
         : datafromsiteout[12];
@@ -1542,12 +1841,13 @@ static List<String> datafromAcc = [];
     // productDetails.clear();
     notifyListeners();
   }
-String? GetleadItemCode;
+
+  String? GetleadItemCode;
   mapvaluesfromopenlead(BuildContext context) async {
     productDetails.clear();
     getdataFromDb();
     getEnqRefferes();
-    
+
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
@@ -1580,7 +1880,8 @@ String? GetleadItemCode;
         ? ""
         : datafromopenlead[3];
     mycontroller[4].text = datafromopenlead[4] == null ||
-            datafromopenlead[4] == "null" ||datafromopenlead[4] == "0"||
+            datafromopenlead[4] == "null" ||
+            datafromopenlead[4] == "0" ||
             datafromopenlead[4].isEmpty
         ? ""
         : datafromopenlead[4];
@@ -1621,95 +1922,92 @@ String? GetleadItemCode;
         for (int ik = 0;
             ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
             ik++) {
-               GetleadItemCode =
+          GetleadItemCode =
               value.leadDeatilheadsData!.leadDeatilsQTLData![ik].ItemCode;
-              mycontroller[11].text = value
+          mycontroller[11].text = value
               .leadDeatilheadsData!.leadDeatilsQTLData![ik].Quantity
               .toString();
           mycontroller[10].text = value
               .leadDeatilheadsData!.leadDeatilsQTLData![ik].Price
               .toString();
-              // log("selectedItemCode::"+selectedItemCode.toString());
-              for (int i=0;i<allProductDetails.length;i++){
-                if(allProductDetails[i].itemCode ==GetleadItemCode){
-          //          selectedItemCode =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
-          // selectedItemName =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
-                  selectedItemName = allProductDetails[i].itemName.toString();
-    selectedItemCode = allProductDetails[i].itemCode.toString();
-    taxvalue=double.parse(allProductDetails[i].taxRate.toString());
- sporder= allProductDetails[i].sp == null
-        ? 0.0
-        : double.parse(allProductDetails[i].sp.toString());
-            slppriceorder= allProductDetails[i].slpPrice == null
-        ? 0.0
-        : double.parse(allProductDetails[i].slpPrice.toString());
-            storestockorder= allProductDetails[i].storeStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].storeStock.toString());
-            whsestockorder=allProductDetails[i].whsStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].whsStock.toString()) ;
-            isfixedpriceorder= allProductDetails[i].isFixedPrice;
-            allownegativestockorder=allProductDetails[i].allowNegativeStock;
-            alloworderbelowcostorder= allProductDetails[i].allowOrderBelowCost;
-        
-         
+          // log("selectedItemCode::"+selectedItemCode.toString());
+          for (int i = 0; i < allProductDetails.length; i++) {
+            if (allProductDetails[i].itemCode == GetleadItemCode) {
+              //          selectedItemCode =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
+              // selectedItemName =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
+              selectedItemName = allProductDetails[i].itemName.toString();
+              selectedItemCode = allProductDetails[i].itemCode.toString();
+              taxvalue = double.parse(allProductDetails[i].taxRate.toString());
+              sporder = allProductDetails[i].sp == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].sp.toString());
+              slppriceorder = allProductDetails[i].slpPrice == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].slpPrice.toString());
+              storestockorder = allProductDetails[i].storeStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].storeStock.toString());
+              whsestockorder = allProductDetails[i].whsStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].whsStock.toString());
+              isfixedpriceorder = allProductDetails[i].isFixedPrice;
+              allownegativestockorder = allProductDetails[i].allowNegativeStock;
+              alloworderbelowcostorder =
+                  allProductDetails[i].allowOrderBelowCost;
+
               // taxvalue=double.parse(value.leadDeatilheadsData!.leadDeatilsQTLData![i]..toString());
-          
-            //    sp: value
-            //   .leadDeatilheadsData!.leadDeatilsQTLData![i],
-            // slpprice: slppriceorder,
-            // storestock: storestockorder,
-            // whsestock:whsestockorder ,
-            // isfixedprice: isfixedpriceorder,
-            // allownegativestock:allownegativestockorder ,
-            // alloworderbelowcost: alloworderbelowcostorder,
-          storecode = ConstantValues.Storecode;
-          // value
-          // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].LocCode.toString();
-          deliveryfrom = "store";
-          // value
-          // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].deliveryFrom.toString();
-          // total=value.leadDeatilsQTHData!.DocTotal!;
-          unitPrice = double.parse(mycontroller[10].text);
-          quantity = double.parse(mycontroller[11].text);
-          total = unitPrice! * quantity!;
 
-          productDetails.add(DocumentLines(
-              id: 0,
-              docEntry: 0,
-              linenum: 0,
-              ItemCode: selectedItemCode,
-              ItemDescription: selectedItemName,
-              Quantity: quantity,
-              LineTotal: total,
-              Price: unitPrice,
-              TaxCode:taxvalue,
-              TaxLiable: "tNO",
-              storecode: storecode,
-              deliveryfrom: deliveryfrom,
-               sp: sporder,
-            slpprice: slppriceorder,
-            storestock: storestockorder,
-            whsestock:whsestockorder ,
-            isfixedprice: isfixedpriceorder,
-            allownegativestock:allownegativestockorder ,
-            alloworderbelowcost: alloworderbelowcostorder,
-            //    sp: sporder,
-            // slpprice: slppriceorder,
-            // storestock: storestockorder,
-            // whsestock:whsestockorder ,
-            // isfixedprice: isfixedpriceorder,
-            // allownegativestock:allownegativestockorder ,
-            // alloworderbelowcost: alloworderbelowcostorder,
-              
+              //    sp: value
+              //   .leadDeatilheadsData!.leadDeatilsQTLData![i],
+              // slpprice: slppriceorder,
+              // storestock: storestockorder,
+              // whsestock:whsestockorder ,
+              // isfixedprice: isfixedpriceorder,
+              // allownegativestock:allownegativestockorder ,
+              // alloworderbelowcost: alloworderbelowcostorder,
+              storecode = ConstantValues.Storecode;
+              // value
+              // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].LocCode.toString();
+              deliveryfrom = "store";
+              // value
+              // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].deliveryFrom.toString();
+              // total=value.leadDeatilsQTHData!.DocTotal!;
+              unitPrice = double.parse(mycontroller[10].text);
+              quantity = double.parse(mycontroller[11].text);
+              total = unitPrice! * quantity!;
+
+              productDetails.add(DocumentLines(
+                id: 0,
+                docEntry: 0,
+                linenum: 0,
+                ItemCode: selectedItemCode,
+                ItemDescription: selectedItemName,
+                Quantity: quantity,
+                LineTotal: total,
+                Price: unitPrice,
+                TaxCode: taxvalue,
+                TaxLiable: "tNO",
+                storecode: storecode,
+                deliveryfrom: deliveryfrom,
+                sp: sporder,
+                slpprice: slppriceorder,
+                storestock: storestockorder,
+                whsestock: whsestockorder,
+                isfixedprice: isfixedpriceorder,
+                allownegativestock: allownegativestockorder,
+                alloworderbelowcost: alloworderbelowcostorder,
+                //    sp: sporder,
+                // slpprice: slppriceorder,
+                // storestock: storestockorder,
+                // whsestock:whsestockorder ,
+                // isfixedprice: isfixedpriceorder,
+                // allownegativestock:allownegativestockorder ,
+                // alloworderbelowcost: alloworderbelowcostorder,
               ));
-                }
-
-              }
-              
+            }
+          }
         }
         notifyListeners();
 
@@ -1737,8 +2035,9 @@ String? GetleadItemCode;
     datafromopenlead.clear();
     notifyListeners();
   }
-mapvaluesfromAccounts(BuildContext context) async {
-  // log("datafromAcc[11]::"+datafromAcc[11].toString());
+
+  mapvaluesfromAccounts(BuildContext context) async {
+    // log("datafromAcc[11]::"+datafromAcc[11].toString());
     productDetails.clear();
     getdataFromDb();
     getEnqRefferes();
@@ -1747,7 +2046,7 @@ mapvaluesfromAccounts(BuildContext context) async {
     await callLeadCheckApi();
     await callrefparnerApi();
     await getCustomerTag();
-    
+
     await callpaymodeApi();
     // getCustomerListFromDB();
     for (int i = 0; i < customerTagTypeData.length; i++) {
@@ -1763,26 +2062,26 @@ mapvaluesfromAccounts(BuildContext context) async {
     // log("datafromlead" + datafromAcc[9].toString());
     mycontroller[0].text = datafromAcc[0];
     mycontroller[16].text = datafromAcc[1];
-    mycontroller[1].text=datafromAcc[9] == null ||
+    mycontroller[1].text = datafromAcc[9] == null ||
             datafromAcc[9] == "null" ||
             datafromAcc[9].isEmpty
         ? ""
         : datafromAcc[9];
-         mycontroller[6].text = datafromAcc[6] == null ||
+    mycontroller[6].text = datafromAcc[6] == null ||
             datafromAcc[6] == "null" ||
             datafromAcc[6].isEmpty
         ? ""
-        : datafromAcc[6]; 
-         mycontroller[7].text = datafromAcc[7] == null ||
+        : datafromAcc[6];
+    mycontroller[7].text = datafromAcc[7] == null ||
             datafromAcc[7] == "null" ||
             datafromAcc[7].isEmpty
         ? ""
-        : datafromAcc[7]; 
-         mycontroller[25].text = datafromAcc[18] == null ||
+        : datafromAcc[7];
+    mycontroller[25].text = datafromAcc[18] == null ||
             datafromAcc[18] == "null" ||
             datafromAcc[18].isEmpty
         ? ""
-        : datafromAcc[18]; 
+        : datafromAcc[18];
     mycontroller[2].text = datafromAcc[2] == null ||
             datafromAcc[2] == "null" ||
             datafromAcc[2].isEmpty
@@ -1793,22 +2092,23 @@ mapvaluesfromAccounts(BuildContext context) async {
             datafromAcc[3].isEmpty
         ? ""
         : datafromAcc[3];
-        mycontroller[17].text = datafromAcc[10] == null ||
+    mycontroller[17].text = datafromAcc[10] == null ||
             datafromAcc[10] == "null" ||
             datafromAcc[10].isEmpty
         ? ""
         : datafromAcc[10];
-         mycontroller[5].text = datafromAcc[5] == null ||
+    mycontroller[5].text = datafromAcc[5] == null ||
             datafromAcc[5] == "null" ||
             datafromAcc[5].isEmpty
         ? ""
         : datafromAcc[5];
     mycontroller[4].text = datafromAcc[4] == null ||
-            datafromAcc[4] == "null" || datafromAcc[4] == "0"||
+            datafromAcc[4] == "null" ||
+            datafromAcc[4] == "0" ||
             datafromAcc[4].isEmpty
         ? ""
         : datafromAcc[4];
-   
+
     // mycontroller[5].text = datafromlead[6];//city
 
 //     if( datafromAcc[11] != null ||
@@ -1818,39 +2118,38 @@ mapvaluesfromAccounts(BuildContext context) async {
 //         if(filterstateData[i].statecode == datafromAcc[11]){
 // mycontroller[18].text = filterstateData[i].stateName.toString();
 
-        
-      //   }
+    //   }
 
-      // }  
-      //       }else{
-      //      mycontroller[18].text ='';  
-      //       }
+    // }
+    //       }else{
+    //      mycontroller[18].text ='';
+    //       }
     mycontroller[18].text = datafromAcc[11] == null ||
             datafromAcc[11] == "null" ||
             datafromAcc[11].isEmpty
         ? ""
         : datafromAcc[11];
-        mycontroller[19].text = datafromAcc[12] == null ||
+    mycontroller[19].text = datafromAcc[12] == null ||
             datafromAcc[12] == "null" ||
             datafromAcc[12].isEmpty
         ? ""
         : datafromAcc[12];
-        mycontroller[20].text = datafromAcc[13] == null ||
+    mycontroller[20].text = datafromAcc[13] == null ||
             datafromAcc[13] == "null" ||
             datafromAcc[13].isEmpty
         ? ""
         : datafromAcc[13];
-        mycontroller[21].text = datafromAcc[14] == null ||
+    mycontroller[21].text = datafromAcc[14] == null ||
             datafromAcc[14] == "null" ||
             datafromAcc[14].isEmpty
         ? ""
         : datafromAcc[14];
-        mycontroller[22].text = datafromAcc[15] == null ||
+    mycontroller[22].text = datafromAcc[15] == null ||
             datafromAcc[15] == "null" ||
             datafromAcc[15].isEmpty
         ? ""
         : datafromAcc[15];
-        mycontroller[23].text = datafromAcc[16] == null ||
+    mycontroller[23].text = datafromAcc[16] == null ||
             datafromAcc[16] == "null" ||
             datafromAcc[16].isEmpty
         ? ""
@@ -1860,22 +2159,22 @@ mapvaluesfromAccounts(BuildContext context) async {
 //             datafromAcc[17].isNotEmpty){
 // for(int i=0;i<filterstateData.length ;i++){
 //         if(filterstateData[i].statecode ==datafromAcc[17]){
-mycontroller[24].text = datafromAcc[17] == null ||
+    mycontroller[24].text = datafromAcc[17] == null ||
             datafromAcc[17] == "null" ||
-            datafromAcc[17].isEmpty?"":datafromAcc[17];
+            datafromAcc[17].isEmpty
+        ? ""
+        : datafromAcc[17];
 
-        
-      //   }
+    //   }
 
-      // }  
-      //       }else{
-      //       mycontroller[24].text ='';  
-      //       }
-      
-        
-         //pin
-   //sta
-    
+    // }
+    //       }else{
+    //       mycontroller[24].text ='';
+    //       }
+
+    //pin
+    //sta
+
     // enqID = int.parse(datafromfollow[6]);
     // basetype = 2;
 
@@ -1887,16 +2186,16 @@ mycontroller[24].text = datafromAcc[17] == null ||
     //     LineTotal: total,
     //     Price: unitPrice,
 
-    
     customerapicLoading = false;
     datafromAcc.clear();
     notifyListeners();
   }
+
   mapvaluesfromFollowup(BuildContext context) async {
     productDetails.clear();
     getdataFromDb();
     getEnqRefferes();
-    
+
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
@@ -1929,7 +2228,8 @@ mycontroller[24].text = datafromAcc[17] == null ||
         ? ""
         : datafromfollow[3];
     mycontroller[4].text = datafromfollow[4] == null ||
-            datafromfollow[4] == "null" || datafromfollow[4] == "0"||
+            datafromfollow[4] == "null" ||
+            datafromfollow[4] == "0" ||
             datafromfollow[4].isEmpty
         ? ""
         : datafromfollow[4];
@@ -1970,95 +2270,92 @@ mycontroller[24].text = datafromAcc[17] == null ||
         for (int ik = 0;
             ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
             ik++) {
-
-              GetleadItemCode =
+          GetleadItemCode =
               value.leadDeatilheadsData!.leadDeatilsQTLData![ik].ItemCode;
-              mycontroller[11].text = value
+          mycontroller[11].text = value
               .leadDeatilheadsData!.leadDeatilsQTLData![ik].Quantity
               .toString();
           mycontroller[10].text = value
               .leadDeatilheadsData!.leadDeatilsQTLData![ik].Price
               .toString();
-              // log("selectedItemCode::"+selectedItemCode.toString());
-              for (int i=0;i<allProductDetails.length;i++){
-                if(allProductDetails[i].itemCode ==GetleadItemCode){
-          //          selectedItemCode =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
-          // selectedItemName =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
-                  selectedItemName = allProductDetails[i].itemName.toString();
-    selectedItemCode = allProductDetails[i].itemCode.toString();
-    taxvalue=double.parse(allProductDetails[i].taxRate.toString());
- sporder= allProductDetails[i].sp == null
-        ? 0.0
-        : double.parse(allProductDetails[i].sp.toString());
-            slppriceorder= allProductDetails[i].slpPrice == null
-        ? 0.0
-        : double.parse(allProductDetails[i].slpPrice.toString());
-            storestockorder= allProductDetails[i].storeStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].storeStock.toString());
-            whsestockorder=allProductDetails[i].whsStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].whsStock.toString()) ;
-            isfixedpriceorder= allProductDetails[i].isFixedPrice;
-            allownegativestockorder=allProductDetails[i].allowNegativeStock;
-            alloworderbelowcostorder= allProductDetails[i].allowOrderBelowCost;
-        
-         
+          // log("selectedItemCode::"+selectedItemCode.toString());
+          for (int i = 0; i < allProductDetails.length; i++) {
+            if (allProductDetails[i].itemCode == GetleadItemCode) {
+              //          selectedItemCode =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
+              // selectedItemName =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
+              selectedItemName = allProductDetails[i].itemName.toString();
+              selectedItemCode = allProductDetails[i].itemCode.toString();
+              taxvalue = double.parse(allProductDetails[i].taxRate.toString());
+              sporder = allProductDetails[i].sp == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].sp.toString());
+              slppriceorder = allProductDetails[i].slpPrice == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].slpPrice.toString());
+              storestockorder = allProductDetails[i].storeStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].storeStock.toString());
+              whsestockorder = allProductDetails[i].whsStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].whsStock.toString());
+              isfixedpriceorder = allProductDetails[i].isFixedPrice;
+              allownegativestockorder = allProductDetails[i].allowNegativeStock;
+              alloworderbelowcostorder =
+                  allProductDetails[i].allowOrderBelowCost;
+
               // taxvalue=double.parse(value.leadDeatilheadsData!.leadDeatilsQTLData![i]..toString());
-          
-            //    sp: value
-            //   .leadDeatilheadsData!.leadDeatilsQTLData![i],
-            // slpprice: slppriceorder,
-            // storestock: storestockorder,
-            // whsestock:whsestockorder ,
-            // isfixedprice: isfixedpriceorder,
-            // allownegativestock:allownegativestockorder ,
-            // alloworderbelowcost: alloworderbelowcostorder,
-          storecode = ConstantValues.Storecode;
-          // value
-          // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].LocCode.toString();
-          deliveryfrom = "store";
-          // value
-          // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].deliveryFrom.toString();
-          // total=value.leadDeatilsQTHData!.DocTotal!;
-          unitPrice = double.parse(mycontroller[10].text);
-          quantity = double.parse(mycontroller[11].text);
-          total = unitPrice! * quantity!;
 
-          productDetails.add(DocumentLines(
-              id: 0,
-              docEntry: 0,
-              linenum: 0,
-              ItemCode: selectedItemCode,
-              ItemDescription: selectedItemName,
-              Quantity: quantity,
-              LineTotal: total,
-              Price: unitPrice,
-              TaxCode:taxvalue,
-              TaxLiable: "tNO",
-              storecode: storecode,
-              deliveryfrom: deliveryfrom,
-               sp: sporder,
-            slpprice: slppriceorder,
-            storestock: storestockorder,
-            whsestock:whsestockorder ,
-            isfixedprice: isfixedpriceorder,
-            allownegativestock:allownegativestockorder ,
-            alloworderbelowcost: alloworderbelowcostorder,
-            //    sp: sporder,
-            // slpprice: slppriceorder,
-            // storestock: storestockorder,
-            // whsestock:whsestockorder ,
-            // isfixedprice: isfixedpriceorder,
-            // allownegativestock:allownegativestockorder ,
-            // alloworderbelowcost: alloworderbelowcostorder,
-              
+              //    sp: value
+              //   .leadDeatilheadsData!.leadDeatilsQTLData![i],
+              // slpprice: slppriceorder,
+              // storestock: storestockorder,
+              // whsestock:whsestockorder ,
+              // isfixedprice: isfixedpriceorder,
+              // allownegativestock:allownegativestockorder ,
+              // alloworderbelowcost: alloworderbelowcostorder,
+              storecode = ConstantValues.Storecode;
+              // value
+              // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].LocCode.toString();
+              deliveryfrom = "store";
+              // value
+              // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].deliveryFrom.toString();
+              // total=value.leadDeatilsQTHData!.DocTotal!;
+              unitPrice = double.parse(mycontroller[10].text);
+              quantity = double.parse(mycontroller[11].text);
+              total = unitPrice! * quantity!;
+
+              productDetails.add(DocumentLines(
+                id: 0,
+                docEntry: 0,
+                linenum: 0,
+                ItemCode: selectedItemCode,
+                ItemDescription: selectedItemName,
+                Quantity: quantity,
+                LineTotal: total,
+                Price: unitPrice,
+                TaxCode: taxvalue,
+                TaxLiable: "tNO",
+                storecode: storecode,
+                deliveryfrom: deliveryfrom,
+                sp: sporder,
+                slpprice: slppriceorder,
+                storestock: storestockorder,
+                whsestock: whsestockorder,
+                isfixedprice: isfixedpriceorder,
+                allownegativestock: allownegativestockorder,
+                alloworderbelowcost: alloworderbelowcostorder,
+                //    sp: sporder,
+                // slpprice: slppriceorder,
+                // storestock: storestockorder,
+                // whsestock:whsestockorder ,
+                // isfixedprice: isfixedpriceorder,
+                // allownegativestock:allownegativestockorder ,
+                // alloworderbelowcost: alloworderbelowcostorder,
               ));
-                }
-
-              }
+            }
+          }
         }
         notifyListeners();
 
@@ -2094,7 +2391,7 @@ mycontroller[24].text = datafromAcc[17] == null ||
     productDetails.clear();
     getdataFromDb();
     getEnqRefferes();
-    
+
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
@@ -2125,7 +2422,7 @@ mycontroller[24].text = datafromAcc[17] == null ||
 //       notifyListeners();
 //     }
     // log("datafromlead" + datafromlead[5].toString());
-    DocDateold=datafrommodify[22];
+    DocDateold = datafrommodify[22];
     mycontroller[0].text = datafrommodify[1];
     mycontroller[16].text = datafrommodify[2];
     // mycontroller[1].text = datafromlead[1];
@@ -2140,7 +2437,8 @@ mycontroller[24].text = datafromAcc[17] == null ||
         ? ""
         : datafrommodify[7];
     mycontroller[4].text = datafrommodify[10] == null ||
-            datafrommodify[10] == "null" ||datafrommodify[10] == "0"||
+            datafrommodify[10] == "null" ||
+            datafrommodify[10] == "0" ||
             datafrommodify[10].isEmpty
         ? ""
         : datafrommodify[10];
@@ -2196,7 +2494,8 @@ mycontroller[24].text = datafromAcc[17] == null ||
         ? ""
         : datafrommodify[15];
     mycontroller[23].text = datafrommodify[16] == null ||
-            datafrommodify[16] == "null"||datafrommodify[16] == "0" ||
+            datafrommodify[16] == "null" ||
+            datafrommodify[16] == "0" ||
             datafrommodify[16].isEmpty
         ? ""
         : datafrommodify[16];
@@ -2210,31 +2509,30 @@ mycontroller[24].text = datafromAcc[17] == null ||
             datafrommodify[19].isEmpty
         ? ""
         : datafrommodify[19];
-         if(datafrommodify[21] !=null ||datafrommodify[21] != "null"||datafrommodify[21].isNotEmpty) {
-for(int i=0;i<ordertypedata.length;i++){
-          if(ordertypedata[i].Name==datafrommodify[21]){
-valueChosedCusType=ordertypedata[i].Code;
-          }
+    if (datafrommodify[21] != null ||
+        datafrommodify[21] != "null" ||
+        datafrommodify[21].isNotEmpty) {
+      for (int i = 0; i < ordertypedata.length; i++) {
+        if (ordertypedata[i].Name == datafrommodify[21]) {
+          valueChosedCusType = ordertypedata[i].Code;
         }
-       }
+      }
+    }
     ordocentry = int.parse(datafrommodify[0]);
     ordernum = int.parse(datafrommodify[18]);
     notifyListeners();
     String? storecode;
     String? deliveryfrom;
-    
+
     await GetOrderQTHApi.getData(datafrommodify[0]).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         for (int ik = 0;
             ik < value.OrderDeatilsheaderData!.OrderDeatilsQTLData!.length;
             ik++) {
-
- 
-             
-               GetleadItemCode =
+          GetleadItemCode =
               value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemCode;
-            
-              mycontroller[11].text = value
+
+          mycontroller[11].text = value
               .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].Quantity
               .toString();
           mycontroller[10].text = value
@@ -2246,70 +2544,67 @@ valueChosedCusType=ordertypedata[i].Code;
           deliveryfrom = value
               .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].deliveryFrom
               .toString();
-              // log("selectedItemCode::"+selectedItemCode.toString());
-              for (int i=0;i<allProductDetails.length;i++){
-                if(allProductDetails[i].itemCode ==GetleadItemCode){
-          //          selectedItemCode =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
-          // selectedItemName =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
-                  selectedItemName = allProductDetails[i].itemName.toString();
-    selectedItemCode = allProductDetails[i].itemCode.toString();
-    taxvalue=double.parse(allProductDetails[i].taxRate.toString());
- sporder= allProductDetails[i].sp == null
-        ? 0.0
-        : double.parse(allProductDetails[i].sp.toString());
-            slppriceorder= allProductDetails[i].slpPrice == null
-        ? 0.0
-        : double.parse(allProductDetails[i].slpPrice.toString());
-            storestockorder= allProductDetails[i].storeStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].storeStock.toString());
-            whsestockorder=allProductDetails[i].whsStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].whsStock.toString()) ;
-            isfixedpriceorder= allProductDetails[i].isFixedPrice;
-            allownegativestockorder=allProductDetails[i].allowNegativeStock;
-            alloworderbelowcostorder= allProductDetails[i].allowOrderBelowCost;
-        
-         
-            
-          unitPrice = double.parse(mycontroller[10].text);
-          quantity = double.parse(mycontroller[11].text);
-          total = unitPrice! * quantity!;
+          // log("selectedItemCode::"+selectedItemCode.toString());
+          for (int i = 0; i < allProductDetails.length; i++) {
+            if (allProductDetails[i].itemCode == GetleadItemCode) {
+              //          selectedItemCode =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
+              // selectedItemName =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
+              selectedItemName = allProductDetails[i].itemName.toString();
+              selectedItemCode = allProductDetails[i].itemCode.toString();
+              taxvalue = double.parse(allProductDetails[i].taxRate.toString());
+              sporder = allProductDetails[i].sp == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].sp.toString());
+              slppriceorder = allProductDetails[i].slpPrice == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].slpPrice.toString());
+              storestockorder = allProductDetails[i].storeStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].storeStock.toString());
+              whsestockorder = allProductDetails[i].whsStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].whsStock.toString());
+              isfixedpriceorder = allProductDetails[i].isFixedPrice;
+              allownegativestockorder = allProductDetails[i].allowNegativeStock;
+              alloworderbelowcostorder =
+                  allProductDetails[i].allowOrderBelowCost;
 
-          productDetails.add(DocumentLines(
-              id: 0,
-              docEntry: 0,
-              linenum: 0,
-              ItemCode: selectedItemCode,
-              ItemDescription: selectedItemName,
-              Quantity: quantity,
-              LineTotal: total,
-              Price: unitPrice,
-              TaxCode:taxvalue,
-              TaxLiable: "tNO",
-              storecode: storecode,
-              deliveryfrom: deliveryfrom,
-               sp: sporder,
-            slpprice: slppriceorder,
-            storestock: storestockorder,
-            whsestock:whsestockorder ,
-            isfixedprice: isfixedpriceorder,
-            allownegativestock:allownegativestockorder ,
-            alloworderbelowcost: alloworderbelowcostorder,
-            //    sp: sporder,
-            // slpprice: slppriceorder,
-            // storestock: storestockorder,
-            // whsestock:whsestockorder ,
-            // isfixedprice: isfixedpriceorder,
-            // allownegativestock:allownegativestockorder ,
-            // alloworderbelowcost: alloworderbelowcostorder,
-              
+              unitPrice = double.parse(mycontroller[10].text);
+              quantity = double.parse(mycontroller[11].text);
+              total = unitPrice! * quantity!;
+
+              productDetails.add(DocumentLines(
+                id: 0,
+                docEntry: 0,
+                linenum: 0,
+                ItemCode: selectedItemCode,
+                ItemDescription: selectedItemName,
+                Quantity: quantity,
+                LineTotal: total,
+                Price: unitPrice,
+                TaxCode: taxvalue,
+                TaxLiable: "tNO",
+                storecode: storecode,
+                deliveryfrom: deliveryfrom,
+                sp: sporder,
+                slpprice: slppriceorder,
+                storestock: storestockorder,
+                whsestock: whsestockorder,
+                isfixedprice: isfixedpriceorder,
+                allownegativestock: allownegativestockorder,
+                alloworderbelowcost: alloworderbelowcostorder,
+                //    sp: sporder,
+                // slpprice: slppriceorder,
+                // storestock: storestockorder,
+                // whsestock:whsestockorder ,
+                // isfixedprice: isfixedpriceorder,
+                // allownegativestock:allownegativestockorder ,
+                // alloworderbelowcost: alloworderbelowcostorder,
               ));
-                }
-
-              }
+            }
+          }
           //       sporder= value
           //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].Info_SP;
           //   slppriceorder= value
@@ -2324,13 +2619,10 @@ valueChosedCusType=ordertypedata[i].Code;
           //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].AllowNegativestock;
           //   alloworderbelowcostorder= value
           //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].AllowOrderBelowCost;
-        
-         
+
           // selectedItemName =
           //     value.OrderDeatilsheaderData!.OrderDeatilsQTLData![i].ItemName;
-          
-          
-          
+
           //       // total=value.leadDeatilsQTHData!.DocTotal!;
           // unitPrice = double.parse(mycontroller[10].text);
           // quantity = double.parse(mycontroller[11].text);
@@ -2391,7 +2683,7 @@ valueChosedCusType=ordertypedata[i].Code;
     productDetails.clear();
     getdataFromDb();
     getEnqRefferes();
-    
+
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
@@ -2422,7 +2714,8 @@ valueChosedCusType=ordertypedata[i].Code;
         ? ""
         : datafromquotes[7];
     mycontroller[4].text = datafromquotes[10] == null ||
-            datafromquotes[10] == "null" ||datafromquotes[10] == "0"||
+            datafromquotes[10] == "null" ||
+            datafromquotes[10] == "0" ||
             datafromquotes[10].isEmpty
         ? ""
         : datafromquotes[10];
@@ -2478,7 +2771,8 @@ valueChosedCusType=ordertypedata[i].Code;
         ? ""
         : datafromquotes[15];
     mycontroller[23].text = datafromquotes[16] == null ||
-            datafromquotes[16] == "null"||datafromquotes[16] == "0" ||
+            datafromquotes[16] == "null" ||
+            datafromquotes[16] == "0" ||
             datafromquotes[16].isEmpty
         ? ""
         : datafromquotes[16];
@@ -2487,18 +2781,20 @@ valueChosedCusType=ordertypedata[i].Code;
             datafromquotes[17].isEmpty
         ? ""
         : datafromquotes[17];
-        mycontroller[25].text=datafromquotes[19] == null ||
+    mycontroller[25].text = datafromquotes[19] == null ||
             datafromquotes[19] == "null" ||
             datafromquotes[19].isEmpty
         ? ""
         : datafromquotes[19];
-          if(datafromquotes[21] !=null ||datafromquotes[21] != "null"||datafromquotes[21].isNotEmpty) {
-for(int i=0;i<ordertypedata.length;i++){
-          if(ordertypedata[i].Name==datafromquotes[21]){
-valueChosedCusType=ordertypedata[i].Code;
-          }
+    if (datafromquotes[21] != null ||
+        datafromquotes[21] != "null" ||
+        datafromquotes[21].isNotEmpty) {
+      for (int i = 0; i < ordertypedata.length; i++) {
+        if (ordertypedata[i].Name == datafromquotes[21]) {
+          valueChosedCusType = ordertypedata[i].Code;
         }
-       }
+      }
+    }
     enqID = int.parse(datafromquotes[0]);
     basetype = 3;
     // log("datafromlead[6]::" + datafromlead[6].toString());
@@ -2510,84 +2806,80 @@ valueChosedCusType=ordertypedata[i].Code;
         for (int ik = 0;
             ik < value.QuotesDeatilsheaderData!.OrderDeatilsQTLData!.length;
             ik++) {
-  
- GetleadItemCode =
-            value.QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemCode;
-            
-              mycontroller[11].text = value
+          GetleadItemCode =
+              value.QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemCode;
+
+          mycontroller[11].text = value
               .QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].Quantity
               .toString();
           mycontroller[10].text = value
               .QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].Price
               .toString();
-           storecode = ConstantValues.Storecode;
+          storecode = ConstantValues.Storecode;
           // value
           // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].LocCode.toString();
           deliveryfrom = "store";
-              // log("selectedItemCode::"+selectedItemCode.toString());
-              for (int i=0;i<allProductDetails.length;i++){
-                if(allProductDetails[i].itemCode ==GetleadItemCode){
-          //          selectedItemCode =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
-          // selectedItemName =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
-                  selectedItemName = allProductDetails[i].itemName.toString();
-    selectedItemCode = allProductDetails[i].itemCode.toString();
-    taxvalue=double.parse(allProductDetails[i].taxRate.toString());
- sporder= allProductDetails[i].sp == null
-        ? 0.0
-        : double.parse(allProductDetails[i].sp.toString());
-            slppriceorder= allProductDetails[i].slpPrice == null
-        ? 0.0
-        : double.parse(allProductDetails[i].slpPrice.toString());
-            storestockorder= allProductDetails[i].storeStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].storeStock.toString());
-            whsestockorder=allProductDetails[i].whsStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].whsStock.toString()) ;
-            isfixedpriceorder= allProductDetails[i].isFixedPrice;
-            allownegativestockorder=allProductDetails[i].allowNegativeStock;
-            alloworderbelowcostorder= allProductDetails[i].allowOrderBelowCost;
-        
-         
-            
-          unitPrice = double.parse(mycontroller[10].text);
-          quantity = double.parse(mycontroller[11].text);
-          total = unitPrice! * quantity!;
+          // log("selectedItemCode::"+selectedItemCode.toString());
+          for (int i = 0; i < allProductDetails.length; i++) {
+            if (allProductDetails[i].itemCode == GetleadItemCode) {
+              //          selectedItemCode =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
+              // selectedItemName =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
+              selectedItemName = allProductDetails[i].itemName.toString();
+              selectedItemCode = allProductDetails[i].itemCode.toString();
+              taxvalue = double.parse(allProductDetails[i].taxRate.toString());
+              sporder = allProductDetails[i].sp == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].sp.toString());
+              slppriceorder = allProductDetails[i].slpPrice == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].slpPrice.toString());
+              storestockorder = allProductDetails[i].storeStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].storeStock.toString());
+              whsestockorder = allProductDetails[i].whsStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].whsStock.toString());
+              isfixedpriceorder = allProductDetails[i].isFixedPrice;
+              allownegativestockorder = allProductDetails[i].allowNegativeStock;
+              alloworderbelowcostorder =
+                  allProductDetails[i].allowOrderBelowCost;
 
-          productDetails.add(DocumentLines(
-              id: 0,
-              docEntry: 0,
-              linenum: 0,
-              ItemCode: selectedItemCode,
-              ItemDescription: selectedItemName,
-              Quantity: quantity,
-              LineTotal: total,
-              Price: unitPrice,
-              TaxCode:taxvalue,
-              TaxLiable: "tNO",
-              storecode: storecode,
-              deliveryfrom: deliveryfrom,
-               sp: sporder,
-            slpprice: slppriceorder,
-            storestock: storestockorder,
-            whsestock:whsestockorder ,
-            isfixedprice: isfixedpriceorder,
-            allownegativestock:allownegativestockorder ,
-            alloworderbelowcost: alloworderbelowcostorder,
-            //    sp: sporder,
-            // slpprice: slppriceorder,
-            // storestock: storestockorder,
-            // whsestock:whsestockorder ,
-            // isfixedprice: isfixedpriceorder,
-            // allownegativestock:allownegativestockorder ,
-            // alloworderbelowcost: alloworderbelowcostorder,
-              
+              unitPrice = double.parse(mycontroller[10].text);
+              quantity = double.parse(mycontroller[11].text);
+              total = unitPrice! * quantity!;
+
+              productDetails.add(DocumentLines(
+                id: 0,
+                docEntry: 0,
+                linenum: 0,
+                ItemCode: selectedItemCode,
+                ItemDescription: selectedItemName,
+                Quantity: quantity,
+                LineTotal: total,
+                Price: unitPrice,
+                TaxCode: taxvalue,
+                TaxLiable: "tNO",
+                storecode: storecode,
+                deliveryfrom: deliveryfrom,
+                sp: sporder,
+                slpprice: slppriceorder,
+                storestock: storestockorder,
+                whsestock: whsestockorder,
+                isfixedprice: isfixedpriceorder,
+                allownegativestock: allownegativestockorder,
+                alloworderbelowcost: alloworderbelowcostorder,
+                //    sp: sporder,
+                // slpprice: slppriceorder,
+                // storestock: storestockorder,
+                // whsestock:whsestockorder ,
+                // isfixedprice: isfixedpriceorder,
+                // allownegativestock:allownegativestockorder ,
+                // alloworderbelowcost: alloworderbelowcostorder,
               ));
-                }
-
-              }
+            }
+          }
 
           //      sporder= value
           //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].Info_SP;
@@ -2603,11 +2895,7 @@ valueChosedCusType=ordertypedata[i].Code;
           //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].AllowNegativestock;
           //   alloworderbelowcostorder= value
           //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].AllowOrderBelowCost;
-        
 
-
-        
-         
           // // value
           // // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].deliveryFrom.toString();
           // // total=value.leadDeatilsQTHData!.DocTotal!;
@@ -2635,14 +2923,14 @@ valueChosedCusType=ordertypedata[i].Code;
           //   isfixedprice: isfixedpriceorder,
           //   allownegativestock:allownegativestockorder ,
           //   alloworderbelowcost: alloworderbelowcostorder,
-              
+
           //     ));
         }
 
         // log("productslist" + productDetails.length.toString());
         // log("product" + productDetails[0].ItemDescription.toString());
         showItemList = false;
-        
+
         notifyListeners();
       } else if (value.stcode! >= 400 && value.stcode! <= 490) {
         // forwardSuccessMsg = 'Something wemt wrong..!!';
@@ -2664,7 +2952,7 @@ valueChosedCusType=ordertypedata[i].Code;
     productDetails.clear();
     getdataFromDb();
     getEnqRefferes();
-    
+
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
@@ -2695,7 +2983,8 @@ valueChosedCusType=ordertypedata[i].Code;
         ? ""
         : datafromlead[3];
     mycontroller[4].text = datafromlead[4] == null ||
-            datafromlead[4] == "null" ||datafromlead[4] == "0"||
+            datafromlead[4] == "null" ||
+            datafromlead[4] == "0" ||
             datafromlead[4].isEmpty
         ? ""
         : datafromlead[4];
@@ -2720,14 +3009,16 @@ valueChosedCusType=ordertypedata[i].Code;
             datafromlead[10].isEmpty
         ? ""
         : datafromlead[10];
-        // log("datafromlead[11] !=null::"+datafromlead[11].toString());
-        if(datafromlead[11] !=null ||datafromlead[11] != "null"||datafromlead[11].isNotEmpty) {
-for(int i=0;i<ordertypedata.length;i++){
-          if(ordertypedata[i].Name==datafromlead[11]){
-valueChosedCusType=ordertypedata[i].Code;
-          }
+    // log("datafromlead[11] !=null::"+datafromlead[11].toString());
+    if (datafromlead[11] != null ||
+        datafromlead[11] != "null" ||
+        datafromlead[11].isNotEmpty) {
+      for (int i = 0; i < ordertypedata.length; i++) {
+        if (ordertypedata[i].Name == datafromlead[11]) {
+          valueChosedCusType = ordertypedata[i].Code;
         }
-       }
+      }
+    }
     enqID = int.parse(datafromlead[6]);
     basetype = 2;
     // log("datafromlead[6]::" + datafromlead[6].toString());
@@ -2739,94 +3030,92 @@ valueChosedCusType=ordertypedata[i].Code;
         for (int ik = 0;
             ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
             ik++) {
-               GetleadItemCode =
+          GetleadItemCode =
               value.leadDeatilheadsData!.leadDeatilsQTLData![ik].ItemCode;
-              mycontroller[11].text = value
+          mycontroller[11].text = value
               .leadDeatilheadsData!.leadDeatilsQTLData![ik].Quantity
               .toString();
           mycontroller[10].text = value
               .leadDeatilheadsData!.leadDeatilsQTLData![ik].Price
               .toString();
-              // log("selectedItemCode::"+GetleadItemCode.toString());
-              for (int i=0;i<allProductDetails.length;i++){
-                if(allProductDetails[i].itemCode ==GetleadItemCode){
-          //          selectedItemCode =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
-          // selectedItemName =
-          //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
-                  selectedItemName = allProductDetails[i].itemName.toString();
-    selectedItemCode = allProductDetails[i].itemCode.toString();
-    taxvalue=double.parse(allProductDetails[i].taxRate.toString());
- sporder= allProductDetails[i].sp == null
-        ? 0.0
-        : double.parse(allProductDetails[i].sp.toString());
-            slppriceorder= allProductDetails[i].slpPrice == null
-        ? 0.0
-        : double.parse(allProductDetails[i].slpPrice.toString());
-            storestockorder= allProductDetails[i].storeStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].storeStock.toString());
-            whsestockorder=allProductDetails[i].whsStock == null
-        ? 0.0
-        : double.parse(allProductDetails[i].whsStock.toString()) ;
-            isfixedpriceorder= allProductDetails[i].isFixedPrice;
-            allownegativestockorder=allProductDetails[i].allowNegativeStock;
-            alloworderbelowcostorder= allProductDetails[i].allowOrderBelowCost;
-        
-         
+          // log("selectedItemCode::"+GetleadItemCode.toString());
+          for (int i = 0; i < allProductDetails.length; i++) {
+            if (allProductDetails[i].itemCode == GetleadItemCode) {
+              //          selectedItemCode =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
+              // selectedItemName =
+              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
+              selectedItemName = allProductDetails[i].itemName.toString();
+              selectedItemCode = allProductDetails[i].itemCode.toString();
+              taxvalue = double.parse(allProductDetails[i].taxRate.toString());
+              sporder = allProductDetails[i].sp == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].sp.toString());
+              slppriceorder = allProductDetails[i].slpPrice == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].slpPrice.toString());
+              storestockorder = allProductDetails[i].storeStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].storeStock.toString());
+              whsestockorder = allProductDetails[i].whsStock == null
+                  ? 0.0
+                  : double.parse(allProductDetails[i].whsStock.toString());
+              isfixedpriceorder = allProductDetails[i].isFixedPrice;
+              allownegativestockorder = allProductDetails[i].allowNegativeStock;
+              alloworderbelowcostorder =
+                  allProductDetails[i].allowOrderBelowCost;
+
               // taxvalue=double.parse(value.leadDeatilheadsData!.leadDeatilsQTLData![i]..toString());
-          
-            //    sp: value
-            //   .leadDeatilheadsData!.leadDeatilsQTLData![i],
-            // slpprice: slppriceorder,
-            // storestock: storestockorder,
-            // whsestock:whsestockorder ,
-            // isfixedprice: isfixedpriceorder,
-            // allownegativestock:allownegativestockorder ,
-            // alloworderbelowcost: alloworderbelowcostorder,
-          storecode = ConstantValues.Storecode;
-          // value
-          // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].LocCode.toString();
-          deliveryfrom = "store";
-          // value
-          // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].deliveryFrom.toString();
-          // total=value.leadDeatilsQTHData!.DocTotal!;
-          unitPrice = double.parse(mycontroller[10].text);
-          quantity = double.parse(mycontroller[11].text);
-          total = unitPrice! * quantity!;
 
-          productDetails.add(DocumentLines(
-              id: 0,
-              docEntry: 0,
-              linenum: 0,
-              ItemCode: selectedItemCode,
-              ItemDescription: selectedItemName,
-              Quantity: quantity,
-              LineTotal: total,
-              Price: unitPrice,
-              TaxCode:taxvalue,
-              TaxLiable: "tNO",
-              storecode: storecode,
-              deliveryfrom: deliveryfrom,
-               sp: sporder,
-            slpprice: slppriceorder,
-            storestock: storestockorder,
-            whsestock:whsestockorder ,
-            isfixedprice: isfixedpriceorder,
-            allownegativestock:allownegativestockorder ,
-            alloworderbelowcost: alloworderbelowcostorder,
-            //    sp: sporder,
-            // slpprice: slppriceorder,
-            // storestock: storestockorder,
-            // whsestock:whsestockorder ,
-            // isfixedprice: isfixedpriceorder,
-            // allownegativestock:allownegativestockorder ,
-            // alloworderbelowcost: alloworderbelowcostorder,
-              
+              //    sp: value
+              //   .leadDeatilheadsData!.leadDeatilsQTLData![i],
+              // slpprice: slppriceorder,
+              // storestock: storestockorder,
+              // whsestock:whsestockorder ,
+              // isfixedprice: isfixedpriceorder,
+              // allownegativestock:allownegativestockorder ,
+              // alloworderbelowcost: alloworderbelowcostorder,
+              storecode = ConstantValues.Storecode;
+              // value
+              // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].LocCode.toString();
+              deliveryfrom = "store";
+              // value
+              // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].deliveryFrom.toString();
+              // total=value.leadDeatilsQTHData!.DocTotal!;
+              unitPrice = double.parse(mycontroller[10].text);
+              quantity = double.parse(mycontroller[11].text);
+              total = unitPrice! * quantity!;
+
+              productDetails.add(DocumentLines(
+                id: 0,
+                docEntry: 0,
+                linenum: 0,
+                ItemCode: selectedItemCode,
+                ItemDescription: selectedItemName,
+                Quantity: quantity,
+                LineTotal: total,
+                Price: unitPrice,
+                TaxCode: taxvalue,
+                TaxLiable: "tNO",
+                storecode: storecode,
+                deliveryfrom: deliveryfrom,
+                sp: sporder,
+                slpprice: slppriceorder,
+                storestock: storestockorder,
+                whsestock: whsestockorder,
+                isfixedprice: isfixedpriceorder,
+                allownegativestock: allownegativestockorder,
+                alloworderbelowcost: alloworderbelowcostorder,
+                //    sp: sporder,
+                // slpprice: slppriceorder,
+                // storestock: storestockorder,
+                // whsestock:whsestockorder ,
+                // isfixedprice: isfixedpriceorder,
+                // allownegativestock:allownegativestockorder ,
+                // alloworderbelowcost: alloworderbelowcostorder,
               ));
-                }
-
-              }
+            }
+          }
         }
 
         // log("productslist" + productDetails.length.toString());
@@ -2881,7 +3170,7 @@ valueChosedCusType=ordertypedata[i].Code;
   mapValues3() async {
     getdataFromDb();
     getEnqRefferes();
-    
+
     await stateApicallfromDB();
     await getLeveofType();
     await callLeadCheckApi();
@@ -2913,10 +3202,12 @@ valueChosedCusType=ordertypedata[i].Code;
         dataenq[3] == null || dataenq[3] == 'null' || dataenq[3].isEmpty
             ? ''
             : dataenq[3];
-    mycontroller[4].text =
-        dataenq[4] == null || dataenq[4] == 'null' ||dataenq[4] == '0'|| dataenq[4].isEmpty
-            ? ''
-            : dataenq[4];
+    mycontroller[4].text = dataenq[4] == null ||
+            dataenq[4] == 'null' ||
+            dataenq[4] == '0' ||
+            dataenq[4].isEmpty
+        ? ''
+        : dataenq[4];
     mycontroller[5].text =
         dataenq[5] == null || dataenq[5] == 'null' || dataenq[5].isEmpty
             ? ''
@@ -2941,13 +3232,15 @@ valueChosedCusType=ordertypedata[i].Code;
         dataenq[13] == null || dataenq[13] == 'null' || dataenq[13].isEmpty
             ? ''
             : dataenq[13];
- if(dataenq[14] !=null ||dataenq[14] != "null"||dataenq[14].isNotEmpty) {
-for(int i=0;i<ordertypedata.length;i++){
-          if(ordertypedata[i].Name==dataenq[14]){
-valueChosedCusType=ordertypedata[i].Code;
-          }
+    if (dataenq[14] != null ||
+        dataenq[14] != "null" ||
+        dataenq[14].isNotEmpty) {
+      for (int i = 0; i < ordertypedata.length; i++) {
+        if (ordertypedata[i].Name == dataenq[14]) {
+          valueChosedCusType = ordertypedata[i].Code;
         }
-       }
+      }
+    }
     enqID = int.parse(dataenq[6]);
     basetype = 1;
 
@@ -3009,51 +3302,54 @@ valueChosedCusType=ordertypedata[i].Code;
     Get.toNamed(ConstantRoutes.enquiriesUser);
     notifyListeners();
   }
-String? valueChosedStatus;
-String? valueChosedCusType;
-String? valueChosedrefcode;
-choosedType(String? val){
-  valueChosedCusType=val;
-  notifyListeners();
 
-}
+  String? valueChosedStatus;
+  String? valueChosedCusType;
+  String? valueChosedrefcode;
+  choosedType(String? val) {
+    valueChosedCusType = val;
+    notifyListeners();
+  }
 
-choosedrefer(String? val){
-  valueChosedrefcode=val;
-  notifyListeners();
+  choosedrefer(String? val) {
+    valueChosedrefcode = val;
+    notifyListeners();
+  }
 
-}
-choosedStatus(String? val){
-  valueChosedStatus=val;
-notifyListeners();
-}
+  choosedStatus(String? val) {
+    valueChosedStatus = val;
+    notifyListeners();
+  }
+
   clearAllData() {
     log("step1");
+    postpaymentdata.clear();
     refpartdata.clear();
-      mycontroller[46].clear();
-  filterrefpartdata.clear();
+    mycontroller[46].clear();
+    filterrefpartdata.clear();
     mycontroller[36].clear();
     getcoupondata.clear();
-    couponload=false;
-    isappliedcoupon=false;
-    paymentTerm=false;
-     assignvalue = null;
-    iscomplement=false;
+    couponload = false;
+    isappliedcoupon = false;
+    paymentTerm = false;
+    assignvalue = null;
+    iscomplement = false;
     selectedassignto.clear();
-     leveofdata.clear();
-     enquirydetails.clear();
-     leaddetails.clear();
-     orderdetails.clear();
+    leveofdata.clear();
+    enquirydetails.clear();
+    leaddetails.clear();
+    orderdetails.clear();
     ordertypedata.clear();
-    valueChosedStatus=null;
-    valueChosedCusType=null;
-    valueChosedCusType=null;
+    valueChosedStatus = null;
+    valueChosedCusType = null;
+    valueChosedCusType = null;
     mycontroller[27].clear();
     mycontroller[28].clear();
     mycontroller[29].clear();
     mycontroller[30].clear();
- customermodeldata=null;
-DocDateold='';
+    mycontroller[41].clear();
+    customermodeldata = null;
+    DocDateold = '';
     paymode.clear();
     reyear = null;
     reminderOn = false;
@@ -3063,9 +3359,9 @@ DocDateold='';
     reminutes = null;
     isTextFieldEnabled = true;
     iscomeforupdate = false;
-     statecode = '';
-     countrycode = '';
-     statename = '';
+    statecode = '';
+    countrycode = '';
+    statename = '';
     statebool = false;
     statebool2 = false;
     isText1Correct = false;
@@ -3098,7 +3394,8 @@ DocDateold='';
     mycontroller[24].clear();
     mycontroller[25].clear();
     mycontroller[31].clear();
-
+files2.clear();
+    filedata2.clear();
     files.clear();
     filedata.clear();
     value3 = false;
@@ -3229,7 +3526,7 @@ DocDateold='';
 
   int docnum = 0;
   bool iscomeforupdate = false;
-String? DocDateold='';
+  String? DocDateold = '';
 //save all values tp server
 
   saveToServer(BuildContext context) async {
@@ -3326,11 +3623,17 @@ String? DocDateold='';
         : mycontroller[5].text;
     patch.U_State = statecode;
     patch.U_Country = countrycode;
-   patch. couponcode=mycontroller[36].text ==null || mycontroller[36].text.isEmpty?
-   null:mycontroller[36].text;
+    patch.couponcode =
+        mycontroller[36].text == null || mycontroller[36].text.isEmpty
+            ? null
+            : mycontroller[36].text;
     patch.U_ShipCountry = countrycode2;
-    patch.levelof=valueChosedStatus==null ||valueChosedStatus!.isEmpty?null:valueChosedStatus;
-        patch.ordertype=valueChosedCusType==null ||valueChosedCusType!.isEmpty?null:valueChosedCusType;
+    patch.levelof = valueChosedStatus == null || valueChosedStatus!.isEmpty
+        ? null
+        : valueChosedStatus;
+    patch.ordertype = valueChosedCusType == null || valueChosedCusType!.isEmpty
+        ? null
+        : valueChosedCusType;
 
     // patch.gst=
     //patch.U_Country =  mycontroller[6].text;
@@ -3340,6 +3643,7 @@ String? DocDateold='';
     patch.U_Type = isSelectedCusTagcode;
 
     PostOrder? postLead = new PostOrder();
+  postLead.paymentdata=  postpaymentdata;
     postLead.updateDate = config.currentDate();
     postLead.updateid = int.parse(ConstantValues.UserId.toString());
     postLead.slpCode = ConstantValues.slpcode;
@@ -3348,14 +3652,16 @@ String? DocDateold='';
     postLead.docEntry = 0; //
     postLead.docnum = docnum + 1; //
     postLead.docstatus = "open"; //
-    postLead.doctotal =double.parse (getTotalOrderAmount().toString().replaceAll(",", ""));
+    postLead.doctotal =
+        double.parse(getTotalOrderAmount().toString().replaceAll(",", ""));
     // postLead.DocType = "dDocument_Items"; //
     postLead.CardCode = mycontroller[0].text; //
     postLead.CardName = mycontroller[16].text; //
     postLead.DocDate = config.currentDate(); //
     postLead.deliveryDate = apiFDate;
     postLead.paymentDate = apiNdate;
-    postLead.DocDateold=DocDateold!.isEmpty?config.currentDate():DocDateold;
+    postLead.DocDateold =
+        DocDateold!.isEmpty ? config.currentDate() : DocDateold;
     patch.enqid = enqID == null ? 0 : enqID;
     patch.enqtype = basetype == null ? -1 : basetype;
     List<DocumentLines> productDetails2 = [];
@@ -3377,6 +3683,7 @@ String? DocDateold='';
     // postLead.deliveryDate = mycontroller[13].text;
 
 //
+ log("postLead.paymentdata::"+postpaymentdata!.length.toString()); 
     if (iscomeforupdate == true) {
       isloadingBtn = true;
       notifyListeners();
@@ -3400,7 +3707,7 @@ String? DocDateold='';
     }
   }
 
-DateTime? currentBackPressTime;
+  DateTime? currentBackPressTime;
   Future<bool> onbackpress() {
     DateTime now = DateTime.now();
 
@@ -3415,85 +3722,81 @@ DateTime? currentBackPressTime;
     }
   }
 
-
-  
-restricteddialog(BuildContext context){
-  final theme = Theme.of(context);
-  showDialog(
-    // barrierDismissible: true,
-    context: context, builder: (_){
-    return WillPopScope(
-      onWillPop: onbackpress,
-      child: AlertDialog(
-        // insetPadding: EdgeInsets.all(0),
-        contentPadding:EdgeInsets.all(0),
-         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        content: Container(
-        child:  Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-          SizedBox(
-            height: Screens.padingHeight(context)*0.06,
-            width: Screens.width(context),
-            child: ElevatedButton(
-              
-              onPressed: (){}, 
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  )
-                )
-              ),
-            child:Text("Alert",style: theme.textTheme.bodyText1!.copyWith(color: Colors.white),) 
+  restricteddialog(BuildContext context) {
+    final theme = Theme.of(context);
+    showDialog(
+        // barrierDismissible: true,
+        context: context,
+        builder: (_) {
+          return WillPopScope(
+            onWillPop: onbackpress,
+            child: AlertDialog(
+              // insetPadding: EdgeInsets.all(0),
+              contentPadding: EdgeInsets.all(0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              content: Container(
+                  child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: Screens.padingHeight(context) * 0.06,
+                    width: Screens.width(context),
+                    child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ))),
+                        child: Text(
+                          "Alert",
+                          style: theme.textTheme.bodyText1!
+                              .copyWith(color: Colors.white),
+                        )),
+                  ),
+                  SizedBox(
+                    height: Screens.padingHeight(context) * 0.02,
+                  ),
+                  Container(
+                    child: Text(
+                      "This User is assigned to multiple stores. Creating new order is not possible",
+                      style: theme.textTheme.bodyText1?.copyWith(
+                          color: theme.primaryColor,
+                          fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  SizedBox(
+                    height: Screens.padingHeight(context) * 0.02,
+                  ),
+                  SizedBox(
+                    height: Screens.padingHeight(context) * 0.06,
+                    width: Screens.width(context),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Get.offAllNamed(ConstantRoutes.ordertab);
+                          notifyListeners();
+                        },
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        ))),
+                        child: Text(
+                          "ok",
+                          style: theme.textTheme.bodyText1!
+                              .copyWith(color: Colors.white, fontSize: 18),
+                        )),
+                  ),
+                ],
+              )),
             ),
-          ),
-          SizedBox(
-            height: Screens.padingHeight(context)*0.02,
-          ),
-          Container(
-    
-            child: Text("This User is assigned to multiple stores. Creating new order is not possible",
-          style:  theme.textTheme.bodyText1?.copyWith(
-                                color: theme.primaryColor,
-                                fontWeight: FontWeight.w400),
-            textAlign: TextAlign.center,
-            ),
-          ),
-          SizedBox(
-            height: Screens.padingHeight(context)*0.02,
-          ),
-          SizedBox(
-            height: Screens.padingHeight(context)*0.06,
-            width: Screens.width(context),
-            child: ElevatedButton(
-              
-              onPressed: (){
-                 Get.offAllNamed(ConstantRoutes.ordertab);
-                 notifyListeners();
-              }, 
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(10),
-                  )
-                )
-              ),
-            child:Text("ok",style: theme.textTheme.bodyText1!.copyWith(color: Colors.white,fontSize: 18),) 
-            ),
-          ),
-       
-        ],)
-        ),
-    
-      ),
-    );
-
-  });
-}
-
+          );
+        });
+  }
 
   //call save lead api
   late OrderSavePostModal successRes;
@@ -3574,12 +3877,13 @@ restricteddialog(BuildContext context){
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         successRes = value;
         OrderSuccessPageState.getsuccessRes = value;
-        for(int i=0;i<paymode.length;i++){
-        if(paymode[i].CODE ==value.orderSavePostheader!.orderMasterdata![0].PaymentTerms){
-OrderSuccessPageState.paymode = paymode[i].description.toString();
+        OrderSuccessPageState.orderpayment=value.orderSavePostheader!.orderpaydata;
+        for (int i = 0; i < paymode.length; i++) {
+          if (paymode[i].Code ==
+              value.orderSavePostheader!.orderMasterdata![0].PaymentTerms) {
+            OrderSuccessPageState.paymode = paymode[i].ModeName.toString();
+          }
         }
-
-       } 
         Get.toNamed(ConstantRoutes.successorder);
         iscomeforupdate = false;
 
@@ -3705,13 +4009,16 @@ OrderSuccessPageState.paymode = paymode[i].description.toString();
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         successRes = value;
         OrderSuccessPageState.getsuccessRes = value;
-       for(int i=0;i<paymode.length;i++){
-        if(paymode[i].CODE ==value.orderSavePostheader!.orderMasterdata![0].PaymentTerms){
-OrderSuccessPageState.paymode = paymode[i].description.toString();
+         log("value::"+value.orderSavePostheader!.documentdata![0].ItemCode.toString());
+       OrderSuccessPageState. orderpayment=value.orderSavePostheader!.orderpaydata;
+        log("value::"+value.orderSavePostheader!.orderpaydata![0].ModeName.toString());
+        for (int i = 0; i < paymode.length; i++) {
+          if (paymode[i].Code ==
+              value.orderSavePostheader!.orderMasterdata![0].PaymentTerms) {
+            OrderSuccessPageState.paymode = paymode[i].ModeName.toString();
+          }
         }
 
-       } 
-        
         Get.toNamed(ConstantRoutes.successorder);
 
         // log("docno : " + successRes.DocNo.toString());
@@ -3915,8 +4222,7 @@ OrderSuccessPageState.paymode = paymode[i].description.toString();
     // }
 
     if (formkey[0].currentState!.validate()) {
-      
-       if(isSelectedCusTagcode.isEmpty){
+      if (isSelectedCusTagcode.isEmpty) {
         showtoastcustomergroup();
         // ScaffoldMessenger.of(context).showSnackBar(
         //   SnackBar(
@@ -3927,7 +4233,7 @@ OrderSuccessPageState.paymode = paymode[i].description.toString();
         //     margin: EdgeInsets.all(5),
         //     dismissDirection: DismissDirection.up,
         //   ),
-        // ); 
+        // );
       }
       // if (mycontroller[18].text.isNotEmpty ) {
 
@@ -3935,7 +4241,7 @@ OrderSuccessPageState.paymode = paymode[i].description.toString();
       //     notifyListeners();
 
       // }
-    else  if (mycontroller[18].text.isEmpty ||
+      else if (mycontroller[18].text.isEmpty ||
           statecode.isEmpty && countrycode.isEmpty) {
         isText1Correct = true;
         notifyListeners();
@@ -3966,28 +4272,29 @@ OrderSuccessPageState.paymode = paymode[i].description.toString();
     if (productDetails.length > 0) {
       pageController.animateToPage(++pageChanged,
           duration: Duration(milliseconds: 250), curve: Curves.bounceIn);
+          getTotalaoyAmount();
     } else {
       Get.snackbar("Field Empty", "Choose products..!!",
           backgroundColor: Colors.red);
     }
   }
-bool paymentTerm=false;
+
+  bool paymentTerm = false;
   thirPageBtnClicked(BuildContext context) {
     int passed = 0;
     if (formkey[1].currentState!.validate()) {
-    
-    if(isSelectedpaymentTermsCode ==null ||isSelectedpaymentTermsCode.isEmpty){
-paymentTerm=true;
-      notifyListeners();
-    }else{
-      paymentTerm=false;
-      notifyListeners();
-       if (passed == 0) {
-        // LeadSavePostApi.printData(postLead);
-        saveToServer(context);
+      if (isSelectedpaymentTermsCode == null ||
+          isSelectedpaymentTermsCode.isEmpty) {
+        paymentTerm = true;
+        notifyListeners();
+      } else {
+        paymentTerm = false;
+        notifyListeners();
+        if (passed == 0) {
+          // LeadSavePostApi.printData(postLead);
+          saveToServer(context);
+        }
       }
-    }
-     
     }
     if (isSelectedenquiryReffers.isEmpty) {
       visibleRefferal = true;
@@ -4031,7 +4338,9 @@ paymentTerm=true;
     mycontroller[30].text = allProductDetails[i].whsStock == null
         ? "0"
         : allProductDetails[i].whsStock.toString();
-
+    mycontroller[41].text = allProductDetails[i].mgrPrice == null
+        ? "0"
+        : allProductDetails[i].mgrPrice.toString();
     showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -4064,247 +4373,348 @@ paymentTerm=true;
                       SizedBox(
                         height: 10,
                       ),
-                      SizedBox(
-                        child: TextFormField(
-                          enabled: true,
-                          controller: mycontroller[27],
-                          readOnly: true,
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                      createTable4(theme, i),
+                      // SizedBox(
+                      //   height: Screens.padingHeight(context) * 0.06,
+                      //   child: TextFormField(
+                      //     enabled: true,
+                      //     controller: mycontroller[27],
+                      //     readOnly: true,
+                      //     style: TextStyle(fontSize: 15),
+                      //     decoration: InputDecoration(
+                      //       enabledBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             width: 1, color: theme.primaryColor),
+                      //         borderRadius: BorderRadius.circular(10),
+                      //       ),
 
-                            alignLabelWithHint: true,
-                            hintText: "",
-                            labelText: "SP",
-                            labelStyle: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor),
+                      //       alignLabelWithHint: true,
+                      //       hintText: "",
+                      //       labelText: "SP",
+                      //       labelStyle: theme.textTheme.bodyText1
+                      //           ?.copyWith(color: theme.primaryColor),
 
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
+                      //       contentPadding: EdgeInsets.symmetric(
+                      //           vertical: 10, horizontal: 10),
 
-                            // border: OutlineInputBorder(
+                      //       // border: OutlineInputBorder(
 
-                            //   borderRadius: BorderRadius.all(
-                            //     Radius.circular(10),
-                            //   ),
-                            // ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        child: TextFormField(
-                          // enabled: tr,
-                          controller: mycontroller[28],
-                          readOnly: true,
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            alignLabelWithHint: true,
-                            hintText: "",
-                            labelText: "Cost",
-                            labelStyle: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            child: Text(
-                              "Fixed Price",
-                              style: theme.textTheme.bodyText1
-                                  ?.copyWith(color: theme.primaryColor),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            child: Text(
-                              ":",
-                              style: theme.textTheme.bodyText1?.copyWith(),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                                color: Colors.green[200],
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              "${allProductDetails[i].isFixedPrice}",
-                              style: theme.textTheme.bodyText1?.copyWith(
-                                color: Colors.green[700],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            child: Text(
-                              "Accept Below cost Price",
-                              style: theme.textTheme.bodyText1
-                                  ?.copyWith(color: theme.primaryColor),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            child: Text(
-                              ":",
-                              style: theme.textTheme.bodyText1?.copyWith(),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                                color: Colors.green[200],
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              "${allProductDetails[i].allowOrderBelowCost}",
-                              style: theme.textTheme.bodyText1?.copyWith(
-                                color: Colors.green[700],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      //       //   borderRadius: BorderRadius.all(
+                      //       //     Radius.circular(10),
+                      //       //   ),
+                      //       // ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 5,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     SizedBox(
+                      //       width: Screens.width(context) * 0.44,
+                      //       height: Screens.padingHeight(context) * 0.06,
+                      //       child: TextFormField(
+                      //         // enabled: tr,
+                      //         controller: mycontroller[28],
+                      //         readOnly: true,
+                      //         style: TextStyle(fontSize: 15),
+                      //         decoration: InputDecoration(
+                      //           enabledBorder: OutlineInputBorder(
+                      //             borderSide: BorderSide(
+                      //                 width: 1, color: theme.primaryColor),
+                      //             borderRadius: BorderRadius.circular(10),
+                      //           ),
+                      //           alignLabelWithHint: true,
+                      //           hintText: "",
+                      //           labelText: "Cost",
+                      //           labelStyle: theme.textTheme.bodyText1
+                      //               ?.copyWith(color: theme.primaryColor),
+                      //           contentPadding: EdgeInsets.symmetric(
+                      //               vertical: 10, horizontal: 10),
+                      //           border: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.all(
+                      //               Radius.circular(8),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: Screens.width(context) * 0.44,
+                      //       height: Screens.padingHeight(context) * 0.06,
+                      //       child: TextFormField(
+                      //         // enabled: tr,
+                      //         controller: mycontroller[41],
+                      //         readOnly: true,
+                      //         style: TextStyle(fontSize: 15),
+                      //         decoration: InputDecoration(
+                      //           enabledBorder: OutlineInputBorder(
+                      //             borderSide: BorderSide(
+                      //                 width: 1, color: theme.primaryColor),
+                      //             borderRadius: BorderRadius.circular(10),
+                      //           ),
+                      //           alignLabelWithHint: true,
+                      //           hintText: "",
+                      //           labelText: "MRP",
+                      //           labelStyle: theme.textTheme.bodyText1
+                      //               ?.copyWith(color: theme.primaryColor),
+                      //           contentPadding: EdgeInsets.symmetric(
+                      //               vertical: 10, horizontal: 10),
+                      //           border: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.all(
+                      //               Radius.circular(8),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       SizedBox(
                         height: 5,
                       ),
+
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      //  SizedBox(
+                      //       width: 15,
+                      //     ),
+                      createTable(theme, i),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      createTable2(theme, i),
+                      SizedBox(
+                        height: 5,
+                      ),
+                       Container(
+                        // width: Screens.width(context)*0.7,
+                        // color: Colors.red,
+                        child: Text("Store Age Slab:",
+                            style: theme.textTheme.bodyText1
+                                ?.copyWith() //color: theme.primaryColor
+                            ),
+                      ),
+                      SizedBox(
+                        height: 1,
+                      ),
+                      createTable5(theme, i),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        // width: Screens.width(context)*0.7,
+                        // color: Colors.red,
+                        child: Text("Whse Age Slab:",
+                            style: theme.textTheme.bodyText1
+                                ?.copyWith() //color: theme.primaryColor
+                            ),
+                      ),
+                      SizedBox(
+                        height: 1,
+                      ),
+                      createTable6(theme, i),
                       Divider(
                         color: theme.primaryColor,
                       ),
                       SizedBox(
                         height: 5,
                       ),
+                      createTable3(theme, i),
+                      // SizedBox(
+                      //   height: Screens.padingHeight(context) * 0.06,
+                      //   child: TextFormField(
+                      //     // enabled: isTextFieldEnabled,
+                      //     controller: mycontroller[29],
+                      //     readOnly: true,
+                      //     style: TextStyle(fontSize: 15),
+                      //     decoration: InputDecoration(
+                      //       enabledBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             width: 1, color: theme.primaryColor),
+                      //         borderRadius: BorderRadius.circular(8),
+                      //       ),
+                      //       alignLabelWithHint: true,
+                      //       hintText: "",
+                      //       labelText: "Store Stock",
+                      //       labelStyle: theme.textTheme.bodyText1
+                      //           ?.copyWith(color: theme.primaryColor),
+                      //       contentPadding: EdgeInsets.symmetric(
+                      //           vertical: 10, horizontal: 10),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.all(
+                      //           Radius.circular(10),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // SizedBox(
+                      //   height: Screens.padingHeight(context) * 0.06,
+                      //   child: TextFormField(
+                      //     enabled: true,
+                      //     controller: mycontroller[30],
+                      //     readOnly: true,
+                      //     style: TextStyle(fontSize: 15),
+                      //     decoration: InputDecoration(
+                      //       enabledBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             width: 1, color: theme.primaryColor),
+                      //         borderRadius: BorderRadius.circular(8),
+                      //       ),
+                      //       alignLabelWithHint: true,
+                      //       hintText: "",
+                      //       labelText: "Whs Stock",
+                      //       labelStyle: theme.textTheme.bodyText1
+                      //           ?.copyWith(color: theme.primaryColor),
+                      //       contentPadding: EdgeInsets.symmetric(
+                      //           vertical: 10, horizontal: 10),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.all(
+                      //           Radius.circular(8),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                       SizedBox(
-                        child: TextFormField(
-                          // enabled: isTextFieldEnabled,
-                          controller: mycontroller[29],
-                          readOnly: true,
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            alignLabelWithHint: true,
-                            hintText: "",
-                            labelText: "Store Stock",
-                            labelStyle: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
+                        height: 5,
+                      ),
+                      
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          "Fixed Price",
+                                          style: theme.textTheme.bodyText1
+                                              ?.copyWith(color: theme.primaryColor),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          ":",
+                                          style: theme.textTheme.bodyText1?.copyWith(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 3,
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.all(4),
+                                        decoration: BoxDecoration(
+                                            // color: Colors.green[200],
+                                            borderRadius: BorderRadius.circular(4)),
+                                        child:allProductDetails[i].isFixedPrice==true?
+                                        Icon(Icons.check,color: Colors.green,): 
+                                        Icon(Icons.close,color: Colors.red,)
+                                        // Text(
+                                        //   "${allProductDetails[i].isFixedPrice}",
+                                        //   style: theme.textTheme.bodyText1?.copyWith(
+                                        //     color: Colors.green[700],
+                                        //   ),
+                                        // ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                             Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                "Allow Negative Stock",
+                                style: theme.textTheme.bodyText1
+                                    ?.copyWith(color: theme.primaryColor),
                               ),
                             ),
-                          ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Container(
+                              child: Text(
+                                ":",
+                                style: theme.textTheme.bodyText1?.copyWith(),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                  // color: Colors.green[200],
+                                  borderRadius: BorderRadius.circular(4)),
+                              child:allProductDetails[i].allowNegativeStock==true?
+                              Icon(Icons.check,color: Colors.green,): 
+                              Icon(Icons.close,color: Colors.red,)
+                              //  Text(
+                              //   "${allProductDetails[i].allowNegativeStock}",
+                              //   style: theme.textTheme.bodyText1?.copyWith(
+                              //     color: Colors.green[700],
+                              //   ),
+                              // ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        child: TextFormField(
-                          enabled: true,
-                          controller: mycontroller[30],
-                          readOnly: true,
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(8),
+                              ],
                             ),
-                            alignLabelWithHint: true,
-                            hintText: "",
-                            labelText: "Whs Stock",
-                            labelStyle: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
+                          
+                      
+                         Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                "Accept Below cost Price",
+                                style: theme.textTheme.bodyText1
+                                    ?.copyWith(color: theme.primaryColor),
                               ),
                             ),
-                          ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Container(
+                              child: Text(
+                                ":",
+                                style: theme.textTheme.bodyText1?.copyWith(),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                  // color: Colors.green[200],
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: allProductDetails[i].allowOrderBelowCost==true?
+                              Icon(Icons.check,color: Colors.green,): 
+                              Icon(Icons.close,color: Colors.red,)
+                              // Text(
+                              //   "${allProductDetails[i].allowOrderBelowCost}",
+                              //   style: theme.textTheme.bodyText1?.copyWith(
+                              //     color: Colors.green[700],
+                              //   ),
+                              // ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            child: Text(
-                              "Allow Negative Stock",
-                              style: theme.textTheme.bodyText1
-                                  ?.copyWith(color: theme.primaryColor),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            child: Text(
-                              ":",
-                              style: theme.textTheme.bodyText1?.copyWith(),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                                color: Colors.green[200],
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              "${allProductDetails[i].allowNegativeStock}",
-                              style: theme.textTheme.bodyText1?.copyWith(
-                                color: Colors.green[700],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                     
                       SizedBox(
                         height: 5,
                       ),
@@ -4323,22 +4733,611 @@ paymentTerm=true;
             ));
   }
 
-   showBottomSheetInsert2forEdit(BuildContext context, int i) {
+  Widget createTable(ThemeData theme, int ij) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp1}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp2}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp3}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp4}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp5}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp1.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp2.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp3.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp4.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp5.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+  Widget createTable3(ThemeData theme, int ij) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "Store Stock",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "Whs Stock",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+     
+    ]));
+   
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].storeStock.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].whsStock.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(2.0),
+      1: FlexColumnWidth(2.0),
+     
+    }, children: rows);
+  }
+
+  Widget createTable4(ThemeData theme, int ij) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "SP",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "Cost",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "MRP",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+     
+    ]));
+   
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].sp.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(2.0),
+      1: FlexColumnWidth(2.0),
+      2: FlexColumnWidth(2.0),
+     
+    }, children: rows);
+  }
+
+  Widget createTable2(ThemeData theme, int ij) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp1_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp2_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp3_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp4_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp5_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].ssp5Inc.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+  
+
+  Widget createTable5(ThemeData theme, int ij) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab1}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab2}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab3}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab4}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+     
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].storeAgeSlab1.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].storeAgeSlab2.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].storeAgeSlab3.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].storeAgeSlab4.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+     
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.5),
+      1: FlexColumnWidth(1.5),
+      2: FlexColumnWidth(1.5),
+      3: FlexColumnWidth(1.5),
+      
+    }, children: rows);
+  }
+
+  Widget createTable6(ThemeData theme, int ij) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab1}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab2}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab3}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab4}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+     
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].whsAgeSlab1.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].whsAgeSlab2.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].whsAgeSlab3.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].whsAgeSlab4.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+     
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.5),
+      1: FlexColumnWidth(1.5),
+      2: FlexColumnWidth(1.5),
+      3: FlexColumnWidth(1.5),
+      
+    }, children: rows);
+  }
+  
+
+  showBottomSheetInsert2forEdit(BuildContext context, int i) {
     final theme = Theme.of(context);
+    int? indexshow;
     selectedItemName = productDetails[i].ItemDescription.toString();
     selectedItemCode = productDetails[i].ItemCode.toString();
-    mycontroller[27].text = productDetails[i].sp == null
-        ? "0"
-        : productDetails[i].sp.toString();
-    mycontroller[28].text = productDetails[i].slpprice == null
-        ? "0"
-        : productDetails[i].slpprice.toString();
-    mycontroller[29].text = productDetails[i].storestock == null
-        ? "0"
-        : productDetails[i].storestock.toString();
-    mycontroller[30].text = productDetails[i].whsestock == null
-        ? "0"
-        : productDetails[i].whsestock.toString();
+    for( int ij=0 ;ij<allProductDetails.length;ij++){
+      if(allProductDetails[ij].itemCode ==selectedItemCode){
+indexshow=ij;
+break;
+      }
+    }
+    // mycontroller[27].text =
+    //     productDetails[i].sp == null ? "0" : productDetails[i].sp.toString();
+    // mycontroller[28].text = productDetails[i].slpprice == null
+    //     ? "0"
+    //     : productDetails[i].slpprice.toString();
+    // mycontroller[29].text = productDetails[i].storestock == null
+    //     ? "0"
+    //     : productDetails[i].storestock.toString();
+    // mycontroller[30].text = productDetails[i].whsestock == null
+    //     ? "0"
+    //     : productDetails[i].whsestock.toString();
 
     showModalBottomSheet(
         isScrollControlled: true,
@@ -4356,15 +5355,16 @@ paymentTerm=true;
                     children: [
                       SizedBox(height: 10),
                       Container(
-                        // width: Screens.width(context)*0.8,
+                        width: Screens.width(context)*0.8,
                         child: Text(productDetails[i].ItemCode.toString(),
                             style: theme.textTheme.bodyText1
                                 ?.copyWith(color: theme.primaryColor)),
                       ),
                       Container(
-                        // width: Screens.width(context)*0.7,
+                        width: Screens.width(context)*0.7,
                         // color: Colors.red,
-                        child: Text(productDetails[i].ItemDescription.toString(),
+                        child: Text(
+                            productDetails[i].ItemDescription.toString(),
                             style: theme.textTheme.bodyText1
                                 ?.copyWith() //color: theme.primaryColor
                             ),
@@ -4372,107 +5372,295 @@ paymentTerm=true;
                       SizedBox(
                         height: 10,
                       ),
+                       createTable4(theme, indexshow!),
+                      // SizedBox(
+                      //   height: Screens.padingHeight(context) * 0.06,
+                      //   child: TextFormField(
+                      //     enabled: true,
+                      //     controller: mycontroller[27],
+                      //     readOnly: true,
+                      //     style: TextStyle(fontSize: 15),
+                      //     decoration: InputDecoration(
+                      //       enabledBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             width: 1, color: theme.primaryColor),
+                      //         borderRadius: BorderRadius.circular(10),
+                      //       ),
+
+                      //       alignLabelWithHint: true,
+                      //       hintText: "",
+                      //       labelText: "SP",
+                      //       labelStyle: theme.textTheme.bodyText1
+                      //           ?.copyWith(color: theme.primaryColor),
+
+                      //       contentPadding: EdgeInsets.symmetric(
+                      //           vertical: 10, horizontal: 10),
+
+                      //       // border: OutlineInputBorder(
+
+                      //       //   borderRadius: BorderRadius.all(
+                      //       //     Radius.circular(10),
+                      //       //   ),
+                      //       // ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 5,
+                      // ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   children: [
+                      //     SizedBox(
+                      //       width: Screens.width(context) * 0.44,
+                      //       height: Screens.padingHeight(context) * 0.06,
+                      //       child: TextFormField(
+                      //         // enabled: tr,
+                      //         controller: mycontroller[28],
+                      //         readOnly: true,
+                      //         style: TextStyle(fontSize: 15),
+                      //         decoration: InputDecoration(
+                      //           enabledBorder: OutlineInputBorder(
+                      //             borderSide: BorderSide(
+                      //                 width: 1, color: theme.primaryColor),
+                      //             borderRadius: BorderRadius.circular(10),
+                      //           ),
+                      //           alignLabelWithHint: true,
+                      //           hintText: "",
+                      //           labelText: "Cost",
+                      //           labelStyle: theme.textTheme.bodyText1
+                      //               ?.copyWith(color: theme.primaryColor),
+                      //           contentPadding: EdgeInsets.symmetric(
+                      //               vertical: 10, horizontal: 10),
+                      //           border: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.all(
+                      //               Radius.circular(8),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //     SizedBox(
+                      //       width: Screens.width(context) * 0.44,
+                      //       height: Screens.padingHeight(context) * 0.06,
+                      //       child: TextFormField(
+                      //         // enabled: tr,
+                      //         controller: mycontroller[41],
+                      //         readOnly: true,
+                      //         style: TextStyle(fontSize: 15),
+                      //         decoration: InputDecoration(
+                      //           enabledBorder: OutlineInputBorder(
+                      //             borderSide: BorderSide(
+                      //                 width: 1, color: theme.primaryColor),
+                      //             borderRadius: BorderRadius.circular(10),
+                      //           ),
+                      //           alignLabelWithHint: true,
+                      //           hintText: "",
+                      //           labelText: "MRP",
+                      //           labelStyle: theme.textTheme.bodyText1
+                      //               ?.copyWith(color: theme.primaryColor),
+                      //           contentPadding: EdgeInsets.symmetric(
+                      //               vertical: 10, horizontal: 10),
+                      //           border: OutlineInputBorder(
+                      //             borderRadius: BorderRadius.all(
+                      //               Radius.circular(8),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       SizedBox(
-                        child: TextFormField(
-                          enabled: true,
-                          controller: mycontroller[27],
-                          readOnly: true,
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(10),
+                        height: 5,
+                      ),
+
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      //  SizedBox(
+                      //       width: 15,
+                      //     ),
+                      createTable(theme, indexshow),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      createTable2(theme, indexshow),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        // width: Screens.width(context)*0.7,
+                        // color: Colors.red,
+                        child: Text("Store Age Slab:",
+                            style: theme.textTheme.bodyText1
+                                ?.copyWith() //color: theme.primaryColor
                             ),
-
-                            alignLabelWithHint: true,
-                            hintText: "",
-                            labelText: "SP",
-                            labelStyle: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor),
-
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-
-                            // border: OutlineInputBorder(
-
-                            //   borderRadius: BorderRadius.all(
-                            //     Radius.circular(10),
-                            //   ),
-                            // ),
-                          ),
-                        ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 1,
+                      ),
+                        createTable5(theme, indexshow),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        // width: Screens.width(context)*0.7,
+                        // color: Colors.red,
+                        child: Text("Whse Age Slab:",
+                            style: theme.textTheme.bodyText1
+                                ?.copyWith() //color: theme.primaryColor
+                            ),
                       ),
                       SizedBox(
-                        child: TextFormField(
-                          // enabled: tr,
-                          controller: mycontroller[28],
-                          readOnly: true,
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            alignLabelWithHint: true,
-                            hintText: "",
-                            labelText: "Cost",
-                            labelStyle: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ),
+                        height: 1,
+                      ),
+                      createTable6(theme, indexshow),
+                      Divider(
+                        color: theme.primaryColor,
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 5,
+                      ),
+                      // SizedBox(
+                      //   height: 5,
+                      // ),
+                      // SizedBox(
+                      //   child: TextFormField(
+                      //     // enabled: isTextFieldEnabled,
+                      //     controller: mycontroller[29],
+                      //     readOnly: true,
+                      //     style: TextStyle(fontSize: 15),
+                      //     decoration: InputDecoration(
+                      //       enabledBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             width: 1, color: theme.primaryColor),
+                      //         borderRadius: BorderRadius.circular(8),
+                      //       ),
+                      //       alignLabelWithHint: true,
+                      //       hintText: "",
+                      //       labelText: "Store Stock",
+                      //       labelStyle: theme.textTheme.bodyText1
+                      //           ?.copyWith(color: theme.primaryColor),
+                      //       contentPadding: EdgeInsets.symmetric(
+                      //           vertical: 10, horizontal: 10),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.all(
+                      //           Radius.circular(10),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // SizedBox(
+                      //   child: TextFormField(
+                      //     enabled: true,
+                      //     controller: mycontroller[30],
+                      //     readOnly: true,
+                      //     style: TextStyle(fontSize: 15),
+                      //     decoration: InputDecoration(
+                      //       enabledBorder: OutlineInputBorder(
+                      //         borderSide: BorderSide(
+                      //             width: 1, color: theme.primaryColor),
+                      //         borderRadius: BorderRadius.circular(8),
+                      //       ),
+                      //       alignLabelWithHint: true,
+                      //       hintText: "",
+                      //       labelText: "Whs Stock",
+                      //       labelStyle: theme.textTheme.bodyText1
+                      //           ?.copyWith(color: theme.primaryColor),
+                      //       contentPadding: EdgeInsets.symmetric(
+                      //           vertical: 10, horizontal: 10),
+                      //       border: OutlineInputBorder(
+                      //         borderRadius: BorderRadius.all(
+                      //           Radius.circular(8),
+                      //         ),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      createTable3(theme, indexshow),
+                       SizedBox(
+                        height: 5,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            child: Text(
-                              "Fixed Price",
-                              style: theme.textTheme.bodyText1
-                                  ?.copyWith(color: theme.primaryColor),
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Text(
+                                    "Fixed Price",
+                                    style: theme.textTheme.bodyText1
+                                        ?.copyWith(color: theme.primaryColor),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Container(
+                                  child: Text(
+                                    ":",
+                                    style: theme.textTheme.bodyText1?.copyWith(),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(4),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.green[200],
+                                      borderRadius: BorderRadius.circular(4)),
+                                  child: allProductDetails[indexshow].isFixedPrice==true?
+                                        Icon(Icons.check,color: Colors.green,): 
+                                        Icon(Icons.close,color: Colors.red,)
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            child: Text(
-                              ":",
-                              style: theme.textTheme.bodyText1?.copyWith(),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                                color: Colors.green[200],
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              "${productDetails[i].isfixedprice}",
-                              style: theme.textTheme.bodyText1?.copyWith(
-                                color: Colors.green[700],
+                        Container(
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text(
+                                "Allow Negative Stock",
+                                style: theme.textTheme.bodyText1
+                                    ?.copyWith(color: theme.primaryColor),
                               ),
                             ),
-                          ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Container(
+                              child: Text(
+                                ":",
+                                style: theme.textTheme.bodyText1?.copyWith(),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 3,
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                  // color: Colors.green[200],
+                                  borderRadius: BorderRadius.circular(4)),
+                              child: allProductDetails[indexshow].allowNegativeStock==true?
+                                Icon(Icons.check,color: Colors.green,): 
+                                Icon(Icons.close,color: Colors.red,)
+                            ),
+                          ],
+                        ),
+                      ),
                         ],
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
                       Row(
                         children: [
@@ -4484,7 +5672,7 @@ paymentTerm=true;
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 3,
                           ),
                           Container(
                             child: Text(
@@ -4493,126 +5681,20 @@ paymentTerm=true;
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 3,
                           ),
                           Container(
                             padding: EdgeInsets.all(4),
                             decoration: BoxDecoration(
-                                color: Colors.green[200],
+                                // color: Colors.green[200],
                                 borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              "${productDetails[i].alloworderbelowcost}",
-                              style: theme.textTheme.bodyText1?.copyWith(
-                                color: Colors.green[700],
-                              ),
-                            ),
+                            child: allProductDetails[indexshow].allowOrderBelowCost==true?
+                              Icon(Icons.check,color: Colors.green,): 
+                              Icon(Icons.close,color: Colors.red,)
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Divider(
-                        color: theme.primaryColor,
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      SizedBox(
-                        child: TextFormField(
-                          // enabled: isTextFieldEnabled,
-                          controller: mycontroller[29],
-                          readOnly: true,
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            alignLabelWithHint: true,
-                            hintText: "",
-                            labelText: "Store Stock",
-                            labelStyle: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        child: TextFormField(
-                          enabled: true,
-                          controller: mycontroller[30],
-                          readOnly: true,
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1, color: theme.primaryColor),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            alignLabelWithHint: true,
-                            hintText: "",
-                            labelText: "Whs Stock",
-                            labelStyle: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor),
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            child: Text(
-                              "Allow Negative Stock",
-                              style: theme.textTheme.bodyText1
-                                  ?.copyWith(color: theme.primaryColor),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            child: Text(
-                              ":",
-                              style: theme.textTheme.bodyText1?.copyWith(),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                                color: Colors.green[200],
-                                borderRadius: BorderRadius.circular(4)),
-                            child: Text(
-                              "${productDetails[i].allownegativestock}",
-                              style: theme.textTheme.bodyText1?.copyWith(
-                                color: Colors.green[700],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                     
                       SizedBox(
                         height: 5,
                       ),
@@ -4668,511 +5750,602 @@ paymentTerm=true;
     final theme = Theme.of(context);
     selectedItemName = allProductDetails[i].itemName.toString();
     selectedItemCode = allProductDetails[i].itemCode.toString();
-    taxvalue=double.parse(allProductDetails[i].taxRate.toString());
-    log("taxvalue::"+taxvalue.toString());
-    sporder=allProductDetails[i].sp == null
+    taxvalue = double.parse(allProductDetails[i].taxRate.toString());
+    log("taxvalue::" + taxvalue.toString());
+    sporder = allProductDetails[i].sp == null
         ? 0.0
         : double.parse(allProductDetails[i].sp.toString());
-    slppriceorder=allProductDetails[i].slpPrice == null
+    slppriceorder = allProductDetails[i].slpPrice == null
         ? 0.0
         : double.parse(allProductDetails[i].slpPrice.toString());
-    storestockorder=allProductDetails[i].storeStock == null
+    storestockorder = allProductDetails[i].storeStock == null
         ? 0.0
         : double.parse(allProductDetails[i].storeStock.toString());
-    whsestockorder=allProductDetails[i].whsStock == null
+    whsestockorder = allProductDetails[i].whsStock == null
         ? 0.0
         : double.parse(allProductDetails[i].whsStock.toString());
-    isfixedpriceorder=allProductDetails[i].isFixedPrice;
-    allownegativestockorder=allProductDetails[i].allowNegativeStock;
-    alloworderbelowcostorder=allProductDetails[i].allowOrderBelowCost;
+    isfixedpriceorder = allProductDetails[i].isFixedPrice;
+    allownegativestockorder = allProductDetails[i].allowNegativeStock;
+    alloworderbelowcostorder = allProductDetails[i].allowOrderBelowCost;
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
       builder: (context) => StatefulBuilder(builder: (context, st) {
-        return  couponload ==true?
-        Container(
-          height:Screens.padingHeight(context)*0.3,
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
-        ):
-        
-        
-         Container(
-            padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
-            child: Form(
-              key: formkey[1],
-              child: Container(
-                child: Padding(
-                  padding: MediaQuery.of(context).viewInsets,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return couponload == true
+            ? Container(
+                height: Screens.padingHeight(context) * 0.3,
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+            : Container(
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
+                child: Form(
+                  key: formkey[1],
+                  child: Container(
+                    child: Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                width: Screens.width(context) * 0.8,
-                                //  color: Colors.amber,
-                                child: Text(
-                                    allProductDetails[i].itemCode.toString(),
-                                    style: theme.textTheme.bodyText1
-                                        ?.copyWith(color: theme.primaryColor)),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    width: Screens.width(context) * 0.8,
+                                    //  color: Colors.amber,
+                                    child: Text(
+                                        allProductDetails[i]
+                                            .itemCode
+                                            .toString(),
+                                        style: theme.textTheme.bodyText1
+                                            ?.copyWith(
+                                                color: theme.primaryColor)),
+                                  ),
+                                  Container(
+                                    width: Screens.width(context) * 0.8,
+                                    // color: Colors.red,
+                                    child: Text(
+                                        allProductDetails[i]
+                                            .itemName
+                                            .toString(),
+                                        style: theme.textTheme.bodyText1
+                                            ?.copyWith() //color: theme.primaryColor
+                                        ),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                width: Screens.width(context) * 0.8,
-                                // color: Colors.red,
-                                child: Text(
-                                    allProductDetails[i].itemName.toString(),
-                                    style: theme.textTheme.bodyText1
-                                        ?.copyWith() //color: theme.primaryColor
-                                    ),
+                              InkWell(
+                                onTap: () {
+                                  mycontroller[27].clear();
+                                  mycontroller[28].clear();
+                                  mycontroller[29].clear();
+                                  mycontroller[30].clear();
+                                  mycontroller[41].clear();
+
+                                  showBottomSheetInsert2(context, i);
+                                  notifyListeners();
+                                },
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  //  padding: const EdgeInsets.only(right:10 ),
+                                  width: Screens.width(context) * 0.05,
+                                  height: Screens.padingHeight(context) * 0.04,
+                                  child: Center(
+                                      child: Icon(Icons.more_vert,
+                                          color: Colors.white)),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: theme.primaryColor,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                          InkWell(
-                            onTap: () {
-                              mycontroller[27].clear();
-                              mycontroller[28].clear();
-                              mycontroller[29].clear();
-                              mycontroller[30].clear();
 
-                              showBottomSheetInsert2(context, i);
-                              notifyListeners();
-                            },
-                            child: Container(
-                              alignment: Alignment.centerLeft,
-                              //  padding: const EdgeInsets.only(right:10 ),
-                              width: Screens.width(context) * 0.05,
-                              height: Screens.padingHeight(context) * 0.04,
-                              child: Center(
-                                  child: Icon(Icons.more_vert,
-                                      color: Colors.white)),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: theme.primaryColor,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        // width: 270,
-                        // height: 40,
-                        child: new TextFormField(
-                          controller: mycontroller[10],
-                          onChanged: (val) {
-                            st(() {
-                              if (val.length > 0) {
-                                if (mycontroller[10].text.length > 0 &&
-                                    mycontroller[11].text.length > 0) {
-                                  unitPrice =
-                                      double.parse(mycontroller[10].text);
-                                  quantity =
-                                      double.parse(mycontroller[11].text);
-                                  total = unitPrice! * quantity!;
-                                  print(total);
-                                }
-                              }
-                            });
-                          },
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "ENTER UNIT PRICE";
-                            }
-                            return null;
-                          },
-                          readOnly:
-                       isappliedcoupon ==true?true:  
-                        allProductDetails[i].isFixedPrice ==false 
-                           ?false:
-                           true,
-                           keyboardType:  TextInputType.numberWithOptions(decimal: true),
-                           inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d*')),],
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            labelText: "Unit Price",
-                          ),
-                        ),
-                      ),
-                      
-                      SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        // width: 270,
-                        // height: 40,
-                        child: new TextFormField(
-                          controller: mycontroller[11],
-                          onChanged: (val) {
-                            st(() {
-                              if (val.length > 0) {
-                                if (mycontroller[10].text.length > 0 &&
-                                    mycontroller[11].text.length > 0) {
-                                  unitPrice =
-                                      double.parse(mycontroller[10].text);
-                                  quantity =
-                                      double.parse(mycontroller[11].text);
-                                  total = unitPrice! * quantity!;
-                                  print(total);
-                                }
-                              }
-                            });
-                          },
-                          readOnly: isappliedcoupon ==true && getcoupondata.isNotEmpty?true:false,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "ENTER QUANTITY";
-                            }
-                            return null;
-                          },
-                          // readOnly: isDescriptionSelected == "TRANSPORTCHARGES"
-                          //     ? true
-                          //     : false,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly,],
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            labelText: "quantity",
-                          ),
-                        ),
-                      ),
-                      //  ),
- SizedBox(
-                        height: 10,
-                      ),
-                      SizedBox(
-                        // width: 270,
-                        // height: 40,
-                        child: new TextFormField(
-                          controller: mycontroller[46],
-                          
-                          readOnly: true ,
-                          onTap: (){
-                             showDialog<dynamic>(
-                                                          context: context,
-                                                          builder: (_) {
-                                                            return ShowSearchDialog();
-                                                          }).then((value) {
-                                                            mycontroller[47].clear();
-                                                            filterrefpartdata=refpartdata;
-                                                            notifyListeners();
-                                                          //  context
-                                                          //   .read<
-                                                          //       NewEnqController>()
-                                                          //   .setcatagorydata();    
-                                                            });
-                          },
-                          // validator: (value) {
-                          //   if (value!.isEmpty) {
-                          //     return "ENTER QUANTITY";
-                          //   }
-                          //   return null;
-                          // },
-                          
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            labelText: "referal partner",
-                            suffixIcon: Icon(Icons.search)
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                     getcoupondata.isEmpty?Container():     Container(
-                      width: Screens.width(context)*0.5,
-                        alignment: Alignment.centerLeft,
-                            child: TextFormField(
-                              controller: mycontroller[36],
-                              decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 10,
-                    ),
-                                 labelText: 'Couponcode',
-                                      labelStyle: theme.textTheme.bodyText1!
-                                          .copyWith(color: Colors.grey),
-                             enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                        //  when the TextFormField in unfocused
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                        //  when the TextFormField in focused
-                                      ),
-                                      border: UnderlineInputBorder(),
-                                      // enabledBorder: UnderlineInputBorder(),
-                                      // focusedBorder: UnderlineInputBorder(),
-                                      errorBorder: UnderlineInputBorder(),
-                                      focusedErrorBorder:
-                                          UnderlineInputBorder(),
-                              ),
-                            ),
-                           
-                          ),
-                           SizedBox(
-                        height: 5,
-                      ),
-                       
-                               
-                          InkWell(
-                            onTap: ()async{
-                              if(mycontroller[11].text.isEmpty){
-                                st((){
-showtoastforcoupon("Enter QUANTITY");
-                                });
-                          
-                              }else{
-                                st((){
-//  callcouponApi();
-
- 
- st((){
-  getcoupondata.clear();
-couponload=true;
- });
-  
-  notifyListeners();
- couponmodel coupondata= couponmodel();
- coupondata.customerCode=mycontroller[0].text;
- coupondata.itemCode=selectedItemCode;
- coupondata.storeCode=ConstantValues.Storecode;
- coupondata.qty =int.parse(mycontroller[11].text);
- coupondata.totalBillValue=double.parse(mycontroller[10].text);
- coupondata.requestedBy_UserCode=ConstantValues.Usercode;
-
- CouponApi.getData(coupondata).then((value) {
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-        
-
-        if (value.CouponModaldatageader!.Ordercheckdata != null && value.CouponModaldatageader!.Ordercheckdata!.isNotEmpty) {
-          log("not null");
-          st((){
- getcoupondata = value.CouponModaldatageader!.Ordercheckdata!;
-  log("getcoupondata::"+getcoupondata.length.toString());
-   mycontroller[36].text= getcoupondata[0].CouponCode.toString();
-  mycontroller[10].text =getcoupondata[0].RP!.toStringAsFixed(2);
-  mycontroller[11].text=getcoupondata[0].Quantity!.toStringAsFixed(0);
-   unitPrice =
-                                      double.parse(mycontroller[10].text);
-                                  quantity =
-                                      double.parse(mycontroller[11].text);
-                                  total = unitPrice! * quantity!;
-  //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
-notifyListeners();
-isappliedcoupon=true;
-
-notifyListeners();
-couponload=false;
- });
- 
-          // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
-notifyListeners();
-          // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
-        } else if (value.CouponModaldatageader!.Ordercheckdata == null||value.CouponModaldatageader!.Ordercheckdata!.isEmpty) {
-          log("Order data null");
-          st((){
- couponload=false;
-          
-          showtoastforcoupon("There is no couponcode for this customer");
-          });
-         
-          notifyListeners();
-        }
-      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-        st((){
- couponload=false;
-         showtoastforcoupon('${value.message}..!!${value.exception}....!!');
-          });
-       
-        
-        notifyListeners();
-      } else  {
-        st((){ couponload=false;
-        
-         showtoastforcoupon('${value.stcode!}..!!Network Issue..\nTry again Later..!!');
-    
-          });
-         
-     notifyListeners();
-      }
-      notifyListeners();
-});
-                                });
-                          
-                              }
-                              
-                            },
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: Text("Apply Coupon Code",
-                              style: theme.textTheme.bodyText1!.copyWith(
-                                color:theme.primaryColor,
-                                decoration: TextDecoration.underline
-                              ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            child: Text("Delivery From",
-                                style: theme.textTheme.bodyText1
-                                    ?.copyWith(color: theme.primaryColor)),
+                          SizedBox(
+                            height: 10,
                           ),
                           SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                            height: Screens.padingHeight(context) * 0.04,
-                            // width:Screens.width(context)*0.20 ,
-                            // padding:  EdgeInsets.symmetric(horizontal: 5),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: theme.primaryColor)),
-                            child: ToggleButtons(
-                              selectedColor: Colors.white,
-                              color: theme.primaryColor,
-                              fillColor: theme.primaryColor,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text("Store"),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text("WareHouse"),
-                                )
-                              ],
-                              onPressed: (int newindex) {
-                                st(
-                                  () {
-                                    for (int index = 0;
-                                        index < isselected.length;
-                                        index++) {
-                                      if (index == newindex) {
-                                        isselected[index] = true;
-                                        notifyListeners();
-                                      } else {
-                                        isselected[index] = false;
-                                        notifyListeners();
-                                      }
+                            // width: 270,
+                            // height: 40,
+                            child: new TextFormField(
+                              controller: mycontroller[10],
+                              onChanged: (val) {
+                                st(() {
+                                  if (val.length > 0) {
+                                    if (mycontroller[10].text.length > 0 &&
+                                        mycontroller[11].text.length > 0) {
+                                      unitPrice =
+                                          double.parse(mycontroller[10].text);
+                                      quantity =
+                                          double.parse(mycontroller[11].text);
+                                      total = unitPrice! * quantity!;
+                                      print(total);
                                     }
-                                  },
-                                );
+                                  }
+                                });
                               },
-                              isSelected: isselected,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "ENTER UNIT PRICE";
+                                }
+                                return null;
+                              },
+                              readOnly: isappliedcoupon == true
+                                  ? true
+                                  : allProductDetails[i].isFixedPrice == false
+                                      ? false
+                                      : true,
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true),
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'^\d+\.?\d*')),
+                              ],
+                              style: TextStyle(fontSize: 15),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                labelText: "Unit Price",
+                              ),
                             ),
                           ),
-                        ],
-                      ),
 
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text("Total: $total")),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context);
+                          SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            // width: 270,
+                            // height: 40,
+                            child: new TextFormField(
+                              controller: mycontroller[11],
+                              onChanged: (val) {
+                                st(() {
+                                  if (val.length > 0) {
+                                    if (mycontroller[10].text.length > 0 &&
+                                        mycontroller[11].text.length > 0) {
+                                      unitPrice =
+                                          double.parse(mycontroller[10].text);
+                                      quantity =
+                                          double.parse(mycontroller[11].text);
+                                      total = unitPrice! * quantity!;
+                                      print(total);
+                                    }
+                                  }
+                                });
                               },
-                              child: Text("cancel")),
-                          isUpdateClicked == false
-                              ? ElevatedButton(
-                                  onPressed: () {
-                                    //                             ScaffoldMessenger.of(context).showSnackBar(
-                                    //   SnackBar(
-                                    //     content: Text('Quantity Not equal to 0..!!'),
-                                    //     backgroundColor: Colors.red,
-                                    //     elevation: 10,
-                                    //     behavior: SnackBarBehavior.floating,
+                              readOnly: isappliedcoupon == true &&
+                                      getcoupondata.isNotEmpty
+                                  ? true
+                                  : false,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "ENTER QUANTITY";
+                                }
+                                return null;
+                              },
+                              // readOnly: isDescriptionSelected == "TRANSPORTCHARGES"
+                              //     ? true
+                              //     : false,
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.digitsOnly,
+                              ],
+                              style: TextStyle(fontSize: 15),
+                              decoration: InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                labelText: "quantity",
+                              ),
+                            ),
+                          ),
+                          //  ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
+                          
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                            // width: 270,
+                            // height: 40,
+                              child: InkWell(
+                          onTap: (){
+                            showDialog<dynamic>(
+                                context: context,
+                                builder: (_) {
+                                  return ShowSearchDialog();
+                                }).then((value) {
+                              mycontroller[47].clear();
+                              filterrefpartdata = refpartdata;
+                              notifyListeners();
+                             
+                            });
+                          
+                          },
+                          child: Container(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  "Referal Partner",
+                                  style: theme.textTheme.bodyText1!.copyWith(
+                                      color: theme.primaryColor,
+                                      decoration: TextDecoration.underline),
+                                ),
+                              ),
+                        ),
+                            // child: new TextFormField(
+                            //   controller: mycontroller[48],
 
-                                    //     margin: EdgeInsets.only(
+                            //   readOnly: true,
+                            //   onTap: () {
+                            //     showDialog<dynamic>(
+                            //         context: context,
+                            //         builder: (_) {
+                            //           return ShowSearchDialog();
+                            //         }).then((value) {
+                            //       mycontroller[47].clear();
+                            //       filterrefpartdata = refpartdata;
+                            //       notifyListeners();
+                            //       //  context
+                            //       //   .read<
+                            //       //       NewEnqController>()
+                            //       //   .setcatagorydata();
+                            //     });
+                            //   },
+                            //   // validator: (value) {
+                            //   //   if (value!.isEmpty) {
+                            //   //     return "ENTER QUANTITY";
+                            //   //   }
+                            //   //   return null;
+                            //   // },
 
-                                    //       // bottom: Screens.bodyheight(context)-60
-                                    //     ),
-                                    //     dismissDirection: DismissDirection.down,
-                                    //   ),
-                                    // );
-                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text) > 0) {
-                                      mycontroller[12].clear();
-                                      addProductDetails(context);
-                                    } else {
-                                      showtoastproduct();
-                                    }
+                            //   style: TextStyle(fontSize: 15),
+                            //   decoration: InputDecoration(
+                            //       contentPadding: EdgeInsets.symmetric(
+                            //           vertical: 10, horizontal: 10),
+                            //       border: OutlineInputBorder(
+                            //         borderRadius: BorderRadius.all(
+                            //           Radius.circular(10),
+                            //         ),
+                            //       ),
+                            //       labelText: "referal partner",
+                            //       suffixIcon: Icon(Icons.search)),
+                            // ),
+                          ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  if (mycontroller[11].text.isEmpty) {
+                                    st(() {
+                                      showtoastforcoupon("Enter QUANTITY");
+                                    });
+                                  } else {
+                                    st(() {
+//  callcouponApi();
+
+                                      st(() {
+                                        getcoupondata.clear();
+                                        couponload = true;
+                                      });
+
+                                      notifyListeners();
+                                      couponmodel coupondata = couponmodel();
+                                      coupondata.customerCode =
+                                          mycontroller[0].text;
+                                      coupondata.itemCode = selectedItemCode;
+                                      coupondata.storeCode =
+                                          ConstantValues.Storecode;
+                                      coupondata.qty =
+                                          int.parse(mycontroller[11].text);
+                                      coupondata.totalBillValue =
+                                          double.parse(mycontroller[10].text);
+                                      coupondata.requestedBy_UserCode =
+                                          ConstantValues.Usercode;
+
+                                      CouponApi.getData(coupondata)
+                                          .then((value) {
+                                        if (value.stcode! >= 200 &&
+                                            value.stcode! <= 210) {
+                                          if (value.CouponModaldatageader!
+                                                      .Ordercheckdata !=
+                                                  null &&
+                                              value.CouponModaldatageader!
+                                                  .Ordercheckdata!.isNotEmpty) {
+                                            log("not null");
+                                            st(() {
+                                              getcoupondata = value
+                                                  .CouponModaldatageader!
+                                                  .Ordercheckdata!;
+                                              log("getcoupondata::" +
+                                                  getcoupondata.length
+                                                      .toString());
+                                              mycontroller[36].text =
+                                                  getcoupondata[0]
+                                                      .CouponCode
+                                                      .toString();
+                                              mycontroller[10].text =
+                                                  getcoupondata[0]
+                                                      .RP!
+                                                      .toStringAsFixed(2);
+                                              mycontroller[11].text =
+                                                  getcoupondata[0]
+                                                      .Quantity!
+                                                      .toStringAsFixed(0);
+                                              unitPrice = double.parse(
+                                                  mycontroller[10].text);
+                                              quantity = double.parse(
+                                                  mycontroller[11].text);
+                                              total = unitPrice! * quantity!;
+                                              //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
+                                              notifyListeners();
+                                              isappliedcoupon = true;
+
+                                              notifyListeners();
+                                              couponload = false;
+                                            });
+
+                                            // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
+                                            notifyListeners();
+                                            // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
+                                          } else if (value
+                                                      .CouponModaldatageader!
+                                                      .Ordercheckdata ==
+                                                  null ||
+                                              value.CouponModaldatageader!
+                                                  .Ordercheckdata!.isEmpty) {
+                                            log("Order data null");
+                                            st(() {
+                                              couponload = false;
+
+                                              showtoastforcoupon(
+                                                  "There is no couponcode for this customer");
+                                            });
+
+                                            notifyListeners();
+                                          }
+                                        } else if (value.stcode! >= 400 &&
+                                            value.stcode! <= 410) {
+                                          st(() {
+                                            couponload = false;
+                                            showtoastforcoupon(
+                                                '${value.message}..!!${value.exception}....!!');
+                                          });
+
+                                          notifyListeners();
+                                        } else {
+                                          st(() {
+                                            couponload = false;
+
+                                            showtoastforcoupon(
+                                                '${value.stcode!}..!!Network Issue..\nTry again Later..!!');
+                                          });
+
+                                          notifyListeners();
+                                        }
+                                        notifyListeners();
+                                      });
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  alignment: Alignment.centerRight,
+                                  child: Text(
+                                    "Apply Coupon Code",
+                                    style: theme.textTheme.bodyText1!.copyWith(
+                                        color: theme.primaryColor,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 10,
+                          ),
+                        
+                          Row(
+                            children: [
+                              Container(
+                                child: Text("Delivery From",
+                                    style: theme.textTheme.bodyText1
+                                        ?.copyWith(color: theme.primaryColor)),
+                              ),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                height: Screens.padingHeight(context) * 0.04,
+                                // width:Screens.width(context)*0.20 ,
+                                // padding:  EdgeInsets.symmetric(horizontal: 5),
+                                decoration: BoxDecoration(
+                                  // color:Colors.white,
+                                  // borderRadius: BorderRadius.circular(8),
+                                  // boxShadow:[
+                                  //   BoxShadow(
+                                  //   color: Colors.black26,
+                                  //   spreadRadius: 1,
+                                  //   blurRadius: 2,
+                                  //   offset: Offset(0, 15)
+
+                                  // )
+                                  // ] 
+                                    // border:
+                                    //     Border.all(color: theme.primaryColor)
+                                        ),
+                                child: ToggleButtons(
+                                  selectedColor: Colors.white,
+                                  color: theme.primaryColor,
+                                  borderRadius:BorderRadius.circular(10),
+                                  borderColor: theme.primaryColor,
+                                  fillColor: theme.primaryColor,
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: Text("Store"),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: Text("WareHouse"),
+                                    )
+                                  ],
+                                  onPressed: (int newindex) {
+                                    st(
+                                      () {
+                                        for (int index = 0;
+                                            index < isselected.length;
+                                            index++) {
+                                          if (index == newindex) {
+                                            isselected[index] = true;
+                                            notifyListeners();
+                                          } else {
+                                            isselected[index] = false;
+                                            notifyListeners();
+                                          }
+                                        }
+                                      },
+                                    );
                                   },
-                                  child: Text("ok"))
-                              : ElevatedButton(
+                                  isSelected: isselected,
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(
+                            height: 5,
+                          ),
+                          getcoupondata.isEmpty
+                                  ? Container()
+                                  :  Row(children: [
+                            Text("Couponcode:"),
+                             Container(
+                                      width: Screens.width(context) * 0.5,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextFormField(
+                                        controller: mycontroller[36],
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal: 10,
+                                          ),
+                                          labelText: 'Couponcode',
+                                          labelStyle: theme.textTheme.bodyText1!
+                                              .copyWith(color: Colors.grey),
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.grey),
+                                            //  when the TextFormField in unfocused
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.grey),
+                                            //  when the TextFormField in focused
+                                          ),
+                                          border: UnderlineInputBorder(),
+                                          // enabledBorder: UnderlineInputBorder(),
+                                          // focusedBorder: UnderlineInputBorder(),
+                                          errorBorder: UnderlineInputBorder(),
+                                          focusedErrorBorder:
+                                              UnderlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                          ],),
+                      //  selectedapartcode !=null||selectedapartcode.isNotEmpty?   Align(
+                      //         alignment: Alignment.bottomLeft,
+                      //         child: Text("Refcode: $selectedapartcode")):Container(),
+                          Align(
+                              alignment: Alignment.bottomRight,
+                              child: Text("Total: $total")),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ElevatedButton(
                                   onPressed: () {
-                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text) > 0) {
-                                      updateProductDetails(context, i);
-                                    } else {
-                                      showtoastproduct();
-                                    }
+                                    Navigator.pop(context);
                                   },
-                                  child: Text("Update")),
+                                  child: Text("cancel")),
+                              isUpdateClicked == false
+                                  ? ElevatedButton(
+                                      onPressed: () {
+                                        //                             ScaffoldMessenger.of(context).showSnackBar(
+                                        //   SnackBar(
+                                        //     content: Text('Quantity Not equal to 0..!!'),
+                                        //     backgroundColor: Colors.red,
+                                        //     elevation: 10,
+                                        //     behavior: SnackBarBehavior.floating,
+
+                                        //     margin: EdgeInsets.only(
+
+                                        //       // bottom: Screens.bodyheight(context)-60
+                                        //     ),
+                                        //     dismissDirection: DismissDirection.down,
+                                        //   ),
+                                        // );
+                                        if (mycontroller[11].text.isNotEmpty &&
+                                            int.parse(mycontroller[11].text) >
+                                                0) {
+                                          mycontroller[12].clear();
+                                          addProductDetails(context);
+                                        } else {
+                                          showtoastproduct();
+                                        }
+                                      },
+                                      child: Text("ok"))
+                                  : ElevatedButton(
+                                      onPressed: () {
+                                        if (mycontroller[11].text.isNotEmpty &&
+                                            int.parse(mycontroller[11].text) >
+                                                0) {
+                                          updateProductDetails(context, i);
+                                        } else {
+                                          showtoastproduct();
+                                        }
+                                      },
+                                      child: Text("Update")),
+                            ],
+                          )
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ));
+                ));
       }),
     );
   }
-List<GetAllcouponData> getcoupondata=[];
-bool? couponload=false;
-bool? isappliedcoupon=false;
-void showtoastforcoupon(String? msg) {
+
+  List<GetAllcouponData> getcoupondata = [];
+  bool? couponload = false;
+  bool? isappliedcoupon = false;
+  void showtoastforcoupon(String? msg) {
     Fluttertoast.showToast(
         msg: "${msg}",
         toastLength: Toast.LENGTH_SHORT,
@@ -5182,37 +6355,36 @@ void showtoastforcoupon(String? msg) {
         textColor: Colors.white,
         fontSize: 14.0);
   }
-callcouponApi()async{
- 
-}
 
-mapcoupon(List<GetAllcouponData> getcoupondata){
-  
-notifyListeners();
-}
-   showBottomSheetInsertforedit(
+  callcouponApi() async {}
+
+  mapcoupon(List<GetAllcouponData> getcoupondata) {
+    notifyListeners();
+  }
+
+  showBottomSheetInsertforedit(
     BuildContext context,
     int i,
   ) {
     final theme = Theme.of(context);
     selectedItemName = productDetails[i].ItemDescription.toString();
     selectedItemCode = productDetails[i].ItemCode.toString();
-    taxvalue=double.parse(productDetails[i].TaxCode.toString());
-    sporder=productDetails[i].sp == null
+    taxvalue = double.parse(productDetails[i].TaxCode.toString());
+    sporder = productDetails[i].sp == null
         ? 0.0
         : double.parse(productDetails[i].sp.toString());
-    slppriceorder=productDetails[i].slpprice == null
+    slppriceorder = productDetails[i].slpprice == null
         ? 0.0
         : double.parse(productDetails[i].slpprice.toString());
-    storestockorder=productDetails[i].storestock == null
+    storestockorder = productDetails[i].storestock == null
         ? 0.0
         : double.parse(productDetails[i].storestock.toString());
-    whsestockorder=productDetails[i].whsestock == null
+    whsestockorder = productDetails[i].whsestock == null
         ? 0.0
         : double.parse(productDetails[i].whsestock.toString());
-    isfixedpriceorder=productDetails[i].isfixedprice;
-    allownegativestockorder=productDetails[i].allownegativestock;
-    alloworderbelowcostorder=productDetails[i].alloworderbelowcost;
+    isfixedpriceorder = productDetails[i].isfixedprice;
+    allownegativestockorder = productDetails[i].allownegativestock;
+    alloworderbelowcostorder = productDetails[i].alloworderbelowcost;
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -5248,7 +6420,9 @@ notifyListeners();
                                 width: Screens.width(context) * 0.8,
                                 // color: Colors.red,
                                 child: Text(
-                                    productDetails[i].ItemDescription.toString(),
+                                    productDetails[i]
+                                        .ItemDescription
+                                        .toString(),
                                     style: theme.textTheme.bodyText1
                                         ?.copyWith() //color: theme.primaryColor
                                     ),
@@ -5261,6 +6435,7 @@ notifyListeners();
                               mycontroller[28].clear();
                               mycontroller[29].clear();
                               mycontroller[30].clear();
+                              mycontroller[41].clear();
 
                               showBottomSheetInsert2forEdit(context, i);
                               notifyListeners();
@@ -5311,13 +6486,15 @@ notifyListeners();
                             }
                             return null;
                           },
-                          readOnly:
-                          productDetails[i].isfixedprice ==false ?false:
-                           true,
-                           keyboardType:  TextInputType.numberWithOptions(decimal: true),
-                           inputFormatters: <TextInputFormatter>[
+                          readOnly: productDetails[i].isfixedprice == false
+                              ? false
+                              : true,
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: <TextInputFormatter>[
                             FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d*')),],
+                                RegExp(r'^\d+\.?\d*')),
+                          ],
                           style: TextStyle(fontSize: 15),
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
@@ -5364,7 +6541,9 @@ notifyListeners();
                           //     ? true
                           //     : false,
                           keyboardType: TextInputType.number,
-                          inputFormatters: [FilteringTextInputFormatter.digitsOnly,],
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
                           style: TextStyle(fontSize: 15),
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.symmetric(
@@ -5379,197 +6558,207 @@ notifyListeners();
                         ),
                       ),
                       //  ),
+                      
+                      
                       SizedBox(
                         height: 10,
-                      ),
-                      SizedBox(
-                        // width: 270,
-                        // height: 40,
-                        child: new TextFormField(
-                          controller: mycontroller[46],
-                          
-                          readOnly: true ,
-                          onTap: (){
-                             showDialog<dynamic>(
-                                                          context: context,
-                                                          builder: (_) {
-                                                            return ShowSearchDialog();
-                                                          }).then((value) {
-                                                            mycontroller[47].clear();
-                                                            filterrefpartdata=refpartdata;
-                                                            notifyListeners();
-                                                          //  context
-                                                          //   .read<
-                                                          //       NewEnqController>()
-                                                          //   .setcatagorydata();    
-                                                            });
-                          },
-                          // validator: (value) {
-                          //   if (value!.isEmpty) {
-                          //     return "ENTER QUANTITY";
-                          //   }
-                          //   return null;
-                          // },
-                          
-                          style: TextStyle(fontSize: 15),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            labelText: "referal partner",
-                            suffixIcon: Icon(Icons.search)
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                     getcoupondata.isEmpty?Container():     Container(
-                      width: Screens.width(context)*0.5,
-                        alignment: Alignment.centerLeft,
-                            child: TextFormField(
-                              controller: mycontroller[36],
-                              decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 10,
-                    ),
-                                 labelText: 'Couponcode',
-                                      labelStyle: theme.textTheme.bodyText1!
-                                          .copyWith(color: Colors.grey),
-                             enabledBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                        //  when the TextFormField in unfocused
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.grey),
-                                        //  when the TextFormField in focused
-                                      ),
-                                      border: UnderlineInputBorder(),
-                                      // enabledBorder: UnderlineInputBorder(),
-                                      // focusedBorder: UnderlineInputBorder(),
-                                      errorBorder: UnderlineInputBorder(),
-                                      focusedErrorBorder:
-                                          UnderlineInputBorder(),
-                              ),
-                            ),
-                           
-                          ),
-                           SizedBox(
-                        height: 5,
-                      ),
-                       
-                               
-                          InkWell(
-                            onTap: ()async{
-                              if(mycontroller[11].text.isEmpty){
-                                st((){
-showtoastforcoupon("Enter QUANTITY");
-                                });
+                          SizedBox(
+                        child: InkWell(
+                          onTap: (){
+                            showDialog<dynamic>(
+                                context: context,
+                                builder: (_) {
+                                  return ShowSearchDialog();
+                                }).then((value) {
+                              mycontroller[47].clear();
+                              filterrefpartdata = refpartdata;
+                              notifyListeners();
+                             
+                            });
                           
-                              }else{
-                                st((){
+                          },
+                          child: Container(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  "Referal Partner",
+                                  style: theme.textTheme.bodyText1!.copyWith(
+                                      color: theme.primaryColor,
+                                      decoration: TextDecoration.underline),
+                                ),
+                              ),
+                        ),
+                        // width: 270,
+                        // height: 40,
+                        // child: new TextFormField(
+                        //   controller: mycontroller[48],
+
+                        //   readOnly: true,
+                        //   onTap: () {
+                        //     showDialog<dynamic>(
+                        //         context: context,
+                        //         builder: (_) {
+                        //           return ShowSearchDialog();
+                        //         }).then((value) {
+                        //       mycontroller[47].clear();
+                        //       filterrefpartdata = refpartdata;
+                        //       notifyListeners();
+                        //       //  context
+                        //       //   .read<
+                        //       //       NewEnqController>()
+                        //       //   .setcatagorydata();
+                        //     });
+                        //   },
+                        //   // validator: (value) {
+                        //   //   if (value!.isEmpty) {
+                        //   //     return "ENTER QUANTITY";
+                        //   //   }
+                        //   //   return null;
+                        //   // },
+
+                        //   style: TextStyle(fontSize: 15),
+                        //   decoration: InputDecoration(
+                        //       contentPadding: EdgeInsets.symmetric(
+                        //           vertical: 10, horizontal: 10),
+                        //       border: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.all(
+                        //           Radius.circular(10),
+                        //         ),
+                        //       ),
+                        //       labelText: "referal partner",
+                        //       suffixIcon: Icon(Icons.search)),
+                        // ),
+                      ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          InkWell(
+                            onTap: () async {
+                              if (mycontroller[11].text.isEmpty) {
+                                st(() {
+                                  showtoastforcoupon("Enter QUANTITY");
+                                });
+                              } else {
+                                st(() {
 //  callcouponApi();
 
- 
- st((){
-  getcoupondata.clear();
-couponload=true;
- });
-  
-  notifyListeners();
- couponmodel coupondata= couponmodel();
- coupondata.customerCode=mycontroller[0].text;
- coupondata.itemCode=selectedItemCode;
- coupondata.storeCode=ConstantValues.Storecode;
- coupondata.qty =int.parse(mycontroller[11].text);
- coupondata.totalBillValue=double.parse(mycontroller[10].text);
- coupondata.requestedBy_UserCode=ConstantValues.Usercode;
+                                  st(() {
+                                    getcoupondata.clear();
+                                    couponload = true;
+                                  });
 
- CouponApi.getData(coupondata).then((value) {
- if (value.stcode! >= 200 && value.stcode! <= 210) {
-        
-
-        if (value.CouponModaldatageader!.Ordercheckdata != null && value.CouponModaldatageader!.Ordercheckdata!.isNotEmpty) {
-          log("not null");
-          st((){
- getcoupondata = value.CouponModaldatageader!.Ordercheckdata!;
-  log("getcoupondata::"+getcoupondata.length.toString());
-   mycontroller[36].text= getcoupondata[0].CouponCode.toString();
-  mycontroller[10].text =getcoupondata[0].RP!.toStringAsFixed(2);
-  mycontroller[11].text=getcoupondata[0].Quantity!.toStringAsFixed(0);
-   unitPrice =
+                                  notifyListeners();
+                                  couponmodel coupondata = couponmodel();
+                                  coupondata.customerCode =
+                                      mycontroller[0].text;
+                                  coupondata.itemCode = selectedItemCode;
+                                  coupondata.storeCode =
+                                      ConstantValues.Storecode;
+                                  coupondata.qty =
+                                      int.parse(mycontroller[11].text);
+                                  coupondata.totalBillValue =
                                       double.parse(mycontroller[10].text);
-                                  quantity =
-                                      double.parse(mycontroller[11].text);
-                                  total = unitPrice! * quantity!;
-  //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
-notifyListeners();
-isappliedcoupon=true;
+                                  coupondata.requestedBy_UserCode =
+                                      ConstantValues.Usercode;
 
-notifyListeners();
-couponload=false;
- });
- 
-          // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
-notifyListeners();
-          // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
-        } else if (value.CouponModaldatageader!.Ordercheckdata == null||value.CouponModaldatageader!.Ordercheckdata!.isEmpty) {
-          log("Order data null");
-          st((){
- couponload=false;
-          
-          showtoastforcoupon("There is no couponcode for this customer");
-          });
-         
-          notifyListeners();
-        }
-      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-        st((){
- couponload=false;
-         showtoastforcoupon('${value.message}..!!${value.exception}....!!');
-          });
-       
-        
-        notifyListeners();
-      } else  {
-        st((){ couponload=false;
-        
-         showtoastforcoupon('${value.stcode!}..!!Network Issue..\nTry again Later..!!');
-    
-          });
-         
-     notifyListeners();
-      }
-      notifyListeners();
-});
+                                  CouponApi.getData(coupondata).then((value) {
+                                    if (value.stcode! >= 200 &&
+                                        value.stcode! <= 210) {
+                                      if (value.CouponModaldatageader!
+                                                  .Ordercheckdata !=
+                                              null &&
+                                          value.CouponModaldatageader!
+                                              .Ordercheckdata!.isNotEmpty) {
+                                        log("not null");
+                                        st(() {
+                                          getcoupondata = value
+                                              .CouponModaldatageader!
+                                              .Ordercheckdata!;
+                                          log("getcoupondata::" +
+                                              getcoupondata.length.toString());
+                                          mycontroller[36].text =
+                                              getcoupondata[0]
+                                                  .CouponCode
+                                                  .toString();
+                                          mycontroller[10].text =
+                                              getcoupondata[0]
+                                                  .RP!
+                                                  .toStringAsFixed(2);
+                                          mycontroller[11].text =
+                                              getcoupondata[0]
+                                                  .Quantity!
+                                                  .toStringAsFixed(0);
+                                          unitPrice = double.parse(
+                                              mycontroller[10].text);
+                                          quantity = double.parse(
+                                              mycontroller[11].text);
+                                          total = unitPrice! * quantity!;
+                                          //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
+                                          notifyListeners();
+                                          isappliedcoupon = true;
+
+                                          notifyListeners();
+                                          couponload = false;
+                                        });
+
+                                        // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
+                                        notifyListeners();
+                                        // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
+                                      } else if (value.CouponModaldatageader!
+                                                  .Ordercheckdata ==
+                                              null ||
+                                          value.CouponModaldatageader!
+                                              .Ordercheckdata!.isEmpty) {
+                                        log("Order data null");
+                                        st(() {
+                                          couponload = false;
+
+                                          showtoastforcoupon(
+                                              "There is no couponcode for this customer");
+                                        });
+
+                                        notifyListeners();
+                                      }
+                                    } else if (value.stcode! >= 400 &&
+                                        value.stcode! <= 410) {
+                                      st(() {
+                                        couponload = false;
+                                        showtoastforcoupon(
+                                            '${value.message}..!!${value.exception}....!!');
+                                      });
+
+                                      notifyListeners();
+                                    } else {
+                                      st(() {
+                                        couponload = false;
+
+                                        showtoastforcoupon(
+                                            '${value.stcode!}..!!Network Issue..\nTry again Later..!!');
+                                      });
+
+                                      notifyListeners();
+                                    }
+                                    notifyListeners();
+                                  });
                                 });
-                          
                               }
-                              
                             },
                             child: Container(
                               alignment: Alignment.centerRight,
-                              child: Text("Apply Coupon Code",
-                              style: theme.textTheme.bodyText1!.copyWith(
-                                color:theme.primaryColor,
-                                decoration: TextDecoration.underline
-                              ),
+                              child: Text(
+                                "Apply Coupon Code",
+                                style: theme.textTheme.bodyText1!.copyWith(
+                                    color: theme.primaryColor,
+                                    decoration: TextDecoration.underline),
                               ),
                             ),
                           ),
                         ],
                       ),
-                      
+
                       SizedBox(
                         height: 10,
                       ),
@@ -5588,10 +6777,14 @@ notifyListeners();
                             // width:Screens.width(context)*0.20 ,
                             // padding:  EdgeInsets.symmetric(horizontal: 5),
                             decoration: BoxDecoration(
-                                border: Border.all(color: theme.primaryColor)),
+                                // border: Border.all(color: theme.primaryColor)
+                                ),
                             child: ToggleButtons(
-                              selectedColor: Colors.white,
+
+                             selectedColor: Colors.white,
                               color: theme.primaryColor,
+                               borderRadius:BorderRadius.circular(8),
+                                  borderColor: theme.primaryColor,
                               fillColor: theme.primaryColor,
                               children: [
                                 Padding(
@@ -5629,6 +6822,47 @@ notifyListeners();
                       SizedBox(
                         height: 5,
                       ),
+                      getcoupondata.isEmpty
+                                  ? Container()
+                                  :  Row(children: [
+                            Text("Couponcode:"),
+                             Container(
+                                      width: Screens.width(context) * 0.5,
+                                      alignment: Alignment.centerLeft,
+                                      child: TextFormField(
+                                        controller: mycontroller[36],
+                                        decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                            vertical: 10,
+                                            horizontal: 10,
+                                          ),
+                                          labelText: 'Couponcode',
+                                          labelStyle: theme.textTheme.bodyText1!
+                                              .copyWith(color: Colors.grey),
+                                          enabledBorder: UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.grey),
+                                            //  when the TextFormField in unfocused
+                                          ),
+                                          focusedBorder: UnderlineInputBorder(
+                                            borderSide:
+                                                BorderSide(color: Colors.grey),
+                                            //  when the TextFormField in focused
+                                          ),
+                                          border: UnderlineInputBorder(),
+                                          // enabledBorder: UnderlineInputBorder(),
+                                          // focusedBorder: UnderlineInputBorder(),
+                                          errorBorder: UnderlineInputBorder(),
+                                          focusedErrorBorder:
+                                              UnderlineInputBorder(),
+                                        ),
+                                      ),
+                                    ),
+                          ],),
+                          // selectedapartcode !=null||selectedapartcode.isNotEmpty?   Align(
+                          //     alignment: Alignment.bottomLeft,
+                          //     child: Text("Refcode: $selectedapartcode")):Container(),
                       Align(
                           alignment: Alignment.bottomRight,
                           child: Text("Total: $total")),
@@ -5657,7 +6891,8 @@ notifyListeners();
                                     //     dismissDirection: DismissDirection.down,
                                     //   ),
                                     // );
-                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text)>0) {
+                                    if (mycontroller[11].text.isNotEmpty &&
+                                        int.parse(mycontroller[11].text) > 0) {
                                       mycontroller[12].clear();
                                       addProductDetails(context);
                                     } else {
@@ -5667,7 +6902,8 @@ notifyListeners();
                                   child: Text("ok"))
                               : ElevatedButton(
                                   onPressed: () {
-                                    if (mycontroller[11].text.isNotEmpty&&int.parse(mycontroller[11].text)>0) {
+                                    if (mycontroller[11].text.isNotEmpty &&
+                                        int.parse(mycontroller[11].text) > 0) {
                                       updateProductDetails(context, i);
                                     } else {
                                       showtoastproduct();
@@ -5704,7 +6940,7 @@ notifyListeners();
   List<String> filelink = [];
   List<String> fileException = [];
   List images = [
-    "assets/PDFimg.png",
+    "assets/pdfimg.png",
     "assets/txt.png",
     "assets/xls.png",
     "assets/img.jpg"
@@ -5720,6 +6956,7 @@ notifyListeners();
         textColor: Colors.white,
         fontSize: 14.0);
   }
+
   void showtoastcustomergroup() {
     Fluttertoast.showToast(
         msg: "Enter Customer Group..!!",
@@ -5727,6 +6964,17 @@ notifyListeners();
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 14.0);
+  }
+
+void showtoastpayattach() {
+    Fluttertoast.showToast(
+        msg: "More than one Document Not Allowed..",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
         textColor: Colors.white,
         fontSize: 14.0);
   }
@@ -5741,7 +6989,8 @@ notifyListeners();
         textColor: Colors.white,
         fontSize: 14.0);
   }
-   void showtoastforall() {
+
+  void showtoastforall() {
     Fluttertoast.showToast(
         msg: "Item Already Added..!!",
         toastLength: Toast.LENGTH_SHORT,
@@ -5751,6 +7000,7 @@ notifyListeners();
         textColor: Colors.white,
         fontSize: 14.0);
   }
+
   void showtoastforscanning() {
     Fluttertoast.showToast(
         msg: "No Data Found..!!",
@@ -5761,7 +7011,8 @@ notifyListeners();
         textColor: Colors.white,
         fontSize: 14.0);
   }
-selectattachment2() async {
+
+  selectattachment2() async {
     List<File> filesz2 = [];
     // log(files.length.toString());
 
@@ -5781,7 +7032,7 @@ selectattachment2() async {
       filesz2 = result!.paths.map((path) => File(path!)).toList();
 
       // if (filesz.length != 0) {
-      int remainingSlots = 5 - files.length;
+      int remainingSlots = 1 - files.length;
       if (filesz2.length <= remainingSlots) {
         for (int i = 0; i < filesz2.length; i++) {
           // createAString();
@@ -5803,7 +7054,7 @@ selectattachment2() async {
           // return null;
         }
       } else {
-        showtoast();
+        showtoastpayattach();
       }
 
       notifyListeners();
@@ -5811,6 +7062,7 @@ selectattachment2() async {
 
     notifyListeners();
   }
+
   selectattachment() async {
     List<File> filesz = [];
     // log(files.length.toString());
@@ -5875,7 +7127,7 @@ selectattachment2() async {
     return result;
   }
 
-Future imagetoBinary2(ImageSource source) async {
+  Future imagetoBinary2(ImageSource source) async {
     List<File> filesz2 = [];
     await LocationTrack.checkcamlocation();
     final image = await ImagePicker().pickImage(source: source);
@@ -5889,45 +7141,41 @@ Future imagetoBinary2(ImageSource source) async {
 
     notifyListeners();
     // log("filesz lenghthhhhh::::::" + filedata.length.toString());
-    if (files2.length <= 4) {
+    if (files2.length <= 1) {
       for (int i = 0; i < filesz2.length; i++) {
         files2.add(filesz2[i]);
         List<int> intdata = filesz2[i].readAsBytesSync();
         String fileName = filesz2[i].path.split('/').last;
         String fileBytes = base64Encode(intdata);
-        String tempPath='';
-        if(Platform.isAndroid){
+        String tempPath = '';
+        if (Platform.isAndroid) {
 //  Directory tempDir =  await getTemporaryDirectory();
-  
+
 //         log("tempDir::"+tempDir.toString());
-         tempPath = (await getExternalStorageDirectory())!.path;
-          // String? imagesaver = '$tempPath/$fileName'; 
-    
-       
- 
-        }else if(Platform.isIOS){
- tempPath = (await getApplicationDocumentsDirectory())!.path;
+          tempPath = (await getExternalStorageDirectory())!.path;
+          // String? imagesaver = '$tempPath/$fileName';
+        } else if (Platform.isIOS) {
+          tempPath = (await getApplicationDocumentsDirectory())!.path;
         }
-       
-        String fullPath = '$tempPath/$fileName'; 
+
+        String fullPath = '$tempPath/$fileName';
         await filesz2[i].copy(fullPath);
-         File(fullPath).writeAsBytesSync(intdata);
-  final result = await ImageGallerySaver.saveFile(fullPath,isReturnPathOfIOS: true);
-    
+        File(fullPath).writeAsBytesSync(intdata);
+        final result =
+            await ImageGallerySaver.saveFile(fullPath, isReturnPathOfIOS: true);
+
         // log("fullPath::"+fullPath.toString());
-         if(Platform.isAndroid){
-filedata2.add(FilesData(
-            fileBytes: base64Encode(intdata),
-            fileName: fullPath
-            // files[i].path.split('/').last
-            ));
-             }else{
-              filedata2.add(FilesData(
-            fileBytes: base64Encode(intdata),
-            fileName: image.path
-            // files[i].path.split('/').last
-            ));
-             }
+        if (Platform.isAndroid) {
+          filedata2.add(
+              FilesData(fileBytes: base64Encode(intdata), fileName: fullPath
+                  // files[i].path.split('/').last
+                  ));
+        } else {
+          filedata2.add(
+              FilesData(fileBytes: base64Encode(intdata), fileName: image.path
+                  // files[i].path.split('/').last
+                  ));
+        }
         // filedata.add(
         //     FilesData(fileBytes: base64Encode(intdata), fileName: fullPath));
         notifyListeners();
@@ -5936,7 +7184,7 @@ filedata2.add(FilesData(
 
       // return null;
     } else {
-      showtoast();
+      showtoastpayattach();
     }
     // log("camera fileslength" + files.length.toString());
     // log("camera filesdatalength" + filedata.length.toString());
@@ -5965,39 +7213,35 @@ filedata2.add(FilesData(
         List<int> intdata = filesz[i].readAsBytesSync();
         String fileName = filesz[i].path.split('/').last;
         String fileBytes = base64Encode(intdata);
-        String tempPath='';
-        if(Platform.isAndroid){
+        String tempPath = '';
+        if (Platform.isAndroid) {
 //  Directory tempDir =  await getTemporaryDirectory();
-  
+
 //         log("tempDir::"+tempDir.toString());
-         tempPath = (await getExternalStorageDirectory())!.path;
-          // String? imagesaver = '$tempPath/$fileName'; 
-    
-       
- 
-        }else if(Platform.isIOS){
- tempPath = (await getApplicationDocumentsDirectory())!.path;
+          tempPath = (await getExternalStorageDirectory())!.path;
+          // String? imagesaver = '$tempPath/$fileName';
+        } else if (Platform.isIOS) {
+          tempPath = (await getApplicationDocumentsDirectory())!.path;
         }
-       
-        String fullPath = '$tempPath/$fileName'; 
+
+        String fullPath = '$tempPath/$fileName';
         await filesz[i].copy(fullPath);
-         File(fullPath).writeAsBytesSync(intdata);
-  final result = await ImageGallerySaver.saveFile(fullPath,isReturnPathOfIOS: true);
-    
+        File(fullPath).writeAsBytesSync(intdata);
+        final result =
+            await ImageGallerySaver.saveFile(fullPath, isReturnPathOfIOS: true);
+
         // log("fullPath::"+fullPath.toString());
-         if(Platform.isAndroid){
-filedata.add(FilesData(
-            fileBytes: base64Encode(intdata),
-            fileName: fullPath
-            // files[i].path.split('/').last
-            ));
-             }else{
-              filedata.add(FilesData(
-            fileBytes: base64Encode(intdata),
-            fileName: image.path
-            // files[i].path.split('/').last
-            ));
-             }
+        if (Platform.isAndroid) {
+          filedata.add(
+              FilesData(fileBytes: base64Encode(intdata), fileName: fullPath
+                  // files[i].path.split('/').last
+                  ));
+        } else {
+          filedata.add(
+              FilesData(fileBytes: base64Encode(intdata), fileName: image.path
+                  // files[i].path.split('/').last
+                  ));
+        }
         // filedata.add(
         //     FilesData(fileBytes: base64Encode(intdata), fileName: fullPath));
         notifyListeners();
@@ -6065,38 +7309,109 @@ filedata.add(FilesData(
   }
 
   getTotalOrderAmount() {
-    double? taxpercentage ;
+    double? taxpercentage;
     double? LineTotal = 0.00;
     for (int i = 0; i < productDetails.length; i++) {
       // log("LineTotal::"+productDetails.length.toString());
-       taxpercentage=productDetails[i].TaxCode;
-      LineTotal = LineTotal! + (productDetails[i].LineTotal!/(1+taxpercentage!/100));
-        // log("LineTotal5555::"+LineTotal.toString());
+      taxpercentage = productDetails[i].TaxCode;
+      LineTotal = LineTotal! +
+          (productDetails[i].LineTotal! / (1 + taxpercentage! / 100));
+      // log("LineTotal5555::"+LineTotal.toString());
     }
-    return config.slpitCurrency22(LineTotal!.toString()) ;
-  }
-  getTotalTaxAmount() {
-    double? taxtotal = 0.00;
-    double? taxpercentage ;
-    for (int i = 0; i < productDetails.length; i++) {
-      taxpercentage=productDetails[i].TaxCode;
-      // log("productDetails[i].LineTotal:::"+productDetails[i].LineTotal!.toString());
-      // log("taxpercentage:::"+taxpercentage.toString());
-      
-      taxtotal = taxtotal! +(taxpercentage! * (productDetails[i].LineTotal!/(1+taxpercentage!/100)))/100;
-  //  log("taxtotal:::"+taxtotal.toString());
-    }
-    return config.slpitCurrency22(taxtotal!.toString()) ;
-  }
-  getTotalGrossAmount() {
-    double? LineTotal = double.parse(getTotalOrderAmount().toString().replaceAll(",", ""));
-    double? taxTotal = double.parse(getTotalTaxAmount().toString().replaceAll(",", ""));
-    // for (int i = 0; i < productDetails.length; i++) {
-      LineTotal = LineTotal! + taxTotal;
-    // }
-    return config.slpitCurrency22(LineTotal!.toString()) ;
+    return config.slpitCurrency22(LineTotal!.toString());
   }
 
+  getTotalTaxAmount() {
+    double? taxtotal = 0.00;
+    double? taxpercentage;
+    for (int i = 0; i < productDetails.length; i++) {
+      taxpercentage = productDetails[i].TaxCode;
+      // log("productDetails[i].LineTotal:::"+productDetails[i].LineTotal!.toString());
+      // log("taxpercentage:::"+taxpercentage.toString());
+
+      taxtotal = taxtotal! +
+          (taxpercentage! *
+                  (productDetails[i].LineTotal! / (1 + taxpercentage! / 100))) /
+              100;
+      //  log("taxtotal:::"+taxtotal.toString());
+    }
+    return config.slpitCurrency22(taxtotal!.toString());
+  }
+
+  double? paytermtotal = 0.0;
+   double? fullpayment = 0.0;
+  String? payamounterror = '';
+  clearpaydata(){
+    mycontroller[43].clear();
+    mycontroller[44].clear();
+    mycontroller[45].clear();
+    mycontroller[46].clear();
+    payamounterror = '';
+    selecteditem=null;
+    files2.clear();
+    filedata2.clear();
+    notifyListeners();
+    payloading=false;
+  }
+  // onchangedpayterm(String? value) {
+  //   double payamount = double.parse(value.toString());
+  //   if (payamount > paytermtotal!) {
+  //     log("Amount Should be less than or equal to ${paytermtotal!.toStringAsFixed(2)}");
+
+  //     payamounterror =
+  //         "Amount Should be less than or equal to ${paytermtotal!.toStringAsFixed(2)}";
+  //     notifyListeners();
+  //   } else {
+  //     payamounterror = '';
+  //     paytermtotal =paytermtotal! - payamount;
+  //   }
+  //   notifyListeners();
+  // }
+
+  oncopy() {
+    mycontroller[46].text = paytermtotal!.toStringAsFixed(2);
+  }
+getTotalaoyAmount() {
+    paytermtotal = 0.0;
+    fullpayment=0.0;
+    
+    double? LineTotal =
+        double.parse(getTotalOrderAmount().toString().replaceAll(",", ""));
+    double? taxTotal =
+        double.parse(getTotalTaxAmount().toString().replaceAll(",", ""));
+    // for (int i = 0; i < productDetails.length; i++) {
+    LineTotal = LineTotal! + taxTotal;
+     paytermtotal = paytermtotal! + LineTotal;
+     fullpayment=fullpayment! + LineTotal;
+     log("paytermtotal2222:::"+paytermtotal.toString());
+     if(postpaymentdata.isNotEmpty){
+ for(int i=0;i<postpaymentdata.length;i++){
+paytermtotal =double.parse(paytermtotal!.toStringAsFixed(2)) - postpaymentdata[i].amount! ?? 0.0;
+log("paytermtotal:::"+paytermtotal.toString());
+    }
+     }
+   
+   
+
+
+   
+    // }
+    return config.slpitCurrency22(LineTotal!.toString());
+  }
+  getTotalGrossAmount() {
+    // paytermtotal = 0.0;
+    
+    double? LineTotal =
+        double.parse(getTotalOrderAmount().toString().replaceAll(",", ""));
+    double? taxTotal =
+        double.parse(getTotalTaxAmount().toString().replaceAll(",", ""));
+    // for (int i = 0; i < productDetails.length; i++) {
+    LineTotal = LineTotal! + taxTotal;
+    // paytermtotal = paytermtotal! + LineTotal;
+    // log("paytermtotal::" + paytermtotal.toString());
+    // }
+    return config.slpitCurrency22(LineTotal!.toString());
+  }
 
   getExiCustomerData(String Customer, String CustomerCode) async {
     for (int i = 0; i < customerList.length; i++) {
@@ -6270,14 +7585,13 @@ class PaymentTermsData {
 
   PaymentTermsData({required this.Name, required this.Code});
 }
-class Custype{
-  String? name;
-  Custype({
-    required this.name
 
-  });
+class Custype {
+  String? name;
+  Custype({required this.name});
 }
-class complementary{
+
+class complementary {
   String? itemName;
   String? ItemCode;
   double? SP;
@@ -6285,13 +7599,11 @@ class complementary{
   double? Percentage;
   double? qty;
 
-complementary({
-  required this.itemName,
-  required this.ItemCode,
-  required this.Percentage,
-  required this.SP,
-  required this.offer,
-  required this.qty
-
-});
+  complementary(
+      {required this.itemName,
+      required this.ItemCode,
+      required this.Percentage,
+      required this.SP,
+      required this.offer,
+      required this.qty});
 }

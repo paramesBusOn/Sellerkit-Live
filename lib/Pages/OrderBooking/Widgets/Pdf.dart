@@ -32,6 +32,7 @@ static customerdetData? customermodeldata;
   List<DocumentLines> data5 = [];
   List<DocumentLines> data6 = [];
   static List<ordermaster>? orderMasterdata2 = [];
+  static  List<paymentorders>? orderpayment=[];
   List<ordermaster>? orderMasterdata = [];
   // static List<InvoiceData>? dasa = [];
   String? date = '';
@@ -86,6 +87,7 @@ static customerdetData? customermodeldata;
           // PdfInvoicePdfHelper.width=MediaQuery.of(context).size.width;
          PdfInvoicePdfHelper. orderMasterdata=orderMasterdata;
          PdfInvoicePdfHelper. customermodeldata = customermodeldata;
+         PdfInvoicePdfHelper.orderpayment=orderpayment;
           return PdfInvoicePdfHelper.generatePdf(format, 'title');
         } 
         

@@ -869,6 +869,16 @@ WHERE $fav IS NOT '';
           ssp3Inc: 0.0,
           ssp4Inc: 0.0,
           ssp5Inc: 0.0,
+          storeAgeSlab1:0.0,
+          storeAgeSlab2:0.0,
+          storeAgeSlab3:0.0,
+          storeAgeSlab4:0.0,
+          storeAgeSlab5:0.0,
+          whsAgeSlab1:0.0,
+          whsAgeSlab2:0.0,
+          whsAgeSlab3:0.0,
+          whsAgeSlab4:0.0,
+          whsAgeSlab5:0.0,
           allowNegativeStock: false,
           allowOrderBelowCost: false,
           isFixedPrice: false,
@@ -995,6 +1005,16 @@ WHERE $fav IS NOT '';
           ssp5Inc: result[i]['Ssp5Inc'] == null
               ? 0.0
               : double.parse(result[i]['Ssp5Inc'].toString()),
+              storeAgeSlab1:double.parse( result[i]['storeAgeSlab1'].toString()),
+          storeAgeSlab2:double.parse( result[i]['storeAgeSlab2'].toString()),
+          storeAgeSlab3:double.parse( result[i]['storeAgeSlab3'].toString()),
+          storeAgeSlab4:double.parse( result[i]['storeAgeSlab4'].toString()),
+          storeAgeSlab5:double.parse( result[i]['storeAgeSlab5'].toString()),
+          whsAgeSlab1:double.parse( result[i]['whsAgeSlab1'].toString()),
+          whsAgeSlab2:double.parse( result[i]['whsAgeSlab2'].toString()),
+          whsAgeSlab3:double.parse( result[i]['whsAgeSlab3'].toString()),
+          whsAgeSlab4:double.parse( result[i]['whsAgeSlab4'].toString()),
+          whsAgeSlab5:double.parse( result[i]['whsAgeSlab5'].toString()),
           allowNegativeStock: result[i]['AllowNegativeStock'] == null
               ? false
               : bool.parse(result[i]['AllowNegativeStock'].toString()),
@@ -1142,6 +1162,16 @@ WHERE $fav IS NOT '';
           ssp5Inc: result[i]['Ssp5Inc'] == null
               ? 0.0
               : double.parse(result[i]['Ssp5Inc'].toString()),
+              storeAgeSlab1:double.parse( result[i]['storeAgeSlab1'].toString()),
+          storeAgeSlab2:double.parse( result[i]['storeAgeSlab2'].toString()),
+          storeAgeSlab3:double.parse( result[i]['storeAgeSlab3'].toString()),
+          storeAgeSlab4:double.parse( result[i]['storeAgeSlab4'].toString()),
+          storeAgeSlab5:double.parse( result[i]['storeAgeSlab5'].toString()),
+          whsAgeSlab1:double.parse( result[i]['whsAgeSlab1'].toString()),
+          whsAgeSlab2:double.parse( result[i]['whsAgeSlab2'].toString()),
+          whsAgeSlab3:double.parse( result[i]['whsAgeSlab3'].toString()),
+          whsAgeSlab4:double.parse( result[i]['whsAgeSlab4'].toString()),
+          whsAgeSlab5:double.parse( result[i]['whsAgeSlab5'].toString()),
           allowNegativeStock: result[i]['AllowNegativeStock'] == null
               ? false
               : bool.parse(result[i]['AllowNegativeStock'].toString()),
@@ -1322,6 +1352,16 @@ WHERE $data IS NOT '';
           ssp3Inc: 0.0,
           ssp4Inc: 0.0,
           ssp5Inc: 0.0,
+           storeAgeSlab1:0.0,
+          storeAgeSlab2:0.0,
+          storeAgeSlab3:0.0,
+          storeAgeSlab4:0.0,
+          storeAgeSlab5:0.0,
+          whsAgeSlab1:0.0,
+          whsAgeSlab2:0.0,
+          whsAgeSlab3:0.0,
+          whsAgeSlab4:0.0,
+          whsAgeSlab5:0.0,
           allowNegativeStock: false,
           allowOrderBelowCost: false,
           isFixedPrice: false,
@@ -1435,6 +1475,16 @@ Select * from ItemMaster where (ItemCode || ' - ' || ItemName) Like '%$data%';
           ssp5Inc: result[i]['Ssp5Inc'] == null
               ? 0.0
               : double.parse(result[i]['Ssp5Inc'].toString()),
+               storeAgeSlab1:double.parse( result[i]['storeAgeSlab1'].toString()),
+          storeAgeSlab2:double.parse( result[i]['storeAgeSlab2'].toString()),
+          storeAgeSlab3:double.parse( result[i]['storeAgeSlab3'].toString()),
+          storeAgeSlab4:double.parse( result[i]['storeAgeSlab4'].toString()),
+          storeAgeSlab5:double.parse( result[i]['storeAgeSlab5'].toString()),
+          whsAgeSlab1:double.parse( result[i]['whsAgeSlab1'].toString()),
+          whsAgeSlab2:double.parse( result[i]['whsAgeSlab2'].toString()),
+          whsAgeSlab3:double.parse( result[i]['whsAgeSlab3'].toString()),
+          whsAgeSlab4:double.parse( result[i]['whsAgeSlab4'].toString()),
+          whsAgeSlab5:double.parse( result[i]['whsAgeSlab5'].toString()),
           allowNegativeStock: result[i]['AllowNegativeStock'] == null
               ? false
               : bool.parse(result[i]['AllowNegativeStock'].toString()),
@@ -1672,6 +1722,16 @@ Select * from tableopenlead where LeadDocEntry=$data;
           ssp5Inc: result[i]['Ssp5Inc'] == null
               ? 0.0
               : double.parse(result[i]['Ssp5Inc'].toString()),
+              storeAgeSlab1:double.parse( result[i]['storeAgeSlab1'].toString()),
+          storeAgeSlab2:double.parse( result[i]['storeAgeSlab2'].toString()),
+          storeAgeSlab3:double.parse( result[i]['storeAgeSlab3'].toString()),
+          storeAgeSlab4:double.parse( result[i]['storeAgeSlab4'].toString()),
+          storeAgeSlab5:double.parse( result[i]['storeAgeSlab5'].toString()),
+          whsAgeSlab1:double.parse( result[i]['whsAgeSlab1'].toString()),
+          whsAgeSlab2:double.parse( result[i]['whsAgeSlab2'].toString()),
+          whsAgeSlab3:double.parse( result[i]['whsAgeSlab3'].toString()),
+          whsAgeSlab4:double.parse( result[i]['whsAgeSlab4'].toString()),
+          whsAgeSlab5:double.parse( result[i]['whsAgeSlab5'].toString()),
           allowNegativeStock: result[i]['AllowNegativeStock'] == null
               ? false
               : bool.parse(result[i]['AllowNegativeStock'].toString()),
@@ -2855,7 +2915,7 @@ SELECT * FROM $tableNotification;
     log(result.toList().toString());
     return List.generate(result.length, (i) {
       return NotificationModel(
-        jobid: int.parse(result[i]['Jobid'].toString()),
+        jobid: result[i]['Jobid'].toString(),
         id: int.parse(result[i]['NId'].toString()),
         docEntry: int.parse(result[i]['DocEntry'].toString()),
         titile: result[i]['Title'].toString(),

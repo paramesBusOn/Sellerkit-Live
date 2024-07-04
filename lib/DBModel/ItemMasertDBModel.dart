@@ -61,6 +61,17 @@ class ItemMasterColumns {
   static const String color = "color";
   static const String calcType = "calcType";
   static const String payOn = "payOn";
+  static const String storeAgeSlab1 = "storeAgeSlab1";
+  static const String storeAgeSlab2 = "storeAgeSlab2";
+  static const String storeAgeSlab3 = "storeAgeSlab3";
+  static const String storeAgeSlab4 = "storeAgeSlab4";
+  static const String storeAgeSlab5 = "storeAgeSlab5";
+  static const String whsAgeSlab1 = "whsAgeSlab1";
+  static const String whsAgeSlab2 = "whsAgeSlab2";
+  static const String whsAgeSlab3 = "whsAgeSlab3";
+  static const String whsAgeSlab4 = "whsAgeSlab4";
+  static const String whsAgeSlab5 = "whsAgeSlab5";
+  
 }
 
 class ItemMasterDBModel {
@@ -125,6 +136,16 @@ class ItemMasterDBModel {
   String? color;
    String? calcType;
   String? payOn;
+  double? storeAgeSlab1;
+  double? storeAgeSlab2;
+  double? storeAgeSlab3;
+  double? storeAgeSlab4;
+  double? storeAgeSlab5;
+  double? whsAgeSlab1;
+  double? whsAgeSlab2;
+  double? whsAgeSlab3;
+  double? whsAgeSlab4;
+  double? whsAgeSlab5;
 
   ItemMasterDBModel(
       {this.id,
@@ -186,7 +207,17 @@ class ItemMasterDBModel {
       required this.verySlow,
       required this.whseCode,
       required this.calcType,
-      required this.payOn
+      required this.payOn,
+       required this. storeAgeSlab1,
+ required this. storeAgeSlab2,
+  required this. storeAgeSlab3,
+  required this. storeAgeSlab4,
+  required this. storeAgeSlab5,
+  required this. whsAgeSlab1,
+  required this. whsAgeSlab2,
+  required this. whsAgeSlab3,
+  required this. whsAgeSlab4,
+  required this. whsAgeSlab5,
       });
 
   Map<String, Object?> toMap() => {
@@ -248,6 +279,17 @@ class ItemMasterDBModel {
         ItemMasterColumns.validTill: validTill,
         ItemMasterColumns.color: color,
         ItemMasterColumns.calcType: calcType,
-        ItemMasterColumns.payOn: payOn
+        ItemMasterColumns.payOn: payOn,
+        ItemMasterColumns.storeAgeSlab1: storeAgeSlab1,
+        ItemMasterColumns.storeAgeSlab2: storeAgeSlab2,
+        ItemMasterColumns.storeAgeSlab3: storeAgeSlab3,
+        ItemMasterColumns.storeAgeSlab4: storeAgeSlab4,
+        ItemMasterColumns.storeAgeSlab5: storeAgeSlab5,
+        ItemMasterColumns.whsAgeSlab1: whsAgeSlab1,
+        ItemMasterColumns.whsAgeSlab2: whsAgeSlab2,
+        ItemMasterColumns.whsAgeSlab3: whsAgeSlab3,
+        ItemMasterColumns.whsAgeSlab4: whsAgeSlab4,
+        ItemMasterColumns.whsAgeSlab5: whsAgeSlab5,
+        
       };
 }

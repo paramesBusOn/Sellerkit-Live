@@ -2164,7 +2164,7 @@ class OrderTabController extends ChangeNotifier {
       //
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         if (value.paymode != null) {
-          paymode = value.paymode!;
+          paymode = value.paymode!.paymodeModalData!;
 
           notifyListeners();
         } else if (value.paymode == null) {

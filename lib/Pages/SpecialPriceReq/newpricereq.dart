@@ -11,6 +11,7 @@ import 'package:sellerkit/Constant/padings.dart';
 import 'package:sellerkit/Controller/specialpricecontroller/newpagecontroller.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
+import 'package:sellerkit/Widgets/qrpage.dart';
 
 class NewpriceReq extends StatefulWidget {
   const NewpriceReq({Key? key}) : super(key: key);
@@ -235,33 +236,60 @@ onreqprice(){
                         SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
                         ),
-                        TextFormField(
-                          focusNode:focusNode,
-                          controller:
-                              context.read<NewpriceController>().mycontroller[3],
-                              onTap: (){
-                                setState(() {
-                                      });
-                              
-                              },
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Enter Item Code';
-                            }
-                            return null;
-                          },
-                          onChanged: (val){
-                          context.read<NewpriceController>().  filterList(val);
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SizedBox(
+                              width: Screens.width(context) * 0.8,
+                              child: TextFormField(
+                                focusNode:focusNode,
+                                controller:
+                                    context.read<NewpriceController>().mycontroller[3],
+                                    onTap: (){
+                                      setState(() {
+                                            });
+                                    
+                                    },
+                                validator: (val) {
+                                  if (val!.isEmpty) {
+                                    return 'Enter Item Code';
+                                  }
+                                  return null;
+                                },
+                                onChanged: (val){
+                                context.read<NewpriceController>().  filterList(val);
+                               
+                                   
+                                },
+                                decoration: const InputDecoration(
+                                    label: Text("Item Code*"),
+                                    border: UnderlineInputBorder(),
+                                    enabledBorder: UnderlineInputBorder(),
+                                    focusedBorder: UnderlineInputBorder(),
+                                    errorBorder: UnderlineInputBorder(),
+                                    focusedErrorBorder: UnderlineInputBorder()),
+                              ),
+                            ),
                          
-                             
-                          },
-                          decoration: const InputDecoration(
-                              label: Text("Item Code*"),
-                              border: UnderlineInputBorder(),
-                              enabledBorder: UnderlineInputBorder(),
-                              focusedBorder: UnderlineInputBorder(),
-                              errorBorder: UnderlineInputBorder(),
-                              focusedErrorBorder: UnderlineInputBorder()),
+                         Container(
+            // alignment: Alignment.center,
+            child: IconButton(
+              onPressed: (){
+                setState(() {
+                   context.read<NewpriceController>().     scannerreset();
+                   qrscannerState.spreqscan=true;
+                Navigator.push(context,MaterialPageRoute(builder: (_) => qrscanner()))
+//                 .then((value){
+// return context.read<LeadNewController>().scanneddataget(context);
+//                 } 
+//                  )
+                 ;
+                });
+           
+              },
+              icon: Icon(Icons.qr_code_scanner_outlined,color: theme.primaryColor,size: 30,)),
+          )
+                          ],
                         ),
                          context.watch<NewpriceController>().     isitemcode ==false?Container():   SizedBox(
                           height: Screens.bodyheight(context) * 0.005,

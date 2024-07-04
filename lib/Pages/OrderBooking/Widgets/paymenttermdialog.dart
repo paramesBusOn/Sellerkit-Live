@@ -1,19 +1,21 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/OrderController/OrderNewController.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 
 class paytermdialog extends StatefulWidget {
-  const paytermdialog({super.key});
-
+  paytermdialog({super.key, required this.paymode});
+  final PaymodeModalData? paymode;
   @override
   State<paytermdialog> createState() => _paytermdialogState();
 }
 
 class _paytermdialogState extends State<paytermdialog> {
+  final List<String> itemsdata = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -23,298 +25,409 @@ class _paytermdialogState extends State<paytermdialog> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       content: Container(
         width: Screens.width(context),
-        padding: EdgeInsets.only(
-          top: Screens.padingHeight(context)*0.02,
-           bottom: Screens.padingHeight(context)*0.01,
-           left: Screens.width(context)*0.03,
-            right: Screens.width(context)*0.03,
-        ),
-        child: Form(
-          key: context
-                                 .read<OrderNewController>().formkey[5],
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-                context
-                                 .watch<OrderNewController>()
-                                 . PaymentTerms.toString().toLowerCase() =='neft'? Column(
-                               children: [
-                                 TextFormField(
-                                     controller: context
-                                         .read<OrderNewController>()
-                                         .mycontroller[42],
-                                     validator: context
-                                .watch<OrderNewController>()
-                                . PaymentTerms.toString().toLowerCase()  =='neft'
-                                         ? (value) {
-                                             if (value!.isEmpty) {
-                                               return "Enter Reference";
-                                             }
-                                             return null;
-                                           }
-                                         : (value) {},
-                                     decoration: InputDecoration(
-                                       labelText: 'NEFT Reference',
-                                       labelStyle: theme.textTheme.bodyText1!
-                                           .copyWith(color: Colors.grey),
-                                       enabledBorder: UnderlineInputBorder(
-                                         borderSide: BorderSide(color: Colors.grey),
-                                         //  when the TextFormField in unfocused
-                                       ),
-                                       focusedBorder: UnderlineInputBorder(
-                                         borderSide: BorderSide(color: Colors.grey),
-                                         //  when the TextFormField in focused
-                                       ),
-                                       border: UnderlineInputBorder(),
-                                       // enabledBorder: UnderlineInputBorder(),
-                                       // focusedBorder: UnderlineInputBorder(),
-                                       errorBorder: UnderlineInputBorder(),
-                                       focusedErrorBorder: UnderlineInputBorder(),
-                                     )),
-                               ],
-                             ):
-                          context
-                               .watch<OrderNewController>()
-                               . PaymentTerms.toString().toLowerCase() =='upi'?
-                           Column(
-                            children: [
-                              TextFormField(
-                                  controller: context
-                                      .read<OrderNewController>()
-                                      .mycontroller[43],
-                                  validator: context
-                               .watch<OrderNewController>()
-                               . PaymentTerms.toString().toLowerCase() =='upi'
-                                      ? (value) {
-                                          if (value!.isEmpty) {
-                                            return "Enter Reference";
-                                          }
-                                          return null;
-                                        }
-                                      : (value) {},
-                                  decoration: InputDecoration(
-                                    labelText: 'UPI Reference',
-                                    labelStyle: theme.textTheme.bodyText1!
-                                        .copyWith(color: Colors.grey),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
-                                      //  when the TextFormField in unfocused
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder(),
-                                    // enabledBorder: UnderlineInputBorder(),
-                                    // focusedBorder: UnderlineInputBorder(),
-                                    errorBorder: UnderlineInputBorder(),
-                                    focusedErrorBorder: UnderlineInputBorder(),
-                                  )),
-                            ],
-                          ):
-                          context
-                             .watch<OrderNewController>()
-                             . PaymentTerms.toString().toLowerCase() =='card'?
-                           Column(
-                            children: [
-                              TextFormField(
-                                  controller: context
-                                      .read<OrderNewController>()
-                                      .mycontroller[44],
-                                  validator: context
-                             .watch<OrderNewController>()
-                             . PaymentTerms.toString().toLowerCase() =='card'
-                                      ? (value) {
-                                          if (value!.isEmpty) {
-                                            return "Enter Reference";
-                                          }
-                                          return null;
-                                        }
-                                      : (value) {},
-                                  decoration: InputDecoration(
-                                    labelText: 'Card Reference',
-                                    labelStyle: theme.textTheme.bodyText1!
-                                        .copyWith(color: Colors.grey),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
-                                      //  when the TextFormField in unfocused
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder(),
-                                    // enabledBorder: UnderlineInputBorder(),
-                                    // focusedBorder: UnderlineInputBorder(),
-                                    errorBorder: UnderlineInputBorder(),
-                                    focusedErrorBorder: UnderlineInputBorder(),
-                                  )),
-                              SizedBox(
-                                height: Screens.bodyheight(context) * 0.02,
-                              ),
-                              GetAttachment(theme, context),
-                            ],
-                          ):
-                          context
-                           .watch<OrderNewController>()
-                           . PaymentTerms.toString().toLowerCase() =='cheque'?
-                           Column(
-                            children: [
-                              // TextFormField(
-                              //     // controller: context
-                              //     //     .read<OrderNewController>()
-                              //     //     .mycontroller[6],
-                              //     // validator: (value) {
-                              //     //   if (value!.isEmpty) {
-                              //     //     return "Enter Reference";
-                              //     //   }
-                              //     //   return null;
-                              //     // },
-                              //     decoration: InputDecoration(
-                              //   labelText: 'Cheque No',
-                              //   labelStyle: theme.textTheme.bodyText1!
-                              //       .copyWith(color: Colors.grey),
-                              //   enabledBorder: UnderlineInputBorder(
-                              //     borderSide: BorderSide(color: Colors.grey),
-                              //     //  when the TextFormField in unfocused
-                              //   ),
-                              //   focusedBorder: UnderlineInputBorder(
-                              //     borderSide: BorderSide(color: Colors.grey),
-                              //     //  when the TextFormField in focused
-                              //   ),
-                              //   border: UnderlineInputBorder(),
-                              //   // enabledBorder: UnderlineInputBorder(),
-                              //   // focusedBorder: UnderlineInputBorder(),
-                              //   errorBorder: UnderlineInputBorder(),
-                              //   focusedErrorBorder: UnderlineInputBorder(),
-                              // )),
-                              TextFormField(
-                                  controller: context
-                                      .read<OrderNewController>()
-                                      .mycontroller[45],
-                                  onTap: () {
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: Screens.width(context),
+              height: Screens.bodyheight(context) * 0.06,
+              child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    textStyle: TextStyle(
+                        // fontSize: 12,
+                        ),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
+                    )), //Radius.circular(6)
+                  ),
+                  child: Text(
+                    "${context.watch<OrderNewController>().PaymentTerms.toString()}",
+                  )),
+            ),
+            Container(
+              padding: EdgeInsets.only(
+                top: Screens.padingHeight(context) * 0.01,
+                bottom: Screens.padingHeight(context) * 0.01,
+                left: Screens.width(context) * 0.03,
+                right: Screens.width(context) * 0.03,
+              ),
+              child: Form(
+                key: context.read<OrderNewController>().formkey[5],
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: Screens.padingHeight(context) * 0.01,
+                    ),
+                    widget.paymode!.Ref1 == false
+                        ? Container()
+                        : SizedBox(
+                            // height: Screens.padingHeight(context) * 0.06,
+                            child: TextFormField(
+                                controller: context
+                                    .read<OrderNewController>()
+                                    .mycontroller[43],
+                                // validator: (value) {
+                                //   if (value!.isEmpty) {
+                                //     return "Enter Ref1";
+                                //   }
+                                //   return null;
+                                // },
+                                decoration: InputDecoration(
+                                  labelText: 'Ref1',
+                                  labelStyle: theme.textTheme.bodyText1!
+                                      .copyWith(color: Colors.grey),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                )),
+                          ),
+                    //Ref2
+                    widget.paymode!.Ref1 == false
+                        ? Container()
+                        : SizedBox(
+                            height: Screens.padingHeight(context) * 0.01,
+                          ),
+                    widget.paymode!.Ref2 == false
+                        ? Container()
+                        : SizedBox(
+                            // height: Screens.padingHeight(context) * 0.06,
+                            child: TextFormField(
+                                controller: context
+                                    .read<OrderNewController>()
+                                    .mycontroller[44],
+                                // validator: (value) {
+                                //   if (value!.isEmpty) {
+                                //     return "Enter Ref2";
+                                //   }
+                                //   return null;
+                                // },
+                                decoration: InputDecoration(
+                                  labelText: 'Ref2',
+                                  labelStyle: theme.textTheme.bodyText1!
+                                      .copyWith(color: Colors.grey),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                )),
+                          ),
+                    //
+                    widget.paymode!.Ref2 == false
+                        ? Container()
+                        : SizedBox(
+                            height: Screens.padingHeight(context) * 0.01,
+                          ),
+                    widget.paymode!.ListVal == false
+                        ? Container()
+                        : Container(
+                            width: Screens.width(context),
+                            height: Screens.padingHeight(context) * 0.06,
+                            padding: EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all()),
+                            child: DropdownButton(
+                                value: context
+                                    .read<OrderNewController>()
+                                    .selecteditem,
+                                isExpanded: true,
+                                hint: Text("List Type"),
+                                underline: Container(),
+                                items: context
+                                    .read<OrderNewController>()
+                                    .valueDroplist!
+                                    .map((items) {
+                                  return DropdownMenuItem(
+                                    value: items.ListName,
+                                    child: Text(items.ListName!),
+                                  );
+                                }).toList(),
+                                onChanged: (val) {
+                                  setState(() {
                                     context
                                         .read<OrderNewController>()
-                                        .showchequeDate(context);
-                                  },
-                                  validator:  context
-                           .watch<OrderNewController>()
-                           . PaymentTerms.toString().toLowerCase() =='cheque'
-                                      ? (value) {
-                                          if (value!.isEmpty) {
-                                            return "Enter Cheque Date";
-                                          }
-                                          return null;
-                                        }
-                                      : (value) {},
-                                      readOnly: true,
-                                  decoration: InputDecoration(
-                                    labelText: 'Cheque Date',
-                                    labelStyle: theme.textTheme.bodyText1!
-                                        .copyWith(color: Colors.grey),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
-                                      //  when the TextFormField in unfocused
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder(),
-                                    // enabledBorder: UnderlineInputBorder(),
-                                    // focusedBorder: UnderlineInputBorder(),
-                                    errorBorder: UnderlineInputBorder(),
-                                    focusedErrorBorder: UnderlineInputBorder(),
-                                  )),
-                              TextFormField(
-                                  controller: context
-                                      .read<OrderNewController>()
-                                      .mycontroller[46],
-                                  validator:  context
-                           .watch<OrderNewController>()
-                           . PaymentTerms.toString().toLowerCase() =='cheque'
-                                      ? (value) {
-                                          if (value!.isEmpty) {
-                                            return "Enter Reference";
-                                          }
-                                          return null;
-                                        }
-                                      : (value) {},
-                                  decoration: InputDecoration(
-                                    labelText: 'Cheque Reference',
-                                    labelStyle: theme.textTheme.bodyText1!
-                                        .copyWith(color: Colors.grey),
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
-                                      //  when the TextFormField in unfocused
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.grey),
-                                      //  when the TextFormField in focused
-                                    ),
-                                    border: UnderlineInputBorder(),
-                                    // enabledBorder: UnderlineInputBorder(),
-                                    // focusedBorder: UnderlineInputBorder(),
-                                    errorBorder: UnderlineInputBorder(),
-                                    focusedErrorBorder: UnderlineInputBorder(),
-                                  )),
-                          
-                              SizedBox(
-                                height: Screens.bodyheight(context) * 0.02,
-                              ),
-                              GetAttachment(theme, context),
-                            ],
-                          ):Container(),
-                         
-                          SizedBox(
-                            height: Screens.bodyheight(context) * 0.01,
+                                        .onselectdrop(val.toString());
+                                  });
+                                }),
                           ),
-                          TextFormField(
-                              controller: context
+                    //date
+                    widget.paymode!.ListVal == false
+                        ? Container()
+                        : SizedBox(
+                            height: Screens.padingHeight(context) * 0.01,
+                          ),
+                    widget.paymode!.TransDate == false
+                        ? Container()
+                        : TextFormField(
+                            controller: context
+                                .read<OrderNewController>()
+                                .mycontroller[45],
+                            onTap: () {
+                              context
                                   .read<OrderNewController>()
-                                  .mycontroller[41],
-                              // validator: (value) {
-                              //   if (value!.isEmpty) {
-                              //     return "Enter Reference";
-                              //   }
-                              //   return null;
-                              // },
-                              decoration: InputDecoration(
-                                labelText: 'Remarks',
-                                labelStyle: theme.textTheme.bodyText1!
-                                    .copyWith(color: Colors.grey),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  //  when the TextFormField in unfocused
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  //  when the TextFormField in focused
-                                ),
-                                border: UnderlineInputBorder(),
-                                // enabledBorder: UnderlineInputBorder(),
-                                // focusedBorder: UnderlineInputBorder(),
-                                errorBorder: UnderlineInputBorder(),
-                                focusedErrorBorder: UnderlineInputBorder(),
-                              )),
-                        
+                                  .showchequeDate(context);
+                            },
+                            // validator: context
+                            //             .watch<OrderNewController>()
+                            //             .PaymentTerms
+                            //             .toString()
+                            //             .toLowerCase() ==
+                            //         'cheque'
+                            //     ? (value) {
+                            //         if (value!.isEmpty) {
+                            //           return "Enter Date Ref";
+                            //         }
+                            //         return null;
+                            //       }
+                            //     : (value) {},
+                            readOnly: true,
+                            decoration: InputDecoration(
+                              suffixIcon: Icon(
+                                Icons.calendar_month,
+                                color: theme.primaryColor,
+                              ),
+                              labelText: 'Date Ref',
+                              labelStyle: theme.textTheme.bodyText1!
+                                  .copyWith(color: Colors.grey),
+                              contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10.0),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              errorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              focusedErrorBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                            )),
+                    //Attach
+                    widget.paymode!.TransDate == false
+                        ? Container()
+                        : SizedBox(
+                            height: Screens.padingHeight(context) * 0.01,
+                          ),
+                    widget.paymode!.Attach == false
+                        ? Container()
+                        : GetAttachment(theme, context),
+                    //Amount
+                    widget.paymode!.Attach == false
+                        ? Container()
+                        : SizedBox(
+                            height: Screens.padingHeight(context) * 0.01,
+                          ),
                     SizedBox(
-                            height: Screens.bodyheight(context) * 0.01,
-                          ),  
-                          ElevatedButton(onPressed: (){
-                            setState(() {
-                              context.read<OrderNewController>().validatepayterm(); 
-                            });
-                           
+                      // height: Screens.padingHeight(context) * 0.06,
+                      child: TextFormField(
+                          controller: context
+                              .read<OrderNewController>()
+                              .mycontroller[46],
+                          keyboardType:
+                              TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: <TextInputFormatter>[
+                            FilteringTextInputFormatter.allow(
+                                RegExp(r'^\d+\.?\d*')),
+                          ],
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Enter Amount";
+                            } else if (value.isNotEmpty) {
+                              double parsedValue = double.parse(value);
+                              double payTermTotal = double.parse(context
+                                  .read<OrderNewController>()
+                                  .paytermtotal!
+                                  .toStringAsFixed(2));
+                                   double fullpayment2 = double.parse(context
+                                  .read<OrderNewController>()
+                                  .fullpayment!
+                                  .toStringAsFixed(2));
+                                  if(context
+                                                .read<OrderNewController>()
+                                                .payupdate==true){
+                                 double fullupdatepay =  context
+                                  .read<OrderNewController>()
+                                  . getpaymenttot2(context
+                                                .read<OrderNewController>()
+                                                .payindex!);
+                                  if(fullupdatepay <=0.0){
+ return "No Payment amount pending";
+                                  }
+                              if (parsedValue>fullupdatepay   ) {
+                                return "Amount Should be less than or equal to ${fullupdatepay.toStringAsFixed(2)}";
+                              }
+                                  }else{
+ if(payTermTotal <=0.0){
+ return "No Payment amount pending";
+                                  }
+                              if (parsedValue>payTermTotal   ) {
+                                return "Amount Should be less than or equal to ${context.read<OrderNewController>().paytermtotal!.toStringAsFixed(2)}";
+                              }
+                                  }
+                                 
+                             
+                              // double.parse(value) > context
+                              // .read<OrderNewController>()
+                              // .paytermtotal!.toStringAsFixed(2)
+                            }
+                            return null;
                           },
-                           child: Text("ok"))    
-                           
-            ],
-          ),
+                          //                     onChanged: (val){
+                          //                        if (val.isNotEmpty) {
+                          //     context
+                          //                         .read<OrderNewController>()
+                          //                         . onchangedpayterm(val);
+                          //  }
+
+                          //                     },
+                          decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              icon: Icon(Icons.copy),
+                              color: theme.primaryColor,
+                              onPressed: () {
+                                setState(() {
+                                  context.read<OrderNewController>().oncopy();
+                                });
+                              },
+                            ),
+                            labelText: 'Amount',
+                            labelStyle: theme.textTheme.bodyText1!
+                                .copyWith(color: Colors.grey),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                          )),
+                    ),
+                    SizedBox(
+                      height: Screens.padingHeight(context) * 0.005,
+                    ),
+// Container(
+//   alignment: Alignment.centerLeft,
+//   child: Text("*${context
+//                               .read<OrderNewController>()
+//                               .payamounterror}",style: TextStyle(color: Colors.red,fontSize: 12),),
+// ),
+
+                    SizedBox(
+                      height: Screens.padingHeight(context) * 0.01,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: Screens.padingHeight(context) * 0.06,
+              width: Screens.width(context),
+              child: context.watch<OrderNewController>().payupdate == true
+                  ? ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        )),
+                      ),
+                      onPressed:
+                          context.watch<OrderNewController>().payloading == true
+                              ? () {}
+                              : () {
+                                  setState(() {
+                                    context
+                                        .read<OrderNewController>()
+                                        .validateupdate(
+                                            context
+                                                .read<OrderNewController>()
+                                                .payindex!,
+                                            widget.paymode!,
+                                            context);
+                                  });
+                                },
+                      child: context.watch<OrderNewController>().payloading ==
+                              true
+                          ? Center(
+                              child: SizedBox(
+                                  width: Screens.width(context) * 0.08,
+                                  height: Screens.bodyheight(context) * 0.05,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )),
+                            )
+                          : Text(
+                              "Update",
+                              style: theme.textTheme.bodyText1!
+                                  .copyWith(color: Colors.white, fontSize: 18),
+                            ))
+                  : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
+                        )),
+                      ),
+                      onPressed:
+                          context.watch<OrderNewController>().payloading == true
+                              ? () {}
+                              : () {
+                                  setState(() {
+                                    context
+                                        .read<OrderNewController>()
+                                        .validatepayterm(
+                                            widget.paymode!, context);
+                                  });
+                                },
+                      child: context.watch<OrderNewController>().payloading ==
+                              true
+                          ? Center(
+                              child: SizedBox(
+                                  width: Screens.width(context) * 0.08,
+                                  height: Screens.bodyheight(context) * 0.05,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )),
+                            )
+                          : Text(
+                              "Save",
+                              style: theme.textTheme.bodyText1!
+                                  .copyWith(color: Colors.white, fontSize: 18),
+                            )),
+            )
+          ],
         ),
       ),
     );
   }
+
   Container GetAttachment(ThemeData theme, BuildContext context) {
     return Container(
         //  width: Screens.width(context),
@@ -324,7 +437,7 @@ class _paytermdialogState extends State<paytermdialog> {
         padding: EdgeInsets.only(
             top: Screens.padingHeight(context) * 0.01,
             left: Screens.padingHeight(context) * 0.01,
-            bottom: Screens.padingHeight(context) * 0.015,
+            bottom: Screens.padingHeight(context) * 0.01,
             right: Screens.padingHeight(context) * 0.01),
         // height: Screens.padingHeight(context) * 0.14,
         // color: Colors.red,
@@ -334,17 +447,16 @@ class _paytermdialogState extends State<paytermdialog> {
             children: [
               Text('Attachment',
                   style: theme.textTheme.subtitle1?.copyWith(
-                      color: context
-                                  .read<OrderNewController>()
-                                  .fileValidation2 ==
-                              true
-                          ? Colors.red
-                          : Colors.black)),
+                      color:
+                          context.read<OrderNewController>().fileValidation2 ==
+                                  true
+                              ? Colors.red
+                              : Colors.black)),
               Row(
                 children: [
                   Container(
                       // alignment: Alignment.center,
-                      height: Screens.padingHeight(context) * 0.06,
+                      height: Screens.padingHeight(context) * 0.05,
                       width: Screens.width(context) * 0.13,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
@@ -379,13 +491,14 @@ class _paytermdialogState extends State<paytermdialog> {
                                   print("obAAAAAject");
                                   context
                                       .read<OrderNewController>()
-                                      .showtoast();
+                                      .showtoastpayattach();
                                 }
                               });
                             },
                             icon: Icon(
                               Icons.photo_camera,
                               color: Colors.white,
+                              size: 16,
                             )),
                       )),
                   SizedBox(
@@ -395,7 +508,7 @@ class _paytermdialogState extends State<paytermdialog> {
                   //old
                   Container(
                       // alignment: Alignment.center,
-                      height: Screens.padingHeight(context) * 0.06,
+                      height: Screens.padingHeight(context) * 0.05,
                       width: Screens.width(context) * 0.13,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
@@ -433,13 +546,14 @@ class _paytermdialogState extends State<paytermdialog> {
 
                                   context
                                       .read<OrderNewController>()
-                                      .showtoast();
+                                      .showtoastpayattach();
                                 }
                               });
                             },
                             icon: Icon(
                               Icons.attach_file,
                               color: Colors.white,
+                                 size: 16,
                             )),
                       )),
                 ],
@@ -478,10 +592,9 @@ class _paytermdialogState extends State<paytermdialog> {
                         ],
                       )))
               : Container(
-                  height:
-                      context.read<OrderNewController>().files2.length == 0
-                          ? Screens.padingHeight(context) * 0.0
-                          : Screens.padingHeight(context) * 0.09,
+                  height: context.read<OrderNewController>().files2.length == 0
+                      ? Screens.padingHeight(context) * 0.0
+                      : Screens.padingHeight(context) * 0.09,
                   padding: EdgeInsets.only(
                     top: Screens.padingHeight(context) * 0.001,
                     right: Screens.padingHeight(context) * 0.015,
@@ -539,13 +652,11 @@ class _paytermdialogState extends State<paytermdialog> {
                                           onPressed: () {
                                             setState(() {
                                               context
-                                                  .read<
-                                                      OrderNewController>()
+                                                  .read<OrderNewController>()
                                                   .files2
                                                   .removeAt(i);
                                               context
-                                                  .read<
-                                                      OrderNewController>()
+                                                  .read<OrderNewController>()
                                                   .filedata2
                                                   .removeAt(i);
                                             });
@@ -604,13 +715,11 @@ class _paytermdialogState extends State<paytermdialog> {
                                           onPressed: () {
                                             setState(() {
                                               context
-                                                  .read<
-                                                      OrderNewController>()
+                                                  .read<OrderNewController>()
                                                   .files2
                                                   .removeAt(i);
                                               context
-                                                  .read<
-                                                      OrderNewController>()
+                                                  .read<OrderNewController>()
                                                   .filedata2
                                                   .removeAt(i);
                                             });
@@ -624,7 +733,6 @@ class _paytermdialogState extends State<paytermdialog> {
                               // )
                               );
                         }
-                      
                       })),
         ]));
   }

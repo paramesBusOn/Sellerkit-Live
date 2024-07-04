@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Models/newNotificationModel/newnotifyModel.dart';
 import '../../../Constant/ConstantRoutes.dart';
 import '../../../Controller/NotificationController/NotificationController.dart';
 import '../../../Widgets/Appbar.dart';
@@ -27,7 +28,8 @@ class _TestingState extends State<Testing> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<NotificationContoller>().clearData();
-      context.read<NotificationContoller>().getNotification();
+      // context.read<NotificationContoller>().getNotification();
+      context.read<NotificationContoller>(). getdatafromApi();
       context.read<NotificationContoller>().onReciveFCM();
     });
   }
@@ -52,14 +54,14 @@ class _TestingState extends State<Testing> {
                   Container(
             width: Screens.width(context),
             height: Screens.bodyheight(context),
-            child: (context.read<NotificationContoller>().getnotify.isEmpty &&
-                    context.watch<NotificationContoller>().getunSeenNotify == 0)
-                ? Center(child: Text('No Notification'))
-                : (context.read<NotificationContoller>().getnotify.isEmpty &&
-                        context.watch<NotificationContoller>().getunSeenNotify >
-                            0)
+            child: 
+            (context.watch<NotificationContoller>().isloading==true)
                     ? Center(child: CircularProgressIndicator())
-                    : Column(
+                    : (context.watch<NotificationContoller>().isloading==false
+                    &&context.read<NotificationContoller>().notifydatanew.isEmpty
+                    )
+                ? Center(child: Text('No Notification'))
+                : Column(
                         children: [
                           SizedBox(
                             height: Screens.bodyheight(context) * 0.01,
@@ -76,29 +78,29 @@ class _TestingState extends State<Testing> {
                                 // shrinkWrap: true,
                                 itemCount: context
                                     .read<NotificationContoller>()
-                                    .getnotify
+                                    .notifydatanew
                                     .length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return InkWell(
                                       onTap: () {
                                                                                 
-                                        context
-                                            .read<NotificationContoller>()
-                                            .updateApi(
-                                                docEntry: context
-                                                    .read<
-                                                        NotificationContoller>()
-                                                    .getnotify[index]
-                                                    .jobid,
-                                                seenTime: context
-                                                    .read<
-                                                        NotificationContoller>()
-                                                    .getnotify[index]
-                                                    .seenTime, deliveryTime:context
-                                                    .read<
-                                                        NotificationContoller>()
-                                                    .getnotify[index]
-                                                    .receiveTime.toString());
+                                        // context
+                                        //     .read<NotificationContoller>()
+                                        //     .updateApi(
+                                        //         docEntry: int.parse(context
+                                        //             .read<
+                                        //                 NotificationContoller>()
+                                        //             .getnotify[index]
+                                        //             .jobid.toString()),
+                                        //         seenTime: context
+                                        //             .read<
+                                        //                 NotificationContoller>()
+                                        //             .getnotify[index]
+                                        //             .seenTime, deliveryTime:context
+                                        //             .read<
+                                        //                 NotificationContoller>()
+                                        //             .getnotify[index]
+                                        //             .receiveTime.toString());
                                         showDialog<dynamic>(
                                             context: context,
                                             builder: (_) {
@@ -106,41 +108,44 @@ class _TestingState extends State<Testing> {
                                                   .read<NotificationContoller>()
                                                   .config
                                                   .currentDate();
-                                              context
-                                                  .read<NotificationContoller>()
-                                                  .updateSeenTime(
-                                                      context
-                                                          .read<
-                                                              NotificationContoller>()
-                                                          .getnotify[index]
-                                                          .id!,
-                                                      time);
+                                              // context
+                                              //     .read<NotificationContoller>()
+                                              //     .updateSeenTime(
+                                              //         context
+                                              //             .read<
+                                              //                 NotificationContoller>()
+                                              //             .getnotify[index]
+                                              //             .id!,
+                                              //         time);
                                               return NotifyDialog(
                                                 descp:
-                                                    '${context.read<NotificationContoller>().getnotify[index].description}',
+                                                    '${context.read<NotificationContoller>().notifydatanew[index].body}',
                                                 title:
-                                                    '${context.read<NotificationContoller>().getnotify[index].titile}',
+                                                    '${context.read<NotificationContoller>().notifydatanew[index].title}',
                                                 imgUrl:
-                                                    '${context.read<NotificationContoller>().getnotify[index].imgUrl}',
-                                                     page:'${context.read<NotificationContoller>().getnotify[index].naviScn}',
+                                                    '${context.read<NotificationContoller>().notifydatanew[index].notifyUrl}',
+                                                    //  page:'${context.read<NotificationContoller>().notifydatanew[index].naviScn
+                                                    //  }',
                                               );
                                             }).then((value) {});
                                       },
                                      onLongPress: (){
-                                         showDialog<dynamic>(
-                                            context: context,
-                                            builder: (_) {  
-                                              return NotifyDeleteDialog(
-                                                docid: context
-                                                    .read<
-                                                        NotificationContoller>()
-                                                    .getnotify[index]
-                                                    .docEntry!,
-                                               );
-                                            }).then((value) {});
+                                        //  showDialog<dynamic>(
+                                        //     context: context,
+                                        //     builder: (_) {  
+                                        //       return NotifyDeleteDialog(
+                                        //         docid: context
+                                        //             .read<
+                                        //                 NotificationContoller>()
+                                        //             .getnotify[index]
+                                        //             .docEntry!,
+                                        //        );
+                                        //     }).then((value) {});
                                      },
                                       child: DataContainer1(
-                                          context, index, theme));
+                                          context, context
+                                    .read<NotificationContoller>()
+                                    .notifydatanew[index], theme));
                                 },
                               ),
                             ),
@@ -154,7 +159,7 @@ class _TestingState extends State<Testing> {
     );
   }
 
-  Container DataContainer1(BuildContext context, int index, ThemeData theme) {
+  Container DataContainer1(BuildContext context, NEWnotifyData notifydatanew, ThemeData theme) {
     return Container(
       //  color: Colors.red,
       width: Screens.width(context),
@@ -171,10 +176,11 @@ class _TestingState extends State<Testing> {
             vertical: Screens.bodyheight(context) * 0.01,
             horizontal: Screens.width(context) * 0.02),
         color:
-            context.read<NotificationContoller>().getnotify[index].seenTime ==
-                    '0'
-                ? Colors.grey[300]
-                : Colors.white,
+            // context.read<NotificationContoller>().notifydatanew[index].seenTime ==
+            //         '0'
+            //     ? Colors.grey[300]
+            //     :
+                 Colors.white,
         child: Column(children: [
           Container(
             width: Screens.width(context),
@@ -185,16 +191,16 @@ class _TestingState extends State<Testing> {
                   width: Screens.width(context) * 0.65,
                   // color: Colors.red,
                   child: Text(
-                    "${context.read<NotificationContoller>().getnotify[index].titile}",
+                    "${notifydatanew.title}",
                     style: theme.textTheme.bodyText1,
                   ),
                 ),
                 Container(
                   width: Screens.width(context) * 0.25,
                   //    color: Colors.red,
-                  child: Text(
-                    context.read<NotificationContoller>().config.subtractDTWith2(
-                        "${context.read<NotificationContoller>().getnotify[index].receiveTime}"),
+                  child:notifydatanew.sendTime ==null || notifydatanew.sendTime==''?Text(""): Text(
+                    context.read<NotificationContoller>().config.alignmeetingdate(
+                        "${notifydatanew.sendTime}"),
                     style: theme.textTheme.bodyText2
                         ?.copyWith(fontSize: 12, color: Colors.grey),
                   ),
@@ -208,7 +214,7 @@ class _TestingState extends State<Testing> {
           Container(
             width: Screens.width(context),
             child: ExpandableText(
-              "${context.read<NotificationContoller>().getnotify[index].description}",
+              "${notifydatanew.body}",
               expandText: 'show more',
               collapseText: 'show less',
               maxLines: 2,
@@ -217,9 +223,9 @@ class _TestingState extends State<Testing> {
                   ?.copyWith(fontSize: 12, color: Colors.grey),
             ),
           ),
-         context.read<NotificationContoller>().getnotify[index].imgUrl ==
-                  null||  context.read<NotificationContoller>().getnotify[index].imgUrl ==
-                  'null'|| context.read<NotificationContoller>().getnotify[index].imgUrl.isEmpty
+         notifydatanew.notifyUrl ==
+                  null||  notifydatanew.notifyUrl ==
+                  'null'|| notifydatanew.notifyUrl!.isEmpty
               ? Container()
               : Container(
                   width: Screens.width(context),
@@ -227,7 +233,7 @@ class _TestingState extends State<Testing> {
                   child: Center(
                       child: Image(
                           image: NetworkImage(
-                              '${context.read<NotificationContoller>().getnotify[index].imgUrl}'),
+                              '${notifydatanew.notifyUrl}'),
                           fit: BoxFit.cover)),
                 ),
           SizedBox(
@@ -252,7 +258,7 @@ class _TestingState extends State<Testing> {
     if (currentBackPressTime == null ||
         now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
       currentBackPressTime = now;
-      Get.offAllNamed(ConstantRoutes.dashboard);
+      Get.toNamed(ConstantRoutes.dashboard);
       return Future.value(true);
     } else {
       return Future.value(true);

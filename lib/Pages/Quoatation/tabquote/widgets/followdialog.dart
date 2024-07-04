@@ -3750,7 +3750,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         if (context
                                 .read<QuotestabController>()
                                 .paymode[i]
-                                .CODE ==
+                                .Code ==
                             context
                                 .read<QuotestabController>()
                                 .getleadDeatilsQTHData![0]
@@ -3758,7 +3758,7 @@ class _FollowDialogState extends State<FollowDialog> {
                           pdfviewState.paymode = context
                               .read<QuotestabController>()
                               .paymode[i]
-                              .description
+                              .ModeName
                               .toString();
                         }
                       }

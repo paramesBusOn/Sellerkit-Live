@@ -1078,7 +1078,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                 0.06,
                                                         child: Center(
                                                             child: Image.asset(
-                                                                "Assets/PDFimg.png")),
+                                                                "Assets/pdfimg.png")),
                                                       ),
                                                       Container(
                                                           padding:
@@ -1307,6 +1307,72 @@ class OrderBookNewState extends State<OrderBookNew> {
             ),
             Column(
               children: [
+           context.read<OrderNewController>(). postpaymentdata.isEmpty?Container():     Container(
+                  width: Screens.width(context),
+                  height: Screens.bodyheight(context) * 0.1,
+                  //  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      //theme.primaryColor.withOpacity(0.5)
+                      
+                      border: Border.all(color: theme.primaryColor, width: 1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: ListView.builder(
+                    itemCount:context.read<OrderNewController>(). postpaymentdata.length,
+                    itemBuilder: (BuildContext context,ind){
+                      return Container(
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          children: [
+                            Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: Screens.width(context)*0.3,
+                                        child:Text("${context.read<OrderNewController>(). postpaymentdata[ind].paymodename}", style: theme.textTheme.bodyText1?.copyWith(
+                                                              ))
+                                      ),
+                                   Container(
+                                  child:Text(":", style: theme.textTheme.bodyText1?.copyWith(
+                        ))
+                                ),
+                                Container(
+                                  
+                                  child:Text(" ${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>(). postpaymentdata[ind].amount.toString())}",
+                                   style: theme.textTheme.bodyText1?.copyWith()
+                                  )
+                                ),
+                                    ],
+                                  ),
+                                ),
+                               
+
+                                Container(
+                                  
+                                  child:InkWell(
+                                    onTap:(){
+                                      setState(() {
+                                       context.read<OrderNewController>(). deletepaymode(context.read<OrderNewController>(). postpaymentdata[ind],ind );
+                                        context.read<OrderNewController>(). postpaymentdata.removeAt(ind);
+                                      });
+
+                                    },
+                                    child: Icon(Icons.delete,color:Colors.red))
+                                  )
+                                
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                  
+                  }),
+                ),
+              SizedBox(
+              height: Screens.bodyheight(context) * 0.01,
+            ),
                 Container(
                   width: Screens.width(context),
                   height: Screens.bodyheight(context) * 0.07,
@@ -2028,6 +2094,74 @@ class OrderBookNewState extends State<OrderBookNew> {
                                               )),
                                         ],
                                       ),
+                                      SizedBox(height: 5),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                   context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .partcode !=null?        Container(child:Text("Referal Name",style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 15.0,
+                                              ))
+                                          ):Container(),
+                                    context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .couponcode !=null?Container(child:Text("Couponcode",style: TextStyle(
+                                                color: Colors.grey,
+                                                fontSize: 15.0,
+                                              ))
+                                          ):Container()
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                        (context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .partname !=null &&        context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .partname!.isNotEmpty)|| (context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .couponcode != null &&context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .couponcode!.isNotEmpty)?      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                        context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .partcode !=null?  Container(
+                                            child:Text("${context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .partname}")
+                                          ):Container(),
+                                context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .couponcode !=null?          Container(
+                                            child:Text("${context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .couponcode}")
+                                          ):Container()
+
+                                      ],):Container(),
                                       SizedBox(height: 10),
                                       Padding(
                                         padding: EdgeInsets.only(
@@ -6098,57 +6232,76 @@ class OrderBookNewState extends State<OrderBookNew> {
               context
                   .read<OrderNewController>()
                   .paymode[index]
-                  .description
+                  .ModeName
                   .toString(),
-              context.read<OrderNewController>().paymode[index].description!,
-              context.read<OrderNewController>().paymode[index].CODE!,
-              context
+              context.read<OrderNewController>().paymode[index].ModeName!,
+              context.read<OrderNewController>().paymode[index].Code!,
+              context,
+               context.read<OrderNewController>().paymode[index],
+               index
               );
        
           
         },
-        child: Container(
-          width: Screens.width(context) * 0.4,
-          height: Screens.bodyheight(context) * 0.06,
-          //  padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              color: context
-                          .read<OrderNewController>()
-                          .isSelectedpaymentTermsCode ==
-                      context
-                          .read<OrderNewController>()
-                          .paymode[index]
-                          .CODE
-                          .toString()
-                  ? Color(0xffB299A5) //theme.primaryColor.withOpacity(0.5)
-                  : Colors.white,
-              border: Border.all(color: theme.primaryColor, width: 1),
-              borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                  context
-                      .read<OrderNewController>()
-                      .paymode[index]
-                      .description
-                      .toString(),
-                  maxLines: 8,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
-                    color: context
-                                .read<OrderNewController>()
-                                .getisSelectedpaymentTermsList ==
-                            context
-                                .read<OrderNewController>()
-                                .getpaymentTermsList[index]
-                                .Name
-                                .toString()
-                        ? theme.primaryColor //,Colors.white
-                        : theme.primaryColor,
-                  ))
-            ],
-          ),
+        child: Stack(
+          children: [
+            Container(
+              width: Screens.width(context) * 0.4,
+              height: Screens.bodyheight(context) * 0.06,
+              //  padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: 
+                  // context
+                  //             .read<OrderNewController>()
+                  //             .isSelectedpaymentTermsCode ==
+                          context
+                              .read<OrderNewController>()
+                              .paymode[index]
+                              .isselected ==true
+                      ? Color(0xffB299A5) //theme.primaryColor.withOpacity(0.5)
+                      : Colors.white,
+                  border: Border.all(color: theme.primaryColor, width: 1),
+                  borderRadius: BorderRadius.circular(10)),
+                  alignment: Alignment.center,
+              child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""? 
+              Text("Rs.${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().paymode[index].amount.toString())}",style: theme.textTheme.bodyText1?.copyWith(
+                       color: context
+                             .read<OrderNewController>()
+                             .paymode[index]
+                             .isselected ==true
+                           ? theme.primaryColor //,Colors.white
+                           : theme.primaryColor,
+                     ) ,):
+                 Text("${context
+                         .read<OrderNewController>()
+                         .paymode[index]
+                         .ModeName
+                         .toString()}",
+                          maxLines: 8,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+                         style: theme.textTheme.bodyText1?.copyWith(
+                       color: context
+                             .read<OrderNewController>()
+                             .paymode[index]
+                             .isselected ==true
+                           ? theme.primaryColor //,Colors.white
+                           : theme.primaryColor,
+                     ) ,
+                         ),
+            ),
+
+         Positioned(
+          top: Screens.padingHeight(context)*0.005,
+          left:Screens.width(context)*0.01,
+          child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""?Text("${context.read<OrderNewController>().paymode[index].ModeName}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
+          )
+      //  Positioned(
+      //     top: Screens.padingHeight(context)*0.005,
+      //     left:Screens.width(context)*0.01,
+      //     child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""?Text("Rs.${context.read<OrderNewController>().paymode[index].amount}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
+      //     )
+          ],
         ),
       ),
     );

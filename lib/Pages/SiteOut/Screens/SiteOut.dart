@@ -1091,7 +1091,7 @@ class _SiteOutState extends State<SiteOut> {
                                                                 0.06,
                                                         child: Center(
                                                             child: Image.asset(
-                                                                "Assets/PDFimg.png")),
+                                                                "Assets/pdfimg.png")),
                                                       ),
                                                       Container(
                                                           padding:

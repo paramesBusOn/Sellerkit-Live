@@ -23,7 +23,6 @@ import 'package:sellerkit/Constant/Encripted.dart';
 import 'package:sellerkit/Constant/Helper.dart';
 import 'package:sellerkit/Constant/LocationTrack.dart';
 import 'package:sellerkit/Constant/LocationTrackIos.dart';
-import 'package:sellerkit/Constant/flutter_background_service_utils.dart';
 import 'package:sellerkit/Constant/methodchannel.dart';
 // import 'package:sellerkit/Constant/LocationTrackIos.dart';
 import 'package:sellerkit/Controller/AccountsController/AccountsController.dart';
@@ -240,7 +239,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     await DBOperation.truncatetableitemlist1(db);
     await DBOperation.truncatetableitemlist2(db);
       // HelperFunctions.saveOnBoardSharedPreference(true);
-       if( int.parse(message.data['LogoutTypeId'].toString()) ==2 || int.parse(message.data['LogoutTypeId'].toString()) ==4){
+       if( message.data['LogoutTypeId'].toString() =="2" || message.data['LogoutTypeId'].toString() =="4"){
  exit(0);
     }   
       // exit(0);
@@ -248,7 +247,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       if (message.notification!.android != null  ) {
         if (message.notification!.android!.imageUrl != null) {
           notify.add(NotificationModel(
-              jobid: int.parse(message.data['JobId'].toString()),
+              jobid: message.data['JobId'].toString(),
               docEntry: int.parse(message.data['DocEntry'].toString()),
               titile: message.notification!.title,
               description: message.notification!.body!,
@@ -259,7 +258,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
           await DBOperation.insertNotification(notify, db);
         } else {
           notify.add(NotificationModel(
-              jobid: int.parse(message.data['JobId'].toString()),
+              jobid: message.data['JobId'].toString(),
               docEntry: int.parse(message.data['DocEntry'].toString()),
               titile: message.notification!.title,
               description: message.notification!.body!,
@@ -272,7 +271,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       } else {
         if (message.notification!.apple!.imageUrl != null) {
           notify.add(NotificationModel(
-              jobid: int.parse(message.data['JobId'].toString()),
+              jobid: message.data['JobId'].toString(),
               docEntry: int.parse(message.data['DocEntry'].toString()),
               titile: message.notification!.title,
               description: message.notification!.body!,
@@ -283,7 +282,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
           await DBOperation.insertNotification(notify, db);
         } else {
           notify.add(NotificationModel(
-              jobid: int.parse(message.data['JobId'].toString()),
+              jobid: message.data['JobId'].toString(),
               docEntry: int.parse(message.data['DocEntry'].toString()),
               titile: message.notification!.title,
               description: message.notification!.body!,
@@ -473,7 +472,7 @@ print("hhhhhh:::"+message.data['LogoutTypeId'].toString());
     await DBOperation.truncatetableitemlist1(db);
     await DBOperation.truncatetableitemlist2(db);
         // HelperFunctions.saveOnBoardSharedPreference(true);
-    if( int.parse(message.data['LogoutTypeId'].toString()) ==2 || int.parse(message.data['LogoutTypeId'].toString()) ==4){
+    if(message.data['LogoutTypeId'].toString() =="2" || message.data['LogoutTypeId'].toString() =="4"){
  exit(0);
     }   
        
@@ -486,7 +485,7 @@ print("hhhhhh:::"+message.data['LogoutTypeId'].toString());
             // log(message.data['NaviScreen'].toString());
 
             notify.add(NotificationModel(
-                jobid: int.parse(message.data['JobId'].toString()),
+                jobid: message.data['JobId'].toString(),
                 docEntry: int.parse(message.data['DocEntry'].toString()),
                 titile: message.notification!.title,
                 description: message.notification!.body!,
@@ -499,7 +498,7 @@ print("hhhhhh:::"+message.data['LogoutTypeId'].toString());
             // log(message.data['DocEntry'].toString());
             // log(message.data['NaviScreen'].toString());
             notify.add(NotificationModel(
-                jobid: int.parse(message.data['JobId'].toString()),
+                jobid: message.data['JobId'].toString(),
                 docEntry: int.parse(message.data['DocEntry'].toString()),
                 titile: message.notification!.title,
                 description: message.notification!.body!,
@@ -516,7 +515,7 @@ print("hhhhhh:::"+message.data['LogoutTypeId'].toString());
             //     message.notification!.apple!.imageUrl.toString());
 
             notify.add(NotificationModel(
-                jobid: int.parse(message.data['JobId'].toString()),
+                jobid: message.data['JobId'].toString(),
                 docEntry: int.parse(message.data['DocEntry'].toString()),
                 titile: message.notification!.title,
                 description: message.notification!.body!,
@@ -529,7 +528,7 @@ print("hhhhhh:::"+message.data['LogoutTypeId'].toString());
             // log(message.data['DocEntry'].toString());
             // log(message.data['NaviScreen'].toString());
             notify.add(NotificationModel(
-                jobid: int.parse(message.data['JobId'].toString()),
+                jobid: message.data['JobId'].toString(),
                 docEntry: int.parse(message.data['DocEntry'].toString()),
                 titile: message.notification!.title,
                 description: message.notification!.body!,
@@ -764,6 +763,16 @@ postLoginData. devicename='${brand} ${model}';
       // log("Api itemMasterData.itemdata!.length ${itemMasterData.itemdata!.length}");
       for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
         valuesInserMaster.add(ItemMasterDBModel(
+          storeAgeSlab1:itemMasterData.itemdata![ij].storeAgeSlab1,
+              storeAgeSlab2:itemMasterData.itemdata![ij].storeAgeSlab2,
+              storeAgeSlab3:itemMasterData.itemdata![ij].storeAgeSlab3,
+              storeAgeSlab4:itemMasterData.itemdata![ij].storeAgeSlab4,
+              storeAgeSlab5:itemMasterData.itemdata![ij].storeAgeSlab5,
+              whsAgeSlab1:itemMasterData.itemdata![ij].whsAgeSlab1,
+              whsAgeSlab2:itemMasterData.itemdata![ij].whsAgeSlab2,
+              whsAgeSlab3:itemMasterData.itemdata![ij].whsAgeSlab3,
+              whsAgeSlab4:itemMasterData.itemdata![ij].whsAgeSlab4,
+              whsAgeSlab5:itemMasterData.itemdata![ij].whsAgeSlab5,
             id: int.parse(itemMasterData.itemdata![ij].id!.toString()),
             itemCode: itemMasterData.itemdata![ij].itemcode,
             brand: itemMasterData.itemdata![ij].Brand!,

@@ -17,11 +17,12 @@ class PaymodeApi {
     try {
       
 Config config = Config();
-      log("URL:"+Url.queryApi+'SkClientPortal/GetallMaster?MasterTypeId=18');
-      await config.getSetup(); final response = await http.get(Uri.parse(Url.queryApi+'SkClientPortal/GetallMaster?MasterTypeId=18'),
+      log("URL:"+Url.queryApi+'Sellerkit_Flexi/v2/Load_PayModes');
+      await config.getSetup(); final response = await http.get(Uri.parse(Url.queryApi+'Sellerkit_Flexi/v2/Load_PayModes'),
           headers: {
             "content-type": "application/json",
-            "Authorization": 'bearer '+ ConstantValues.token,"Location":'${ConstantValues.EncryptedSetup}'
+            "Authorization": 'bearer '+ ConstantValues.token,
+            "Location":'${ConstantValues.EncryptedSetup}'
           },
           // body: jsonEncode({
           //   "constr":
@@ -34,7 +35,7 @@ Config config = Config();
       // print(response.statusCode.toString());
       
       if (response.statusCode == 200) {
-        // log("ResonAgeApi:"+json.decode(response.body).toString());
+        log("Sellerkit_Flexi/v2/Load_PayModes:"+response.body.toString());
         // Map data = json.decode(response.body);
         return PaymodeModal.fromJson(
             json.decode(response.body), response.statusCode);

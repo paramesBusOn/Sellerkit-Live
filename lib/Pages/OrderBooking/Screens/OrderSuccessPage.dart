@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_const_constructors_in_immutables
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
@@ -36,6 +38,7 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
   }
 
   static OrderSavePostModal? getsuccessRes;
+  static  List<paymentorders>? orderpayment=[];
    static String paymode = '';
   DateTime? currentBackPressTime;
   Config config = new Config();
@@ -280,6 +283,8 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
                                   pdfState.data=getsuccessRes!.orderSavePostheader!.documentdata!;
                                 pdfState. orderMasterdata2=getsuccessRes!.orderSavePostheader!.orderMasterdata;
                                 // PdfPreview(build: (format)=>pdfState().generatePdf(format, 'title'),);
+                              pdfState.orderpayment=orderpayment;
+                              log("pdfState.orderpayment::"+pdfState.orderpayment!.length.toString());
                                 pdfState.paymode=paymode;
                                 pdfState.customermodeldata=context
                                                 .read<OrderNewController>()

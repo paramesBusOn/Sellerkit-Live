@@ -7,11 +7,13 @@ import '../../../Constant/Screen.dart';
 import '../../../Controller/NotificationController/NotificationController.dart';
 
 class NotifyDialog extends StatefulWidget {
-  NotifyDialog({Key? key, required this.title, required this.descp,required this.imgUrl,required this.page}) : super(key: key);
+  NotifyDialog({Key? key, required this.title, required this.descp,required this.imgUrl,
+  // required this.page
+  }) : super(key: key);
   String title;
   String descp;
   String imgUrl;
-  String page;
+  // String page;
   @override
   State<NotifyDialog> createState() => _FollowDialogState();
 }
@@ -123,7 +125,7 @@ class _FollowDialogState extends State<NotifyDialog> {
                   height: Screens.bodyheight(context) * 0.02,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                       width: Screens.width(context) * 0.3,
@@ -146,25 +148,25 @@ class _FollowDialogState extends State<NotifyDialog> {
                           )),
                     ),
                     SizedBox(width: Screens.width(context)*0.03,),
-                     widget.page.isEmpty || widget.page.toLowerCase() == 'null'
-                     ?
-                     Container():
-                       Container(
-                      width: Screens.width(context) * 0.3,
-                      height: Screens.bodyheight(context) * 0.06,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.primaryColor,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(6))),
-                          ),
-                          onPressed: () {
-                            context.read<NotificationContoller>().gotoPages(widget.page,context);
-                          },
-                          child: Text(
-                            "${widget.page}",
-                          )),
-                    ),
+                    //  widget.page.isEmpty || widget.page.toLowerCase() == 'null'
+                    //  ?
+                    //  Container():
+                    //    Container(
+                    //   width: Screens.width(context) * 0.3,
+                    //   height: Screens.bodyheight(context) * 0.06,
+                    //   child: ElevatedButton(
+                    //       style: ElevatedButton.styleFrom(
+                    //         backgroundColor: theme.primaryColor,
+                    //         shape: RoundedRectangleBorder(
+                    //             borderRadius: BorderRadius.all(Radius.circular(6))),
+                    //       ),
+                    //       onPressed: () {
+                    //         context.read<NotificationContoller>().gotoPages(widget.page,context);
+                    //       },
+                    //       child: Text(
+                    //         "${widget.page}",
+                    //       )),
+                    // ),
                   ],
                 )
               ],

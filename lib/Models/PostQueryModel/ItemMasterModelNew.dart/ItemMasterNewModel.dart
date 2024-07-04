@@ -117,7 +117,17 @@ class ItemMasterNewData {
       required this.color,
       required this.validTill,
       required this.calcType,
-      required this.payOn
+      required this.payOn,
+     required this. storeAgeSlab1,
+ required this. storeAgeSlab2,
+  required this. storeAgeSlab3,
+  required this. storeAgeSlab4,
+  required this. storeAgeSlab5,
+  required this. whsAgeSlab1,
+  required this. whsAgeSlab2,
+  required this. whsAgeSlab3,
+  required this. whsAgeSlab4,
+  required this. whsAgeSlab5,
       });
 
   String? itemcode;
@@ -178,6 +188,19 @@ class ItemMasterNewData {
   String? color;
   String? calcType;
   String? payOn;
+  double? storeAgeSlab1;
+  double? storeAgeSlab2;
+  double? storeAgeSlab3;
+  double? storeAgeSlab4;
+  double? storeAgeSlab5;
+  double? whsAgeSlab1;
+  double? whsAgeSlab2;
+  double? whsAgeSlab3;
+  double? whsAgeSlab4;
+  double? whsAgeSlab5;
+
+
+
 
   factory ItemMasterNewData.fromJson(Map<String, dynamic> json) {
     // print("!-----------------------------2--------");
@@ -238,7 +261,17 @@ class ItemMasterNewData {
         verySlow: json['verySlow']??false,
         whseCode: json['whseCode']??'',
         calcType: json['calcType']??'',
-   payOn: json['payOn']??''
+   payOn: json['payOn']??'',
+     storeAgeSlab1: json['store_Age_Slab_1']??0.0,
+   storeAgeSlab2: json['store_Age_Slab_2']??0.0,
+   storeAgeSlab3: json['store_Age_Slab_3']??0.0,
+   storeAgeSlab4: json['store_Age_Slab_4']??0.0,
+   storeAgeSlab5: json['store_Age_Slab_5']??0.0,
+   whsAgeSlab1: json['whs_Age_Slab_1']??0.0,
+   whsAgeSlab2: json['whs_Age_Slab_2']??0.0,
+   whsAgeSlab3: json['whs_Age_Slab_3']??0.0,
+   whsAgeSlab4: json['whs_Age_Slab_4']??0.0,
+   whsAgeSlab5: json['whs_Age_Slab_4']??0.0,
         );
   }
  

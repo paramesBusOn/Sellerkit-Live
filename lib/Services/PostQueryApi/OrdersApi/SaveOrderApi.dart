@@ -12,9 +12,10 @@ import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/
 
 class OrderSavePostApi {
   static Future<OrderSavePostModal> getData(
-      sapUserId, PostOrder postLead, PatchExCus patch) async {
+      sapUserId, PostOrder postLead, PatchExCus patch ,) async {
     int resCode = 500;
     try {
+     log("postLead.paymentdata::"+postLead.paymentdata!.length.toString()); 
       log("ConstantValues.token:::"+ConstantValues.token.toString());
       log("URLL::"+Url.queryApi + 'Sellerkit_Flexi/v2/OrderAdd');
       Config config = Config();
@@ -26,6 +27,7 @@ class OrderSavePostApi {
             "Authorization": 'bearer ' + ConstantValues.token,
             "Location": '${ConstantValues.EncryptedSetup}'
           },
+          
           body: jsonEncode({
             "ordernumber": null,
   "docdate": "${config.currentDate()}",
@@ -82,7 +84,8 @@ class OrderSavePostApi {
   "invoicetotal": null,
   "invoiceurl1": null,
   "invoiceurl2": null,
-  "orderlines": postLead.docLine!.map((e) => e.tojason2()).toList()
+  "orderlines": postLead.docLine!.map((e) => e.tojason2()).toList(),
+  "orderpays":postLead.paymentdata!.map((e) => e.tojason2()).toList()
           }));
       log("save order Json ::" + jsonEncode({
                "ordernumber": null,
@@ -140,8 +143,9 @@ class OrderSavePostApi {
   "invoicetotal": null,
   "invoiceurl1": null,
   "invoiceurl2": null,
-  "orderlines": postLead.docLine!.map((e) => e.tojason2()).toList()
-          }).toString());
+  "orderlines": postLead.docLine!.map((e) => e.tojason2()).toList(),
+  "orderpays":postLead.paymentdata!.map((e) => e.tojason2()).toList()
+        }).toString());
   log("json.decode(response.body)::"+json.decode(response.body).toString());
       resCode = response.statusCode;
       // print(response.statusCode.toString());

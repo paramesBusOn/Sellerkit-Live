@@ -102,7 +102,8 @@ class OrderupdateApi {
             "invoicetotal": null,
             "invoiceurl1": null,
             "invoiceurl2": null,
-            "orderlines": postLead.docLine!.map((e) => e.tojason2()).toList()
+            "orderlines": postLead.docLine!.map((e) => e.tojason2()).toList(),
+            "orderpays":postLead.paymentdata!.map((e) => e.tojason2()).toList()
           }));
       log("Update order Json ::" +
           jsonEncode({
@@ -179,7 +180,8 @@ class OrderupdateApi {
             "invoicetotal": null,
             "invoiceurl1": null,
             "invoiceurl2": null,
-            "orderlines": postLead.docLine!.map((e) => e.tojason2()).toList()
+            "orderlines": postLead.docLine!.map((e) => e.tojason2()).toList(),
+            "orderpays":postLead.paymentdata!.map((e) => e.tojason2()).toList()
           }).toString());
       log("json.decode(response.body)::" +
           json.decode(response.body).toString());

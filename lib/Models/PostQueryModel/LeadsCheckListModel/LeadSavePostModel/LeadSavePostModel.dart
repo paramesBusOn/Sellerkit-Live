@@ -224,8 +224,10 @@ class DocumentLines
   double? LineTotal;
   bool? isfixedprice;
   String? partcode;
+ String? partname;
 
   DocumentLines({
+    this.partname,
      this.isfixedprice,
      this.partcode,
     required this.id,
@@ -288,7 +290,7 @@ class DocumentLines
       "ssP5": 0,
       "storeStock": 0,
       "whseStock": 0,
-      "partcode":partcode
+      "partnercode": partcode
     };
     return map;
   }

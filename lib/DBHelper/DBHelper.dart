@@ -106,7 +106,19 @@ class DBHelper {
              ${ItemMasterColumns.validTill} varchar ,
              ${ItemMasterColumns.color} varchar ,
              ${ItemMasterColumns.calcType} varchar ,
-             ${ItemMasterColumns.payOn} varchar 
+             ${ItemMasterColumns.payOn} varchar ,
+             ${ItemMasterColumns.storeAgeSlab1} decimal ,
+             ${ItemMasterColumns.storeAgeSlab2} decimal ,
+             ${ItemMasterColumns.storeAgeSlab3} decimal ,
+             ${ItemMasterColumns.storeAgeSlab4} decimal ,
+             ${ItemMasterColumns.storeAgeSlab5} decimal ,
+             ${ItemMasterColumns.whsAgeSlab1} decimal ,
+             ${ItemMasterColumns.whsAgeSlab2} decimal ,
+             ${ItemMasterColumns.whsAgeSlab3} decimal ,
+             ${ItemMasterColumns.whsAgeSlab4} decimal ,
+             ${ItemMasterColumns.whsAgeSlab5} decimal 
+             
+             
              
              )
         ''');
@@ -998,6 +1010,16 @@ WHERE $fav IS NOT '';
           ssp3Inc: 0.0,
           ssp4Inc: 0.0,
           ssp5Inc: 0.0,
+          storeAgeSlab1:0.0,
+          storeAgeSlab2:0.0,
+          storeAgeSlab3:0.0,
+          storeAgeSlab4:0.0,
+          storeAgeSlab5:0.0,
+          whsAgeSlab1:0.0,
+          whsAgeSlab2:0.0,
+          whsAgeSlab3:0.0,
+          whsAgeSlab4:0.0,
+          whsAgeSlab5:0.0,
           allowNegativeStock:
               bool.parse(result[i]['AllowNegativeStock'].toString()),
           allowOrderBelowCost:
@@ -1106,6 +1128,16 @@ WHERE $fav IS NOT '';
           ssp3Inc: double.parse(result[i]['Ssp3Inc'].toString()),
           ssp4Inc: double.parse(result[i]['Ssp4Inc'].toString()),
           ssp5Inc:double.parse( result[i]['Ssp5Inc'].toString()),
+          storeAgeSlab1:double.parse( result[i]['storeAgeSlab1'].toString()),
+          storeAgeSlab2:double.parse( result[i]['storeAgeSlab2'].toString()),
+          storeAgeSlab3:double.parse( result[i]['storeAgeSlab3'].toString()),
+          storeAgeSlab4:double.parse( result[i]['storeAgeSlab4'].toString()),
+          storeAgeSlab5:double.parse( result[i]['storeAgeSlab5'].toString()),
+          whsAgeSlab1:double.parse( result[i]['whsAgeSlab1'].toString()),
+          whsAgeSlab2:double.parse( result[i]['whsAgeSlab2'].toString()),
+          whsAgeSlab3:double.parse( result[i]['whsAgeSlab3'].toString()),
+          whsAgeSlab4:double.parse( result[i]['whsAgeSlab4'].toString()),
+          whsAgeSlab5:double.parse( result[i]['whsAgeSlab5'].toString()),
           allowNegativeStock:
               bool.parse(result[i]['AllowNegativeStock'].toString()),
           allowOrderBelowCost:
@@ -1187,6 +1219,16 @@ WHERE $data IS NOT '';
           ssp3Inc: 0.0,
           ssp4Inc: 0.0,
           ssp5Inc: 0.0,
+          storeAgeSlab1:0.0,
+          storeAgeSlab2:0.0,
+          storeAgeSlab3:0.0,
+          storeAgeSlab4:0.0,
+          storeAgeSlab5:0.0,
+          whsAgeSlab1:0.0,
+          whsAgeSlab2:0.0,
+          whsAgeSlab3:0.0,
+          whsAgeSlab4:0.0,
+          whsAgeSlab5:0.0,
           allowNegativeStock:
               bool.parse(result[i]['AllowNegativeStock'].toString()),
           allowOrderBelowCost:
@@ -1265,6 +1307,16 @@ Select * from ItemMaster where (ItemCode || ' - ' || ItemName) Like '%$data%';
           ssp3Inc:double.parse( result[i]['Ssp3Inc'].toString()),
           ssp4Inc:double.parse( result[i]['Ssp4Inc'].toString()),
           ssp5Inc:double.parse( result[i]['Ssp5Inc'].toString()),
+          storeAgeSlab1:double.parse( result[i]['storeAgeSlab1'].toString()),
+          storeAgeSlab2:double.parse( result[i]['storeAgeSlab2'].toString()),
+          storeAgeSlab3:double.parse( result[i]['storeAgeSlab3'].toString()),
+          storeAgeSlab4:double.parse( result[i]['storeAgeSlab4'].toString()),
+          storeAgeSlab5:double.parse( result[i]['storeAgeSlab5'].toString()),
+          whsAgeSlab1:double.parse( result[i]['whsAgeSlab1'].toString()),
+          whsAgeSlab2:double.parse( result[i]['whsAgeSlab2'].toString()),
+          whsAgeSlab3:double.parse( result[i]['whsAgeSlab3'].toString()),
+          whsAgeSlab4:double.parse( result[i]['whsAgeSlab4'].toString()),
+          whsAgeSlab5:double.parse( result[i]['whsAgeSlab5'].toString()),
           allowNegativeStock:
               bool.parse(result[i]['AllowNegativeStock'].toString()),
           allowOrderBelowCost:
@@ -1823,7 +1875,7 @@ SELECT * FROM $tableNotification;
     log(result.toList().toString());
     return List.generate(result.length, (i) {
       return NotificationModel(
-        jobid: int.parse(result[i]['Jobid'].toString()),
+        jobid: result[i]['Jobid'].toString(),
         id: int.parse(result[i]['NId'].toString()),
         docEntry: int.parse(result[i]['DocEntry'].toString()),
         titile: result[i]['Title'].toString(),

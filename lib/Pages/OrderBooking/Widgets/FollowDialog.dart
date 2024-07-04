@@ -869,7 +869,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                 0.06,
                                                             child: Center(
                                                                 child: Image.asset(
-                                                                    "Assets/PDFimg.png")),
+                                                                    "Assets/pdfimg.png")),
                                                           ),
                                                           Container(
                                                               padding:
@@ -1759,7 +1759,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                 0.06,
                                                             child: Center(
                                                                 child: Image.asset(
-                                                                    "Assets/PDFimg.png")),
+                                                                    "Assets/pdfimg.png")),
                                                           ),
                                                           Container(
                                                               padding:
@@ -3513,8 +3513,8 @@ Container callLoadingPage(BuildContext context) {
              
 await context.read<OrderTabController>(). callcustomerapi();
  for(int i=0;i<context.read<OrderTabController>().paymode.length;i++){
-        if(context.read<OrderTabController>().paymode[i].CODE ==context.read<OrderTabController>().getleadDeatilsQTHData![0].PaymentTerms){
- pdfviewState.paymode =context.read<OrderTabController>(). paymode[i].description.toString();
+        if(context.read<OrderTabController>().paymode[i].Code ==context.read<OrderTabController>().getleadDeatilsQTHData![0].PaymentTerms){
+ pdfviewState.paymode =context.read<OrderTabController>(). paymode[i].ModeName.toString();
         }
 
        } 

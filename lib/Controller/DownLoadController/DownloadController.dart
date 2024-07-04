@@ -5,7 +5,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sellerkit/Models/configModel/getconfigmodel.dart';
 import 'package:sellerkit/Models/getuserbyidModel/getuserbyidmodel.dart';
+import 'package:sellerkit/Services/configApi/configApi.dart';
 
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -181,6 +183,102 @@ class DownLoadController extends ChangeNotifier {
   }
 
   String? loadingApi = '';
+  mapconfigvalues(List<GetconfigData> configData){
+     ConstantValues.ssp1='';
+      ConstantValues.ssp2='';
+      ConstantValues.ssp3='';
+      ConstantValues.ssp4='';
+      ConstantValues.ssp5='';
+ConstantValues.ssp1_Inc='';
+ConstantValues.ssp2_Inc='';
+ConstantValues.ssp3_Inc='';
+ConstantValues.ssp4_Inc='';
+ConstantValues.ssp5_Inc='';
+ConstantValues.ageslab1='';
+ConstantValues.ageslab2='';
+ConstantValues.ageslab3='';
+ConstantValues.ageslab4='';
+ConstantValues.ageslab5='';
+    for(int i=0;i<configData.length;i++){
+
+      if(configData[i].config_Code =='ssp1'){
+ ConstantValues.ssp1=configData[i].config_value;
+     
+      }
+      if(configData[i].config_Code =='ssp2'){
+ ConstantValues.ssp2=configData[i].config_value;
+     
+      }
+      if(configData[i].config_Code =='ssp3'){
+         ConstantValues.ssp3=configData[i].config_value;
+     
+      }
+      if(configData[i].config_Code =='ssp4'){
+         ConstantValues.ssp4=configData[i].config_value;
+    
+      }
+      if(configData[i].config_Code =='ssp5'){
+           ConstantValues.ssp5=configData[i].config_value;
+
+      }
+      if(configData[i].config_Code =='ssp1_Inc'){
+          ConstantValues.ssp1_Inc=configData[i].config_value;
+
+      }
+      if(configData[i].config_Code =='ssp2_inc'){
+          ConstantValues.ssp2_Inc=configData[i].config_value;
+
+
+      }
+      if(configData[i].config_Code =='ssp3_inc'){
+         ConstantValues.ssp3_Inc=configData[i].config_value;
+
+
+      }
+      if(configData[i].config_Code =='ssp4_Inc'){
+          ConstantValues.ssp4_Inc=configData[i].config_value;
+
+
+      }
+      if(configData[i].config_Code =='ssp5_Inc'){
+         ConstantValues.ssp5_Inc=configData[i].config_value;
+
+
+      }
+
+      if(configData[i].config_Code =='age-slab1'){
+         ConstantValues.ageslab1=configData[i].config_value;
+
+
+      }
+      if(configData[i].config_Code =='age-slab2'){
+        ConstantValues.ageslab2=configData[i].config_value;
+
+
+      }
+      if(configData[i].config_Code =='age-slab3'){
+       ConstantValues.ageslab3=configData[i].config_value;
+
+
+      }
+      if(configData[i].config_Code =='age-slab4'){
+       ConstantValues.ageslab4=configData[i].config_value;
+
+
+      }
+      if(configData[i].config_Code =='age-slab5'){
+         ConstantValues.ageslab5=configData[i].config_value;
+
+
+      }
+     
+
+
+    }
+    log("ConstantValues.ageslab1::"+ConstantValues.ageslab1.toString());
+    log("ConstantValues.ageslab2::"+ConstantValues.ssp1.toString());
+notifyListeners();
+  }
 callsecondaryApi()async{
  List<EnquiryTypeData> enqTypeData = [];
     List<CustomerTagTypeData> customerTagTypeData = [];
@@ -197,9 +295,48 @@ callsecondaryApi()async{
     List<OfferZoneData> offerzone = [];
     List<offerproductlist> offerproduct = [];
     List<offerstorelist> offerstore = [];
+    List<GetconfigData> configData=[];
       final Database db = (await DBHelper.getInstance())!;
  final stopwatch = Stopwatch()..start();
         // log("Start: Initial Loading.." ); 
+
+  await      GetconfigApi.getData(ConstantValues.slpcode).then((value) {
+        if (value.stcode! >= 200 && value.stcode! <= 210) {
+      exception = false;
+      if (value.itemdata != null) {
+         final stopwatch = Stopwatch()..start();
+        // log("Start:EnquiryTypeAPI " );
+          // log("EnquiryType ${value.itemdata!.length}");
+        String date = config.currentDate();
+        // for (int i = 0; i < values.itemdata!.length; i++) {
+        //     enqTypeData.add(EnquiryTypeData(
+        //       Code: values.itemdata![i].Code,
+        //       Name:  values.itemdata![i].Name));
+        // }
+        configData = value.itemdata!;
+        log("configData::"+configData.length.toString());
+        mapconfigvalues(value.itemdata!);
+        notifyListeners();
+         stopwatch.stop();
+            // log('API EnquiryType ${stopwatch.elapsedMilliseconds} milliseconds');
+      } else if (value.itemdata == null) {
+        exception = true;
+        errorMsg = 'No data - Enquiry Type Api..!!';
+        notifyListeners();
+      }
+      notifyListeners();
+    } else if (value.stcode! >= 400 &&
+        value.stcode! <= 410) {
+      exception = true;
+      errorMsg = '${value.exception}';
+      notifyListeners();
+    } else if (value.stcode == 500) {
+      exception = true;
+      errorMsg =
+          '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+      notifyListeners();
+    }  
+        });
     loadingApi = "EnquiryType";
      await enquiryTypeApi.getData(ConstantValues.slpcode).then((value) {
  if (value.stcode! >= 200 && value.stcode! <= 210) {
@@ -754,6 +891,16 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
           // log("Api itemMasterData.itemdata!.length ${value.itemdata![0].itemName}");
           for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
             valuesInserMaster.add(ItemMasterDBModel(
+              storeAgeSlab1:itemMasterData.itemdata![ij].storeAgeSlab1,
+              storeAgeSlab2:itemMasterData.itemdata![ij].storeAgeSlab2,
+              storeAgeSlab3:itemMasterData.itemdata![ij].storeAgeSlab3,
+              storeAgeSlab4:itemMasterData.itemdata![ij].storeAgeSlab4,
+              storeAgeSlab5:itemMasterData.itemdata![ij].storeAgeSlab5,
+              whsAgeSlab1:itemMasterData.itemdata![ij].whsAgeSlab1,
+              whsAgeSlab2:itemMasterData.itemdata![ij].whsAgeSlab2,
+              whsAgeSlab3:itemMasterData.itemdata![ij].whsAgeSlab3,
+              whsAgeSlab4:itemMasterData.itemdata![ij].whsAgeSlab4,
+              whsAgeSlab5:itemMasterData.itemdata![ij].whsAgeSlab5,
               payOn:itemMasterData.itemdata![ij].payOn!,
               calcType:itemMasterData.itemdata![ij].calcType!,
                 id: itemMasterData.itemdata![ij].id!,
