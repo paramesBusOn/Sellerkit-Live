@@ -16,7 +16,7 @@ class ChangePasswordController extends ChangeNotifier {
     getOldpassword();
     notifyListeners();
   }
-  Config config = new Config();
+  Config config =  Config();
   List<TextEditingController> mycontroller =
       List.generate(8, (i) => TextEditingController());
 
@@ -101,10 +101,8 @@ class ChangePasswordController extends ChangeNotifier {
   }
 
   managerpincodecompleted(BuildContext context) {
-    print("Completed");
     FocusScope.of(context).requestFocus(FocusNode());
     if (mycontroller[6].text == randomgenerate) {
-      print("same OTP:$randomgenerate" == mycontroller[6].text);
       managerotpcompleted = false;
       usergray = false;
       isButtonDisabled = true;
@@ -130,7 +128,6 @@ class ChangePasswordController extends ChangeNotifier {
   }
 
   userPincodeCompleted(BuildContext context) {
-    print("Completed");
     FocusScope.of(context).requestFocus(FocusNode());
     if (mycontroller[7].text == userrandomgenerate) {
       usertimmervisible = false;
@@ -167,7 +164,6 @@ class ChangePasswordController extends ChangeNotifier {
     usergray = true;
     visibleNPCnt = true;
     notifyListeners();
-    print("Completed22");
   }
 
   void resetClicked(BuildContext context) {
@@ -188,10 +184,8 @@ class ChangePasswordController extends ChangeNotifier {
   }
 
   onTime() {
-    print("object enddd");
     isButtonDisabled = false; //button not click
     managertimmervisible = false;
-    print("isButtonDisabled:$isButtonDisabled");
     resendOTP = true;
     managerboxenable = false;
     randomgenerate = '';
@@ -200,10 +194,8 @@ class ChangePasswordController extends ChangeNotifier {
   }
 
   useronTime() {
-    print("object enddd");
     userisButtonDisabled = false; //button click
     usertimmervisible = false;
-    print("isButtonDisabled:$isButtonDisabled");
     userresendOTP = true;
     userboxenable = false;
     mycontroller[7].clear();
@@ -213,7 +205,6 @@ class ChangePasswordController extends ChangeNotifier {
 
   resentTimer(BuildContext context) {
     managertimmervisible = false;
-    print("Data");
     // resendOTP = true;
     notifyListeners();
     Future.delayed(Duration(seconds: 1), () {
@@ -232,10 +223,7 @@ class ChangePasswordController extends ChangeNotifier {
     randomgenerate = await generateRandomNumber();
     await UserOTPApi1.getOTPApi1(randomgenerate).then((value) {
       if (value.statuscode! >= 200 && value.statuscode! <= 210) {
-        print("1");
         if (value.send == "true" && value.error == null) {
-          print("2");
-          print("randomgenerate:$randomgenerate");
           managerboxenable = true;
           managertimmervisible = true;
           if (resendOTP == true) {
@@ -253,11 +241,8 @@ class ChangePasswordController extends ChangeNotifier {
             isButtonDisabled = true;
             managertimmervisible = true;
           }
-          print("randomgenerate.toString():$randomgenerate");
           notifyListeners();
-          print("otpMsg:$otpMsg");
         } else if (value.send == null && value.error != null) {
-          print("3");
           otpexp = 'No  Data in otp Api..!!';
           managertimmervisible = false;
         }
@@ -280,10 +265,7 @@ class ChangePasswordController extends ChangeNotifier {
     userrandomgenerate = await generateRandomNumber();
     await ManagerOTPApi1.getManagerOTPApi1(userrandomgenerate).then((value) {
       if (value.statuscode! >= 200 && value.statuscode! <= 210) {
-        print("user1");
         if (value.send == "true") {
-          print("user2");
-          print("randomgenerate:$userrandomgenerate");
           otpMsg = value.send!;
           usertimmervisible = true;
           userboxenable = true;
@@ -305,9 +287,7 @@ class ChangePasswordController extends ChangeNotifier {
             usergray = false;
           }
           notifyListeners();
-          print("otpMsg:$otpMsg");
         } else if (value.send == null) {
-          print("3");
           otpexp = 'No  Data in otp Api..!!';
           usertimmervisible = false;
         }
@@ -365,23 +345,18 @@ class ChangePasswordController extends ChangeNotifier {
   ChangePwdData? userData;
   getOldpassword() async {
     oldPassword = await HelperFunctions.getPasswordSharedPreference();
-    print('oldPasswordoldPassword:$oldPassword');
     notifyListeners();
   }
 
   valdationconfirmpwd(BuildContext context) {
-    print('oldPasswordoldPassword::${oldPassword}');
     if (formkey[2].currentState!.validate()) {
       if (mycontroller[6].text == oldPassword) {
         if (mycontroller[4].text == mycontroller[5].text) {
-          print("pwd matched");
           confirmpwd(context);
           notifyListeners();
         } else {
-          print("pwd not matched");
         }
       } else {
-        print("old pwd not matched");
       }
     }
     notifyListeners();
@@ -396,7 +371,6 @@ class ChangePasswordController extends ChangeNotifier {
     await HelperFunctions.getLogginUserCodeSharedPreference().then((value) {
       if (value != null) {
         userNamee = value;
-        print("con userNamee: $userNamee");
       }
       notifyListeners();
     });
@@ -413,7 +387,6 @@ class ChangePasswordController extends ChangeNotifier {
     await ConfirmPwdAPi.getConfirmPwdData(userNamee, oldPswd, confirmpwed)
         .then((value) async {
       if (value.statuscode! >= 200 && value.statuscode! <= 210) {
-        print("SSSSSSSSSSs");
         if (value.respType == 'Success') {
           confirmsuccess = value.respDesc.toString();
           // userData = value.data!;
@@ -421,8 +394,6 @@ class ChangePasswordController extends ChangeNotifier {
           isLoading = false;
           erroMsgVisble = false;
           errorMsh = '';
-          print("confirmpwed:$confirmpwed");
-          print("confirmsuccess:${value.respDesc}");
 
           notifyListeners();
         // } else if (value.respType == 'Failed') {
@@ -438,7 +409,6 @@ class ChangePasswordController extends ChangeNotifier {
         erroMsgVisble = true;
         errorMsh = value.respDesc!;
         failedPwdDialog(context, 'UserCode or Password Incorrect');
-        print("value.exception:${value.exception}");
    }   } else {
         if (value.exception == 'No route to host') {
           isLoading = false;
@@ -577,7 +547,6 @@ class ChangePasswordController extends ChangeNotifier {
     for (var i = 0; i < 4; i++) {
       randomnum = random.nextInt(9999) + 1000;
     }
-    print(randomnum);
     notifyListeners();
 
     return Future.value(randomnum.toString().substring(0, 4));

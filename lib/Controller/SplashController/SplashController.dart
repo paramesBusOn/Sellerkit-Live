@@ -27,7 +27,7 @@ class SplashController extends ChangeNotifier
        setURL() async {
     String? getUrl = await HelperFunctions.getHostDSP();
     log("getUrl $getUrl");
-  Url.queryApi = 'http://${getUrl.toString()}/api/';
+  Url.queryApi = '${getUrl.toString()}/api/';
   }
 
 //  Future<String?> initPlatformState() async {

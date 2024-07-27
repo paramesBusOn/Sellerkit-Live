@@ -33,7 +33,7 @@ class GetconfigApi {
 
       resCode = response.statusCode;
       // print(response.statusCode.toString());
-      // print("Enquiry Type"+response.body.toString());
+      log("Enquiry Type"+response.body.toString());
       if (response.statusCode == 200) {
       
         return GetconfigModal.fromJson(

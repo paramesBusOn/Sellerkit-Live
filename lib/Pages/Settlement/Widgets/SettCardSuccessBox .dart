@@ -144,7 +144,7 @@ class SettlementSuccessCardState extends State<SettlementSuccessCard> {
                           //   color: Colors.blue,
                           child: Center(
                               child: Text(
-                            "Card Amount Rs.${context.read<SettlementController>().totalCard()}",
+                            "Card Amount Rs.${widget.settlemaster![0].Amount.toStringAsFixed(2)}",
                             style: theme.textTheme.bodyText2,
                             textAlign: TextAlign.center,
                           )),

@@ -7,7 +7,7 @@ import '../Controller/EnquiryController/NewEnqController.dart';
 
 
 class ShowSearchDialog extends StatefulWidget {
-  ShowSearchDialog({Key? key}) : super(key: key);
+  const ShowSearchDialog({Key? key}) : super(key: key);
   @override
   State<ShowSearchDialog> createState() => ShowSearchDialogState();
 }

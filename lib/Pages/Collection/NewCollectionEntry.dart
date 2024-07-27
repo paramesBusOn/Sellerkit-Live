@@ -34,6 +34,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
     controller = ScrollController();
 
     //
+    
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
         if (NewCollectionContoller.comefromoutStanding.isEmpty &&
@@ -162,617 +163,749 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 Container(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: Screens.width(context) * 0.03,
-                      vertical: Screens.bodyheight(context) * 0.008),
-                  width: Screens.width(context),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: theme.primaryColor)),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: Screens.width(context),
-                        child: Text(
-                          "Payment Mode",
-                          style: theme.textTheme.headline6
-                              ?.copyWith(color: theme.primaryColor),
-                        ),
+                  child:Column(children: [
+ Container(
+                      width: Screens.width(context),
+                       height: Screens.bodyheight(context) * 0.28,
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: theme.primaryColor),
+                          color: theme.primaryColor,
+                          
+                          borderRadius: BorderRadius.circular(8)),
+                      padding: EdgeInsets.only(
+                        left: Screens.width(context) * 0.02,
+                        right: Screens.width(context) * 0.02,
+                        top: Screens.bodyheight(context) * 0.01,
+                        bottom: Screens.bodyheight(context) * 0.01,
                       ),
-
-                      TextFormField(
-                          controller: context
-                              .read<NewCollectionContoller>()
-                              .mycontroller[15],
-                          readOnly: context
-                                  .watch<NewCollectionContoller>()
-                                  .getProduct
-                                  .isEmpty
-                              ? false
-                              : true,
-                          validator: (value) {
-                            // double value2 = 0.0;
-                            // if (value!.isNotEmpty) {
-                            //   double value2 = double.parse(value.toString());
-                            // }
-                            if (value!.isEmpty || value == '0.0' ||value == '0') {
-                              return "Enter Amount..";
-                            } else
-                              return null;
-                          },
-                          keyboardType:
-                              TextInputType.numberWithOptions(decimal: true),
-                          inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d*')),
-                          ],
-                          // keyboardType:
-                          //     TextInputType.numberWithOptions(decimal: true),
-
-                          // inputFormatters: [
-                          //   new LengthLimitingTextInputFormatter(10),
-                          // ],
-                          // keyboardType: TextInputType.number,
-                          //  keyboardType: TextInputType.numberWithOptions(decimal: true),
-                          // inputFormatters: [DecimalTextInputFormatter()],
-                          decoration: InputDecoration(
-                            labelText: 'Amount',
-                            labelStyle: theme.textTheme.bodyText1!
-                                .copyWith(color: Colors.grey),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                              //  when the TextFormField in unfocused
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                              //  when the TextFormField in focused
-                            ),
-                            border: UnderlineInputBorder(),
-                            // enabledBorder: UnderlineInputBorder(),
-                            // focusedBorder: UnderlineInputBorder(),
-                            errorBorder: UnderlineInputBorder(),
-                            focusedErrorBorder: UnderlineInputBorder(),
-                          )),
-                      // Container(
-                      //   width: Screens.width(context),
-                      //   child: DropdownButton(
-                      //     hint: Text("Select Mode"),
-                      //     // value: context.read<EnquiryUserContoller>(). valueChosedReason,
-                      //     //dropdownColor:Colors.green,
-                      //     icon: Icon(Icons.arrow_drop_down),
-                      //     iconSize: 30,
-                      //     style: TextStyle(color: Colors.black, fontSize: 16),
-                      //     isExpanded: true,
-                      //     value:
-                      //         context.read<NewCollectionContoller>().paymentmode,
-                      //     onChanged: (val) {
-                      //       // setState(() {
-                      //       //   valueChosedReason = val.toString();
-                      //       //   print(val.toString());
-                      //       //   print("valavalaa: .........." +
-                      //       //       valueChosedReason.toString());
-                      //       // });
-                      //       context
-                      //           .read<NewCollectionContoller>()
-                      //           .resonChoosed(val.toString());
-                      //     },
-                      //     items: <String>["Cash", "Cheque", "Card", "UPI", "DD"]
-                      //         .map((String value) {
-                      //       return DropdownMenuItem(
-                      //           value: value, child: Text(value.toString()));
-                      //     }).toList(),
-                      //   ),
-                      // ),
-                      SizedBox(
-                        height: Screens.bodyheight(context) * 0.02,
-                      ),
-                      context
-                              .read<NewCollectionContoller>()
-                              .paymentmodeErro
-                              .isEmpty
-                          ? Container()
-                          : Container(
-                              width: Screens.width(context),
-                              child: Text(
-                                "${context.watch<NewCollectionContoller>().paymentmodeErro}",
-                                style: theme.textTheme.bodyText1!
-                                    .copyWith(color: Colors.red),
-                              ),
-                            ),
-                      Container(
-                        width: Screens.width(context),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  context
-                                      .read<NewCollectionContoller>()
-                                      .paymodeSelect('Cash');
-                                });
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: Screens.width(context) * 0.15,
-                                height: Screens.bodyheight(context) * 0.04,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: context
-                                              .read<NewCollectionContoller>()
-                                              .returnboolValue('Cash') ==
-                                          true
-                                      ? theme.primaryColor
-                                      : Colors.grey[300],
-                                ),
-                                child: Text(
-                                  'Cash',
-                                  style: theme.textTheme.bodyText1!.copyWith(
-                                    color: context
-                                                .read<NewCollectionContoller>()
-                                                .returnboolValue('Cash') ==
-                                            true
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  context
-                                      .read<NewCollectionContoller>()
-                                      .paymodeSelect('Card');
-                                });
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: Screens.width(context) * 0.15,
-                                height: Screens.bodyheight(context) * 0.04,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: context
-                                              .read<NewCollectionContoller>()
-                                              .returnboolValue('Card') ==
-                                          true
-                                      ? theme.primaryColor
-                                      : Colors.grey[300],
-                                ),
-                                child: Text(
-                                  'Card',
-                                  style: theme.textTheme.bodyText1!.copyWith(
-                                    color: context
-                                                .read<NewCollectionContoller>()
-                                                .returnboolValue('Card') ==
-                                            true
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  context
-                                      .read<NewCollectionContoller>()
-                                      .paymodeSelect('Cheque');
-                                });
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: Screens.width(context) * 0.15,
-                                height: Screens.bodyheight(context) * 0.04,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: context
-                                              .read<NewCollectionContoller>()
-                                              .returnboolValue('Cheque') ==
-                                          true
-                                      ? theme.primaryColor
-                                      : Colors.grey[300],
-                                ),
-                                child: Text(
-                                  'Cheque',
-                                  style: theme.textTheme.bodyText1!.copyWith(
-                                    color: context
-                                                .read<NewCollectionContoller>()
-                                                .returnboolValue('Cheque') ==
-                                            true
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  context
-                                      .read<NewCollectionContoller>()
-                                      .paymodeSelect('NEFT');
-                                });
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: Screens.width(context) * 0.15,
-                                height: Screens.bodyheight(context) * 0.04,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: context
-                                              .read<NewCollectionContoller>()
-                                              .returnboolValue('NEFT') ==
-                                          true
-                                      ? theme.primaryColor
-                                      : Colors.grey[300],
-                                ),
-                                child: Text(
-                                  'NEFT',
-                                  style: theme.textTheme.bodyText1!.copyWith(
-                                    color: context
-                                                .read<NewCollectionContoller>()
-                                                .returnboolValue('NEFT') ==
-                                            true
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  context
-                                      .read<NewCollectionContoller>()
-                                      .paymodeSelect('UPI');
-                                });
-                              },
-                              child: Container(
-                                alignment: Alignment.center,
-                                width: Screens.width(context) * 0.15,
-                                height: Screens.bodyheight(context) * 0.04,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: context
-                                              .read<NewCollectionContoller>()
-                                              .returnboolValue('UPI') ==
-                                          true
-                                      ? theme.primaryColor
-                                      : Colors.grey[300],
-                                ),
-                                child: Text(
-                                  'UPI',
-                                  style: theme.textTheme.bodyText1!.copyWith(
-                                    color: context
-                                                .read<NewCollectionContoller>()
-                                                .returnboolValue('UPI') ==
-                                            true
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      // Visibility(
-                      //   visible: context
-                      //       .read<NewCollectionContoller>()
-                      //       .returnboolValue('Cash'),
-                      //   child: Column(
-                      //     children: [
-                      //       TextFormField(
-                      //           // controller: context
-                      //           //     .read<NewCollectionContoller>()
-                      //           //     .mycontroller[6],
-                      //           // validator: (value) {
-                      //           //   if (value!.isEmpty) {
-                      //           //     return "Enter Reference";
-                      //           //   }
-                      //           //   return null;
-                      //           // },
-                      //           decoration: InputDecoration(
-                      //         labelText: 'Reference',
-                      //         labelStyle: theme.textTheme.bodyText1!
-                      //             .copyWith(color: Colors.grey),
-                      //         enabledBorder: UnderlineInputBorder(
-                      //           borderSide: BorderSide(color: Colors.grey),
-                      //           //  when the TextFormField in unfocused
-                      //         ),
-                      //         focusedBorder: UnderlineInputBorder(
-                      //           borderSide: BorderSide(color: Colors.grey),
-                      //           //  when the TextFormField in focused
-                      //         ),
-                      //         border: UnderlineInputBorder(),
-                      //         // enabledBorder: UnderlineInputBorder(),
-                      //         // focusedBorder: UnderlineInputBorder(),
-                      //         errorBorder: UnderlineInputBorder(),
-                      //         focusedErrorBorder: UnderlineInputBorder(),
-                      //       )),
-                      //     ],
-                      //   ),
-                      // ),
-                      Visibility(
-                        visible: context
-                            .read<NewCollectionContoller>()
-                            .returnboolValue('NEFT'),
+                      child: SingleChildScrollView(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            TextFormField(
-                                controller: context
-                                    .read<NewCollectionContoller>()
-                                    .mycontroller[19],
-                                validator: context
-                                            .read<NewCollectionContoller>()
-                                            .returnboolValue('NEFT') ==
-                                        true
-                                    ? (value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter Reference";
-                                        }
-                                        return null;
-                                      }
-                                    : (value) {},
-                                decoration: InputDecoration(
-                                  labelText: 'NEFT Reference',
-                                  labelStyle: theme.textTheme.bodyText1!
-                                      .copyWith(color: Colors.grey),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in unfocused
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in focused
-                                  ),
-                                  border: UnderlineInputBorder(),
-                                  // enabledBorder: UnderlineInputBorder(),
-                                  // focusedBorder: UnderlineInputBorder(),
-                                  errorBorder: UnderlineInputBorder(),
-                                  focusedErrorBorder: UnderlineInputBorder(),
-                                )),
+                            Text(
+                              "Payment Terms *",
+                              style: theme.textTheme.bodyText1
+                                  ?.copyWith(color: Colors.white),
+                            ),
+                            SizedBox(height: Screens.bodyheight(context) * 0.02),
+                           
+                            Center(
+                              // child: Container(
+                              //   height: Screens.bodyheight(context) * 0.25,
+                              //   child: SingleChildScrollView(
+                              //     child: Column(
+                              //       children: [
+                                  child:    Wrap(
+                                          spacing: 20.0, // width
+                                          runSpacing: 8.0, // height
+                                          children: listContainersPaymentTerms(theme)),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
+                            ),
+                       
+                         
                           ],
                         ),
                       ),
-                      Visibility(
-                        visible: context
-                            .read<NewCollectionContoller>()
-                            .returnboolValue('UPI'),
-                        child: Column(
-                          children: [
-                            TextFormField(
-                                controller: context
-                                    .read<NewCollectionContoller>()
-                                    .mycontroller[20],
-                                validator: context
-                                            .read<NewCollectionContoller>()
-                                            .returnboolValue('UPI') ==
-                                        true
-                                    ? (value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter Reference";
-                                        }
-                                        return null;
-                                      }
-                                    : (value) {},
-                                decoration: InputDecoration(
-                                  labelText: 'UPI Reference',
-                                  labelStyle: theme.textTheme.bodyText1!
-                                      .copyWith(color: Colors.grey),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in unfocused
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in focused
-                                  ),
-                                  border: UnderlineInputBorder(),
-                                  // enabledBorder: UnderlineInputBorder(),
-                                  // focusedBorder: UnderlineInputBorder(),
-                                  errorBorder: UnderlineInputBorder(),
-                                  focusedErrorBorder: UnderlineInputBorder(),
-                                )),
-                          ],
+                    ),
+                    context.watch<NewCollectionContoller>().paymentTerm == false
+                        ? Container()
+                        : Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                              "Enter Payment Terms",
+                              textAlign: TextAlign.left,
+                              style: TextStyle(color: Colors.red),
+                            ),
                         ),
-                      ),
-                      Visibility(
-                        visible: context
-                            .read<NewCollectionContoller>()
-                            .returnboolValue('Card'),
-                        child: Column(
-                          children: [
-                            TextFormField(
-                                controller: context
-                                    .read<NewCollectionContoller>()
-                                    .mycontroller[16],
-                                validator: context
-                                            .read<NewCollectionContoller>()
-                                            .returnboolValue('Card') ==
-                                        true
-                                    ? (value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter Reference";
-                                        }
-                                        return null;
-                                      }
-                                    : (value) {},
-                                decoration: InputDecoration(
-                                  labelText: 'Card Reference',
-                                  labelStyle: theme.textTheme.bodyText1!
-                                      .copyWith(color: Colors.grey),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in unfocused
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in focused
-                                  ),
-                                  border: UnderlineInputBorder(),
-                                  // enabledBorder: UnderlineInputBorder(),
-                                  // focusedBorder: UnderlineInputBorder(),
-                                  errorBorder: UnderlineInputBorder(),
-                                  focusedErrorBorder: UnderlineInputBorder(),
-                                )),
-                            SizedBox(
-                              height: Screens.bodyheight(context) * 0.02,
-                            ),
-                            GetAttachment(theme, context),
-                          ],
-                        ),
-                      ),
-                      Visibility(
-                        visible: context
-                            .read<NewCollectionContoller>()
-                            .returnboolValue('Cheque'),
-                        child: Column(
-                          children: [
-                            // TextFormField(
-                            //     // controller: context
-                            //     //     .read<NewCollectionContoller>()
-                            //     //     .mycontroller[6],
-                            //     // validator: (value) {
-                            //     //   if (value!.isEmpty) {
-                            //     //     return "Enter Reference";
-                            //     //   }
-                            //     //   return null;
-                            //     // },
-                            //     decoration: InputDecoration(
-                            //   labelText: 'Cheque No',
-                            //   labelStyle: theme.textTheme.bodyText1!
-                            //       .copyWith(color: Colors.grey),
-                            //   enabledBorder: UnderlineInputBorder(
-                            //     borderSide: BorderSide(color: Colors.grey),
-                            //     //  when the TextFormField in unfocused
-                            //   ),
-                            //   focusedBorder: UnderlineInputBorder(
-                            //     borderSide: BorderSide(color: Colors.grey),
-                            //     //  when the TextFormField in focused
-                            //   ),
-                            //   border: UnderlineInputBorder(),
-                            //   // enabledBorder: UnderlineInputBorder(),
-                            //   // focusedBorder: UnderlineInputBorder(),
-                            //   errorBorder: UnderlineInputBorder(),
-                            //   focusedErrorBorder: UnderlineInputBorder(),
-                            // )),
-                            TextFormField(
-                                controller: context
-                                    .read<NewCollectionContoller>()
-                                    .mycontroller[17],
-                                onTap: () {
-                                  context
-                                      .read<NewCollectionContoller>()
-                                      .showchequeDate(context);
-                                },
-                                validator: context
-                                            .read<NewCollectionContoller>()
-                                            .returnboolValue('Cheque') ==
-                                        true
-                                    ? (value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter Cheque Date";
-                                        }
-                                        return null;
-                                      }
-                                    : (value) {},
-                                    readOnly: true,
-                                decoration: InputDecoration(
-                                  labelText: 'Cheque Date',
-                                  labelStyle: theme.textTheme.bodyText1!
-                                      .copyWith(color: Colors.grey),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in unfocused
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in focused
-                                  ),
-                                  border: UnderlineInputBorder(),
-                                  // enabledBorder: UnderlineInputBorder(),
-                                  // focusedBorder: UnderlineInputBorder(),
-                                  errorBorder: UnderlineInputBorder(),
-                                  focusedErrorBorder: UnderlineInputBorder(),
-                                )),
-                            TextFormField(
-                                controller: context
-                                    .read<NewCollectionContoller>()
-                                    .mycontroller[18],
-                                validator: context
-                                            .read<NewCollectionContoller>()
-                                            .returnboolValue('Cheque') ==
-                                        true
-                                    ? (value) {
-                                        if (value!.isEmpty) {
-                                          return "Enter Reference";
-                                        }
-                                        return null;
-                                      }
-                                    : (value) {},
-                                decoration: InputDecoration(
-                                  labelText: 'Cheque Reference',
-                                  labelStyle: theme.textTheme.bodyText1!
-                                      .copyWith(color: Colors.grey),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in unfocused
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    //  when the TextFormField in focused
-                                  ),
-                                  border: UnderlineInputBorder(),
-                                  // enabledBorder: UnderlineInputBorder(),
-                                  // focusedBorder: UnderlineInputBorder(),
-                                  errorBorder: UnderlineInputBorder(),
-                                  focusedErrorBorder: UnderlineInputBorder(),
-                                )),
-
-                            SizedBox(
-                              height: Screens.bodyheight(context) * 0.02,
-                            ),
-                            GetAttachment(theme, context),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: Screens.bodyheight(context) * 0.01,
-                      ),
-                      TextFormField(
-                          controller: context
-                              .read<NewCollectionContoller>()
-                              .mycontroller[21],
-                          // validator: (value) {
-                          //   if (value!.isEmpty) {
-                          //     return "Enter Reference";
-                          //   }
-                          //   return null;
-                          // },
-                          decoration: InputDecoration(
-                            labelText: 'Remarks',
-                            labelStyle: theme.textTheme.bodyText1!
-                                .copyWith(color: Colors.grey),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                              //  when the TextFormField in unfocused
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey),
-                              //  when the TextFormField in focused
-                            ),
-                            border: UnderlineInputBorder(),
-                            // enabledBorder: UnderlineInputBorder(),
-                            // focusedBorder: UnderlineInputBorder(),
-                            errorBorder: UnderlineInputBorder(),
-                            focusedErrorBorder: UnderlineInputBorder(),
-                          )),
-                    ],
-                  ),
+                SizedBox(
+                  height: Screens.padingHeight(context)*0.02,
                 ),
+                    context.read<NewCollectionContoller>(). postpaymentdata.isEmpty?Container():     Container(
+                  width: Screens.width(context),
+                  height: Screens.bodyheight(context) * 0.1,
+                  //  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      //theme.primaryColor.withOpacity(0.5)
+                      
+                      border: Border.all(color: theme.primaryColor, width: 1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: ListView.builder(
+                    itemCount:context.read<NewCollectionContoller>(). postpaymentdata.length,
+                    itemBuilder: (BuildContext context,ind){
+                      return Container(
+                        padding: EdgeInsets.all(8),
+                        child: Column(
+                          children: [
+                            Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: Screens.width(context)*0.3,
+                                        child:Text("${context.read<NewCollectionContoller>(). postpaymentdata[ind].paymodename}", style: theme.textTheme.bodyText1?.copyWith(
+                                                              ))
+                                      ),
+                                   Container(
+                                  child:Text(":", style: theme.textTheme.bodyText1?.copyWith(
+                        ))
+                                ),
+                                Container(
+                                  
+                                  child:Text(" ${context.read<NewCollectionContoller>().config.slpitCurrency22(context.read<NewCollectionContoller>(). postpaymentdata[ind].amount.toString())}",
+                                   style: theme.textTheme.bodyText1?.copyWith()
+                                  )
+                                ),
+                                    ],
+                                  ),
+                                ),
+                               
+
+                                Container(
+                                  
+                                  child:InkWell(
+                                    onTap:(){
+                                      setState(() {
+                                       context.read<NewCollectionContoller>(). deletepaymode(context.read<NewCollectionContoller>(). postpaymentdata[ind],ind );
+                                        context.read<NewCollectionContoller>(). postpaymentdata.removeAt(ind);
+                                      });
+
+                                    },
+                                    child: Icon(Icons.delete,color:Colors.red))
+                                  )
+                                
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                  
+                  }),
+                ),
+                  ],)
+                ),
+               
+                         
+                      
+                // Container(
+                //   padding: EdgeInsets.symmetric(
+                //       horizontal: Screens.width(context) * 0.03,
+                //       vertical: Screens.bodyheight(context) * 0.008),
+                //   width: Screens.width(context),
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(8),
+                //       border: Border.all(color: theme.primaryColor)),
+                //   child: Column(
+                //     children: [
+                //       Container(
+                //         width: Screens.width(context),
+                //         child: Text(
+                //           "Payment Mode",
+                //           style: theme.textTheme.headline6
+                //               ?.copyWith(color: theme.primaryColor),
+                //         ),
+                //       ),
+
+                //       TextFormField(
+                //           controller: context
+                //               .read<NewCollectionContoller>()
+                //               .mycontroller[15],
+                //           readOnly: context
+                //                   .watch<NewCollectionContoller>()
+                //                   .getProduct
+                //                   .isEmpty
+                //               ? false
+                //               : true,
+                //           validator: (value) {
+                //             // double value2 = 0.0;
+                //             // if (value!.isNotEmpty) {
+                //             //   double value2 = double.parse(value.toString());
+                //             // }
+                //             if (value!.isEmpty || value == '0.0' ||value == '0') {
+                //               return "Enter Amount..";
+                //             } else
+                //               return null;
+                //           },
+                //           keyboardType:
+                //               TextInputType.numberWithOptions(decimal: true),
+                //           inputFormatters: <TextInputFormatter>[
+                //             FilteringTextInputFormatter.allow(
+                //                 RegExp(r'^\d+\.?\d*')),
+                //           ],
+                //           // keyboardType:
+                //           //     TextInputType.numberWithOptions(decimal: true),
+
+                //           // inputFormatters: [
+                //           //   new LengthLimitingTextInputFormatter(10),
+                //           // ],
+                //           // keyboardType: TextInputType.number,
+                //           //  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                //           // inputFormatters: [DecimalTextInputFormatter()],
+                //           decoration: InputDecoration(
+                //             labelText: 'Amount',
+                //             labelStyle: theme.textTheme.bodyText1!
+                //                 .copyWith(color: Colors.grey),
+                //             enabledBorder: UnderlineInputBorder(
+                //               borderSide: BorderSide(color: Colors.grey),
+                //               //  when the TextFormField in unfocused
+                //             ),
+                //             focusedBorder: UnderlineInputBorder(
+                //               borderSide: BorderSide(color: Colors.grey),
+                //               //  when the TextFormField in focused
+                //             ),
+                //             border: UnderlineInputBorder(),
+                //             // enabledBorder: UnderlineInputBorder(),
+                //             // focusedBorder: UnderlineInputBorder(),
+                //             errorBorder: UnderlineInputBorder(),
+                //             focusedErrorBorder: UnderlineInputBorder(),
+                //           )),
+                //       // Container(
+                //       //   width: Screens.width(context),
+                //       //   child: DropdownButton(
+                //       //     hint: Text("Select Mode"),
+                //       //     // value: context.read<EnquiryUserContoller>(). valueChosedReason,
+                //       //     //dropdownColor:Colors.green,
+                //       //     icon: Icon(Icons.arrow_drop_down),
+                //       //     iconSize: 30,
+                //       //     style: TextStyle(color: Colors.black, fontSize: 16),
+                //       //     isExpanded: true,
+                //       //     value:
+                //       //         context.read<NewCollectionContoller>().paymentmode,
+                //       //     onChanged: (val) {
+                //       //       // setState(() {
+                //       //       //   valueChosedReason = val.toString();
+                //       //       //   print(val.toString());
+                //       //       //   print("valavalaa: .........." +
+                //       //       //       valueChosedReason.toString());
+                //       //       // });
+                //       //       context
+                //       //           .read<NewCollectionContoller>()
+                //       //           .resonChoosed(val.toString());
+                //       //     },
+                //       //     items: <String>["Cash", "Cheque", "Card", "UPI", "DD"]
+                //       //         .map((String value) {
+                //       //       return DropdownMenuItem(
+                //       //           value: value, child: Text(value.toString()));
+                //       //     }).toList(),
+                //       //   ),
+                //       // ),
+                //       SizedBox(
+                //         height: Screens.bodyheight(context) * 0.02,
+                //       ),
+                //       context
+                //               .read<NewCollectionContoller>()
+                //               .paymentmodeErro
+                //               .isEmpty
+                //           ? Container()
+                //           : Container(
+                //               width: Screens.width(context),
+                //               child: Text(
+                //                 "${context.watch<NewCollectionContoller>().paymentmodeErro}",
+                //                 style: theme.textTheme.bodyText1!
+                //                     .copyWith(color: Colors.red),
+                //               ),
+                //             ),
+                //       Container(
+                //         width: Screens.width(context),
+                //         child: Row(
+                //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //           children: [
+                //             GestureDetector(
+                //               onTap: () {
+                //                 setState(() {
+                //                   context
+                //                       .read<NewCollectionContoller>()
+                //                       .paymodeSelect('Cash');
+                //                 });
+                //               },
+                //               child: Container(
+                //                 alignment: Alignment.center,
+                //                 width: Screens.width(context) * 0.15,
+                //                 height: Screens.bodyheight(context) * 0.04,
+                //                 decoration: BoxDecoration(
+                //                   borderRadius: BorderRadius.circular(5),
+                //                   color: context
+                //                               .read<NewCollectionContoller>()
+                //                               .returnboolValue('Cash') ==
+                //                           true
+                //                       ? theme.primaryColor
+                //                       : Colors.grey[300],
+                //                 ),
+                //                 child: Text(
+                //                   'Cash',
+                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                     color: context
+                //                                 .read<NewCollectionContoller>()
+                //                                 .returnboolValue('Cash') ==
+                //                             true
+                //                         ? Colors.white
+                //                         : Colors.black,
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //             GestureDetector(
+                //               onTap: () {
+                //                 setState(() {
+                //                   context
+                //                       .read<NewCollectionContoller>()
+                //                       .paymodeSelect('Card');
+                //                 });
+                //               },
+                //               child: Container(
+                //                 alignment: Alignment.center,
+                //                 width: Screens.width(context) * 0.15,
+                //                 height: Screens.bodyheight(context) * 0.04,
+                //                 decoration: BoxDecoration(
+                //                   borderRadius: BorderRadius.circular(5),
+                //                   color: context
+                //                               .read<NewCollectionContoller>()
+                //                               .returnboolValue('Card') ==
+                //                           true
+                //                       ? theme.primaryColor
+                //                       : Colors.grey[300],
+                //                 ),
+                //                 child: Text(
+                //                   'Card',
+                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                     color: context
+                //                                 .read<NewCollectionContoller>()
+                //                                 .returnboolValue('Card') ==
+                //                             true
+                //                         ? Colors.white
+                //                         : Colors.black,
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //             GestureDetector(
+                //               onTap: () {
+                //                 setState(() {
+                //                   context
+                //                       .read<NewCollectionContoller>()
+                //                       .paymodeSelect('Cheque');
+                //                 });
+                //               },
+                //               child: Container(
+                //                 alignment: Alignment.center,
+                //                 width: Screens.width(context) * 0.15,
+                //                 height: Screens.bodyheight(context) * 0.04,
+                //                 decoration: BoxDecoration(
+                //                   borderRadius: BorderRadius.circular(5),
+                //                   color: context
+                //                               .read<NewCollectionContoller>()
+                //                               .returnboolValue('Cheque') ==
+                //                           true
+                //                       ? theme.primaryColor
+                //                       : Colors.grey[300],
+                //                 ),
+                //                 child: Text(
+                //                   'Cheque',
+                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                     color: context
+                //                                 .read<NewCollectionContoller>()
+                //                                 .returnboolValue('Cheque') ==
+                //                             true
+                //                         ? Colors.white
+                //                         : Colors.black,
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //             GestureDetector(
+                //               onTap: () {
+                //                 setState(() {
+                //                   context
+                //                       .read<NewCollectionContoller>()
+                //                       .paymodeSelect('NEFT');
+                //                 });
+                //               },
+                //               child: Container(
+                //                 alignment: Alignment.center,
+                //                 width: Screens.width(context) * 0.15,
+                //                 height: Screens.bodyheight(context) * 0.04,
+                //                 decoration: BoxDecoration(
+                //                   borderRadius: BorderRadius.circular(5),
+                //                   color: context
+                //                               .read<NewCollectionContoller>()
+                //                               .returnboolValue('NEFT') ==
+                //                           true
+                //                       ? theme.primaryColor
+                //                       : Colors.grey[300],
+                //                 ),
+                //                 child: Text(
+                //                   'NEFT',
+                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                     color: context
+                //                                 .read<NewCollectionContoller>()
+                //                                 .returnboolValue('NEFT') ==
+                //                             true
+                //                         ? Colors.white
+                //                         : Colors.black,
+                //                   ),
+                //                 ),
+                //               ),
+                //             ),
+                //             GestureDetector(
+                //               onTap: () {
+                //                 setState(() {
+                //                   context
+                //                       .read<NewCollectionContoller>()
+                //                       .paymodeSelect('UPI');
+                //                 });
+                //               },
+                //               child: Container(
+                //                 alignment: Alignment.center,
+                //                 width: Screens.width(context) * 0.15,
+                //                 height: Screens.bodyheight(context) * 0.04,
+                //                 decoration: BoxDecoration(
+                //                   borderRadius: BorderRadius.circular(5),
+                //                   color: context
+                //                               .read<NewCollectionContoller>()
+                //                               .returnboolValue('UPI') ==
+                //                           true
+                //                       ? theme.primaryColor
+                //                       : Colors.grey[300],
+                //                 ),
+                //                 child: Text(
+                //                   'UPI',
+                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                     color: context
+                //                                 .read<NewCollectionContoller>()
+                //                                 .returnboolValue('UPI') ==
+                //                             true
+                //                         ? Colors.white
+                //                         : Colors.black,
+                //                   ),
+                //                 ),
+                //               ),
+                //             )
+                //           ],
+                //         ),
+                //       ),
+                //       // Visibility(
+                //       //   visible: context
+                //       //       .read<NewCollectionContoller>()
+                //       //       .returnboolValue('Cash'),
+                //       //   child: Column(
+                //       //     children: [
+                //       //       TextFormField(
+                //       //           // controller: context
+                //       //           //     .read<NewCollectionContoller>()
+                //       //           //     .mycontroller[6],
+                //       //           // validator: (value) {
+                //       //           //   if (value!.isEmpty) {
+                //       //           //     return "Enter Reference";
+                //       //           //   }
+                //       //           //   return null;
+                //       //           // },
+                //       //           decoration: InputDecoration(
+                //       //         labelText: 'Reference',
+                //       //         labelStyle: theme.textTheme.bodyText1!
+                //       //             .copyWith(color: Colors.grey),
+                //       //         enabledBorder: UnderlineInputBorder(
+                //       //           borderSide: BorderSide(color: Colors.grey),
+                //       //           //  when the TextFormField in unfocused
+                //       //         ),
+                //       //         focusedBorder: UnderlineInputBorder(
+                //       //           borderSide: BorderSide(color: Colors.grey),
+                //       //           //  when the TextFormField in focused
+                //       //         ),
+                //       //         border: UnderlineInputBorder(),
+                //       //         // enabledBorder: UnderlineInputBorder(),
+                //       //         // focusedBorder: UnderlineInputBorder(),
+                //       //         errorBorder: UnderlineInputBorder(),
+                //       //         focusedErrorBorder: UnderlineInputBorder(),
+                //       //       )),
+                //       //     ],
+                //       //   ),
+                //       // ),
+                //       Visibility(
+                //         visible: context
+                //             .read<NewCollectionContoller>()
+                //             .returnboolValue('NEFT'),
+                //         child: Column(
+                //           children: [
+                //             TextFormField(
+                //                 controller: context
+                //                     .read<NewCollectionContoller>()
+                //                     .mycontroller[19],
+                //                 validator: context
+                //                             .read<NewCollectionContoller>()
+                //                             .returnboolValue('NEFT') ==
+                //                         true
+                //                     ? (value) {
+                //                         if (value!.isEmpty) {
+                //                           return "Enter Reference";
+                //                         }
+                //                         return null;
+                //                       }
+                //                     : (value) {},
+                //                 decoration: InputDecoration(
+                //                   labelText: 'NEFT Reference',
+                //                   labelStyle: theme.textTheme.bodyText1!
+                //                       .copyWith(color: Colors.grey),
+                //                   enabledBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in unfocused
+                //                   ),
+                //                   focusedBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in focused
+                //                   ),
+                //                   border: UnderlineInputBorder(),
+                //                   // enabledBorder: UnderlineInputBorder(),
+                //                   // focusedBorder: UnderlineInputBorder(),
+                //                   errorBorder: UnderlineInputBorder(),
+                //                   focusedErrorBorder: UnderlineInputBorder(),
+                //                 )),
+                //           ],
+                //         ),
+                //       ),
+                //       Visibility(
+                //         visible: context
+                //             .read<NewCollectionContoller>()
+                //             .returnboolValue('UPI'),
+                //         child: Column(
+                //           children: [
+                //             TextFormField(
+                //                 controller: context
+                //                     .read<NewCollectionContoller>()
+                //                     .mycontroller[20],
+                //                 validator: context
+                //                             .read<NewCollectionContoller>()
+                //                             .returnboolValue('UPI') ==
+                //                         true
+                //                     ? (value) {
+                //                         if (value!.isEmpty) {
+                //                           return "Enter Reference";
+                //                         }
+                //                         return null;
+                //                       }
+                //                     : (value) {},
+                //                 decoration: InputDecoration(
+                //                   labelText: 'UPI Reference',
+                //                   labelStyle: theme.textTheme.bodyText1!
+                //                       .copyWith(color: Colors.grey),
+                //                   enabledBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in unfocused
+                //                   ),
+                //                   focusedBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in focused
+                //                   ),
+                //                   border: UnderlineInputBorder(),
+                //                   // enabledBorder: UnderlineInputBorder(),
+                //                   // focusedBorder: UnderlineInputBorder(),
+                //                   errorBorder: UnderlineInputBorder(),
+                //                   focusedErrorBorder: UnderlineInputBorder(),
+                //                 )),
+                //           ],
+                //         ),
+                //       ),
+                //       Visibility(
+                //         visible: context
+                //             .read<NewCollectionContoller>()
+                //             .returnboolValue('Card'),
+                //         child: Column(
+                //           children: [
+                //             TextFormField(
+                //                 controller: context
+                //                     .read<NewCollectionContoller>()
+                //                     .mycontroller[16],
+                //                 validator: context
+                //                             .read<NewCollectionContoller>()
+                //                             .returnboolValue('Card') ==
+                //                         true
+                //                     ? (value) {
+                //                         if (value!.isEmpty) {
+                //                           return "Enter Reference";
+                //                         }
+                //                         return null;
+                //                       }
+                //                     : (value) {},
+                //                 decoration: InputDecoration(
+                //                   labelText: 'Card Reference',
+                //                   labelStyle: theme.textTheme.bodyText1!
+                //                       .copyWith(color: Colors.grey),
+                //                   enabledBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in unfocused
+                //                   ),
+                //                   focusedBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in focused
+                //                   ),
+                //                   border: UnderlineInputBorder(),
+                //                   // enabledBorder: UnderlineInputBorder(),
+                //                   // focusedBorder: UnderlineInputBorder(),
+                //                   errorBorder: UnderlineInputBorder(),
+                //                   focusedErrorBorder: UnderlineInputBorder(),
+                //                 )),
+                //             SizedBox(
+                //               height: Screens.bodyheight(context) * 0.02,
+                //             ),
+                //             GetAttachment(theme, context),
+                //           ],
+                //         ),
+                //       ),
+                //       Visibility(
+                //         visible: context
+                //             .read<NewCollectionContoller>()
+                //             .returnboolValue('Cheque'),
+                //         child: Column(
+                //           children: [
+                //             // TextFormField(
+                //             //     // controller: context
+                //             //     //     .read<NewCollectionContoller>()
+                //             //     //     .mycontroller[6],
+                //             //     // validator: (value) {
+                //             //     //   if (value!.isEmpty) {
+                //             //     //     return "Enter Reference";
+                //             //     //   }
+                //             //     //   return null;
+                //             //     // },
+                //             //     decoration: InputDecoration(
+                //             //   labelText: 'Cheque No',
+                //             //   labelStyle: theme.textTheme.bodyText1!
+                //             //       .copyWith(color: Colors.grey),
+                //             //   enabledBorder: UnderlineInputBorder(
+                //             //     borderSide: BorderSide(color: Colors.grey),
+                //             //     //  when the TextFormField in unfocused
+                //             //   ),
+                //             //   focusedBorder: UnderlineInputBorder(
+                //             //     borderSide: BorderSide(color: Colors.grey),
+                //             //     //  when the TextFormField in focused
+                //             //   ),
+                //             //   border: UnderlineInputBorder(),
+                //             //   // enabledBorder: UnderlineInputBorder(),
+                //             //   // focusedBorder: UnderlineInputBorder(),
+                //             //   errorBorder: UnderlineInputBorder(),
+                //             //   focusedErrorBorder: UnderlineInputBorder(),
+                //             // )),
+                //             TextFormField(
+                //                 controller: context
+                //                     .read<NewCollectionContoller>()
+                //                     .mycontroller[17],
+                //                 onTap: () {
+                //                   context
+                //                       .read<NewCollectionContoller>()
+                //                       .showchequeDate(context);
+                //                 },
+                //                 validator: context
+                //                             .read<NewCollectionContoller>()
+                //                             .returnboolValue('Cheque') ==
+                //                         true
+                //                     ? (value) {
+                //                         if (value!.isEmpty) {
+                //                           return "Enter Cheque Date";
+                //                         }
+                //                         return null;
+                //                       }
+                //                     : (value) {},
+                //                     readOnly: true,
+                //                 decoration: InputDecoration(
+                //                   labelText: 'Cheque Date',
+                //                   labelStyle: theme.textTheme.bodyText1!
+                //                       .copyWith(color: Colors.grey),
+                //                   enabledBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in unfocused
+                //                   ),
+                //                   focusedBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in focused
+                //                   ),
+                //                   border: UnderlineInputBorder(),
+                //                   // enabledBorder: UnderlineInputBorder(),
+                //                   // focusedBorder: UnderlineInputBorder(),
+                //                   errorBorder: UnderlineInputBorder(),
+                //                   focusedErrorBorder: UnderlineInputBorder(),
+                //                 )),
+                //             TextFormField(
+                //                 controller: context
+                //                     .read<NewCollectionContoller>()
+                //                     .mycontroller[18],
+                //                 validator: context
+                //                             .read<NewCollectionContoller>()
+                //                             .returnboolValue('Cheque') ==
+                //                         true
+                //                     ? (value) {
+                //                         if (value!.isEmpty) {
+                //                           return "Enter Reference";
+                //                         }
+                //                         return null;
+                //                       }
+                //                     : (value) {},
+                //                 decoration: InputDecoration(
+                //                   labelText: 'Cheque Reference',
+                //                   labelStyle: theme.textTheme.bodyText1!
+                //                       .copyWith(color: Colors.grey),
+                //                   enabledBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in unfocused
+                //                   ),
+                //                   focusedBorder: UnderlineInputBorder(
+                //                     borderSide: BorderSide(color: Colors.grey),
+                //                     //  when the TextFormField in focused
+                //                   ),
+                //                   border: UnderlineInputBorder(),
+                //                   // enabledBorder: UnderlineInputBorder(),
+                //                   // focusedBorder: UnderlineInputBorder(),
+                //                   errorBorder: UnderlineInputBorder(),
+                //                   focusedErrorBorder: UnderlineInputBorder(),
+                //                 )),
+
+                //             SizedBox(
+                //               height: Screens.bodyheight(context) * 0.02,
+                //             ),
+                //             GetAttachment(theme, context),
+                //           ],
+                //         ),
+                //       ),
+                //       SizedBox(
+                //         height: Screens.bodyheight(context) * 0.01,
+                //       ),
+                //       TextFormField(
+                //           controller: context
+                //               .read<NewCollectionContoller>()
+                //               .mycontroller[21],
+                //           // validator: (value) {
+                //           //   if (value!.isEmpty) {
+                //           //     return "Enter Reference";
+                //           //   }
+                //           //   return null;
+                //           // },
+                //           decoration: InputDecoration(
+                //             labelText: 'Remarks',
+                //             labelStyle: theme.textTheme.bodyText1!
+                //                 .copyWith(color: Colors.grey),
+                //             enabledBorder: UnderlineInputBorder(
+                //               borderSide: BorderSide(color: Colors.grey),
+                //               //  when the TextFormField in unfocused
+                //             ),
+                //             focusedBorder: UnderlineInputBorder(
+                //               borderSide: BorderSide(color: Colors.grey),
+                //               //  when the TextFormField in focused
+                //             ),
+                //             border: UnderlineInputBorder(),
+                //             // enabledBorder: UnderlineInputBorder(),
+                //             // focusedBorder: UnderlineInputBorder(),
+                //             errorBorder: UnderlineInputBorder(),
+                //             focusedErrorBorder: UnderlineInputBorder(),
+                //           )),
+                //     ],
+                //   ),
+                // ),
+               
+               
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -2442,6 +2575,54 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   ),
                                 ],
                               ),
+                            SizedBox(
+                                height: Screens.padingHeight(context) * 0.01,
+                              ),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      "PenaltyAfterDue",
+                                      style: theme.textTheme.bodyText1!
+                                          .copyWith(color: Colors.grey),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      "",
+                                      style: theme.textTheme.bodyText1!
+                                          .copyWith(color: Colors.grey),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Text(
+                                      // '34',
+                                      "${context
+                                  .watch<NewCollectionContoller>()
+                                  .config
+                                  .slpitCurrency22(context.read<NewCollectionContoller>().allProductDetails[i].penaltyAfterDue.toString())}",
+                                      style: theme.textTheme.bodyText1!
+                                          .copyWith(color: theme.primaryColor),
+                                    ),
+                                  ),
+                                  Container(
+                                    child: Text(
+                                      // '00',
+                                      "",
+                                      style: theme.textTheme.bodyText1!
+                                          .copyWith(color: theme.primaryColor),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               Divider(),
                               Row(
                                 mainAxisAlignment:
@@ -2817,7 +2998,91 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
     //   }
     // );
   }
+List<Widget> listContainersPaymentTerms(
+    ThemeData theme,
+  ) {
+    return List.generate(
+      context.read<NewCollectionContoller>().paymode.length,
+      (index) => InkWell(
+        onTap: () {
+           context.read<NewCollectionContoller>().selectpaymentTerms(
+              context
+                  .read<NewCollectionContoller>()
+                  .paymode[index]
+                  .ModeName
+                  .toString(),
+              context.read<NewCollectionContoller>().paymode[index].ModeName!,
+              context.read<NewCollectionContoller>().paymode[index].Code!,
+              context,
+               context.read<NewCollectionContoller>().paymode[index],
+               index
+              );
+       
+          
+        },
+        child: Stack(
+          children: [
+            Container(
+              width: Screens.width(context) * 0.4,
+              height: Screens.bodyheight(context) * 0.06,
+              //  padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  color: 
+                  // context
+                  //             .read<NewCollectionContoller>()
+                  //             .isSelectedpaymentTermsCode ==
+                          context
+                              .read<NewCollectionContoller>()
+                              .paymode[index]
+                              .isselected ==true
+                      ? Color(0xffB299A5) //theme.primaryColor.withOpacity(0.5)
+                      : Colors.white,
+                  border: Border.all(color: theme.primaryColor, width: 1),
+                  borderRadius: BorderRadius.circular(10)),
+                  alignment: Alignment.center,
+              child: context.read<NewCollectionContoller>().paymode[index].amount !=null && context.read<NewCollectionContoller>().paymode[index].amount !=""? 
+              Text("Rs.${context.read<NewCollectionContoller>().config.slpitCurrency22(context.read<NewCollectionContoller>().paymode[index].amount.toString())}",style: theme.textTheme.bodyText1?.copyWith(
+                       color: context
+                             .read<NewCollectionContoller>()
+                             .paymode[index]
+                             .isselected ==true
+                           ? theme.primaryColor //,Colors.white
+                           : theme.primaryColor,
+                     ) ,):
+                 Text("${context
+                         .read<NewCollectionContoller>()
+                         .paymode[index]
+                         .ModeName
+                         .toString()}",
+                          maxLines: 8,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+                         style: theme.textTheme.bodyText1?.copyWith(
+                       color: context
+                             .read<NewCollectionContoller>()
+                             .paymode[index]
+                             .isselected ==true
+                           ? theme.primaryColor //,Colors.white
+                           : theme.primaryColor,
+                     ) ,
+                         ),
+            ),
 
+         Positioned(
+          top: Screens.padingHeight(context)*0.005,
+          left:Screens.width(context)*0.01,
+          child: context.read<NewCollectionContoller>().paymode[index].amount !=null && context.read<NewCollectionContoller>().paymode[index].amount !=""?Text("${context.read<NewCollectionContoller>().paymode[index].ModeName}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
+          )
+      //  Positioned(
+      //     top: Screens.padingHeight(context)*0.005,
+      //     left:Screens.width(context)*0.01,
+      //     child: context.read<NewCollectionContoller>().paymode[index].amount !=null && context.read<NewCollectionContoller>().paymode[index].amount !=""?Text("Rs.${context.read<NewCollectionContoller>().paymode[index].amount}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
+      //     )
+          ],
+        ),
+      ),
+    );
+  }
   List<Widget> listContainersCustomertags(
     ThemeData theme,
   ) {
@@ -2886,6 +3151,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
       ),
     );
   }
+
 }
 
 class DecimalTextInputFormatter extends TextInputFormatter {
@@ -2915,4 +3181,5 @@ class DecimalTextInputFormatter extends TextInputFormatter {
 
     return newValue;
   }
+   
 }

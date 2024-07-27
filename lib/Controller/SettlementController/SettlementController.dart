@@ -17,6 +17,7 @@ import 'package:sellerkit/Pages/Settlement/Widgets/SettNEFTSuccessBox.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettUPISuccessBox.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementSuccessBox.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/UPISavePop.dart';
+import 'package:sellerkit/Pages/Settlement/Widgets/finalpopup.dart';
 import 'package:sellerkit/Services/SettlementApi/SettlementGetAccountApi.dart';
 import 'package:sellerkit/Services/SettlementApi/SettlementGetApi.dart';
 import 'package:sellerkit/Services/SettlementApi/SettlementPostApi.dart';
@@ -27,11 +28,11 @@ import '../../Services/customerdetApi/customerdetApi.dart';
 
 
 class SettlementController extends ChangeNotifier {
-  init(BuildContext context) {
+  init(BuildContext context)async {
     clearAll();
-    getApi();
+   await getApi();
    
-    callcustCompnyapi(context);
+   await callcustCompnyapi(context);
     // SplitMethod();
   }
 
@@ -88,6 +89,7 @@ customerdetData? frmAddmodeldata;
   List<TextEditingController> mycontroller =
       List.generate(35, (i) => TextEditingController());
   clearAll() {
+    dupdatalist.clear();
     settelGetList = [];
     settelGetListCash = [];
     settelGetListCard = [];
@@ -135,142 +137,219 @@ String lottie='';
         errormsg = '${value.respDesc}';
         progress = false;
       } else if (value.stcode == 500) {
-          lottie='Assets/NetworkAnimation.json';
+        if(value.respDesc!.contains("Network is unreachable")){
+  lottie='Assets/NetworkAnimation.json';
         errormsg = '${value.stcode}..Network Issue..\nTry again Later..!';
         progress = false;
+        notifyListeners();
+        }else{
+        lottie='Assets/warning.png';
+        errormsg = '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+        progress = false;
+        }
+         
       }
     });
     
     notifyListeners();
   }
 
-  splitData(List<SettlementGetData> settlementList) {
+  void addUniqueItems(List<dupdata> dupdatalist, List<dupdata> dupdatalist2) {
+  // Set to track unique names
+  Set<String> uniqueNames = dupdatalist.map((item) => item.Name ?? '').toSet();
 
-    // SettlementPdfHelper.assignedTo = settlementList[0].AssignedTo;
-    for (int i = 0; i < settlementList.length; i++) {
-      if (settlementList[i].Mode == 'Cash') {
-        settelGetListCash.add(SettlementGetData(
-            isselect: false,
-            DocNum: settlementList[i].DocNum,
-            DocDate: settlementList[i].DocDate,
-            CustomerCode: settlementList[i].CustomerCode,
-            CustomerName: settlementList[i].CustomerName,
-            CustomerMobile: settlementList[i].CustomerMobile,
-            StoreCode: settlementList[i].StoreCode,
-            AssignedTo: settlementList[i].AssignedTo,
-            Amount: settlementList[i].Amount,
-            DocType: settlementList[i].DocType,
-            Mode: settlementList[i].Mode,
-            CancelledDate: settlementList[i].CancelledDate,
-            CancelledBy: settlementList[i].CancelledBy,
-            CancelledRemarks: settlementList[i].CancelledRemarks,
-            CreatedBy: settlementList[i].CreatedBy,
-            CreatedOn: settlementList[i].CreatedOn,
-            UpdatedBy: settlementList[i].UpdatedBy,
-            UpdatedOn: settlementList[i].UpdatedOn,
-            traceid: settlementList[i].traceid,
-            docentry: settlementList[i].docentry,
-            totalAmount: settlementList[i].totalAmount,
-            ref: settlementList[i].ref));
-      } else if (settlementList[i].Mode == 'Cheque') {
-        settelGetListCheque.add(SettlementGetData(
-            docentry: settlementList[i].docentry,
-            isselect: false,
-            DocNum: settlementList[i].DocNum,
-            DocDate: settlementList[i].DocDate,
-            CustomerCode: settlementList[i].CustomerCode,
-            CustomerName: settlementList[i].CustomerName,
-            CustomerMobile: settlementList[i].CustomerMobile,
-            StoreCode: settlementList[i].StoreCode,
-            AssignedTo: settlementList[i].AssignedTo,
-            Amount: settlementList[i].Amount,
-            DocType: settlementList[i].DocType,
-            Mode: settlementList[i].Mode,
-            CancelledDate: settlementList[i].CancelledDate,
-            CancelledBy: settlementList[i].CancelledBy,
-            CancelledRemarks: settlementList[i].CancelledRemarks,
-            CreatedBy: settlementList[i].CreatedBy,
-            CreatedOn: settlementList[i].CreatedOn,
-            UpdatedBy: settlementList[i].UpdatedBy,
-            UpdatedOn: settlementList[i].UpdatedOn,
-            traceid: settlementList[i].traceid,
-            totalAmount: settlementList[i].totalAmount,
-            ref: settlementList[i].ref));
-      } else if (settlementList[i].Mode == 'Card') {
-        settelGetListCard.add(SettlementGetData(
-            docentry: settlementList[i].docentry,
-            isselect: false,
-            DocNum: settlementList[i].DocNum,
-            DocDate: settlementList[i].DocDate,
-            CustomerCode: settlementList[i].CustomerCode,
-            CustomerName: settlementList[i].CustomerName,
-            CustomerMobile: settlementList[i].CustomerMobile,
-            StoreCode: settlementList[i].StoreCode,
-            AssignedTo: settlementList[i].AssignedTo,
-            Amount: settlementList[i].Amount,
-            DocType: settlementList[i].DocType,
-            Mode: settlementList[i].Mode,
-            CancelledDate: settlementList[i].CancelledDate,
-            CancelledBy: settlementList[i].CancelledBy,
-            CancelledRemarks: settlementList[i].CancelledRemarks,
-            CreatedBy: settlementList[i].CreatedBy,
-            CreatedOn: settlementList[i].CreatedOn,
-            UpdatedBy: settlementList[i].UpdatedBy,
-            UpdatedOn: settlementList[i].UpdatedOn,
-            traceid: settlementList[i].traceid,
-            totalAmount: settlementList[i].totalAmount,
-            ref: settlementList[i].ref));
-      } else if (settlementList[i].Mode == 'UPI') {
-        settelGetListUPI.add(SettlementGetData(
-            docentry: settlementList[i].docentry,
-            isselect: false,
-            DocNum: settlementList[i].DocNum,
-            DocDate: settlementList[i].DocDate,
-            CustomerCode: settlementList[i].CustomerCode,
-            CustomerName: settlementList[i].CustomerName,
-            CustomerMobile: settlementList[i].CustomerMobile,
-            StoreCode: settlementList[i].StoreCode,
-            AssignedTo: settlementList[i].AssignedTo,
-            Amount: settlementList[i].Amount,
-            DocType: settlementList[i].DocType,
-            Mode: settlementList[i].Mode,
-            CancelledDate: settlementList[i].CancelledDate,
-            CancelledBy: settlementList[i].CancelledBy,
-            CancelledRemarks: settlementList[i].CancelledRemarks,
-            CreatedBy: settlementList[i].CreatedBy,
-            CreatedOn: settlementList[i].CreatedOn,
-            UpdatedBy: settlementList[i].UpdatedBy,
-            UpdatedOn: settlementList[i].UpdatedOn,
-            traceid: settlementList[i].traceid,
-            totalAmount: settlementList[i].totalAmount,
-            ref: settlementList[i].ref));
-      } else if (settlementList[i].Mode == 'NEFT') {
-        settelGetListNEFT.add(SettlementGetData(
-            docentry: settlementList[i].docentry,
-            isselect: false,
-            DocNum: settlementList[i].DocNum,
-            DocDate: settlementList[i].DocDate,
-            CustomerCode: settlementList[i].CustomerCode,
-            CustomerName: settlementList[i].CustomerName,
-            CustomerMobile: settlementList[i].CustomerMobile,
-            StoreCode: settlementList[i].StoreCode,
-            AssignedTo: settlementList[i].AssignedTo,
-            Amount: settlementList[i].Amount,
-            DocType: settlementList[i].DocType,
-            Mode: settlementList[i].Mode,
-            CancelledDate: settlementList[i].CancelledDate,
-            CancelledBy: settlementList[i].CancelledBy,
-            CancelledRemarks: settlementList[i].CancelledRemarks,
-            CreatedBy: settlementList[i].CreatedBy,
-            CreatedOn: settlementList[i].CreatedOn,
-            UpdatedBy: settlementList[i].UpdatedBy,
-            UpdatedOn: settlementList[i].UpdatedOn,
-            traceid: settlementList[i].traceid,
-            totalAmount: settlementList[i].totalAmount,
-            ref: settlementList[i].ref));
-      }
-      SettlementPdfHelper.assignedTo = settlementList[0].AssignedTo;
+  for (var item in dupdatalist2) {
+    if (item.Name != null && !uniqueNames.contains(item.Name!)) {
+      uniqueNames.add(item.Name!);
+      dupdatalist.add(dupdata(
+        Name: item.Name,
+        docnum: item.docnum,
+      ));
     }
+  }
+
+log("dupdatalist2222::"+dupdatalist.length.toString());
+  // Sort the list by docnum
+  dupdatalist.sort((a, b) => a.docnum!.compareTo(b.docnum!));
+}
+List<dupdata> dupdatalist=[];
+List<dupdata> dupdatalist2=[];
+  splitData(List<SettlementGetData> settlementList) {
+    dupdatalist.clear();
+    dupdatalist2.clear();
+     for (int i = 0; i < settlementList.length; i++){
+  //   if(dupdatalist.isNotEmpty  ){
+  //     for(int ij = 0; ij < dupdatalist.length; ij++){
+  //       if(dupdatalist[ij].Name ==settlementList[i].Mode){
+
+  //       }else{
+  //         dupdatalist.add(dupdata(
+  // Name: settlementList[i].Mode.toString(),
+  // docnum:settlementList[i].DocType.toString(),
+  // ));
+  //       }
+  //     }
+    // } else{
+dupdatalist2.add(dupdata(
+  Name: settlementList[i].Mode.toString(),
+  docnum:settlementList[i].DocType.toString(),
+  ));
+    // }
+  notifyListeners();
+     }
+   addUniqueItems(dupdatalist,dupdatalist2);
+log("dupdatalist2::"+dupdatalist2.length.toString());
+//      if(dupdatalist2.isNotEmpty){
+//     for(int ik=0;ik<dupdatalist2.length;ik++){
+        
+// log("dupdatalist2::"+dupdatalist2[ik].Name.toString());
+//         if(dupdatalist.isNotEmpty  ){
+//       for(int ij = 0; ij < dupdatalist.length; ij++){
+//         if(dupdatalist[ij].Name ==dupdatalist2[ik].Name)return;
+//           dupdatalist.add(dupdata(
+//   Name: dupdatalist2[ik].Name.toString(),
+//   docnum:dupdatalist2[ik].docnum.toString(),
+//   ));
+        
+//       }
+//     }else{
+//       dupdatalist.add(dupdata(
+//   Name: dupdatalist2[ik].Name.toString(),
+//   docnum:dupdatalist2[ik].docnum.toString(),
+//   ));
+//     }
+//     }
+    
+    
+//       dupdatalist.sort((a,b)=>a.docnum!.compareTo(b.docnum!));
+//      }
+log("dupdatalist::"+dupdatalist.length.toString());
+
+    SettlementPdfHelper.assignedTo = settlementList[0].AssignedTo;
+    // for (int i = 0; i < settlementList.length; i++) {
+    //   if (settlementList[i].Mode == 'Cash') {
+    //     settelGetListCash.add(SettlementGetData(
+    //         isselect: false,
+    //         DocNum: settlementList[i].DocNum,
+    //         DocDate: settlementList[i].DocDate,
+    //         CustomerCode: settlementList[i].CustomerCode,
+    //         CustomerName: settlementList[i].CustomerName,
+    //         CustomerMobile: settlementList[i].CustomerMobile,
+    //         StoreCode: settlementList[i].StoreCode,
+    //         AssignedTo: settlementList[i].AssignedTo,
+    //         Amount: settlementList[i].Amount,
+    //         DocType: settlementList[i].DocType,
+    //         Mode: settlementList[i].Mode,
+    //         CancelledDate: settlementList[i].CancelledDate,
+    //         CancelledBy: settlementList[i].CancelledBy,
+    //         CancelledRemarks: settlementList[i].CancelledRemarks,
+    //         CreatedBy: settlementList[i].CreatedBy,
+    //         CreatedOn: settlementList[i].CreatedOn,
+    //         UpdatedBy: settlementList[i].UpdatedBy,
+    //         UpdatedOn: settlementList[i].UpdatedOn,
+    //         traceid: settlementList[i].traceid,
+    //         docentry: settlementList[i].docentry,
+    //         totalAmount: settlementList[i].totalAmount,
+    //         ref: settlementList[i].ref));
+    //   } else if (settlementList[i].Mode == 'Cheque') {
+    //     settelGetListCheque.add(SettlementGetData(
+    //         docentry: settlementList[i].docentry,
+    //         isselect: false,
+    //         DocNum: settlementList[i].DocNum,
+    //         DocDate: settlementList[i].DocDate,
+    //         CustomerCode: settlementList[i].CustomerCode,
+    //         CustomerName: settlementList[i].CustomerName,
+    //         CustomerMobile: settlementList[i].CustomerMobile,
+    //         StoreCode: settlementList[i].StoreCode,
+    //         AssignedTo: settlementList[i].AssignedTo,
+    //         Amount: settlementList[i].Amount,
+    //         DocType: settlementList[i].DocType,
+    //         Mode: settlementList[i].Mode,
+    //         CancelledDate: settlementList[i].CancelledDate,
+    //         CancelledBy: settlementList[i].CancelledBy,
+    //         CancelledRemarks: settlementList[i].CancelledRemarks,
+    //         CreatedBy: settlementList[i].CreatedBy,
+    //         CreatedOn: settlementList[i].CreatedOn,
+    //         UpdatedBy: settlementList[i].UpdatedBy,
+    //         UpdatedOn: settlementList[i].UpdatedOn,
+    //         traceid: settlementList[i].traceid,
+    //         totalAmount: settlementList[i].totalAmount,
+    //         ref: settlementList[i].ref));
+    //   } else if (settlementList[i].Mode == 'Card') {
+    //     settelGetListCard.add(SettlementGetData(
+    //         docentry: settlementList[i].docentry,
+    //         isselect: false,
+    //         DocNum: settlementList[i].DocNum,
+    //         DocDate: settlementList[i].DocDate,
+    //         CustomerCode: settlementList[i].CustomerCode,
+    //         CustomerName: settlementList[i].CustomerName,
+    //         CustomerMobile: settlementList[i].CustomerMobile,
+    //         StoreCode: settlementList[i].StoreCode,
+    //         AssignedTo: settlementList[i].AssignedTo,
+    //         Amount: settlementList[i].Amount,
+    //         DocType: settlementList[i].DocType,
+    //         Mode: settlementList[i].Mode,
+    //         CancelledDate: settlementList[i].CancelledDate,
+    //         CancelledBy: settlementList[i].CancelledBy,
+    //         CancelledRemarks: settlementList[i].CancelledRemarks,
+    //         CreatedBy: settlementList[i].CreatedBy,
+    //         CreatedOn: settlementList[i].CreatedOn,
+    //         UpdatedBy: settlementList[i].UpdatedBy,
+    //         UpdatedOn: settlementList[i].UpdatedOn,
+    //         traceid: settlementList[i].traceid,
+    //         totalAmount: settlementList[i].totalAmount,
+    //         ref: settlementList[i].ref));
+    //   } else if (settlementList[i].Mode == 'UPI') {
+    //     settelGetListUPI.add(SettlementGetData(
+    //         docentry: settlementList[i].docentry,
+    //         isselect: false,
+    //         DocNum: settlementList[i].DocNum,
+    //         DocDate: settlementList[i].DocDate,
+    //         CustomerCode: settlementList[i].CustomerCode,
+    //         CustomerName: settlementList[i].CustomerName,
+    //         CustomerMobile: settlementList[i].CustomerMobile,
+    //         StoreCode: settlementList[i].StoreCode,
+    //         AssignedTo: settlementList[i].AssignedTo,
+    //         Amount: settlementList[i].Amount,
+    //         DocType: settlementList[i].DocType,
+    //         Mode: settlementList[i].Mode,
+    //         CancelledDate: settlementList[i].CancelledDate,
+    //         CancelledBy: settlementList[i].CancelledBy,
+    //         CancelledRemarks: settlementList[i].CancelledRemarks,
+    //         CreatedBy: settlementList[i].CreatedBy,
+    //         CreatedOn: settlementList[i].CreatedOn,
+    //         UpdatedBy: settlementList[i].UpdatedBy,
+    //         UpdatedOn: settlementList[i].UpdatedOn,
+    //         traceid: settlementList[i].traceid,
+    //         totalAmount: settlementList[i].totalAmount,
+    //         ref: settlementList[i].ref));
+    //   } else if (settlementList[i].Mode == 'NEFT') {
+    //     settelGetListNEFT.add(SettlementGetData(
+    //         docentry: settlementList[i].docentry,
+    //         isselect: false,
+    //         DocNum: settlementList[i].DocNum,
+    //         DocDate: settlementList[i].DocDate,
+    //         CustomerCode: settlementList[i].CustomerCode,
+    //         CustomerName: settlementList[i].CustomerName,
+    //         CustomerMobile: settlementList[i].CustomerMobile,
+    //         StoreCode: settlementList[i].StoreCode,
+    //         AssignedTo: settlementList[i].AssignedTo,
+    //         Amount: settlementList[i].Amount,
+    //         DocType: settlementList[i].DocType,
+    //         Mode: settlementList[i].Mode,
+    //         CancelledDate: settlementList[i].CancelledDate,
+    //         CancelledBy: settlementList[i].CancelledBy,
+    //         CancelledRemarks: settlementList[i].CancelledRemarks,
+    //         CreatedBy: settlementList[i].CreatedBy,
+    //         CreatedOn: settlementList[i].CreatedOn,
+    //         UpdatedBy: settlementList[i].UpdatedBy,
+    //         UpdatedOn: settlementList[i].UpdatedOn,
+    //         traceid: settlementList[i].traceid,
+    //         totalAmount: settlementList[i].totalAmount,
+    //         ref: settlementList[i].ref));
+    //   }
+    //   SettlementPdfHelper.assignedTo = settlementList[0].AssignedTo;
+    // }
      
     progress = false;
     notifyListeners();
@@ -352,14 +431,92 @@ chooseSettleToCash(String? val) {
       }
     }
     notifyListeners();
-  } validateFinalCash(BuildContext context) async {
+  } 
+
+  validateFinalall(BuildContext context,String? name) async {
+    if (formkey[0].currentState!.validate()) {
+      String? doctype;
+      List<Settlelines> settlementLineList2 = [];
+      for (int i = 0; i < settelGetList.length; i++) {
+        if (settelGetList[i].Mode==name&& settelGetList[i].isselect == true) {
+        doctype=settelGetList[i].DocType;
+          settlementLineList2.add(Settlelines(
+              docentry: settelGetList[i].docentry,
+              amount: settelGetList[i].Amount,
+              ipayline: settelGetList[i].lineNum,
+              ));
+        }
+      }
+
+      settlePostBody? settlepost = settlePostBody(
+          doctype: '$doctype',
+          depoaccount: '${settleTocash}',
+          remarks: '${mycontroller[1].text.toString()}',
+          settlementLineList: settlementLineList2);
+
+      await SettlementPostApi.getCollectionData(settlepost).then((value) {
+        if (value.stcode! <= 210 && value.stcode! >= 200) {
+          // if (value.datadetail != null) {
+          Navigator.pop(context);
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (_) => SettlementSuccessPage(
+                        settlemaster: value.datadetail!.listofSettle![0],
+                        paymode: name,
+                      )));
+          // } else {
+          //   Navigator.pop(context);
+
+          //   showDialog<dynamic>(
+          //       context: context,
+          //       builder: (_) {
+          //         return SuccessDialogPG(
+          //           heading: 'Response',
+          //           msg: '${value.stcode} ${value.respDesc}',
+          //         );
+          //       });
+          // }
+        } else if (value.stcode! <= 410 && value.stcode! >= 400) {
+          Navigator.pop(context);
+
+          showDialog<dynamic>(
+              context: context,
+              builder: (_) {
+                return SuccessDialogPG(
+                  heading: 'Response',
+                  msg: '${value.respCode}..!!${value.respDesc}',
+                );
+              });
+        } else {
+          Navigator.pop(context);
+
+          showDialog<dynamic>(
+              context: context,
+              builder: (_) {
+                return SuccessDialogPG(
+                  heading: 'Response',
+                  msg: '${value.respCode}..!!${value.respDesc}',
+                );
+              });
+        }
+      });
+      // Navigator.pop(context);
+
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (_) => SettlementSuccessPage()));
+    }
+  }
+  validateFinalCash(BuildContext context) async {
     if (formkey[0].currentState!.validate()) {
       List<Settlelines> settlementLineList2 = [];
-      for (int i = 0; i < settelGetListCash.length; i++) {
-        if (settelGetListCash[i].isselect == true) {
+      for (int i = 0; i < settelGetList.length; i++) {
+        if (settelGetList[i].isselect == true) {
           settlementLineList2.add(Settlelines(
-              docentry: settelGetListCash[i].docentry,
-              amount: settelGetListCash[i].Amount));
+              docentry: settelGetList[i].docentry,
+              amount: settelGetList[i].Amount,
+              ipayline: settelGetList[i].lineNum,
+              ));
         }
       }
 
@@ -378,6 +535,7 @@ chooseSettleToCash(String? val) {
               MaterialPageRoute(
                   builder: (_) => SettlementSuccessPage(
                         settlemaster: value.datadetail!.listofSettle![0],
+                        paymode: '',
                       )));
           // } else {
           //   Navigator.pop(context);
@@ -425,11 +583,13 @@ chooseSettleToCash(String? val) {
   validateFinalCard(BuildContext context) async {
     if (formkey[1].currentState!.validate()) {
       List<Settlelines> settlementLineList2 = [];
-      for (int i = 0; i < settelGetListCard.length; i++) {
-        if (settelGetListCard[i].isselect == true) {
+      for (int i = 0; i < settelGetList.length; i++) {
+        if (settelGetList[i].isselect == true) {
           settlementLineList2.add(Settlelines(
-              docentry: settelGetListCard[i].docentry,
-              amount: settelGetListCard[i].Amount));
+              docentry: settelGetList[i].docentry,
+              amount: settelGetList[i].Amount,
+              ipayline: settelGetList[i].lineNum,
+              ));
         }
       }
 
@@ -496,11 +656,12 @@ chooseSettleToCash(String? val) {
   validateFinalCheque(BuildContext context) async {
     if (formkey[2].currentState!.validate()) {
       List<Settlelines> settlementLineList2 = [];
-      for (int i = 0; i < settelGetListCheque.length; i++) {
-        if (settelGetListCheque[i].isselect == true) {
+      for (int i = 0; i < settelGetList.length; i++) {
+        if (settelGetList[i].isselect == true) {
           settlementLineList2.add(Settlelines(
-              docentry: settelGetListCheque[i].docentry,
-              amount: settelGetListCheque[i].Amount));
+              docentry: settelGetList[i].docentry,
+              amount: settelGetList[i].Amount,
+              ipayline: settelGetList[i].lineNum,));
         }
       }
 
@@ -567,11 +728,12 @@ chooseSettleToCash(String? val) {
   validateFinalUpi(BuildContext context) async {
     if (formkey[3].currentState!.validate()) {
       List<Settlelines> settlementLineList2 = [];
-      for (int i = 0; i < settelGetListUPI.length; i++) {
-        if (settelGetListUPI[i].isselect == true) {
+      for (int i = 0; i < settelGetList.length; i++) {
+        if (settelGetList[i].isselect == true) {
           settlementLineList2.add(Settlelines(
-              docentry: settelGetListUPI[i].docentry,
-              amount: settelGetListUPI[i].Amount));
+              docentry: settelGetList[i].docentry,
+              amount: settelGetList[i].Amount,
+              ipayline: settelGetList[i].lineNum,));
         }
       }
 
@@ -637,11 +799,12 @@ chooseSettleToCash(String? val) {
   validateFinalDD(BuildContext context) async {
     if (formkey[4].currentState!.validate()) {
       List<Settlelines> settlementLineList2 = [];
-      for (int i = 0; i < settelGetListNEFT.length; i++) {
-        if (settelGetListNEFT[i].isselect == true) {
+      for (int i = 0; i < settelGetList.length; i++) {
+        if (settelGetList[i].isselect == true) {
           settlementLineList2.add(Settlelines(
-              docentry: settelGetListNEFT[i].docentry,
-              amount: settelGetListNEFT[i].Amount));
+              docentry: settelGetList[i].docentry,
+              amount: settelGetList[i].Amount,
+              ipayline: settelGetList[i].lineNum,));
         }
       }
 
@@ -709,6 +872,162 @@ chooseSettleToCash(String? val) {
   //             msg: 'Customer Successfully Registered..!!',
   //           );
   //         });
+
+validatepopup(String? name,BuildContext context){
+    notifyListeners();
+    double val = 0.00;
+   for (int i = 0; i < settelGetList.length; i++) {
+if (settelGetList[i].Mode==name&& settelGetList[i].isselect == true) {
+        val = val + settelGetList[i].Amount;
+      }
+     }
+settleTocash = null;
+notifyListeners();
+     if (val == 0) {
+       showDialog<dynamic>(
+          context: context,
+          builder: (_) {
+            return SuccessDialogPG(
+              heading: 'Response',
+              msg: 'Please Choose Customer..!!',
+            );
+          });
+     }else{
+      showDialog<dynamic>(
+          context: context,
+          builder: (_) {
+            // context.read<EnquiryUserContoller>(). showSpecificDialog();
+            //   context.read<EnquiryUserContoller>().showSuccessDia();
+            return finalpopBox(name: name,);
+          }).then((value) {
+        mycontroller[1].text = '';
+        
+      });
+     }
+     notifyListeners();
+//      if(name =="CASH"){
+//       if (val == 0) {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             return SuccessDialogPG(
+//               heading: 'Response',
+//               msg: 'Please Choose Customer..!!',
+//             );
+//           });
+//     } else {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             // context.read<EnquiryUserContoller>(). showSpecificDialog();
+//             //   context.read<EnquiryUserContoller>().showSuccessDia();
+//             return CashAlertBox(name: name,);
+//           }).then((value) {
+//         mycontroller[1].text = '';
+//       });
+//     }
+//      }else if(name =="CARD"){
+//  if (val == 0) {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             return SuccessDialogPG(
+//               heading: 'Response',
+//               msg: 'Please Choose Customer..!!',
+//             );
+//           });
+//     } else {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             // context.read<EnquiryUserContoller>(). showSpecificDialog();
+//             //   context.read<EnquiryUserContoller>().showSuccessDia();
+//             return CardAlertBox(
+              
+//               indx: 1,
+//               name: name
+//             );
+//           }).then((value) {
+//         mycontroller[2].text = '';
+//       });
+//     }
+//      }else if(name =="UPI"){
+//        if (val == 0) {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             return SuccessDialogPG(
+//               heading: 'Response',
+//               msg: 'Please Choose Customer..!!',
+//             );
+//           });
+//     } else {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             // context.read<EnquiryUserContoller>(). showSpecificDialog();
+//             //   context.read<EnquiryUserContoller>().showSuccessDia();
+//             return UPIAlertBox(
+//               indx: 1,
+//               name: name
+//             );
+//           }).then((value) {
+//         mycontroller[5].text = '';
+//       });
+//     }
+//      }else if(name =="CHEQUE"){
+//        if (val == 0) {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             return SuccessDialogPG(
+//               heading: 'Response',
+//               msg: 'Please Choose Customer..!!',
+//             );
+//           });
+//     } else {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             // context.read<EnquiryUserContoller>(). showSpecificDialog();
+//             //   context.read<EnquiryUserContoller>().showSuccessDia();
+//             return ChequeAlertBox(
+//               indx: 1,
+//               name: name
+//             );
+//           }).then((value) {
+//         mycontroller[3].text = '';
+//       });
+//     }
+//      }else if(name =="NEFT"){
+// if (val == 0) {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             return SuccessDialogPG(
+//               heading: 'Response',
+//               msg: 'Please Choose Customer..!!',
+//             );
+//           });
+//     } else {
+//       showDialog<dynamic>(
+//           context: context,
+//           builder: (_) {
+//             // context.read<EnquiryUserContoller>(). showSpecificDialog();
+//             //   context.read<EnquiryUserContoller>().showSuccessDia();
+//             return DDAlertBox(
+//               indx: 1,
+//               name: name
+//             );
+//           }).then((value) {
+//         mycontroller[4].text = '';
+//       });
+//     }
+//      }
+
+
+}
+
   validateMethod(BuildContext context) {
   
      notifyListeners();
@@ -734,7 +1053,7 @@ chooseSettleToCash(String? val) {
           builder: (_) {
             // context.read<EnquiryUserContoller>(). showSpecificDialog();
             //   context.read<EnquiryUserContoller>().showSuccessDia();
-            return CashAlertBox();
+            return CashAlertBox(name: "");
           }).then((value) {
         mycontroller[1].text = '';
       });
@@ -766,6 +1085,7 @@ chooseSettleToCash(String? val) {
             //   context.read<EnquiryUserContoller>().showSuccessDia();
             return CardAlertBox(
               indx: 1,
+              name: ""
             );
           }).then((value) {
         mycontroller[2].text = '';
@@ -798,6 +1118,7 @@ chooseSettleToCash(String? val) {
             //   context.read<EnquiryUserContoller>().showSuccessDia();
             return ChequeAlertBox(
               indx: 1,
+              name: ""
             );
           }).then((value) {
         mycontroller[3].text = '';
@@ -829,7 +1150,7 @@ chooseSettleToCash(String? val) {
             // context.read<EnquiryUserContoller>(). showSpecificDialog();
             //   context.read<EnquiryUserContoller>().showSuccessDia();
             return UPIAlertBox(
-              indx: 1,
+              indx: 1,name: ""
             );
           }).then((value) {
         mycontroller[5].text = '';
@@ -861,14 +1182,22 @@ chooseSettleToCash(String? val) {
             // context.read<EnquiryUserContoller>(). showSpecificDialog();
             //   context.read<EnquiryUserContoller>().showSuccessDia();
             return DDAlertBox(
-              indx: 1,
+              indx: 1,name: ""
             );
           }).then((value) {
         mycontroller[4].text = '';
       });
     }
   }
-
+iselectMethodfinal(SettlementGetData settelfinal){
+   log("dddd::"+settelfinal.DocNum.toString());
+  for(int i=0;i<settelGetList.length;i++){
+if(settelGetList[i].Mode ==settelfinal.Mode&&  settelGetList[i].DocNum ==settelfinal.DocNum){
+settelGetList[i].isselect = !settelGetList[i].isselect!;
+}
+  } 
+ notifyListeners(); 
+}
   iselectMethodCash(int i) {
 // if(cashList[i].isselect==true){
 
@@ -959,6 +1288,17 @@ totalcashsettl() {
 
     return config.slpitCurrency22(val.toString());
   }
+
+  totalfinal(String? name){
+     double val = 0.00;
+     for (int i = 0; i < settelGetList.length; i++) {
+if (settelGetList[i].Mode==name&& settelGetList[i].isselect == true) {
+        val = val + settelGetList[i].Amount;
+      }
+     }
+      SettlementPdfHelper.totalSumOfAp = val;
+     return config.slpitCurrency22(val.toString()); 
+  }
   totalcash() {
     double val = 0.00;
     for (int i = 0; i < settelGetListCash.length; i++) {
@@ -1026,4 +1366,12 @@ class SettlementList {
   double? totalAmount;
   double? typeAmount;
   bool? isselect;
+}
+class dupdata{
+  String? Name;
+  String? docnum;
+  dupdata({
+required this.Name,
+required this.docnum
+  });
 }

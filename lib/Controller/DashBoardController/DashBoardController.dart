@@ -589,7 +589,7 @@ bool customerapicLoading = false;
     }
      customerapicLoading = false;
     //  Navigator.pop(context);
-          showdialog(context,customerdetails!,customerDatalist);
+          showdialog(context,customerdetails,customerDatalist);
           } else {
             oldcutomer = false;
             customerapicLoading = false;
@@ -784,7 +784,7 @@ print('Sucess'+value.message);
   setURL() async {
     String? getUrl = await HelperFunctions.getHostDSP();
     //  Url.queryApi = 'http://91.203.133.224:81/api/';
-    Url.queryApi = 'http://${getUrl.toString()}/api/';
+    Url.queryApi = '${getUrl.toString()}/api/';
   }
 
   int checkContent(FeedsModalData2 feedDatas) {
@@ -1155,19 +1155,30 @@ getdataFromDb() async {
         isloading = false;
         notifyListeners();
       } else if (value.stcode == 500) {
-        if (value.exception == 'No route to host') {
-          lottiurl='Assets/NetworkAnimation.json';
-          feedsApiExcp =
-              'Something went wrong try again...!! ${value.stcode} \n${value.exception}';
-          isloading = false;
-          notifyListeners();
-        } else {
-          lottiurl='Assets/NetworkAnimation.json';
-          feedsApiExcp =
-              '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
-          isloading = false;
-          notifyListeners();
+
+        if(value.exception!.contains("Network is unreachable")){
+  lottiurl='Assets/NetworkAnimation.json';
+        feedsApiExcp = '${value.stcode}..Network Issue..\nTry again Later..!';
+        isloading = false;
+        notifyListeners();
+        }else{
+        lottiurl='Assets/warning.png';
+        feedsApiExcp = '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+        isloading = false;
         }
+        // if (value.exception == 'No route to host') {
+        //   lottiurl='Assets/NetworkAnimation.json';
+        //   feedsApiExcp =
+        //       'Something went wrong try again...!! ${value.stcode} \n${value.exception}';
+        //   isloading = false;
+        //   notifyListeners();
+        // } else {
+        //   lottiurl='Assets/NetworkAnimation.json';
+        //   feedsApiExcp =
+        //       '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        //   isloading = false;
+        //   notifyListeners();
+        // }
       }
     });
   }
@@ -1466,6 +1477,8 @@ String kpilottie='';
         // \n Try again after some times..!!";
         notifyListeners();
       } else if (value.stsCode == 500) {
+
+        
         kpilottie = 'Assets/NetworkAnimation.json';
         KpiApiExcp = "500..!!Network Issue..\nTry again Later..!!'";
         notifyListeners();

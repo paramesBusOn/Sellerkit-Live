@@ -14,7 +14,7 @@ import 'package:sellerkit/Widgets/Navi3.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 
 class NewpriceReq extends StatefulWidget {
-  const NewpriceReq({Key? key}) : super(key: key);
+   NewpriceReq({Key? key}) : super(key: key);
 
   @override
   State<NewpriceReq> createState() => NewpriceReqState();
@@ -27,6 +27,7 @@ class NewpriceReqState extends State<NewpriceReq> {
   Paddings paddings = Paddings();
   FocusNode focusNode = FocusNode();
   FocusNode focusNode2 = FocusNode();
+  FocusNode focusNode3 = FocusNode();
    Future<bool> onbackpress() {
     DateTime now = DateTime.now();
 
@@ -45,6 +46,7 @@ class NewpriceReqState extends State<NewpriceReq> {
     super.initState();
     focusNode.addListener(onfocus);
     focusNode2.addListener(onreqprice);
+    focusNode3.addListener(onreqpercent);
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
       
@@ -72,12 +74,24 @@ context.read<NewpriceController>(). itemvisible();
    
    
 }
-
-onreqprice(){
+onreqpercent()async{
+  if(context.read<NewpriceController>().mycontroller[11].text.isEmpty){
+    context.read<NewpriceController>().  mycontroller[9].clear();
+    }
+  if(context.read<NewpriceController>().mycontroller[3].text.isNotEmpty &&context.read<NewpriceController>().mycontroller[11].text.isNotEmpty){
+  
+  await context.read<NewpriceController>().percentagecalculation(context.read<NewpriceController>().mycontroller[6].text,context.read<NewpriceController>().mycontroller[11].text,'');
+    context.read<NewpriceController>().Approvergetcall();
+  }
+  
+}
+onreqprice()async{
   if(context.read<NewpriceController>().mycontroller[7].text.isEmpty){
     context.read<NewpriceController>().  mycontroller[9].clear();
     }
   if(context.read<NewpriceController>().mycontroller[3].text.isNotEmpty &&context.read<NewpriceController>().mycontroller[7].text.isNotEmpty){
+  await context.read<NewpriceController>().percentagecalculation(context.read<NewpriceController>().mycontroller[6].text,'',context.read<NewpriceController>().mycontroller[7].text);
+   
     context.read<NewpriceController>().Approvergetcall();
   }
   
@@ -89,6 +103,7 @@ onreqprice(){
     // setState(() {
       focusNode.dispose();
       focusNode2.dispose();
+      focusNode3.dispose();
      
     // });
    _isDisposed = true;
@@ -402,41 +417,79 @@ onreqprice(){
 SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
                         ),
-                        TextFormField(
-                          focusNode: focusNode2,
-                          controller:
-                              context.read<NewpriceController>().mycontroller[7],
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Enter Requested Price';
-                            }
-                            return null;
-                          },
-//                           onEditingComplete: (){
-//  log('onEditingComplete');
-//  context.read<NewpriceController>().Approvergetcall();
-//                           },
-                          
-//                           onSaved: (val){
-//                             log('onSaved');
-
-//                           },
-                         
-                          onTap: (){
-                            context.read<NewpriceController>().checkitemcodeselect();
-                          },
-                          readOnly:context.watch<NewpriceController>().isselectitem==false?false:true ,
-                           keyboardType:  TextInputType.numberWithOptions(decimal: true),
-                            inputFormatters: <TextInputFormatter>[
-                            FilteringTextInputFormatter.allow(
-                                RegExp(r'^\d+\.?\d*')),],
-                          decoration: const InputDecoration(
-                              label: Text("Requested Price*"),
-                              border: UnderlineInputBorder(),
-                              enabledBorder: UnderlineInputBorder(),
-                              focusedBorder: UnderlineInputBorder(),
-                              errorBorder: UnderlineInputBorder(),
-                              focusedErrorBorder: UnderlineInputBorder()),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              width: Screens.width(context)*0.45,
+                              child: TextFormField(
+                                focusNode: focusNode2,
+                                controller:
+                                    context.read<NewpriceController>().mycontroller[7],
+                                validator:(val) {
+                                  if (val!.isEmpty) {
+                                    return 'Enter Discount Percentage';
+                                  }
+                                  return null;
+                                },
+                              //                           onEditingComplete: (){
+                              //  log('onEditingComplete');
+                              //  context.read<NewpriceController>().Approvergetcall();
+                              //                           },
+                                
+                              //                           onSaved: (val){
+                              //                             log('onSaved');
+                              
+                              //                           },
+                               
+                                onTap: (){
+                                  context.read<NewpriceController>().checkitemcodeselect();
+                                },
+                                readOnly:context.watch<NewpriceController>().isselectitem==false?false:true ,
+                                 keyboardType:  TextInputType.numberWithOptions(decimal: true),
+                                  inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+\.?\d*')),],
+                                decoration:  InputDecoration(
+                                    label:Text("Discount Percentage*"),
+                                    border: UnderlineInputBorder(),
+                                    enabledBorder: UnderlineInputBorder(),
+                                    focusedBorder: UnderlineInputBorder(),
+                                    errorBorder: UnderlineInputBorder(),
+                                    focusedErrorBorder: UnderlineInputBorder()),
+                              ),
+                            ),
+                             Container(
+                              width: Screens.width(context)*0.45,
+                              child: TextFormField(
+                                focusNode: focusNode3,
+                                controller:
+                                    context.read<NewpriceController>().mycontroller[11],
+                                validator: (val) {
+                                  if (val!.isEmpty) {
+                                    return 'Enter Discount Price';
+                                  }
+                                  return null;
+                                },
+                               
+                                onTap: (){
+                                  context.read<NewpriceController>().checkitemcodeselect();
+                                },
+                                readOnly:context.watch<NewpriceController>().isselectitem==false?false:true ,
+                                 keyboardType:  TextInputType.numberWithOptions(decimal: true),
+                                  inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+\.?\d*')),],
+                                decoration:  InputDecoration(
+                                    label: Text("Discount Price*"),
+                                    border: UnderlineInputBorder(),
+                                    enabledBorder: UnderlineInputBorder(),
+                                    focusedBorder: UnderlineInputBorder(),
+                                    errorBorder: UnderlineInputBorder(),
+                                    focusedErrorBorder: UnderlineInputBorder()),
+                              ),
+                            ),
+                          ],
                         ),
 //                         SizedBox(
 //                           height: Screens.bodyheight(context) * 0.01,

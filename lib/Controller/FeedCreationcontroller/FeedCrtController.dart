@@ -178,7 +178,6 @@ class FeedCreationProv extends ChangeNotifier {
   }
 
   sheetbottom(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
     {
       showModalBottomSheet(
@@ -231,7 +230,6 @@ class FeedCreationProv extends ChangeNotifier {
   }
 
   sheetbottomvideo(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
     {
       showModalBottomSheet(

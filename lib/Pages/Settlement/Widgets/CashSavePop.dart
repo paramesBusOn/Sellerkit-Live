@@ -10,9 +10,10 @@ import 'SettlementSuccessBox.dart';
 
 class CashAlertBox extends StatefulWidget {
   CashAlertBox({
-    Key? key,
+    Key? key,required this.name
   }) : super(key: key);
   // final int indx;
+  final String? name;
   @override
   State<CashAlertBox> createState() => CashAlertBoxState();
 }
@@ -91,7 +92,7 @@ class CashAlertBoxState extends State<CashAlertBox> {
                       height: Screens.bodyheight(context) * 0.02,
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Total Amount Rs.${context.read<SettlementController>().totalcash()}",
+                        "Total Amount Rs.${context.read<SettlementController>().totalfinal(widget.name)}",
                         style: theme.textTheme.bodySmall!
                             .copyWith(color: Colors.grey),
                       ),

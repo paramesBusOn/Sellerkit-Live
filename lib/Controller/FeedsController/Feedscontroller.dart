@@ -34,7 +34,6 @@ class FeedsControoler extends ChangeNotifier {
   showBottomSheet(
     BuildContext context,
   ) {
-    final width = MediaQuery.of(context).size.width;
     final theme = Theme.of(context);
     //nznznz
     showModalBottomSheet(

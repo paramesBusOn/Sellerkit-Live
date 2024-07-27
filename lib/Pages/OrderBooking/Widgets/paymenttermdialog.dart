@@ -142,18 +142,45 @@ class _paytermdialogState extends State<paytermdialog> {
                         ? Container()
                         : Container(
                             width: Screens.width(context),
-                            height: Screens.padingHeight(context) * 0.06,
-                            padding: EdgeInsets.all(8),
+                            // height: Screens.padingHeight(context) * 0.05,
+                            // padding: EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all()),
-                            child: DropdownButton(
+                                // borderRadius: BorderRadius.circular(8),
+                                // border: Border.all()
+                                ),
+                            child: DropdownButtonFormField(
+                              
                                 value: context
                                     .read<OrderNewController>()
                                     .selecteditem,
                                 isExpanded: true,
                                 hint: Text("List Type"),
-                                underline: Container(),
+                                validator: (value) {
+                                  if (value==null) {
+                                    return "*Select List Type";
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                  contentPadding:  EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 10.0),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8))
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8))
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8))
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8))
+                                  ),
+                                  disabledBorder:OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8))
+                                  ),
+                                ),
+                                
                                 items: context
                                     .read<OrderNewController>()
                                     .valueDroplist!

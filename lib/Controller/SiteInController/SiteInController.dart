@@ -53,10 +53,12 @@ class SiteInController extends ChangeNotifier {
     // getvisitpurpose();
     // clearAll();
   }
-setListData(){
-  filteropenVisitData=openVisitData;
-  notifyListeners();
-}
+
+  setListData() {
+    filteropenVisitData = openVisitData;
+    notifyListeners();
+  }
+
   List<visitpurpose>? purposevisit = [];
   getvisitpurpose() async {
     purposevisit = [];
@@ -82,39 +84,54 @@ setListData(){
 
   bool isloading = false;
   String errortabMsg = '';
-  
-String lottie='';
+
+  String lottie = '';
   getallvisitdata(BuildContext context) async {
     isloading = true;
-     lottie='';
+    lottie = '';
     notifyListeners();
     await getvisitApi.getdata().then((value) async {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         if (value.getvisitheaddata!.getvisitdetailsdata != null &&
             value.getvisitheaddata!.getvisitdetailsdata!.isNotEmpty) {
-          spilitDatafirst(value.getvisitheaddata!.getvisitdetailsdata!,context);
+          spilitDatafirst(
+              value.getvisitheaddata!.getvisitdetailsdata!, context);
           // isloading = false;
           notifyListeners();
         } else if (value.getvisitheaddata!.getvisitdetailsdata == null ||
             value.getvisitheaddata!.getvisitdetailsdata!.isEmpty) {
           isloading = false;
-            lottie='Assets/no-data.png';
+          lottie = 'Assets/no-data.png';
           errortabMsg = 'No data..!!';
           // exception = true;
           //       errorMsg = 'No data found..!!';
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-         lottie='';
+        lottie = '';
         isloading = false;
         errortabMsg = '${value.message}..!!${value.exception}....!!';
         // exception = true;
         //       errorMsg = 'Some thing went wrong.!';
         notifyListeners();
       } else if (value.stcode == 500) {
-        isloading = false;
-          lottie='Assets/NetworkAnimation.json';
-        errortabMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        if (value.exception!.contains("Network is unreachable")) {
+          isloading = false;
+          lottie = 'Assets/NetworkAnimation.json';
+          errortabMsg =
+              '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+          notifyListeners();
+        } else {
+          isloading = false;
+          lottie = 'Assets/warning.png';
+          errortabMsg =
+              '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+
+          notifyListeners();
+        }
+        // isloading = false;
+        //   lottie='Assets/NetworkAnimation.json';
+        // errortabMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         // datagotByApi = false;
         // exception = true;
         // errorMsg = 'Some thing went wrong..!';
@@ -126,105 +143,105 @@ String lottie='';
 
   List<getvisitdetails> visitdetailsdata = [];
   List<getvisitdetails> checkdetailsdata = [];
-  spilitDatafirst(List<getvisitdetails> getvisitdetailsdata,BuildContext context) {
-    bool ischeckin=false;
-     String name='';
+  spilitDatafirst(
+      List<getvisitdetails> getvisitdetailsdata, BuildContext context) {
+    bool ischeckin = false;
+    String name = '';
     openVisitData.clear();
     filteropenVisitData.clear();
-    for(int ij = 0; ij < getvisitdetailsdata.length; ij++){
-      if( getvisitdetailsdata[ij].visitstatus =='Open'){
-        name=getvisitdetailsdata[ij].customername.toString();
-ischeckin=true;
-notifyListeners();
+    for (int ij = 0; ij < getvisitdetailsdata.length; ij++) {
+      if (getvisitdetailsdata[ij].visitstatus == 'Open') {
+        name = getvisitdetailsdata[ij].customername.toString();
+        ischeckin = true;
+        notifyListeners();
       }
-
     }
-if(ischeckin==true){
-  isloading = false;
-  validateCheckIn(context, name);
-   notifyListeners();
-    // spilitData(visitdetailsdata);
-    
-    log("visitdetailsdata::" + visitdetailsdata.length.toString());
-    notifyListeners();
-}
-else{
- for (int i = 0; i < getvisitdetailsdata.length; i++) {
-   if(getvisitdetailsdata[i].visitstatus=='Planned'){
- openVisitData.add(getvisitdetails(
-          address1: getvisitdetailsdata[i].address1,
-          address2: getvisitdetailsdata[i].address2,
-          address3: getvisitdetailsdata[i].address3,
-          city: getvisitdetailsdata[i].city,
-          closed: getvisitdetailsdata[i].closed,
-          createdby: getvisitdetailsdata[i].createdby,
-          customercode: getvisitdetailsdata[i].customercode,
-          customername: getvisitdetailsdata[i].customername,
-          meetingtime: getvisitdetailsdata[i].meetingtime,
-          product: getvisitdetailsdata[i].product,
-          purposeofvisit: getvisitdetailsdata[i].purposeofvisit,
-          userid: getvisitdetailsdata[i].userid,
-          visitplan: getvisitdetailsdata[i].visitplan,
-          visitstatus: getvisitdetailsdata[i].visitstatus,
-          pincode: getvisitdetailsdata[i].pincode,
-          state: getvisitdetailsdata[i].state,
-          cusmobile: getvisitdetailsdata[i].cusmobile,
-          cusemail: getvisitdetailsdata[i].cusemail,
-          contactname: getvisitdetailsdata[i].contactname,
-          AssignedTo: getvisitdetailsdata[i].AssignedTo,
-          Att1: getvisitdetailsdata[i].Att1,
-          Att2: getvisitdetailsdata[i].Att2,
-          Att3: getvisitdetailsdata[i].Att3,
-          Att4: getvisitdetailsdata[i].Att4,
-          BaseId: getvisitdetailsdata[i].BaseId,
-          BaseType: getvisitdetailsdata[i].BaseType,
-          CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
-          CheckinLat: getvisitdetailsdata[i].CheckinLat,
-          CheckinLong: getvisitdetailsdata[i].CheckinLong,
-          CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime,
-          CheckoutLat: getvisitdetailsdata[i].CheckoutLat,
-          CheckoutLong: getvisitdetailsdata[i].CheckoutLong,
-          CreatedBy: getvisitdetailsdata[i].CreatedBy,
-          CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime,
-          IsClosed: getvisitdetailsdata[i].IsClosed,
-          LookingFor: getvisitdetailsdata[i].LookingFor,
-          PotentialBusinessValue: getvisitdetailsdata[i].PotentialBusinessValue,
-          TargetId: getvisitdetailsdata[i].TargetId,
-          TargetType: getvisitdetailsdata[i].TargetType,
-          UpdatedBy: getvisitdetailsdata[i].UpdatedBy,
-          UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime,
-          VisitOutcome: getvisitdetailsdata[i].VisitOutcome,
-          VisitStatus: getvisitdetailsdata[i].VisitStatus,
-          area: getvisitdetailsdata[i].area,
-          country: getvisitdetailsdata[i].country,
-          district: getvisitdetailsdata[i].district,
-          plannedDate: getvisitdetailsdata[i].plannedDate,
-          storecode: getvisitdetailsdata[i].storecode,
-          traceid: getvisitdetailsdata[i].traceid));
-           filteropenVisitData=openVisitData;
-   }
-    
-    }
-     notifyListeners();
-    // spilitData(visitdetailsdata);
-    isloading = false;
-    log("visitdetailsdata::" + visitdetailsdata.length.toString());
-    notifyListeners();
-}
+    if (ischeckin == true) {
+      isloading = false;
+      validateCheckIn(context, name);
+      notifyListeners();
+      // spilitData(visitdetailsdata);
 
-   
-   
+      log("visitdetailsdata::" + visitdetailsdata.length.toString());
+      notifyListeners();
+    } else {
+      for (int i = 0; i < getvisitdetailsdata.length; i++) {
+        if (getvisitdetailsdata[i].visitstatus == 'Planned') {
+          openVisitData.add(getvisitdetails(
+              address1: getvisitdetailsdata[i].address1,
+              address2: getvisitdetailsdata[i].address2,
+              address3: getvisitdetailsdata[i].address3,
+              city: getvisitdetailsdata[i].city,
+              closed: getvisitdetailsdata[i].closed,
+              createdby: getvisitdetailsdata[i].createdby,
+              customercode: getvisitdetailsdata[i].customercode,
+              customername: getvisitdetailsdata[i].customername,
+              meetingtime: getvisitdetailsdata[i].meetingtime,
+              product: getvisitdetailsdata[i].product,
+              purposeofvisit: getvisitdetailsdata[i].purposeofvisit,
+              userid: getvisitdetailsdata[i].userid,
+              visitplan: getvisitdetailsdata[i].visitplan,
+              visitstatus: getvisitdetailsdata[i].visitstatus,
+              pincode: getvisitdetailsdata[i].pincode,
+              state: getvisitdetailsdata[i].state,
+              cusmobile: getvisitdetailsdata[i].cusmobile,
+              cusemail: getvisitdetailsdata[i].cusemail,
+              contactname: getvisitdetailsdata[i].contactname,
+              AssignedTo: getvisitdetailsdata[i].AssignedTo,
+              Att1: getvisitdetailsdata[i].Att1,
+              Att2: getvisitdetailsdata[i].Att2,
+              Att3: getvisitdetailsdata[i].Att3,
+              Att4: getvisitdetailsdata[i].Att4,
+              BaseId: getvisitdetailsdata[i].BaseId,
+              BaseType: getvisitdetailsdata[i].BaseType,
+              CheckinDateTime: getvisitdetailsdata[i].CheckinDateTime,
+              CheckinLat: getvisitdetailsdata[i].CheckinLat,
+              CheckinLong: getvisitdetailsdata[i].CheckinLong,
+              CheckoutDateTime: getvisitdetailsdata[i].CheckoutDateTime,
+              CheckoutLat: getvisitdetailsdata[i].CheckoutLat,
+              CheckoutLong: getvisitdetailsdata[i].CheckoutLong,
+              CreatedBy: getvisitdetailsdata[i].CreatedBy,
+              CreatedDateTime: getvisitdetailsdata[i].CreatedDateTime,
+              IsClosed: getvisitdetailsdata[i].IsClosed,
+              LookingFor: getvisitdetailsdata[i].LookingFor,
+              PotentialBusinessValue:
+                  getvisitdetailsdata[i].PotentialBusinessValue,
+              TargetId: getvisitdetailsdata[i].TargetId,
+              TargetType: getvisitdetailsdata[i].TargetType,
+              UpdatedBy: getvisitdetailsdata[i].UpdatedBy,
+              UpdatedDateTime: getvisitdetailsdata[i].UpdatedDateTime,
+              VisitOutcome: getvisitdetailsdata[i].VisitOutcome,
+              VisitStatus: getvisitdetailsdata[i].VisitStatus,
+              area: getvisitdetailsdata[i].area,
+              country: getvisitdetailsdata[i].country,
+              district: getvisitdetailsdata[i].district,
+              plannedDate: getvisitdetailsdata[i].plannedDate,
+              storecode: getvisitdetailsdata[i].storecode,
+              traceid: getvisitdetailsdata[i].traceid));
+          filteropenVisitData = openVisitData;
+        }
+      }
+      notifyListeners();
+      // spilitData(visitdetailsdata);
+      isloading = false;
+      log("visitdetailsdata::" + visitdetailsdata.length.toString());
+      notifyListeners();
+    }
   }
-searchfilter(String v){
-  if(v.isNotEmpty){
-filteropenVisitData = openVisitData.where((e) => (e).customername!.toLowerCase().contains(v.toLowerCase())).toList();
-  notifyListeners();
-  }else if(v.isEmpty){
-filteropenVisitData= openVisitData;
- notifyListeners();
+
+  searchfilter(String v) {
+    if (v.isNotEmpty) {
+      filteropenVisitData = openVisitData
+          .where(
+              (e) => (e).customername!.toLowerCase().contains(v.toLowerCase()))
+          .toList();
+      notifyListeners();
+    } else if (v.isEmpty) {
+      filteropenVisitData = openVisitData;
+      notifyListeners();
+    }
   }
-  
-}
+
   getPurposeofVisitName(String id) {
     String? temp = '';
     if (purposevisit != null) {
@@ -321,7 +338,7 @@ filteropenVisitData= openVisitData;
   clearAll() {
     isloading = false;
     errortabMsg = '';
-    mycontroller[12].text='';
+    mycontroller[12].text = '';
     purposeofVisitList.clear();
     openVisitData.clear();
     filteropenVisitData.clear();
@@ -467,7 +484,7 @@ filteropenVisitData= openVisitData;
             plannedDate: getvisitdetailsdata[i].plannedDate,
             storecode: getvisitdetailsdata[i].storecode,
             traceid: getvisitdetailsdata[i].traceid));
-            filteropenVisitData=openVisitData;
+        filteropenVisitData = openVisitData;
       }
     }
   }
@@ -504,10 +521,10 @@ filteropenVisitData= openVisitData;
         .add(openVisitData!.BaseType!.toString());
     createSiteInController.comefromsitein
         .add(openVisitData!.PotentialBusinessValue!.toString());
-        createSiteInController.comefromsitein
+    createSiteInController.comefromsitein
         .add(openVisitData!.meetingtime!.toString());
-          NewSiteInState.iscomfromLead=true;
- Get.toNamed(ConstantRoutes.newsitein);
+    NewSiteInState.iscomfromLead = true;
+    Get.toNamed(ConstantRoutes.newsitein);
     notifyListeners();
   }
 

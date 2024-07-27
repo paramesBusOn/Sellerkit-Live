@@ -20,7 +20,7 @@ class CollectionPostList {
       required this.message});
   factory CollectionPostList.fromJson(Map<String, dynamic> jsons, int stcode) {
     var list = json.decode(jsons["data"]) as Map<String, dynamic>;
-
+log("jsons[data]:::"+jsons["data"].toString());
     return CollectionPostList(
         stcode: stcode,
         exception: null,
@@ -201,7 +201,7 @@ class CollectionGetDetails2 {
     //     json['Ipayline'].map((x) => CollectionDataIpaylineLine.fromJson(x)),
     //   ),
     // );
-    print('IPaymaster json' + json["IpayMaster"].toString());
+    print('IPaymaster json' + json.toString());
     print('Ipayline json' + json["Ipayline"].toString());
 
     if (json["IpayMaster"] != null && json["Ipayline"] != null) {

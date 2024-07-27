@@ -178,7 +178,7 @@ setState(() {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Payment Terms*",
+                              "Payment Terms",
                               style: theme.textTheme.bodyText1
                                   ?.copyWith(color: Colors.white),
                             ),

@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 // import 'package:flutter_overlay_window/flutter_overlay_window.dart';
+// import 'package:flutter_overlay_window/flutter_overlay_window.dart';
 import 'package:get/get.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -74,6 +75,7 @@ import 'Controller/LeadController/TabLeadController.dart';
 import 'Controller/OrderController/OrderNewController.dart';
 import 'Controller/OrderController/TabOrderController.dart';
 import 'Controller/PriceListController/PriceListController.dart';
+import 'Controller/ReportsController/ReportsController.dart';
 import 'Controller/SiteInController/newcreatesitein.dart';
 import 'Controller/TargetController/TargetController.dart';
 import 'DBHelper/DBOperation.dart';
@@ -81,14 +83,11 @@ import 'DBModel/NotificationModel.dart';
 import 'Pages/Configuration/ConfigurationPage.dart';
 import 'Services/LocalNotification/LocalNotification.dart';
 import 'Themes/theme_manager.dart';
-
 import 'package:timezone/data/latest.dart' as tzdata;
 
 // Database? db;
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-
-
 //   Database db = (await DBHelper.getInstance())!;
 //   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
 //     List<NotificationModel> notify = [];
@@ -124,11 +123,10 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //         // HelperFunctions.saveOnBoardSharedPreference(true);
 //     if( int.parse(message.data['LogoutTypeId'].toString()) ==2 || int.parse(message.data['LogoutTypeId'].toString()) ==4){
 //  exit(0);
-//     }   
-       
+//     }
+
 //       } else{
 
-   
 //         if (message.notification!.android != null) {
 //           if (message.notification!.android!.imageUrl != null) {
 //             // log(message.data['DocEntry'].toString());
@@ -199,13 +197,12 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 //   }
 //  else if(message!.notification!.title!.toLowerCase() == 'logout'){
 
-  
 //   return;
 //         }
-        // else{
-         await Firebase.initializeApp();
-        // }
-       List<NotificationModel> notify = [];
+  // else{
+  await Firebase.initializeApp();
+  // }
+  List<NotificationModel> notify = [];
   await createDB();
   Config config2 = Config();
   // await NotificationUpdateApi.getData(
@@ -215,36 +212,37 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   //     deviceCode: 'null');
   Database db = (await DBHelper.getInstance())!;
   if (message.notification != null) {
-    if (message.notification!.title!.contains('logout') ) {
+    if (message.notification!.title!.contains('logout')) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.clear();
-       final Database db = (await DBHelper.getInstance())!;
-    await DBOperation.truncateQuotFilter(db);
-    await DBOperation.truncustomerMaster(db);
-    await DBOperation.truncareItemMaster(db);
-     await DBOperation.truncareoutstandingmaste(db);
+      final Database db = (await DBHelper.getInstance())!;
+      await DBOperation.truncateQuotFilter(db);
+      await DBOperation.truncustomerMaster(db);
+      await DBOperation.truncareItemMaster(db);
+      await DBOperation.truncareoutstandingmaste(db);
       await DBOperation.truncareoutstandingline(db);
-    await DBOperation.truncareEnqType(db);
-    await DBOperation.truncarelevelofType(db);
-    await DBOperation.truncareorderType(db);
-    
-    await DBOperation.truncareCusTagType(db);
-    await DBOperation.trunstateMaster(db);
-    await DBOperation.truncareEnqReffers(db);
-    await DBOperation.truncateUserList(db);
-    await DBOperation.truncateLeadstatus(db);
-    await DBOperation.truncateOfferZone(db);
-    await DBOperation.truncateOfferZonechild1(db);
-    await DBOperation.truncateOfferZonechild2(db);
-    await DBOperation.truncatetableitemlist1(db);
-    await DBOperation.truncatetableitemlist2(db);
+      await DBOperation.truncareEnqType(db);
+      await DBOperation.truncarelevelofType(db);
+      await DBOperation.truncareorderType(db);
+
+      await DBOperation.truncareCusTagType(db);
+      await DBOperation.trunstateMaster(db);
+      await DBOperation.truncareEnqReffers(db);
+      await DBOperation.truncateUserList(db);
+      await DBOperation.truncateLeadstatus(db);
+      await DBOperation.truncateOfferZone(db);
+      await DBOperation.truncateOfferZonechild1(db);
+      await DBOperation.truncateOfferZonechild2(db);
+      await DBOperation.truncatetableitemlist1(db);
+      await DBOperation.truncatetableitemlist2(db);
       // HelperFunctions.saveOnBoardSharedPreference(true);
-       if( message.data['LogoutTypeId'].toString() =="2" || message.data['LogoutTypeId'].toString() =="4"){
- exit(0);
-    }   
+      if (message.data['LogoutTypeId'].toString() == "2" ||
+          message.data['LogoutTypeId'].toString() == "4") {
+        exit(0);
+      }
       // exit(0);
     } else {
-      if (message.notification!.android != null  ) {
+      if (message.notification!.android != null) {
         if (message.notification!.android!.imageUrl != null) {
           notify.add(NotificationModel(
               jobid: message.data['JobId'].toString(),
@@ -294,10 +292,9 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
         }
       }
     }
-  // }    
-        }
+    // }
+  }
   // await Firebase.initializeApp();
- 
 }
 
 Future createDB() async {
@@ -323,8 +320,6 @@ fetchData() async {
   data = result;
   return data.toString();
 }
-
-
 
 LocalNotificationService localNotificationService =
     new LocalNotificationService();
@@ -367,11 +362,10 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 //         // HelperFunctions.saveOnBoardSharedPreference(true);
 //     if( int.parse(message.data['LogoutTypeId'].toString()) ==2 || int.parse(message.data['LogoutTypeId'].toString()) ==4){
 //  exit(0);
-//     }   
-       
+//     }
+
 //       } else{
 
-   
 //         if (message.notification!.android != null) {
 //           if (message.notification!.android!.imageUrl != null) {
 //             // log(message.data['DocEntry'].toString());
@@ -445,40 +439,38 @@ onReciveFCM() async {
 
     if (message.notification != null) {
       // else {
-        await localNotificationService.Shownoti(
-          message: message,
-          title: message.notification!.title ?? "",
-          body: message.notification!.body ?? "",
-        );
-print("hhhhhh:::"+message.data['LogoutTypeId'].toString());
+      await localNotificationService.Shownoti(
+        message: message,
+        title: message.notification!.title ?? "",
+        body: message.notification!.body ?? "",
+      );
+      print("hhhhhh:::" + message.data['LogoutTypeId'].toString());
       if (message.notification!.title!.contains('logout')) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.clear();
         final Database db = (await DBHelper.getInstance())!;
 
-    await DBOperation.truncustomerMaster(db);
-    await DBOperation.truncareItemMaster(db);
-    await DBOperation.truncareoutstandingmaste(db);
-      await DBOperation.truncareoutstandingline(db);
-    await DBOperation.truncareEnqType(db);
-    await DBOperation.truncareCusTagType(db);
-    await DBOperation.trunstateMaster(db);
-    await DBOperation.truncareEnqReffers(db);
-    await DBOperation.truncateUserList(db);
-    await DBOperation.truncateLeadstatus(db);
-    await DBOperation.truncateOfferZone(db);
-    await DBOperation.truncateOfferZonechild1(db);
-    await DBOperation.truncateOfferZonechild2(db);
-    await DBOperation.truncatetableitemlist1(db);
-    await DBOperation.truncatetableitemlist2(db);
+        await DBOperation.truncustomerMaster(db);
+        await DBOperation.truncareItemMaster(db);
+        await DBOperation.truncareoutstandingmaste(db);
+        await DBOperation.truncareoutstandingline(db);
+        await DBOperation.truncareEnqType(db);
+        await DBOperation.truncareCusTagType(db);
+        await DBOperation.trunstateMaster(db);
+        await DBOperation.truncareEnqReffers(db);
+        await DBOperation.truncateUserList(db);
+        await DBOperation.truncateLeadstatus(db);
+        await DBOperation.truncateOfferZone(db);
+        await DBOperation.truncateOfferZonechild1(db);
+        await DBOperation.truncateOfferZonechild2(db);
+        await DBOperation.truncatetableitemlist1(db);
+        await DBOperation.truncatetableitemlist2(db);
         // HelperFunctions.saveOnBoardSharedPreference(true);
-    if(message.data['LogoutTypeId'].toString() =="2" || message.data['LogoutTypeId'].toString() =="4"){
- exit(0);
-    }   
-       
-      } else{
-
-   
+        if (message.data['LogoutTypeId'].toString() == "2" ||
+            message.data['LogoutTypeId'].toString() == "4") {
+          exit(0);
+        }
+      } else {
         if (message.notification!.android != null) {
           if (message.notification!.android!.imageUrl != null) {
             // log(message.data['DocEntry'].toString());
@@ -539,7 +531,7 @@ print("hhhhhh:::"+message.data['LogoutTypeId'].toString());
             DBOperation.insertNotification(notify, db);
           }
         }
-           }
+      }
       // }
     }
   });
@@ -601,6 +593,7 @@ void dismissKeyboard(BuildContext context) {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 }
+
 @pragma('vm:entry-point')
 Future<bool> onIosBackground(ServiceInstance service) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -617,7 +610,6 @@ Future<bool> onIosBackground(ServiceInstance service) async {
 
 int temp = 0;
 @pragma('vm:entry-point')
-
 onStart() async {
   WidgetsFlutterBinding.ensureInitialized();
   DartPluginRegistrant.ensureInitialized();
@@ -703,7 +695,6 @@ refreshData() async {
   var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   // print("URL1:" + ConstantValues.urlvalue.toString());
 
- 
   PostLoginData postLoginData = new PostLoginData();
   Url.queryApi = 'http://${getUrl2.toString()}/api/';
 
@@ -732,9 +723,9 @@ refreshData() async {
   postLoginData.username = userCode;
   postLoginData.fcmToken = token;
   postLoginData.password = passsword;
-  String? model=await  Config.getdeviceModel() ;
-    String? brand=await  Config.getdeviceBrand() ;
-postLoginData. devicename='${brand} ${model}';
+  String? model = await Config.getdeviceModel();
+  String? brand = await Config.getdeviceBrand();
+  postLoginData.devicename = '${brand} ${model}';
 
   await LoginAPi.getData(postLoginData).then((value) async {
     // log("login resocde:: ${value.resCode}");
@@ -744,7 +735,7 @@ postLoginData. devicename='${brand} ${model}';
           value.data != null) {
         ConstantValues.UserId = value.data!.UserID;
         ConstantValues.Usercode = value.data!.userCode;
-       
+
         ConstantValues.storeid = int.parse(value.data!.storeid.toString());
         ConstantValues.Storecode = value.data!.storecode.toString();
 
@@ -763,86 +754,81 @@ postLoginData. devicename='${brand} ${model}';
       // log("Api itemMasterData.itemdata!.length ${itemMasterData.itemdata!.length}");
       for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
         valuesInserMaster.add(ItemMasterDBModel(
-          storeAgeSlab1:itemMasterData.itemdata![ij].storeAgeSlab1,
-              storeAgeSlab2:itemMasterData.itemdata![ij].storeAgeSlab2,
-              storeAgeSlab3:itemMasterData.itemdata![ij].storeAgeSlab3,
-              storeAgeSlab4:itemMasterData.itemdata![ij].storeAgeSlab4,
-              storeAgeSlab5:itemMasterData.itemdata![ij].storeAgeSlab5,
-              whsAgeSlab1:itemMasterData.itemdata![ij].whsAgeSlab1,
-              whsAgeSlab2:itemMasterData.itemdata![ij].whsAgeSlab2,
-              whsAgeSlab3:itemMasterData.itemdata![ij].whsAgeSlab3,
-              whsAgeSlab4:itemMasterData.itemdata![ij].whsAgeSlab4,
-              whsAgeSlab5:itemMasterData.itemdata![ij].whsAgeSlab5,
-            id: int.parse(itemMasterData.itemdata![ij].id!.toString()),
-            itemCode: itemMasterData.itemdata![ij].itemcode,
-            brand: itemMasterData.itemdata![ij].Brand!,
-            division: itemMasterData.itemdata![ij].Division!,
-            category: itemMasterData.itemdata![ij].Category!,
-            itemName: itemMasterData.itemdata![ij].itemName!,
-            segment: itemMasterData.itemdata![ij].Segment!,
-            isselected: 0,
-            favorite: itemMasterData.itemdata![ij].Favorite!,
-            mgrPrice:
-                double.parse(itemMasterData.itemdata![ij].MgrPrice.toString()),
-            slpPrice:
-                double.parse(itemMasterData.itemdata![ij].SlpPrice.toString()),
-            storeStock: double.parse(
-                itemMasterData.itemdata![ij].StoreStock.toString()),
-            whsStock:
-                double.parse(itemMasterData.itemdata![ij].WhsStock.toString()),
-            refreshedRecordDate: date,
-            itemDescription:
-                itemMasterData.itemdata![ij].itemDescription.toString(),
-            modelNo: itemMasterData.itemdata![ij].modelNo.toString(),
-            partCode: itemMasterData.itemdata![ij].partCode.toString(),
-            skucode: itemMasterData.itemdata![ij].skucode.toString(),
-            brandCode: itemMasterData.itemdata![ij].brandCode.toString(),
-            itemGroup: itemMasterData.itemdata![ij].itemGroup.toString(),
-            specification:
-                itemMasterData.itemdata![ij].specification.toString(),
-            sizeCapacity: itemMasterData.itemdata![ij].sizeCapacity.toString(),
-            clasification:
-                itemMasterData.itemdata![ij].clasification.toString(),
-            uoM: itemMasterData.itemdata![ij].uoM.toString(),
-            taxRate: itemMasterData.itemdata![ij].taxRate,
-            catalogueUrl1:
-                itemMasterData.itemdata![ij].catalogueUrl1.toString(),
-            catalogueUrl2:
-                itemMasterData.itemdata![ij].catalogueUrl2.toString(),
-            imageUrl1: itemMasterData.itemdata![ij].imageUrl1.toString(),
-            imageUrl2: itemMasterData.itemdata![ij].imageUrl2.toString(),
-            textNote: itemMasterData.itemdata![ij].textNote.toString(),
-            status: itemMasterData.itemdata![ij].status.toString(),
-            movingType: itemMasterData.itemdata![ij].movingType.toString(),
-            eol: itemMasterData.itemdata![ij].eol,
-            veryFast: itemMasterData.itemdata![ij].veryFast,
-            fast: itemMasterData.itemdata![ij].fast,
-            slow: itemMasterData.itemdata![ij].slow,
-            verySlow: itemMasterData.itemdata![ij].verySlow,
-            serialNumber: itemMasterData.itemdata![ij].serialNumber,
-            priceStockId: itemMasterData.itemdata![ij].priceStockId,
-            storeCode: itemMasterData.itemdata![ij].storeCode.toString(),
-            whseCode: itemMasterData.itemdata![ij].whseCode.toString(),
-            sp: itemMasterData.itemdata![ij].sp,
-            ssp1: itemMasterData.itemdata![ij].ssp1,
-            ssp2: itemMasterData.itemdata![ij].ssp2,
-            ssp3: itemMasterData.itemdata![ij].ssp3,
-            ssp4: itemMasterData.itemdata![ij].ssp4,
-            ssp5: itemMasterData.itemdata![ij].ssp5,
-            ssp1Inc: itemMasterData.itemdata![ij].ssp1Inc,
-            ssp2Inc: itemMasterData.itemdata![ij].ssp2Inc,
-            ssp3Inc: itemMasterData.itemdata![ij].ssp3Inc,
-            ssp4Inc: itemMasterData.itemdata![ij].ssp4Inc,
-            ssp5Inc: itemMasterData.itemdata![ij].ssp5Inc,
-            allowNegativeStock: itemMasterData.itemdata![ij].allowNegativeStock,
-            allowOrderBelowCost:
-                itemMasterData.itemdata![ij].allowOrderBelowCost,
-            isFixedPrice: itemMasterData.itemdata![ij].isFixedPrice,
-            validTill: itemMasterData.itemdata![ij].validTill.toString(),
-            color: itemMasterData.itemdata![ij].color,
-            calcType:itemMasterData.itemdata![ij].calcType.toString(),
-        payOn:itemMasterData.itemdata![ij].payOn.toString() ,
-            ));
+          storeAgeSlab1: itemMasterData.itemdata![ij].storeAgeSlab1,
+          storeAgeSlab2: itemMasterData.itemdata![ij].storeAgeSlab2,
+          storeAgeSlab3: itemMasterData.itemdata![ij].storeAgeSlab3,
+          storeAgeSlab4: itemMasterData.itemdata![ij].storeAgeSlab4,
+          storeAgeSlab5: itemMasterData.itemdata![ij].storeAgeSlab5,
+          whsAgeSlab1: itemMasterData.itemdata![ij].whsAgeSlab1,
+          whsAgeSlab2: itemMasterData.itemdata![ij].whsAgeSlab2,
+          whsAgeSlab3: itemMasterData.itemdata![ij].whsAgeSlab3,
+          whsAgeSlab4: itemMasterData.itemdata![ij].whsAgeSlab4,
+          whsAgeSlab5: itemMasterData.itemdata![ij].whsAgeSlab5,
+          id: int.parse(itemMasterData.itemdata![ij].id!.toString()),
+          itemCode: itemMasterData.itemdata![ij].itemcode,
+          brand: itemMasterData.itemdata![ij].Brand!,
+          division: itemMasterData.itemdata![ij].Division!,
+          category: itemMasterData.itemdata![ij].Category!,
+          itemName: itemMasterData.itemdata![ij].itemName!,
+          segment: itemMasterData.itemdata![ij].Segment!,
+          isselected: 0,
+          favorite: itemMasterData.itemdata![ij].Favorite!,
+          mgrPrice:
+              double.parse(itemMasterData.itemdata![ij].MgrPrice.toString()),
+          slpPrice:
+              double.parse(itemMasterData.itemdata![ij].SlpPrice.toString()),
+          storeStock:
+              double.parse(itemMasterData.itemdata![ij].StoreStock.toString()),
+          whsStock:
+              double.parse(itemMasterData.itemdata![ij].WhsStock.toString()),
+          refreshedRecordDate: date,
+          itemDescription:
+              itemMasterData.itemdata![ij].itemDescription.toString(),
+          modelNo: itemMasterData.itemdata![ij].modelNo.toString(),
+          partCode: itemMasterData.itemdata![ij].partCode.toString(),
+          skucode: itemMasterData.itemdata![ij].skucode.toString(),
+          brandCode: itemMasterData.itemdata![ij].brandCode.toString(),
+          itemGroup: itemMasterData.itemdata![ij].itemGroup.toString(),
+          specification: itemMasterData.itemdata![ij].specification.toString(),
+          sizeCapacity: itemMasterData.itemdata![ij].sizeCapacity.toString(),
+          clasification: itemMasterData.itemdata![ij].clasification.toString(),
+          uoM: itemMasterData.itemdata![ij].uoM.toString(),
+          taxRate: itemMasterData.itemdata![ij].taxRate,
+          catalogueUrl1: itemMasterData.itemdata![ij].catalogueUrl1.toString(),
+          catalogueUrl2: itemMasterData.itemdata![ij].catalogueUrl2.toString(),
+          imageUrl1: itemMasterData.itemdata![ij].imageUrl1.toString(),
+          imageUrl2: itemMasterData.itemdata![ij].imageUrl2.toString(),
+          textNote: itemMasterData.itemdata![ij].textNote.toString(),
+          status: itemMasterData.itemdata![ij].status.toString(),
+          movingType: itemMasterData.itemdata![ij].movingType.toString(),
+          eol: itemMasterData.itemdata![ij].eol,
+          veryFast: itemMasterData.itemdata![ij].veryFast,
+          fast: itemMasterData.itemdata![ij].fast,
+          slow: itemMasterData.itemdata![ij].slow,
+          verySlow: itemMasterData.itemdata![ij].verySlow,
+          serialNumber: itemMasterData.itemdata![ij].serialNumber,
+          priceStockId: itemMasterData.itemdata![ij].priceStockId,
+          storeCode: itemMasterData.itemdata![ij].storeCode.toString(),
+          whseCode: itemMasterData.itemdata![ij].whseCode.toString(),
+          sp: itemMasterData.itemdata![ij].sp,
+          ssp1: itemMasterData.itemdata![ij].ssp1,
+          ssp2: itemMasterData.itemdata![ij].ssp2,
+          ssp3: itemMasterData.itemdata![ij].ssp3,
+          ssp4: itemMasterData.itemdata![ij].ssp4,
+          ssp5: itemMasterData.itemdata![ij].ssp5,
+          ssp1Inc: itemMasterData.itemdata![ij].ssp1Inc,
+          ssp2Inc: itemMasterData.itemdata![ij].ssp2Inc,
+          ssp3Inc: itemMasterData.itemdata![ij].ssp3Inc,
+          ssp4Inc: itemMasterData.itemdata![ij].ssp4Inc,
+          ssp5Inc: itemMasterData.itemdata![ij].ssp5Inc,
+          allowNegativeStock: itemMasterData.itemdata![ij].allowNegativeStock,
+          allowOrderBelowCost: itemMasterData.itemdata![ij].allowOrderBelowCost,
+          isFixedPrice: itemMasterData.itemdata![ij].isFixedPrice,
+          validTill: itemMasterData.itemdata![ij].validTill.toString(),
+          color: itemMasterData.itemdata![ij].color,
+          calcType: itemMasterData.itemdata![ij].calcType.toString(),
+          payOn: itemMasterData.itemdata![ij].payOn.toString(),
+        ));
         // log("valuesInserMaster" + valuesInserMaster[0].id.toString());
         // dbHelper.insertdocuments(valuesInserMaster[ij]);
       }
@@ -851,7 +837,7 @@ postLoginData. devicename='${brand} ${model}';
   }
 
   await DBOperation.insertItemMaster(valuesInserMaster, db);
-   await flutterLocalNotificationsPlugin.show(
+  await flutterLocalNotificationsPlugin.show(
     888,
     'Seller Kit Refresh Master Api..\nItemMaster:${valuesInserMaster.length}',
     'Awesome ${DateTime.now()}',
@@ -865,6 +851,7 @@ postLoginData. devicename='${brand} ${model}';
     ),
   );
 }
+
 // getOverlayPermission() async {
 //     bool status = await FlutterOverlayWindow.isPermissionGranted();
 //     if (!status) {
@@ -890,6 +877,7 @@ Future getPermissionUser() async {
     await Permission.contacts.request();
   }
 }
+
 void main() async {
   tzdata.initializeTimeZones();
   WidgetsFlutterBinding.ensureInitialized();
@@ -897,8 +885,8 @@ void main() async {
 //  await getPermissionUser();
 // await getOverlayPermission();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-//  
- var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+//
+  var flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   var initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -911,39 +899,39 @@ void main() async {
       android: initializationSettingsAndroid, iOS: initializationSettingsIOs);
 
   void onDidReceiveNotificationResponse(
-      NotificationResponse notificationResponse,) async {
+    NotificationResponse notificationResponse,
+  ) async {
 // this should print now
 // print("message:::"+message.notification!.title!.toString());
     print("payload: " + notificationResponse.payload.toString());
-   
-// let's add some switch statements here
-final RemoteMessage? remoteMessage=await FirebaseMessaging.instance.getInitialMessage();
-if(remoteMessage !=null){
-   print('gggfgfhf::'+remoteMessage!.notification!.    title!.toString());
-if(remoteMessage!.notification!.    title!.toString().toLowerCase() != 'logout'){
-  return;
-}
 
-}else{
-switch (notificationResponse.notificationResponseType) {
+// let's add some switch statements here
+    final RemoteMessage? remoteMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+    if (remoteMessage != null) {
+      print('gggfgfhf::' + remoteMessage.notification!.title!.toString());
+      if (remoteMessage.notification!.title!.toString().toLowerCase() !=
+          'logout') {
+        return;
+      }
+    } else {
+      switch (notificationResponse.notificationResponseType) {
 // triggers when the notification is tapped
-      case NotificationResponseType.selectedNotification:
-        if (notificationResponse.payload != null) {
-          
-          try {
-            var pdfText = await json.decode(notificationResponse.payload!);
-            // if (pdfText["NaviScreen"] == "enquiry") {
-            Get.toNamed(ConstantRoutes.testing);
-            // }
-          } catch (error) {
-            // log('Notification payload error $error');
+        case NotificationResponseType.selectedNotification:
+          if (notificationResponse.payload != null) {
+            try {
+              var pdfText = await json.decode(notificationResponse.payload!);
+              // if (pdfText["NaviScreen"] == "enquiry") {
+              Get.toNamed(ConstantRoutes.testing);
+              // }
+            } catch (error) {
+              // log('Notification payload error $error');
+            }
           }
-        }
-        break;
-      default:
+          break;
+        default:
+      }
     }
-}
-    
   }
 
 // final RemoteMessage? remoteMessage=await FirebaseMessaging.instance.getInitialMessage();
@@ -951,15 +939,13 @@ switch (notificationResponse.notificationResponseType) {
 //  if(remoteMessage !=null){
 //    print('gggfgfhf::'+remoteMessage!.notification!.    title!.toString());
 // if(remoteMessage!.notification!.    title!.toString().toLowerCase() != 'logout') {
- 
+
   await flutterLocalNotificationsPlugin.initialize(
     initSettings,
     onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
   );
 //  }
 //  }
- 
-  
 
   onReciveFCM();
   // if (Platform.isAndroid) {
@@ -972,51 +958,41 @@ switch (notificationResponse.notificationResponseType) {
   await checkLocation();
   // await getOverlayPermission();
   // await initializeService();
-   await checkLoginVerification();
+  //  await checkLoginVerification();
 
   runApp(const MyApp2());
 }
-firebasemethod()async{
-  
- FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+
+firebasemethod() async {
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     print('Got a message whilst in the foreground!');
     print('Message data: ${message.data}');
 
     if (message.notification != null) {
       print('Message also contained a notification: ${message.notification}');
-      
     }
   });
- FirebaseMessaging.instance.setAutoInitEnabled(false);
- FirebaseMessaging.onMessage.listen((RemoteMessage? remoteMessage) {
-  if(remoteMessage !=null){
-    if(remoteMessage.notification != null && remoteMessage.notification!.title?.toLowerCase() == 'logout'){
-
-  
-  return;
-        }else{
-        }
-  }
+  FirebaseMessaging.instance.setAutoInitEnabled(false);
+  FirebaseMessaging.onMessage.listen((RemoteMessage? remoteMessage) {
+    if (remoteMessage != null) {
+      if (remoteMessage.notification != null &&
+          remoteMessage.notification!.title?.toLowerCase() == 'logout') {
+        return;
+      } else {}
+    }
   });
-  
 
   //  final RemoteMessage? remoteMessage=await FirebaseMessaging.instance.getInitialMessage();
-   
 
   //  }
-  
-  
+
   // await localNotificationService.init();
   // .resolvePlatformSpecificImplementation<
   //     AndroidFlutterLocalNotificationsPlugin>()
   // ?.createNotificationChannel(localNotificationService.channel);
 
   // !
- 
-  
 }
-
-
 
 //overlay Method
 @pragma("vm:entry-point")
@@ -1086,143 +1062,145 @@ Future<List<String>> getLocation(String restricdata) async {
 
   return clist;
 }
-  checkLoginVerification() async {
-    final Database db = (await DBHelper.getInstance())!;
-    Timer.periodic(const Duration(minutes: 5), (timer) async {
-      bool verifibool = false;
 
-      String? getUrl = await HelperFunctions.getHostDSP();
-      print("URL1:" + getUrl.toString());
-      if (getUrl != null && getUrl != 'null' && getUrl != '') {
-        List<Map<String, Object?>> VerificationDataDBData =
-            await DBOperation.getLoginVerifiDBData(db);
-        print("VerificationDataDBData bool:" +
-            VerificationDataDBData.length.toString());
+checkLoginVerification() async {
+  final Database db = (await DBHelper.getInstance())!;
+  Timer.periodic(const Duration(minutes: 5), (timer) async {
+    bool verifibool = false;
 
-   if (VerificationDataDBData.isNotEmpty) {
-  bool anyConditionSatisfied = false; 
+    String? getUrl = await HelperFunctions.getHostDSP();
+    print("URL1:" + getUrl.toString());
+    if (getUrl != null && getUrl != 'null' && getUrl != '') {
+      List<Map<String, Object?>> VerificationDataDBData =
+          await DBOperation.getLoginVerifiDBData(db);
+      print("VerificationDataDBData bool:" +
+          VerificationDataDBData.length.toString());
 
-  for (int i = 0; i < VerificationDataDBData.length; i++) {
-    print("VerificationDataDBData[i]['RestrictionType'].toString()::"+VerificationDataDBData[i]['RestrictionType'].toString());
+      if (VerificationDataDBData.isNotEmpty) {
+        bool anyConditionSatisfied = false;
 
-    if (VerificationDataDBData[i]['RestrictionType'].toString() == '1') {
-      if (VerificationDataDBData[i]['RestrictionData'].toString() == ConstantValues.ipaddress) {
-        verifibool = true;
-        anyConditionSatisfied = true; 
-        break;
-      }
-    } else if (VerificationDataDBData[i]['RestrictionType'].toString() == '2') {
-           if (Platform.isAndroid) {
-                await LocationTrack.determinePosition();
-              } else {
-                await LocationTrack2.determinePosition();
-              }
-              List<String>? locatoindetals = await getLocation(
-                  VerificationDataDBData[i]['RestrictionData'].toString());
-              String? lat = locatoindetals[0];
-              String? long = locatoindetals[1];
-              String? dis = locatoindetals[2];
-              double totaldis = calculateDistance2(
-                  double.parse(locatoindetals[0]),
-                  double.parse(locatoindetals[1]),
-                  double.parse(ConstantValues.latitude.toString()),
-                  double.parse(ConstantValues.langtitude.toString()));
-              print("Total Dis:" + totaldis.toString());
-              int apiDis = int.parse(locatoindetals[2].toString());
-              if (totaldis < apiDis.toDouble()) {
+        for (int i = 0; i < VerificationDataDBData.length; i++) {
+          print("VerificationDataDBData[i]['RestrictionType'].toString()::" +
+              VerificationDataDBData[i]['RestrictionType'].toString());
+
+          if (VerificationDataDBData[i]['RestrictionType'].toString() == '1') {
+            if (VerificationDataDBData[i]['RestrictionData'].toString() ==
+                ConstantValues.ipaddress) {
               verifibool = true;
-      anyConditionSatisfied = true;
-      break;
-              }
+              anyConditionSatisfied = true;
+              break;
+            }
+          } else if (VerificationDataDBData[i]['RestrictionType'].toString() ==
+              '2') {
+            if (Platform.isAndroid) {
+              await LocationTrack.determinePosition();
+            } else {
+              await LocationTrack2.determinePosition();
+            }
+            List<String>? locatoindetals = await getLocation(
+                VerificationDataDBData[i]['RestrictionData'].toString());
+            String? lat = locatoindetals[0];
+            String? long = locatoindetals[1];
+            String? dis = locatoindetals[2];
+            double totaldis = calculateDistance2(
+                double.parse(locatoindetals[0]),
+                double.parse(locatoindetals[1]),
+                double.parse(ConstantValues.latitude.toString()),
+                double.parse(ConstantValues.langtitude.toString()));
+            print("Total Dis:" + totaldis.toString());
+            int apiDis = int.parse(locatoindetals[2].toString());
+            if (totaldis < apiDis.toDouble()) {
+              verifibool = true;
+              anyConditionSatisfied = true;
+              break;
+            }
+          } else if (VerificationDataDBData[i]['RestrictionType'].toString() ==
+              '3') {
+            String ipname = ConstantValues.ipname.replaceAll('"', '');
+            if (VerificationDataDBData[i]['RestrictionData'].toString() ==
+                ipname.toString()) {
+              verifibool = true;
+              anyConditionSatisfied = true;
+              break;
+            }
+          }
+        }
 
-     
-    } else if (VerificationDataDBData[i]['RestrictionType'].toString() == '3') {
-       String ipname = ConstantValues.ipname.replaceAll('"', '');
-           if (VerificationDataDBData[i]['RestrictionData'].toString() ==
-              ipname.toString()) {
-                verifibool = true;
-      anyConditionSatisfied = true; 
-      break;
-              }
+        if (!anyConditionSatisfied) {
+          Get.offAllNamed(ConstantRoutes.restrictionValue);
+        } else {
+          if (RestrictionPageState.loginbool == true) {
+            Get.offAllNamed(ConstantRoutes.download);
+            RestrictionPageState.loginbool = false;
+          }
+          // else{
+          //    Get.offAllNamed(ConstantRoutes.login);
+          // }
+        }
+      }
 
-    
+      // if (VerificationDataDBData.isNotEmpty) {
+      //   for (int i = 0; i < VerificationDataDBData.length; i++) {
+      //     if (VerificationDataDBData[i]['RestrictionType'].toString() ==
+      //         '1') {
+      //       if (VerificationDataDBData[i]['RestrictionData'].toString() ==
+      //           ConstantValues.ipaddress) {
+      //         verifibool = true;
+      //          break;
+      //       }
+      //     }
+      //      else if (VerificationDataDBData[i]['RestrictionType'].toString() ==
+      //         '2') {
+      //       if (Platform.isAndroid) {
+      //         await LocationTrack.determinePosition();
+      //       } else {
+      //         await LocationTrack2.determinePosition();
+      //       }
+      //       List<String>? locatoindetals = await getLocation(
+      //           VerificationDataDBData[i]['RestrictionData'].toString());
+      //       String? lat = locatoindetals[0];
+      //       String? long = locatoindetals[1];
+      //       String? dis = locatoindetals[2];
+      //       double totaldis = calculateDistance2(
+      //           double.parse(locatoindetals[0]),
+      //           double.parse(locatoindetals[1]),
+      //           double.parse(ConstantValues.latitude.toString()),
+      //           double.parse(ConstantValues.langtitude.toString()));
+      //       print("Total Dis:" + totaldis.toString());
+      //       int apiDis = int.parse(locatoindetals[2].toString());
+      //       if (totaldis < apiDis.toDouble()) {
+      //         verifibool = true;
+      //          break;
+      //       }
+      //       //
+      //     }
+      //     else {
+      //       String ipname = ConstantValues.ipname.replaceAll('"', '');
+      //       if (VerificationDataDBData[i]['RestrictionData'].toString() ==
+      //           ipname) {
+      //         verifibool = true;
+      //          break;
+      //       }
+      //     }
+      //   }
+
+      //   if (verifibool == false) {
+      //     // await HelperFunctions.clearHost();
+      //     // await DBOperation.truncateLoginVerficationDB(db);
+
+      //     Get.offAllNamed(ConstantRoutes.restrictionValue);
+      //   } else {
+      //     if (RestrictionPageState.loginbool == true) {
+      //     Get.offAllNamed(ConstantRoutes.dashboard);
+      //     }
+      //   }
+      // }
     }
-  }
-
-  if (!anyConditionSatisfied) { 
-    Get.offAllNamed(ConstantRoutes.restrictionValue);
-  } else {
-    if (RestrictionPageState.loginbool == true) {
-      Get.offAllNamed(ConstantRoutes.download);
-      RestrictionPageState.loginbool=false;
-    }
-    // else{
-    //    Get.offAllNamed(ConstantRoutes.login);
-    // }
-  }
+    print("verifi bool:" + verifibool.toString());
+  });
 }
 
-        // if (VerificationDataDBData.isNotEmpty) {
-        //   for (int i = 0; i < VerificationDataDBData.length; i++) {
-        //     if (VerificationDataDBData[i]['RestrictionType'].toString() ==
-        //         '1') {
-        //       if (VerificationDataDBData[i]['RestrictionData'].toString() ==
-        //           ConstantValues.ipaddress) {
-        //         verifibool = true;
-        //          break;
-        //       }
-        //     }
-        //      else if (VerificationDataDBData[i]['RestrictionType'].toString() ==
-        //         '2') {
-        //       if (Platform.isAndroid) {
-        //         await LocationTrack.determinePosition();
-        //       } else {
-        //         await LocationTrack2.determinePosition();
-        //       }
-        //       List<String>? locatoindetals = await getLocation(
-        //           VerificationDataDBData[i]['RestrictionData'].toString());
-        //       String? lat = locatoindetals[0];
-        //       String? long = locatoindetals[1];
-        //       String? dis = locatoindetals[2];
-        //       double totaldis = calculateDistance2(
-        //           double.parse(locatoindetals[0]),
-        //           double.parse(locatoindetals[1]),
-        //           double.parse(ConstantValues.latitude.toString()),
-        //           double.parse(ConstantValues.langtitude.toString()));
-        //       print("Total Dis:" + totaldis.toString());
-        //       int apiDis = int.parse(locatoindetals[2].toString());
-        //       if (totaldis < apiDis.toDouble()) {
-        //         verifibool = true;
-        //          break;
-        //       }
-        //       //
-        //     }
-        //     else {
-        //       String ipname = ConstantValues.ipname.replaceAll('"', '');
-        //       if (VerificationDataDBData[i]['RestrictionData'].toString() ==
-        //           ipname) {
-        //         verifibool = true;
-        //          break;
-        //       }
-        //     }
-        //   }
-
-        //   if (verifibool == false) {
-        //     // await HelperFunctions.clearHost();
-        //     // await DBOperation.truncateLoginVerficationDB(db);
-
-        //     Get.offAllNamed(ConstantRoutes.restrictionValue);
-        //   } else {
-        //     if (RestrictionPageState.loginbool == true) {
-        //     Get.offAllNamed(ConstantRoutes.dashboard);
-        //     }
-        //   }
-        // }
-      }
-      print("verifi bool:" + verifibool.toString());
-    });
-  }
-  double calculateDistance2(lat1, lon1, lat2, lon2) {
+double calculateDistance2(lat1, lon1, lat2, lon2) {
   print('process lat' + lat1.toString());
   print('process long' + lon1.toString());
 
@@ -1232,6 +1210,7 @@ Future<List<String>> getLocation(String restricdata) async {
       cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2;
   return 12742000 * asin(sqrt(a));
 }
+
 checkLocation() async {
   print("Before await LocationTrack.determinePosition()");
   if (Platform.isAndroid) {
@@ -1259,13 +1238,13 @@ checkLocation() async {
         // List<String>? wifiiInfo = await config.setNetwork();
         //
         // var ipAddress = IpAddress(type: RequestType.text);
-         final String? data = await mobileNetworkInfo.getMobileNetworkName();
+        final String? data = await mobileNetworkInfo.getMobileNetworkName();
         // String data = await ipAddress.getIpAddress();
-      //   final String? datastrength = await mobileNetworkInfo.getMobileNetworkStrength();
-      // print  ("datastrength:::"+datastrength.toString());
-           print("ssssss::"+data.toString());
+        //   final String? datastrength = await mobileNetworkInfo.getMobileNetworkStrength();
+        // print  ("datastrength:::"+datastrength.toString());
+        print("ssssss::" + data.toString());
         ConstantValues.ipaddress = name == null ? 'null' : name;
-     
+
         ConstantValues.ipname = data == null ? 'null' : data;
       } else if (Platform.isIOS) {
         List<String>? wifiiInfo = await config.getIosNetworkInfo();
@@ -1279,7 +1258,7 @@ checkLocation() async {
     //   ConstantValues.ipname = wifiiInfo[0] == null ? 'null' : wifiiInfo[0];
     // }
     else if (result.name == 'wifi') {
-       String? name= await Config.getipaddress();
+      String? name = await Config.getipaddress();
       List<String>? wifiiInfo = await config.setNetwork();
       ConstantValues.ipaddress = name == null ? 'null' : name;
       ConstantValues.ipname = wifiiInfo[0];
@@ -1322,65 +1301,53 @@ class MyApp2 extends StatefulWidget {
   const MyApp2({Key? key}) : super(key: key);
 
   @override
-  State <MyApp2> createState() =>  MyApp2State();
+  State<MyApp2> createState() => MyApp2State();
 }
 
-class  MyApp2State extends State <MyApp2> with WidgetsBindingObserver{
-   Timer? _timer;
+class MyApp2State extends State<MyApp2> with WidgetsBindingObserver {
+  Timer? _timer;
   @override
-  void initState(){
-     super.initState();
-  WidgetsBinding.instance.addObserver(this);  
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
   }
+
   @override
-void dispose(){
-  super.dispose();
-  WidgetsBinding.instance.removeObserver(this);
-}
-void restartApp() async{
-    _timer?.cancel(); 
+  void dispose() {
+    super.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+  }
 
-    if(Platform.isAndroid){
-await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
-    print("Appp restarted::Android");
-    }else{
+  void restartApp() async {
+    _timer?.cancel();
 
-Restart.restartApp();
-    print("Appp restarted::ios");
+    if (Platform.isAndroid) {
+      await SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+      print("Appp restarted::Android");
+    } else {
+      Restart.restartApp();
+      print("Appp restarted::ios");
     }
-   // Navigator.of(context).pushReplacement(
-    //   MaterialPageRoute(builder: (context) => SplashPage()),
-    // );
-    // exit(0);
-    
-    // Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
-      // Navigator.pushNamedAndRemoveUntil(context,'/',(_) => false);
-// Get.offAllNamed(ConstantRoutes.splash);
-      
-
   }
+
 //  void restartApp() {
-//     _timer?.cancel(); 
+//     _timer?.cancel();
 //     SystemChannels.platform.invokeMethod('SystemNavigator.pop');
 //       print("Appp restarted");
 //   }
-@override
-void didChangeAppLifecycleState(AppLifecycleState state){
-  super.didChangeAppLifecycleState(state);
-  print("lifecycle::"+state.toString());
-   if (state == AppLifecycleState.resumed) {
-        if (_timer != null) {
-          _timer!.cancel();
-        }
-      } else if (state == AppLifecycleState.paused) {
-        _timer = Timer(Duration(hours: 4),
-        
-         restartApp);
-   
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print("lifecycle::" + state.toString());
+    if (state == AppLifecycleState.resumed) {
+      if (_timer != null) {
+        _timer!.cancel();
       }
-  
+    } else if (state == AppLifecycleState.paused) {
+      _timer = Timer(Duration(hours: 4), restartApp);
+    }
+  }
 
-}
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -1405,7 +1372,7 @@ void didChangeAppLifecycleState(AppLifecycleState state){
         ChangeNotifierProvider(create: (_) => OrderNewController()),
         ChangeNotifierProvider(create: (_) => OrderTabController()),
         //New
-      //  ChangeNotifierProvider(create: (_) => DashBoardController()), 
+        //  ChangeNotifierProvider(create: (_) => DashBoardController()),
         ChangeNotifierProvider(create: (_) => NewCustomerContoller()),
         ChangeNotifierProvider(create: (_) => NewVisitplanController()),
         ChangeNotifierProvider(create: (_) => VisitplanController()),
@@ -1430,8 +1397,9 @@ void didChangeAppLifecycleState(AppLifecycleState state){
         ChangeNotifierProvider(create: (_) => TargetTabController()),
         ChangeNotifierProvider(create: (_) => NewpriceController()),
         ChangeNotifierProvider(create: (_) => tabpriceController()),
-        ChangeNotifierProvider(create: (_) => EarningController ()),
-  ],
+        ChangeNotifierProvider(create: (_) => EarningController()),
+        ChangeNotifierProvider(create: (_) => ReportsController()),
+      ],
       child: Consumer<ThemeManager>(builder: (context, themes, Widget? child) {
         return GetMaterialApp(
             debugShowCheckedModeBanner: false,
@@ -1453,9 +1421,6 @@ void didChangeAppLifecycleState(AppLifecycleState state){
     );
   }
 }
-
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -1483,7 +1448,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => OrderNewController()),
         ChangeNotifierProvider(create: (_) => OrderTabController()),
         //New
-      //  ChangeNotifierProvider(create: (_) => DashBoardController()), 
+        //  ChangeNotifierProvider(create: (_) => DashBoardController()),
         ChangeNotifierProvider(create: (_) => NewCustomerContoller()),
         ChangeNotifierProvider(create: (_) => NewVisitplanController()),
         ChangeNotifierProvider(create: (_) => VisitplanController()),
@@ -1506,9 +1471,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => Outstandingcontroller()),
         ChangeNotifierProvider(create: (_) => ChangePasswordController()),
         ChangeNotifierProvider(create: (_) => TargetTabController()),
-
-
-
+        ChangeNotifierProvider(create: (_) => ReportsController()),
       ],
       child: Consumer<ThemeManager>(builder: (context, themes, Widget? child) {
         return GetMaterialApp(

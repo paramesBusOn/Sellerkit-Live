@@ -13,7 +13,6 @@ import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestMo
 
 import 'package:timezone/timezone.dart' as tz;
 import 'package:sellerkit/DBHelper/DBOperation.dart';
-import 'package:sellerkit/Models/PostQueryModel/ItemMasterModelNew.dart/ItemCatagoryModel.dart';
 import 'package:sellerkit/Models/stateModel/stateModel.dart';
 import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/WarningDialog.dart';
 import 'package:sellerkit/Services/PostQueryApi/ItemMasterApi/ItemCatagoryApi.dart';

@@ -1073,7 +1073,7 @@ Container drawer3(BuildContext context) {
                                   Get.toNamed(ConstantRoutes.settlement);
                                   if (MenuAuthDetail.Settlement == "Y") {
                                     Navigator.pop(context);
-                                    Get.toNamed(ConstantRoutes.settlement);
+                                    Get.offAllNamed(ConstantRoutes.settlement);
                                   } else {
                                     showDialog(
                                         context: context,
@@ -1780,7 +1780,65 @@ Container drawer3(BuildContext context) {
                       ),
                     ),
                   ),
-
+SizedBox(
+                    height: Screens.fullHeight(context) * 0.01,
+                  ),
+                  Card(
+                    elevation: 1,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8)),
+                    child: Container(
+                      width: Screens.width(context),
+                      // height: Screens.fullHeight(context)*0.3,
+                      //Colors.amber,
+                      padding: EdgeInsets.symmetric(
+                          vertical: Screens.fullHeight(context) * 0.02,
+                          horizontal: Screens.width(context) * 0.04),
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 2,
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
+                            ),
+                          ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Reports",
+                              style: theme.textTheme.titleLarge
+                                  ?.copyWith(color: theme.primaryColor),
+                            ),
+                          ),
+                          SizedBox(
+                            height: Screens.fullHeight(context) * 0.01,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              IconContainer(
+                                theme: theme,
+                                callback: () {
+                                  Navigator.pop(context);
+                                  Get.offAllNamed(ConstantRoutes.reports);
+                                },
+                                icon: Icons.settings,
+                                iconColor: theme.primaryColor, //Colors.blue,
+                                title: 'LeadAnalysis',
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: Screens.fullHeight(context) * 0.01,
                   ),
@@ -1818,9 +1876,14 @@ Container drawer3(BuildContext context) {
                                   ?.copyWith(color: theme.primaryColor),
                             ),
                           ),
+                          
                           SizedBox(
                             height: Screens.fullHeight(context) * 0.01,
                           ),
+
+
+
+
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [

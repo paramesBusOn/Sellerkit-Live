@@ -2203,6 +2203,14 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                 OrderNewController>()
                                                             .getProduct
                                                             .removeAt(index);
+                                                          context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .  postpaymentdata.clear();
+                                                           context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .  deletepaymode2();
                                                         if (context
                                                             .read<
                                                                 OrderNewController>()

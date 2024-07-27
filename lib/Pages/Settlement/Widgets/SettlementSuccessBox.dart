@@ -17,9 +17,9 @@ import 'SettlementPdf.dart';
 import 'SettlementPdfHelper.dart';
 
 class SettlementSuccessPage extends StatefulWidget {
-  SettlementSuccessPage({Key? key,required this.settlemaster})
+  SettlementSuccessPage({Key? key,required this.settlemaster,required this.paymode})
       : super(key: key);
-  // final String? paymode;
+  final String? paymode;
   // final double? amount;
   SettlementPostData? settlemaster;
   @override
@@ -46,7 +46,7 @@ class SettlementSuccessPageState extends State<SettlementSuccessPage> {
         now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
       currentBackPressTime = now;
       print("object");
-      Get.offAllNamed(ConstantRoutes.newcustomerReg);
+      Get.offAllNamed(ConstantRoutes.dashboard);
       return Future.value(true);
     } else {
       return Future.value(true);
@@ -144,7 +144,7 @@ class SettlementSuccessPageState extends State<SettlementSuccessPage> {
                           //   color: Colors.blue,
                           child: Center(
                               child: Text(
-                            "Cash Amount Rs.${context.read<SettlementController>().totalcash()}",
+                            "${widget.paymode} Amount Rs.${widget.settlemaster!.TotalAmount!.toStringAsFixed(2)}",
                             style: theme.textTheme.bodyText2,
                             textAlign: TextAlign.center,
                           )),

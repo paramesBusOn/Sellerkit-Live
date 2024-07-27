@@ -766,13 +766,32 @@ class LeadTabController extends ChangeNotifier {
         notifyListeners();
         leadCheckDataExcep = '${value.message}..!! ${value.exception}..!!';
       } else {
-        isbool = false;
+
+         if(value.exception!.contains("Network is unreachable")){
+   isbool = false;
         datagotByApi = true;
         notifyListeners();
         lottie = 'Assets/NetworkAnimation.json';
         leadCheckDataExcep =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         notifyListeners();
+        }else{
+
+           isbool = false;
+        datagotByApi = true;
+        notifyListeners();
+        lottie = 'Assets/warning.png';
+        leadCheckDataExcep =
+            '${value.stcode}..!!Something went wrong..!!\nTry again Later..!!';
+         notifyListeners();
+        }
+        // isbool = false;
+        // datagotByApi = true;
+        // notifyListeners();
+        // lottie = 'Assets/NetworkAnimation.json';
+        // leadCheckDataExcep =
+        //     '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        // notifyListeners();
       }
       notifyListeners();
     });

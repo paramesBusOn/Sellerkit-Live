@@ -34,7 +34,7 @@ Config config = Config();
 
       resCode = response.statusCode;
       // print(response.statusCode.toString());
-      //  log("userbyidApi:"+response.body);
+       log("userbyidApi:"+response.body);
       if (response.statusCode == 200) {
         //
         // Map data = json.decode(response.body);

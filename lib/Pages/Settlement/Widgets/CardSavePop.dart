@@ -7,8 +7,9 @@ import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 import '../../../../Constant/Screen.dart';
 
 class CardAlertBox extends StatefulWidget {
-  CardAlertBox({Key? key, required this.indx}) : super(key: key);
+  CardAlertBox({Key? key, required this.indx,required this.name}) : super(key: key);
   final int indx;
+  final String? name;
   @override
   State<CardAlertBox> createState() => CardAlertBoxState();
 }
@@ -87,7 +88,7 @@ class CardAlertBoxState extends State<CardAlertBox> {
                       height: Screens.bodyheight(context) * 0.02,
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Total Amount Rs.${context.read<SettlementController>().totalCard()}",
+                        "Total Amount Rs.${context.read<SettlementController>().totalfinal(widget.name)}",
                         style: theme.textTheme.bodySmall!
                             .copyWith(color: Colors.grey),
                       ),

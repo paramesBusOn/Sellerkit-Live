@@ -1,12 +1,9 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
-import 'dart:developer';
 import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
-import '../VideoController.dart/VideoController.dart';
 import 'FeedCrtController.dart';
 
 class VideoPage extends StatefulWidget {

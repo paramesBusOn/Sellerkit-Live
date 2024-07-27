@@ -6,15 +6,14 @@ import 'package:sellerkit/Constant/Screen.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 import '../Controller/FollowupController/FollowUPController.dart';
-import '../Models/PostQueryModel/FollowUPModel.dart/FollowUPModel.dart';
 
 class SuccessDialogPG extends StatefulWidget {
   SuccessDialogPG({
-    Key? key,
+    super.key,
     required this.heading,
         required this.msg,
 
-  }) : super(key: key);
+  });
 
   String? heading;
   String? msg;
@@ -52,7 +51,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
+          SizedBox(
             width: Screens.width(context),
             height: Screens.bodyheight(context) * 0.06,
             child: ElevatedButton(
@@ -82,7 +81,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
                     //     size: Screens.bodyheight(context) * 0.02,
                     //   ),
                     // ),
-                    Container(child: Text("${widget.heading}")),
+                    Text("${widget.heading}"),
                     // Container(),
                   ],
                 )),
@@ -100,32 +99,28 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
               children: [
                 InkWell(
                   onTap: () {},
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Text(
-                            "${widget.msg}",
-                            style: theme.textTheme.bodyText1?.copyWith(
-                                color: theme.primaryColor,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                        // Container(
-                        //   child: Text(
-                        //     "Click Here",
-                        //     style: theme.textTheme.bodyText2
-                        //         ?.copyWith(color: Colors.grey),
-                        //   ),
-                        // ),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      Text(
+                        "${widget.msg}",
+                        style: theme.textTheme.bodyText1?.copyWith(
+                            color: theme.primaryColor,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      // Container(
+                      //   child: Text(
+                      //     "Click Here",
+                      //     style: theme.textTheme.bodyText2
+                      //         ?.copyWith(color: Colors.grey),
+                      //   ),
+                      // ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
-           Container(
+           SizedBox(
               width: Screens.width(context),
               height: Screens.bodyheight(context) * 0.06,
               child: ElevatedButton(
@@ -157,8 +152,8 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
     );
   }
 
-  Container loadingDialog(BuildContext context) {
-    return Container(
+  SizedBox loadingDialog(BuildContext context) {
+    return SizedBox(
         width: Screens.width(context),
         height: Screens.bodyheight(context) * 0.4,
         child: Center(
@@ -852,7 +847,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
                 color: Colors.grey,
                 thickness: 3,
               ),
-              endChild: Container(
+              endChild: SizedBox(
                 // color: Colors.red,
                 width: Screens.width(context) * 0.6,
                 child: Column(
@@ -979,7 +974,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
+                      SizedBox(
                         width: Screens.width(context) * 0.3,
                         // color: Colors.red,
                         child: Text(
@@ -1011,7 +1006,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width: Screens.width(context) * 0.26,
                 height: Screens.bodyheight(context) * 0.06,
                 child: ElevatedButton(
@@ -1024,7 +1019,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
                     },
                     child: Text("Back")),
               ),
-              Container(
+              SizedBox(
                 width: Screens.width(context) * 0.26,
                 height: Screens.bodyheight(context) * 0.06,
                 child: ElevatedButton(

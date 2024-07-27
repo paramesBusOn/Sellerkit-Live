@@ -106,7 +106,7 @@ class GetAllcouponData {
  String? CouponCode;
  String? ApprovedBy;
  String? ApprovedOn;
- String? UtilisedOrderEntry;
+ int? UtilisedOrderEntry;
  String? UtilisedOn;
  int? CreatedBy;
  String? CreatedOn;
@@ -186,7 +186,7 @@ class GetAllcouponData {
     UpdatedBy: json['UpdatedBy']??0, 
     UpdatedOn: json['UpdatedOn']??'', 
     UtilisedOn: json['UtilisedOn']??'', 
-    UtilisedOrderEntry: json['UtilisedOrderEntry']??'', 
+    UtilisedOrderEntry: json['UtilisedOrderEntry']??0, 
     traceid: json['traceid']??'');
   }
  

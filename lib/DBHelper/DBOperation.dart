@@ -30,7 +30,14 @@ import '../DBModel/EnqTypeModel.dart';
 import '../DBModel/ItemMasertDBModel.dart';
 import '../DBModel/NotificationModel.dart';
 import '../DBModel/QuotFilterTableModel.dart';
+import '../DBModel/ReportsModel/LeadAnalysViewDB.dart';
+import '../DBModel/ReportsModel/LeadAnalysisModel.dart';
+import '../DBModel/ReportsModel/LeadQueryDB.dart';
+import '../DBModel/ReportsModel/LeadReportModel.dart';
+import '../DBModel/ReportsModel/TestReportModelDB.dart';
 import '../Models/CustomerMasterModel/CustomerMasterModel.dart';
+import '../Models/LeadAnalysisModel/LeadAnalysisModel.dart';
+import '../Models/LeadAnalysisModel/TestReportModel.dart';
 import '../Models/OfferZone/OfferZoneModel.dart';
 import '../Models/OpenLeadModel.dart/OpenLeadModel.dart';
 import '../Models/PostQueryModel/EnquiriesModel/CutomerTagModel.dart';
@@ -38,6 +45,7 @@ import '../Models/PostQueryModel/EnquiriesModel/EnqRefferesModel.dart';
 import '../Models/PostQueryModel/EnquiriesModel/EnqTypeModel.dart';
 import '../Models/PostQueryModel/LeadsCheckListModel/GetLeadStatuModel.dart';
 import '../Models/PostQueryModel/OrdersCheckListModel/GetOrderStatuModel.dart';
+import '../Services/ReportsApi/NewLeadReportAPI.dart';
 
 class DBOperation {
 
@@ -56,7 +64,7 @@ log("values len: " + tableItemMaster.length.toString());
 log("values len:xxxx "+e.toString());
     }
     stopwatch.stop();
-    // log('API insertItemMaster ${stopwatch.elapsedMilliseconds} milliseconds');
+    log('DB tableItemMaster ${stopwatch.elapsedMilliseconds} milliseconds');
     // var data = values.map((e) => e.toMap()).toList();
     // log("values len: " + values.length.toString());
     // log("data len: " + data.length.toString());
@@ -2113,7 +2121,7 @@ from Outstandingline
   static Future<List<outstandKPI>> getoutstandingchildInvoice(
       Database db, String? cusCode) async {
     final List<Map<String, Object?>> result = await db.rawQuery(
-        """SELECT TransNum,Docentry,TransDate,TransRef1,julianday('now') - julianday(TransDueDate) age,BalanceToPay,TransAmount from Outstandingline where CustomerCode='$cusCode'
+        """SELECT TransNum,Docentry,TransDate,TransRef1,julianday('now') - julianday(TransDueDate) age,BalanceToPay,TransAmount,PenaltyAfterDue from Outstandingline where CustomerCode='$cusCode'
  
 """);
 
@@ -2128,7 +2136,11 @@ from Outstandingline
           age: double.parse(result[i]['age'].toString()),
           BalanceToPay: double.parse(result[i]['BalanceToPay'].toString()),
           TransAmount: double.parse(result[i]['TransAmount'].toString()),
-          docentry: int.parse(result[i]['Docentry'].toString()));
+          docentry: int.parse(result[i]['Docentry'].toString(),
+          
+          ), 
+          penaltyAfterDue: double.parse(result[i]['PenaltyAfterDue'].toString()),
+          );
     });
   }
 
@@ -2912,7 +2924,7 @@ SELECT * from $tableOfferZone
     final List<Map<String, Object?>> result = await db.rawQuery('''
 SELECT * FROM $tableNotification;
 ''');
-    log(result.toList().toString());
+    log("testing::"+result.toList().toString());
     return List.generate(result.length, (i) {
       return NotificationModel(
         jobid: result[i]['Jobid'].toString(),
@@ -3441,5 +3453,259 @@ SELECT * FROM CusTagType where Name='$custagName' ;
 
     //  await db.close();
     return count;
+  }
+
+  // ReportsQuery
+
+static Future insertLeadAnalysisDBData(
+      List<LeadAnalysisMasterData> values, Database db) async {
+    var data = values.map((e) => e.toMap()).toList();
+    var batch = db.batch();
+    data.forEach((es) async {
+      batch.insert(leadAnalysisTable, es);
+      // log("offerzone...$data");
+    });
+    await batch.commit();
+    // log("Insert leadAnalysisDB data...${data.length}");
+  }
+
+  static Future<List<Map<String, Object?>>> getLeadMaserFilterData(
+      Database db,
+      String title,
+      String chartQry,
+      String? groupbyVal,
+      List<SplitLeadData> splitTitleName,
+      String assignto,
+      String cusgroup,
+      String enqstatus,
+      String storeCode,
+      String intlevel,
+      String ordertype,
+      String referal,
+      String brand,
+      String category,
+      String subCategory,
+      double? minVal,
+      double? maxVal,
+      String fromdate,
+      String enddate) async {
+//     log('chartQrychartQrychartQry::$chartQry');
+//     log("lead Report Query log:::"
+//         '''$chartQry
+//   Instr(case when length('$assignto') <> 0 then ', ' || '$assignto' || ',' else ', '||   AssignedTo    || ','  end,', ' || AssignedTo || ',' ) > 0 AND
+// 	Instr(case when length('$cusgroup') <> 0 then ', ' || '$cusgroup' || ',' else ', '||   CustomerGroup || ','   end,', ' || CustomerGroup || ',' ) > 0  AnD
+// 	Instr(case when length('$enqstatus') <> 0 then ', ' || '$enqstatus' || ',' else ', '|| Status          || ','   end,', ' || Status || ',' ) > 0  AnD
+// 	Instr(case when length('$intlevel') <> 0 then ', ' || '$intlevel' || ',' else ', '||   InterestLevel  || ','   end,', ' || InterestLevel || ',' ) > 0  AnD
+// 	Instr(case when length('$storeCode') <> 0 then ', ' || '$storeCode' || ',' else ', '|| StoreCode      || ','   end,', ' ||StoreCode || ',' ) > 0  AnD
+//   Instr(case when length('$ordertype') <> 0 then ', ' || '$ordertype' || ',' else ', '|| OrderType      || ','   end,', ' || OrderType || ',' ) > 0  AnD
+//   Instr(case when length('$referal') <> 0 then ', ' || '$referal' || ',' else ', '||     Refferal       || ','   end,', ' || Refferal || ',' ) > 0  AnD
+// 	Instr(case when length('$brand') <> 0 then ', ' || '$brand' || ',' else ', '||         Brand          || ','   end,', ' || Brand || ',' ) > 0  AnD
+// 	Instr(case when length('$category') <> 0 then ', ' || '$category' || ',' else ', '||   Category       || ','   end,', ' ||Category || ',' ) > 0  AnD
+//  Instr(case when length('$subCategory') <> 0 then ', ' || '$subCategory' ||',' else ','|| SubCategory   || ','   end,', ' || SubCategory || ',' ) > 0  AnD
+//   LeadValue BETWEEN $minVal And $maxVal AND
+// 	date(LeadDate) BETWEEN '$fromdate' AND "$enddate" $groupbyVal
+// ''');
+//     // Select StoreCode as name , Sum(LeadValue) as value From LeadAnalysisTable Where
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+ $chartQry
+ Instr(case when length('$assignto') <> 0 then ', ' || '$assignto' || ',' else ', '||  AssignedTo || ','  end,', ' || AssignedTo || ',' ) > 0 AND
+	  Instr(case when length('$cusgroup') <> 0 then ', ' || '$cusgroup' || ',' else ', '||  CustomerGroup || ','   end,', ' || CustomerGroup || ',' ) > 0  AnD
+	 Instr(case when length('$enqstatus') <> 0 then ', ' || '$enqstatus' || ',' else ', '|| Status || ','   end,', ' || Status || ',' ) > 0  AnD
+	 Instr(case when length('$intlevel') <> 0 then ', ' || '$intlevel' || ',' else ', '||   InterestLevel || ','   end,', ' || InterestLevel || ',' ) > 0  AnD
+	  Instr(case when length('$storeCode') <> 0 then ', ' || '$storeCode' || ',' else ', '|| StoreCode || ','   end,', ' ||StoreCode || ',' ) > 0  AnD
+   Instr(case when length('$ordertype') <> 0 then ', ' || '$ordertype' || ',' else ', '|| OrderType || ','   end,', ' || OrderType || ',' ) > 0  AnD
+   Instr(case when length('$referal') <> 0 then ', ' || '$referal' || ',' else ', '|| Refferal || ','   end,', ' || Refferal || ',' ) > 0  AnD
+	 Instr(case when length('$brand') <> 0 then ', ' || '$brand' || ',' else ', '||   Brand || ','   end,', ' || Brand || ',' ) > 0  AnD 
+	Instr(case when length('$category') <> 0 then ', ' || '$category' || ',' else ', '|| Category || ','   end,', ' ||Category || ',' ) > 0  AnD
+   Instr(case when length('$subCategory') <> 0 then ', ' || '$subCategory' || ',' else ', '|| SubCategory || ','   end,', ' || SubCategory || ',' ) > 0  AnD
+   LeadValue BETWEEN $minVal And $maxVal AND
+ DATE(LeadDate) >= '$fromdate' AND DATE(LeadDate) <= '$enddate'
+	
+  $groupbyVal
+ ''');
+    log('Lead Report Filter::$result');
+//date(LeadDate) BETWEEN '$fromdate' AND "$enddate"
+    return result;
+  }
+
+  static Future insertLeadReportDBData(
+      List<LeadAnalysisReportData> values, Database db) async {
+    var data = values.map((e) => e.toMap()).toList();
+    var batch = db.batch();
+    data.forEach((es) async {
+      batch.insert(leadReportTable, es);
+      // log("offerzone...$data");
+    });
+    await batch.commit();
+    // log("leadReportDB data...$data");
+  }
+
+  static Future insertLeadViewDBData(
+      List<LeadAnalysisViewData> values, Database db) async {
+    var data = values.map((e) => e.toMap()).toList();
+    var batch = db.batch();
+    data.forEach((es) async {
+      batch.insert(leadViewTable, es);
+      // log("offerzone...$data");
+    });
+    await batch.commit();
+    log("leadviweDB data...${data.length}");
+  }
+
+  static Future insertLeadQueryDBData(
+      List<LeadReportQueryData> values, Database db) async {
+    var data = values.map((e) => e.toMap()).toList();
+    var batch = db.batch();
+    data.forEach((es) async {
+      batch.insert(leadQueryTable, es);
+    });
+    await batch.commit();
+    // log("leadQueryDB data...${data}");
+  }
+
+  static Future insertTestLeadReportDBData(
+      List<TestReportValues> values, Database db) async {
+    var data = values.map((e) => e.toMap()).toList();
+    var batch = db.batch();
+    data.forEach((es) async {
+      batch.insert(leadTestReportTable, es);
+    });
+    await batch.commit();
+    // log("leaTestdReportDB data...$data");
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+SELECT  *
+ FROM $leadTestReportTable
+''');
+    // log('resultresult::${result.toList()}');
+  }
+
+  static Future<List<Map<String, Object?>>> getTestLeadReportColumn(
+      Database db) async {
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+SELECT  *
+ FROM $leadTestReportTable
+
+''');
+    log('get test::$result');
+    return result;
+  }
+
+  static Future<List<Map<String, Object?>>> getLeadViewColumn(
+      Database db) async {
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+SELECT  *
+ FROM $leadViewTable
+
+''');
+    log('Lead Report View::${result.length}');
+    return result;
+  }
+
+  static Future<List<Map<String, Object?>>> getLeadQueryColumn(
+      Database db) async {
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+SELECT  *
+ FROM $leadQueryTable
+
+''');
+
+    // log('Lead Report Query::$result');
+    return result;
+  }
+
+  static Future<List<Map<String, Object?>>> getLeadReportQuerywiseData(
+      Database db, String viewcode) async {
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+SELECT  *
+ FROM $leadQueryTable where ViewCode="$viewcode"
+''');
+    return result;
+  }
+static Future<List<Map<String, Object?>>> getRangeWiseData(
+      Database db,
+      String startdate,
+      String endDate,
+      String tableName,
+      String columnName) async {
+    List<Map<String, Object?>> result = await db.rawQuery('''SELECT *
+FROM $tableName
+WHERE date($columnName)BETWEEN '$startdate' AND '$endDate' ''');
+    // log("get Thisweek Query:SELECT *FROM ${tableName} WHERE date(${columnName})BETWEEN ${startdate} AND ${endDate}" +
+    //     result.toString());
+
+    log("get Thisweek Data" + result.length.toString());
+    return result;
+  }
+
+  static Future<List<Map<String, Object?>>> getThisMonthData(
+      Database db,
+      String startdate,
+      String endDate,
+      String tableName,
+      String columnName) async {
+    List<Map<String, Object?>> result = await db.rawQuery('''SELECT *
+FROM $tableName
+WHERE date($columnName)BETWEEN '$startdate' AND '$endDate' ''');
+    log("get Thisweek Query:SELECT *FROM ${tableName} WHERE date(${columnName})BETWEEN ${startdate} AND ${endDate}" +
+        result.toString());
+
+    log("get Thisweek Data" + result.toString());
+    return result;
+  }
+  static updateTestLeadReportDB(
+      List<TestReportValues> ccccc, int i, Database db) async {
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+      UPDATE $leadTestReportTable
+    SET Title = "${ccccc[i].titleVal}" WHERE SId =${ccccc[i].lineid}
+    ''');
+  }
+
+  static Future<List<Map<String, Object?>>> getLeadReportTitColumn(
+      Database db) async {
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+SELECT  DISTINCT Title ,TestValues,typeof(TestValues)
+ FROM $leadTestReportTable
+WHERE Title IS NOT ''
+''');
+
+    // log("Saved titleReport: ${result.toList().toString()}");
+    return result;
+  }
+
+  static Future<List<Map<String, Object?>>> getLeadReportColumn(
+      var column, var title, Database db) async {
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+SELECT  DISTINCT typeof($column), $column ,$title
+ FROM $leadTestReportTable
+WHERE $column and $title IS NOT ''
+''');
+
+    log("Saved leadReport: ${result.toList().toString()}");
+    return result;
+  }
+
+  static Future<void> truncateLeadAnalysisDB(Database db) async {
+    await db.rawQuery('delete from $leadAnalysisTable');
+    // await db.close();
+  }
+
+  static Future<void> truncateLeadReportDB(Database db) async {
+    await db.rawQuery('delete from $leadReportTable');
+    // await db.close();
+  }
+
+  static Future<void> truncateTestLeadReportDB(Database db) async {
+    await db.rawQuery('delete from $leadTestReportTable');
+    // await db.close();
+  }
+
+  static Future<void> truncateLeadViewDB(Database db) async {
+    await db.rawQuery('delete from $leadViewTable');
+    // await db.close();
+  }
+
+  static Future<void> truncateLeadQueryDB(Database db) async {
+    await db.rawQuery('delete from $leadQueryTable');
+    // await db.close();
   }
 }

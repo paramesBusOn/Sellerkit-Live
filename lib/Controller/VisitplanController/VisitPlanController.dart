@@ -157,10 +157,26 @@ class VisitplanController extends ChangeNotifier {
         //       errorMsg = 'Some thing went wrong.!';
         notifyListeners();
       } else if (value.stcode == 500) {
-        isloading = false;
+
+        if (value.exception!.contains("Network is unreachable")) {
+         isloading = false;
         lottie = 'Assets/NetworkAnimation.json';
         errortabMsg =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+          notifyListeners();
+        } else {
+           isloading = false;
+        lottie = 'Assets/warning.png';
+        errortabMsg =
+            '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+         
+
+          notifyListeners();
+        }
+        // isloading = false;
+        // lottie = 'Assets/NetworkAnimation.json';
+        // errortabMsg =
+        //     '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         // datagotByApi = false;
         // exception = true;
         // errorMsg = 'Some thing went wrong..!';

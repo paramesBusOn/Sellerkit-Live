@@ -42,7 +42,7 @@
 //     if (status.status == PhoneStateStatus.CALL_ENDED) {
 //       await Future.delayed(const Duration(seconds: 2));
 //       String? getUrl = await HelperFunctions.getHostDSP();
-//       Utils.queryApi = 'http://${getUrl.toString()}/api/';
+//       Utils.queryApi = '${getUrl.toString()}/api/';
 //       String? token = await HelperFunctions.getTokenSharedPreference();
 //       Utils.token=token;
 //       CustomOverlayNewState.getUrl = Utils.queryApi;

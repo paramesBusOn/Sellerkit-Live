@@ -1,8 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, unused_local_variable, prefer_interpolation_to_compose_strings, avoid_print
 
-import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sellerkit/Models/CollectionModel/CollectionModel.dart';
 import 'package:sellerkit/Pages/Collection/widgets/AlertdialogBoxFollowUp.dart';
@@ -207,9 +205,18 @@ String lottie='';
          lottie='';
         errormsg = '${value.respDesc} ${value.respCode}';
       } else {
-        preogress = false;
+        if(value.respDesc!.contains("Network is unreachable")){
+          preogress = false;
           lottie='Assets/NetworkAnimation.json';
         errormsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+  
+        notifyListeners();
+        }else{
+        lottie='Assets/warning.png';
+        errormsg = '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+        preogress = false;
+        }
+        
       }
     });
     notifyListeners();
@@ -333,19 +340,25 @@ String lottie='';
 
   getPaymentMode(CollectionDataIpayMaster? masterList) {
     // log("masterList!.cardamt!.toStringAsFixed(2)::"+masterList!.cardamt!.toStringAsFixed(2));
-    if ( masterList!.cardamt! > 0.00) {
-      return 'Card';
-    } else if (masterList.cashamt!> 0.00) {
-      return 'Cash';
-    } else if (masterList.chqamt!> 0.00) {
-      return 'Cheque';
-    } else if (masterList.neftamt!> 0.00) {
-      return 'NEFT';
-    } else if (masterList.upiamt! > 0.00) {
-      return 'UPI';
-    } else {
-      return '';
+    
+    for(int i=0;i<collectionGetLine.length;i++){
+      if(masterList!.docentry! ==collectionGetLine[i].docentry ){
+return collectionGetLine[i].transtype;
+      }
     }
+    // if ( masterList!.cardamt! > 0.00) {
+    //   return 'Card';
+    // } else if (masterList.cashamt!> 0.00) {
+    //   return 'Cash';
+    // } else if (masterList.chqamt!> 0.00) {
+    //   return 'Cheque';
+    // } else if (masterList.neftamt!> 0.00) {
+    //   return 'NEFT';
+    // } else if (masterList.upiamt! > 0.00) {
+    //   return 'UPI';
+    // } else {
+    //   return '';
+    // }
   }
 
   SearchFilterOpenTab(String v) {

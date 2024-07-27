@@ -23,7 +23,7 @@ class GetoutstandingApi{
       }
       );
       resCode = response.statusCode;
-      // log("response.body"+response.body.toString());
+      log("response.body"+response.body.toString());
       if(response.statusCode ==200){
         return outsatandingmodel.fromJson(json.decode(response.body.toString()),response.statusCode);
       }else{

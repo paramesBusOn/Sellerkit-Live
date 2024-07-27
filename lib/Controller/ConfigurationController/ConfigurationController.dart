@@ -1,7 +1,6 @@
 // ignore_for_file: empty_catches, unused_local_variable, unnecessary_new, prefer_interpolation_to_compose_strings, unnecessary_null_comparison, avoid_print, prefer_const_constructors, sort_child_properties_last
 
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -10,7 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:html/dom.dart';
-import 'package:get_ip_address/get_ip_address.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/Encripted.dart';
 import 'package:sellerkit/Constant/LocationTrack.dart';
@@ -31,7 +29,6 @@ import '../../Services/URL/LocalUrl.dart';
 
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../Widgets/RestrictedPage.dart';
 
 class ConfigurationContoller extends ChangeNotifier {
   Config config = Config();
@@ -85,7 +82,7 @@ class ConfigurationContoller extends ChangeNotifier {
       Document? result2 =
           await playStoreSearchAPI.lookupById(myAppBundleId, country: 'IN');
       if (result2 != null) storeVersion = playStoreSearchAPI.version(result2);
-      // log('PlayStore version: $storeVersion}');
+      print('PlayStore version: $storeVersion}');
       // } else if (Platform.isIOS) {
      
       // log('AppStore version: $storeVersion}');
@@ -104,7 +101,7 @@ class ConfigurationContoller extends ChangeNotifier {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     // log("packageInfo.version::" + packageInfo.version.toString());
     ConstantValues.appversion = packageInfo.version;
-    // log("packageInfo.versionConstant::" + ConstantValues.appversion.toString());
+    print("packageInfo.versionConstant::" + ConstantValues.appversion.toString());
     notifyListeners();
   }
 
@@ -314,7 +311,7 @@ String brandview='';
     // log("getUrl $getUrl");
     // log("userNamePM ${ConstantValues.userNamePM}");
 // Url.queryApi = 'http://91.203.133.224:81/api/';
-    Url.queryApi = 'http://${getUrl.toString()}/api/';
+    Url.queryApi = '${getUrl.toString()}/api/';
     geturlview=getUrl.toString();
     String? deviceID = await HelperFunctions.getDeviceIDSharedPreference();
     deviceIDview=deviceID.toString();

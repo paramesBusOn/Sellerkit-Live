@@ -7,10 +7,10 @@ import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'Appbar.dart';
 
 class PDFViewerFromUrl extends StatefulWidget {
-   PDFViewerFromUrl({Key? key, required this.url,required this.appbarreq,
+   PDFViewerFromUrl({super.key, required this.url,required this.appbarreq,
    required this.title
 
-   }) : super(key: key);
+   });
 
   final String url;
    bool appbarreq = false;

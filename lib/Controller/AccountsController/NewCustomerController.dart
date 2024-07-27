@@ -5,10 +5,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:path/path.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
@@ -25,8 +23,6 @@ import 'package:sellerkit/Models/stateModel/stateModel.dart';
 import 'package:sellerkit/Services/AccountsApi/AccountspostApi.dart';
 import 'package:sellerkit/Services/AccountsApi/AccountsupdateApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/EnquiriesApi/GetCustomerDetails.dart';
-import 'package:sellerkit/Services/PostQueryApi/OrdersApi/SaveOrderApi.dart';
-import 'package:sellerkit/Services/PostQueryApi/OrdersApi/updateorderApi.dart';
 import 'package:sellerkit/Widgets/AlertDilog.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -34,7 +30,6 @@ import '../../DBHelper/DBHelper.dart';
 import '../../DBHelper/DBOperation.dart';
 import '../../Models/PostQueryModel/EnquiriesModel/EnqRefferesModel.dart';
 import '../../Pages/Accounts/widgets/warningdialog.dart';
-import '../../Widgets/SucessDialagBox.dart';
 
 class NewCustomerContoller extends ChangeNotifier {
 
@@ -3205,7 +3200,9 @@ callAlertDialog(BuildContext context, String mesg) {
       mycontroller[21].text = mycontroller[17].text.toString();
       mycontroller[22].text = mycontroller[5].text.toString();
       mycontroller[23].text = mycontroller[4].text.toString();
+      methidstate2(mycontroller[18].text.toString());
       mycontroller[24].text = mycontroller[18].text.toString();
+      methidstate2(mycontroller[24].text);
       notifyListeners();
     } else {
       mycontroller[19].text = "";

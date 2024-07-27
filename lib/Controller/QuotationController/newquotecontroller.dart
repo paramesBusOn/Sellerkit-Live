@@ -3639,6 +3639,7 @@ updateProductDetails(BuildContext context, int i) {
       mycontroller[22].text = mycontroller[5].text.toString();
       mycontroller[23].text = mycontroller[4].text.toString();
       mycontroller[24].text = mycontroller[18].text.toString();
+      methidstate2(mycontroller[24].text);
       notifyListeners();
     } else {
       mycontroller[19].text = "";
@@ -3727,16 +3728,16 @@ thirPageBtnClicked(BuildContext context) {
     int passed = 0;
     if (formkey[1].currentState!.validate()) {
 
-      if(isSelectedpaymentTermsCode ==null ||isSelectedpaymentTermsCode.isEmpty){
-paymentTerm=true;
-      notifyListeners();
-    }else{
-      paymentTerm=false;
+//       if(isSelectedpaymentTermsCode ==null ||isSelectedpaymentTermsCode.isEmpty){
+// paymentTerm=true;
+//       notifyListeners();
+//     }else{
+      // paymentTerm=false;
       notifyListeners();
  if (passed == 0) {
       
         saveToServer(context);
-      }
+      // }
     }
      
     }

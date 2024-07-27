@@ -1166,10 +1166,23 @@ class QuotestabController extends ChangeNotifier {
         datagotByApi == true;
         notifyListeners();
       } else if (value.stcode == 500) {
-        lottie = 'Assets/NetworkAnimation.json';
+        if (value.exception!.contains("Network is unreachable")) {
+         lottie = 'Assets/NetworkAnimation.json';
         leadCheckDataExcep =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         datagotByApi == true;
+          notifyListeners();
+        } else {
+          lottie = 'Assets/warning.png';
+        leadCheckDataExcep =
+            '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+        datagotByApi == true;
+          notifyListeners();
+        }
+        // lottie = 'Assets/NetworkAnimation.json';
+        // leadCheckDataExcep =
+        //     '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        // datagotByApi == true;
         notifyListeners();
       }
       notifyListeners();

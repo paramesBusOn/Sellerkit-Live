@@ -144,7 +144,7 @@ class SettlementSuccessUPIState extends State<SettlementSuccessUPI> {
                           //   color: Colors.blue,
                           child: Center(
                               child: Text(
-                            "UPI Amount Rs.${context.read<SettlementController>().totalUpi()}",
+                            "UPI Amount Rs.${widget.settlemaster!.Amount.toStringAsFixed(2)}",
                             style: theme.textTheme.bodyText2,
                             textAlign: TextAlign.center,
                           )),

@@ -1,15 +1,11 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_declarations, prefer_const_constructors, unnecessary_brace_in_string_interps
 
 import 'dart:async';
-import 'dart:developer';
-import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:video_player/video_player.dart';
 
-import '../VideoController.dart/VideoController.dart';
 import 'CameraVideoPlayerPage.dart';
 
 class CameraProv extends ChangeNotifier{

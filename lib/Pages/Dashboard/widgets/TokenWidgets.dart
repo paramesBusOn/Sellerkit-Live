@@ -71,6 +71,7 @@ class TokenWidgets extends StatelessWidget {
                        decoration: BoxDecoration(
                            borderRadius: BorderRadius.circular(5)),
                        child: Text("$value",
+                        textAlign: TextAlign.center,
                            style: theme.textTheme.subtitle1 
                                ?.copyWith(color:theme.primaryColor,fontWeight: FontWeight.w500))),//
                    Container(

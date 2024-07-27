@@ -9,18 +9,15 @@ import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/CutomerTagModel.d
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/EnqRefferesModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/GetUserModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetAllLeadModel.dart';
-import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetLeadStatuModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/newleadopenmodel.dart';
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/newphonemodel.dart';
 import 'package:sellerkit/Models/stateModel/stateModel.dart';
-import 'package:sellerkit/Pages/callerNotification/custom_overlayNew.dart';
 import 'package:sellerkit/Pages/callerNotification/widgets/custom_text_field.dart';
 import 'package:sellerkit/Services/PostQueryApi/ItemMasterApi/ItemCatagoryApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/GetAllLeads.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/NewopenAPi.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/Newphoneapi.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:intl/intl.dart';
 
 import '../../DBHelper/DBHelper.dart';
 
@@ -88,7 +85,6 @@ class CallNotificationController extends ChangeNotifier {
     notifyListeners();
     for (int i = 0; i < leadcheckdata.length; i++) {
       if (leadcheckdata[i].Status == "Open") {
-        print("Open Lead follDate" + leadcheckdata[i].NextFollowup.toString());
         leadOpenAllData.add(GetAllLeadData(
           InterestLevel:leadcheckdata[i].InterestLevel ,
           OrderType: leadcheckdata[i].OrderType,
@@ -227,7 +223,6 @@ await GetLeadphoneApi.getData().then((value) {
             String? username = await HelperFunctions.getdbUserName();
             String? password = await HelperFunctions.getPasswordSharedPreference();
             String? tenentId = await HelperFunctions.getTenetIDSharedPreference();
-      print("$ip+$username+$password+$tenentId");
         String? getToken = await HelperFunctions.getTokenSharedPreference();
     Utils.token = getToken;
   await HelperFunctions.getHostDSP().then((value) {
@@ -257,11 +252,7 @@ await GetLeadphoneApi.getData().then((value) {
   List<stateHeaderData> stateData = [];
   List<stateHeaderData> filterstateData = [];
   bool statebool = false;
-  validate(){
-    if(formkey.currentState!.validate()){
-      
-    }
-  }
+ 
   getStatelist() async {
     stateData.clear();
     filterstateData.clear();
@@ -355,8 +346,8 @@ await GetLeadphoneApi.getData().then((value) {
 
     notifyListeners();
   }
- final formkey = GlobalKey<FormState>();
  
+ String usercode='';
   List<UserListData> userLtData = [];
   List<UserListData> get getuserLtData => userLtData;
   List<UserListData> filteruserLtData = [];
@@ -365,6 +356,9 @@ await GetLeadphoneApi.getData().then((value) {
   selectedAssignedUser() {
     // setState(() {
      CustomTextFieldState.assigntofor =   filteruserLtData[selectedIdxFUser!].UserName!;
+    
+    usercode=filteruserLtData[selectedIdxFUser!].userCode!;
+    log('usercode::'+usercode.toString());
      notifyListeners();
     // });
    
@@ -395,7 +389,10 @@ await GetLeadphoneApi.getData().then((value) {
     // filteruserLtData=userLtData;
    
   }
+
+ 
   String? lookingfor='';
+
   iscateSeleted(BuildContext context, String select) {
    CustomTextFieldState.lookingfor = select;
   //  mycontroller[25].text=lookingfor.toString();
@@ -427,7 +424,7 @@ await GetLeadphoneApi.getData().then((value) {
 String? getUrl = await HelperFunctions.getHostDSP();
 String? token=await HelperFunctions. getTokenSharedPreference();
         log("getUrlgetUrl555::"+getUrl.toString());
-        Utils.queryApi = 'http://${getUrl.toString()}/api/';
+        Utils.queryApi = '${getUrl.toString()}/api/';
         log("Utils.queryAp5555::::+"+Utils.queryApi.toString());
         ConstantValues.token =token.toString();
     await ItemMasterCatagoryApiNew.getData().then((value) {
@@ -450,4 +447,19 @@ String? token=await HelperFunctions. getTokenSharedPreference();
   }
 
   
+}
+
+class qenqcolumns{
+  String? mobile;
+  String? name;
+  String? lookingfor;
+  String? assignto;
+  String? Description;
+  qenqcolumns({
+ this.mobile,
+ this.name,
+ this.lookingfor,
+ this.assignto,
+ this.Description
+  });
 }

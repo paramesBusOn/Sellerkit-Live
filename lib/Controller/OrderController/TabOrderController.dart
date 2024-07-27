@@ -627,10 +627,25 @@ class OrderTabController extends ChangeNotifier {
         leadCheckDataExcep = '${value.message}..!!${value.exception}....!!';
         notifyListeners();
       } else {
-        datagotByApi = true;
+          if(value.exception!.contains("Network is unreachable")){
+   datagotByApi = true;
         lottie = 'Assets/NetworkAnimation.json';
         leadCheckDataExcep =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+       
+        notifyListeners();
+        }else{
+           datagotByApi = true;
+        lottie = 'Assets/warning.png';
+        leadCheckDataExcep =
+            '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+        notifyListeners();
+        
+        }
+        // datagotByApi = true;
+        // lottie = 'Assets/NetworkAnimation.json';
+        // leadCheckDataExcep =
+        //     '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         notifyListeners();
       }
       notifyListeners();
@@ -977,9 +992,21 @@ class OrderTabController extends ChangeNotifier {
         leadCheckDataExcep =
             'Some thing went wrong..!! ${value.stcode} ${value.exception}';
       } else if (value.stcode == 500) {
-        lottie = 'Assets/NetworkAnimation.json';
+        if (value.exception!.contains("Network is unreachable")) {
+          lottie = 'Assets/NetworkAnimation.json';
         leadCheckDataExcep =
             '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+          notifyListeners();
+        } else {
+           lottie = 'Assets/warning.png';
+        leadCheckDataExcep =
+            '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+         
+          notifyListeners();
+        }
+        // lottie = 'Assets/NetworkAnimation.json';
+        // leadCheckDataExcep =
+        //     '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
       }
       notifyListeners();
     });

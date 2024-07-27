@@ -16,7 +16,6 @@ import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetAllLeadMo
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/newleadopenmodel.dart';
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/newphonemodel.dart';
 import 'package:sellerkit/Pages/OrderBooking/NewOrder.dart';
-import 'package:sellerkit/Services/PostQueryApi/EnquiriesApi/GetCustomerDetails.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/GetAllLeads.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/NewopenAPi.dart';
 import 'package:sellerkit/Services/PostQueryApi/LeadsApi/Newphoneapi.dart';
@@ -31,15 +30,8 @@ import '../../Models/PostQueryModel/FollowUPModel.dart/FollowUPKPIModel.dart';
 import '../../Models/PostQueryModel/FollowUPModel.dart/FollowUPModel.dart';
 import '../../Models/PostQueryModel/LeadsCheckListModel/GetLeadStatuModel.dart';
 import '../../Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/GetLeadDetailsQTHModel.dart';
-import '../../Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/GetLeadDetailsQTL.dart';
 import '../../Services/PostQueryApi/FollowUPApi.dart/FollowUPKpiapi.dart';
-import '../../Services/PostQueryApi/FollowUPApi.dart/FollowUPListApi.dart';
-import '../../Services/PostQueryApi/LeadsApi/CancelLeadWonApi.dart';
-import '../../Services/PostQueryApi/LeadsApi/CloseLeadwonApi.dart';
-import '../../Services/PostQueryApi/LeadsApi/ForwardLeadUserApi.dart';
 import '../../Services/PostQueryApi/LeadsApi/GetLeadDeatilsQTH.dart';
-import '../../Services/PostQueryApi/LeadsApi/GetLeadDeatilsQTL.dart';
-import '../../Services/PostQueryApi/LeadsApi/GetLeadDetailsL.dart';
 import '../../Services/PostQueryApi/LeadsApi/LostSaveLeadApi.dart';
 import '../../Services/PostQueryApi/LeadsApi/OpenSaveApi.dart';
 import '../../Services/PostQueryApi/LeadsApi/WonSaveApi.dart';
@@ -232,9 +224,21 @@ class FollowupController extends ChangeNotifier {
           excepMsg = 'Check your Internet Connection...!!';
           notifyListeners();
         } else {
-          isLoading = false;
+           if(value.exception!.contains("Network is unreachable")){
+  isLoading = false;
           lottie = 'Assets/NetworkAnimation.json';
           excepMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        notifyListeners();
+        }else{
+          isLoading = false;
+         
+       
+         lottie = 'Assets/warning.png';
+         excepMsg = '${value.stcode}..!!Something went wrong..!!\nTry again Later..!!';
+        }
+          // isLoading = false;
+          // lottie = 'Assets/NetworkAnimation.json';
+          // excepMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
           notifyListeners();
         }
       }
@@ -312,9 +316,21 @@ class FollowupController extends ChangeNotifier {
 
         notifyListeners();
       } else if (value.stcode == 500) {
-        isLoading = false;
-        lottie = 'Assets/NetworkAnimation.json';
-        excepMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+         if(value.exception!.contains("Network is unreachable")){
+  isLoading = false;
+          lottie = 'Assets/NetworkAnimation.json';
+          excepMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        notifyListeners();
+        }else{
+          isLoading = false;
+         
+       
+         lottie = 'Assets/warning.png';
+         excepMsg = '${value.stcode}..!!Something went wrong..!!\nTry again Later..!!';
+        }
+        // isLoading = false;
+        // lottie = 'Assets/NetworkAnimation.json';
+        // excepMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         notifyListeners();
       }
       notifyListeners();

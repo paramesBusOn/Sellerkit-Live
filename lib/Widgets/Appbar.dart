@@ -1,11 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/PriceListController/PriceListController.dart';
-import 'package:sellerkit/Controller/StockAvailabilityController/StockListController.dart';
-import 'package:sellerkit/Widgets/qrpage.dart';
 
 AppBar appbar(String titles,GlobalKey<ScaffoldState> key,ThemeData theme,BuildContext context){
   return AppBar(

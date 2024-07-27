@@ -46,7 +46,7 @@ class getvisitApi {
       }
     } catch (e) {
       print("error::" + e.toString());
-      return getvisitmodel.error("Error", resCode);
+      return getvisitmodel.error("${e.toString()}", resCode);
     }
   }
 }

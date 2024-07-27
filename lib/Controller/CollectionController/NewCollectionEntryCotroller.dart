@@ -9,10 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 import 'package:sellerkit/Pages/Collection/widgets/CollectionSuccessPage.dart';
+import 'package:sellerkit/Pages/Collection/widgets/paymenttermdialog.dart';
 import 'package:sellerkit/Pages/Collection/widgets/warnningDialog.dart';
+import 'package:sellerkit/Services/PostQueryApi/OrdersApi/paymentmode.dart';
 // import 'package:share/share.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:sqflite/sqflite.dart';
@@ -53,9 +57,340 @@ class NewCollectionContoller extends ChangeNotifier {
   bool showItemList = true;
   bool isUpdateClicked = false;
   List<GlobalKey<FormState>> formkey = new List.generate(
-      3, (i) => new GlobalKey<FormState>(debugLabel: "Collection"));
+      7, (i) => new GlobalKey<FormState>(debugLabel: "Collection"));
   List<TextEditingController> mycontroller =
-      List.generate(30, (i) => TextEditingController());
+      List.generate(50, (i) => TextEditingController());
+      validateupdate(int index,PaymodeModalData paymode,BuildContext context){
+   if (formkey[5].currentState!.validate()) {
+     payloading=true;
+     notifyListeners();
+     updatepayterm(index,paymode,context);
+     notifyListeners();
+}
+}
+ Future imagetoBinary2(ImageSource source) async {
+    List<File> filesz2 = [];
+    await LocationTrack.checkcamlocation();
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) return;
+    // files.add(File());
+    if (filedata2.isEmpty) {
+      filedata2.clear();
+      filesz2.clear();
+    }
+    filesz2.add(File(image.path));
+
+    notifyListeners();
+    // log("filesz lenghthhhhh::::::" + filedata.length.toString());
+    if (files2.length <= 1) {
+      for (int i = 0; i < filesz2.length; i++) {
+        files2.add(filesz2[i]);
+        List<int> intdata = filesz2[i].readAsBytesSync();
+        String fileName = filesz2[i].path.split('/').last;
+        String fileBytes = base64Encode(intdata);
+        String tempPath = '';
+        if (Platform.isAndroid) {
+//  Directory tempDir =  await getTemporaryDirectory();
+
+//         log("tempDir::"+tempDir.toString());
+          tempPath = (await getExternalStorageDirectory())!.path;
+          // String? imagesaver = '$tempPath/$fileName';
+        } else if (Platform.isIOS) {
+          tempPath = (await getApplicationDocumentsDirectory()).path;
+        }
+
+        String fullPath = '$tempPath/$fileName';
+        await filesz2[i].copy(fullPath);
+        File(fullPath).writeAsBytesSync(intdata);
+        final result =
+            await ImageGallerySaver.saveFile(fullPath, isReturnPathOfIOS: true);
+
+        // log("fullPath::"+fullPath.toString());
+        if (Platform.isAndroid) {
+          filedata2.add(
+              FilesData(fileBytes: base64Encode(intdata), fileName: fullPath
+                  // files[i].path.split('/').last
+                  ));
+        } else {
+          filedata2.add(
+              FilesData(fileBytes: base64Encode(intdata), fileName: image.path
+                  // files[i].path.split('/').last
+                  ));
+        }
+        // filedata.add(
+        //     FilesData(fileBytes: base64Encode(intdata), fileName: fullPath));
+        notifyListeners();
+      }
+      // log("filesz lenghthhhhh::::::" + filedata.length.toString());
+
+      // return null;
+    } else {
+      showtoastpayattach();
+    }
+    // log("camera fileslength" + files.length.toString());
+    // log("camera filesdatalength" + filedata.length.toString());
+    // showtoast();
+
+    notifyListeners();
+  }
+  void showtoastpayattach() {
+    Fluttertoast.showToast(
+        msg: "More than one Document Not Allowed..",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+        fontSize: 14.0);
+  }
+ String chequedate = '';
+updatepayterm(int index,PaymodeModalData paymode,BuildContext context)async{
+  print("payindhhh::"+postpaymentdata.length.toString());
+  print("payindex::"+payindex.toString());
+   double parsedValue = double.parse(mycontroller[46].text.toString());
+                              double fullpayment2  = double.parse(fullpayment!
+                                  .toStringAsFixed(2));
+//  if(parsedValue <= fullpayment2){
+ postpaymentdata.removeAt(index);
+   
+//  }
+  getTotalaoyAmount();
+  
+    
+     
+    
+     List<String> filename2 = [];
+      List<String>? fileError2 = [];
+      String? attachment;
+      attachment = '';
+      if (filedata2 != null || filedata2.isNotEmpty) {
+        for (int i = 0; i < filedata2.length; i++) {
+          // log("savetoserverNames::" + filedata[i].fileName.toString());
+          await OrderAttachmentApiApi.getData(
+            filedata2[i].fileName,
+          ).then((value) {
+            // log("OrderAttachmentApiApi::" + value.toString());
+            if (value == 'No Data Found..!!') {
+              fileError2.add(filedata2[i].fileName);
+              // filename.add("");
+            } else {
+              // filename.add(value);
+              if (i == 0) {
+                // log("message");
+                attachment = value;
+              }
+            }
+          });
+        }
+      }
+
+      postpaymentdata.add(paymenttermdata(
+          paymodcode: paymode.Code,
+          paymodename: paymode.ModeName,
+          ref1: mycontroller[43].text == null ||
+                  mycontroller[43].text == '' ||
+                  mycontroller[43].text.isEmpty
+              ? null
+              : mycontroller[43].text,
+          ref2: mycontroller[44].text == null ||
+                  mycontroller[44].text == '' ||
+                  mycontroller[44].text.isEmpty
+              ? null
+              : mycontroller[44].text,
+          listtype: selecteditem == null || selecteditem!.isEmpty
+              ? null
+              : selecteditem,
+          dateref: chequedate == null ||
+                  chequedate == '' ||
+                  chequedate.isEmpty
+              ? null
+              : chequedate,
+          attachment1:
+              attachment == null || attachment == '' || attachment!.isEmpty
+                  ? null
+                  : attachment,
+          amount: mycontroller[46].text == null ||
+                  mycontroller[46].text == '' ||
+                  mycontroller[46].text.isEmpty
+              ? 0.0
+              : double.parse(mycontroller[46].text)));
+      
+    //  postpaymentdata[index] .    paymodcode= paymode.Code;
+    //     postpaymentdata[index] .  paymodename= paymode.ModeName;
+    //     postpaymentdata[index] .  ref1= mycontroller[43].text == null ||
+    //               mycontroller[43].text == '' ||
+    //               mycontroller[43].text.isEmpty
+    //           ? null
+    //           : mycontroller[43].text;
+    //     postpaymentdata[index] .  ref2= mycontroller[44].text == null ||
+    //               mycontroller[44].text == '' ||
+    //               mycontroller[44].text.isEmpty
+    //           ? null
+    //           : mycontroller[44].text;
+    //    postpaymentdata[index] .   listtype=selecteditem == null || selecteditem!.isEmpty
+    //           ? null
+    //           : selecteditem;
+    //    postpaymentdata[index] .   dateref=mycontroller[45].text == null ||
+    //               mycontroller[45].text == '' ||
+    //               mycontroller[45].text.isEmpty
+    //           ? null
+    //           : mycontroller[45].text;
+    //    postpaymentdata[index] .   attachment1=
+    //           attachment == null || attachment == '' || attachment!.isEmpty
+    //               ? null
+    //               : attachment;
+    //   postpaymentdata[index] .    amount= mycontroller[46].text == null ||
+    //               mycontroller[46].text == '' ||
+    //               mycontroller[46].text.isEmpty
+    //           ? 0.0
+    //           : double.parse(mycontroller[46].text);
+    //            notifyListeners();
+    //             paymode.isselected = !paymode.isselected!;
+      paymode.amount=mycontroller[46].text;
+      paytermtotal =double.parse(paytermtotal!.toStringAsFixed(2)) -double.parse(mycontroller[46].text);
+      //  getTotalaoyAmount();
+      // isSelectedpaymentTermsCode=paymode.Code.toString();
+      payloading=false;
+     
+     notifyListeners();
+Navigator.pop(context);
+   
+}
+validatepayterm(PaymodeModalData paymode,BuildContext context) async {
+    if (formkey[5].currentState!.validate()) {
+      payloading=true;
+     notifyListeners();
+    //  Future.delayed(Duration(seconds: 3),(){});
+      List<String> filename2 = [];
+      List<String>? fileError2 = [];
+      String? attachment;
+      attachment = '';
+      if (filedata2 != null || filedata2.isNotEmpty) {
+        for (int i = 0; i < filedata2.length; i++) {
+          // log("savetoserverNames::" + filedata[i].fileName.toString());
+          await OrderAttachmentApiApi.getData(
+            filedata2[i].fileName,
+          ).then((value) {
+            // log("OrderAttachmentApiApi::" + value.toString());
+            if (value == 'No Data Found..!!') {
+              fileError2.add(filedata2[i].fileName);
+              // filename.add("");
+            } else {
+              // filename.add(value);
+              if (i == 0) {
+                // log("message");
+                attachment = value;
+              }
+            }
+          });
+        }
+      }
+
+      postpaymentdata.add(paymenttermdata(
+          paymodcode: paymode.Code,
+          paymodename: paymode.ModeName,
+          ref1: mycontroller[43].text == null ||
+                  mycontroller[43].text == '' ||
+                  mycontroller[43].text.isEmpty
+              ? null
+              : mycontroller[43].text,
+          ref2: mycontroller[44].text == null ||
+                  mycontroller[44].text == '' ||
+                  mycontroller[44].text.isEmpty
+              ? null
+              : mycontroller[44].text,
+          listtype: selecteditem == null || selecteditem!.isEmpty
+              ? null
+              : selecteditem,
+          dateref: chequedate == null ||
+                  chequedate == '' ||
+                  chequedate.isEmpty
+              ? null
+              : chequedate,
+          attachment1:
+              attachment == null || attachment == '' || attachment!.isEmpty
+                  ? null
+                  : attachment,
+          amount: mycontroller[46].text == null ||
+                  mycontroller[46].text == '' ||
+                  mycontroller[46].text.isEmpty
+              ? 0.0
+              : double.parse(mycontroller[46].text)));
+      paymode.isselected = !paymode.isselected!;
+      paymode.amount=mycontroller[46].text;
+      paytermtotal =double.parse(paytermtotal!.toStringAsFixed(2)) -double.parse(mycontroller[46].text);
+      // getTotalaoyAmount();
+      // isSelectedpaymentTermsCode=paymode.Code.toString();
+      payloading=false;
+     
+     notifyListeners();
+Navigator.pop(context);
+      print("paymode!.isselected::" + paymode.isselected.toString());
+       print("paymode!.isselected::" + postpaymentdata.length.toString());
+    }
+  }
+   selectattachment2() async {
+    List<File> filesz2 = [];
+    // log(files.length.toString());
+
+    result = await FilePicker.platform.pickFiles(allowMultiple: true);
+    notifyListeners();
+
+    if (result != null) {
+      if (filedata2.isEmpty) {
+        files2.clear();
+        filesz2.clear();
+        filedata2.clear();
+        notifyListeners();
+      }
+
+      // log("filedata::" + filedata.length.toString());
+
+      filesz2 = result!.paths.map((path) => File(path!)).toList();
+
+      // if (filesz.length != 0) {
+      int remainingSlots = 1 - files.length;
+      if (filesz2.length <= remainingSlots) {
+        for (int i = 0; i < filesz2.length; i++) {
+          // createAString();
+
+          // showtoast();
+          files2.add(filesz2[i]);
+          // log("Files Lenght :::::" + files.length.toString());
+          List<int> intdata = filesz2[i].readAsBytesSync();
+          filedata2.add(FilesData(
+              fileBytes: base64Encode(intdata), fileName: filesz2[i].path));
+
+          //New
+          // XFile? photoCompressedFile =await testCompressAndGetFile(filesz[i],filesz[i].path);
+          // await FileStorage.writeCounter('${photoCompressedFile!.name}_1', photoCompressedFile);
+          //
+
+          notifyListeners();
+          // log("filedata222::" + filedata.length.toString());
+          // return null;
+        }
+      } else {
+        showtoastpayattach();
+      }
+
+      notifyListeners();
+    }
+
+    notifyListeners();
+  }
+
+deletepaymode(paymenttermdata paymentdata,int index){
+  // log("postpaymentdata[index].paymodename::"+postpaymentdata[index].paymodename.toString());
+  for(int i=0;i<paymode.length;i++){
+    if(paymode[i].ModeName ==paymentdata.paymodename ){
+       paymode[i].isselected = !paymode[i].isselected!;
+       paymode[i].amount='';
+      //  postpaymentdata.removeAt(index);
+       notifyListeners();
+    }
+  }
+}
   changeVisible() {
     showItemList = !showItemList;
     notifyListeners();
@@ -79,7 +414,7 @@ class NewCollectionContoller extends ChangeNotifier {
     await GetAllOutstandingscall(context);
     await stateApicallfromDB();
     await getCustomerTag();
-    
+   await callpaymodeApi();
     //   print(showItemList);
     //   print(allProductDetails);
   }
@@ -414,14 +749,18 @@ mapvaluefromAccounts(BuildContext context) async {
   mycontroller[15].text = val.toString();
     return config.slpitCurrency22(val.toString()); 
   }
-
+ bool paymentTerm = false;
   ClearDataAll() {
+    clearpaydata();
+    postpaymentdata.clear();
+    
     visitId=0;
     isText1Correct = false;
     exceptionOnApiCall = '';
     customerapicLoading = false;
     showItemList=true;
     //
+    paymentTerm = false;
     allProductDetails.clear();
     productDetails.clear();
     filterProductDetails.clear();
@@ -557,6 +896,7 @@ showItemList = false;
           trnsAmount: CollectionCusData.trnsAmount,
           paidAmount: double.parse(mycontroller[14].text.toString()),
           balancetoPay: CollectionCusData.balancetoPay,
+          penaltyAfterDue:CollectionCusData.penaltyAfterDue! ,
           docentry: CollectionCusData.docentry));
       showItemList = false;
       Navigator.pop(context);
@@ -627,6 +967,204 @@ showItemList = false;
     return cusvalue!;
   }
 
+  
+  List<PaymodeModalData> paymode = [];
+  List<paymenttermdata> postpaymentdata = [];
+  List<PaymodeModalist> paymodeModallist = [];
+  List<PaymodeModalist> valueDroplist = [];
+  callpaymodeApi() async {
+    paymode.clear();
+    paymodeModallist.clear();
+    notifyListeners();
+    await PaymodeApi.getData("${ConstantValues.slpcode}").then((value) {
+      //
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        if (value.paymode != null) {
+          paymode = value.paymode!.paymodeModalData!;
+          paymodeModallist = value.paymode!.paymodeModallist!;
+         
+          notifyListeners();
+        } else if (value.paymode == null) {
+          // log("DONR222");
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        notifyListeners();
+      } else if (value.stcode == 500) {
+        notifyListeners();
+      }
+    });
+  }
+  String? selecteditem;
+  String? selectedpaycode;
+  onselectdrop(String val) {
+    selecteditem = val;
+    for (int i = 0; i < valueDroplist.length; i++) {
+      if (valueDroplist[i].ListName.toString() == val)
+        selectedpaycode = valueDroplist[i].ListCode;
+      break;
+    }
+    notifyListeners();
+  }
+
+  dropdownvalue(int ind) {
+    valueDroplist.clear();
+    // log("value::" + ind.toString());
+    for (int i = 0; i < paymodeModallist.length; i++) {
+      if (paymodeModallist[i].Code == paymode[ind].Code) {
+        valueDroplist.add(PaymodeModalist(
+            Code: paymodeModallist[i].Code,
+            ListCode: paymodeModallist[i].ListCode,
+            ListName: paymodeModallist[i].ListName,
+            Status: paymodeModallist[i].Status));
+      }
+      
+      notifyListeners();
+    }
+  }
+List<File> files2 = [];
+  bool? fileValidation2 = false;
+
+  List<FilesData> filedata2 = [];
+  double? paytermtotal = 0.0;
+   double? fullpayment = 0.0;
+  String? payamounterror = '';
+  clearpaydata(){
+    mycontroller[43].clear();
+    mycontroller[44].clear();
+    mycontroller[45].clear();
+    mycontroller[46].clear();
+    payamounterror = '';
+    selecteditem=null;
+    files2.clear();
+    filedata2.clear();
+    notifyListeners();
+    payloading=false;
+  }
+  
+bool? payloading=false;
+  // onchangedpayterm(String? value) {
+  //   double payamount = double.parse(value.toString());
+  //   if (payamount > paytermtotal!) {
+  //     log("Amount Should be less than or equal to ${paytermtotal!.toStringAsFixed(2)}");
+
+  //     payamounterror =
+  //         "Amount Should be less than or equal to ${paytermtotal!.toStringAsFixed(2)}";
+  //     notifyListeners();
+  //   } else {
+  //     payamounterror = '';
+  //     paytermtotal =paytermtotal! - payamount;
+  //   }
+  //   notifyListeners();
+  // }
+
+  oncopy() {
+    mycontroller[46].text = paytermtotal!.toStringAsFixed(2);
+  }
+  
+getTotalaoyAmount() {
+    paytermtotal = 0.0;
+    fullpayment=0.0;
+    
+  double val = 0.0;
+    if (productDetails.isNotEmpty) {
+      for (int i = 0; i < productDetails.length; i++) {
+        val = val + productDetails[i].paidAmount;
+      }
+    } else {
+      val = 0.0;
+    }
+// if(mycontroller[15].text){
+//   mycontroller[15].text = val.toString();
+// }
+  
+  mycontroller[15].text = val.toString();
+   
+     paytermtotal = paytermtotal! + val;
+     fullpayment=fullpayment! + val;
+     
+     if(postpaymentdata.isNotEmpty){
+ for(int i=0;i<postpaymentdata.length;i++){
+paytermtotal =double.parse(paytermtotal!.toStringAsFixed(2)) - postpaymentdata[i].amount! ?? 0.0;
+
+    }
+     }
+   
+   
+
+
+   
+    // }
+    return config.slpitCurrency22(paytermtotal!.toString());
+  }
+int? payindex;
+bool? payupdate=false;
+  selectpaymentTerms(String selected, String refercode, String code,
+      BuildContext context, PaymodeModalData paymode, int index) {
+        payindex=null;
+        payupdate=false;
+
+        notifyListeners();
+    isSelectedpaymentTermsList = selected;
+    PaymentTerms = refercode;
+    clearpaydata();
+    isSelectedpaymentTermsCode = code;
+
+    dropdownvalue(index);
+    if(postpaymentdata.isNotEmpty){
+      for(int i=0;i<postpaymentdata.length;i++){
+        if(postpaymentdata[i].paymodename ==paymode.ModeName){
+          mycontroller[43].text=postpaymentdata[i].ref1==null||postpaymentdata[i].ref1!.isEmpty?
+          '':postpaymentdata[i].ref1.toString();
+           mycontroller[44].text=postpaymentdata[i].ref2==null||
+           postpaymentdata[i].ref2!.isEmpty?
+          '':postpaymentdata[i].ref2.toString();
+          //   mycontroller[45].text=postpaymentdata[i].dateref ==null||postpaymentdata[i].dateref!.isEmpty?
+          // '':postpaymentdata[i].dateref.toString();
+             mycontroller[46].text=postpaymentdata[i].amount==null?
+          '':postpaymentdata[i].amount!.toStringAsFixed(2);
+          selecteditem=postpaymentdata[i].listtype==null||postpaymentdata[i].listtype!.isEmpty?
+          '':postpaymentdata[i].listtype.toString();
+          payindex=i;
+          payupdate=true;
+          print("payupdate=true;");
+          notifyListeners();
+          
+        }
+      }
+    }
+    getTotalaoyAmount();
+    notifyListeners();
+    print("AN11:" + PaymentTerms.toString());
+    showDialog<dynamic>(
+        context: context,
+        builder: (_) {
+          return paytermdialog(paymode: paymode);
+        });
+    // log("AN22:" + EnqRefer.toString());
+
+    // log("AN33:" + isSelectedrefcode.toString());
+    notifyListeners();
+  }
+  getpaymenttot2(int index){
+  double amount=0.0;
+  double? pendingamount;
+  // double payTermTotal = double.parse(paytermtotal!
+  //                                 .toStringAsFixed(2));
+                                   double fullpayment2 = double.parse(fullpayment!
+                                  .toStringAsFixed(2));
+                                 
+ for(int i=0;i<postpaymentdata.length;i++){
+ amount = amount + postpaymentdata[i].amount! ;
+print("paytermtotal:::"+paytermtotal.toString());
+    }
+      pendingamount= amount -postpaymentdata[index].amount!;
+      print("pendingamount::"+pendingamount.toString());
+      final pendingfullcash=fullpayment2-pendingamount;
+      print("pendingfullcash::"+pendingfullcash.toString());
+    return pendingfullcash;
+}
+
   String validateCustomerMobile(val) {
     String? cusvalue = "";
     for (int i = 0; i < customerlist.length; i++) {
@@ -641,25 +1179,34 @@ showItemList = false;
   }
 
   bool saveprogress = false;
-
+ String isSelectedpaymentTermsList = '';
+  String isSelectedpaymentTermsCode = '';
+  String get getisSelectedpaymentTermsList => isSelectedpaymentTermsList;
+  String? PaymentTerms;
   validateFinal(BuildContext context) async {
     int count = 0;
     String imgUrl = '';
-    if (cashbool != true &&
-        cardbool != true &&
-        chequebool != true &&
-        upibool != true &&
-        neftbool != true) {
-      count = 1;
-      paymentmodeErro = "Select Payment Mode..";
-      // saveprogress = false;
-      notifyListeners();
-    } else {
-      paymentmodeErro = "";
-      notifyListeners();
-    }
-     print(("fdffff:::"+mycontroller[15].text));
-    if (formkey[1].currentState!.validate()) {
+    // if (cashbool != true &&
+    //     cardbool != true &&
+    //     chequebool != true &&
+    //     upibool != true &&
+    //     neftbool != true) {
+    //   count = 1;
+    //   paymentmodeErro = "Select Payment Mode..";
+    //   // saveprogress = false;
+    //   notifyListeners();
+    // } else {
+    //   paymentmodeErro = "";
+    //   notifyListeners();
+    // }
+    if ((isSelectedpaymentTermsCode == null ||
+          isSelectedpaymentTermsCode.isEmpty) || postpaymentdata.isEmpty) {
+        paymentTerm = true;
+        notifyListeners();
+      } else {
+        paymentTerm = false;
+        notifyListeners();
+         if (formkey[1].currentState!.validate()) {
      
 //       if(mycontroller[15].text == "0"){
 // showtoastproduct();
@@ -742,6 +1289,7 @@ if (count == 0) {
             cardref: mycontroller[16].text.toString(),
             upiref: mycontroller[20].text.toString(),
             remarks: mycontroller[21].text.toString());
+            getCollectionbody.paymentdata=postpaymentdata;
 
         await CollectionPostApi.getCollectionData(getCollectionbody)
             .then((value) {
@@ -794,6 +1342,11 @@ if (count == 0) {
       // }
       
     }
+       
+      }
+    
+     print(("fdffff:::"+mycontroller[15].text));
+   
 
     notifyListeners();
   }
@@ -818,7 +1371,7 @@ if (count == 0) {
       apiNdate =
           "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}T${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}:${date.second.toString().padLeft(2, '0')}";
       print(apiNdate);
-      mycontroller[17].text = chooseddate;
+      mycontroller[45].text = chooseddate;
       notifyListeners();
     });
   }
@@ -836,7 +1389,9 @@ if (count == 0) {
       balancetoPay: collcetionline.balancetoPay,
       paidAmount: collcetionline.orgAmount,
       age: collcetionline.age,
-      trnsAmount: collcetionline.trnsAmount, docentry: collcetionline.docentry,
+      trnsAmount: collcetionline.trnsAmount, docentry: 
+      collcetionline.docentry,
+      penaltyAfterDue: collcetionline.penaltyAfterDue
       //  amount: null,
     ));
     //   }
@@ -1914,6 +2469,7 @@ filedata.add(FilesData2(
           trnsAmount: double.parse(outstandingkpi[i].TransAmount.toString()),
           balancetoPay: double.parse(outstandingkpi[i].BalanceToPay.toString()),
           age: outstandingkpi[i].age!.toInt().toString(),
+          penaltyAfterDue:double.parse(outstandingkpi[i].penaltyAfterDue.toString()),
           docentry: outstandingkpi[i].docentry.toString()));
     }
     filterProductDetails = allProductDetails;
@@ -1933,6 +2489,7 @@ class CollectionCustomerData {
   double trnsAmount;
 
   double balancetoPay;
+  double? penaltyAfterDue;
 
   // double amount;
   String type;
@@ -1940,6 +2497,7 @@ class CollectionCustomerData {
 
   CollectionCustomerData(
       {required this.invoice,
+      required this.penaltyAfterDue,
       required this.date,
       required this.paidAmount,
       required this.purpose,
@@ -1984,10 +2542,12 @@ class CollectionLineData {
   double trnsAmount;
 
   double balancetoPay;
+  double penaltyAfterDue;
 
   CollectionLineData({
     required this.invoice,
     required this.date,
+   required this. penaltyAfterDue,
     required this.purpose,
     // required this.amount,
     required this.type,
@@ -2037,5 +2597,16 @@ class cuscolumn2 {
   String name;
   cuscolumn2({
     required this.name,
+  });
+}
+
+class FilesData {
+  String fileBytes;
+  String fileName;
+  // String filepath;
+
+  FilesData({
+    required this.fileBytes,
+    required this.fileName,
   });
 }

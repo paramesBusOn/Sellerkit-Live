@@ -1801,3 +1801,13 @@ Directory tempDir = await getTemporaryDirectory();
     }
   }
 }
+class FilesData {
+  String fileBytes;
+  String fileName;
+  // String filepath;
+
+  FilesData({
+    required this.fileBytes,
+    required this.fileName,
+  });
+}

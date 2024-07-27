@@ -646,7 +646,7 @@ static customerdetData? customermodeldata;
 
       return [
          i++,
-        item.ItemName,
+        (item.ItemCode.toString())+"-"+ item.ItemName.toString(),
         item.Quantity!.toInt(),
       config.slpitCurrencypdf(mrpvalue.round().toStringAsFixed(2)) ,
        Discount.round().toStringAsFixed(2),

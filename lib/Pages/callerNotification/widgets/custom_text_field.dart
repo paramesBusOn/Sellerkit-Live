@@ -46,6 +46,7 @@ class CustomTextFieldState extends State<CustomTextField> {
   late final FocusNode _focusNode;
  static String? lookingfor;
   static String? assigntofor;
+  static String? usercodefor;
 // bool? readonly;
   @override
   void initState() {
@@ -131,7 +132,7 @@ class CustomTextFieldState extends State<CustomTextField> {
           focusNode: _focusNode,
           readOnly:widget.isreadonly ??false,
           keyboardType:
-              widget.isUseCustomKeyBoard ? TextInputType.none : widget.inputType,
+              widget.isUseCustomKeyBoard==false ? TextInputType.none : widget.inputType,
                inputFormatters:widget.inputType== TextInputType.number ?[
                                                 FilteringTextInputFormatter
                                                     .digitsOnly,

@@ -72,6 +72,7 @@ class SettlementGetData {
   //
   int? docentry;
   int? DocNum;
+  int? lineNum;
   String? DocDate;
   String? CustomerCode;
   String? CustomerName;
@@ -94,6 +95,7 @@ double? totalAmount;
   String? ref;
 
   SettlementGetData({
+   required this. lineNum,
     required this.docentry,
     required this.DocNum,
     required this.DocDate,
@@ -121,6 +123,7 @@ double? totalAmount;
 
   factory SettlementGetData.fromJson(Map<String, dynamic> json) =>
       SettlementGetData(
+        lineNum:json['LineNum']??0,
         DocNum: json['DocNum']??0,
         DocDate: json['DocDate']??0,
         CustomerCode: json['CustomerCode']??'',
@@ -140,5 +143,6 @@ double? totalAmount;
         UpdatedOn: json['UpdatedOn']??'',
         totalAmount: json['TotalAmount']??0.0,
         traceid: json['traceid'], docentry: json['DocEntry']??0, ref:  json['Ref']??'',
+        isselect:false,
       );
 }

@@ -745,7 +745,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
-          "Invoice",
+          "Transref",
           style: theme.textTheme.bodyText1
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
@@ -778,7 +778,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
         Padding(
           padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           child: Text(
-            '${widget.lineDetails![i].transtype}',
+            '${widget.lineDetails![i].transRef1}',
             textAlign: TextAlign.left,
             style: theme.textTheme.bodyText1?.copyWith(
               color: theme.primaryColor,

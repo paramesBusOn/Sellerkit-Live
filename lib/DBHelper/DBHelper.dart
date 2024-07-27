@@ -22,6 +22,11 @@ import '../DBModel/EnqTypeModel.dart';
 import '../DBModel/ItemMasertDBModel.dart';
 import '../DBModel/NotificationModel.dart';
 import '../DBModel/QuotFilterTableModel.dart';
+import '../DBModel/ReportsModel/LeadAnalysViewDB.dart';
+import '../DBModel/ReportsModel/LeadAnalysisModel.dart';
+import '../DBModel/ReportsModel/LeadQueryDB.dart';
+import '../DBModel/ReportsModel/LeadReportModel.dart';
+import '../DBModel/ReportsModel/TestReportModelDB.dart';
 import '../DBModel/ScreenShotModel.dart';
 import '../Models/OfferZone/OfferZoneModel.dart';
 import '../Models/OpenLeadModel.dart/OpenLeadModel.dart';
@@ -792,6 +797,101 @@ ${QuotFilterDBTable.enqid} varchar ,
             
              )
         ''');
+//Lead Reports
+
+await database.execute('''
+           create table $leadAnalysisTable(
+             SId integer primary key autoincrement,
+        ${LeadAnalysisDB.leadId} int,
+        ${LeadAnalysisDB.leadDate} varchar,
+        ${LeadAnalysisDB.customerCode} varchar,
+        ${LeadAnalysisDB.customerName} varchar,
+        ${LeadAnalysisDB.customerMobile} varchar,
+        ${LeadAnalysisDB.customerEmail} varchar,
+        ${LeadAnalysisDB.companyName} varchar,
+        ${LeadAnalysisDB.customerGroup} varchar,
+        ${LeadAnalysisDB.storeCode} varchar,
+        ${LeadAnalysisDB.storeName} varchar,
+        ${LeadAnalysisDB.address1} varchar,
+        ${LeadAnalysisDB.address2} varchar,
+        ${LeadAnalysisDB.area} varchar,
+        ${LeadAnalysisDB.city} varchar,
+        ${LeadAnalysisDB.district} varchar,
+        ${LeadAnalysisDB.state} varchar,
+        ${LeadAnalysisDB.country} varchar,
+        ${LeadAnalysisDB.pincode} int,
+        ${LeadAnalysisDB.gender} varchar,
+        ${LeadAnalysisDB.ageGroup} varchar,
+        ${LeadAnalysisDB.cameAs} varchar,
+        ${LeadAnalysisDB.headcount} int,
+        ${LeadAnalysisDB.maxbudget} decimal,
+        ${LeadAnalysisDB.assignedTo} varchar,
+        ${LeadAnalysisDB.refferal} varchar,
+        ${LeadAnalysisDB.interestLevel} varchar,
+        ${LeadAnalysisDB.orderType} varchar,
+        ${LeadAnalysisDB.purchasePlan} varchar,
+        ${LeadAnalysisDB.nextFollowupDate} varchar,
+        ${LeadAnalysisDB.dealDescription} varchar,
+        ${LeadAnalysisDB.status} varchar,
+        ${LeadAnalysisDB.lastFollowupStatus} varchar,
+        ${LeadAnalysisDB.lastFollowupDate} varchar,
+        ${LeadAnalysisDB.itemCode} varchar,
+        ${LeadAnalysisDB.itemName} varchar,
+        ${LeadAnalysisDB.brand} varchar,
+        ${LeadAnalysisDB.category} varchar,
+        ${LeadAnalysisDB.subCategory} varchar,
+        ${LeadAnalysisDB.leadValue} decimal,
+        ${LeadAnalysisDB.createdBy} int,
+        ${LeadAnalysisDB.createdDate} varchar,
+        ${LeadAnalysisDB.updatedBy} int,
+        ${LeadAnalysisDB.updatedDate} varchar,
+        ${LeadAnalysisDB.traceId} varchar,
+        ${LeadAnalysisDB.customerCreatedOn} varchar
+             )
+        ''');
+    //
+    await database.execute('''
+           create table $leadViewTable(
+             SId integer primary key autoincrement,
+        ${LeadAnalysisViewDB.docEntry} int,
+        ${LeadAnalysisViewDB.reportCode} varchar,
+        ${LeadAnalysisViewDB.viewCode} varchar,
+        ${LeadAnalysisViewDB.viewName} varchar)
+        ''');
+    //
+    await database.execute('''
+           create table $leadQueryTable(
+             SId integer primary key autoincrement,
+        ${LeadAnalysisQueryDB.leadQuery} varchar,
+        ${LeadAnalysisQueryDB.rowCode} int,
+        ${LeadAnalysisQueryDB.queryExt} varchar,
+        ${LeadAnalysisQueryDB.chartType} varchar,
+        ${LeadAnalysisQueryDB.kpiTitle} varchar,
+        ${LeadAnalysisQueryDB.viewCode} varchar
+       )
+        ''');
+    await database.execute('''
+           create table $leadReportTable(
+             SId integer primary key autoincrement,
+        ${LeadAnalysisReportDB.assignedTo} varchar,
+        ${LeadAnalysisReportDB.customerGroup} varchar,
+        ${LeadAnalysisReportDB.interestLevel} varchar,
+        ${LeadAnalysisReportDB.leadDate} varchar,
+        ${LeadAnalysisReportDB.leadValue} decimal,
+        ${LeadAnalysisReportDB.status} varchar,
+        ${LeadAnalysisReportDB.nextFollowupDate} varchar,
+        ${LeadAnalysisReportDB.orderType} varchar
+        
+        )
+        ''');
+    await database.execute('''
+           create table $leadTestReportTable(
+          SId integer primary key autoincrement,
+        ${LeadTestReportDB.title} varchar,
+        ${LeadTestReportDB.testValues} varchar        
+        )
+        ''');
+
   }
 
   // Future<Database> createDB() async {

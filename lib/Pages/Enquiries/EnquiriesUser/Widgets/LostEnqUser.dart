@@ -138,6 +138,33 @@ class LostEnqUserPage extends StatelessWidget {
                             SizedBox(
                               height: Screens.bodyheight(context) * 0.01,
                             ),
+                             Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: Screens.width(context) * 0.4,
+                                    child: Text(
+                                        "",
+                                        style: theme.textTheme.bodyText2?.copyWith(
+                                            color: theme.primaryColor,
+                                           // fontWeight: FontWeight.bold
+                                            )),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.centerRight,
+                                    width: Screens.width(context) * 0.4,
+                                    child: Text(
+                                        "#${context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].EnqID}",
+                                        style: theme.textTheme.bodyText2?.copyWith(
+                                            color: Colors.grey,
+                                            //fontWeight: FontWeight.bold
+                                            )),
+                                  ),
+                                ],
+                              ),
+                               SizedBox(
+                                height: Screens.bodyheight(context) * 0.01,
+                              ),
                             Row(
                               mainAxisAlignment:
                                   MainAxisAlignment.spaceBetween,

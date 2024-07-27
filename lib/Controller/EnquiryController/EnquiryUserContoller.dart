@@ -10,17 +10,10 @@ import 'package:sellerkit/Pages/OrderBooking/NewOrder.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/OrderController/OrderNewController.dart';
 import 'package:sellerkit/DBHelper/DBHelper.dart';
 import 'package:sellerkit/DBHelper/DBOperation.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/ResonModel.dart';
-import 'package:sellerkit/Models/leadexmodel/agemodel.dart';
-import 'package:sellerkit/Models/leadexmodel/cameasmodel.dart';
-import 'package:sellerkit/Models/leadexmodel/gendermodel.dart';
-import 'package:sellerkit/Services/LeadexApi/AgeApi.dart';
-import 'package:sellerkit/Services/LeadexApi/GenderApi.dart';
-import 'package:sellerkit/Services/LeadexApi/cameasApi.dart';
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'package:sellerkit/Services/userDialApi/userdialapi.dart';
 import 'package:sqflite/sqflite.dart';
@@ -36,7 +29,6 @@ import '../../Services/PostQueryApi/EnquiriesApi/AssignedToUserApi.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/CheckEnqPrevDeatils.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/EnquiriesApi.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/ResonApi.dart';
-import '../../Services/PostQueryApi/EnquiriesApi/UpdateEnq.dart';
 import '../../Services/PostQueryApi/LeadsApi/GetLeadDeatilsQTH.dart';
 import '../LeadController/LeadNewController.dart';
 import 'NewEnqController.dart';
@@ -1140,11 +1132,19 @@ class EnquiryUserContoller extends ChangeNotifier {
             '${value.stcode}..!!${value.message}..! \n${value.exception}..!!';
         notifyListeners();
       } else if (value.stcode == 500) {
-        datagotByApi = true;
+        if(value.exception!.contains("Network is unreachable")){
+ datagotByApi = true;
         exception = true;
         lottie = 'Assets/NetworkAnimation.json';
-        errorMsg = '${value.stcode}..!!Network Issue\nTry again Later..!!';
+        errorMsg = '${value.stcode}..!!Network is unreachable\nTry again Later..!!';
         notifyListeners();
+        }else{
+        datagotByApi = true;
+        exception = true;  
+         lottie = 'Assets/warning.png';
+         errorMsg = '${value.stcode}..!!Something went wrong..!!\nTry again Later..!!';
+        }
+       
       }
     });
 

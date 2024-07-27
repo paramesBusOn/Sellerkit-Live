@@ -143,7 +143,7 @@ class SettlementSuccessDDState extends State<SettlementSuccessDD> {
                           //   color: Colors.blue,
                           child: Center(
                               child: Text(
-                            "NEFT Amount Rs.${context.read<SettlementController>().totalDD()}",
+                            "NEFT Amount Rs.${widget.settlemaster!.Amount.toStringAsFixed(2)}",
                             style: theme.textTheme.bodyText2,
                             textAlign: TextAlign.center,
                           )),

@@ -53,6 +53,7 @@ static String? ageslab2='';
 static String? ageslab3='';
 static String? ageslab4='';
 static String? ageslab5='';
+static String? splpricelogic='';
 
 
 }

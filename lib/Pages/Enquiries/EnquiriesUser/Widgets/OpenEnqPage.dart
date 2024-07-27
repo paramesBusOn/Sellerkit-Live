@@ -170,6 +170,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                            // fontWeight: FontWeight.bold
                                             )),
                                   ),
+                                  
                                   Container(
                                     alignment: Alignment.centerRight,
                                     width: Screens.width(context) * 0.4,
@@ -187,6 +188,33 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                 ],
                               ),
                               SizedBox(
+                                height: Screens.bodyheight(context) * 0.01,
+                              ),
+                               Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: Screens.width(context) * 0.4,
+                                    child: Text(
+                                        "",
+                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                            color: widget.theme.primaryColor,
+                                           // fontWeight: FontWeight.bold
+                                            )),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.centerRight,
+                                    width: Screens.width(context) * 0.4,
+                                    child: Text(
+                                        "#${context.watch<EnquiryUserContoller>().filteropenEnqData[i].EnqID}",
+                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                            color: Colors.grey,
+                                            //fontWeight: FontWeight.bold
+                                            )),
+                                  ),
+                                ],
+                              ),
+                               SizedBox(
                                 height: Screens.bodyheight(context) * 0.01,
                               ),
                               Row(

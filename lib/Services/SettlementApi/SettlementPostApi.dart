@@ -55,6 +55,7 @@ class SettlementPostApi {
             json.decode(response.body.toString()), response.statusCode);
       }
     } catch (e) {
+      log("e::"+e.toString());
       return SettlementPostDetails.error("$e", 500);
     }
   }
@@ -79,16 +80,19 @@ class settlePostBody {
 class Settlelines {
   int? docentry;
   double? amount;
+  int? ipayline;
 
   Settlelines({
     required this.docentry,
     required this.amount,
+    required this.ipayline
   });
 
   Map<String, dynamic> tojason() {
     Map<String, dynamic> map = {
       "docentry": docentry,
       "amount": amount,
+      "ipaylinenum":ipayline
     };
     return map;
   }

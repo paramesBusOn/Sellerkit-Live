@@ -17,110 +17,110 @@ class CollectionPostApi {
       postCollectBody? getCollectionbody) async {
     // int resCode = 500;
     try {
-      log('CollectionPost Body:' +
-          jsonEncode({
-            "customercode": getCollectionbody!.customerCode.isEmpty
-                ? null
-                : getCollectionbody.customerCode, //
-            "customername": getCollectionbody.customerName.isEmpty
-                ? null
-                : getCollectionbody.customerName,
-            "customermobile": getCollectionbody.Mobile.isEmpty
-                ? null
-                : getCollectionbody.Mobile,
-            "alternatemobileno": getCollectionbody.alternateMobileNo.isEmpty
-                ? null
-                : getCollectionbody.alternateMobileNo,
-            "contactname": getCollectionbody.contactName.isEmpty
-                ? null
-                : getCollectionbody.contactName,
-            "customeremail": getCollectionbody.customerEmail.isEmpty
-                ? null
-                : getCollectionbody.customerEmail,
-            "companyname": getCollectionbody.companyName.isEmpty
-                ? null
-                : getCollectionbody.companyName,
-            "customergroup": getCollectionbody.customerGrooup, //
-            "pan": getCollectionbody.pAN.isEmpty ? null : getCollectionbody.pAN,
-            "gstno": getCollectionbody.gSTNo.isEmpty
-                ? null
-                : getCollectionbody.gSTNo,
-            "bil_address1": getCollectionbody.bil_Address1.isEmpty
-                ? null
-                : getCollectionbody.bil_Address1,
-            "bil_address2": getCollectionbody.bil_Address2.isEmpty
-                ? null
-                : getCollectionbody.bil_Address2,
-            "bil_address3": getCollectionbody.bil_Address3.isEmpty
-                ? null
-                : getCollectionbody.bil_Address3,
-            "bil_area": getCollectionbody.bil_Area.isEmpty
-                ? null
-                : getCollectionbody.bil_Area,
-            "bil_city": getCollectionbody.bil_City.isEmpty
-                ? null
-                : getCollectionbody.bil_City,
-            "bil_district": getCollectionbody.bil_District.isEmpty
-                ? null
-                : getCollectionbody.bil_District,
-            "bil_state": getCollectionbody.bil_State.isEmpty
-                ? null
-                : getCollectionbody.bil_State,
-            "bil_country": getCollectionbody.bil_Country.isEmpty
-                ? null
-                : getCollectionbody.bil_Country,
-            "bil_pincode": getCollectionbody.bil_Pincode.isEmpty
-                ? null
-                : getCollectionbody.bil_Pincode,
-            "storecode": getCollectionbody.StoreCode.isEmpty
-                ? null
-                : getCollectionbody.StoreCode,
-            "assignedto": getCollectionbody.AssignedTo.isEmpty
-                ? null
-                : getCollectionbody.AssignedTo,
+      // log('CollectionPost Body:' +
+      //     jsonEncode({
+      //      "customercode": getCollectionbody!.customerCode.isEmpty
+      //           ? null
+      //           : getCollectionbody.customerCode, //
+      //       "customername": getCollectionbody.customerName.isEmpty
+      //           ? null
+      //           : getCollectionbody.customerName,
+      //       "customermobile": getCollectionbody.Mobile.isEmpty
+      //           ? null
+      //           : getCollectionbody.Mobile,
+      //       "alternatemobileno": getCollectionbody.alternateMobileNo.isEmpty
+      //           ? null
+      //           : getCollectionbody.alternateMobileNo,
+      //       "contactname": getCollectionbody.contactName.isEmpty
+      //           ? null
+      //           : getCollectionbody.contactName,
+      //       "customeremail": getCollectionbody.customerEmail.isEmpty
+      //           ? null
+      //           : getCollectionbody.customerEmail,
+      //       "companyname": getCollectionbody.companyName.isEmpty
+      //           ? null
+      //           : getCollectionbody.companyName,
+      //       "customergroup": getCollectionbody.customerGrooup, //
+      //       "pan": getCollectionbody.pAN.isEmpty ? null : getCollectionbody.pAN,
+      //       "gstno": getCollectionbody.gSTNo.isEmpty
+      //           ? null
+      //           : getCollectionbody.gSTNo,
+      //       "bil_address1": getCollectionbody.bil_Address1.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_Address1,
+      //       "bil_address2": getCollectionbody.bil_Address2.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_Address2,
+      //       "bil_address3": getCollectionbody.bil_Address3.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_Address3,
+      //       "bil_area": getCollectionbody.bil_Area.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_Area,
+      //       "bil_city": getCollectionbody.bil_City.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_City,
+      //       "bil_district": getCollectionbody.bil_District.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_District,
+      //       "bil_state": getCollectionbody.bil_State.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_State,
+      //       "bil_country": getCollectionbody.bil_Country.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_Country,
+      //       "bil_pincode": getCollectionbody.bil_Pincode.isEmpty
+      //           ? null
+      //           : getCollectionbody.bil_Pincode,
+      //       "storecode": getCollectionbody.StoreCode.isEmpty
+      //           ? null
+      //           : getCollectionbody.StoreCode,
+      //       "assignedto": getCollectionbody.AssignedTo.isEmpty
+      //           ? null
+      //           : getCollectionbody.AssignedTo,
 
-            "docstatus": "Open", //
-            "visitid": getCollectionbody.visitid == null
-                ? 0
-                : getCollectionbody.visitid, //
-            "amountpaid": getCollectionbody.amountpaid.isEmpty
-                ? null
-                : getCollectionbody.amountpaid, //
-            "cashamt": getCollectionbody.cashamt, //
-            "chqamt": getCollectionbody.chqamt, //
-            "chequedate": getCollectionbody.chequedate.isEmpty
-                ? null
-                : getCollectionbody.chequedate, //
-            "chequeref": getCollectionbody.chequeref.isEmpty
-                ? null
-                : getCollectionbody.chequeref, //
-            "chequeimg": getCollectionbody.chequeimg.isEmpty
-                ? null
-                : getCollectionbody.chequeimg, //
-            "neftamt": getCollectionbody.neftamt, //
-            "neftref": getCollectionbody.neftref.isEmpty
-                ? null
-                : getCollectionbody.neftref, //
-            "cardamt": getCollectionbody.cardamt, //
-            "cardslipImg": getCollectionbody.cardslipImg.isEmpty
-                ? null
-                : getCollectionbody.cardslipImg, //
-            "upiamt": getCollectionbody.upiamt, //
-            "onaccount": getCollectionbody.onaccount, //
-//
-            "cardref": getCollectionbody.cardref!.isEmpty
-                ? null
-                : getCollectionbody.cardref,
-            "upiref": getCollectionbody.upiref!.isEmpty
-                ? null
-                : getCollectionbody.upiref,
-            "remarks": getCollectionbody.remarks!.isEmpty
-                ? null
-                : getCollectionbody.remarks,
-
-            "ipaylines":
-                getCollectionbody.ipaylaine.map((e) => e.tojason()).toList()
-          }));
+      //       "docstatus": "Open", //
+      //       "visitid": getCollectionbody.visitid == null
+      //           ? 0
+      //           : getCollectionbody.visitid, //
+      //       "amountpaid": getCollectionbody.amountpaid.isEmpty
+      //           ? null
+      //           : getCollectionbody.amountpaid, //
+      //       "cashamt": getCollectionbody.cashamt, //
+      //       "chqamt": getCollectionbody.chqamt, //
+      //       "chequedate": getCollectionbody.chequedate.isEmpty
+      //           ? null
+      //           : getCollectionbody.chequedate, //
+      //       "chequeref": getCollectionbody.chequeref.isEmpty
+      //           ? null
+      //           : getCollectionbody.chequeref, //
+      //       "chequeimg": getCollectionbody.chequeimg.isEmpty
+      //           ? null
+      //           : getCollectionbody.chequeimg, //
+      //       "neftamt": getCollectionbody.neftamt, //
+      //       "neftref": getCollectionbody.neftref.isEmpty
+      //           ? null
+      //           : getCollectionbody.neftref, //
+      //       "cardamt": getCollectionbody.cardamt, //
+      //       "cardslipImg": getCollectionbody.cardslipImg.isEmpty
+      //           ? null
+      //           : getCollectionbody.cardslipImg, //
+      //       "upiamt": getCollectionbody.upiamt, //
+      //       "onaccount": getCollectionbody.onaccount, //
+      //        "cardref": getCollectionbody.cardref!.isEmpty
+      //           ? null
+      //           : getCollectionbody.cardref,
+      //       "upiref": getCollectionbody.upiref!.isEmpty
+      //           ? null
+      //           : getCollectionbody.upiref,
+      //       "remarks": getCollectionbody.remarks!.isEmpty
+      //           ? null
+      //           : getCollectionbody.remarks,
+      //       "ipaylines":
+      //           getCollectionbody.ipaylaine.map((e) => e.tojason()).toList(),
+      //            "ipaypays":getCollectionbody.paymentdata!.map((e) => e.tojason2()).toList()
+         
+      //     }));
       Config config = Config();
       await config.getSetup();
       final response = await http.post(
@@ -131,7 +131,7 @@ class CollectionPostApi {
             "Location": '${ConstantValues.EncryptedSetup}'
           },
           body: jsonEncode({
-            "customercode": getCollectionbody.customerCode.isEmpty
+            "customercode": getCollectionbody!.customerCode.isEmpty
                 ? null
                 : getCollectionbody.customerCode, //
             "customername": getCollectionbody.customerName.isEmpty
@@ -229,11 +229,12 @@ class CollectionPostApi {
                 ? null
                 : getCollectionbody.remarks,
             "ipaylines":
-                getCollectionbody.ipaylaine.map((e) => e.tojason()).toList()
+                getCollectionbody.ipaylaine.map((e) => e.tojason()).toList(),
+                 "ipaypays":getCollectionbody.paymentdata!.map((e) => e.tojason2()).toList()
           }));
       response.statusCode;
 
-      print('Collection ResponceCode:' + response.statusCode.toString());
+      // print('Collection ResponceCode:' + response.statusCode.toString());
 
       print('Collection Post Responce:' + response.body.toString());
       if (response.statusCode == 200) {
@@ -246,6 +247,72 @@ class CollectionPostApi {
     } catch (e) {
       return CollectionPostList.error("$e", 500);
     }
+  }
+}
+class paymenttermdata {
+  String? paymodcode;
+  String? paymodename;
+  String? ref1;
+  String? ref2;
+  String? listtype;
+  String? dateref;
+  String? attachment1;
+  double? amount;
+
+  paymenttermdata({
+    required this.paymodcode,
+    required this.paymodename,
+    required this.ref1,
+    required this.ref2,
+    required this.listtype,
+    required this.dateref,
+    required this.attachment1,
+    required this.amount,
+  });
+  Map<String, dynamic> tojason2() {
+    final Map<String, dynamic> map = {};
+    void addNonNullEntry(String key, dynamic value) {
+    if (value != null) {
+      map[key] = value;
+    }
+  }
+    addNonNullEntry("paymodecode", paymodcode);
+  addNonNullEntry("paymodename", paymodename);
+  addNonNullEntry("ref1", ref1);
+  addNonNullEntry("ref2", ref2);
+  addNonNullEntry("listvalcode", listtype);
+  addNonNullEntry("dateref", dateref);
+  addNonNullEntry("attachpath", attachment1);
+  addNonNullEntry("amount", amount!.round());
+    
+    return map;
+  }
+   Map<String, dynamic> tojason3(){
+     Map<String, dynamic> map ={
+
+      "paymodecode": paymodcode!,
+      "paymodename": paymodename!,
+      "ref1": ref1!,
+      "ref2": ref2!,
+      "listvalcode": listtype!,
+      "dateref": dateref!,
+      "attachpath": attachment1!,
+      "amount": amount!.round(),
+    };
+     return map;
+   }
+  Map<String, dynamic> tojason() {
+    Map<String, dynamic> map = {
+      "paymodecode": paymodcode!,
+      "paymodename": paymodename!,
+      "ref1": ref1!,
+      "ref2": ref2!,
+      "listvalcode": listtype!,
+      "dateref": dateref!,
+      "attachpath": attachment1,
+      "amount": amount,
+    };
+    return map;
   }
 }
 
@@ -293,6 +360,7 @@ class postCollectBody {
   String? remarks;
 
   List<Ipaylines> ipaylaine = [];
+  List<paymenttermdata>? paymentdata;
   postCollectBody(
       {required this.cardref,
       required this.upiref,
@@ -334,7 +402,9 @@ class postCollectBody {
       required this.cardslipImg,
       required this.upiamt,
       required this.onaccount,
-      required this.ipaylaine});
+      required this.ipaylaine,
+      this.paymentdata
+      });
 }
 
 class Ipaylines {

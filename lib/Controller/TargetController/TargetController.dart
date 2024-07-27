@@ -157,6 +157,7 @@ class TargetTabController extends ChangeNotifier {
       } else if (value.stcode == 500) {
         targetTodayMasterData22 = [];
         targetMonthMasterData22 = [];
+        
         lottie = 'Assets/NetworkAnimation.json';
         targetCheckDataExcep = 'Check Your Internet Connection..!!';
 

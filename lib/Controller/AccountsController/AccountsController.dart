@@ -31,12 +31,7 @@ import 'package:sellerkit/Services/userDialApi/userdialapi.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Constant/ConstantRoutes.dart';
-import '../../Constant/Helper.dart';
-import '../../Constant/Screen.dart';
-import '../../Models/AccountsModel/AccountsdetailsModel.dart';
-import '../../Services/AccountsApi/AccountdetailsApi.dart';
 import '../../Services/AccountsApi/AccountsApi.dart';
-import '../../Services/AccountsApi/AccountsdetailsleadApi.dart';
 import '../EnquiryController/NewEnqController.dart';
 import '../LeadController/LeadNewController.dart';
 
@@ -191,8 +186,16 @@ class AccountsContoller extends ChangeNotifier {
         errorMsg = '${value.respCode!}..!! ${value.exception}..!! ';
         notifyListeners();
       } else if (value.stcode == 500) {
-        exception = true;
+         if(value.respDesc!.contains("Network is unreachable")){
+  exception = true;
         errorMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        notifyListeners();
+        }else{
+           exception = true;
+        errorMsg = '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+       
+        }
+       
         notifyListeners();
       }
     });
@@ -667,12 +670,23 @@ class AccountsContoller extends ChangeNotifier {
         notifyListeners();
       } else if (value.stcode == 500) {
         isLoading = false;
-        if (value.exception == 'No route to host') {
-          errorMsg = 'Check your Internet Connection...!!';
-        } else {
-          lottie = 'Assets/NetworkAnimation.json';
-          errorMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+
+        if(value.exception!.contains("Network is unreachable")){
+  lottie='Assets/NetworkAnimation.json';
+        errorMsg = '${value.stcode}..Network Issue..\nTry again Later..!';
+        
+        notifyListeners();
+        }else{
+        lottie='Assets/warning.png';
+        errorMsg = '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+        
         }
+        // if (value.exception == 'No route to host') {
+        //   errorMsg = 'Check your Internet Connection...!!';
+        // } else {
+        //   lottie = 'Assets/NetworkAnimation.json';
+        //   errorMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        // }
         exception = true;
         // errorMsg = '${value.exception}';
         notifyListeners();

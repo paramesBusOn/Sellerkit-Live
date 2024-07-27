@@ -9,8 +9,9 @@ import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
 import '../../../Controller/SettlementController/SettlementController.dart';
 
 class DDAlertBox extends StatefulWidget {
-  DDAlertBox({Key? key, required this.indx}) : super(key: key);
+  DDAlertBox({Key? key, required this.indx,required this.name}) : super(key: key);
   final int indx;
+  final String? name;
   @override
   State<DDAlertBox> createState() => DDAlertBoxState();
 }
@@ -87,7 +88,7 @@ class DDAlertBoxState extends State<DDAlertBox> {
                       height: Screens.bodyheight(context) * 0.02,
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Total Amount Rs.${context.read<SettlementController>().totalDD()}",
+                        "Total Amount Rs.${context.read<SettlementController>().totalfinal(widget.name)}",
                         style: theme.textTheme.bodySmall!
                             .copyWith(color: Colors.grey),
                       ),

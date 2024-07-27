@@ -144,7 +144,7 @@ class SettlementSuccessChequeState extends State<SettlementSuccessCheque> {
                           //   color: Colors.blue,
                           child: Center(
                               child: Text(
-                            "Cheque Amount Rs.${context.read<SettlementController>().totalCheque()}",
+                            "Cheque Amount Rs.${widget.settlemaster!.Amount.toStringAsFixed(2)}",
                             style: theme.textTheme.bodyText2,
                             textAlign: TextAlign.center,
                           )),

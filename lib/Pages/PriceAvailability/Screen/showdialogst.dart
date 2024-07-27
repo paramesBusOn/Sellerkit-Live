@@ -4,6 +4,7 @@ import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/PriceListController/PriceListController.dart';
 import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
+import 'package:sellerkit/main.dart';
 class showdialogst extends StatefulWidget {
    showdialogst({super.key,required this.getalldata});
 ItemMasterDBModel getalldata;
@@ -254,10 +255,38 @@ class _showdialogstState extends State<showdialogst> {
             ),
 
 
+             
              SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
                         ),
-               createTable(theme)
+            createTable7(theme,widget.getalldata),
+            createTable2(theme,widget.getalldata),
+            Container(
+                        // width: Screens.width(context)*0.7,
+                        // color: Colors.red,
+                        child: Text("Store Age Slab:",
+                            style: theme.textTheme.bodyText1
+                                ?.copyWith() //color: theme.primaryColor
+                            ),
+                      ),
+                      SizedBox(
+                        height: 1,
+                      ),
+            createTable5(theme,widget.getalldata),
+            Container(
+                        // width: Screens.width(context)*0.7,
+                        // color: Colors.red,
+                        child: Text("Whse Age Slab:",
+                            style: theme.textTheme.bodyText1
+                                ?.copyWith() //color: theme.primaryColor
+                            ),
+                      ),
+                      SizedBox(
+                        height: 1,
+                      ),
+            createTable6(theme,widget.getalldata),
+            
+              createTable(theme)
                 ])
         
             //           Container(
@@ -286,6 +315,449 @@ class _showdialogstState extends State<showdialogst> {
     );
   }
 
+  Widget createTable2(ThemeData theme, ItemMasterDBModel getalldata) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp1_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp2_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp3_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp4_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp5_Inc}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp1Inc.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp2Inc.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp3Inc.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp4Inc.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp5Inc.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+  
+
+  Widget createTable5(ThemeData theme, ItemMasterDBModel getalldata) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab1}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab2}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab3}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab4}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+     
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.storeAgeSlab1.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.storeAgeSlab2.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.storeAgeSlab3.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.storeAgeSlab4.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+     
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.5),
+      1: FlexColumnWidth(1.5),
+      2: FlexColumnWidth(1.5),
+      3: FlexColumnWidth(1.5),
+      
+    }, children: rows);
+  }
+Widget createTable7(ThemeData theme,ItemMasterDBModel getalldata) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp1}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp2}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp3}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp4}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ssp5}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp1.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp2.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp3.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp4.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.ssp5.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+  Widget createTable6(ThemeData theme, ItemMasterDBModel getalldata) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab1}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab2}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab3}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${ConstantValues.ageslab4}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+     
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.whsAgeSlab1.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.whsAgeSlab2.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.whsAgeSlab3.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(getalldata.whsAgeSlab4.toString()),
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+     
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.5),
+      1: FlexColumnWidth(1.5),
+      2: FlexColumnWidth(1.5),
+      3: FlexColumnWidth(1.5),
+      
+    }, children: rows);
+  }
+  
    Widget createTable(ThemeData theme) {
     List<TableRow> rows = [];
     rows.add(TableRow(children: [

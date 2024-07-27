@@ -5,9 +5,9 @@ import '../../../../Constant/Screen.dart';
 
 class AlertMsg extends StatefulWidget {
   AlertMsg({
-    Key? key,
+    super.key,
     required this.msg
-  }) : super(key: key);
+  });
   String msg;
   @override
   State<AlertMsg> createState() => AlertMsgState();

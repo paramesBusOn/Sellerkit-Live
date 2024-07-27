@@ -18,7 +18,6 @@
 // import 'package:sellerkit/Constant/Screen.dart';
 // import 'package:sellerkit/Constant/Utils.dart';
 // import 'package:sellerkit/Constant/getCallLog_NativeCode.dart';
-// import 'package:sellerkit/Constant/methodchannel%20copy.dart';
 // import 'package:sellerkit/Controller/DashBoardController/DashBoardController.dart';
 // import 'package:sellerkit/Controller/callNotificationController/callNotificationController.dart';
 // import 'package:sellerkit/DBModel/outstandingDBmodel.dart';
@@ -31,6 +30,7 @@
 // import 'package:sellerkit/Pages/callerNotification/widgets/showsearchdialog.dart';
 // import 'package:sellerkit/Services/PostQueryApi/EnquiriesApi/GetCustomerDetails.dart';
 // import 'package:sellerkit/Services/PostQueryApi/LeadsApi/OpenSaveApi.dart';
+// import 'package:sellerkit/Services/QuickEnqApi/quickenqApi.dart';
 // import 'package:sellerkit/Services/URL/LocalUrl.dart';
 // import 'package:sellerkit/Services/selfNotificationApi/selfNotificationApi.dart';
 // import 'package:sellerkit/main.dart';
@@ -643,6 +643,18 @@
 //         textColor: Colors.white,
 //         fontSize: 14.0);
 //   }
+//   clearenqdata(){
+//     mycontroller[21].clear();
+//     mycontroller[25].clear();
+//     mycontroller[26].clear();
+//     mycontroller[24].clear();
+//     mycontroller[22].clear();
+//     isloadingBtn=false;
+//     enqerror='';
+
+//   }
+  
+// final formkey = GlobalKey<FormState>();
 //   clearfollowdata(){
 //      clearbool();
 //       valueChosedStatus=null;
@@ -666,6 +678,72 @@
 //     isSelectedFollowUpcode = '';
 //     caseStatusSelected='';
 //     caseStatusSelectedcode = "";
+//   }
+// bool  isloadingBtn = false;
+// String? enqerror='';
+//    validate(String mobile,String name,String lookingfor,String assignto,String Description){
+//     if( formkey.currentState!.validate()){
+//      setState((){
+//       isloadingBtn=true;
+//      });
+     
+//        qenqcolumns enqcolumn=qenqcolumns();
+
+// enqcolumn.mobile=mobile;
+// enqcolumn.name=name;
+// enqcolumn.lookingfor=lookingfor;
+// enqcolumn.assignto= context.read<CallNotificationController>(). usercode;
+// enqcolumn.Description=Description;
+
+// quickEnqPostApi.getData(enqcolumn).then((value) {
+//    if (value.stcode! >= 200 && value.stcode! <= 210) {
+//     log("successenq");
+//     setState(() {
+//           //  enqerror = '${value.error!}..!!';
+//            log("forwardDialogSuccessMsg::"+enqerror.toString());
+//         isloadingBtn = false;
+//        SnackBar  snackBar = SnackBar(
+//   content: Text("Successfully Enquiry Added..!!"),
+// );
+// ScaffoldMessenger.of(context).showSnackBar(snackBar);
+// clearenqdata();
+//         // showtoastforscanning(forwardDialogSuccessMsg.toString());
+//         });
+        
+       
+//       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+//          log("successenq400");
+//         setState(() {
+//            enqerror = '${value.stcode!}..!!${value.exception!}';
+//            log("forwardDialogSuccessMsg::"+enqerror.toString());
+//         isloadingBtn = false;
+//        SnackBar  snackBar = SnackBar(
+//   content: Text("$enqerror"),
+// );
+// ScaffoldMessenger.of(context).showSnackBar(snackBar);
+// // clearenqdata();
+//         // showtoastforscanning(forwardDialogSuccessMsg.toString());
+//         });  } else {
+//              log("successenq500");
+//              setState(() {
+//            enqerror = '${value.stcode!}..!!${value.exception!}';
+//            log("forwardDialogSuccessMsg::"+enqerror.toString());
+//         isloadingBtn = false;
+//        SnackBar  snackBar = SnackBar(
+//   content: Text("$enqerror"),
+// );
+// ScaffoldMessenger.of(context).showSnackBar(snackBar);
+// // clearenqdata();
+//         // showtoastforscanning(forwardDialogSuccessMsg.toString());
+//         }); 
+//         // isloadingBtn = false;
+//         // notifyListeners();
+//         // callAlertDialog2(context,
+//         //     '${value.stcode!}..!!Network Issue..\nTry again Later..!!');
+//       }
+
+// });
+//     }
 //   }
 // Allfollowupupdate(
 //       String followDocEntry,
@@ -1560,7 +1638,7 @@
 //                        isshowEnq==true? 
                          
 //                           Form(
-//                           key:    context.watch<CallNotificationController>().formkey,
+//                           key:    formkey,
 
 //                             child: Column(
 //                                   children: [
@@ -1971,11 +2049,17 @@
 //                                           setState(() {
 //                                             log("mycontroller[25]::"+ mycontroller[21].text.toString());
 //                                           //  focusNode.requestFocus(); 
-//                                    context.read<CallNotificationController>().   validate();
+//                                       validate(mycontroller[21].text,
+//                                    mycontroller[22].text,mycontroller[25].text,context.read<CallNotificationController>(). getslpID.toString(),
+//                                    mycontroller[24].text
+//                                    );
 //                                           });
                                           
                                         
-//                                         }, child: Text("Submit")),
+//                                         }, child:isloadingBtn==true?Center(child:SizedBox(
+//                                           width: Screens.width(context)*0.04,
+//                                           height:Screens.padingHeight(context)*0.05,
+//                                           child: CircularProgressIndicator(color:Colors.white))): Text("Submit")),
 //                                       ),
 //                                     )
 //                                   ],

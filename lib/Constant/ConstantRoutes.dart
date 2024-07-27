@@ -76,4 +76,5 @@ class ConstantRoutes {
   static String outstanding = "/outstanding";
   static String restrictionValue = "/restrictionValue";
   static String chagnePassword = "/chagnePassword";
+  static String reports = "/report";
 }

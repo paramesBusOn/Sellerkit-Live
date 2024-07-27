@@ -70,19 +70,20 @@ class OpenLeadController extends ChangeNotifier {
   int pageChanged = 0;
   PageController pageController = PageController(initialPage: 0);
 
-Future<void> swipeRefreshIndiactor() async {
+  Future<void> swipeRefreshIndiactor() async {
     // return Future.delayed(Duration.zero,(){
     // clearAllData();
-     errorVisitTime = "";
- forwarderrorVisitTime = "";
-  //  await clearAllListData();
-  await  callGetAllApi();
- await getDataOnLoad();
- await callinitApi();
+    errorVisitTime = "";
+    forwarderrorVisitTime = "";
+    //  await clearAllListData();
+    await callGetAllApi();
+    await getDataOnLoad();
+    await callinitApi();
     // callSummaryApi();
 
     //});
   }
+
   void showtoastforall() {
     Fluttertoast.showToast(
         msg: "Select User..!!",
@@ -141,13 +142,15 @@ Future<void> swipeRefreshIndiactor() async {
       notifyListeners();
     }
   }
- Future<void> makePhoneCall(String phoneNumber) async {
+
+  Future<void> makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
       path: phoneNumber,
     );
     await launchUrl(launchUri);
   }
+
   List<DistinctColumn> brandData = [];
   List<DistinctColumn> get getBrandData => brandData;
   List<DistinctColumn> groupProperty = [];
@@ -171,161 +174,174 @@ Future<void> swipeRefreshIndiactor() async {
   List<GetAllLeadData> leadOpenAllData = [];
   List<GetAllLeadData> getalldata = [];
   List<GetAllLeadData> filterleadOpenAllData = [];
- List< OpenLeadfiltermodel> getalldatatoDB=[];
- List< OpenLeadfiltermodel> GetfromdbEnqData=[];
+  List<OpenLeadfiltermodel> getalldatatoDB = [];
+  List<OpenLeadfiltermodel> GetfromdbEnqData = [];
 
- List<Distcolumn> assigncolumn = [];
-   List<Distcusgroupcolumn> cusgroupcolumn = [];
- List<DistEnqstatuscolumn> enqstatuscolumn = [];
- List<Distlookingforcolumn> lookingforcolumn = [];
- List<Distlookingforcolumn> filterlookingforcolumn = [];
- List<Distlookingforcolumn> lookingforcolumnforshow = [];
- List<Distlevelcolumn> intlevelcolumn = [];
- List<Distordercolumn> ordercolumn = [];
- List<Distcustnamecolumn> cusnamecolumn = [];
- List<String> selectedinterest=[];
- List<String> selectedorder=[];
- List<String> selectedlookingfor=[];
- List<String> selectedenqstatus=[];
- List<String> selectedcusgoup=[];
-  List<String> selectedcusname=[];
- List<String> selectedassignto=[];
- bool isenqstatus=false;
- bool islookingfor=false;
- bool iscusgroup=false;
- bool iscusname=false;
- bool isassignto=false;
- bool isinterest=false;
- bool isorder=false;
- ontaporder(){
-   isorder = !isorder;
-   notifyListeners();
-    }
-    ontapinterest(){
-   isinterest = !isinterest;
-   notifyListeners();
-    }
- ontapassignto(){
-   isassignto = !isassignto;
-   notifyListeners();
-    }
-     itemselectinterest(String itemvalue,bool isselected){
-      interestlevelvalue='';
-  if(isselected){
-    selectedinterest.add(itemvalue);
-  }else{
-    selectedinterest.remove(itemvalue);
+  List<Distcolumn> assigncolumn = [];
+  List<Distcusgroupcolumn> cusgroupcolumn = [];
+  List<DistEnqstatuscolumn> enqstatuscolumn = [];
+  List<Distlookingforcolumn> lookingforcolumn = [];
+  List<Distlookingforcolumn> filterlookingforcolumn = [];
+  List<Distlookingforcolumn> lookingforcolumnforshow = [];
+  List<Distlevelcolumn> intlevelcolumn = [];
+  List<Distordercolumn> ordercolumn = [];
+  List<Distcustnamecolumn> cusnamecolumn = [];
+  List<String> selectedinterest = [];
+  List<String> selectedorder = [];
+  List<String> selectedlookingfor = [];
+  List<String> selectedenqstatus = [];
+  List<String> selectedcusgoup = [];
+  List<String> selectedcusname = [];
+  List<String> selectedassignto = [];
+  bool isenqstatus = false;
+  bool islookingfor = false;
+  bool iscusgroup = false;
+  bool iscusname = false;
+  bool isassignto = false;
+  bool isinterest = false;
+  bool isorder = false;
+  ontaporder() {
+    isorder = !isorder;
+    notifyListeners();
   }
-  interestlevelvalue=selectedinterest.join(', ');
-  log("selectedinterest::"+selectedinterest.toString());
-  log("interestlevelvalue::"+interestlevelvalue.toString());
-  notifyListeners();
- }
-     itemselectorder(String itemvalue,bool isselected){
-      ordertypevalue='';
-  if(isselected){
-    selectedorder.add(itemvalue);
-  }else{
-    selectedorder.remove(itemvalue);
+
+  ontapinterest() {
+    isinterest = !isinterest;
+    notifyListeners();
   }
-  ordertypevalue=selectedorder.join(', ');
-  log("selectedorder::"+selectedorder.toString());
-  log("ordertypevalue::"+ordertypevalue.toString());
-  notifyListeners();
- }
- itemselectassignto(String itemvalue,bool isselected){
-  assignvalue='';
-  if(isselected){
-    selectedassignto.add(itemvalue);
-  }else{
-    selectedassignto.remove(itemvalue);
+
+  ontapassignto() {
+    isassignto = !isassignto;
+    notifyListeners();
   }
-  assignvalue=selectedassignto.join(', ');
-  log("selectedassignto::"+selectedassignto.toString());
-  log("assignvalue::"+assignvalue.toString());
-  notifyListeners();
- }
- itemselectCusgroup(String itemvalue,bool isselected){
-  cusnamevalue ='';
-  if(isselected){
-    selectedcusgoup.add(itemvalue);
-  }else{
-    selectedcusgoup.remove(itemvalue);
-  }
-  cusnamevalue=selectedcusgoup.join(', ');
-  log("selectedcusgoup::"+selectedcusgoup.toString());
-   log("cusnamevalue::"+cusnamevalue.toString());
-  notifyListeners();
- }
- itemselectCusname(String itemvalue,bool isselected){
-  cardnamevalue ='';
-  if(isselected){
-    selectedcusname.add(itemvalue);
-  }else{
-    selectedcusname.remove(itemvalue);
-  }
-  cardnamevalue=selectedcusname.join(', ');
-  log("selectedcusname::"+selectedcusname.toString());
-   log("cardnamevalue::"+cardnamevalue.toString());
-  notifyListeners();
- }
- ontapcusgroup(){
-   iscusgroup = !iscusgroup;
-   notifyListeners();
+
+  itemselectinterest(String itemvalue, bool isselected) {
+    interestlevelvalue = '';
+    if (isselected) {
+      selectedinterest.add(itemvalue);
+    } else {
+      selectedinterest.remove(itemvalue);
     }
-    ontapcusname(){
-   iscusname = !iscusname;
-   notifyListeners();
-    }
- ontaplooking(){
-   islookingfor = !islookingfor;
-   notifyListeners();
-    }
-    onenqstatus(){
-   isenqstatus = !isenqstatus;
-   notifyListeners();
-    }
-     itemselectenqstatus(String itemvalue,bool isselected){
-      Enquirystatusvalue='';
-  if(isselected){
-    selectedenqstatus.add(itemvalue);
-  }else{
-    selectedenqstatus.remove(itemvalue);
+    interestlevelvalue = selectedinterest.join(', ');
+    log("selectedinterest::" + selectedinterest.toString());
+    log("interestlevelvalue::" + interestlevelvalue.toString());
+    notifyListeners();
   }
-  Enquirystatusvalue=selectedenqstatus.join(', ');
-  log("selectedlookingfor::"+selectedenqstatus.toString());
-   log("Enquirystatusvalue::"+Enquirystatusvalue.toString());
-  notifyListeners();
- }
- itemselect(String itemvalue,bool isselected){
-  lookingforvalue='';
-  if(isselected){
-    selectedlookingfor.add(itemvalue);
-  }else{
-    selectedlookingfor.remove(itemvalue);
+
+  itemselectorder(String itemvalue, bool isselected) {
+    ordertypevalue = '';
+    if (isselected) {
+      selectedorder.add(itemvalue);
+    } else {
+      selectedorder.remove(itemvalue);
+    }
+    ordertypevalue = selectedorder.join(', ');
+    log("selectedorder::" + selectedorder.toString());
+    log("ordertypevalue::" + ordertypevalue.toString());
+    notifyListeners();
   }
-  lookingforvalue=selectedlookingfor.join(', ');
-  log("selectedlookingfor::"+selectedlookingfor.toString());
-  log("lookingforvalue::"+lookingforvalue.toString());
-  notifyListeners();
- }
- String? assignvalue;
-   String? cusnamevalue;
-   String? cardnamevalue;
-   String? Enquirystatusvalue;
-   String? lookingforvalue;
-   
-    String? interestlevelvalue;
-     String? ordertypevalue;
-     
-bool? islookloading=false;
+
+  itemselectassignto(String itemvalue, bool isselected) {
+    assignvalue = '';
+    if (isselected) {
+      selectedassignto.add(itemvalue);
+    } else {
+      selectedassignto.remove(itemvalue);
+    }
+    assignvalue = selectedassignto.join(', ');
+    log("selectedassignto::" + selectedassignto.toString());
+    log("assignvalue::" + assignvalue.toString());
+    notifyListeners();
+  }
+
+  itemselectCusgroup(String itemvalue, bool isselected) {
+    cusnamevalue = '';
+    if (isselected) {
+      selectedcusgoup.add(itemvalue);
+    } else {
+      selectedcusgoup.remove(itemvalue);
+    }
+    cusnamevalue = selectedcusgoup.join(', ');
+    log("selectedcusgoup::" + selectedcusgoup.toString());
+    log("cusnamevalue::" + cusnamevalue.toString());
+    notifyListeners();
+  }
+
+  itemselectCusname(String itemvalue, bool isselected) {
+    cardnamevalue = '';
+    if (isselected) {
+      selectedcusname.add(itemvalue);
+    } else {
+      selectedcusname.remove(itemvalue);
+    }
+    cardnamevalue = selectedcusname.join(', ');
+    log("selectedcusname::" + selectedcusname.toString());
+    log("cardnamevalue::" + cardnamevalue.toString());
+    notifyListeners();
+  }
+
+  ontapcusgroup() {
+    iscusgroup = !iscusgroup;
+    notifyListeners();
+  }
+
+  ontapcusname() {
+    iscusname = !iscusname;
+    notifyListeners();
+  }
+
+  ontaplooking() {
+    islookingfor = !islookingfor;
+    notifyListeners();
+  }
+
+  onenqstatus() {
+    isenqstatus = !isenqstatus;
+    notifyListeners();
+  }
+
+  itemselectenqstatus(String itemvalue, bool isselected) {
+    Enquirystatusvalue = '';
+    if (isselected) {
+      selectedenqstatus.add(itemvalue);
+    } else {
+      selectedenqstatus.remove(itemvalue);
+    }
+    Enquirystatusvalue = selectedenqstatus.join(', ');
+    log("selectedlookingfor::" + selectedenqstatus.toString());
+    log("Enquirystatusvalue::" + Enquirystatusvalue.toString());
+    notifyListeners();
+  }
+
+  itemselect(String itemvalue, bool isselected) {
+    lookingforvalue = '';
+    if (isselected) {
+      selectedlookingfor.add(itemvalue);
+    } else {
+      selectedlookingfor.remove(itemvalue);
+    }
+    lookingforvalue = selectedlookingfor.join(', ');
+    log("selectedlookingfor::" + selectedlookingfor.toString());
+    log("lookingforvalue::" + lookingforvalue.toString());
+    notifyListeners();
+  }
+
+  String? assignvalue;
+  String? cusnamevalue;
+  String? cardnamevalue;
+  String? Enquirystatusvalue;
+  String? lookingforvalue;
+
+  String? interestlevelvalue;
+  String? ordertypevalue;
+
+  bool? islookloading = false;
 
   bool datagotByApi = false;
   String dbfilterpurchaseDate = '';
- 
- DateTime? checkdate;
-void showfromDatefilter(BuildContext context) {
- 
+
+  DateTime? checkdate;
+  void showfromDatefilter(BuildContext context) {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -335,9 +351,9 @@ void showfromDatefilter(BuildContext context) {
       if (value == null) {
         return;
       }
-       mycontroller[22].clear();
+      mycontroller[22].clear();
       String chooseddate = value.toString();
-        checkdate=value;
+      checkdate = value;
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -350,11 +366,12 @@ void showfromDatefilter(BuildContext context) {
       notifyListeners();
     });
   }
+
   void showToDatefilter(BuildContext context) {
     showDatePicker(
       context: context,
-      initialDate:checkdate ?? DateTime.now(),
-      firstDate:checkdate ?? DateTime(2020),
+      initialDate: checkdate ?? DateTime.now(),
+      firstDate: checkdate ?? DateTime(2020),
       lastDate: DateTime(2050),
     ).then((value) {
       if (value == null) {
@@ -373,81 +390,82 @@ void showfromDatefilter(BuildContext context) {
       notifyListeners();
     });
   }
- onfilterapply()async{
-     final Database db = (await DBHelper.getInstance())!;
-    
-      await DBOperation.getopenleadfilterapply(
-            db,
-            assignvalue == null ? '' : assignvalue!,
-            cardnamevalue== null ? '' : cardnamevalue!,
-            cusnamevalue == null ? '' : cusnamevalue!,
-            Enquirystatusvalue == null ? '' : Enquirystatusvalue!,
-          
-              interestlevelvalue == null ? '' : interestlevelvalue!,
-            ordertypevalue == null ? '' : ordertypevalue!,
-             mycontroller[23].text.isEmpty ? 0.0 : double.parse(mycontroller[23].text),
-          
-            mycontroller[21].text.isEmpty ? '0000-00-00' : config.alignDate1(mycontroller[21].text),
-            mycontroller[22].text.isEmpty ? '9999-12-31' : config.alignDate1(mycontroller[22].text),
-           
-           )
-        .then((value) async {
-     
+
+  onfilterapply() async {
+    final Database db = (await DBHelper.getInstance())!;
+
+    await DBOperation.getopenleadfilterapply(
+      db,
+      assignvalue == null ? '' : assignvalue!,
+      cardnamevalue == null ? '' : cardnamevalue!,
+      cusnamevalue == null ? '' : cusnamevalue!,
+      Enquirystatusvalue == null ? '' : Enquirystatusvalue!,
+      interestlevelvalue == null ? '' : interestlevelvalue!,
+      ordertypevalue == null ? '' : ordertypevalue!,
+      mycontroller[23].text.isEmpty ? 0.0 : double.parse(mycontroller[23].text),
+      mycontroller[21].text.isEmpty
+          ? '0000-00-00'
+          : config.alignDate1(mycontroller[21].text),
+      mycontroller[22].text.isEmpty
+          ? '9999-12-31'
+          : config.alignDate1(mycontroller[22].text),
+    ).then((value) async {
 //  GetAllEnqData.clear();
-     GetfromdbEnqData.clear();
-     
-    leadOpenAllData.clear();
-    
-    filterleadOpenAllData.clear();
-    
-    notifyListeners();
-      GetfromdbEnqData = value;
-      log("GetfromdbEnqData::"+GetfromdbEnqData.length.toString());
-      datagotByApi=false;
+      GetfromdbEnqData.clear();
+
+      leadOpenAllData.clear();
+
+      filterleadOpenAllData.clear();
+
       notifyListeners();
-       await mapValues(GetfromdbEnqData);
+      GetfromdbEnqData = value;
+      log("GetfromdbEnqData::" + GetfromdbEnqData.length.toString());
+      datagotByApi = false;
+      notifyListeners();
+      await mapValues(GetfromdbEnqData);
       clearfilterval();
-      
-      log("datagotByApi::"+datagotByApi.toString());
-     
+
+      log("datagotByApi::" + datagotByApi.toString());
+
       notifyListeners();
     });
-
   }
-clearfilterval() {
-   checkdate=null;
+
+  clearfilterval() {
+    checkdate = null;
     assignvalue = null;
     cusnamevalue = null;
-    cardnamevalue=null;
-    islookingfor=false;
+    cardnamevalue = null;
+    islookingfor = false;
     selectedlookingfor.clear();
-    isenqstatus=false;
+    isenqstatus = false;
     selectedenqstatus.clear();
     selectedcusgoup.clear();
-    iscusgroup=false;
-    iscusname=false;
-    isassignto=false;
-    isorder=false;
-    isinterest=false;
+    iscusgroup = false;
+    iscusname = false;
+    isassignto = false;
+    isorder = false;
+    isinterest = false;
     selectedinterest.clear();
     selectedorder.clear();
     selectedassignto.clear();
-    Enquirystatusvalue=null;
-    lookingforvalue=null;
-    ordertypevalue=null;
-    islookloading=false;
-    interestlevelvalue=null;
+    Enquirystatusvalue = null;
+    lookingforvalue = null;
+    ordertypevalue = null;
+    islookloading = false;
+    interestlevelvalue = null;
     lookingforcolumn.clear();
     lookingforcolumnforshow.clear();
     selectedcusname.clear();
     mycontroller[21].clear();
     mycontroller[22].clear();
     mycontroller[23].clear();
-    
 
     notifyListeners();
   }
-Future<void> dataget(List<Map<String, Object?>> assignDB,cusgropDB,enqstatusDB,intlevelDB,ordertypeDB,cusnametype) async {
+
+  Future<void> dataget(List<Map<String, Object?>> assignDB, cusgropDB,
+      enqstatusDB, intlevelDB, ordertypeDB, cusnametype) async {
     assigncolumn.clear();
     cusgroupcolumn.clear();
     enqstatuscolumn.clear();
@@ -457,96 +475,103 @@ Future<void> dataget(List<Map<String, Object?>> assignDB,cusgropDB,enqstatusDB,i
     intlevelcolumn.clear();
     ordercolumn.clear();
     cusnamecolumn.clear();
-   
+
     notifyListeners();
     for (int i = 0; i < assignDB.length; i++) {
       assigncolumn.add(Distcolumn(name: assignDB[i]['AssignedTo'].toString()));
-      assigncolumn.sort((a,b)=>a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      assigncolumn
+          .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
       log("assigncolumn::" + assigncolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < cusgropDB.length; i++) {
-      cusgroupcolumn.add(Distcusgroupcolumn(name: cusgropDB[i]['Cusgroup'].toString()));
+      cusgroupcolumn
+          .add(Distcusgroupcolumn(name: cusgropDB[i]['Cusgroup'].toString()));
       log("cusgroupcolumn::" + cusgroupcolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < enqstatusDB.length; i++) {
-      enqstatuscolumn.add(DistEnqstatuscolumn(name: enqstatusDB[i]['Status'].toString()));
+      enqstatuscolumn
+          .add(DistEnqstatuscolumn(name: enqstatusDB[i]['Status'].toString()));
       log("enqstatuscolumn::" + enqstatuscolumn.length.toString());
       notifyListeners();
     }
     // for (int i = 0; i < lookingforDB.length; i++) {
     //   lookingforcolumn.add(Distlookingforcolumn(name: lookingforDB[i]['Lookingfor'].toString(),ischecck: false));
-     
+
     //    filterlookingforcolumn=lookingforcolumn;
     //   //   log("lookingforcolumn::" + filterlookingforcolumn.length.toString());
-        
+
     //   notifyListeners();
     // }
-  //  for(int i=0;i<lookingforcolumn.length;i++){
-  //   filterlookingforcolumn.add(Distlookingforcolumn(name: lookingforcolumn[i].name.toString(),ischecck: lookingforcolumn[i].ischecck));
-  //    log("lookingforcolumn::" + filterlookingforcolumn[i].ischecck.toString());
-  //    notifyListeners();
-  //  }
+    //  for(int i=0;i<lookingforcolumn.length;i++){
+    //   filterlookingforcolumn.add(Distlookingforcolumn(name: lookingforcolumn[i].name.toString(),ischecck: lookingforcolumn[i].ischecck));
+    //    log("lookingforcolumn::" + filterlookingforcolumn[i].ischecck.toString());
+    //    notifyListeners();
+    //  }
     notifyListeners();
     for (int i = 0; i < intlevelDB.length; i++) {
-      intlevelcolumn.add(Distlevelcolumn(name: intlevelDB[i]['InterestLevel'].toString()));
+      intlevelcolumn.add(
+          Distlevelcolumn(name: intlevelDB[i]['InterestLevel'].toString()));
       log("intlevelcolumn::" + intlevelcolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < ordertypeDB.length; i++) {
-      ordercolumn.add(Distordercolumn(name: ordertypeDB[i]['OrderType'].toString()));
+      ordercolumn
+          .add(Distordercolumn(name: ordertypeDB[i]['OrderType'].toString()));
       log("assigncolumn::" + ordercolumn.length.toString());
       notifyListeners();
     }
     for (int i = 0; i < cusnametype.length; i++) {
-      cusnamecolumn.add(Distcustnamecolumn(name: cusnametype[i]['CustomerName'].toString()));
+      cusnamecolumn.add(
+          Distcustnamecolumn(name: cusnametype[i]['CustomerName'].toString()));
       log("cusnamecolumn::" + cusnamecolumn.length.toString());
       notifyListeners();
     }
-   
   }
-getdbmodel()async{
-   GetfromdbEnqData.clear();
+
+  getdbmodel() async {
+    GetfromdbEnqData.clear();
     leadOpenAllData.clear();
-    
+
     filterleadOpenAllData.clear();
-    
-     final Database db = (await DBHelper.getInstance())!;
-GetfromdbEnqData = await DBOperation.getopenLeaddatafilter(db);
-log("GetfromdbEnqData::"+GetfromdbEnqData.length.toString());
- List<Map<String, Object?>> assignDB =
+
+    final Database db = (await DBHelper.getInstance())!;
+    GetfromdbEnqData = await DBOperation.getopenLeaddatafilter(db);
+    log("GetfromdbEnqData::" + GetfromdbEnqData.length.toString());
+    List<Map<String, Object?>> assignDB =
         await DBOperation.getopenleadftr("AssignedTo", db);
-        List<Map<String, Object?>> cusgropDB =
+    List<Map<String, Object?>> cusgropDB =
         await DBOperation.getopenleadftr("Cusgroup", db);
-        List<Map<String, Object?>> enqstatusDB =
+    List<Map<String, Object?>> enqstatusDB =
         await DBOperation.getopenleadftr("Status", db);
-        // List<Map<String, Object?>> lookingforDB =
-        // await DBOperation.getleadftr("Mobile", db);
-        List<Map<String, Object?>> intlevelDB =
+    // List<Map<String, Object?>> lookingforDB =
+    // await DBOperation.getleadftr("Mobile", db);
+    List<Map<String, Object?>> intlevelDB =
         await DBOperation.getopenleadftr("InterestLevel", db);
-        List<Map<String, Object?>> ordertypeDB =
+    List<Map<String, Object?>> ordertypeDB =
         await DBOperation.getopenleadftr("OrderType", db);
-         List<Map<String, Object?>> cusnametypeDB =
+    List<Map<String, Object?>> cusnametypeDB =
         await DBOperation.getopenleadftr("CustomerName", db);
-        notifyListeners();
-        
-        await dataget(assignDB,cusgropDB,enqstatusDB,intlevelDB,ordertypeDB,cusnametypeDB);
- await mapValues(GetfromdbEnqData);
-          notifyListeners();
+    notifyListeners();
+
+    await dataget(assignDB, cusgropDB, enqstatusDB, intlevelDB, ordertypeDB,
+        cusnametypeDB);
+    await mapValues(GetfromdbEnqData);
+    notifyListeners();
   }
 
- tableinsert(List<GetAllLeadData> leadcheckdata)async{
- final Database db = (await DBHelper.getInstance())!;
- await DBOperation.truncareopenleadfilter(db);
- getalldatatoDB.clear();
- notifyListeners();
+  tableinsert(List<GetAllLeadData> leadcheckdata) async {
+    final Database db = (await DBHelper.getInstance())!;
+    await DBOperation.truncareopenleadfilter(db);
+    getalldatatoDB.clear();
+    notifyListeners();
 
-for (int i = 0; i < leadcheckdata.length; i++) {
+    for (int i = 0; i < leadcheckdata.length; i++) {
       if (leadcheckdata[i].Status == "Open") {
         print("Open Lead follDate" + leadcheckdata[i].NextFollowup.toString());
         getalldatatoDB.add(OpenLeadfiltermodel(
-          InterestLevel:leadcheckdata[i].InterestLevel ,
+          InterestLevel: leadcheckdata[i].InterestLevel,
           OrderType: leadcheckdata[i].OrderType,
           LeadDocEntry: leadcheckdata[i].LeadDocEntry,
           LeadNum: leadcheckdata[i].LeadNum,
@@ -593,76 +618,92 @@ for (int i = 0; i < leadcheckdata.length; i++) {
         log("currentdate::" + leadOpenAllData.length.toString());
       }
     }
-   await DBOperation.insertopenleaddata(getalldatatoDB, db);
-   notifyListeners();
-   await getdbmodel();
-   notifyListeners();
+    await DBOperation.insertopenleaddata(getalldatatoDB, db);
+    notifyListeners();
+    await getdbmodel();
+    notifyListeners();
   }
-  
-String lottie='';
-bool isloading=false;
-  callGetAllApi() async {
 
+  String lottie = '';
+  bool isloading = false;
+  callGetAllApi() async {
     getalldata.clear();
     leadOpenAllData.clear();
     filterleadOpenAllData.clear();
- lottie='';
- isloading=true;
- notifyListeners();
+    lottie = '';
+    isloading = true;
+    notifyListeners();
     await GetAllLeadApi.getData(ConstantValues.slpcode).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        if (value.leadcheckheader!.leadcheckdata != null && value.leadcheckheader!.leadcheckdata!.isNotEmpty) {
+        if (value.leadcheckheader!.leadcheckdata != null &&
+            value.leadcheckheader!.leadcheckdata!.isNotEmpty) {
           // isLoading = false;
-          log("apii..length"+value.leadcheckheader!.leadcheckdata!.length.toString());
-          getalldata=value.leadcheckheader!.leadcheckdata!;
+          log("apii..length" +
+              value.leadcheckheader!.leadcheckdata!.length.toString());
+          getalldata = value.leadcheckheader!.leadcheckdata!;
           tableinsert(getalldata);
           // mapValues(value.leadcheckheader!.leadcheckdata!);
-        } else if (value.leadcheckheader!.leadcheckdata == null || value.leadcheckheader!.leadcheckdata!.isNotEmpty) {
-         lottie='Assets/no-data.png';
+        } else if (value.leadcheckheader!.leadcheckdata == null ||
+            value.leadcheckheader!.leadcheckdata!.isNotEmpty) {
+          lottie = 'Assets/no-data.png';
           errorMsg = 'No Data Found...!!';
-          
- isloading=false;
- notifyListeners();
+
+          isloading = false;
+          notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
         notifyListeners();
-         lottie='';
+        lottie = '';
         errorMsg = '${value.message}..!! ${value.exception}...!!';
-                 
- isloading=false;
- notifyListeners();
-      } else if (value.stcode == 500) {
+
+        isloading = false;
         notifyListeners();
-         lottie='Assets/NetworkAnimation.json';
-        errorMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
-                 
- isloading=false;
- notifyListeners();
+      } else if (value.stcode == 500) {
+        if (value.exception!.contains("Network is unreachable")) {
+          isloading = false;
+          lottie = 'Assets/NetworkAnimation.json';
+          errorMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+          notifyListeners();
+        } else {
+          isloading = false;
+          lottie = 'Assets/warning.png';
+          errorMsg =
+              '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+          notifyListeners();
+        }
+        // notifyListeners();
+//          lottie='Assets/NetworkAnimation.json';
+//         errorMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+
+//  isloading=false;
+//  notifyListeners();
         notifyListeners();
       }
       notifyListeners();
     });
   }
-mapValuestoorder2(GetAllLeadData leadOpenAllData) {
-    
+
+  mapValuestoorder2(GetAllLeadData leadOpenAllData) {
     OrderNewController.datafromopenlead.clear();
-OrderNewController.datafromopenlead.add(leadOpenAllData.Mobile!);
+    OrderNewController.datafromopenlead.add(leadOpenAllData.Mobile!);
     OrderNewController.datafromopenlead.add(leadOpenAllData.CustomerName!);
     OrderNewController.datafromopenlead.add(leadOpenAllData.add1!);
     OrderNewController.datafromopenlead.add(leadOpenAllData.add2!);
     OrderNewController.datafromopenlead.add(leadOpenAllData.pincode!);
-    OrderNewController.datafromopenlead.add(leadOpenAllData.City!); //isSelectedCsTag
+    OrderNewController.datafromopenlead
+        .add(leadOpenAllData.City!); //isSelectedCsTag
     OrderNewController.datafromopenlead.add(leadOpenAllData.LeadNum.toString());
-    OrderNewController.datafromopenlead.add(leadOpenAllData.cusEmail.toString());
+    OrderNewController.datafromopenlead
+        .add(leadOpenAllData.cusEmail.toString());
     OrderNewController.datafromopenlead.add(leadOpenAllData.state.toString());
-    OrderNewController.datafromopenlead.add(leadOpenAllData.cusgroup.toString());
-    
-    OrderNewController.datafromopenlead.add(leadOpenAllData.area.toString());
-    
+    OrderNewController.datafromopenlead
+        .add(leadOpenAllData.cusgroup.toString());
 
-OrderBookNewState.iscomfromLead = true;
-          Get.toNamed(ConstantRoutes.ordernew);
-          notifyListeners();
+    OrderNewController.datafromopenlead.add(leadOpenAllData.area.toString());
+
+    OrderBookNewState.iscomfromLead = true;
+    Get.toNamed(ConstantRoutes.ordernew);
+    notifyListeners();
     // GetCutomerDetailsApi.getData(mobile, "${ConstantValues.slpcode}")
     //     .then((value) {
     //   if (value.stcode! >= 200 && value.stcode! <= 210) {
@@ -719,6 +760,7 @@ OrderBookNewState.iscomfromLead = true;
     //   }
     // });
   }
+
   mapValues(List<OpenLeadfiltermodel> leadcheckdata) async {
     leadOpenAllData.clear();
     filterleadOpenAllData.clear();
@@ -726,7 +768,7 @@ OrderBookNewState.iscomfromLead = true;
       if (leadcheckdata[i].Status == "Open") {
         print("Open Lead follDate" + leadcheckdata[i].NextFollowup.toString());
         leadOpenAllData.add(GetAllLeadData(
-          InterestLevel:leadcheckdata[i].InterestLevel ,
+          InterestLevel: leadcheckdata[i].InterestLevel,
           OrderType: leadcheckdata[i].OrderType,
           LeadDocEntry: leadcheckdata[i].LeadDocEntry,
           LeadNum: leadcheckdata[i].LeadNum,
@@ -773,9 +815,9 @@ OrderBookNewState.iscomfromLead = true;
         log("currentdate::" + leadOpenAllData.length.toString());
       }
     }
-         
- isloading=false;
- notifyListeners();
+
+    isloading = false;
+    notifyListeners();
     notifyListeners();
   }
 
@@ -1788,7 +1830,7 @@ OrderBookNewState.iscomfromLead = true;
     isSelectedFollowUp = '';
     isSelectedFollowUpcode = '';
     assignVisitTime = "Followup Time:*";
-    forwardNextFollowDate="Next Followup:*";
+    forwardNextFollowDate = "Next Followup:*";
     hinttextforOpenLead = "Select Status:*";
     feedbackLead = 'Give your feedback*';
     orderBillDate = 'Order/Bill Date:*';
@@ -1887,7 +1929,8 @@ OrderBookNewState.iscomfromLead = true;
         isLodingDialog = false;
         notifyListeners();
       } else {
-        forwardDialogSuccessMsg = '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+        forwardDialogSuccessMsg =
+            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
         isLodingDialog = false;
         notifyListeners();
       }
@@ -1961,7 +2004,7 @@ OrderBookNewState.iscomfromLead = true;
       // print("User slp::${ConstantValues.slpcode}--${filteruserLtData[i].slpcode}");
       if (filteruserLtData[i].slpcode != ConstantValues.slpcode) {
         filteruserLtData2.add(UserListData(
-          userCode: filteruserLtData[i].userCode,
+            userCode: filteruserLtData[i].userCode,
             storeid: filteruserLtData[i].storeid,
             mngSlpcode: filteruserLtData[i].mngSlpcode,
             UserName: filteruserLtData[i].UserName,
@@ -2020,7 +2063,7 @@ OrderBookNewState.iscomfromLead = true;
         return;
       }
       String chooseddate = value.toString();
-      forwaVisitTime='';
+      forwaVisitTime = '';
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -2067,7 +2110,8 @@ OrderBookNewState.iscomfromLead = true;
           isLodingDialog = false;
           notifyListeners();
         } else if (value.stCode == 500) {
-          forwardDialogSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+          forwardDialogSuccessMsg =
+              '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
           isLodingDialog = false;
           notifyListeners();
         }
@@ -2329,7 +2373,7 @@ OrderBookNewState.iscomfromLead = true;
         return;
       }
       String chooseddate = value.toString();
-      VisitTime='';
+      VisitTime = '';
       var date = DateTime.parse(chooseddate);
       chooseddate = "";
       chooseddate =
@@ -2483,7 +2527,7 @@ OrderBookNewState.iscomfromLead = true;
     } else {
       orderBillRefer = 'Order/Bill Reference*';
     }
-     if (mycontroller[1].text.isEmpty) {
+    if (mycontroller[1].text.isEmpty) {
       i = i + 1;
       feedbackLead = 'Give your feedback *';
     } else {
@@ -2573,7 +2617,8 @@ OrderBookNewState.iscomfromLead = true;
 
       if (newTime != null) {
         timee = newTime;
-        if (forwardnextWonFD == DateFormat('dd-MM-yyyy').format(DateTime.now())) {
+        if (forwardnextWonFD ==
+            DateFormat('dd-MM-yyyy').format(DateTime.now())) {
           if (timee.hour < TimeOfDay.now().hour ||
               timee.minute < TimeOfDay.now().minute) {
             forwarderrorVisitTime = "Please Choose Correct Time";
@@ -2727,7 +2772,8 @@ OrderBookNewState.iscomfromLead = true;
         isLodingDialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardDialogSuccessMsg = "${value.stCode!}..!!Network Issue..\nTry again Later..!!";
+        forwardDialogSuccessMsg =
+            "${value.stCode!}..!!Network Issue..\nTry again Later..!!";
         isLodingDialog = false;
         notifyListeners();
       }
@@ -2806,7 +2852,8 @@ OrderBookNewState.iscomfromLead = true;
         isLodingDialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardDialogSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardDialogSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         isLodingDialog = false;
         notifyListeners();
       }
@@ -2841,7 +2888,8 @@ OrderBookNewState.iscomfromLead = true;
         isLodingDialog = false;
         notifyListeners();
       } else if (value.stCode == 500) {
-        forwardDialogSuccessMsg = '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
+        forwardDialogSuccessMsg =
+            '${value.stCode!}..!!Network Issue..\nTry again Later..!!';
         isLodingDialog = false;
         notifyListeners();
       }
@@ -2885,40 +2933,40 @@ OrderBookNewState.iscomfromLead = true;
 //   }
 }
 
-
 class Distcolumn {
   String name;
   Distcolumn({
     required this.name,
   });
 }
- 
+
 class Distcusgroupcolumn {
   String name;
   Distcusgroupcolumn({
     required this.name,
   });
 }
+
 class DistEnqstatuscolumn {
   String name;
   DistEnqstatuscolumn({
     required this.name,
   });
 }
+
 class Distlookingforcolumn {
   String name;
   bool ischecck;
-  Distlookingforcolumn({
-    required this.name,
-    required this.ischecck
-  });
+  Distlookingforcolumn({required this.name, required this.ischecck});
 }
+
 class Distlevelcolumn {
   String name;
   Distlevelcolumn({
     required this.name,
   });
 }
+
 class Distordercolumn {
   String name;
   Distordercolumn({

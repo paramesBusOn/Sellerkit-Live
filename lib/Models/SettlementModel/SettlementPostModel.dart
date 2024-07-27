@@ -70,7 +70,7 @@ class SettlementPostData2 {
 
         final Map<String, dynamic> jsons = jsonDecode(json) ;
 
-    if (jsons["SetlleMaster"] != null) {
+    // if (jsons["SetlleMaster"] != null) {
       // var list = jsonDecode(jsons["SetlleMaster"]) as Map<String, dynamic>;
       if (jsons["SetlleMaster"] == null) {
         return SettlementPostData2(listofSettle: []);
@@ -82,9 +82,9 @@ class SettlementPostData2 {
 
         return SettlementPostData2(listofSettle: dataList);
       }
-    } else {
-      return SettlementPostData2(listofSettle: null);
-    }
+    // } else {
+    //   return SettlementPostData2(listofSettle: null);
+    // }
   }
 }
 
@@ -116,6 +116,7 @@ class SettlementPostData {
   String? UpdatedOn;
   String? traceid;
   bool? isselect;
+  double? TotalAmount;
 
   SettlementPostData({
     required this.DocNum,
@@ -137,10 +138,12 @@ class SettlementPostData {
     required this.UpdatedOn,
     required this.traceid,
     this.isselect,
+    required this.TotalAmount
   });
 
   factory SettlementPostData.fromJson(Map<String, dynamic> json) =>
       SettlementPostData(
+        TotalAmount:json['TotalAmount'] ?? 0.0,
         DocNum: json['DocNum'] ?? 0,
         DocDate: json['DocDate'] ?? 0,
         CustomerCode: json['CustomerCode'],

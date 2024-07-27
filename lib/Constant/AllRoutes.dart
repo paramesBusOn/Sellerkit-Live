@@ -48,7 +48,7 @@ import '../Pages/Followup/Screens/FollowUpNew.dart';
 import '../Pages/Followup/Screens/FollowUpScreen.dart';
 import '../Pages/Followup/Screens/FollowUpTabScreen.dart';
 import '../Pages/ForgotPassword/Screens/ForgotPassword.dart';
-import '../Pages/ForgotPassword/widgets/ConfirmPassword.dart';
+import '../Pages/Reports/Reports/screens/ReportsPage.dart';
 import '../Pages/TargetPage/Screen/Target.dart';
 import '../Pages/Leads/Screens/LeadSuccessPage.dart';
 import '../Pages/Leads/Screens/TabLeads.dart';
@@ -463,6 +463,11 @@ class Routes {
         name: ConstantRoutes.chagnePassword,
         page: () => ConfirmPasswordPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1))
+        transitionDuration: Duration(seconds: 1)),
+        GetPage<dynamic>(
+        name: ConstantRoutes.reports,
+        page: () =>  const ReportsPage(title: '',),
+        transition: Transition.fade,
+        transitionDuration: const Duration(seconds: 1))
   ];
 }

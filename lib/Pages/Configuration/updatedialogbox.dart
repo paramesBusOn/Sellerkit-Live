@@ -12,9 +12,9 @@ import '../../../../Constant/Screen.dart';
 
 class Upgraderdialogbox extends StatefulWidget {
   Upgraderdialogbox({
-    Key? key,
+    super.key,
     required this.storeversion,
-  }) : super(key: key);
+  });
   String? storeversion;
 
   @override
@@ -24,7 +24,6 @@ class Upgraderdialogbox extends StatefulWidget {
 class ShowSearchDialogState extends State<Upgraderdialogbox> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       context.read<ConfigurationContoller>().showVersion();
@@ -98,17 +97,19 @@ class ShowSearchDialogState extends State<Upgraderdialogbox> {
                 ],
               ),
             ),
+              // context
+              // .read<ConfigurationContoller>()
+              // .checkStartingPage(pagename, docEntry);
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                SizedBox(
                   width: Screens.width(context) * 0.25,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.primaryColor,
                       ),
                       onPressed: () async {
-                        
                         if (Platform.isAndroid || Platform.isIOS) {
                           final appId = Platform.isAndroid
                               ? 'com.busondigitalservice.sellerkit'
@@ -127,6 +128,17 @@ class ShowSearchDialogState extends State<Upgraderdialogbox> {
                         }
                       },
                       child: Text('Update')),
+                ),
+                SizedBox(
+                  width: Screens.width(context) * 0.25,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: theme.primaryColor,
+                      ),
+                      onPressed: () async {
+                       Navigator.of(context).pop('Close');
+                      },
+                      child: Text('Close')),
                 ),
               ],
             )

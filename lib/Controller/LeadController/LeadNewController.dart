@@ -3953,13 +3953,13 @@ String? valueChosedrefcode;
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
                                Container(
-                                                       // width: Screens.width(context)*0.8,
+                                                       width: Screens.width(context)*0.8,
                                                        child: Text(allProductDetails[i].itemCode.toString(),
                                 style: theme.textTheme.bodyText1
                                     ?.copyWith(color: theme.primaryColor)),
                                                      ),
                             Container(
-                            // width: Screens.width(context)*0.7,
+                            width: Screens.width(context)*0.7,
                             // color: Colors.red,
                             child: Text(allProductDetails[i].itemName.toString(),
                                 style: theme.textTheme.bodyText1

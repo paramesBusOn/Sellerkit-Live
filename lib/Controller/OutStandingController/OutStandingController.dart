@@ -49,36 +49,37 @@ class Outstandingcontroller extends ChangeNotifier {
   }
 
   clearfilterval() {
-    iscusname=false;
-    isassignto=false;
+    iscusname = false;
+    isassignto = false;
     assignvalue = null;
     cusnamevalue = null;
     mycontroller[4].clear();
     mycontroller[5].clear();
-     mycontroller[2].clear();
-     selectedassignto.clear();
+    mycontroller[2].clear();
+    selectedassignto.clear();
     mycontroller[3].clear();
 
     notifyListeners();
   }
- 
-   String? cusnamevalue;
-itemselectCusname(String itemvalue,bool isselected){
-  cusnamevalue ='';
-  if(isselected){
-    selectedcusname.add(itemvalue);
-  }else{
-    selectedcusname.remove(itemvalue);
-  }
-  cusnamevalue=selectedcusname.join(', ');
-  log("selectedcusname::"+selectedcusname.toString());
-   log("cusnamevalue::"+cusnamevalue.toString());
-  notifyListeners();
- }
-  ontapcusname(){
-   iscusname = !iscusname;
-   notifyListeners();
+
+  String? cusnamevalue;
+  itemselectCusname(String itemvalue, bool isselected) {
+    cusnamevalue = '';
+    if (isselected) {
+      selectedcusname.add(itemvalue);
+    } else {
+      selectedcusname.remove(itemvalue);
     }
+    cusnamevalue = selectedcusname.join(', ');
+    log("selectedcusname::" + selectedcusname.toString());
+    log("cusnamevalue::" + cusnamevalue.toString());
+    notifyListeners();
+  }
+
+  ontapcusname() {
+    iscusname = !iscusname;
+    notifyListeners();
+  }
   // String? cusnamevalue;
   // selectcusname(String val) {
   //   cusnamevalue = val;
@@ -120,14 +121,14 @@ itemselectCusname(String itemvalue,bool isselected){
     }
   }
 
-String lottie='';
+  String lottie = '';
   GetAllOutstandingscall() async {
     valueDBmodel.clear();
     outstanddata.clear();
     outstandline.clear();
     valueDBmodelchild.clear();
     apiloading = true;
-     lottie='';
+    lottie = '';
     // outsatandingmodel outsatandingModel = await GetoutstandingApi.getData();
     await GetoutstandingApi.getData().then((value) async {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
@@ -219,19 +220,32 @@ String lottie='';
         } else {
           apiloading = false;
           log("NODAta on outstanding");
-           lottie='Assets/no-data.png';
+          lottie = 'Assets/no-data.png';
           errormsg = 'No Outstanding..!!';
           notifyListeners();
         }
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
         apiloading = false;
-         lottie='';
+        lottie = '';
         errormsg = '${value.message}..${value.exception}..!!';
         notifyListeners();
       } else if (value.stcode! == 500) {
-        apiloading = false;
-         lottie='Assets/NetworkAnimation.json';
-        errormsg = '${value.stcode}..Network Issue..\nTry again Later..!!';
+        if (value.exception!.contains("Network is unreachable")) {
+          apiloading = false;
+          lottie = 'Assets/NetworkAnimation.json';
+          errormsg = '${value.stcode}..Network Issue..\nTry again Later..!!';
+          notifyListeners();
+        } else {
+          apiloading = false;
+          lottie = 'Assets/warning.png';
+          errormsg =
+              '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+
+          notifyListeners();
+        }
+        // apiloading = false;
+        //  lottie='Assets/NetworkAnimation.json';
+        // errormsg = '${value.stcode}..Network Issue..\nTry again Later..!!';
 
         notifyListeners();
       }
@@ -249,28 +263,30 @@ String lottie='';
     await getdbmodel();
     notifyListeners();
   }
-  
- bool iscusname=false;
- bool isassignto=false;
- 
-  List<String> selectedcusname=[];
- List<String> selectedassignto=[];
-ontapassignto(){
-   isassignto = !isassignto;
-   notifyListeners();
-    }
-    itemselectassignto(String itemvalue,bool isselected){
-  assignvalue='';
-  if(isselected){
-    selectedassignto.add(itemvalue);
-  }else{
-    selectedassignto.remove(itemvalue);
+
+  bool iscusname = false;
+  bool isassignto = false;
+
+  List<String> selectedcusname = [];
+  List<String> selectedassignto = [];
+  ontapassignto() {
+    isassignto = !isassignto;
+    notifyListeners();
   }
-  assignvalue=selectedassignto.join(', ');
-  log("selectedassignto::"+selectedassignto.toString());
-  log("assignvalue::"+assignvalue.toString());
-  notifyListeners();
- }
+
+  itemselectassignto(String itemvalue, bool isselected) {
+    assignvalue = '';
+    if (isselected) {
+      selectedassignto.add(itemvalue);
+    } else {
+      selectedassignto.remove(itemvalue);
+    }
+    assignvalue = selectedassignto.join(', ');
+    log("selectedassignto::" + selectedassignto.toString());
+    log("assignvalue::" + assignvalue.toString());
+    notifyListeners();
+  }
+
   String? assignto = '';
   onfilterapply() async {
     final Database db = (await DBHelper.getInstance())!;
@@ -600,9 +616,11 @@ class outstandKPI {
   double? BalanceToPay;
   double? TransAmount;
   int? docentry;
+  double? penaltyAfterDue;
 
   outstandKPI(
       {this.docentry,
+      required this.penaltyAfterDue,
       required this.TransNum,
       required this.TransDate,
       required this.TransRef1,

@@ -10,13 +10,9 @@ import 'package:sellerkit/Models/getuserbyidModel/getuserbyidmodel.dart';
 import 'package:sellerkit/Services/configApi/configApi.dart';
 
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/DataBaseConfig.dart';
 import 'package:sellerkit/Constant/Encripted.dart';
-import 'package:sellerkit/DBModel/TestDbmodel1.dart';
-import 'package:sellerkit/DBModel/stateDBModel.dart';
-import 'package:sellerkit/DBModel/testdbmodel2.dart';
 import 'package:sellerkit/Models/OfferZone/OfferZoneModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/OrderTypeModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestModel.dart';
@@ -27,8 +23,6 @@ import 'package:sellerkit/Services/OfferZoneApi/OfferZoneAPi.dart';
 import 'package:sellerkit/Services/PostQueryApi/EnquiriesApi/levelofApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/EnquiriesApi/ordertype.dart';
 import 'package:sellerkit/Services/StateApi/stateApi.dart';
-import 'package:sellerkit/Services/testApi.dart';
-import 'package:sellerkit/main.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../Constant/AppConstant.dart';
@@ -47,7 +41,6 @@ import '../../Models/PostQueryModel/EnquiriesModel/EnqTypeModel.dart';
 import '../../Models/PostQueryModel/EnquiriesModel/GetUserModel.dart';
 import '../../Models/PostQueryModel/ItemMasterModelNew.dart/ItemMasterNewModel.dart';
 import '../../Models/PostQueryModel/LeadsCheckListModel/GetLeadStatuModel.dart';
-import '../../Models/PostQueryModel/ProfileModel.dart/ProfileModel.dart';
 import '../../Services/CustomerMasterApi/CustomerMasterApi.dart';
 import '../../Services/MenuAuthApi/MenuAuthApi.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/CustomerTag.dart';
@@ -55,7 +48,6 @@ import '../../Services/PostQueryApi/EnquiriesApi/GetEnqReffers.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/GetEnqType.dart';
 import '../../Services/PostQueryApi/EnquiriesApi/GetUserApi.dart';
 import '../../Services/PostQueryApi/ItemMasterApi/ItemMasterApiNew.dart';
-import '../../Services/PostQueryApi/ItemMasterApi/itemviewApi.dart';
 import '../../Services/PostQueryApi/LeadsApi/GetLeadStatusApi.dart';
 import '../../Services/PostQueryApi/ProfileApi/ProfileApi.dart';
 import '../../Services/URL/LocalUrl.dart';
@@ -78,7 +70,7 @@ class DownLoadController extends ChangeNotifier {
     String? getUrl = await HelperFunctions.getHostDSP();
     // log("getUrl $getUrl");
     ConstantValues.userNamePM = await HelperFunctions.getUserName();
-    Url.queryApi = 'http://${getUrl.toString()}/api/';
+    Url.queryApi = '${getUrl.toString()}/api/';
   }
 
   ItemMasterApiNew itemMasterApiNew = ItemMasterApiNew();
@@ -199,6 +191,7 @@ ConstantValues.ageslab2='';
 ConstantValues.ageslab3='';
 ConstantValues.ageslab4='';
 ConstantValues.ageslab5='';
+ConstantValues.splpricelogic='';
     for(int i=0;i<configData.length;i++){
 
       if(configData[i].config_Code =='ssp1'){
@@ -268,6 +261,11 @@ ConstantValues.ageslab5='';
       }
       if(configData[i].config_Code =='age-slab5'){
          ConstantValues.ageslab5=configData[i].config_value;
+
+
+      }
+      if(configData[i].config_Code =='spl-price-logic'){
+         ConstantValues.splpricelogic=configData[i].config_value;
 
 
       }
@@ -995,9 +993,13 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
   storelistdata.clear();
 await userbyidApi.getData(ConstantValues.UserId).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
-        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
-        storelistdata=value.ageLtData!.storelistdata!;
         
+        ConstantValues.userbyidmobile = value.ageLtData!.mobile!;
+        if(value.ageLtData!.storelistdata !=null){
+           storelistdata=value.ageLtData!.storelistdata!;
+        
+        }
+       
       
       }
     });
@@ -1034,13 +1036,19 @@ await userbyidApi.getData(ConstantValues.UserId).then((value) {
   // });
 //  log("itemviewdata:::"+storelistdata.toString());
         log("itemviewdata:::"+storelistdata.length.toString());
-        if(storelistdata.length>1){
+         if(storelistdata !=null && storelistdata.isNotEmpty){
+if(storelistdata.length>1){
         ConstantValues.  multistoreuser =1;
         notifyListeners();
         }else{
           ConstantValues.  multistoreuser =0;
           notifyListeners();
         }
+         }else{
+            ConstantValues.  multistoreuser =0;
+          notifyListeners();
+         }
+        
         log("ConstantValues.  multistoreuserL::"+ConstantValues.  multistoreuser.toString());
      stopwatch.stop();
             // log('API Defaultinitila api ${stopwatch.elapsedMilliseconds} milliseconds');

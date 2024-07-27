@@ -648,7 +648,7 @@ Container(
 
       return [
         i++,
-        item.ItemDescription,
+       (item.ItemCode.toString())+"-"+ item.ItemDescription.toString(),
         item.Quantity!.toInt(),
        config.slpitCurrencypdf(mrpvalue.round().toStringAsFixed(2)) ,
        Discount.round().toStringAsFixed(2),

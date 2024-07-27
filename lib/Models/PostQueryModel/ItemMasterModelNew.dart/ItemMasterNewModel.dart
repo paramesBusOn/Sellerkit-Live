@@ -271,7 +271,7 @@ class ItemMasterNewData {
    whsAgeSlab2: json['whs_Age_Slab_2']??0.0,
    whsAgeSlab3: json['whs_Age_Slab_3']??0.0,
    whsAgeSlab4: json['whs_Age_Slab_4']??0.0,
-   whsAgeSlab5: json['whs_Age_Slab_4']??0.0,
+   whsAgeSlab5: json['whs_Age_Slab_5']??0.0,
         );
   }
  

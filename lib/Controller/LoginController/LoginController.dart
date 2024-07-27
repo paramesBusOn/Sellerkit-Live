@@ -213,7 +213,7 @@ class LoginController extends ChangeNotifier {
           if (value.stcode! >= 200 && value.stcode! <= 210) {
             if (value.url != null) {
               Url = value.url;
-              print("url method::" + Url.toString());
+              log("url method::" + Url.toString());
               await HelperFunctions.saveHostSP(Url!.trim());
               await HelperFunctions.saveTenetIDSharedPreference(
                   mycontroller[3].text.toString().trim());
@@ -815,7 +815,8 @@ if (VerificationDataDBData.isNotEmpty) {
     // log("for last ${hostip}");
     HelperFunctions.savehostIP(hostip);
     ConstantValues.userNamePM = await HelperFunctions.getUserName();
-    Url.queryApi = "http://${getUrl.toString()}/api/";
+    Url.queryApi = "${getUrl.toString()}/api/";
+    // Url.queryApi = "http://${getUrl.toString()}/api/";
   }
 
   Future<bool> checkloc() async {
