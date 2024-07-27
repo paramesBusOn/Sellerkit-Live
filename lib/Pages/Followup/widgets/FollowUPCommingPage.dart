@@ -7,7 +7,7 @@ import '../../../Controller/FollowupController/FollowUPController.dart';
 import 'FollowUPDialogPg.dart';
 
 class FollowUPComming extends StatelessWidget {
-  FollowUPComming({Key? key, required this.prdFUP}) : super(key: key);
+  FollowUPComming({super.key, required this.prdFUP});
   FollowupController prdFUP;
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:sellerkit/Constant/Configuration.dart';
 
 import '../../Constant/ConstantSapValues.dart';
 import '../../Models/getvisitmodel/getvisitmodel.dart';
@@ -14,7 +13,6 @@ class getvisitApi {
   static Future<getvisitmodel> getdata() async {
     int resCode = 500;
     try {
-      Config config = Config();
       // config.getSetup();
       print("UPI::"+Url.queryApi +
               'Sellerkit_Flexi/v2/getAllVisitPlan');

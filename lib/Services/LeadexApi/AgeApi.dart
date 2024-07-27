@@ -6,8 +6,6 @@ import 'package:sellerkit/Models/leadexmodel/agemodel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
-import '../../../Constant/DataBaseConfig.dart';
-import '../../../Models/PostQueryModel/EnquiriesModel/ResonModel.dart';
 
 class AgeApi {
   static Future<AgeModal> getData(

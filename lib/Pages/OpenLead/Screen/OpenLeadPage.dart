@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unnecessary_new, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
@@ -14,7 +13,6 @@ import 'package:sellerkit/Pages/OpenLead/Screen/OpLViewAll.dart';
 import 'package:sellerkit/Pages/OpenLead/Widegts/navdraweropenlead.dart';
 import '../../../Controller/OpenLeadController/OpenLeadController.dart';
 import '../../../Widgets/Navi3.dart';
-import '../Widegts/OpenLeadFDP.dart';
 import 'OpenLeadFPFilt.dart';
 
 class OpenLeadPageFoll extends StatefulWidget {

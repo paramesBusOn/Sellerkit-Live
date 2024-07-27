@@ -15,7 +15,7 @@ import 'package:sellerkit/Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
 class WalkinsPage extends StatefulWidget {
-  WalkinsPage({Key? key}) : super(key: key);
+  const WalkinsPage({Key? key}) : super(key: key);
 
   @override
   State<WalkinsPage> createState() => _WalkinsPageState();

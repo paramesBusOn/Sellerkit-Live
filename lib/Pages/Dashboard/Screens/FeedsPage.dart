@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Pages/Dashboard/Screens/CurentFeedPage.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
 import '../../../Controller/DashBoardController/DashBoardController.dart';

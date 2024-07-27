@@ -5,11 +5,9 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/LeaveReqController/LeaveReqController.dart';
-import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
 
 class leaveReqtab extends StatefulWidget {

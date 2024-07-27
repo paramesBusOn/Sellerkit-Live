@@ -10,7 +10,6 @@ import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Pages/Stock%20Availability/screens/showdialogst.dart';
-import 'package:sellerkit/Widgets/qrpage.dart';
 import '../../../Constant/padings.dart';
 import '../../../Controller/StockAvailabilityController/StockListController.dart';
 import '../../../Widgets/Appbar.dart';

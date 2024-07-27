@@ -6,7 +6,6 @@ import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/DataBaseConfig.dart';
 import '../../../Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/GetLeadDetailsQTL.dart';
-import 'package:sellerkit/main.dart';
 
 class GetLeadQTLApi {
   static Future<GetLeadDetailsQTL> getData(

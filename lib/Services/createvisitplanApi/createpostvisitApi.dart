@@ -1,15 +1,12 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
 import 'dart:developer';
-import 'dart:isolate';
 
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'dart:convert';
-import 'package:sellerkit/Constant/DataBaseConfig.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../Models/OpenLeadModel.dart/OpenLeadModel.dart';
 import '../../Models/postvisitmodel/postvisitplan.dart';
 // import 'package:sellerkit/main.dart';
 

@@ -8,7 +8,6 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import '../../../Constant/ConstantSapValues.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/ForwardOrderUserModel.dart';
-import 'package:sellerkit/main.dart';
 
 class ForwardOrderUserApi {
   static Future<ForwardOrderUser> getData(

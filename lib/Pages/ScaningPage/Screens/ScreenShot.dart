@@ -6,7 +6,6 @@ import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
-import 'ItemDetailsPage.dart';
 import 'QrScanPage.dart';
 
 class ScanningPage extends StatefulWidget {

@@ -14,7 +14,7 @@ import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
 class SettlementSuccessDD extends StatefulWidget {
-  SettlementSuccessDD({Key? key, required this.settlemaster}) : super(key: key);
+  SettlementSuccessDD({super.key, required this.settlemaster});
   // final String? paymode;
   // final double? amount;
   SettlementPostData? settlemaster;

@@ -14,7 +14,7 @@ import 'package:sellerkit/Widgets/Navi3.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 
 class NewpriceReq extends StatefulWidget {
-   NewpriceReq({Key? key}) : super(key: key);
+   const NewpriceReq({super. key}) ;
 
   @override
   State<NewpriceReq> createState() => NewpriceReqState();

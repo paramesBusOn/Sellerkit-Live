@@ -9,7 +9,6 @@ import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/CustomerCreationModel.dart';
 import '../../../Constant/ConstantRoutes.dart';
 import '../../../Controller/LeadController/LeadNewController.dart';
-import '../../../Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/LeadSavePostModel.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 

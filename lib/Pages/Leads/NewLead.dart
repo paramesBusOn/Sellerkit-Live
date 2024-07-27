@@ -16,7 +16,7 @@ import '../../Widgets/Appbar.dart';
 import '../../Widgets/Navi3.dart';
 
 class LeadBookNew extends StatefulWidget {
-  LeadBookNew({Key? key}) : super(key: key);
+  LeadBookNew({super.key});
 
   @override
   State<LeadBookNew> createState() => LeadBookNewState();

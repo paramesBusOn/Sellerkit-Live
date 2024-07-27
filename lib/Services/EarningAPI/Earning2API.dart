@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/DataBaseConfig.dart';
 import 'package:sellerkit/Models/EarningModel/Earning2Model.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';

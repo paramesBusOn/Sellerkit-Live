@@ -32,7 +32,7 @@ class DayStartApi {
   "imageurl": postData.startPointImgurl==null?null:"${postData.startPointImgurl}"
     }));
 print("DayStart Post::"+jsonEncode({
-             "userid": postData!.userId,
+             "userid": postData.userId,
   "lat": double.parse(postData.latititudeST) ,
   "lon":double.parse(postData.longitudeST) ,
   "locaddress1": "${postData.startAddress}",

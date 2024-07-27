@@ -6,9 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
-import '../../../Constant/DataBaseConfig.dart';
 import '../../../Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/GetLeadDetailsL.dart';
-import 'package:sellerkit/main.dart';
 
 class GetLeadDetailsLApi {
   static Future<GetLeadDetailsL> getData(

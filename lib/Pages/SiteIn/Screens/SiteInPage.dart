@@ -11,7 +11,6 @@ import 'package:sellerkit/Controller/SiteInController/newcreatesitein.dart';
 import '../../../Constant/ConstantRoutes.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Controller/SiteInController/SiteInController.dart';
-import '../../../Controller/SiteInController/SiteInController.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 import '../Widgets/NewSiteIn.dart';

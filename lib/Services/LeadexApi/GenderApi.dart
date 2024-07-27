@@ -6,8 +6,6 @@ import 'package:sellerkit/Models/leadexmodel/gendermodel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
-import '../../../Constant/DataBaseConfig.dart';
-import '../../../Models/PostQueryModel/EnquiriesModel/ResonModel.dart';
 
 class GenderApi {
   static Future<GenderModal> getData(

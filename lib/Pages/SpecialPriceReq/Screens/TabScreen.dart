@@ -11,7 +11,7 @@ import 'package:sellerkit/Pages/SpecialPriceReq/widgets/rejectpage.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
 
 class SpecialPriceReq extends StatefulWidget {
-  const SpecialPriceReq({Key? key}) : super(key: key);
+  const SpecialPriceReq({super.key});
 
   @override
   State<SpecialPriceReq> createState() => _SpecialPriceReqState();

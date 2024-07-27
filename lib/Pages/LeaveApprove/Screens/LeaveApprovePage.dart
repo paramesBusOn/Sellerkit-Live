@@ -21,7 +21,7 @@ import '../../../Widgets/Navi3.dart';
 import '../../VisitPlans/widgets/PurposeShowSearchDialog.dart';
 
 class LeaveApprovePage extends StatefulWidget {
-  LeaveApprovePage({Key? key}) : super(key: key);
+  const LeaveApprovePage({Key? key}) : super(key: key);
 
   @override
   State<LeaveApprovePage> createState() => _LeaveApprovePageState();

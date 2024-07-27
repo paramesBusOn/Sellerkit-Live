@@ -4,7 +4,7 @@ import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/ReportsController/ReportsController.dart';
 
 class DataTableWidget extends StatefulWidget {
-  DataTableWidget({Key? key, required this.tablerColumn}) : super(key: key);
+  DataTableWidget({super.key, required this.tablerColumn});
 
   List<Map<String, dynamic>> tablerColumn;
 

@@ -5,9 +5,7 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
 import '../../../Constant/ConstantSapValues.dart';
-import '../../../Constant/DataBaseConfig.dart';
 
-import 'package:sellerkit/Constant/Configuration.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetOrderCheckListModel.dart';
 
 class GetOrderCheckListApi {

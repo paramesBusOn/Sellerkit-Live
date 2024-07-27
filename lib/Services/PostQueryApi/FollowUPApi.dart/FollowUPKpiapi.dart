@@ -7,7 +7,6 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
 import '../../../Constant/ConstantSapValues.dart';
-import '../../../Constant/DataBaseConfig.dart';
 import '../../../Models/PostQueryModel/FollowUPModel.dart/FollowUPKPIModel.dart';
 
 class FollowUPKPIApi {

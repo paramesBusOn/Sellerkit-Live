@@ -9,7 +9,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Models/QuoteModel/quotemodel.dart';
 import 'package:sellerkit/Pages/Quoatation/tabquote/widgets/pdfinvoice.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';

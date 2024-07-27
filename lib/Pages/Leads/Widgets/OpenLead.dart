@@ -12,7 +12,6 @@ import '../../../Constant/Configuration.dart';
 import '../../../Controller/LeadController/TabLeadController.dart';
 import '../../../Models/PostQueryModel/LeadsCheckListModel/GetAllLeadModel.dart';
 import '../../../Models/PostQueryModel/LeadsCheckListModel/GetLeadSummary.dart';
-import '../../Enquiries/EnquiriesUser/Widgets/GlobalKeys.dart';
 import 'FollowDialog.dart';
 
 class OpenLeadPage extends StatefulWidget {

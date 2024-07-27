@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/LostandClosedDialog.dart';
 import 'package:sellerkit/Pages/VisitPlans/widgets/followdialog.dart';
 
 import '../../../../Constant/Screen.dart';

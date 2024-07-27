@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Pages/Login/Widgets/TermsAndConditions.dart';
-import 'package:sellerkit/Pages/Login/Widgets/TermsAndConditions2.dart';
 import 'package:sellerkit/Pages/Login/Widgets/TermsAndConditions3.dart';
 import '../../../Constant/ConstantRoutes.dart';
 import '../../../Constant/AppConstant.dart';

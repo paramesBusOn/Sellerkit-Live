@@ -14,8 +14,7 @@ import 'SettlementPdf.dart';
 import 'SettlementPdfHelper.dart';
 
 class SettlementSuccessPage extends StatefulWidget {
-  SettlementSuccessPage({Key? key,required this.settlemaster,required this.paymode})
-      : super(key: key);
+  SettlementSuccessPage({super.key,required this.settlemaster,required this.paymode});
   final String? paymode;
   // final double? amount;
   SettlementPostData? settlemaster;

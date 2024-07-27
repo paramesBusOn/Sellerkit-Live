@@ -11,11 +11,11 @@ import 'package:timeline_tile/timeline_tile.dart';
 
 class SuccessDialogPG extends StatefulWidget {
   SuccessDialogPG({
-    Key? key,
+    super.key,
     required this.heading,
         required this.msg,
 
-  }) : super(key: key);
+  });
 
   String? heading;
   String? msg;

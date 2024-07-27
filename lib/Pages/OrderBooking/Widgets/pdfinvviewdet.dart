@@ -12,7 +12,6 @@ import 'package:printing/printing.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/GetOderDetailsQTHModel.dart';
-import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderSavePostModel.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
 
 

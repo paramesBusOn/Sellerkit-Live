@@ -7,9 +7,7 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
-import '../../../Constant/DataBaseConfig.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/GetOderDetailsQTHModel.dart';
-import 'package:sellerkit/main.dart';
 
 class GetOrderQTHApi {
   static Future<GetOrderDetailsQTH> getData(

@@ -2,12 +2,10 @@
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:isolate';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Models/configModel/getconfigmodel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
-import 'package:sellerkit/Constant/Configuration.dart';
 import '../../../Constant/ConstantSapValues.dart';
 
 class GetconfigApi {

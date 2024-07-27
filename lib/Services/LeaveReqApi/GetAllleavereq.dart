@@ -7,7 +7,6 @@ import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Models/LeavereqModel/GetAllreqmodel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
-import '../../Models/LeavereqModel/leavereqgetmodel.dart';
 // import 'package:sellerkit/main.dart';
 
 class GetAllLeavereqApi {

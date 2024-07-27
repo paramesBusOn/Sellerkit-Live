@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/ForgotPasswordController/ForgotPasswordController.dart';
 import '../widgets/ForgotBodySection.dart';
 
 class ForgotRegisterPage extends StatefulWidget {
