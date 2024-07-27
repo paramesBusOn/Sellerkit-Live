@@ -2,13 +2,10 @@
 
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:isolate';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Models/PostQueryModel/ProfileModel.dart/profileupdate.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
-import '../../../Constant/DataBaseConfig.dart';
-import 'package:sellerkit/main.dart';
 
 class ProfileUpdateApi {
 static   Future<ProfileupdateModel> getData(String? urlimage) async {

@@ -3,12 +3,8 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Models/getuserbyidModel/getuserbyidmodel.dart';
-import 'package:sellerkit/Models/leadexmodel/agemodel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-
 import 'package:sellerkit/Constant/Configuration.dart';
-import '../../../Constant/DataBaseConfig.dart';
-import '../../../Models/PostQueryModel/EnquiriesModel/ResonModel.dart';
 
 class userbyidApi {
   static Future<useidModal> getData(

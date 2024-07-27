@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../Constant/Screen.dart';
 import '../../../Controller/SiteOutController/SiteOutController.dart';
-import '../../../Controller/VisitplanController/NewVisitController.dart';
 
 class SiteOutShowDialog extends StatefulWidget {
-  SiteOutShowDialog({Key? key}) : super(key: key);
+  const SiteOutShowDialog({Key? key}) : super(key: key);
   @override
   State<SiteOutShowDialog> createState() => ShowSearchDialogState();
 }
@@ -17,7 +16,7 @@ class ShowSearchDialogState extends State<SiteOutShowDialog> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AlertDialog(
-      content: Container(
+      content: SizedBox(
         width: Screens.width(context),
         height: Screens.bodyheight(context) * 0.5,
         child: Column(

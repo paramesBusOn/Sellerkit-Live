@@ -7,8 +7,6 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
 import '../../../Constant/ConstantSapValues.dart';
-import '../../../Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
-import 'package:sellerkit/main.dart';
 
 class GetAllSPApi {
   static Future<GetAllSPModal> getData(

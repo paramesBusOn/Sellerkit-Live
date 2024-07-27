@@ -1,10 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations
 
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/NotificationController/NotificationController.dart';
 
 class NotifyDialog extends StatefulWidget {
   NotifyDialog({Key? key, required this.title, required this.descp,required this.imgUrl,required this.page}) : super(key: key);

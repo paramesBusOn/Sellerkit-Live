@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +10,8 @@ import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
 import '../../../Controller/AccountsController/AccountsController.dart';
 import '../../../Models/AccountsModel/AccountsModel.dart';
-import '../../../Services/AccountsApi/AccountsApi.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
-import '../Widgets/search_bar.dart';
 import 'AccoountsDetails.dart';
 
 class Accounts extends StatefulWidget {

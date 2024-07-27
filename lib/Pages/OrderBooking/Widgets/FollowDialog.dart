@@ -10,12 +10,11 @@ import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/GetAllOrder
 import 'package:sellerkit/Pages/OrderBooking/Widgets/pdfviewdetail.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Controller/OrderController/TabOrderController.dart';
-import 'CustomRadioBtn.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 //import 'package:timelines/timelines.dart';
 
 class FollowDialog extends StatefulWidget {
-  FollowDialog({Key? key, required this.index, this.leadOpenAllData})
+  const FollowDialog({Key? key, required this.index, this.leadOpenAllData})
       : super(key: key);
   final int index;
   final GetAllOrderData? leadOpenAllData;

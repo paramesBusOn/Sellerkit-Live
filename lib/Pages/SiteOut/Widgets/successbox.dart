@@ -4,19 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/SiteOutController/SiteOutController.dart';
-import 'package:sellerkit/Controller/VisitplanController/NewVisitController.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 
 // import '../Controller/FollowupController/FollowUPController.dart';
 // import '../Models/PostQueryModel/FollowUPModel.dart/FollowUPModel.dart';
 
 class SuccessDialogPG extends StatefulWidget {
   SuccessDialogPG({
-    Key? key,
+    super.key,
     required this.heading,
         required this.msg,
 
-  }) : super(key: key);
+  });
 
   String? heading;
   String? msg;

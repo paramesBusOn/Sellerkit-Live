@@ -10,7 +10,7 @@ import 'package:sellerkit/Pages/Outstanding/widgets/PDFViewer/PDFViewer/pdfOutSt
 import 'PDFViewer/PDFViewer/OutStandPdf.dart';
 
 class Followdialog extends StatefulWidget {
-  Followdialog({Key? key, required this.outstandingModel}) : super(key: key);
+  Followdialog({super.key, required this.outstandingModel});
   outstandingDBModel outstandingModel;
   @override
   State<Followdialog> createState() => _FollowdialogState();

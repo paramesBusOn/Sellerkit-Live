@@ -2,11 +2,9 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:get_ip_address/get_ip_address.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';

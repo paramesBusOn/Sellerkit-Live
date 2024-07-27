@@ -1,17 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_new, avoid_print
 
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:get/route_manager.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
-import '../../../Constant/Screen.dart';
 import '../../../Controller/FeedCreationcontroller/FeedCrtController.dart';
 import '../../../Widgets/Navi3.dart';
-import '../widgets/RecordingPage.dart';
 import '../widgets/FeedCreationPage.dart';
 
 class FeedCrt extends StatefulWidget {

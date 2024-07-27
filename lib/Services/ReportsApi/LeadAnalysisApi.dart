@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Models/LeadAnalysisModel/LeadAnalysisModel.dart';
-import 'package:sellerkit/Models/SettlementModel/SettlementGetModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:http/http.dart' as http;

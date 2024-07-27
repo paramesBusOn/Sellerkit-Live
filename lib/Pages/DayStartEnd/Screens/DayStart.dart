@@ -18,8 +18,6 @@ import '../../../Constant/padings.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 import 'package:intl/intl.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DayStartEndPage extends StatefulWidget {

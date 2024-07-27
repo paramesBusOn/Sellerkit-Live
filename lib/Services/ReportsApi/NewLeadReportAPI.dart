@@ -5,9 +5,7 @@ import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Models/LeadAnalysisModel/LeadAnalysisModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import 'package:http/http.dart' as http;
-import 'package:sqflite/sqflite.dart';
 
-import '../../DBHelper/DBHelper.dart';
 import '../../Models/LeadAnalysisModel/TestReportModel.dart';
 
 class NewLeadAnalysisApi {

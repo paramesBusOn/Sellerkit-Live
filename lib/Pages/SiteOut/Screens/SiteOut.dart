@@ -38,7 +38,6 @@ class _SiteOutState extends State<SiteOut> {
   Paddings paddings = Paddings();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       setState(() {
@@ -119,7 +118,7 @@ class _SiteOutState extends State<SiteOut> {
                                 ?.copyWith(color: theme.primaryColor),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           width: Screens.width(context),
                           // height: Screens.bodyheight(context) * 0.9,
                           child: SingleChildScrollView(
@@ -595,7 +594,7 @@ class _SiteOutState extends State<SiteOut> {
                                           child: Column(
                                             children: [
                                               Row(children: [
-                                                Container(
+                                                SizedBox(
                                                   width:
                                                       Screens.width(context) * 0.7,
                                                   child: Text(
@@ -940,7 +939,7 @@ class _SiteOutState extends State<SiteOut> {
                                                                 .last,
                                                             // overflow: TextOverflow.ellipsis,
                                                           )),
-                                                      Container(
+                                                      SizedBox(
                                                           width: Screens.width(
                                                                   context) *
                                                               0.1,
@@ -1025,7 +1024,7 @@ class _SiteOutState extends State<SiteOut> {
                                                                 .split('/')
                                                                 .last,
                                                           )),
-                                                      Container(
+                                                      SizedBox(
                                                           width: Screens.width(
                                                                   context) *
                                                               0.1,
@@ -1113,7 +1112,7 @@ class _SiteOutState extends State<SiteOut> {
                                                                 .split('/')
                                                                 .last,
                                                           )),
-                                                      Container(
+                                                      SizedBox(
                                                           width: Screens.width(
                                                                   context) *
                                                               0.1,
@@ -1198,7 +1197,7 @@ class _SiteOutState extends State<SiteOut> {
                                                                 .split('/')
                                                                 .last,
                                                           )),
-                                                      Container(
+                                                      SizedBox(
                                                           width: Screens.width(
                                                                   context) *
                                                               0.1,
@@ -1279,7 +1278,7 @@ class _SiteOutState extends State<SiteOut> {
                                                               .split('/')
                                                               .last,
                                                         )),
-                                                    Container(
+                                                    SizedBox(
                                                         width: Screens.width(
                                                                 context) *
                                                             0.1,

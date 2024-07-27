@@ -1,19 +1,12 @@
 // ignore_for_file: public_member_api_docs, prefer_typing_uninitialized_variables
 
-import 'dart:developer';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 // import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderSavePostModel.dart';
-import 'package:sellerkit/Pages/OrderBooking/Widgets/pdfinv.dart';
-import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
 
 import 'pdfOutStandHelper.dart';
 

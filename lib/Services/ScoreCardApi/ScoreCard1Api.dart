@@ -7,19 +7,18 @@ import 'dart:convert';
 import 'package:sellerkit/Constant/DataBaseConfig.dart';
 import 'package:sellerkit/Models/ScoreCardModel/ScoreCard1mode.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import 'package:sellerkit/main.dart';
 
 class ScoreCardApi1 {
   static Future<ScoreCard1Model> getScore1Data() async {
     int resCode = 500;
     try {
-      log("RERL111"+Url.queryApi + "SkClientPortal/GET_SCORECARD_1?UserId=${DataBaseConfig.userId}");
+      log("RERL111${Url.queryApi}SkClientPortal/GET_SCORECARD_1?UserId=${DataBaseConfig.userId}");
             Config config = Config();
       await config.getSetup(); 
-      final response = await http.get(Uri.parse(Url.queryApi + "SkClientPortal/GET_SCORECARD_1?UserId=${DataBaseConfig.userId}"),
+      final response = await http.get(Uri.parse("${Url.queryApi}SkClientPortal/GET_SCORECARD_1?UserId=${DataBaseConfig.userId}"),
           headers: {
             "content-type": "application/json",
-            "Authorization": 'bearer ' + ConstantValues.token,
+            "Authorization": 'bearer ${ConstantValues.token}',
             "Location":'${ConstantValues.EncryptedSetup}'
           },
           // body: jsonEncode({
@@ -31,7 +30,7 @@ class ScoreCardApi1 {
 
       resCode = response.statusCode;
       print(response.statusCode.toString());
-      log("ScoreCard1"+json.decode(response.body).toString());
+      log("ScoreCard1${json.decode(response.body)}");
       if (response.statusCode == 200) {
         return ScoreCard1Model.fromJson(json.decode(response.body), resCode);
       } else {
@@ -39,7 +38,7 @@ class ScoreCardApi1 {
         return ScoreCard1Model.error('Error', resCode);
       }
     } catch (e) {
-      print("Exception: " + e.toString());
+      print("Exception: $e");
       return ScoreCard1Model.error(e.toString(), resCode);
     }
   }

@@ -30,13 +30,13 @@ class _FilterScreen2State extends State<FilterScreen2> {
           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: Screens.width(context),
                 // height: Screens.bodyheight(context)*0.86,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       width: Screens.width(context),
                       child: Card(
                         elevation: 1,
@@ -90,7 +90,7 @@ class _FilterScreen2State extends State<FilterScreen2> {
                       ),
                     ),
                 //  Customer
-                        Container(
+                        SizedBox(
                 width: Screens.width(context),
                 child: Card(
                   elevation: 1,
@@ -144,7 +144,7 @@ class _FilterScreen2State extends State<FilterScreen2> {
                 ),
                         ),
                         //Trans Number
-                        Container(
+                        SizedBox(
                 width: Screens.width(context),
                 child: Card(
                   elevation: 1,
@@ -193,7 +193,7 @@ class _FilterScreen2State extends State<FilterScreen2> {
                 ),
                         ),
                         //Loan number
-                        Container(
+                        SizedBox(
                 width: Screens.width(context),
                 child: Card(
                   elevation: 1,
@@ -242,7 +242,7 @@ class _FilterScreen2State extends State<FilterScreen2> {
                 ),
                         ),
                         //age Above
-                        Container(
+                        SizedBox(
                 width: Screens.width(context),
                 child: Card(
                   elevation: 1,
@@ -293,7 +293,7 @@ class _FilterScreen2State extends State<FilterScreen2> {
                 ),
                         ),
                         //Balance Above
-                        Container(
+                        SizedBox(
                 width: Screens.width(context),
                 child: Card(
                   elevation: 1,
@@ -353,7 +353,7 @@ class _FilterScreen2State extends State<FilterScreen2> {
          Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          Container
+          SizedBox
           
           (
             width: Screens.width(context)*0.4,
@@ -367,7 +367,7 @@ class _FilterScreen2State extends State<FilterScreen2> {
                 )
               ),
              child: Text("Cancel"))),
-            Container(
+            SizedBox(
               width: Screens.width(context)*0.4,
               
               child: ElevatedButton(onPressed: (){},

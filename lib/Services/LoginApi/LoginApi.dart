@@ -8,7 +8,6 @@ import 'package:sellerkit/Constant/Utils.dart';
 import '../../Constant/Configuration.dart';
 import '../../Constant/ConstantSapValues.dart';
 import '../../Constant/Encripted.dart';
-import 'package:html_unescape/html_unescape.dart';
 import '../../Models/LoginModel/LoginModel.dart';
 import 'package:http/http.dart' as http;
 // import 'package:sellerkit/Constant/Encripted.dart';

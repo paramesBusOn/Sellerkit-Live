@@ -4,7 +4,6 @@
 import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 
 class pdfViwer extends StatefulWidget {

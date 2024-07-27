@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_string_interpolations, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, unnecessary_new
 
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,17 +11,15 @@ import '../../../Constant/Configuration.dart';
 import '../../../Controller/OrderController/TabOrderController.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetOrderSummary.dart';
-import '../../Enquiries/EnquiriesUser/Widgets/GlobalKeys.dart';
 import 'FollowDialog.dart';
 
 class OpenOrderPage extends StatefulWidget {
-  const OpenOrderPage({Key? key,
+  const OpenOrderPage({super.key,
       required this.theme,
       required this.leadOpenAllData,
       required this.leadSummaryOpen,
       required this.provi
-      })
-      : super(key: key);
+      });
 
   final ThemeData theme;
 

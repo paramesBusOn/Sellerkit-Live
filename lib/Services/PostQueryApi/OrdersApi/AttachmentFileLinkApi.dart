@@ -9,7 +9,6 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 
 import '../../../Constant/ConstantSapValues.dart';
-import '../../../Controller/OrderController/OrderNewController.dart';
 
 class OrderAttachmentApiApi {
   static Future<String> getData(String filename) async {

@@ -2,14 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Pages/Settlement/Widgets/SettNEFTSuccessBox.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
 import '../../../Controller/SettlementController/SettlementController.dart';
 
 class DDAlertBox extends StatefulWidget {
-  DDAlertBox({Key? key, required this.indx,required this.name}) : super(key: key);
+  const DDAlertBox({Key? key, required this.indx,required this.name}) : super(key: key);
   final int indx;
   final String? name;
   @override

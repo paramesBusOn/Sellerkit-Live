@@ -10,7 +10,6 @@ import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/AccountsController/NewCustomerController.dart';
-import 'package:sellerkit/Pages/Accounts/widgets/ShowSearchDialog.dart';
 import '../../Widgets/Appbar.dart';
 import '../../Widgets/Navi3.dart';
 

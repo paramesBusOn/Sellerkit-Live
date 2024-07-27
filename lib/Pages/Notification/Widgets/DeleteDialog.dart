@@ -51,7 +51,7 @@ class NotifyDeleteState extends State<NotifyDeleteDialog> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
+          SizedBox(
             width: Screens.width(context),
             height: Screens.bodyheight(context) * 0.06,
             child: ElevatedButton(
@@ -89,7 +89,7 @@ class NotifyDeleteState extends State<NotifyDeleteDialog> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                       width: Screens.width(context) * 0.28,
                       height: Screens.bodyheight(context) * 0.06,
                       child: ElevatedButton(
@@ -106,7 +106,7 @@ class NotifyDeleteState extends State<NotifyDeleteDialog> {
                           )),
                     ),
                     SizedBox(width: Screens.width(context)*0.01,),
-                       Container(
+                       SizedBox(
                       width: Screens.width(context) * 0.28,
                       height: Screens.bodyheight(context) * 0.06,
                       child: ElevatedButton(
@@ -125,7 +125,7 @@ class NotifyDeleteState extends State<NotifyDeleteDialog> {
                           )),
                     ),
                     SizedBox(width: Screens.width(context)*0.01,),
-                       Container(
+                       SizedBox(
                       width: Screens.width(context) * 0.28,
                       height: Screens.bodyheight(context) * 0.06,
                       child: ElevatedButton(

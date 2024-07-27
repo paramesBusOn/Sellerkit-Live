@@ -3,7 +3,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/FeedCreationcontroller/CameraVideoPlayerPage.dart';
 import '../../../Controller/FeedCreationcontroller/CameraController.dart';
 import 'CameraPage.dart';
 

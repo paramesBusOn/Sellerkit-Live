@@ -4,10 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'dart:convert';
-import 'package:sellerkit/Constant/DataBaseConfig.dart';
 import 'package:sellerkit/Models/ScoreCardModel/ScoreCard2Model.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import 'package:sellerkit/main.dart';
 
 class ScoreCardApi2 {
   static Future<ScoreCard2Model> getScore2Data() async {

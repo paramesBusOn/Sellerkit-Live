@@ -4,15 +4,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Pages/OrderBooking/Widgets/paymenttermdialog.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 import '../../Controller/OrderController/OrderNewController.dart';
 import '../../Widgets/Appbar.dart';

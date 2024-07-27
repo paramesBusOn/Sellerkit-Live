@@ -1,8 +1,5 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, implementation_imports, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -56,7 +53,7 @@ class _CollectionsState extends State<Collections>
     DateTime now = DateTime.now();
 
     if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+        now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
       currentBackPressTime = now;
       Get.offAllNamed(ConstantRoutes.dashboard);
       return Future.value(true);
@@ -77,7 +74,7 @@ class _CollectionsState extends State<Collections>
           appBar: AppBar(
             backgroundColor: theme.primaryColor,
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(80),
+              preferredSize: const Size.fromHeight(80),
               child: Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: Screens.bodyheight(context) * 0.02),
@@ -95,7 +92,7 @@ class _CollectionsState extends State<Collections>
                               spreadRadius: 3,
                               blurRadius: 4,
                               offset:
-                                  Offset(0, 3), // changes position of shadow
+                                  const Offset(0, 3), // changes position of shadow
                             ),
                           ]),
                       child: TextField(
@@ -140,7 +137,7 @@ class _CollectionsState extends State<Collections>
                 ),
               ),
             ),
-            title: GestureDetector(onTap: () {}, child: Text('Collection')),
+            title: GestureDetector(onTap: () {}, child: const Text('Collection')),
           ),
           // :AppBar(
           //    backgroundColor: theme.primaryColor,
@@ -211,7 +208,7 @@ class _CollectionsState extends State<Collections>
                               ],
                             ),
                           )
-                        : Center(child: CircularProgressIndicator()),
+                        : const Center(child: CircularProgressIndicator()),
                 //tapbar2
                 (context.watch<ColletionContoller>().preogress == false &&
                         context
@@ -265,7 +262,7 @@ class _CollectionsState extends State<Collections>
                               ],
                             ),
                           )
-                        : Center(
+                        : const Center(
                             child: CircularProgressIndicator(),
                           ),
               ],
@@ -279,7 +276,7 @@ class _CollectionsState extends State<Collections>
               //   MaterialPageRoute(builder: (context) => NewCollectionEntry()),
               // );
             },
-            child: Icon(
+            child: const Icon(
               Icons.add,
               color: Colors.white,
             ),
@@ -323,7 +320,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                         width: Screens.width(context)*0.5
                         ),
                   ),
-                        Text("No Data..",textAlign: TextAlign.center),
+                        const Text("No Data..",textAlign: TextAlign.center),
                       ],
                     ),
                   )
@@ -897,7 +894,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                         width: Screens.width(context)*0.5
                         ),
                   ),
-                        Text("No Data..",textAlign: TextAlign.center),
+                        const Text("No Data..",textAlign: TextAlign.center),
                       ],
                     ),
                   )

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings, must_be_immutable
 
 import 'dart:developer';
 
@@ -10,12 +10,10 @@ import 'package:timeline_tile/timeline_tile.dart';
 
 import '../../../Controller/FollowupController/FollowUPController.dart';
 import '../../../Models/PostQueryModel/FollowUPModel.dart/FollowUPModel.dart';
-import 'CustomRadioBtnFollowup.dart';
 
 class FollowUPDialogPG extends StatefulWidget {
   FollowUPDialogPG(
-      {Key? key, required this.index, required this.followUPListData})
-      : super(key: key);
+      {super.key, required this.index, required this.followUPListData});
   int index;
   FollowUPListData followUPListData;
   @override

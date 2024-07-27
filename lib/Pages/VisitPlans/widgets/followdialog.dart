@@ -2,16 +2,14 @@
 
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Controller/VisitplanController/VisitPlanController.dart';
 import 'package:sellerkit/Models/getvisitmodel/getvisitmodel.dart';import '../../../Constant/Screen.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 //import 'package:timelines/timelines.dart';
 
 class FollowDialog extends StatefulWidget {
-  FollowDialog({Key? key, required this.index, this.openVisitData})
+  const FollowDialog({Key? key, required this.index, this.openVisitData})
       : super(key: key);
   final int index;
   final getvisitdetails? openVisitData;

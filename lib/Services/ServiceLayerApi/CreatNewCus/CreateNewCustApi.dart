@@ -53,7 +53,7 @@ class NewCustCretApi {
             "country": "${patch.U_Country}",
       "pincode":patch.U_Pincode==null?null :int.parse(patch.U_Pincode.toString()),
            
-            "gender":postLead!.U_sk_gender==null?null: "${postLead!.U_sk_gender}",
+            "gender":postLead!.U_sk_gender==null?null: "${postLead.U_sk_gender}",
             "headcount": int.parse(postLead.U_sk_headcount.toString()),
             "maxbudget": int.parse(postLead.U_sk_budget.toString()),
             "ageGroup":postLead.U_sk_Agegroup==null?null: "${postLead.U_sk_Agegroup}",
@@ -91,7 +91,7 @@ class NewCustCretApi {
             "country": "${patch.U_Country}",
       "pincode":patch.U_Pincode==null?null :int.parse(patch.U_Pincode.toString()),
            
-            "gender":postLead!.U_sk_gender==null?null: "${postLead!.U_sk_gender}",
+            "gender":postLead.U_sk_gender==null?null: "${postLead.U_sk_gender}",
             "headcount": int.parse(postLead.U_sk_headcount.toString()),
             "maxbudget": int.parse(postLead.U_sk_budget.toString()),
             "ageGroup":postLead.U_sk_Agegroup==null?null: "${postLead.U_sk_Agegroup}",

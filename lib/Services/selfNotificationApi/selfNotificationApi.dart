@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class SelfNotificationSendApi {
   static Future<NotifiModel> getData(
       String screenName, String fcm, String titile, String body) async {
-    int resCode = 500;
+    // int resCode = 500;
     try {
       final response =
           await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
@@ -31,7 +31,7 @@ class SelfNotificationSendApi {
                 }
               }));
 
-      resCode = response.statusCode;
+      // resCode = response.statusCode;
       print(response.statusCode.toString());
       log("notifi res:${json.decode(response.body)}");
       if (response.statusCode >= 200 && response.statusCode <= 200) {

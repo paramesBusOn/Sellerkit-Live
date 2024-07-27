@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class ThemeManager extends ChangeNotifier  {
   Timer? _timer;
 timer()async{
  
-   _timer = Timer( Duration(seconds: 5), restartApp
+   _timer = Timer( const Duration(seconds: 5), restartApp
 //    (timer) async{
 //     //  log("timer::"+.toString());
  

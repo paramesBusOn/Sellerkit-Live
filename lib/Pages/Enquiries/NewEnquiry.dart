@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Controller/EnquiryController/NewEnqController.dart';
-import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/enqAsign2.dart';
 import '../../Constant/Screen.dart';
 import '../../Constant/ShowSearchDialog.dart';
 import '../../Constant/padings.dart';

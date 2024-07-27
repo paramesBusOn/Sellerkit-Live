@@ -2,14 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Constant/SharedPreference.dart';
 import 'package:sellerkit/Services/DayStartEndApi/DaycheckAPi.dart';
 
 import '../../../Constant/Screen.dart';
@@ -17,7 +15,6 @@ import '../../../Constant/padings.dart';
 import '../../../Controller/DayStartEndController/DayStartEndController.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
-import '../../../Widgets/SucessDialagBox.dart';
 
 class cameraPage extends StatefulWidget {
   const cameraPage({Key? key});

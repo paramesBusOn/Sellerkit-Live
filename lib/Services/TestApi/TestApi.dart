@@ -5,7 +5,7 @@ import 'package:sellerkit/Constant/Configuration.dart';
 
 class TestApi {
   static Future<void> getData() async {
-    int resCode = 500;
+    // int resCode = 500;
     try {
             Config config = Config();
 
@@ -21,7 +21,7 @@ class TestApi {
 }
           ));
 
-      resCode = response.statusCode;
+      // resCode = response.statusCode;
       print(response.statusCode.toString());
       print(json.decode(response.body));
       if (response.statusCode == 200) {

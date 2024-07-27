@@ -5,11 +5,8 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import 'package:sellerkit/main.dart';
 
 import '../../Constant/ConstantSapValues.dart';
-import '../../Models/PostQueryModel/LeadsCheckListModel/GetLeadCheckListModel.dart';
-import '../../Models/PostQueryModel/OrdersCheckListModel/GetOrderCheckListModel.dart';
 import '../../Models/postvisitmodel/postvisitplan.dart';
 import '../../Models/siteoutmodel/siteoutmodel.dart';
 class siteOutApi {

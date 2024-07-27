@@ -7,7 +7,7 @@ import '../../../../Constant/Screen.dart';
 
 
 class LookingSearchDialog extends StatefulWidget {
-  LookingSearchDialog({Key? key}) : super(key: key);
+  const LookingSearchDialog({Key? key}) : super(key: key);
   @override
   State<LookingSearchDialog> createState() => LookingSearchDialogState();
 }
@@ -90,7 +90,6 @@ class LookingSearchDialogState extends State<LookingSearchDialog> {
 
 
 //old 
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';

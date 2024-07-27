@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'dart:developer';
 
@@ -45,9 +44,9 @@ class _PDFViewerFromUrlState extends State<PDFViewerFromUrl> {
        
         child: 
         url.isEmpty?
-        CircularProgressIndicator()
+        const CircularProgressIndicator()
         :
-        PDF(
+        const PDF(
           enableSwipe: true,
           swipeHorizontal: true,
         ).cachedFromUrl(

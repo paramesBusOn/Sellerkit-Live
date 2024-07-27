@@ -54,12 +54,12 @@ class PdfInvoicePdfviewHelper {
   static Future<Uint8List> generatePdf(
       PdfPageFormat format, String title) async {
     Config config = Config();
-    log("customermodeldata!.storeLogoUrl::"+customermodeldata!.storeLogoUrl.toString());
+    log("customermodeldata!.storeLogoUrl::${customermodeldata!.storeLogoUrl}");
     final TtfFont font = await loadFont();
     final TtfFont Calibrifont = await caliberFont();
     final TtfFont Calibrifontbold = await caliberFontbold();
     final netImage =customermodeldata!.storeLogoUrl != null&& customermodeldata!.storeLogoUrl!.isNotEmpty? await networkImage(customermodeldata!.storeLogoUrl!):null;
-   log("netImage:::::"+netImage.toString());
+   log("netImage:::::$netImage");
     final pdf = Document(
       // pageFormat: PdfPageFormat.a4.copyWith(
       //     //  marginBottom: 0,
@@ -589,19 +589,19 @@ class PdfInvoicePdfviewHelper {
  
  double tax2=double.parse(item.TaxCode!.toStringAsFixed(2));
       mrpvalue=mrp2 /(1+(tax2/100));
-   log("mrpvalue::"+mrpvalue.toString());
+   log("mrpvalue::$mrpvalue");
      
       if(item.MRP! >0.00 ||item.Price! >0.00){
         // double mrp2=double.parse(item.MRP!.toStringAsFixed(2));
         double Price2=double.parse(item.Price!.toStringAsFixed(2));
-         log("mrp"+mrp2.toString()+"Price2"+Price2.toString());
+         log("mrp${mrp2}Price2$Price2");
         
          Discount = ((mrp2 - Price2)/mrp2) * 100;
    
-   log("Discount2222::"+Discount.toString());
+   log("Discount2222::$Discount");
       }else {
    Discount=0.00;
-      log("Discount::"+Discount.toString());
+      log("Discount::$Discount");
       }
       if (mrpvalue.isNaN || mrpvalue.isInfinite) {
     mrpvalue = 0.0; 
@@ -614,19 +614,19 @@ class PdfInvoicePdfviewHelper {
  
  double tax2=double.parse(item.TaxCode!.toStringAsFixed(2));
       mrpvalue=mrp2 /(1+(tax2/100));
-   log("mrpvalue0000::"+mrpvalue.toString());
+   log("mrpvalue0000::$mrpvalue");
    
       if(item.MRP! >0.00 ||item.Price! >0.00){
         // double mrp2=double.parse(item.MRP!.toStringAsFixed(2));
         double Price2=double.parse(item.Price!.toStringAsFixed(2));
-         log("mrp"+mrp2.toString()+"Price2"+Price2.toString());
+         log("mrp${mrp2}Price2$Price2");
         
          Discount = ((mrp2 - Price2)/mrp2) * 100;
    
-   log("Discount2222::"+Discount.toString());
+   log("Discount2222::$Discount");
       }else {
    Discount=0.00;
-      log("Discount::"+Discount.toString());
+      log("Discount::$Discount");
       }
       if (mrpvalue.isNaN || mrpvalue.isInfinite) {
     mrpvalue = 0.0; 

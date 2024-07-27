@@ -3,13 +3,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'dart:isolate';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Models/TestModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import 'package:sellerkit/main.dart';
-import '../../../Constant/DataBaseConfig.dart';
 
 class TestNew {
   Future<ItemListheader> getData() async {

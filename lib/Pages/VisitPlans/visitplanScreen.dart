@@ -19,7 +19,7 @@ import '../../../Widgets/Navi3.dart';
 import '../../Controller/VisitplanController/VisitPlanController.dart';
 
 class visitplanPage extends StatefulWidget {
-  visitplanPage({Key? key}) : super(key: key);
+  visitplanPage({super.key});
 
   @override
   State<visitplanPage> createState() => visitplanPageState();

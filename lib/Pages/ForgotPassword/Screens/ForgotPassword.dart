@@ -8,7 +8,7 @@ import '../../../Controller/ForgotPasswordController/ForgotPasswordController.da
 import '../widgets/ForgotBodySection.dart';
 
 class ForgotRegisterPage extends StatefulWidget {
-  const ForgotRegisterPage({Key? key}) : super(key: key);
+  const ForgotRegisterPage({super.key});
 
   @override
   State<ForgotRegisterPage> createState() => ForgotRegisterPageState();

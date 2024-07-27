@@ -10,7 +10,7 @@ import '../../../Controller/FollowupController/FollowUPController.dart';
 import 'FollowUPDialogPg.dart';
 
 class FollowUPODue extends StatefulWidget {
-  FollowUPODue({Key? key, required this.prdFUP}) : super(key: key);
+  FollowUPODue({super.key, required this.prdFUP});
   FollowupController prdFUP;
 
   @override

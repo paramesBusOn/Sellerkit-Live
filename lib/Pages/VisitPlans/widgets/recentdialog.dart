@@ -8,7 +8,7 @@ import '../../../Controller/VisitplanController/NewVisitController.dart';
 import 'package:intl/intl.dart';
 
 class recentactivites extends StatefulWidget {
-  recentactivites({Key? key}) : super(key: key);
+  const recentactivites({Key? key}) : super(key: key);
   @override
   State<recentactivites> createState() => ShowSearchDialogState();
 }

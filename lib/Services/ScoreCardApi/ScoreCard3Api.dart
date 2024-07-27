@@ -7,7 +7,6 @@ import 'dart:convert';
 import 'package:sellerkit/Constant/DataBaseConfig.dart';
 import 'package:sellerkit/Models/ScoreCardModel/ScoreCard3Model.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import 'package:sellerkit/main.dart';
 
 class ScoreCardApi3 {
   static Future<ScoreCard3Model> getScore2Data() async {

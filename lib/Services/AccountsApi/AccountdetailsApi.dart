@@ -22,7 +22,6 @@ class AccountsdetailsApiNew {
 
     try {
       log("EnqAcc"+Url.queryApi+ 'SkClientPortal/GetENQuirybyCustomerCode?Customercode=$number');
-      Config config = Config();
       // await config.getSetup();
        final response = await http.get(Uri.parse(Url.queryApi+ 'SkClientPortal/GetENQuirybyCustomerCode?Customercode=$number'),
           headers: {

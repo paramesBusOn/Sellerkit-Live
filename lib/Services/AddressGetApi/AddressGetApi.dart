@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Models/AddressApiModel/AddressMoasterModel.dart';
-import 'package:sellerkit/main.dart';
 
 // import '../../Models/AddressMoasterModel.dart';
 
@@ -22,7 +21,7 @@ class AddressMasterApi {
         },
       );
       resCode = response.statusCode;
-      log("ADDRESS"+response.body.toString());
+      log("ADDRESS${response.body}");
       // log("sk_Address_master_data${json.decode(response.body)}");
       if (response.statusCode == 200) {
         // Map data = json.decode(response.body);
@@ -33,7 +32,7 @@ class AddressMasterApi {
         // return AddressrModel.error('Error', resCode);
       }
     } catch (e) {
-      log("Exception: " + e.toString());
+      log("Exception: $e");
        throw Exception(e.toString());
       // return AddressrModel.error(e.toString(), resCode);
     }

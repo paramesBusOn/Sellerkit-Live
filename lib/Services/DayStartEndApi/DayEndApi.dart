@@ -25,11 +25,11 @@ class DayEndApi {
           },
           body: jsonEncode({
             "userid": postdata!.userId,
-  "lat": double.parse(postdata!.latititudeET.toString()),
+  "lat": double.parse(postdata.latititudeET.toString()),
   "lon":double.parse (postdata.longitudeET.toString()),
-  "locaddress1": "${postdata!.endAddress}",
-  "locaddress2": "${postdata!.address2}",
-  "locaddress3": "${postdata!.address3}",
+  "locaddress1": "${postdata.endAddress}",
+  "locaddress2": "${postdata.address2}",
+  "locaddress3": "${postdata.address3}",
   "imageurl":postdata.startPointImgurl==null?null:"${postdata.startPointImgurl}"
             // "endAddress": "${postdata!.endAddress}",
             // "endDate": "${postdata.endDate}",
@@ -37,12 +37,12 @@ class DayEndApi {
             // "longitudeET": postdata.longitudeET
           }));
 print("Day End::"+jsonEncode({
-             "userid": postdata!.userId,
-  "lat": double.parse(postdata!.latititudeET.toString()),
+             "userid": postdata.userId,
+  "lat": double.parse(postdata.latititudeET.toString()),
   "lon":double.parse (postdata.longitudeET.toString()),
-  "locaddress1": "${postdata!.endAddress}",
-  "locaddress2": "${postdata!.address2}",
-  "locaddress3": "${postdata!.address3}",
+  "locaddress1": "${postdata.endAddress}",
+  "locaddress2": "${postdata.address2}",
+  "locaddress3": "${postdata.address3}",
   "imageurl":postdata.startPointImgurl==null?null:"${postdata.startPointImgurl}"
           }));
       resCode = response.statusCode;

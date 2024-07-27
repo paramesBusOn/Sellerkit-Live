@@ -4,19 +4,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-
 import 'package:readmore/readmore.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Controller/DownLoadController/DownloadController.dart';
-import 'package:sellerkit/Pages/Challenges/Widgets/SearchWidgets.dart';
 import 'package:sellerkit/Pages/Dashboard/widgets/chewievideoplayer.dart';
-import 'package:sellerkit/Pages/OfferZone/OfferPopup.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:swipe_image_gallery/swipe_image_gallery.dart';
 import 'package:video_player/video_player.dart';
 import '../../../Constant/Configuration.dart';

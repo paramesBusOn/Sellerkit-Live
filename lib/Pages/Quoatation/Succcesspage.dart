@@ -1,15 +1,12 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
 import 'package:sellerkit/Models/QuoteModel/quotemodel.dart';
-import 'package:sellerkit/Pages/OrderBooking/Widgets/Pdf.dart';
-import 'package:sellerkit/Pages/OrderBooking/Widgets/pdfinv.dart';
 import 'package:sellerkit/Pages/Quoatation/tabquote/widgets/pdfqoute.dart';
 import '../../../Constant/ConstantRoutes.dart';
 import '../../../Widgets/Appbar.dart';

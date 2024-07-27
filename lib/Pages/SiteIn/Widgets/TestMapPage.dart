@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sellerkit/Constant/Screen.dart';
 
 class MapSample extends StatefulWidget {
   @override
@@ -15,7 +14,6 @@ class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
   static double? lati1;
   static double? lang2;
-  // ignore: prefer_const_constructors
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(11.0142418, 76.9625974),
     zoom: 14.4746,

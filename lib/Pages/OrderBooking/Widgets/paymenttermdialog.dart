@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 
 class paytermdialog extends StatefulWidget {
-  paytermdialog({super.key, required this.paymode});
+  const paytermdialog({super.key, required this.paymode});
   final PaymodeModalData? paymode;
   @override
   State<paytermdialog> createState() => _paytermdialogState();

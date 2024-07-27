@@ -1,25 +1,21 @@
 // ignore_for_file: deprecated_member_use, prefer_const_constructors
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/OfferZoneController/OfferZoneController.dart';
 
 import '../../Constant/Configuration.dart';
 import '../../Models/OfferZone/OfferZoneModel.dart';
 
 class DiviceDialogBox extends StatelessWidget {
   DiviceDialogBox(
-      {Key? key,
+      {super.key,
       required this.pardata, 
       required this.theme,
       //  required this.i, 
       // required this.popvalues,
       // required this.popvalues2
-      })
-      : super(key: key);
+      });
   final ThemeData theme;
   OfferZoneData pardata;
   // List<offerproductlist> popvalues = [];

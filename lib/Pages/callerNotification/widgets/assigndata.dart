@@ -1,10 +1,8 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Controller/callNotificationController/callNotificationController.dart';
-import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/GetUserModel.dart';
 import '../../../../Constant/Screen.dart';
 
 

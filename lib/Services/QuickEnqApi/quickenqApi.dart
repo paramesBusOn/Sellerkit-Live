@@ -8,7 +8,6 @@ import 'package:sellerkit/Controller/callNotificationController/callNotification
 import 'package:sellerkit/Models/QuickEnqModel/quickenqmodel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
-import '../../../Models/PostQueryModel/EnquiriesModel/EnqPostModel.dart';
 
 // old  Url.queryApi + 'SkClientPortal/PostEnquiry'
 class quickEnqPostApi {

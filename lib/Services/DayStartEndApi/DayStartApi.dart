@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Models/EarningModel/EraningModel1.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
@@ -15,7 +14,6 @@ class DayStartApi {
     int resCode = 500;
     try {
       log("DAYSART"+"${Url.queryApi}SkClientPortal/PostDayStart");
-            Config config = Config();
       // await config.getSetup(); 
       final response = await http.post(
           Uri.parse('${Url.queryApi}Sellerkit_Flexi/v2/dayStart'),

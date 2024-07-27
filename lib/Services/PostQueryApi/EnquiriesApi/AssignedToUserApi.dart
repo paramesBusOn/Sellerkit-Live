@@ -3,13 +3,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:sellerkit/Services/LoginApi/LoginApi.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
-import '../../../Constant/DataBaseConfig.dart';
 import '../../../Models/PostQueryModel/EnquiriesModel/AssignedToUserModel.dart';
 import '../../../Models/PostQueryModel/EnquiriesModel/EnquiriesModel.dart';
-import '../../../Models/PostQueryModel/EnquiriesModel/ResonModel.dart';
 import '../../../main.dart';
 
 class AssignedToUserApi {
@@ -70,7 +67,6 @@ class AssignedToUserApi {
 
 //old code
 
-// ignore_for_file: prefer_interpolation_to_compose_strings
 
 // import 'dart:convert';
 // import 'dart:developer';

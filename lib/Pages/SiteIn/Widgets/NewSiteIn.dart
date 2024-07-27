@@ -12,10 +12,8 @@ import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
 import '../../../Controller/SiteInController/newcreatesitein.dart';
-import '../../../Controller/VisitplanController/NewVisitController.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
-import '../../VisitPlans/widgets/PurposeShowSearchDialog.dart';
 import 'ShowSearchDialog.dart';
 
 class NewSiteIn extends StatefulWidget {

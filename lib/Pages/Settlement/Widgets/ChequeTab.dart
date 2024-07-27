@@ -3,19 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Pages/Enquiries/EnquiryManger/Widgets/AssignedtoDilaog.dart';
 
 import '../../../../Constant/Screen.dart';
-import '../../../../Controller/EnquiryController/EnquiryMngController.dart';
 import '../../../Controller/SettlementController/SettlementController.dart';
-import 'CashSavePop.dart';
 import 'SettlementPdfHelper.dart';
 
 class ChequeTabPage extends StatelessWidget {
   const ChequeTabPage({
-    Key? key,
+    super.key,
     required this.theme,
-  }) : super(key: key);
+  });
 
   final ThemeData theme;
 

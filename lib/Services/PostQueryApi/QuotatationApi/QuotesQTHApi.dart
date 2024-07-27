@@ -10,8 +10,6 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
-import '../../../Constant/DataBaseConfig.dart';
-import 'package:sellerkit/main.dart';
 
 class GetQuotesQTHApi {
   static Future<GetQuotesDetailsQTH> getData(

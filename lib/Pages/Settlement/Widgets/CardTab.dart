@@ -3,19 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Pages/Enquiries/EnquiryManger/Widgets/AssignedtoDilaog.dart';
 
 import '../../../../Constant/Screen.dart';
-import '../../../../Controller/EnquiryController/EnquiryMngController.dart';
 import '../../../Controller/SettlementController/SettlementController.dart';
-import 'CashSavePop.dart';
 import 'SettlementPdfHelper.dart';
 
 class CardTabPage extends StatelessWidget {
   const CardTabPage({
-    Key? key,
+    super.key,
     required this.theme,
-  }) : super(key: key);
+  }) ;
 
   final ThemeData theme;
 
@@ -163,7 +160,7 @@ class CardTabPage extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               width:
                                                   Screens.width(context) * 0.4,
                                               child: Text(
@@ -190,7 +187,7 @@ class CardTabPage extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               width:
                                                   Screens.width(context) * 0.4,
                                               child: Text(
@@ -225,7 +222,7 @@ class CardTabPage extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               width:
                                                   Screens.width(context) * 0.4,
                                               child: Text(
@@ -252,7 +249,7 @@ class CardTabPage extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Container(
+                                            SizedBox(
                                               width:
                                                   Screens.width(context) * 0.5,
                                               child: Text(

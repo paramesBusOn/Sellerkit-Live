@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Pages/Dashboard/widgets/PhotoViwer.dart';
-import 'package:sellerkit/Pages/ForgotPassword/widgets/ConfirmPassword.dart';
 import 'package:sellerkit/Pages/Splash/Widgets/custom_elevatedBtn.dart';
 import '../../../Constant/ConstantRoutes.dart';
 import '../../../Controller/LoginController/LoginController.dart';

@@ -1,14 +1,12 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Controller/callNotificationController/callNotificationController.dart';
-import 'package:sellerkit/Pages/callerNotification/widgets/custom_text_field.dart';
 import '../../../../Constant/Screen.dart';
 
 
 class ShowSearchDialog extends StatefulWidget {
-  ShowSearchDialog({Key? key,}) : super(key: key);
+  const ShowSearchDialog({Key? key,}) : super(key: key);
   @override
   // CallNotificationController? callCon;
   // List<String> filtercatagorydata;

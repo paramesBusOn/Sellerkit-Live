@@ -4,14 +4,14 @@ import '../../../Controller/FollowupController/FollowUPController.dart';
 
 class CustomRadioBtnFUP extends StatelessWidget {
    CustomRadioBtnFUP({
-    Key? key,
+    super.key,
     required this.theme,
     required this.onPressed1,
     required this.onPressed2,
     required this.text1,
     required this.text2, 
     required this.fUPCon
-  }) : super(key: key);
+  });
 
   final ThemeData theme;
   final VoidCallback onPressed1;

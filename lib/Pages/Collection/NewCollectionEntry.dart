@@ -17,7 +17,7 @@ import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
 
 class NewCollectionEntry extends StatefulWidget {
-  NewCollectionEntry({Key? key}) : super(key: key);
+  NewCollectionEntry({super.key});
 
   @override
   State<NewCollectionEntry> createState() => NewCollectionEntryState();

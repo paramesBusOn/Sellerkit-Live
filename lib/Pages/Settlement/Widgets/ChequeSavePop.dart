@@ -2,14 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Pages/Settlement/Widgets/SettChequeSuccessBox.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
 import '../../../Controller/SettlementController/SettlementController.dart';
 
 class ChequeAlertBox extends StatefulWidget {
-  ChequeAlertBox({Key? key, required this.indx,required this.name}) : super(key: key);
+  const ChequeAlertBox({Key? key, required this.indx,required this.name}) : super(key: key);
   final int indx;
   final String? name;
   @override

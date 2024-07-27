@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -48,7 +47,6 @@ class _ChallengesState extends State<Challenges> {
                 padding: paddings.padding2(context),
                 child: GestureDetector(onHorizontalDragUpdate: (details) {
                     // Check if the user is swiping from left to right
-                    print(details.primaryDelta);
                     if (details.primaryDelta! > ConstantValues.slidevalue!) {
                       setState(() {
                         Get.offAllNamed(ConstantRoutes.dashboard);

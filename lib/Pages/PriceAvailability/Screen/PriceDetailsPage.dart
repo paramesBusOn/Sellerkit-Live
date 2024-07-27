@@ -4,12 +4,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Pages/PriceAvailability/Screen/showdialogst.dart';
-import 'package:sellerkit/Widgets/qrpage.dart';
 import '../../../Constant/ConstantSapValues.dart';
 import '../../../Constant/padings.dart';
 import '../../../Controller/PriceListController/PriceListController.dart';

@@ -8,7 +8,7 @@ import '../../../../Constant/Screen.dart';
 // import '../../../Controller/VisitplanController/NewVisitController.dart';
 
 class SiteInShowDialog extends StatefulWidget {
-  SiteInShowDialog({Key? key}) : super(key: key);
+  const SiteInShowDialog({Key? key}) : super(key: key);
   @override
   State<SiteInShowDialog> createState() => ShowSearchDialogState();
 }

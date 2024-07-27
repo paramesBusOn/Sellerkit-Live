@@ -60,7 +60,6 @@ log("AANBHU"+ConstantValues.token);
 
 //old code
 
-// ignore_for_file: file_names, prefer_interpolation_to_compose_strings
 
 // import 'dart:convert';
 // import 'dart:developer';

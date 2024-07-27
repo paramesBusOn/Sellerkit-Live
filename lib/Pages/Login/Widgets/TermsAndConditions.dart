@@ -6,15 +6,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:sellerkit/Widgets/Appbar.dart';
-import '../../../../Constant/Screen.dart';
 
 class TermsAndConditionsBox extends StatefulWidget {
-  TermsAndConditionsBox({
+  const TermsAndConditionsBox({
     Key? key,
   }) : super(key: key);
 

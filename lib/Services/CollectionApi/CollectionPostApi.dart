@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:core';
-import 'dart:developer';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 

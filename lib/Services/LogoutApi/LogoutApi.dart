@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, unnecessary_string_interpolations
 
 import 'package:http/http.dart' as http;
-import '../../Constant/ConstantSapValues.dart';
 import '../URL/LocalUrl.dart';
 import 'package:sellerkit/main.dart';
 

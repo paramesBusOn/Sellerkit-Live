@@ -1,14 +1,11 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_const_constructors_in_immutables, unnecessary_string_interpolations
 
-import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 import '../../../Constant/ConstantRoutes.dart';
-import '../../../Controller/CollectionController/NewCollectionEntryCotroller.dart';
 import '../../../Controller/SettlementController/SettlementController.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderCheckListPost.dart';
 import '../../../Models/SettlementModel/SettlementPostModel.dart';
@@ -17,8 +14,7 @@ import '../../../Widgets/Navi3.dart';
 import 'SettlementPdf.dart';
 
 class SettlementSuccessCard extends StatefulWidget {
-  SettlementSuccessCard({Key? key, required this.settlemaster})
-      : super(key: key);
+  SettlementSuccessCard({super.key, required this.settlemaster});
   // final String? paymode;
   // final double? amount;
   List<SettlementPostData>? settlemaster;

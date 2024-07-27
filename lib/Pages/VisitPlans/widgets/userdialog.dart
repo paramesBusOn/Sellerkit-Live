@@ -9,7 +9,7 @@ import '../../../../Constant/Screen.dart';
 
 
 class EnqAssignUserDialog extends StatefulWidget {
-  EnqAssignUserDialog({Key? key}) : super(key: key);
+  const EnqAssignUserDialog({Key? key}) : super(key: key);
   @override
   State<EnqAssignUserDialog> createState() => ShowSearchDialogState();
 }

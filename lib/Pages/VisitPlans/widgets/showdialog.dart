@@ -7,7 +7,7 @@ import '../../../../Constant/Screen.dart';
 
 
 class ShowSearchDialog extends StatefulWidget {
-  ShowSearchDialog({Key? key}) : super(key: key);
+  const ShowSearchDialog({super.key});
   @override
   State<ShowSearchDialog> createState() => ShowSearchDialogState();
 }

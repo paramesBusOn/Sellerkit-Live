@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Pages/Settlement/Widgets/SettUPISuccessBox.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
 import '../../../Controller/SettlementController/SettlementController.dart';
 
 class UPIAlertBox extends StatefulWidget {

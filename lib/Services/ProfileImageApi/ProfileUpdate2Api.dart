@@ -5,7 +5,6 @@ import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'dart:convert';
 import 'package:sellerkit/Constant/DataBaseConfig.dart';
-import 'package:sellerkit/Models/NewProfileModel/ProfileUpdate1Model.dart';
 import 'package:sellerkit/Models/NewProfileModel/ProfileUpdate2Model.dart';
 // import 'package:sellerkit/main.dart';
 
