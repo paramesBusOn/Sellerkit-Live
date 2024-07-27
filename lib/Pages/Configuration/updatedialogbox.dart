@@ -61,7 +61,7 @@ class ShowSearchDialogState extends State<Upgraderdialogbox> {
               height: Screens.bodyheight(context) * 0.01,
             ),
             Text(
-              "To use this app, download the latest version, You can keep using this app while downloading the update",
+              "There is a new version of the app",
               style: theme.textTheme.bodyText1,
             ),
             IntrinsicHeight(

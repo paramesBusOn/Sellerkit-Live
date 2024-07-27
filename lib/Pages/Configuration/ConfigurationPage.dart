@@ -50,37 +50,9 @@ class _ConfigurationPageState extends State<ConfigurationPage> {
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       context.read<ConfigurationContoller>().showVersion();
-      String? storeversion = await context
-          .read<ConfigurationContoller>()
-          .getStoreVersion('com.busondigitalservice.sellerkit');
-      print("store version::" + storeversion.toString());
-      if (storeversion != null) {
-        if (ConstantValues.appversion != storeversion) {
-          await showDialog(
-              context: context,
-              builder: ((context) => Upgraderdialogbox(
-                    storeversion: storeversion,
-                  ))).then((value) {
-            // exit(0);
-            print(value);
-            if (value != null) {
-              if (value == 'Close') {
-                context
-                    .read<ConfigurationContoller>()
-                    .checkStartingPage(pagename, docEntry);
-              }
-            } else {
-              context
-                  .read<ConfigurationContoller>()
-                  .checkStartingPage(pagename, docEntry);
-            }
-          });
-        } else {
           context
               .read<ConfigurationContoller>()
               .checkStartingPage(pagename, docEntry);
-        }
-      }
     });
   }
 
