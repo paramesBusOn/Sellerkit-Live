@@ -433,6 +433,14 @@ ${QuotFilterDBTable.enqid} varchar ,
              ${CusLevelDBModel.name} varchar 
              )
         ''');
+         await database.execute(
+        '''
+           create table $particularprice(
+             ETId integer primary key autoincrement,
+             ${particularpriceDBModel.priceList} varchar 
+            
+             )
+        ''');
         await database.execute(
         '''
            create table $tableOrderType(

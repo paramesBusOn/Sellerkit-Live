@@ -1175,6 +1175,16 @@ setState(() {
                     context.read<NewquoteController>().filterList(val);
                   },
                   controller: context.read<NewquoteController>().mycontroller[12],
+                  // onEditingComplete: (){
+                  //       setState(() {
+                  //      if(context.read<NewquoteController>().showItemList == true){
+                  //       context.read<NewquoteController>(). scannerreset();
+                  //       context.read<NewquoteController>().Scancode=context.read<NewquoteController>().mycontroller[12].text;
+                  //   context.read<NewquoteController>().scanneddataget(context);
+                  //     }   
+                  //       });
+                        
+                  //     },
                   decoration: InputDecoration(
                     filled: false,
                     hintText: 'Search Here!!..',
@@ -1185,6 +1195,7 @@ setState(() {
                       onPressed: () {
                         FocusScopeNode focus = FocusScope.of(context);
                         if (!focus.hasPrimaryFocus) {
+                         
                           focus.unfocus();
                         }
                         context.read<NewquoteController>().changeVisible();

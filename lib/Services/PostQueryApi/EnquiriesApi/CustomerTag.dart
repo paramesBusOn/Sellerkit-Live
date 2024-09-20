@@ -22,6 +22,7 @@ class CustomerTagTypeApi {
       // print(Url.queryApi + 'SkClientPortal/GetallMaster?MasterTypeId=4');
       // print("token:"+ConstantValues.token);
       // await config.getSetup(); 
+       final stopwatch = Stopwatch()..start();
       final response = await http.get(Uri.parse(Url.queryApi + 'SkClientPortal/GetallMaster?MasterTypeId=4'),
           headers: {
             "content-type": "application/json",
@@ -40,6 +41,9 @@ class CustomerTagTypeApi {
       // print(response.statusCode.toString());
       // print("Enquiry Type"+response.body.toString());
       if (response.statusCode == 200) {
+            stopwatch.stop();
+    log('DB customerTagTypeApi ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.customerTagTypeApi =stopwatch.elapsedMilliseconds.toString();
       //  ReceivePort port  = new ReceivePort();
       //  final islol =await Isolate.spawn<List<dynamic>>(deserialize, [port.sendPort,response.body,response.statusCode]);
       // EnquiryTypeModal enquiryTypeModal =await port.first;

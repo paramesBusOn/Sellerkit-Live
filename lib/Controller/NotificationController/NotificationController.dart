@@ -148,6 +148,7 @@ deleteNotify(int docid)async{
   notifyListeners();
     notifyreverse = await DBOperation.getNotification(db);
     notify =  notifyreverse.reversed.toList();
+    unSeenNotify = await DBOperation.getUnSeenNotificationCount(db);
     notifyListeners();
 }
 deleteNotifyAll()async{
@@ -156,6 +157,7 @@ deleteNotifyAll()async{
   notifyListeners();
     notifyreverse = await DBOperation.getNotification(db);
     notify =  notifyreverse.reversed.toList();
+     unSeenNotify = await DBOperation.getUnSeenNotificationCount(db);
     notifyListeners();
 }
 

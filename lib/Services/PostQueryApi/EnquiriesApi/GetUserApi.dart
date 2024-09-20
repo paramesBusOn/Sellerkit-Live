@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
 import 'dart:convert';
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
@@ -17,6 +19,7 @@ class GetUserApi {
       print("Anbuuuu"+Url.queryApi + 'Sellerkit_Flexi/v2/GetAllUsers?userId=$sapUserId');
       print("token:"+ConstantValues.token);
       // await config.getSetup();
+       final stopwatch = Stopwatch()..start();
        final response = await http.get(Uri.parse(Url.queryApi + 'Sellerkit_Flexi/v2/GetAllUsers?userId=$sapUserId'),
           headers: {
             "content-type": "application/json",
@@ -28,8 +31,11 @@ class GetUserApi {
 
       resCode = response.statusCode;
       // print(response.statusCode.toString());
-      // print("sk_get_userlist_for_assign"+json.decode(response.body).toString());
+      print("sk_get_userlist_for_assign"+json.decode(response.body).toString());
       if (response.statusCode == 200) {
+          stopwatch.stop();
+    log(' GetUserApi ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.GetUserApi =stopwatch.elapsedMilliseconds.toString();
       //     ReceivePort port  = new ReceivePort();
       //  final islol =await Isolate.spawn<List<dynamic>>(deserialize, [port.sendPort,response.body,response.statusCode]);
       // UserListModal enquiryReferral =await port.first;
@@ -42,7 +48,7 @@ return UserListModal.fromJson(jsonDecode(response.body), response.statusCode);
         return UserListModal.issues(jsonDecode(response.body), response.statusCode);
       }
     } catch (e) {
-     // print("Exception: " + e.toString());
+     print("Exceptionassingn: " + e.toString());
       return UserListModal.error(e.toString(), resCode);
     }
   }

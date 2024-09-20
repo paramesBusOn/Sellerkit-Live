@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, non_constant_identifier_names, camel_case_types
 
 import 'dart:convert';
-import 'dart:core';
+import 'dart:developer';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
@@ -232,6 +232,108 @@ class CollectionPostApi {
                  "ipaypays":getCollectionbody.paymentdata!.map((e) => e.tojason2()).toList()
           }));
       response.statusCode;
+      log("LLL"+jsonEncode({
+            "customercode": getCollectionbody!.customerCode.isEmpty
+                ? null
+                : getCollectionbody.customerCode, //
+            "customername": getCollectionbody.customerName.isEmpty
+                ? null
+                : getCollectionbody.customerName,
+            "customermobile": getCollectionbody.Mobile.isEmpty
+                ? null
+                : getCollectionbody.Mobile,
+            "alternatemobileno": getCollectionbody.alternateMobileNo.isEmpty
+                ? null
+                : getCollectionbody.alternateMobileNo,
+            "contactname": getCollectionbody.contactName.isEmpty
+                ? null
+                : getCollectionbody.contactName,
+            "customeremail": getCollectionbody.customerEmail.isEmpty
+                ? null
+                : getCollectionbody.customerEmail,
+            "companyname": getCollectionbody.companyName.isEmpty
+                ? null
+                : getCollectionbody.companyName,
+            "customergroup": getCollectionbody.customerGrooup, //
+            "pan": getCollectionbody.pAN.isEmpty ? null : getCollectionbody.pAN,
+            "gstno": getCollectionbody.gSTNo.isEmpty
+                ? null
+                : getCollectionbody.gSTNo,
+            "bil_address1": getCollectionbody.bil_Address1.isEmpty
+                ? null
+                : getCollectionbody.bil_Address1,
+            "bil_address2": getCollectionbody.bil_Address2.isEmpty
+                ? null
+                : getCollectionbody.bil_Address2,
+            "bil_address3": getCollectionbody.bil_Address3.isEmpty
+                ? null
+                : getCollectionbody.bil_Address3,
+            "bil_area": getCollectionbody.bil_Area.isEmpty
+                ? null
+                : getCollectionbody.bil_Area,
+            "bil_city": getCollectionbody.bil_City.isEmpty
+                ? null
+                : getCollectionbody.bil_City,
+            "bil_district": getCollectionbody.bil_District.isEmpty
+                ? null
+                : getCollectionbody.bil_District,
+            "bil_state": getCollectionbody.bil_State.isEmpty
+                ? null
+                : getCollectionbody.bil_State,
+            "bil_country": getCollectionbody.bil_Country.isEmpty
+                ? null
+                : getCollectionbody.bil_Country,
+            "bil_pincode": getCollectionbody.bil_Pincode.isEmpty
+                ? null
+                : getCollectionbody.bil_Pincode,
+            "storecode": getCollectionbody.StoreCode.isEmpty
+                ? null
+                : getCollectionbody.StoreCode,
+            "assignedto": getCollectionbody.AssignedTo.isEmpty
+                ? null
+                : getCollectionbody.AssignedTo,
+
+            "docstatus": "Open", //
+            "visitid": getCollectionbody.visitid == null
+                ? 0
+                : getCollectionbody.visitid, //
+            "amountpaid": getCollectionbody.amountpaid.isEmpty
+                ? null
+                : getCollectionbody.amountpaid, //
+            "cashamt": getCollectionbody.cashamt, //
+            "chqamt": getCollectionbody.chqamt, //
+            "chequedate": getCollectionbody.chequedate.isEmpty
+                ? null
+                : getCollectionbody.chequedate, //
+            "chequeref": getCollectionbody.chequeref.isEmpty
+                ? null
+                : getCollectionbody.chequeref, //
+            "chequeimg": getCollectionbody.chequeimg.isEmpty
+                ? null
+                : getCollectionbody.chequeimg, //
+            "neftamt": getCollectionbody.neftamt, //
+            "neftref": getCollectionbody.neftref.isEmpty
+                ? null
+                : getCollectionbody.neftref, //
+            "cardamt": getCollectionbody.cardamt, //
+            "cardslipImg": getCollectionbody.cardslipImg.isEmpty
+                ? null
+                : getCollectionbody.cardslipImg, //
+            "upiamt": getCollectionbody.upiamt, //
+            "onaccount": getCollectionbody.onaccount, //
+             "cardref": getCollectionbody.cardref!.isEmpty
+                ? null
+                : getCollectionbody.cardref,
+            "upiref": getCollectionbody.upiref!.isEmpty
+                ? null
+                : getCollectionbody.upiref,
+            "remarks": getCollectionbody.remarks!.isEmpty
+                ? null
+                : getCollectionbody.remarks,
+            "ipaylines":
+                getCollectionbody.ipaylaine.map((e) => e.tojason()).toList(),
+                 "ipaypays":getCollectionbody.paymentdata!.map((e) => e.tojason2()).toList()
+          }));
 
       // print('Collection ResponceCode:' + response.statusCode.toString());
 

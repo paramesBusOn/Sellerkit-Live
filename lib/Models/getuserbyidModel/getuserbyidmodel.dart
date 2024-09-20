@@ -71,7 +71,7 @@ return useridData(
     );
  }else{
  return useridData(
-    mobile: json['mobile'], 
+    mobile: json['mobile']??'', 
     storelistdata:null
     );
   }

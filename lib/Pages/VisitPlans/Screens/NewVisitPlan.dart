@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Pages/VisitPlans/widgets/showdialog.dart';
+import 'package:sellerkit/Pages/VisitPlans/widgets/userdialog.dart';
 // import 'package:sellerkit/Controller/EnquiryController/NewEnqController.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
@@ -2811,7 +2812,9 @@ class NewVisitPlanState extends State<NewVisitPlan> {
                                               "Meeting Time*",
                                               style: theme.textTheme.bodyText1
                                                   ?.copyWith(
-                                                      color:  Colors.white),
+                                                    // color:theme.primaryColor
+                                                      color:  Colors.white
+                                                      ),
                                             ),
                                           ),
                                           SizedBox(
@@ -3137,125 +3140,125 @@ class NewVisitPlanState extends State<NewVisitPlan> {
                                           //         theme,
                                           //       )),
                                           // )
-                                    //       SizedBox(
-                                    //   height:
-                                    //       Screens.bodyheight(context) * 0.01,
-                                    // ),
-                                    //       Stack(
-                                    //           clipBehavior: Clip.none,
-                                    //           children: [
-                                    //             SizedBox(
-                                    //               // height: Screens.bodyheight(
-                                    //               //                   context) *
-                                    //               //               0.08,
-                                    //               child: TextFormField(
-                                    //                 onTap: () {
-                                    //                   // context
-                                    //                   //   .read<NewEnqController>().setUserdata();
-                                    //                   showDialog<dynamic>(
-                                    //                       context: context,
-                                    //                       builder: (_) {
-                                    //                         return EnqAssignUserDialog();
-                                    //                       }).then((value) {
-                                    //                     context
-                                    //                         .read<
-                                    //                             NewVisitplanController>()
-                                    //                         .setUserdata();
-                                    //                   });
-                                    //                 },
-                                    //                 validator: (value) {
-                                    //                   if (value!.isEmpty) {
-                                    //                     return "Enter Assigned To";
-                                    //                   }
-                                    //                   return null;
-                                    //                 },
-                                    //                 // readOnly: true,
-                                    //                 controller: context
-                                    //                     .read<NewVisitplanController>()
-                                    //                     .mycontroller[19],
-                                    //                 readOnly: true,
-                                    //                 decoration: InputDecoration(
-                                    //                   contentPadding:
-                                    //                       EdgeInsets.symmetric(
-                                    //                           vertical: 10,
-                                    //                           horizontal: 10),
-                                    //                   labelText: "Assigned To:",
-                                    //                   labelStyle: TextStyle(
-                                    //                       color:
-                                    //                           theme.primaryColor,
-                                    //                       fontWeight:
-                                    //                           FontWeight.bold),
-                                    //                   border: OutlineInputBorder(
-                                    //                     borderRadius:
-                                    //                         BorderRadius.circular(
-                                    //                             8),
-                                    //                     borderSide: BorderSide(
-                                    //                         color: theme
-                                    //                             .primaryColor),
-                                    //                   ),
-                                    //                   enabledBorder:
-                                    //                       OutlineInputBorder(
-                                    //                     borderRadius:
-                                    //                         BorderRadius.circular(
-                                    //                             8),
-                                    //                     borderSide: BorderSide(
-                                    //                         color: theme
-                                    //                             .primaryColor),
-                                    //                   ),
-                                    //                   focusedBorder:
-                                    //                       OutlineInputBorder(
-                                    //                     borderRadius:
-                                    //                         BorderRadius.circular(
-                                    //                             8),
-                                    //                     borderSide: BorderSide(
-                                    //                         color: theme
-                                    //                             .primaryColor),
-                                    //                   ),
-                                    //                 ),
-                                    //                 // cursorColor: Colors.green,
-                                    //               ),
-                                    //             ),
-                                    //             Positioned(
-                                    //                 top: 0,
-                                    //                 left: Screens.width(context) *
-                                    //                     0.70,
-                                    //                 child: InkWell(
-                                    //                     onTap: () {
-                                    //                       showDialog<dynamic>(
-                                    //                           context: context,
-                                    //                           builder: (_) {
-                                    //                             return EnqAssignUserDialog();
-                                    //                           });
-                                    //                     },
-                                    //                     child: Container(
-                                    //                         width: Screens.width(
-                                    //                                 context) *
-                                    //                             0.2,
-                                    //                         padding: EdgeInsets
-                                    //                             .symmetric(
-                                    //                                 vertical: 11,
-                                    //                                 horizontal:
-                                    //                                     10),
-                                    //                         // height: Screens.bodyheight(
-                                    //                         //         context) *
-                                    //                         //     0.08,
-                                    //                         decoration:
-                                    //                             BoxDecoration(
-                                    //                                 color: theme
-                                    //                                     .primaryColor,
-                                    //                                 borderRadius:
-                                    //                                     BorderRadius
-                                    //                                         .only(
-                                    //                                   topRight: Radius
-                                    //                                       .circular(
-                                    //                                           8),
-                                    //                                   bottomRight:
-                                    //                                       Radius.circular(
-                                    //                                           8),
-                                    //                                 )),
-                                    //                         child: Icon(
-                                    //                             Icons.search))))
-                                    //           ]),
+                                          SizedBox(
+                                      height:
+                                          Screens.bodyheight(context) * 0.01,
+                                    ),
+                                          // Stack(
+                                          //     clipBehavior: Clip.none,
+                                          //     children: [
+                                          //       SizedBox(
+                                          //         // height: Screens.bodyheight(
+                                          //         //                   context) *
+                                          //         //               0.08,
+                                          //         child: TextFormField(
+                                          //           onTap: () {
+                                          //             // context
+                                          //             //   .read<NewEnqController>().setUserdata();
+                                          //             showDialog<dynamic>(
+                                          //                 context: context,
+                                          //                 builder: (_) {
+                                          //                   return EnqAssignUserDialog();
+                                          //                 }).then((value) {
+                                          //               context
+                                          //                   .read<
+                                          //                       NewVisitplanController>()
+                                          //                   .setUserdata();
+                                          //             });
+                                          //           },
+                                          //           validator: (value) {
+                                          //             if (value!.isEmpty) {
+                                          //               return "Enter Assigned To";
+                                          //             }
+                                          //             return null;
+                                          //           },
+                                          //           // readOnly: true,
+                                          //           controller: context
+                                          //               .read<NewVisitplanController>()
+                                          //               .mycontroller[19],
+                                          //           readOnly: true,
+                                          //           decoration: InputDecoration(
+                                          //             contentPadding:
+                                          //                 EdgeInsets.symmetric(
+                                          //                     vertical: 10,
+                                          //                     horizontal: 10),
+                                          //             labelText: "Assigned To:",
+                                          //             labelStyle: TextStyle(
+                                          //                 color:
+                                          //                     theme.primaryColor,
+                                          //                 fontWeight:
+                                          //                     FontWeight.bold),
+                                          //             border: OutlineInputBorder(
+                                          //               borderRadius:
+                                          //                   BorderRadius.circular(
+                                          //                       8),
+                                          //               borderSide: BorderSide(
+                                          //                   color: theme
+                                          //                       .primaryColor),
+                                          //             ),
+                                          //             enabledBorder:
+                                          //                 OutlineInputBorder(
+                                          //               borderRadius:
+                                          //                   BorderRadius.circular(
+                                          //                       8),
+                                          //               borderSide: BorderSide(
+                                          //                   color: theme
+                                          //                       .primaryColor),
+                                          //             ),
+                                          //             focusedBorder:
+                                          //                 OutlineInputBorder(
+                                          //               borderRadius:
+                                          //                   BorderRadius.circular(
+                                          //                       8),
+                                          //               borderSide: BorderSide(
+                                          //                   color: theme
+                                          //                       .primaryColor),
+                                          //             ),
+                                          //           ),
+                                          //           // cursorColor: Colors.green,
+                                          //         ),
+                                          //       ),
+                                          //       Positioned(
+                                          //           top: 0,
+                                          //           left: Screens.width(context) *
+                                          //               0.70,
+                                          //           child: InkWell(
+                                          //               onTap: () {
+                                          //                 showDialog<dynamic>(
+                                          //                     context: context,
+                                          //                     builder: (_) {
+                                          //                       return EnqAssignUserDialog();
+                                          //                     });
+                                          //               },
+                                          //               child: Container(
+                                          //                   width: Screens.width(
+                                          //                           context) *
+                                          //                       0.2,
+                                          //                   padding: EdgeInsets
+                                          //                       .symmetric(
+                                          //                           vertical: 11,
+                                          //                           horizontal:
+                                          //                               10),
+                                          //                   // height: Screens.bodyheight(
+                                          //                   //         context) *
+                                          //                   //     0.08,
+                                          //                   decoration:
+                                          //                       BoxDecoration(
+                                          //                           color: theme
+                                          //                               .primaryColor,
+                                          //                           borderRadius:
+                                          //                               BorderRadius
+                                          //                                   .only(
+                                          //                             topRight: Radius
+                                          //                                 .circular(
+                                          //                                     8),
+                                          //                             bottomRight:
+                                          //                                 Radius.circular(
+                                          //                                     8),
+                                          //                           )),
+                                          //                   child: Icon(
+                                          //                       Icons.search))))
+                                          //     ]),
 
 
 

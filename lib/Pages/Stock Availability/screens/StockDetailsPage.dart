@@ -301,10 +301,12 @@ onWillPop: onbackpress,
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
-                                            alignment: Alignment.centerRight,
+                                              // color:Colors.amber,
+                                              width:Screens.width(context)*0.40,
+                                            alignment: Alignment.centerLeft,
                                             child: Text(
                                              // ConstantValues.sapUser=='Manager'?
-                                              "Whse Stock: ${context.watch<StockListController>().getlistPriceAvail[i].whsStock!.toStringAsFixed(0)}",
+                                              "Total Whse Stock: ${context.watch<StockListController>().getlistPriceAvail[i].whsStock!.toStringAsFixed(0)}",
                                           // :'', 
                                              style: theme.textTheme.bodyText1
                                                   ?.copyWith(
@@ -314,9 +316,10 @@ onWillPop: onbackpress,
                                             ),
             
                                                Container(
+                                                width:Screens.width(context)*0.40,
                                                alignment: Alignment.centerRight,
                                                child: Text(
-                                                 "Store Stock: ${context.watch<StockListController>().getlistPriceAvail[i].storeStock!.toStringAsFixed(0)}",
+                                                 "Total Store Stock: ${context.watch<StockListController>().getlistPriceAvail[i].storeStock!.toStringAsFixed(0)}",
                                                  style: theme.textTheme.bodyText1
                                                      ?.copyWith(
                                                  color:

@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Controller/EnquiryController/NewEnqController.dart';
+import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/enqAsign2.dart';
 import '../../Constant/Screen.dart';
 import '../../Constant/ShowSearchDialog.dart';
 import '../../Constant/padings.dart';
@@ -86,8 +87,15 @@ class NewEnquiryState extends State<NewEnquiry> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return WillPopScope(
-       onWillPop: onbackpress,
+    return PopScope(
+      canPop: false,
+      onPopInvoked:(bool didPop){
+        log("didPop::$didPop");
+        if(didPop) return;
+        onbackpress();
+        
+      } ,
+      //  onWillPop: onbackpress,
       child: Scaffold(
           drawerEnableOpenDragGesture: false,
           resizeToAvoidBottomInset: false,
@@ -1583,7 +1591,9 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                     style: theme
                                                         .textTheme.bodyText1
                                                         ?.copyWith(
-                                                            color: Colors.white),
+                                                          // color: theme.primaryColor
+                                                            color: Colors.white
+                                                            ),
                                                   ),
                                                   Checkbox(
                                                       checkColor:theme.primaryColor,
@@ -1591,7 +1601,9 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                       activeColor:Colors.white,
                                                       //  theme.primaryColor,
                                                       side: BorderSide(
-                                                          color: Colors.white),
+                                                        color:Colors.white,
+                                                          // color: theme.primaryColor
+                                                          ),
                                                       value: context
                                                           .read<
                                                               NewEnqController>()
@@ -1969,22 +1981,22 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                       0.01,
                                             ),
                                           
-                                            context
-                                                        .read<NewEnqController>()
-                                                        .istimevalid ==
-                                                    false &&context
-                                                        .watch<NewEnqController>()
-                                                        . errorTime ==""
-                                                ? Container()
-                                                : Container(
-                                                    alignment:
-                                                        Alignment.centerRight,
-                                                    child: Text(
-                                                      "${context.read<NewEnqController>().errorTime}",
-                                                      style: TextStyle(
-                                                          color: Colors.red),
-                                                    ),
-                                                  ),
+                                            // context
+                                            //             .read<NewEnqController>()
+                                            //             .istimevalid ==
+                                            //         false &&context
+                                            //             .watch<NewEnqController>()
+                                            //             . errorTime ==""
+                                            //     ? Container()
+                                            //     : Container(
+                                            //         alignment:
+                                            //             Alignment.centerRight,
+                                            //         child: Text(
+                                            //           "${context.read<NewEnqController>().errorTime}",
+                                            //           style: TextStyle(
+                                            //               color: Colors.red),
+                                            //         ),
+                                            //       ),
                                             //  context
                                             //             .read<NewEnqController>()
                                             //             .sitevisitreq ==

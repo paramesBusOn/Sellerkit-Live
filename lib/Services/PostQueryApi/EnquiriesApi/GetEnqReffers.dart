@@ -21,6 +21,8 @@ class EnquiryRefferesApi {
       // print(Url.queryApi + 'SkClientPortal/GetallMaster?MasterTypeId=3');
       // print("token:" + ConstantValues.token);
       // await config.getSetup();
+      
+      final stopwatch = Stopwatch()..start();
        final response = await http.get(
         Uri.parse(Url.queryApi + 'SkClientPortal/GetallMaster?MasterTypeId=3'),
         headers: {
@@ -39,6 +41,9 @@ class EnquiryRefferesApi {
       // print(response.statusCode.toString());
       // print("SK_GET_ENQUIRY_REFERS"+response.body.toString());
       if (response.statusCode == 200) {
+          stopwatch.stop();
+    log(' enquiryRefferesApi ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.enquiryRefferesApi =stopwatch.elapsedMilliseconds.toString();
         //     ReceivePort port  = new ReceivePort();
         //  final islol =await Isolate.spawn<List<dynamic>>(deserialize, [port.sendPort,response.body,response.statusCode]);
         // EnqRefferesModal enquiryReferral =await port.first;

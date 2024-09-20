@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/ConstantSapValues.dart';
@@ -12,6 +13,8 @@ class ProfileApi {
     try {
       print("Profile api::"+Url.queryApi + 'SkClientPortal/getusersById?Id=${ConstantValues.UserId}');
       // await config.getSetup();
+      
+        final stopwatch = Stopwatch()..start();
        final response = await http.get(Uri.parse(Url.queryApi + 'SkClientPortal/getusersById?Id=${ConstantValues.UserId}'),
           headers: {
             "content-type": "application/json",
@@ -28,6 +31,9 @@ class ProfileApi {
       // print(response.statusCode.toString());
     //  log("ProfileAPI4: " + response.body.toString());
       if (response.statusCode == 200) {
+         stopwatch.stop();
+    log(' ProfileApi ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.ProfileApi =stopwatch.elapsedMilliseconds.toString();
       //      ReceivePort port  = new ReceivePort();
       //  final islol =await Isolate.spawn<List<dynamic>>(deserialize, [port.sendPort,response.body,response.statusCode]);
       // ProfileModel enquiryReferral =await port.first;

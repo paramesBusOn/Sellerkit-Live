@@ -14,6 +14,7 @@ class OfferZoneApi1 {
       // log("message"+"${Url.queryApi}SkClientPortal/getAllOffers?StoreId=$storeid");
             // Config config = Config();
       // await config.getSetup();
+       final stopwatch = Stopwatch()..start();
        final response = await http.get(Uri.parse("${Url.queryApi}SkClientPortal/getAllOffers?StoreId=$storeid"),
           headers: {
             "content-type": "application/json",
@@ -31,6 +32,9 @@ class OfferZoneApi1 {
       // print(response.statusCode.toString());
       // log("offerZone:" +response.body.toString());
       if (response.statusCode == 200) {
+          stopwatch.stop();
+    log(' OfferZoneApi1 ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.OfferZoneApi1 =stopwatch.elapsedMilliseconds.toString();
       //    ReceivePort port  = new ReceivePort();
       //  final islol =await Isolate.spawn<List<dynamic>>(deserialize, [port.sendPort,response.body,response.statusCode]);
       // OfferZoneModel enquiryReferral =await port.first;

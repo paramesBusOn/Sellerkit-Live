@@ -21,6 +21,7 @@ class stateApiNew {
     try {
         // Config config = Config();
       // await config.getSetup(); 
+       final stopwatch = Stopwatch()..start();
       final response = await http.get(
         Uri.parse(Url.queryApi + 'Sellerkit_Flexi/v2/Statelist'),
         //
@@ -46,6 +47,9 @@ class stateApiNew {
       // log("statuscode"+response.statusCode.toString());
       // log("Customer Master::" + response.body.toString());
       if (response.statusCode == 200) {
+         stopwatch.stop();
+    log(' stateApiNew ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.stateApiNew =stopwatch.elapsedMilliseconds.toString();
         // Map data = json.decode(response.body);
         return stateDetails.fromJson(
             json.decode(response.body), response.statusCode);

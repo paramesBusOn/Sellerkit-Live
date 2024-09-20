@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sellerkit/Models/configModel/getconfigmodel.dart';
 import 'package:sellerkit/Models/getuserbyidModel/getuserbyidmodel.dart';
+import 'package:sellerkit/Models/ordergiftModel/ParticularpricelistModel.dart';
+import 'package:sellerkit/Services/OrdergiftApi/pricelistparticularApi.dart';
 import 'package:sellerkit/Services/configApi/configApi.dart';
 
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
@@ -126,6 +128,7 @@ class DownLoadController extends ChangeNotifier {
     await DBOperation.truncareEnqType(db);
 
     await DBOperation.truncarelevelofType(db);
+    await DBOperation.truncareparticularprice(db);
     await DBOperation.truncareorderType(db);
     await DBOperation.truncateQuotFilter(db);
     
@@ -268,6 +271,22 @@ ConstantValues.splpricelogic='';
          ConstantValues.splpricelogic=configData[i].config_value;
 
 
+      }  if(configData[i].config_Code =='slab_wise_approval'){
+         ConstantValues.unitpricelogic=configData[i].config_value;
+
+
+      }if(configData[i].config_Code =='enable-gift-offer'){
+         ConstantValues.ordergiftlogic=configData[i].config_value;
+
+
+      }if(configData[i].config_Code =='gift_offer_skip'){
+         ConstantValues.ordergiftskip=configData[i].config_value;
+
+
+      }if(configData[i].config_Code =='show-all-slab'){
+         ConstantValues.showallslab=configData[i].config_value;
+
+
       }
      
 
@@ -282,6 +301,8 @@ callsecondaryApi()async{
     List<CustomerTagTypeData> customerTagTypeData = [];
     List<CustomerData> customerdata = [];
  List<LevelofData> levelofdata=[];
+ 
+List<ParticularpriceData> Particularprice=[];
  List<OrderTypeData> ordertypedata=[];
     List<EnqRefferesData> enqReffdata = [];
 
@@ -449,6 +470,46 @@ if (value.stcode! >= 200 &&
       notifyListeners();
     }
     });
+
+    //particularpricelist
+    if(ConstantValues.showallslab!.toLowerCase() != 'y'){
+ await ParticularPriceListApi.getData().then((value){
+ if (value.stcode! >= 200 &&
+        value.stcode! <= 210) {
+      exception = false;
+      if (value.itemdata!.childdata != null && value.itemdata!.childdata!.isNotEmpty) {
+         final stopwatch = Stopwatch()..start();
+        // log("Start:LevelofApi " );
+        String date = config.currentDate();
+        // for (int i = 0; i < values.itemdata!.length; i++) {
+        //     enqTypeData.add(EnquiryTypeData(
+        //       Code: values.itemdata![i].Code,
+        //       Name:  values.itemdata![i].Name));
+        // }
+        Particularprice = value.itemdata!.childdata!;
+         stopwatch.stop();
+            // log('API LevelofApi ${stopwatch.elapsedMilliseconds} milliseconds');
+     
+      } else if (value.itemdata == null) {
+        exception = true;
+        errorMsg = 'No data - Customer Tag Api..!!';
+        notifyListeners();
+      }
+      notifyListeners();
+    } else if (value.stcode! >= 400 &&
+        value.stcode! <= 410) {
+      exception = true;
+      errorMsg = '${value.exception}';
+      notifyListeners();
+    } else if (value.stcode == 500) {
+      exception = true;
+      errorMsg =
+          '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+      notifyListeners();
+    }
+    });
+    }
+      
     loadingApi = "customerTagType";
    
     //  OrderTypeModal orderTypeModal =
@@ -824,6 +885,7 @@ offerproduct =
  await DBOperation.inserstateMaster(stateData, db);
     await DBOperation.insertCusTagType(customerTagTypeData, db);
 await DBOperation.insertlevelofType(levelofdata, db);
+await DBOperation.insertparticularprice(Particularprice, db);
 await DBOperation.insertOrderTypeta(ordertypedata, db);
     // log("valuesInserEnq: " + enqTypeData.length.toString());
     await DBOperation.insertEnqType(enqTypeData, db);
@@ -867,9 +929,10 @@ await DBOperation.insertOrderTypeta(ordertypedata, db);
        final stopwatch = Stopwatch()..start();
         // loadingApi = "${Url.queryApi + 'Sellerkit_Flexi/v2/GetAllItemList?storeId=${ConstantValues.storeid}'}";
 ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
-       stopwatch.stop();
-        //     log('API ItemMasterDataAPPPPPPP ${stopwatch.elapsedMilliseconds} milliseconds');
+    
  
+       stopwatch.stop();
+        log('API ItemMasterDataAPPPPPPP ${stopwatch.elapsedMilliseconds} milliseconds');
         // log("Start: ItemMasterDataItemMasterDataItemMasterDataItemMasterData" ); 
 
 
@@ -882,27 +945,28 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
        
         if (itemMasterData.itemdata != null) {
            log("Api itemMasterData.itemdata!.length ${itemMasterData.itemdata!.length.toString()}");
-
+ConstantValues.itemMasterlegth=itemMasterData.itemdata!.length.toString();
           String date = config.currentDate();
-          final stopwatch = Stopwatch()..start();
+          // final stopwatch = Stopwatch()..start();
         // log("Start:API " );
           // log("Api itemMasterData.itemdata!.length ${value.itemdata![0].itemName}");
-          for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
+
+            for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
             valuesInserMaster.add(ItemMasterDBModel(
-              storeAgeSlab1:itemMasterData.itemdata![ij].storeAgeSlab1,
-              storeAgeSlab2:itemMasterData.itemdata![ij].storeAgeSlab2,
-              storeAgeSlab3:itemMasterData.itemdata![ij].storeAgeSlab3,
-              storeAgeSlab4:itemMasterData.itemdata![ij].storeAgeSlab4,
-              storeAgeSlab5:itemMasterData.itemdata![ij].storeAgeSlab5,
-              whsAgeSlab1:itemMasterData.itemdata![ij].whsAgeSlab1,
-              whsAgeSlab2:itemMasterData.itemdata![ij].whsAgeSlab2,
-              whsAgeSlab3:itemMasterData.itemdata![ij].whsAgeSlab3,
-              whsAgeSlab4:itemMasterData.itemdata![ij].whsAgeSlab4,
-              whsAgeSlab5:itemMasterData.itemdata![ij].whsAgeSlab5,
+              storeAgeSlab1:itemMasterData.itemdata![ij].storeAgeSlab1 ==''?0.00: double.parse( itemMasterData.itemdata![ij].storeAgeSlab1.toString()),
+              storeAgeSlab2:itemMasterData.itemdata![ij].storeAgeSlab2 ==''?0.00:double.parse(itemMasterData.itemdata![ij].storeAgeSlab2.toString()),
+              storeAgeSlab3:itemMasterData.itemdata![ij].storeAgeSlab3 ==''?0.00:double.parse(itemMasterData.itemdata![ij].storeAgeSlab3.toString()),
+              storeAgeSlab4:itemMasterData.itemdata![ij].storeAgeSlab4 ==''?0.00:double.parse(itemMasterData.itemdata![ij].storeAgeSlab4.toString()),
+              storeAgeSlab5:itemMasterData.itemdata![ij].storeAgeSlab5 ==''?0.00:double.parse(itemMasterData.itemdata![ij].storeAgeSlab5.toString()),
+              whsAgeSlab1:itemMasterData.itemdata![ij].whsAgeSlab1 ==''?0.00:double.parse(itemMasterData.itemdata![ij].whsAgeSlab1.toString()),
+              whsAgeSlab2:itemMasterData.itemdata![ij].whsAgeSlab2 ==''?0.00:double.parse(itemMasterData.itemdata![ij].whsAgeSlab2.toString()),
+              whsAgeSlab3:itemMasterData.itemdata![ij].whsAgeSlab3 ==''?0.00:double.parse(itemMasterData.itemdata![ij].whsAgeSlab3.toString()),
+              whsAgeSlab4:itemMasterData.itemdata![ij].whsAgeSlab4 ==''?0.00:double.parse(itemMasterData.itemdata![ij].whsAgeSlab4.toString()),
+              whsAgeSlab5:itemMasterData.itemdata![ij].whsAgeSlab5 ==''?0.00:double.parse(itemMasterData.itemdata![ij].whsAgeSlab5.toString()),
               payOn:itemMasterData.itemdata![ij].payOn!,
               calcType:itemMasterData.itemdata![ij].calcType!,
-                id: itemMasterData.itemdata![ij].id!,
-                itemCode: itemMasterData.itemdata![ij].itemcode!.replaceAll("'", "''"),
+                 id:itemMasterData.itemdata![ij].id.toString().isEmpty?0: int.parse (itemMasterData.itemdata![ij].id.toString()),
+                 itemCode: itemMasterData.itemdata![ij].itemcode!.replaceAll("'", "''"),
                 brand: itemMasterData.itemdata![ij].Brand!.replaceAll("'", "''"),
                 division: itemMasterData.itemdata![ij].Division!.replaceAll("'", "''"),
                 category: itemMasterData.itemdata![ij].Category!.replaceAll("'", "''"),
@@ -910,13 +974,13 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
                 segment: itemMasterData.itemdata![ij].Segment!,
                 isselected: 0,
                 favorite: itemMasterData.itemdata![ij].Favorite!,
-                mgrPrice: double.parse(
+                mgrPrice:itemMasterData.itemdata![ij].MgrPrice ==''?0.00: double.parse(
                     itemMasterData.itemdata![ij].MgrPrice.toString()),
-                slpPrice: double.parse(
+                slpPrice:itemMasterData.itemdata![ij].SlpPrice ==''?0.00: double.parse(
                     itemMasterData.itemdata![ij].SlpPrice.toString()),
-                storeStock: double.parse(
+                storeStock:itemMasterData.itemdata![ij].StoreStock ==''?0.00: double.parse(
                     itemMasterData.itemdata![ij].StoreStock.toString()),
-                whsStock: double.parse(
+                whsStock:itemMasterData.itemdata![ij].WhsStock ==''?0.00: double.parse(
                     itemMasterData.itemdata![ij].WhsStock.toString()),
                 refreshedRecordDate: date,
                 itemDescription: itemMasterData.itemdata![ij].itemDescription!.replaceAll("'", "''"),
@@ -929,7 +993,8 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
                 sizeCapacity: itemMasterData.itemdata![ij].sizeCapacity,
                 clasification: itemMasterData.itemdata![ij].clasification!.replaceAll("'", "''"),
                 uoM: itemMasterData.itemdata![ij].uoM,
-                taxRate: itemMasterData.itemdata![ij].taxRate,
+               taxRate:itemMasterData.itemdata![ij].taxRate.toString().isEmpty?0: int.parse(itemMasterData.itemdata![ij].taxRate.toString()),
+               
                 catalogueUrl1: itemMasterData.itemdata![ij].catalogueUrl1,
                 catalogueUrl2: itemMasterData.itemdata![ij].catalogueUrl2,
                 imageUrl1: itemMasterData.itemdata![ij].imageUrl1,
@@ -937,37 +1002,122 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
                 textNote: itemMasterData.itemdata![ij].textNote,
                 status: itemMasterData.itemdata![ij].status,
                 movingType: itemMasterData.itemdata![ij].movingType,
-                eol: itemMasterData.itemdata![ij].eol,
-                veryFast: itemMasterData.itemdata![ij].veryFast,
-                fast: itemMasterData.itemdata![ij].fast,
-                slow: itemMasterData.itemdata![ij].slow,
-                verySlow: itemMasterData.itemdata![ij].verySlow,
-                serialNumber: itemMasterData.itemdata![ij].serialNumber,
-                priceStockId: itemMasterData.itemdata![ij].priceStockId,
+               eol:itemMasterData.itemdata![ij].eol.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].eol.toString()),
+                veryFast:itemMasterData.itemdata![ij].veryFast.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].veryFast.toString()),
+                fast:itemMasterData.itemdata![ij].fast.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].fast.toString()),
+                slow:itemMasterData.itemdata![ij].slow.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].slow.toString()),
+                verySlow:itemMasterData.itemdata![ij].verySlow.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].verySlow.toString()),
+                serialNumber:itemMasterData.itemdata![ij].serialNumber.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].serialNumber.toString()),
+                priceStockId:itemMasterData.itemdata![ij].priceStockId.toString().isEmpty?0: int.parse(itemMasterData.itemdata![ij].priceStockId.toString()),
+               
                 storeCode: itemMasterData.itemdata![ij].storeCode,
                 whseCode: itemMasterData.itemdata![ij].whseCode,
-                sp: itemMasterData.itemdata![ij].sp,
-                ssp1: itemMasterData.itemdata![ij].ssp1,
-                ssp2: itemMasterData.itemdata![ij].ssp2,
-                ssp3: itemMasterData.itemdata![ij].ssp3,
-                ssp4: itemMasterData.itemdata![ij].ssp4,
-                ssp5: itemMasterData.itemdata![ij].ssp5,
-                ssp1Inc: itemMasterData.itemdata![ij].ssp1Inc,
-                ssp2Inc: itemMasterData.itemdata![ij].ssp2Inc,
-                ssp3Inc: itemMasterData.itemdata![ij].ssp3Inc,
-                ssp4Inc: itemMasterData.itemdata![ij].ssp4Inc,
-                ssp5Inc: itemMasterData.itemdata![ij].ssp5Inc,
+                sp:itemMasterData.itemdata![ij].sp ==''?0.00: double.parse( itemMasterData.itemdata![ij].sp.toString()),
+                ssp1:itemMasterData.itemdata![ij].ssp1 ==''?0.00: double.parse( itemMasterData.itemdata![ij].ssp1.toString()),
+                ssp2:itemMasterData.itemdata![ij].ssp2 ==''?0.00:  double.parse(itemMasterData.itemdata![ij].ssp2.toString()),
+                ssp3:itemMasterData.itemdata![ij].ssp3 ==''?0.00: double.parse( itemMasterData.itemdata![ij].ssp3.toString()),
+                ssp4:itemMasterData.itemdata![ij].ssp4 ==''?0.00:  double.parse(itemMasterData.itemdata![ij].ssp4.toString()),
+                ssp5:itemMasterData.itemdata![ij].ssp5 ==''?0.00:  double.parse(itemMasterData.itemdata![ij].ssp5.toString()),
+                ssp1Inc:itemMasterData.itemdata![ij].ssp1Inc ==''?0.00: double.parse( itemMasterData.itemdata![ij].ssp1Inc.toString()),
+                ssp2Inc:itemMasterData.itemdata![ij].ssp2Inc ==''?0.00:  double.parse(itemMasterData.itemdata![ij].ssp2Inc.toString()),
+                ssp3Inc:itemMasterData.itemdata![ij].ssp3Inc ==''?0.00:  double.parse(itemMasterData.itemdata![ij].ssp3Inc.toString()),
+                ssp4Inc:itemMasterData.itemdata![ij].ssp4Inc ==''?0.00:  double.parse(itemMasterData.itemdata![ij].ssp4Inc.toString()),
+                ssp5Inc:itemMasterData.itemdata![ij].ssp5Inc ==''?0.00: double.parse( itemMasterData.itemdata![ij].ssp5Inc.toString()),
                 allowNegativeStock:
-                    itemMasterData.itemdata![ij].allowNegativeStock,
+                itemMasterData.itemdata![ij].allowNegativeStock.toString().isEmpty?false:   bool.parse( itemMasterData.itemdata![ij].allowNegativeStock.toString()),
                 allowOrderBelowCost:
-                    itemMasterData.itemdata![ij].allowOrderBelowCost,
-                isFixedPrice: itemMasterData.itemdata![ij].isFixedPrice,
+                  itemMasterData.itemdata![ij].allowOrderBelowCost.toString().isEmpty?false: bool.parse( itemMasterData.itemdata![ij].allowOrderBelowCost.toString()),
+                isFixedPrice:itemMasterData.itemdata![ij].isFixedPrice.toString().isEmpty?false:bool.parse( itemMasterData.itemdata![ij].isFixedPrice.toString()),
                 validTill: itemMasterData.itemdata![ij].validTill.toString(),
-                color: itemMasterData.itemdata![ij].color!.replaceAll("'", "''")));
+                color: itemMasterData.itemdata![ij].color!.replaceAll("'", "''")
+              //
+              ));
             // log("valuesInserMaster2222" + valuesInserMaster.length.toString());
             // dbHelper.insertdocuments(valuesInserMaster[ij]);
           }
-           stopwatch.stop();
+
+          //old loop
+          // for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
+          //   valuesInserMaster.add(ItemMasterDBModel(
+          //     storeAgeSlab1:itemMasterData.itemdata![ij].storeAgeSlab1,
+          //     storeAgeSlab2:itemMasterData.itemdata![ij].storeAgeSlab2,
+          //     storeAgeSlab3:itemMasterData.itemdata![ij].storeAgeSlab3,
+          //     storeAgeSlab4:itemMasterData.itemdata![ij].storeAgeSlab4,
+          //     storeAgeSlab5:itemMasterData.itemdata![ij].storeAgeSlab5,
+          //     whsAgeSlab1:itemMasterData.itemdata![ij].whsAgeSlab1,
+          //     whsAgeSlab2:itemMasterData.itemdata![ij].whsAgeSlab2,
+          //     whsAgeSlab3:itemMasterData.itemdata![ij].whsAgeSlab3,
+          //     whsAgeSlab4:itemMasterData.itemdata![ij].whsAgeSlab4,
+          //     whsAgeSlab5:itemMasterData.itemdata![ij].whsAgeSlab5,
+          //     payOn:itemMasterData.itemdata![ij].payOn!,
+          //     calcType:itemMasterData.itemdata![ij].calcType!,
+          //       id: itemMasterData.itemdata![ij].id!,
+          //       itemCode: itemMasterData.itemdata![ij].itemcode!.replaceAll("'", "''"),
+          //       brand: itemMasterData.itemdata![ij].Brand!.replaceAll("'", "''"),
+          //       division: itemMasterData.itemdata![ij].Division!.replaceAll("'", "''"),
+          //       category: itemMasterData.itemdata![ij].Category!.replaceAll("'", "''"),
+          //       itemName: itemMasterData.itemdata![ij].itemName!.replaceAll("'", "''"),
+          //       segment: itemMasterData.itemdata![ij].Segment!,
+          //       isselected: 0,
+          //       favorite: itemMasterData.itemdata![ij].Favorite!,
+          //       mgrPrice: double.parse(
+          //           itemMasterData.itemdata![ij].MgrPrice.toString()),
+          //       slpPrice: double.parse(
+          //           itemMasterData.itemdata![ij].SlpPrice.toString()),
+          //       storeStock: double.parse(
+          //           itemMasterData.itemdata![ij].StoreStock.toString()),
+          //       whsStock: double.parse(
+          //           itemMasterData.itemdata![ij].WhsStock.toString()),
+          //       refreshedRecordDate: date,
+          //       itemDescription: itemMasterData.itemdata![ij].itemDescription!.replaceAll("'", "''"),
+          //       modelNo: itemMasterData.itemdata![ij].modelNo!.replaceAll("'", "''"),
+          //       partCode: itemMasterData.itemdata![ij].partCode!.replaceAll("'", "''"),
+          //       skucode: itemMasterData.itemdata![ij].skucode,
+          //       brandCode: itemMasterData.itemdata![ij].brandCode!.replaceAll("'", "''"),
+          //       itemGroup: itemMasterData.itemdata![ij].itemGroup!.replaceAll("'", "''"),
+          //       specification: itemMasterData.itemdata![ij].specification!.replaceAll("'", "''"),
+          //       sizeCapacity: itemMasterData.itemdata![ij].sizeCapacity,
+          //       clasification: itemMasterData.itemdata![ij].clasification!.replaceAll("'", "''"),
+          //       uoM: itemMasterData.itemdata![ij].uoM,
+          //       taxRate: itemMasterData.itemdata![ij].taxRate,
+          //       catalogueUrl1: itemMasterData.itemdata![ij].catalogueUrl1,
+          //       catalogueUrl2: itemMasterData.itemdata![ij].catalogueUrl2,
+          //       imageUrl1: itemMasterData.itemdata![ij].imageUrl1,
+          //       imageUrl2: itemMasterData.itemdata![ij].imageUrl2,
+          //       textNote: itemMasterData.itemdata![ij].textNote,
+          //       status: itemMasterData.itemdata![ij].status,
+          //       movingType: itemMasterData.itemdata![ij].movingType,
+          //       eol: itemMasterData.itemdata![ij].eol,
+          //       veryFast: itemMasterData.itemdata![ij].veryFast,
+          //       fast: itemMasterData.itemdata![ij].fast,
+          //       slow: itemMasterData.itemdata![ij].slow,
+          //       verySlow: itemMasterData.itemdata![ij].verySlow,
+          //       serialNumber: itemMasterData.itemdata![ij].serialNumber,
+          //       priceStockId: itemMasterData.itemdata![ij].priceStockId,
+          //       storeCode: itemMasterData.itemdata![ij].storeCode,
+          //       whseCode: itemMasterData.itemdata![ij].whseCode,
+          //       sp: itemMasterData.itemdata![ij].sp,
+          //       ssp1: itemMasterData.itemdata![ij].ssp1,
+          //       ssp2: itemMasterData.itemdata![ij].ssp2,
+          //       ssp3: itemMasterData.itemdata![ij].ssp3,
+          //       ssp4: itemMasterData.itemdata![ij].ssp4,
+          //       ssp5: itemMasterData.itemdata![ij].ssp5,
+          //       ssp1Inc: itemMasterData.itemdata![ij].ssp1Inc,
+          //       ssp2Inc: itemMasterData.itemdata![ij].ssp2Inc,
+          //       ssp3Inc: itemMasterData.itemdata![ij].ssp3Inc,
+          //       ssp4Inc: itemMasterData.itemdata![ij].ssp4Inc,
+          //       ssp5Inc: itemMasterData.itemdata![ij].ssp5Inc,
+          //       allowNegativeStock:
+          //           itemMasterData.itemdata![ij].allowNegativeStock,
+          //       allowOrderBelowCost:
+          //           itemMasterData.itemdata![ij].allowOrderBelowCost,
+          //       isFixedPrice: itemMasterData.itemdata![ij].isFixedPrice,
+          //       validTill: itemMasterData.itemdata![ij].validTill.toString(),
+          //       color: itemMasterData.itemdata![ij].color!.replaceAll("'", "''")));
+          //   // log("valuesInserMaster2222" + valuesInserMaster.length.toString());
+          //   // dbHelper.insertdocuments(valuesInserMaster[ij]);
+          // }
+          //  stopwatch.stop();
             // log('API ITEMMASTER ${stopwatch.elapsedMilliseconds} milliseconds');
         } else if (itemMasterData.itemdata == null) {
           exception = true;
@@ -987,7 +1137,11 @@ ItemMasterNewModal itemMasterData = await itemMasterApiNew.getData();
         notifyListeners();
       }
   //     });
+  log("valuesInserMaster::"+valuesInserMaster.length.toString());
+    final stopwatch2 = Stopwatch()..start();
      await   DBOperation.insertItemMaster(valuesInserMaster, db);
+     stopwatch2.stop();
+      log('DB DBOperationitem ${stopwatch2.elapsedMilliseconds} milliseconds');
   //  List<Map<String, Object?>> assignDB =
   //       await DBOperation.getstorecode("ItemCode", db);
   storelistdata.clear();

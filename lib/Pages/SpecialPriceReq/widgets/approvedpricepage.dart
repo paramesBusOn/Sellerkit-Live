@@ -64,43 +64,45 @@ class _ApprovedpageState extends State<Approvedpage> {
                     itemCount:widget. filtertabdata.length,
                     itemBuilder: (context,ind){
                       return InkWell(
-                  //       onDoubleTap: (){
-                  //         showDialog(
-                  //           context: context, 
-                  //         builder: (_){
-                  //           return Followdialog();
+                        onDoubleTap: (){
+                          context.read<tabpriceController>().ontapapproved();
+                          showDialog(
+                            context: context, 
+                          builder: (_){
+                            return Followdialog(getalldata: widget. filtertabdata[ind],);
                   
-                  //         }
-                  //         ).then((value) {
-                  //           setState(() {
-                  //               context
-                  //                       .read<tabpriceController>()
-                  //                       .refershAfterClosedialog();
-                  //           });
-                  //         } 
+                          }
+                          ).then((value) {
+                            setState(() {
+                                context
+                                        .read<tabpriceController>()
+                                        .refershAfterClosedialog();
+                            });
+                          } 
                           
                           
-                  //         );
+                          );
                   
-                  //       },
-                  //       onLongPress: (){
-                  // showDialog(
-                  //           context: context, 
-                  //         builder: (_){
-                  //           return const Followdialog();
+                        },
+                        onLongPress: (){
+                            context.read<tabpriceController>().ontapapproved();
+                  showDialog(
+                            context: context, 
+                          builder: (_){
+                            return  Followdialog(getalldata: widget. filtertabdata[ind]);
                   
-                  //         }
-                  //         ).then((value) {
-                  //           setState(() {
-                  //               context
-                  //                       .read<tabpriceController>()
-                  //                       .refershAfterClosedialog();
-                  //           });
-                  //         } 
+                          }
+                          ).then((value) {
+                            setState(() {
+                                context
+                                        .read<tabpriceController>()
+                                        .refershAfterClosedialog();
+                            });
+                          } 
                           
                           
-                  //         );
-                  //       },
+                          );
+                        },
                         child: Container(
                           // color: Colors.amber,
                           padding: EdgeInsets.symmetric(

@@ -177,11 +177,10 @@ class OrderBookNewState extends State<OrderBookNew> {
                   children: [
                     Container(
                       width: Screens.width(context),
-                       height: Screens.bodyheight(context) * 0.28,
+                      height: Screens.bodyheight(context) * 0.28,
                       decoration: BoxDecoration(
-                        // border: Border.all(color: theme.primaryColor),
+                          // border: Border.all(color: theme.primaryColor),
                           color: theme.primaryColor,
-                          
                           borderRadius: BorderRadius.circular(8)),
                       padding: EdgeInsets.only(
                         left: Screens.width(context) * 0.02,
@@ -198,7 +197,8 @@ class OrderBookNewState extends State<OrderBookNew> {
                               style: theme.textTheme.bodyText1
                                   ?.copyWith(color: Colors.white),
                             ),
-                            SizedBox(height: Screens.bodyheight(context) * 0.02),
+                            SizedBox(
+                                height: Screens.bodyheight(context) * 0.02),
                             // Visibility(
                             //   visible: provi.getvisibleRefferal,
                             //   child: Column(
@@ -222,280 +222,277 @@ class OrderBookNewState extends State<OrderBookNew> {
                               //   child: SingleChildScrollView(
                               //     child: Column(
                               //       children: [
-                                  child:    Wrap(
-                                          spacing: 20.0, // width
-                                          runSpacing: 8.0, // height
-                                          children: listContainersPaymentTerms(theme)),
+                              child: Wrap(
+                                  spacing: 20.0, // width
+                                  runSpacing: 8.0, // height
+                                  children: listContainersPaymentTerms(theme)),
                               //       ],
                               //     ),
                               //   ),
                               // ),
                             ),
-                        //   context
-                        //        .read<OrderNewController>()
-                        //        . PaymentTerms.toString().toLowerCase() =='neft'? Column(
-                        //      children: [
-                        //        TextFormField(
-                        //            controller: context
-                        //                .read<OrderNewController>()
-                        //                .mycontroller[42],
-                        //            validator: context
-                        //       .read<OrderNewController>()
-                        //       . PaymentTerms.toString().toLowerCase()  =='neft'
-                        //                ? (value) {
-                        //                    if (value!.isEmpty) {
-                        //                      return "Enter Reference";
-                        //                    }
-                        //                    return null;
-                        //                  }
-                        //                : (value) {},
-                        //            decoration: InputDecoration(
-                        //              labelText: 'NEFT Reference',
-                        //              labelStyle: theme.textTheme.bodyText1!
-                        //                  .copyWith(color: Colors.grey),
-                        //              enabledBorder: UnderlineInputBorder(
-                        //                borderSide: BorderSide(color: Colors.grey),
-                        //                //  when the TextFormField in unfocused
-                        //              ),
-                        //              focusedBorder: UnderlineInputBorder(
-                        //                borderSide: BorderSide(color: Colors.grey),
-                        //                //  when the TextFormField in focused
-                        //              ),
-                        //              border: UnderlineInputBorder(),
-                        //              // enabledBorder: UnderlineInputBorder(),
-                        //              // focusedBorder: UnderlineInputBorder(),
-                        //              errorBorder: UnderlineInputBorder(),
-                        //              focusedErrorBorder: UnderlineInputBorder(),
-                        //            )),
-                        //      ],
-                        //    ):
-                        // context
-                        //      .read<OrderNewController>()
-                        //      . PaymentTerms.toString().toLowerCase() =='upi'?
-                        //  Column(
-                        //   children: [
-                        //     TextFormField(
-                        //         controller: context
-                        //             .read<OrderNewController>()
-                        //             .mycontroller[43],
-                        //         validator: context
-                        //      .read<OrderNewController>()
-                        //      . PaymentTerms.toString().toLowerCase() =='upi'
-                        //             ? (value) {
-                        //                 if (value!.isEmpty) {
-                        //                   return "Enter Reference";
-                        //                 }
-                        //                 return null;
-                        //               }
-                        //             : (value) {},
-                        //         decoration: InputDecoration(
-                        //           labelText: 'UPI Reference',
-                        //           labelStyle: theme.textTheme.bodyText1!
-                        //               .copyWith(color: Colors.grey),
-                        //           enabledBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(color: Colors.grey),
-                        //             //  when the TextFormField in unfocused
-                        //           ),
-                        //           focusedBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(color: Colors.grey),
-                        //             //  when the TextFormField in focused
-                        //           ),
-                        //           border: UnderlineInputBorder(),
-                        //           // enabledBorder: UnderlineInputBorder(),
-                        //           // focusedBorder: UnderlineInputBorder(),
-                        //           errorBorder: UnderlineInputBorder(),
-                        //           focusedErrorBorder: UnderlineInputBorder(),
-                        //         )),
-                        //   ],
-                        // ):
-                        // context
-                        //    .read<OrderNewController>()
-                        //    . PaymentTerms.toString().toLowerCase() =='card'?
-                        //  Column(
-                        //   children: [
-                        //     TextFormField(
-                        //         controller: context
-                        //             .read<OrderNewController>()
-                        //             .mycontroller[44],
-                        //         validator: context
-                        //    .read<OrderNewController>()
-                        //    . PaymentTerms.toString().toLowerCase() =='card'
-                        //             ? (value) {
-                        //                 if (value!.isEmpty) {
-                        //                   return "Enter Reference";
-                        //                 }
-                        //                 return null;
-                        //               }
-                        //             : (value) {},
-                        //         decoration: InputDecoration(
-                        //           labelText: 'Card Reference',
-                        //           labelStyle: theme.textTheme.bodyText1!
-                        //               .copyWith(color: Colors.grey),
-                        //           enabledBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(color: Colors.grey),
-                        //             //  when the TextFormField in unfocused
-                        //           ),
-                        //           focusedBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(color: Colors.grey),
-                        //             //  when the TextFormField in focused
-                        //           ),
-                        //           border: UnderlineInputBorder(),
-                        //           // enabledBorder: UnderlineInputBorder(),
-                        //           // focusedBorder: UnderlineInputBorder(),
-                        //           errorBorder: UnderlineInputBorder(),
-                        //           focusedErrorBorder: UnderlineInputBorder(),
-                        //         )),
-                        //     SizedBox(
-                        //       height: Screens.bodyheight(context) * 0.02,
-                        //     ),
-                        //     GetAttachment(theme, context),
-                        //   ],
-                        // ):
-                        // context
-                        //  .read<OrderNewController>()
-                        //  . PaymentTerms.toString().toLowerCase() =='cheque'?
-                        //  Column(
-                        //   children: [
-                        //     // TextFormField(
-                        //     //     // controller: context
-                        //     //     //     .read<OrderNewController>()
-                        //     //     //     .mycontroller[6],
-                        //     //     // validator: (value) {
-                        //     //     //   if (value!.isEmpty) {
-                        //     //     //     return "Enter Reference";
-                        //     //     //   }
-                        //     //     //   return null;
-                        //     //     // },
-                        //     //     decoration: InputDecoration(
-                        //     //   labelText: 'Cheque No',
-                        //     //   labelStyle: theme.textTheme.bodyText1!
-                        //     //       .copyWith(color: Colors.grey),
-                        //     //   enabledBorder: UnderlineInputBorder(
-                        //     //     borderSide: BorderSide(color: Colors.grey),
-                        //     //     //  when the TextFormField in unfocused
-                        //     //   ),
-                        //     //   focusedBorder: UnderlineInputBorder(
-                        //     //     borderSide: BorderSide(color: Colors.grey),
-                        //     //     //  when the TextFormField in focused
-                        //     //   ),
-                        //     //   border: UnderlineInputBorder(),
-                        //     //   // enabledBorder: UnderlineInputBorder(),
-                        //     //   // focusedBorder: UnderlineInputBorder(),
-                        //     //   errorBorder: UnderlineInputBorder(),
-                        //     //   focusedErrorBorder: UnderlineInputBorder(),
-                        //     // )),
-                        //     TextFormField(
-                        //         controller: context
-                        //             .read<OrderNewController>()
-                        //             .mycontroller[45],
-                        //         onTap: () {
-                        //           context
-                        //               .read<OrderNewController>()
-                        //               .showchequeDate(context);
-                        //         },
-                        //         validator:  context
-                        //  .read<OrderNewController>()
-                        //  . PaymentTerms.toString().toLowerCase() =='cheque'
-                        //             ? (value) {
-                        //                 if (value!.isEmpty) {
-                        //                   return "Enter Cheque Date";
-                        //                 }
-                        //                 return null;
-                        //               }
-                        //             : (value) {},
-                        //             readOnly: true,
-                        //         decoration: InputDecoration(
-                        //           labelText: 'Cheque Date',
-                        //           labelStyle: theme.textTheme.bodyText1!
-                        //               .copyWith(color: Colors.grey),
-                        //           enabledBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(color: Colors.grey),
-                        //             //  when the TextFormField in unfocused
-                        //           ),
-                        //           focusedBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(color: Colors.grey),
-                        //             //  when the TextFormField in focused
-                        //           ),
-                        //           border: UnderlineInputBorder(),
-                        //           // enabledBorder: UnderlineInputBorder(),
-                        //           // focusedBorder: UnderlineInputBorder(),
-                        //           errorBorder: UnderlineInputBorder(),
-                        //           focusedErrorBorder: UnderlineInputBorder(),
-                        //         )),
-                        //     TextFormField(
-                        //         controller: context
-                        //             .read<OrderNewController>()
-                        //             .mycontroller[46],
-                        //         validator:  context
-                        //  .read<OrderNewController>()
-                        //  . PaymentTerms.toString().toLowerCase() =='cheque'
-                        //             ? (value) {
-                        //                 if (value!.isEmpty) {
-                        //                   return "Enter Reference";
-                        //                 }
-                        //                 return null;
-                        //               }
-                        //             : (value) {},
-                        //         decoration: InputDecoration(
-                        //           labelText: 'Cheque Reference',
-                        //           labelStyle: theme.textTheme.bodyText1!
-                        //               .copyWith(color: Colors.grey),
-                        //           enabledBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(color: Colors.grey),
-                        //             //  when the TextFormField in unfocused
-                        //           ),
-                        //           focusedBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(color: Colors.grey),
-                        //             //  when the TextFormField in focused
-                        //           ),
-                        //           border: UnderlineInputBorder(),
-                        //           // enabledBorder: UnderlineInputBorder(),
-                        //           // focusedBorder: UnderlineInputBorder(),
-                        //           errorBorder: UnderlineInputBorder(),
-                        //           focusedErrorBorder: UnderlineInputBorder(),
-                        //         )),
-                        
-                        //     SizedBox(
-                        //       height: Screens.bodyheight(context) * 0.02,
-                        //     ),
-                        //     GetAttachment(theme, context),
-                        //   ],
-                        // ):Container(),
-                       
-                        // SizedBox(
-                        //   height: Screens.bodyheight(context) * 0.01,
-                        // ),
-                        // TextFormField(
-                        //     controller: context
-                        //         .read<OrderNewController>()
-                        //         .mycontroller[41],
-                        //     // validator: (value) {
-                        //     //   if (value!.isEmpty) {
-                        //     //     return "Enter Reference";
-                        //     //   }
-                        //     //   return null;
-                        //     // },
-                        //     decoration: InputDecoration(
-                        //       labelText: 'Remarks',
-                        //       labelStyle: theme.textTheme.bodyText1!
-                        //           .copyWith(color: Colors.grey),
-                        //       enabledBorder: UnderlineInputBorder(
-                        //         borderSide: BorderSide(color: Colors.grey),
-                        //         //  when the TextFormField in unfocused
-                        //       ),
-                        //       focusedBorder: UnderlineInputBorder(
-                        //         borderSide: BorderSide(color: Colors.grey),
-                        //         //  when the TextFormField in focused
-                        //       ),
-                        //       border: UnderlineInputBorder(),
-                        //       // enabledBorder: UnderlineInputBorder(),
-                        //       // focusedBorder: UnderlineInputBorder(),
-                        //       errorBorder: UnderlineInputBorder(),
-                        //       focusedErrorBorder: UnderlineInputBorder(),
-                        //     )),
-                      
-                      
-                         
+                            //   context
+                            //        .read<OrderNewController>()
+                            //        . PaymentTerms.toString().toLowerCase() =='neft'? Column(
+                            //      children: [
+                            //        TextFormField(
+                            //            controller: context
+                            //                .read<OrderNewController>()
+                            //                .mycontroller[42],
+                            //            validator: context
+                            //       .read<OrderNewController>()
+                            //       . PaymentTerms.toString().toLowerCase()  =='neft'
+                            //                ? (value) {
+                            //                    if (value!.isEmpty) {
+                            //                      return "Enter Reference";
+                            //                    }
+                            //                    return null;
+                            //                  }
+                            //                : (value) {},
+                            //            decoration: InputDecoration(
+                            //              labelText: 'NEFT Reference',
+                            //              labelStyle: theme.textTheme.bodyText1!
+                            //                  .copyWith(color: Colors.grey),
+                            //              enabledBorder: UnderlineInputBorder(
+                            //                borderSide: BorderSide(color: Colors.grey),
+                            //                //  when the TextFormField in unfocused
+                            //              ),
+                            //              focusedBorder: UnderlineInputBorder(
+                            //                borderSide: BorderSide(color: Colors.grey),
+                            //                //  when the TextFormField in focused
+                            //              ),
+                            //              border: UnderlineInputBorder(),
+                            //              // enabledBorder: UnderlineInputBorder(),
+                            //              // focusedBorder: UnderlineInputBorder(),
+                            //              errorBorder: UnderlineInputBorder(),
+                            //              focusedErrorBorder: UnderlineInputBorder(),
+                            //            )),
+                            //      ],
+                            //    ):
+                            // context
+                            //      .read<OrderNewController>()
+                            //      . PaymentTerms.toString().toLowerCase() =='upi'?
+                            //  Column(
+                            //   children: [
+                            //     TextFormField(
+                            //         controller: context
+                            //             .read<OrderNewController>()
+                            //             .mycontroller[43],
+                            //         validator: context
+                            //      .read<OrderNewController>()
+                            //      . PaymentTerms.toString().toLowerCase() =='upi'
+                            //             ? (value) {
+                            //                 if (value!.isEmpty) {
+                            //                   return "Enter Reference";
+                            //                 }
+                            //                 return null;
+                            //               }
+                            //             : (value) {},
+                            //         decoration: InputDecoration(
+                            //           labelText: 'UPI Reference',
+                            //           labelStyle: theme.textTheme.bodyText1!
+                            //               .copyWith(color: Colors.grey),
+                            //           enabledBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.grey),
+                            //             //  when the TextFormField in unfocused
+                            //           ),
+                            //           focusedBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.grey),
+                            //             //  when the TextFormField in focused
+                            //           ),
+                            //           border: UnderlineInputBorder(),
+                            //           // enabledBorder: UnderlineInputBorder(),
+                            //           // focusedBorder: UnderlineInputBorder(),
+                            //           errorBorder: UnderlineInputBorder(),
+                            //           focusedErrorBorder: UnderlineInputBorder(),
+                            //         )),
+                            //   ],
+                            // ):
+                            // context
+                            //    .read<OrderNewController>()
+                            //    . PaymentTerms.toString().toLowerCase() =='card'?
+                            //  Column(
+                            //   children: [
+                            //     TextFormField(
+                            //         controller: context
+                            //             .read<OrderNewController>()
+                            //             .mycontroller[44],
+                            //         validator: context
+                            //    .read<OrderNewController>()
+                            //    . PaymentTerms.toString().toLowerCase() =='card'
+                            //             ? (value) {
+                            //                 if (value!.isEmpty) {
+                            //                   return "Enter Reference";
+                            //                 }
+                            //                 return null;
+                            //               }
+                            //             : (value) {},
+                            //         decoration: InputDecoration(
+                            //           labelText: 'Card Reference',
+                            //           labelStyle: theme.textTheme.bodyText1!
+                            //               .copyWith(color: Colors.grey),
+                            //           enabledBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.grey),
+                            //             //  when the TextFormField in unfocused
+                            //           ),
+                            //           focusedBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.grey),
+                            //             //  when the TextFormField in focused
+                            //           ),
+                            //           border: UnderlineInputBorder(),
+                            //           // enabledBorder: UnderlineInputBorder(),
+                            //           // focusedBorder: UnderlineInputBorder(),
+                            //           errorBorder: UnderlineInputBorder(),
+                            //           focusedErrorBorder: UnderlineInputBorder(),
+                            //         )),
+                            //     SizedBox(
+                            //       height: Screens.bodyheight(context) * 0.02,
+                            //     ),
+                            //     GetAttachment(theme, context),
+                            //   ],
+                            // ):
+                            // context
+                            //  .read<OrderNewController>()
+                            //  . PaymentTerms.toString().toLowerCase() =='cheque'?
+                            //  Column(
+                            //   children: [
+                            //     // TextFormField(
+                            //     //     // controller: context
+                            //     //     //     .read<OrderNewController>()
+                            //     //     //     .mycontroller[6],
+                            //     //     // validator: (value) {
+                            //     //     //   if (value!.isEmpty) {
+                            //     //     //     return "Enter Reference";
+                            //     //     //   }
+                            //     //     //   return null;
+                            //     //     // },
+                            //     //     decoration: InputDecoration(
+                            //     //   labelText: 'Cheque No',
+                            //     //   labelStyle: theme.textTheme.bodyText1!
+                            //     //       .copyWith(color: Colors.grey),
+                            //     //   enabledBorder: UnderlineInputBorder(
+                            //     //     borderSide: BorderSide(color: Colors.grey),
+                            //     //     //  when the TextFormField in unfocused
+                            //     //   ),
+                            //     //   focusedBorder: UnderlineInputBorder(
+                            //     //     borderSide: BorderSide(color: Colors.grey),
+                            //     //     //  when the TextFormField in focused
+                            //     //   ),
+                            //     //   border: UnderlineInputBorder(),
+                            //     //   // enabledBorder: UnderlineInputBorder(),
+                            //     //   // focusedBorder: UnderlineInputBorder(),
+                            //     //   errorBorder: UnderlineInputBorder(),
+                            //     //   focusedErrorBorder: UnderlineInputBorder(),
+                            //     // )),
+                            //     TextFormField(
+                            //         controller: context
+                            //             .read<OrderNewController>()
+                            //             .mycontroller[45],
+                            //         onTap: () {
+                            //           context
+                            //               .read<OrderNewController>()
+                            //               .showchequeDate(context);
+                            //         },
+                            //         validator:  context
+                            //  .read<OrderNewController>()
+                            //  . PaymentTerms.toString().toLowerCase() =='cheque'
+                            //             ? (value) {
+                            //                 if (value!.isEmpty) {
+                            //                   return "Enter Cheque Date";
+                            //                 }
+                            //                 return null;
+                            //               }
+                            //             : (value) {},
+                            //             readOnly: true,
+                            //         decoration: InputDecoration(
+                            //           labelText: 'Cheque Date',
+                            //           labelStyle: theme.textTheme.bodyText1!
+                            //               .copyWith(color: Colors.grey),
+                            //           enabledBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.grey),
+                            //             //  when the TextFormField in unfocused
+                            //           ),
+                            //           focusedBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.grey),
+                            //             //  when the TextFormField in focused
+                            //           ),
+                            //           border: UnderlineInputBorder(),
+                            //           // enabledBorder: UnderlineInputBorder(),
+                            //           // focusedBorder: UnderlineInputBorder(),
+                            //           errorBorder: UnderlineInputBorder(),
+                            //           focusedErrorBorder: UnderlineInputBorder(),
+                            //         )),
+                            //     TextFormField(
+                            //         controller: context
+                            //             .read<OrderNewController>()
+                            //             .mycontroller[46],
+                            //         validator:  context
+                            //  .read<OrderNewController>()
+                            //  . PaymentTerms.toString().toLowerCase() =='cheque'
+                            //             ? (value) {
+                            //                 if (value!.isEmpty) {
+                            //                   return "Enter Reference";
+                            //                 }
+                            //                 return null;
+                            //               }
+                            //             : (value) {},
+                            //         decoration: InputDecoration(
+                            //           labelText: 'Cheque Reference',
+                            //           labelStyle: theme.textTheme.bodyText1!
+                            //               .copyWith(color: Colors.grey),
+                            //           enabledBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.grey),
+                            //             //  when the TextFormField in unfocused
+                            //           ),
+                            //           focusedBorder: UnderlineInputBorder(
+                            //             borderSide: BorderSide(color: Colors.grey),
+                            //             //  when the TextFormField in focused
+                            //           ),
+                            //           border: UnderlineInputBorder(),
+                            //           // enabledBorder: UnderlineInputBorder(),
+                            //           // focusedBorder: UnderlineInputBorder(),
+                            //           errorBorder: UnderlineInputBorder(),
+                            //           focusedErrorBorder: UnderlineInputBorder(),
+                            //         )),
+
+                            //     SizedBox(
+                            //       height: Screens.bodyheight(context) * 0.02,
+                            //     ),
+                            //     GetAttachment(theme, context),
+                            //   ],
+                            // ):Container(),
+
+                            // SizedBox(
+                            //   height: Screens.bodyheight(context) * 0.01,
+                            // ),
+                            // TextFormField(
+                            //     controller: context
+                            //         .read<OrderNewController>()
+                            //         .mycontroller[41],
+                            //     // validator: (value) {
+                            //     //   if (value!.isEmpty) {
+                            //     //     return "Enter Reference";
+                            //     //   }
+                            //     //   return null;
+                            //     // },
+                            //     decoration: InputDecoration(
+                            //       labelText: 'Remarks',
+                            //       labelStyle: theme.textTheme.bodyText1!
+                            //           .copyWith(color: Colors.grey),
+                            //       enabledBorder: UnderlineInputBorder(
+                            //         borderSide: BorderSide(color: Colors.grey),
+                            //         //  when the TextFormField in unfocused
+                            //       ),
+                            //       focusedBorder: UnderlineInputBorder(
+                            //         borderSide: BorderSide(color: Colors.grey),
+                            //         //  when the TextFormField in focused
+                            //       ),
+                            //       border: UnderlineInputBorder(),
+                            //       // enabledBorder: UnderlineInputBorder(),
+                            //       // focusedBorder: UnderlineInputBorder(),
+                            //       errorBorder: UnderlineInputBorder(),
+                            //       focusedErrorBorder: UnderlineInputBorder(),
+                            //     )),
                           ],
                         ),
                       ),
@@ -657,12 +654,14 @@ class OrderBookNewState extends State<OrderBookNew> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text('Attachment',
                                       style: theme.textTheme.subtitle1?.copyWith(
                                           color: context
-                                                      .read<OrderNewController>()
+                                                      .read<
+                                                          OrderNewController>()
                                                       .fileValidation ==
                                                   true
                                               ? Colors.red
@@ -671,8 +670,9 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     children: [
                                       Container(
                                           // alignment: Alignment.center,
-                                          height: Screens.padingHeight(context) *
-                                              0.06,
+                                          height:
+                                              Screens.padingHeight(context) *
+                                                  0.06,
                                           width: Screens.width(context) * 0.13,
                                           decoration: BoxDecoration(
                                               borderRadius:
@@ -725,7 +725,8 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                   .fileValidation = false;
                                                             });
                                                           } else {
-                                                            print("obAAAAAject");
+                                                            print(
+                                                                "obAAAAAject");
                                                             context
                                                                 .read<
                                                                     OrderNewController>()
@@ -741,12 +742,13 @@ class OrderBookNewState extends State<OrderBookNew> {
                                       SizedBox(
                                         width: Screens.width(context) * 0.02,
                                       ),
-                
+
                                       //old
                                       Container(
                                           // alignment: Alignment.center,
-                                          height: Screens.padingHeight(context) *
-                                              0.06,
+                                          height:
+                                              Screens.padingHeight(context) *
+                                                  0.06,
                                           width: Screens.width(context) * 0.13,
                                           decoration: BoxDecoration(
                                               borderRadius:
@@ -785,15 +787,16 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                   .read<
                                                                       OrderNewController>()
                                                                   .selectattachment();
-                
+
                                                               context
                                                                   .read<
                                                                       OrderNewController>()
                                                                   .fileValidation = false;
                                                             });
                                                           } else {
-                                                            print("obAAAAAject");
-                
+                                                            print(
+                                                                "obAAAAAject");
+
                                                             context
                                                                 .read<
                                                                     OrderNewController>()
@@ -812,16 +815,17 @@ class OrderBookNewState extends State<OrderBookNew> {
                               ),
                               context.read<OrderNewController>().files == null
                                   ? Container(
-                                      height: Screens.padingHeight(context) * 0.3,
+                                      height:
+                                          Screens.padingHeight(context) * 0.3,
                                       padding: EdgeInsets.only(
-                                        top:
-                                            Screens.padingHeight(context) * 0.001,
-                                        right:
-                                            Screens.padingHeight(context) * 0.015,
-                                        left:
-                                            Screens.padingHeight(context) * 0.015,
-                                        bottom:
-                                            Screens.padingHeight(context) * 0.015,
+                                        top: Screens.padingHeight(context) *
+                                            0.001,
+                                        right: Screens.padingHeight(context) *
+                                            0.015,
+                                        left: Screens.padingHeight(context) *
+                                            0.015,
+                                        bottom: Screens.padingHeight(context) *
+                                            0.015,
                                       ),
                                       child: Container(
                                           alignment: Alignment.center,
@@ -832,7 +836,8 @@ class OrderBookNewState extends State<OrderBookNew> {
                                               Center(
                                                   child: Text(
                                                 "No Files Selected",
-                                                style: theme.textTheme.bodyText1!
+                                                style: theme
+                                                    .textTheme.bodyText1!
                                                     .copyWith(
                                                         color: context
                                                                     .read<
@@ -857,14 +862,14 @@ class OrderBookNewState extends State<OrderBookNew> {
                                           ? Screens.padingHeight(context) * 0.0
                                           : Screens.padingHeight(context) * 0.3,
                                       padding: EdgeInsets.only(
-                                        top:
-                                            Screens.padingHeight(context) * 0.001,
-                                        right:
-                                            Screens.padingHeight(context) * 0.015,
-                                        left:
-                                            Screens.padingHeight(context) * 0.015,
-                                        bottom:
-                                            Screens.padingHeight(context) * 0.015,
+                                        top: Screens.padingHeight(context) *
+                                            0.001,
+                                        right: Screens.padingHeight(context) *
+                                            0.015,
+                                        left: Screens.padingHeight(context) *
+                                            0.015,
+                                        bottom: Screens.padingHeight(context) *
+                                            0.015,
                                       ),
                                       child: ListView.builder(
                                           itemCount: context
@@ -905,7 +910,8 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                   "Assets/img.jpg"))),
                                                       Container(
                                                           padding:
-                                                              EdgeInsets.all(10),
+                                                              EdgeInsets.all(
+                                                                  10),
                                                           decoration:
                                                               BoxDecoration(),
                                                           width: Screens.width(
@@ -991,7 +997,8 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                   "Assets/img.jpg"))),
                                                       Container(
                                                           padding:
-                                                              EdgeInsets.all(10),
+                                                              EdgeInsets.all(
+                                                                  10),
                                                           decoration:
                                                               BoxDecoration(),
                                                           width: Screens.width(
@@ -1069,17 +1076,18 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                         width: Screens.width(
                                                                 context) *
                                                             0.09,
-                                                        height:
-                                                            Screens.padingHeight(
+                                                        height: Screens
+                                                                .padingHeight(
                                                                     context) *
-                                                                0.06,
+                                                            0.06,
                                                         child: Center(
                                                             child: Image.asset(
                                                                 "Assets/pdfimg.png")),
                                                       ),
                                                       Container(
                                                           padding:
-                                                              EdgeInsets.all(10),
+                                                              EdgeInsets.all(
+                                                                  10),
                                                           decoration:
                                                               BoxDecoration(),
                                                           width: Screens.width(
@@ -1164,7 +1172,8 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                   "Assets/xls.png"))),
                                                       Container(
                                                           padding:
-                                                              EdgeInsets.all(10),
+                                                              EdgeInsets.all(
+                                                                  10),
                                                           decoration:
                                                               BoxDecoration(),
                                                           width: Screens.width(
@@ -1236,10 +1245,10 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                         width: Screens.width(
                                                                 context) *
                                                             0.09,
-                                                        height:
-                                                            Screens.padingHeight(
+                                                        height: Screens
+                                                                .padingHeight(
                                                                     context) *
-                                                                0.06,
+                                                            0.06,
                                                         child: Center(
                                                             child: Image.asset(
                                                                 "Assets/txt.png"))),
@@ -1252,8 +1261,8 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                 context) *
                                                             0.6,
                                                         // height: Screens.padingHeight(context) * 0.06,
-                                                        alignment:
-                                                            Alignment.centerLeft,
+                                                        alignment: Alignment
+                                                            .centerLeft,
                                                         child: Text(
                                                           context
                                                               .watch<
@@ -1267,10 +1276,10 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                         width: Screens.width(
                                                                 context) *
                                                             0.1,
-                                                        height:
-                                                            Screens.padingHeight(
+                                                        height: Screens
+                                                                .padingHeight(
                                                                     context) *
-                                                                0.06,
+                                                            0.06,
                                                         child: IconButton(
                                                             onPressed: () {
                                                               setState(() {
@@ -1278,18 +1287,21 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                     .read<
                                                                         OrderNewController>()
                                                                     .files
-                                                                    .removeAt(i);
+                                                                    .removeAt(
+                                                                        i);
                                                                 context
                                                                     .read<
                                                                         OrderNewController>()
                                                                     .filedata
-                                                                    .removeAt(i);
+                                                                    .removeAt(
+                                                                        i);
                                                               });
                                                             },
                                                             icon: Icon(
                                                               Icons
                                                                   .cancel_rounded,
-                                                              color: Colors.grey,
+                                                              color:
+                                                                  Colors.grey,
                                                             )))
                                                   ])
                                             ]));
@@ -1304,72 +1316,90 @@ class OrderBookNewState extends State<OrderBookNew> {
             ),
             Column(
               children: [
-           context.read<OrderNewController>(). postpaymentdata.isEmpty?Container():     Container(
-                  width: Screens.width(context),
-                  height: Screens.bodyheight(context) * 0.1,
-                  //  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                      //theme.primaryColor.withOpacity(0.5)
-                      
-                      border: Border.all(color: theme.primaryColor, width: 1),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListView.builder(
-                    itemCount:context.read<OrderNewController>(). postpaymentdata.length,
-                    itemBuilder: (BuildContext context,ind){
-                      return Container(
-                        padding: EdgeInsets.all(8),
-                        child: Column(
-                          children: [
-                            Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: Screens.width(context)*0.3,
-                                        child:Text("${context.read<OrderNewController>(). postpaymentdata[ind].paymodename}", style: theme.textTheme.bodyText1?.copyWith(
-                                                              ))
-                                      ),
-                                   Container(
-                                  child:Text(":", style: theme.textTheme.bodyText1?.copyWith(
-                        ))
-                                ),
-                                Container(
-                                  
-                                  child:Text(" ${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>(). postpaymentdata[ind].amount.toString())}",
-                                   style: theme.textTheme.bodyText1?.copyWith()
-                                  )
-                                ),
-                                    ],
-                                  ),
-                                ),
-                               
+                context.read<OrderNewController>().postpaymentdata.isEmpty
+                    ? Container()
+                    : Container(
+                        width: Screens.width(context),
+                        height: Screens.bodyheight(context) * 0.1,
+                        //  padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            //theme.primaryColor.withOpacity(0.5)
 
-                                Container(
-                                  
-                                  child:InkWell(
-                                    onTap:(){
-                                      setState(() {
-                                       context.read<OrderNewController>(). deletepaymode(context.read<OrderNewController>(). postpaymentdata[ind],ind );
-                                        context.read<OrderNewController>(). postpaymentdata.removeAt(ind);
-                                      });
-
-                                    },
-                                    child: Icon(Icons.delete,color:Colors.red))
-                                  )
-                                
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                  
-                  }),
+                            border:
+                                Border.all(color: theme.primaryColor, width: 1),
+                            borderRadius: BorderRadius.circular(10)),
+                        child: ListView.builder(
+                            itemCount: context
+                                .read<OrderNewController>()
+                                .postpaymentdata
+                                .length,
+                            itemBuilder: (BuildContext context, ind) {
+                              return Container(
+                                padding: EdgeInsets.all(8),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                  width:
+                                                      Screens.width(context) *
+                                                          0.3,
+                                                  child: Text(
+                                                      "${context.read<OrderNewController>().postpaymentdata[ind].paymodename}",
+                                                      style: theme
+                                                          .textTheme.bodyText1
+                                                          ?.copyWith())),
+                                              Container(
+                                                  child: Text(":",
+                                                      style: theme
+                                                          .textTheme.bodyText1
+                                                          ?.copyWith())),
+                                              Container(
+                                                  child: Text(
+                                                      " ${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().postpaymentdata[ind].amount.toString())}",
+                                                      style: theme
+                                                          .textTheme.bodyText1
+                                                          ?.copyWith())),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                            child: InkWell(
+                                                onTap: () {
+                                                  setState(() {
+                                                    context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .deletepaymode(
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .postpaymentdata[ind],
+                                                            ind);
+                                                    context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .postpaymentdata
+                                                        .removeAt(ind);
+                                                  });
+                                                },
+                                                child: Icon(Icons.delete,
+                                                    color: Colors.red)))
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
+                      ),
+                SizedBox(
+                  height: Screens.bodyheight(context) * 0.01,
                 ),
-              SizedBox(
-              height: Screens.bodyheight(context) * 0.01,
-            ),
                 Container(
                   width: Screens.width(context),
                   height: Screens.bodyheight(context) * 0.07,
@@ -1404,7 +1434,28 @@ class OrderBookNewState extends State<OrderBookNew> {
                       height: Screens.bodyheight(context) * 0.07,
                       child: ElevatedButton(
                           onPressed: () {
-                            context
+                            setState(() {
+                              context
+                                .read<OrderNewController>()
+                                . onbackthired();
+                            });
+  //                           setState(() {
+  //                              for (int i = 0; i <context.read<OrderNewController>(). getProduct.length; i++){
+  //   if(context.read<OrderNewController>(). getProduct[i].OfferSetup_Id != null){
+  //   setState(() {
+  //   context.read<OrderNewController>(). getProduct .removeAt(i);
+       
+  //   });
+     
+  //   }
+  //   // log("aaajj::"+productDetails[i].giftitems!.length.toString());
+
+  //  }
+  //  log("productDetails::"+context.read<OrderNewController>(). getProduct.length.toString());
+        
+  //                           });
+                            
+                                               context
                                 .read<OrderNewController>()
                                 .pageController
                                 .animateToPage(
@@ -1478,12 +1529,11 @@ class OrderBookNewState extends State<OrderBookNew> {
             children: [
               Text('Attachment',
                   style: theme.textTheme.subtitle1?.copyWith(
-                      color: context
-                                  .read<OrderNewController>()
-                                  .fileValidation2 ==
-                              true
-                          ? Colors.red
-                          : Colors.black)),
+                      color:
+                          context.read<OrderNewController>().fileValidation2 ==
+                                  true
+                              ? Colors.red
+                              : Colors.black)),
               Row(
                 children: [
                   Container(
@@ -1622,10 +1672,9 @@ class OrderBookNewState extends State<OrderBookNew> {
                         ],
                       )))
               : Container(
-                  height:
-                      context.read<OrderNewController>().files2.length == 0
-                          ? Screens.padingHeight(context) * 0.0
-                          : Screens.padingHeight(context) * 0.09,
+                  height: context.read<OrderNewController>().files2.length == 0
+                      ? Screens.padingHeight(context) * 0.0
+                      : Screens.padingHeight(context) * 0.09,
                   padding: EdgeInsets.only(
                     top: Screens.padingHeight(context) * 0.001,
                     right: Screens.padingHeight(context) * 0.015,
@@ -1683,13 +1732,11 @@ class OrderBookNewState extends State<OrderBookNew> {
                                           onPressed: () {
                                             setState(() {
                                               context
-                                                  .read<
-                                                      OrderNewController>()
+                                                  .read<OrderNewController>()
                                                   .files2
                                                   .removeAt(i);
                                               context
-                                                  .read<
-                                                      OrderNewController>()
+                                                  .read<OrderNewController>()
                                                   .filedata2
                                                   .removeAt(i);
                                             });
@@ -1748,13 +1795,11 @@ class OrderBookNewState extends State<OrderBookNew> {
                                           onPressed: () {
                                             setState(() {
                                               context
-                                                  .read<
-                                                      OrderNewController>()
+                                                  .read<OrderNewController>()
                                                   .files2
                                                   .removeAt(i);
                                               context
-                                                  .read<
-                                                      OrderNewController>()
+                                                  .read<OrderNewController>()
                                                   .filedata2
                                                   .removeAt(i);
                                             });
@@ -1768,10 +1813,10 @@ class OrderBookNewState extends State<OrderBookNew> {
                               // )
                               );
                         }
-                      
                       })),
         ]));
   }
+
   Container SecondPage(
     BuildContext context,
     ThemeData theme,
@@ -1813,6 +1858,16 @@ class OrderBookNewState extends State<OrderBookNew> {
                   },
                   controller:
                       context.read<OrderNewController>().mycontroller[12],
+                  //   onEditingComplete: (){
+                  //     setState(() {
+                  //    if(context.read<OrderNewController>().showItemList == true){
+                  //    context.read<OrderNewController>(). scannerreset();
+                  //     context.read<OrderNewController>().Scancode=context.read<OrderNewController>().mycontroller[12].text;
+                  // context.read<OrderNewController>().scanneddataget(context);
+                  //   }
+                  //     });
+
+                  //   },
                   decoration: InputDecoration(
                     filled: false,
                     hintText: 'Search Here!!..',
@@ -1825,6 +1880,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                         if (!focus.hasPrimaryFocus) {
                           focus.unfocus();
                         }
+
                         context.read<OrderNewController>().changeVisible();
                       }, //
                       color: theme.primaryColor,
@@ -2064,8 +2120,8 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                       .read<
                                                           OrderNewController>()
                                                       .getProduct[index]
-                                                      .Quantity
-                                                      .toString(),
+                                                      .Quantity!
+                                                      .toStringAsFixed(0),
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 15.0,
@@ -2093,73 +2149,198 @@ class OrderBookNewState extends State<OrderBookNew> {
                                       ),
                                       SizedBox(height: 5),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                   context
+                                          context
                                                       .read<
                                                           OrderNewController>()
                                                       .getProduct[index]
-                                                      .partcode !=null?        Container(child:Text("Referal Name",style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 15.0,
-                                              ))
-                                          ):Container(),
+                                                      .partcode !=
+                                                  null
+                                              ? Container(
+                                                  child: Text("Referal Name",
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 15.0,
+                                                      )))
+                                              : Container(),
+                                          context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .couponcode !=
+                                                  null
+                                              ? Container(
+                                                  child: Text("Couponcode",
+                                                      style: TextStyle(
+                                                        color: Colors.grey,
+                                                        fontSize: 15.0,
+                                                      )))
+                                              : Container()
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                      (context
+                                                          .read<
+                                                              OrderNewController>()
+                                                          .getProduct[index]
+                                                          .partname !=
+                                                      null &&
+                                                  context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .partname!
+                                                      .isNotEmpty) ||
+                                              (context
+                                                          .read<
+                                                              OrderNewController>()
+                                                          .getProduct[index]
+                                                          .couponcode !=
+                                                      null &&
+                                                  context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .couponcode!
+                                                      .isNotEmpty)
+                                          ? Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .getProduct[index]
+                                                            .partcode !=
+                                                        null
+                                                    ? Container(
+                                                        child: Text(
+                                                            "${context.read<OrderNewController>().getProduct[index].partname}"))
+                                                    : Container(),
+                                                context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .getProduct[index]
+                                                            .couponcode !=
+                                                        null
+                                                    ? Container(
+                                                        child: Text(
+                                                            "${context.read<OrderNewController>().getProduct[index].couponcode}"))
+                                                    : Container()
+                                              ],
+                                            )
+                                          : Container(),
+                                      SizedBox(height: 10),
                                     context
                                                       .read<
                                                           OrderNewController>()
                                                       .getProduct[index]
-                                                      .couponcode !=null?Container(child:Text("Couponcode",style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 15.0,
-                                              ))
-                                          ):Container()
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                        (context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .partname !=null &&        context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .partname!.isNotEmpty)|| (context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .couponcode != null &&context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .couponcode!.isNotEmpty)?      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                        context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .partcode !=null?  Container(
-                                            child:Text("${context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .partname}")
-                                          ):Container(),
-                                context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .couponcode !=null?          Container(
-                                            child:Text("${context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .couponcode}")
-                                          ):Container()
-
-                                      ],):Container(),
-                                      SizedBox(height: 10),
+                                                      .giftitems ==
+                                                  null||  context
+                                                  .read<OrderNewController>()
+                                                  .getProduct[index]
+                                                  .giftitems!
+                                                  .isEmpty 
+                                              
+                                          ? Container()
+                                          : Container(
+                                              // height: Screens.padingHeight(context)*0.05,
+                                              child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                          "Gift Items :",
+                                                          style: theme.textTheme
+                                                              .bodyMedium!
+                                                              .copyWith(
+                                                                  color: theme
+                                                                      .primaryColor)),
+                                                    ),
+                                                    ListView.builder(
+                                                        shrinkWrap: true,
+                                                        itemCount: context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .getProduct[index]
+                                                            .giftitems!
+                                                            .length,
+                                                        itemBuilder:
+                                                            (context, i) {
+                                                          return Container(
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Container(
+                                                                      width: Screens.width(context)*0.7,
+                                                                      child: Text(
+                                                                          "${context.read<OrderNewController>().getProduct[index].giftitems![i].ItemCode}"),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Container(
+                                                                  child: Text(
+                                                                      "Qty : ${context.read<OrderNewController>().getProduct[index].giftitems![i].quantity!.toStringAsFixed(0)}"),
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      children: [
+                                                                        Container(
+                                                                          child:
+                                                                              Text("MRP : "),
+                                                                        ),
+                                                                        Container(
+                                                                          child:
+                                                                              Text(
+                                                                            "${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getProduct[index].giftitems![i].MRP.toString())}",
+                                                                            style:
+                                                                                TextStyle(decoration: TextDecoration.lineThrough),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Container(
+                                                                      child: Text(
+                                                                          "Offer Price : ${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getProduct[index].giftitems![i].Price.toString())}"),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              30,
+                                                                          right:
+                                                                              30),
+                                                                  child:
+                                                                      Divider(
+                                                                    color: Colors
+                                                                        .grey,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        })
+                                                  ]),
+                                            ),
                                       Padding(
                                         padding: EdgeInsets.only(
                                             left: 40, right: 40),
@@ -2167,6 +2348,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                           color: Colors.grey,
                                         ),
                                       ),
+
                                       Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
@@ -2182,125 +2364,149 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                           .read<
                                                               OrderNewController>()
                                                           .config
-                                                          .slpitCurrency22(context
+                                                          .slpitCurrency22((context
                                                               .read<
                                                                   OrderNewController>()
-                                                              .getProduct[index]
-                                                              .LineTotal
-                                                              .toString()))
+                                                              .getlinetotalgift(
+                                                                  index))))
                                                 ]),
-                                            Row(
-                                              children: [
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      setState(() {
-                                                        print(index);
-                                                        context
+                                            context
                                                             .read<
                                                                 OrderNewController>()
-                                                            .getProduct
-                                                            .removeAt(index);
-                                                          context
+                                                            .getProduct[index]
+                                                            .couponcode !=
+                                                        null &&
+                                                    context
                                                             .read<
                                                                 OrderNewController>()
-                                                            .  postpaymentdata.clear();
-                                                           context
-                                                            .read<
-                                                                OrderNewController>()
-                                                            .  deletepaymode2();
-                                                        if (context
-                                                            .read<
-                                                                OrderNewController>()
-                                                            .productDetails
-                                                            .isEmpty) {
-                                                          context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .changeVisible();
-                                                        }
-
-                                                        for (int i = 0;
-                                                            i <
+                                                            .getProduct[index]
+                                                            .couponcode !=
+                                                        ''
+                                                ? Container()
+                                                : Row(
+                                                    children: [
+                                                      GestureDetector(
+                                                          onTap: () {
+                                                            setState(() {
+                                                              print(index);
+                                                              context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .getProduct
+                                                                  .removeAt(
+                                                                      index);
+                                                              context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .postpaymentdata
+                                                                  .clear();
+                                                              context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .deletepaymode2();
+                                                              if (context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .productDetails
+                                                                  .isEmpty) {
                                                                 context
                                                                     .read<
                                                                         OrderNewController>()
-                                                                    .productDetails
-                                                                    .length;
-                                                            i++) {
-                                                          //  provi.productDetails[i].lineId =
-                                                          //     (i + 1).toString();
-                                                        }
-                                                      });
-                                                    },
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      color: Colors.red,
-                                                    )),
-                                                SizedBox(width: 10.0),
-                                                GestureDetector(
-                                                    onTap: () {
-                                                      context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .mycontroller[10]
-                                                              .text =
-                                                          context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .getProduct[index]
-                                                              .Price!
-                                                              .toStringAsFixed(
-                                                                  2);
-                                                      context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .mycontroller[11]
-                                                              .text =
-                                                          context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .getProduct[index]
-                                                              .Quantity!
-                                                              .toStringAsFixed(
-                                                                  2);
-                                                      context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .mycontroller[11]
-                                                              .text =
-                                                          context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .getProduct[index]
-                                                              .Quantity!
-                                                              .toStringAsFixed(
-                                                                  0);
-                                                      context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .total =
-                                                          context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .getProduct[index]
-                                                              .LineTotal!;
-                                                      context
-                                                          .read<
-                                                              OrderNewController>()
-                                                          .isUpdateClicked = true;
+                                                                    .changeVisible();
+                                                              }
 
-                                                      context
-                                                          .read<
-                                                              OrderNewController>()
-                                                          .showBottomSheetInsertforedit(
-                                                              context, index);
-                                                    },
-                                                    child: Icon(
-                                                      Icons.edit,
-                                                      color: Colors.blue,
-                                                    )),
-                                              ],
-                                            ),
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      context
+                                                                          .read<
+                                                                              OrderNewController>()
+                                                                          .productDetails
+                                                                          .length;
+                                                                  i++) {
+                                                                //  provi.productDetails[i].lineId =
+                                                                //     (i + 1).toString();
+                                                              }
+                                                            });
+                                                          },
+                                                          child: Icon(
+                                                            Icons.close,
+                                                            color: Colors.red,
+                                                          )),
+                                                      SizedBox(width: 10.0),
+                                                      GestureDetector(
+                                                          onTap: () {
+                                                            context.read<OrderNewController>().mycontroller[12].clear();
+                                                           context.read<OrderNewController>().changeVisible2();
+                                                            context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .mycontroller[
+                                                                        10]
+                                                                    .text =
+                                                                context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .getProduct[
+                                                                        index]
+                                                                    .Price!
+                                                                    .toStringAsFixed(
+                                                                        2);
+                                                            context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .mycontroller[
+                                                                        11]
+                                                                    .text =
+                                                                context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .getProduct[
+                                                                        index]
+                                                                    .Quantity!
+                                                                    .toStringAsFixed(
+                                                                        2);
+                                                            context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .mycontroller[
+                                                                        11]
+                                                                    .text =
+                                                                context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .getProduct[
+                                                                        index]
+                                                                    .Quantity!
+                                                                    .toStringAsFixed(
+                                                                        0);
+                                                            context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .total =
+                                                                context
+                                                                    .read<
+                                                                        OrderNewController>()
+                                                                    .getProduct[
+                                                                        index]
+                                                                    .LineTotal!;
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .isUpdateClicked = true;
+
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .showBottomSheetInsertforedit(
+                                                                    context,
+                                                                    index);
+                                                          },
+                                                          child: Icon(
+                                                            Icons.edit,
+                                                            color: Colors.blue,
+                                                          )),
+                                                    ],
+                                                  ),
                                           ]),
                                       // SizedBox(height: 10),
                                       // Padding(
@@ -6233,7 +6439,7 @@ class OrderBookNewState extends State<OrderBookNew> {
       context.read<OrderNewController>().paymode.length,
       (index) => InkWell(
         onTap: () {
-           context.read<OrderNewController>().selectpaymentTerms(
+          context.read<OrderNewController>().selectpaymentTerms(
               context
                   .read<OrderNewController>()
                   .paymode[index]
@@ -6242,11 +6448,8 @@ class OrderBookNewState extends State<OrderBookNew> {
               context.read<OrderNewController>().paymode[index].ModeName!,
               context.read<OrderNewController>().paymode[index].Code!,
               context,
-               context.read<OrderNewController>().paymode[index],
-               index
-              );
-       
-          
+              context.read<OrderNewController>().paymode[index],
+              index);
         },
         child: Stack(
           children: [
@@ -6255,57 +6458,80 @@ class OrderBookNewState extends State<OrderBookNew> {
               height: Screens.bodyheight(context) * 0.06,
               //  padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
-                  color: 
-                  // context
-                  //             .read<OrderNewController>()
-                  //             .isSelectedpaymentTermsCode ==
-                          context
-                              .read<OrderNewController>()
-                              .paymode[index]
-                              .isselected ==true
-                      ? Color(0xffB299A5) //theme.primaryColor.withOpacity(0.5)
-                      : Colors.white,
+                  color:
+                      // context
+                      //             .read<OrderNewController>()
+                      //             .isSelectedpaymentTermsCode ==
+                      context
+                                  .read<OrderNewController>()
+                                  .paymode[index]
+                                  .isselected ==
+                              true
+                          ? Color(
+                              0xffB299A5) //theme.primaryColor.withOpacity(0.5)
+                          : Colors.white,
                   border: Border.all(color: theme.primaryColor, width: 1),
                   borderRadius: BorderRadius.circular(10)),
-                  alignment: Alignment.center,
-              child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""? 
-              Text("Rs.${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().paymode[index].amount.toString())}",style: theme.textTheme.bodyText1?.copyWith(
-                       color: context
-                             .read<OrderNewController>()
-                             .paymode[index]
-                             .isselected ==true
-                           ? theme.primaryColor //,Colors.white
-                           : theme.primaryColor,
-                     ) ,):
-                 Text("${context
-                         .read<OrderNewController>()
-                         .paymode[index]
-                         .ModeName
-                         .toString()}",
-                          maxLines: 8,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-                         style: theme.textTheme.bodyText1?.copyWith(
-                       color: context
-                             .read<OrderNewController>()
-                             .paymode[index]
-                             .isselected ==true
-                           ? theme.primaryColor //,Colors.white
-                           : theme.primaryColor,
-                     ) ,
-                         ),
+              alignment: Alignment.center,
+              child: context.read<OrderNewController>().paymode[index].amount !=
+                          null &&
+                      context
+                              .read<OrderNewController>()
+                              .paymode[index]
+                              .amount !=
+                          ""
+                  ? Text(
+                      "Rs.${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().paymode[index].amount.toString())}",
+                      style: theme.textTheme.bodyText1?.copyWith(
+                        color: context
+                                    .read<OrderNewController>()
+                                    .paymode[index]
+                                    .isselected ==
+                                true
+                            ? theme.primaryColor //,Colors.white
+                            : theme.primaryColor,
+                      ),
+                    )
+                  : Text(
+                      "${context.read<OrderNewController>().paymode[index].ModeName.toString()}",
+                      maxLines: 8,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.bodyText1?.copyWith(
+                        color: context
+                                    .read<OrderNewController>()
+                                    .paymode[index]
+                                    .isselected ==
+                                true
+                            ? theme.primaryColor //,Colors.white
+                            : theme.primaryColor,
+                      ),
+                    ),
             ),
 
-         Positioned(
-          top: Screens.padingHeight(context)*0.005,
-          left:Screens.width(context)*0.01,
-          child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""?Text("${context.read<OrderNewController>().paymode[index].ModeName}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
-          )
-      //  Positioned(
-      //     top: Screens.padingHeight(context)*0.005,
-      //     left:Screens.width(context)*0.01,
-      //     child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""?Text("Rs.${context.read<OrderNewController>().paymode[index].amount}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
-      //     )
+            Positioned(
+                top: Screens.padingHeight(context) * 0.005,
+                left: Screens.width(context) * 0.01,
+                child: context
+                                .read<OrderNewController>()
+                                .paymode[index]
+                                .amount !=
+                            null &&
+                        context
+                                .read<OrderNewController>()
+                                .paymode[index]
+                                .amount !=
+                            ""
+                    ? Text(
+                        "${context.read<OrderNewController>().paymode[index].ModeName}",
+                        style: theme.textTheme.bodyText1
+                            ?.copyWith(color: theme.primaryColor, fontSize: 10))
+                    : Text(""))
+            //  Positioned(
+            //     top: Screens.padingHeight(context)*0.005,
+            //     left:Screens.width(context)*0.01,
+            //     child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""?Text("Rs.${context.read<OrderNewController>().paymode[index].amount}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
+            //     )
           ],
         ),
       ),

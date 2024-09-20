@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 
 class RestrictionPage extends StatefulWidget {
-  const RestrictionPage({Key? key}) : super(key: key);
+  const RestrictionPage({super.key});
 
   @override
   State<RestrictionPage> createState() => RestrictionPageState();
@@ -17,7 +16,7 @@ class RestrictionPageState extends State<RestrictionPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     setState(() {
       loginbool=true;
@@ -37,7 +36,7 @@ class RestrictionPageState extends State<RestrictionPage> {
                                 width: Screens.width(context) * 0.3) ,),
           ),
           
-          Center(
+        const  Center(
             child: Text("You are out of Whitelisted zone..!!!",),
           ),
         ],

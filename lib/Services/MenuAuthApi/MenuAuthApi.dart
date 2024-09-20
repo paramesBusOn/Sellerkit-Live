@@ -1,6 +1,8 @@
 // ignore_for_file: unnecessary_new
 
 
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'dart:convert';
@@ -14,6 +16,7 @@ class MenuAuthApi {
     try {
             // Config config = Config();
             // await config.getSetup(); 
+       final stopwatch = Stopwatch()..start();
             print("Menu Auth::"+"${Url.queryApi}SkClientPortal/GetMenuAuth?UserId=${ConstantValues.UserId}");
             final response = await http.get(Uri.parse("${Url.queryApi}SkClientPortal/GetMenuAuth?UserId=${ConstantValues.UserId}"),
           headers: {
@@ -33,6 +36,9 @@ class MenuAuthApi {
       // print("Menu Auth::"+response.body.toString());
       // log("MenuAuth:" + json.decode( response.body).toString());
       if (response.statusCode == 200) {
+          stopwatch.stop();
+    log(' MenuAuthApi ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.MenuAuthApi =stopwatch.elapsedMilliseconds.toString();
       //    ReceivePort port  = new ReceivePort();
       //  final islol =await Isolate.spawn<List<dynamic>>(deserialize, [port.sendPort,response.body,response.statusCode]);
       // MenuAuthModel menuAuth =await port.first;

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
+import 'dart:developer';
 import '../../../Constant/ConstantSapValues.dart';
 import '../../../Models/PostQueryModel/EnquiriesModel/EnqTypeModel.dart';
 
@@ -18,6 +19,7 @@ class EnquiryTypeApi {
       // print(Url.queryApi + 'SkClientPortal/GetallMaster?MasterTypeId=2');
       // print("token:"+ConstantValues.token);
       // await config.getSetup();
+       final stopwatch = Stopwatch()..start();
        final response = await http.get(Uri.parse(Url.queryApi + 'SkClientPortal/GetallMaster?MasterTypeId=2'),
           headers: {
             "content-type": "application/json",
@@ -35,6 +37,9 @@ class EnquiryTypeApi {
       // print(response.statusCode.toString());
       // print("Enquiry Type"+response.body.toString());
       if (response.statusCode == 200) {
+          stopwatch.stop();
+    log('DB enquiryTypeApi ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.enquiryTypeApi =stopwatch.elapsedMilliseconds.toString();
       //  ReceivePort port  = new ReceivePort();
       //  final islol =await Isolate.spawn<List<dynamic>>(deserialize, [port.sendPort,response.body,response.statusCode]);
       // EnquiryTypeModal enquiryTypeModal =await port.first;

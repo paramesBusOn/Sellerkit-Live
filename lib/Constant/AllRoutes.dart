@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
@@ -33,7 +32,7 @@ import 'package:sellerkit/Pages/Splash/Screen/SplashPage.dart';
 import 'package:sellerkit/Pages/Notification/Screens/Notifications.dart';
 import 'package:sellerkit/Pages/VisitPlans/Screens/NewVisitPlan.dart';
 import 'package:sellerkit/Pages/VisitPlans/visitplanScreen.dart';
-import 'package:sellerkit/Widgets/RestrictedPage.dart';
+import 'package:sellerkit/Widgets/restricted_page.dart';
 import '../Pages/Accounts/Screens/AccoountsDetails.dart';
 import '../Pages/Accounts/Screens/Accounts.dart';
 import '../Pages/ChagnePasswordScreen/widgets/ConfirmPassword.dart';
@@ -78,313 +77,313 @@ class Routes {
   static List<GetPage> allRoutes = [
     GetPage<dynamic>(
         name: ConstantRoutes.dashboard,
-        page: () => Dashboard(),
+        page: () => const Dashboard(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
          GetPage<dynamic>(
         name: ConstantRoutes.specialpricereq,
-        page: () => SpecialPriceReq(),
+        page: () => const SpecialPriceReq(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
         GetPage<dynamic>(
         name: ConstantRoutes.newpriceReq,
-        page: () => NewpriceReq(),
+        page: () =>const NewpriceReq(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.login,
         page: () => LoginPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.splash,
         page: () => SplashPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.forgotregister,
-        page: () => ForgotRegisterPage(),
+        page: () =>const ForgotRegisterPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.download,
         page: () => DownloadPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
         GetPage<dynamic>(
         name: ConstantRoutes.qrscanner,
         page: () => qrscanner(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.onBoard,
-        page: () => OnBoardingScreen(),
+        page: () =>const OnBoardingScreen(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
         GetPage<dynamic>(
         name: ConstantRoutes.leaveReqtab,
-        page: () => leaveReqtab(),
+        page: () => const leaveReqtab(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     //Resource
 
     GetPage<dynamic>(
         name: ConstantRoutes.stock,
-        page: () => StockAvail(),
+        page: () =>const StockAvail(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.stockListOfDetails,
         page: () => StockListOfDetails(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.listStockAvailability,
-        page: () => ListStockAvailability(),
+        page: () =>const ListStockAvailability(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.priceList,
-        page: () => PriceAvailability(),
+        page: () =>const PriceAvailability(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.priceListViewAll,
         page: () => PriceListOfDetails(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.priceListViewData,
-        page: () => ListPriceAvailability(),
+        page: () =>const ListPriceAvailability(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 // orders
     GetPage<dynamic>(
         name: ConstantRoutes.ordertab,
         page: () => OrdersTabPage(), //LeadBook(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.successorder,
         page: () => OrderSuccessPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
         GetPage<dynamic>(
         name: ConstantRoutes.successQuotes,
         page: () => QuotesSuccessPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.ordernew,
         page: () => OrderBookNew(), //LeadBook(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     // performance
 
     GetPage<dynamic>(
         name: ConstantRoutes.performance,
-        page: () => MyPerformance(),
+        page: () =>const MyPerformance(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.scoreCardScreenOne,
-        page: () => ScoreCardScreenOne(),
+        page: () =>const ScoreCardScreenOne(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.earnings,
         page: () => MyEarnings(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     //pre sales
     GetPage<dynamic>(
         name: ConstantRoutes.enquiriesManager,
         page: () => EnquiryManagerPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.enquiriesUser,
         page: () => EnquiryUserPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.walkins,
-        page: () => WalkinsPage(),
+        page: () =>const WalkinsPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.leads,
         page: () => LeadBookNew(), //LeadBook(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.leadstab,
         page: () => LeadsTabPage(), //LeadBook(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.newEnq,
         page: () => NewEnquiry(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.successLead,
         page: () => LeadSuccessPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.followup,
         page: () => FollowUpPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.followupNew,
-        page: () => FollowUpNew(),
+        page: () =>const FollowUpNew(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.followupTab,
         page: () => FollowUpTab(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.openLeadPage,
         page: () => OpenLeadPageFoll(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
     name: ConstantRoutes.filtrOPLP,
     page: () => FilterOpenLeadPage(),
     transition: Transition.fade,
-    transitionDuration: Duration(seconds: 1)),
+    transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.newprofile,
         page: () => NewProfile(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.targets,
-        page: () => Target(),
+        page: () => const Target(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.testing,
-        page: () => Testing(),
+        page: () =>const Testing(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.accounts,
-        page: () => Accounts(),
+        page: () =>const Accounts(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.accountsDetails,
         page: () => AccountsDetails(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.offerZone,
-        page: () => OfferZone(),
+        page: () =>const OfferZone(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.confirmPassWord,
-        page: () => ConfirmPasswordPage(),
+        page: () =>const ConfirmPasswordPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.photoViewer,
         page: () => PhotoViewer(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.feedsCreation,
         page: () => FeedCrt(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.scanQrcode,
         page: () => ScanningPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.screenshot,
-        page: () => ScreenShotPage(),
+        page: () =>const ScreenShotPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 //
     GetPage<dynamic>(
         name: ConstantRoutes.daystartend,
-        page: () => DayStartEndPage(),
+        page: () =>const DayStartEndPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.cameraPage,
-        page: () => cameraPage(),
+        page: () =>const cameraPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.visitplan,
         page: () => visitplanPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.newvisitplan,
         page: () => NewVisitPlan(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.newcustomerReg,
         page: () => NewCustomerReg(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.collectionlist,
-        page: () => Collections(),
+        page: () =>const Collections(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.newcollection,
         page: () => NewCollectionEntry(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     // GetPage<dynamic>(
     //     name: ConstantRoutes.collectioSuccess,
     //     page: () => CollectionSuccessPage(),
@@ -394,50 +393,50 @@ class Routes {
         name: ConstantRoutes.settlement,
         page: () => SettlementTabPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.sitein,
-        page: () => SiteInPage(),
+        page: () =>const SiteInPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.newsitein,
         page: () => NewSiteIn(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
          GetPage<dynamic>(
         name: ConstantRoutes.restrictionValue,
-        page: () => RestrictionPage(),
+        page: () =>const RestrictionPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.siteOut,
         page: () => SiteOut(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
     GetPage<dynamic>(
         name: ConstantRoutes.dayEndPage,
-        page: () => DayEndPage(),
+        page: () =>const DayEndPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.leaveReq,
         page: () => LeaveReqPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.leaveApprove,
-        page: () => LeaveApprovePage(),
+        page: () =>const LeaveApprovePage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     GetPage<dynamic>(
         name: ConstantRoutes.leaveApprList,
-        page: () => LeaveAppList(),
+        page: () =>const LeaveAppList(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
 
     // GetPage<dynamic>(
     //     name: ConstantRoutes.quatation,
@@ -446,24 +445,24 @@ class Routes {
     //     transitionDuration: Duration(seconds: 1)),
         GetPage<dynamic>(
         name: ConstantRoutes.quotespage,
-        page: () => quotepage(),
+        page: () =>const quotepage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
         GetPage<dynamic>(
         name: ConstantRoutes.quotesnew,
         page: () => QuoteNew(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
         GetPage<dynamic>(
         name: ConstantRoutes.outstanding,
-        page: () => OutStandingPage(),
+        page: () =>const OutStandingPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
         GetPage<dynamic>(
         name: ConstantRoutes.chagnePassword,
-        page: () => ConfirmPasswordPage(),
+        page: () =>const ConfirmPasswordPage(),
         transition: Transition.fade,
-        transitionDuration: Duration(seconds: 1)),
+        transitionDuration:const Duration(seconds: 1)),
         GetPage<dynamic>(
         name: ConstantRoutes.reports,
         page: () =>  const ReportsPage(title: '',),

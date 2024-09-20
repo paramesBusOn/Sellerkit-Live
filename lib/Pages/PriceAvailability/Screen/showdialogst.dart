@@ -259,8 +259,8 @@ class _showdialogstState extends State<showdialogst> {
              SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
                         ),
-            createTable7(theme,widget.getalldata),
-            createTable2(theme,widget.getalldata),
+     ConstantValues.showallslab!.toLowerCase() !='y'?Container():        createTable7(theme,widget.getalldata),
+        ConstantValues.showallslab!.toLowerCase() !='y'?Container():     createTable2(theme,widget.getalldata),
             Container(
                         // width: Screens.width(context)*0.7,
                         // color: Colors.red,
@@ -286,7 +286,29 @@ class _showdialogstState extends State<showdialogst> {
                       ),
             createTable6(theme,widget.getalldata),
             
-              createTable(theme)
+             ConstantValues.showallslab!.toLowerCase() !='y'?Container():  createTable(theme),
+             
+               if(ConstantValues.showallslab!.toLowerCase() =='y')...[
+  Container()
+]
+
+else ...[
+   if (context.read<PriceListController>().Particularprice.length <= 5) ...[
+      createTableparticular(theme, widget.getalldata, context),
+    ] else if (context.read<PriceListController>().Particularprice.length <= 10) ...[
+      createTableparticular(theme, widget.getalldata, context),
+      SizedBox(height: 5),
+      createTableparticular2(theme, widget.getalldata, context),
+    ] else if (context.read<PriceListController>().Particularprice.length <= 15) ...[
+      createTableparticular(theme, widget.getalldata, context),
+      SizedBox(height: 5),
+      createTableparticular2(theme, widget.getalldata, context),
+      SizedBox(height: 5),
+      createTableparticular3(theme, widget.getalldata, context),
+    ] else ...[
+      Container(), // Fallback if none of the conditions are met
+    ],
+],  
                 ])
         
             //           Container(
@@ -314,7 +336,738 @@ class _showdialogstState extends State<showdialogst> {
       ),
     );
   }
+Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,BuildContext context) {
+ 
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+ context.read<PriceListController>().Particularprice.length > 0 &&   context.read<PriceListController>().Particularprice[0] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().Particularprice[0].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ):Container(),
+ context.read<PriceListController>().Particularprice.length > 1 &&   context.read<PriceListController>().Particularprice[1] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().Particularprice[1].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+ context.read<PriceListController>(). Particularprice.length > 2 &&  context.read<PriceListController>().Particularprice[2] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().Particularprice[2].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+ context.read<PriceListController>().  Particularprice.length > 3 && context.read<PriceListController>(). Particularprice[3] !=null?  Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().Particularprice[3].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 4 &&  context.read<PriceListController>().  Particularprice[4] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[4].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+  context.read<PriceListController>().  Particularprice.length > 0 &&  context.read<PriceListController>().  Particularprice[0].PriceList !=null?
+     Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[0].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 1 &&  context.read<PriceListController>().  Particularprice[1].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+         context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[1].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 2 &&  context.read<PriceListController>().  Particularprice[2].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[2].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 3 &&   context.read<PriceListController>().  Particularprice[3].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[3].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+   context.read<PriceListController>().  Particularprice.length > 4 &&   context.read<PriceListController>().  Particularprice[4].PriceList !=null? Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[4].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
 
+
+  Widget createTableparticular2(ThemeData theme, ItemMasterDBModel getalldata,BuildContext context) {
+ 
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+ context.read<PriceListController>().  Particularprice.length > 5 &&   context.read<PriceListController>().  Particularprice[5] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[5].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ):Container(),
+ context.read<PriceListController>().  Particularprice.length > 6 &&   context.read<PriceListController>().  Particularprice[6] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[6].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 7 &&  context.read<PriceListController>().  Particularprice[7] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[7].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+   context.read<PriceListController>().  Particularprice.length > 8 &&  context.read<PriceListController>().  Particularprice[8] !=null?  Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[8].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 9 &&  context.read<PriceListController>().  Particularprice[9] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[9].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+  context.read<PriceListController>().  Particularprice.length > 5 &&  context.read<PriceListController>().  Particularprice[5].PriceList !=null?
+     Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[5].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 6 &&  context.read<PriceListController>().  Particularprice[6].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+         context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[6].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 7 &&  context.read<PriceListController>().  Particularprice[7].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[7].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 8 &&   context.read<PriceListController>().  Particularprice[8].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[8].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+   context.read<PriceListController>().  Particularprice.length > 9 &&   context.read<PriceListController>().  Particularprice[9].PriceList !=null? Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[9].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+
+  Widget createTableparticular3(ThemeData theme, ItemMasterDBModel getalldata,BuildContext context) {
+ 
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+ context.read<PriceListController>().  Particularprice.length > 10 &&   context.read<PriceListController>().  Particularprice[10] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[10].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ):Container(),
+ context.read<PriceListController>().  Particularprice.length > 11 &&   context.read<PriceListController>().  Particularprice[11] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[11].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 12 &&  context.read<PriceListController>().  Particularprice[12] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[12].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+   context.read<PriceListController>().  Particularprice.length > 13 &&  context.read<PriceListController>().  Particularprice[13] !=null?  Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[13].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 14 &&  context.read<PriceListController>().  Particularprice[14] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${context.read<PriceListController>().  Particularprice[14].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+  context.read<PriceListController>().  Particularprice.length > 10 &&  context.read<PriceListController>().  Particularprice[10].PriceList !=null?
+     Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[10].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 11 &&  context.read<PriceListController>().  Particularprice[11].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+         context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[11].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 12 &&  context.read<PriceListController>().  Particularprice[12].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[12].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  context.read<PriceListController>().  Particularprice.length > 13 &&   context.read<PriceListController>().  Particularprice[13].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[13].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+   context.read<PriceListController>().  Particularprice.length > 14 &&   context.read<PriceListController>().  Particularprice[14].PriceList !=null? Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(getalldata.mgrPrice.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(getalldata.sp.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(getalldata.slpPrice.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(getalldata.ssp1.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(getalldata.ssp2.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(getalldata.ssp3.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(getalldata.ssp4.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(getalldata.ssp5.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(getalldata.ssp1Inc.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(getalldata.ssp2Inc.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(getalldata.ssp3Inc.toString()):
+        context.read<PriceListController>().  Particularprice[14].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(getalldata.ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
   Widget createTable2(ThemeData theme, ItemMasterDBModel getalldata) {
     List<TableRow> rows = [];
     rows.add(TableRow(children: [

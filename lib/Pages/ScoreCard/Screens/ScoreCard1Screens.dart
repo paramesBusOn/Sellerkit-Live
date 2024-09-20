@@ -51,110 +51,215 @@ class _ScoreCardScreenOneState extends State<ScoreCardScreenOne> {
                 return Consumer<ScoreCardController>(
                     builder: (BuildContext context, prdSCD, Widget? child) {
                   return SafeArea(
-                      child: prdSCD.getscorecardDataExcep.isEmpty &&
-                              prdSCD.getscoreloading == true
-                          ? Center(
-                              child: CircularProgressIndicator(
-                              color: theme.primaryColor,
-                            ))
-                          : prdSCD.getscorecardDataExcep.isNotEmpty &&
-                                  prdSCD.getscoreloading == false
-                              ? Center(
-                                  child: Text(prdSCD.getscorecardDataExcep))
-                              : SingleChildScrollView(
-                                  child: Container(
-                                      // height: Screens.padingHeight(context) * 1.6,
-                                      padding: paddings.padding2(context),
-                                      child: Column(
-                                        children: [
-                                          MonthToperWidget(
-                                            theme: theme,
-                                            prdFUP: prdSCD,
-                                          ),
+                      child: Column(children: [
+                        Text("itemMasterlegth :${ConstantValues.itemMasterlegth}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                      //   Text("tableItemMasterlenth :${ConstantValues.tableItemMasterlenth}"),
+                      //  SizedBox(
+                      //   height: Screens.padingHeight(context)*0.01,
+                      //  ),
+                       Text("ItemMasApi :${ConstantValues.ItemMasApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("ItemMasDB :${ConstantValues.ItemMasDB}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("configApi :${ConstantValues.configApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("enquiryTypeApi :${ConstantValues.enquiryTypeApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("customerTagTypeApi :${ConstantValues.customerTagTypeApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("levelofApi :${ConstantValues.levelofApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("orderTypeApi :${ConstantValues.orderTypeApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("enquiryRefferesApi :${ConstantValues.enquiryRefferesApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("stateApiNew :${ConstantValues.stateApiNew}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("GetUserApi :${ConstantValues.GetUserApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
 
-                                          BranchToperWidget(
-                                            theme: theme,
-                                            prdFUP: prdSCD,
-                                          ),
+                       Text("GetLeadStatusApi :${ConstantValues.GetLeadStatusApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),Text("ProfileApi :${ConstantValues.ProfileApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("OfferZoneApi1 :${ConstantValues.OfferZoneApi1}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("MenuAuthApi :${ConstantValues.MenuAuthApi}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("inserstateMaster :${ConstantValues.inserstateMaster}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("insertCusTagType :${ConstantValues.insertCusTagType}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
 
-                                          SpecialPerformerWidget(
-                                            theme: theme,
-                                            prdFUP: prdSCD,
-                                          ),
+                       Text("insertlevelofType :${ConstantValues.insertlevelofType}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("insertEnqType :${ConstantValues.insertEnqType}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("insertOrderTypeta :${ConstantValues.insertOrderTypeta}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("insertEnqReffers :${ConstantValues.insertEnqReffers}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("insertUserList :${ConstantValues.insertUserList}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                       Text("insertLeadStatusList :${ConstantValues.insertLeadStatusList}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                         Text("insertOfferZone :${ConstantValues.insertOfferZone}"),
+                       SizedBox(
+                        height: Screens.padingHeight(context)*0.01,
+                       ),
+                        
+                      ],)
+                      // prdSCD.getscorecardDataExcep.isEmpty &&
+                      //         prdSCD.getscoreloading == true
+                      //     ? Center(
+                      //         child: CircularProgressIndicator(
+                      //         color: theme.primaryColor,
+                      //       ))
+                      //     : prdSCD.getscorecardDataExcep.isNotEmpty &&
+                      //             prdSCD.getscoreloading == false
+                      //         ? Center(
+                      //             child: Text(prdSCD.getscorecardDataExcep))
+                      //         : SingleChildScrollView(
+                      //             child: Container(
+                      //                 // height: Screens.padingHeight(context) * 1.6,
+                      //                 padding: paddings.padding2(context),
+                      //                 child: Column(
+                      //                   children: [
+                      //                     MonthToperWidget(
+                      //                       theme: theme,
+                      //                       prdFUP: prdSCD,
+                      //                     ),
 
-                                          PositionWidget(
-                                            theme: theme,
-                                            prdFUP: prdSCD,
-                                          ),
+                      //                     BranchToperWidget(
+                      //                       theme: theme,
+                      //                       prdFUP: prdSCD,
+                      //                     ),
 
-                                          ListView.builder(
-                                            physics: BouncingScrollPhysics(),
-                                            shrinkWrap: true,
-                                            itemCount:
-                                                prdSCD.getlistViewData.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              var keyss = prdSCD.getlistViewData
-                                                  .toList();
+                      //                     SpecialPerformerWidget(
+                      //                       theme: theme,
+                      //                       prdFUP: prdSCD,
+                      //                     ),
 
-                                              return Container(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical:
-                                                        Screens.bodyheight(
-                                                                context) *
-                                                            0.01,
-                                                    horizontal:
-                                                        Screens.width(context) *
-                                                            0.03),
-                                                color: index % 2 == 0
-                                                    ? Colors.grey[200]
-                                                    : Colors.white,
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        SizedBox(
-                                                          child: Text(
-                                                              keyss[index]
-                                                                  .kpi
-                                                                  .toString(),
-                                                              style: theme
-                                                                  .textTheme
-                                                                  .subtitle1),
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Container(
-                                                              //  color: Colors.red,
-                                                              alignment: Alignment
-                                                                  .centerRight,
-                                                              width: Screens.width(
-                                                                      context) *
-                                                                  0.2,
-                                                              child: Text(
-                                                                  keyss[index]
-                                                                      .rank
-                                                                      .toString(),
-                                                                  style: theme
-                                                                      .textTheme
-                                                                      .bodyLarge),
-                                                            ),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          )
-                                          // )),
-                                        ],
-                                        // ),
-                                      ))));
+                      //                     PositionWidget(
+                      //                       theme: theme,
+                      //                       prdFUP: prdSCD,
+                      //                     ),
+
+                      //                     ListView.builder(
+                      //                       physics: BouncingScrollPhysics(),
+                      //                       shrinkWrap: true,
+                      //                       itemCount:
+                      //                           prdSCD.getlistViewData.length,
+                      //                       itemBuilder: (BuildContext context,
+                      //                           int index) {
+                      //                         var keyss = prdSCD.getlistViewData
+                      //                             .toList();
+
+                      //                         return Container(
+                      //                           padding: EdgeInsets.symmetric(
+                      //                               vertical:
+                      //                                   Screens.bodyheight(
+                      //                                           context) *
+                      //                                       0.01,
+                      //                               horizontal:
+                      //                                   Screens.width(context) *
+                      //                                       0.03),
+                      //                           color: index % 2 == 0
+                      //                               ? Colors.grey[200]
+                      //                               : Colors.white,
+                      //                           child: Column(
+                      //                             children: [
+                      //                               Row(
+                      //                                 mainAxisAlignment:
+                      //                                     MainAxisAlignment
+                      //                                         .spaceBetween,
+                      //                                 children: [
+                      //                                   SizedBox(
+                      //                                     child: Text(
+                      //                                         keyss[index]
+                      //                                             .kpi
+                      //                                             .toString(),
+                      //                                         style: theme
+                      //                                             .textTheme
+                      //                                             .subtitle1),
+                      //                                   ),
+                      //                                   Row(
+                      //                                     children: [
+                      //                                       Container(
+                      //                                         //  color: Colors.red,
+                      //                                         alignment: Alignment
+                      //                                             .centerRight,
+                      //                                         width: Screens.width(
+                      //                                                 context) *
+                      //                                             0.2,
+                      //                                         child: Text(
+                      //                                             keyss[index]
+                      //                                                 .rank
+                      //                                                 .toString(),
+                      //                                             style: theme
+                      //                                                 .textTheme
+                      //                                                 .bodyLarge),
+                      //                                       ),
+                      //                                     ],
+                      //                                   )
+                      //                                 ],
+                      //                               )
+                      //                             ],
+                      //                           ),
+                      //                         );
+                      //                       },
+                      //                     )
+                      //                     // )),
+                      //                   ],
+                      //                   // ),
+                      //                 )))
+                      );
                 });
               }),
         ));

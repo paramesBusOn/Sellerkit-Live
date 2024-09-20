@@ -70,37 +70,23 @@ class _FollowDialogState extends State<FollowDialog> {
           //             .isEmpty &&
           //         context.watch<OrderTabController>().getisSameBranch == true)
           //         &&
-                  (context.read<OrderTabController>().iscalltrue ==
-                  true )?callLoadingPage(context): (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
-                  context.watch<OrderTabController>().getleadForwarddialog ==
-                      false &&
-                  context.watch<OrderTabController>().getleadLoadingdialog ==
-                      false &&
-                  context.watch<OrderTabController>().getviewDetailsdialog ==
-                      false &&
-                  context
-                      .watch<OrderTabController>()
-                      .getforwardSuccessMsg
-                      .isEmpty &&
-                  context.watch<OrderTabController>().getisSameBranch == true)
-              ? CallDialog(context, theme)
+          (context.read<OrderTabController>().iscalltrue == true)
+              ? callLoadingPage(context)
               : (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
                       context.watch<OrderTabController>().getleadForwarddialog ==
                           false &&
                       context.watch<OrderTabController>().getleadLoadingdialog ==
                           false &&
                       context.watch<OrderTabController>().getviewDetailsdialog ==
-                          true &&
+                          false &&
                       context
                           .watch<OrderTabController>()
                           .getforwardSuccessMsg
                           .isEmpty &&
                       context.watch<OrderTabController>().getisSameBranch ==
                           true)
-                  ? detailsDialog(context, theme)
-                  :
-                  //
-                  (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
+                  ? CallDialog(context, theme)
+                  : (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
                           context.watch<OrderTabController>().getleadForwarddialog ==
                               false &&
                           context.watch<OrderTabController>().getleadLoadingdialog ==
@@ -112,34 +98,32 @@ class _FollowDialogState extends State<FollowDialog> {
                               .getforwardSuccessMsg
                               .isEmpty &&
                           context.watch<OrderTabController>().getisSameBranch ==
-                              false)
-                      ? detailsDialogLead(context, theme)
-
+                              true)
+                      ? detailsDialog(context, theme)
+                      :
                       //
-                      : (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
+                      (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
                               context.watch<OrderTabController>().getleadForwarddialog ==
-                                  true &&
+                                  false &&
                               context.watch<OrderTabController>().getleadLoadingdialog ==
                                   false &&
                               context.watch<OrderTabController>().getviewDetailsdialog ==
-                                  false &&
+                                  true &&
                               context
                                   .watch<OrderTabController>()
                                   .getforwardSuccessMsg
                                   .isEmpty &&
                               context.watch<OrderTabController>().getisSameBranch ==
-                                  true)
-                          ? forwardDialog(context, theme)
+                                  false)
+                          ? detailsDialogLead(context, theme)
+
+                          //
                           : (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
                                   context.watch<OrderTabController>().getleadForwarddialog ==
                                       true &&
-                                  context
-                                          .watch<OrderTabController>()
-                                          .getleadLoadingdialog ==
-                                      true &&
-                                  context
-                                          .watch<OrderTabController>()
-                                          .getviewDetailsdialog ==
+                                  context.watch<OrderTabController>().getleadLoadingdialog ==
+                                      false &&
+                                  context.watch<OrderTabController>().getviewDetailsdialog ==
                                       false &&
                                   context
                                       .watch<OrderTabController>()
@@ -147,15 +131,29 @@ class _FollowDialogState extends State<FollowDialog> {
                                       .isEmpty &&
                                   context.watch<OrderTabController>().getisSameBranch ==
                                       true)
-                              ? loadingDialog(context)
+                              ? forwardDialog(context, theme)
                               : (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
-                                      context.watch<OrderTabController>().getleadForwarddialog == true &&
-                                      context.watch<OrderTabController>().getleadLoadingdialog == false &&
-                                      context.watch<OrderTabController>().getviewDetailsdialog == false &&
-                                      context.watch<OrderTabController>().getforwardSuccessMsg.isNotEmpty &&
-                                      context.watch<OrderTabController>().getisSameBranch == true)
-                                  ? displayDialog(context, theme)
-                                  : UpdateFollowup(context, theme),
+                                      context.watch<OrderTabController>().getleadForwarddialog ==
+                                          true &&
+                                      context.watch<OrderTabController>().getleadLoadingdialog ==
+                                          true &&
+                                      context.watch<OrderTabController>().getviewDetailsdialog ==
+                                          false &&
+                                      context
+                                          .watch<OrderTabController>()
+                                          .getforwardSuccessMsg
+                                          .isEmpty &&
+                                      context.watch<OrderTabController>().getisSameBranch ==
+                                          true)
+                                  ? loadingDialog(context)
+                                  : (context.watch<OrderTabController>().getupdateFollowUpDialog == false &&
+                                          context.watch<OrderTabController>().getleadForwarddialog == true &&
+                                          context.watch<OrderTabController>().getleadLoadingdialog == false &&
+                                          context.watch<OrderTabController>().getviewDetailsdialog == false &&
+                                          context.watch<OrderTabController>().getforwardSuccessMsg.isNotEmpty &&
+                                          context.watch<OrderTabController>().getisSameBranch == true)
+                                      ? displayDialog(context, theme)
+                                      : UpdateFollowup(context, theme),
     );
   }
 
@@ -314,18 +312,30 @@ class _FollowDialogState extends State<FollowDialog> {
           children: [
             Container(
                 width: Screens.width(context),
-                //  height: Screens.bodyheight(context)*0.5,
+                height: Screens.padingHeight(context) * 0.06,
+                child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                    )),
+                    child: Text("Alert"))),
+            Container(
+                width: Screens.width(context),
+                //  height: Screens.bodyheight(context)*0.06,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
-                 color:Colors.white,
+                  color: Colors.white,
                 ),
                 padding: EdgeInsets.only(
                   left: Screens.width(context) * 0.05,
                   right: Screens.width(context) * 0.05,
-                  top: Screens.bodyheight(context) * 0.03,
+                  top: Screens.bodyheight(context) * 0.01,
                   //  bottom: Screens.bodyheight(context)*0.03,
                 ),
-                 
                 child: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -339,12 +349,12 @@ class _FollowDialogState extends State<FollowDialog> {
                                   .getcaseStatusSelected ==
                               'Won'
                           ? InkWell(
-                            onTap: (){
-                              setState(() {
-                                 FocusScope.of(context).unfocus();
-                              });
-                            },
-                            child: Column(
+                              onTap: () {
+                                setState(() {
+                                  FocusScope.of(context).unfocus();
+                                });
+                              },
+                              child: Column(
                                 children: [
                                   SizedBox(
                                     height: Screens.bodyheight(context) * 0.01,
@@ -357,13 +367,15 @@ class _FollowDialogState extends State<FollowDialog> {
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                               color: Colors.grey[400]!),
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
                                         ),
                                         focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: Colors.grey[400]!,
                                           ),
-                                          borderRadius: BorderRadius.circular(6),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
                                         ),
                                         hintText: context
                                             .read<OrderTabController>()
@@ -392,20 +404,21 @@ class _FollowDialogState extends State<FollowDialog> {
                                     height: Screens.bodyheight(context) * 0.01,
                                   ),
                                   //AttachMents
-                          
+
                                   Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(8),
-                                        border:
-                                            Border.all(color: Colors.grey[400]!)),
+                                        border: Border.all(
+                                            color: Colors.grey[400]!)),
                                     padding: EdgeInsets.only(
-                                        top: Screens.padingHeight(context) * 0.01,
-                                        left:
-                                            Screens.padingHeight(context) * 0.01,
-                                        bottom:
-                                            Screens.padingHeight(context) * 0.015,
-                                        right:
-                                            Screens.padingHeight(context) * 0.01),
+                                        top: Screens.padingHeight(context) *
+                                            0.01,
+                                        left: Screens.padingHeight(context) *
+                                            0.01,
+                                        bottom: Screens.padingHeight(context) *
+                                            0.015,
+                                        right: Screens.padingHeight(context) *
+                                            0.01),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -428,16 +441,17 @@ class _FollowDialogState extends State<FollowDialog> {
                                               children: [
                                                 Container(
                                                     // alignment: Alignment.center,
-                                                    height: Screens.padingHeight(
-                                                            context) *
-                                                        0.06,
+                                                    height:
+                                                        Screens.padingHeight(
+                                                                context) *
+                                                            0.06,
                                                     width:
                                                         Screens.width(context) *
                                                             0.13,
                                                     decoration: BoxDecoration(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                6),
+                                                            BorderRadius
+                                                                .circular(6),
                                                         color: context
                                                                     .read<
                                                                         OrderTabController>()
@@ -461,28 +475,23 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                   setState(() {
                                                                     log("files length" +
                                                                         context
-                                                                            .read<
-                                                                                OrderTabController>()
+                                                                            .read<OrderTabController>()
                                                                             .files
                                                                             .length
                                                                             .toString());
                                                                     // showtoast();
                                                                     if (context
-                                                                            .read<
-                                                                                OrderTabController>()
+                                                                            .read<OrderTabController>()
                                                                             .files
                                                                             .length <=
                                                                         1) {
                                                                       setState(
                                                                           () {
                                                                         context
-                                                                            .read<
-                                                                                OrderTabController>()
-                                                                            .imagetoBinary(
-                                                                                ImageSource.camera);
+                                                                            .read<OrderTabController>()
+                                                                            .imagetoBinary(ImageSource.camera);
                                                                         context
-                                                                            .read<
-                                                                                OrderTabController>()
+                                                                            .read<OrderTabController>()
                                                                             .fileValidation = false;
                                                                       });
                                                                     } else {
@@ -501,23 +510,25 @@ class _FollowDialogState extends State<FollowDialog> {
                                                           )),
                                                     )),
                                                 SizedBox(
-                                                  width: Screens.width(context) *
-                                                      0.02,
+                                                  width:
+                                                      Screens.width(context) *
+                                                          0.02,
                                                 ),
-                          
+
                                                 //old
                                                 Container(
                                                     // alignment: Alignment.center,
-                                                    height: Screens.padingHeight(
-                                                            context) *
-                                                        0.06,
+                                                    height:
+                                                        Screens.padingHeight(
+                                                                context) *
+                                                            0.06,
                                                     width:
                                                         Screens.width(context) *
                                                             0.13,
                                                     decoration: BoxDecoration(
                                                         borderRadius:
-                                                            BorderRadius.circular(
-                                                                6),
+                                                            BorderRadius
+                                                                .circular(6),
                                                         color: context
                                                                     .read<
                                                                         OrderTabController>()
@@ -539,33 +550,32 @@ class _FollowDialogState extends State<FollowDialog> {
                                                               ? null
                                                               : () {
                                                                   setState(() {
-                                                                    log("files222 length" + context
-                                                                            .read<
-                                                                                OrderTabController>()
-                                                                            .files.length.toString());
+                                                                    log("files222 length" +
+                                                                        context
+                                                                            .read<OrderTabController>()
+                                                                            .files
+                                                                            .length
+                                                                            .toString());
                                                                     // showtoast();
                                                                     if (context
-                                                                            .read<
-                                                                                OrderTabController>()
+                                                                            .read<OrderTabController>()
                                                                             .files
                                                                             .length <=
                                                                         1) {
                                                                       setState(
                                                                           () {
                                                                         context
-                                                                            .read<
-                                                                                OrderTabController>()
+                                                                            .read<OrderTabController>()
                                                                             .selectattachment();
-                          
+
                                                                         context
-                                                                            .read<
-                                                                                OrderTabController>()
+                                                                            .read<OrderTabController>()
                                                                             .fileValidation = false;
                                                                       });
                                                                     } else {
                                                                       print(
                                                                           "obAAAAAject");
-                          
+
                                                                       context
                                                                           .read<
                                                                               OrderTabController>()
@@ -585,22 +595,26 @@ class _FollowDialogState extends State<FollowDialog> {
                                       ],
                                     ),
                                   ),
-                          
+
                                   SizedBox(
                                     height: Screens.bodyheight(context) * 0.01,
                                   ),
-                          
-                                  context.read<OrderTabController>().files == null
+
+                                  context.read<OrderTabController>().files ==
+                                          null
                                       ? Container(
                                           height:
-                                              Screens.padingHeight(context) * 0.3,
+                                              Screens.padingHeight(context) *
+                                                  0.3,
                                           padding: EdgeInsets.only(
                                             top: Screens.padingHeight(context) *
                                                 0.001,
-                                            right: Screens.padingHeight(context) *
-                                                0.015,
-                                            left: Screens.padingHeight(context) *
-                                                0.015,
+                                            right:
+                                                Screens.padingHeight(context) *
+                                                    0.015,
+                                            left:
+                                                Screens.padingHeight(context) *
+                                                    0.015,
                                             bottom:
                                                 Screens.padingHeight(context) *
                                                     0.015,
@@ -633,7 +647,8 @@ class _FollowDialogState extends State<FollowDialog> {
                                               )))
                                       : Container(
                                           height: context
-                                                      .read<OrderTabController>()
+                                                      .read<
+                                                          OrderTabController>()
                                                       .files
                                                       .length ==
                                                   0
@@ -644,10 +659,12 @@ class _FollowDialogState extends State<FollowDialog> {
                                           padding: EdgeInsets.only(
                                             top: Screens.padingHeight(context) *
                                                 0.001,
-                                            right: Screens.padingHeight(context) *
-                                                0.005,
-                                            left: Screens.padingHeight(context) *
-                                                0.005,
+                                            right:
+                                                Screens.padingHeight(context) *
+                                                    0.005,
+                                            left:
+                                                Screens.padingHeight(context) *
+                                                    0.005,
                                             bottom:
                                                 Screens.padingHeight(context) *
                                                     0.015,
@@ -658,7 +675,8 @@ class _FollowDialogState extends State<FollowDialog> {
                                                   .files
                                                   .length,
                                               itemBuilder:
-                                                  (BuildContext context, int i) {
+                                                  (BuildContext context,
+                                                      int i) {
                                                 if (context
                                                     .read<OrderTabController>()
                                                     .files[i]
@@ -688,12 +706,13 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                           context) *
                                                                   0.06,
                                                               child: Center(
-                                                                  child: Image.asset(
-                                                                      "Assets/img.jpg"))),
+                                                                  child: Image
+                                                                      .asset(
+                                                                          "Assets/img.jpg"))),
                                                           Container(
                                                               padding:
-                                                                  EdgeInsets.all(
-                                                                      10),
+                                                                  EdgeInsets
+                                                                      .all(10),
                                                               decoration:
                                                                   BoxDecoration(),
                                                               width: Screens.width(
@@ -722,15 +741,17 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                           context) *
                                                                   0.06,
                                                               child: IconButton(
-                                                                  onPressed: () {
-                                                                    setState(() {
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
                                                                       context
                                                                           .read<
                                                                               OrderTabController>()
                                                                           .files
                                                                           .removeAt(
                                                                               i);
-                                                                              context
+                                                                      context
                                                                           .read<
                                                                               OrderTabController>()
                                                                           .filedata
@@ -777,12 +798,13 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                           context) *
                                                                   0.06,
                                                               child: Center(
-                                                                  child: Image.asset(
-                                                                      "Assets/img.jpg"))),
+                                                                  child: Image
+                                                                      .asset(
+                                                                          "Assets/img.jpg"))),
                                                           Container(
                                                               padding:
-                                                                  EdgeInsets.all(
-                                                                      10),
+                                                                  EdgeInsets
+                                                                      .all(10),
                                                               decoration:
                                                                   BoxDecoration(),
                                                               width: Screens.width(
@@ -810,15 +832,17 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                           context) *
                                                                   0.06,
                                                               child: IconButton(
-                                                                  onPressed: () {
-                                                                    setState(() {
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
                                                                       context
                                                                           .read<
                                                                               OrderTabController>()
                                                                           .files
                                                                           .removeAt(
                                                                               i);
-                                                                              context
+                                                                      context
                                                                           .read<
                                                                               OrderTabController>()
                                                                           .filedata
@@ -872,8 +896,8 @@ class _FollowDialogState extends State<FollowDialog> {
                                                           ),
                                                           Container(
                                                               padding:
-                                                                  EdgeInsets.all(
-                                                                      10),
+                                                                  EdgeInsets
+                                                                      .all(10),
                                                               decoration:
                                                                   BoxDecoration(),
                                                               width: Screens.width(
@@ -901,15 +925,17 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                           context) *
                                                                   0.06,
                                                               child: IconButton(
-                                                                  onPressed: () {
-                                                                    setState(() {
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
                                                                       context
                                                                           .read<
                                                                               OrderTabController>()
                                                                           .files
                                                                           .removeAt(
                                                                               i);
-                                                                              context
+                                                                      context
                                                                           .read<
                                                                               OrderTabController>()
                                                                           .filedata
@@ -957,12 +983,13 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                           context) *
                                                                   0.06,
                                                               child: Center(
-                                                                  child: Image.asset(
-                                                                      "Assets/xls.png"))),
+                                                                  child: Image
+                                                                      .asset(
+                                                                          "Assets/xls.png"))),
                                                           Container(
                                                               padding:
-                                                                  EdgeInsets.all(
-                                                                      10),
+                                                                  EdgeInsets
+                                                                      .all(10),
                                                               decoration:
                                                                   BoxDecoration(),
                                                               width: Screens.width(
@@ -990,15 +1017,17 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                           context) *
                                                                   0.06,
                                                               child: IconButton(
-                                                                  onPressed: () {
-                                                                    setState(() {
+                                                                  onPressed:
+                                                                      () {
+                                                                    setState(
+                                                                        () {
                                                                       context
                                                                           .read<
                                                                               OrderTabController>()
                                                                           .files
                                                                           .removeAt(
                                                                               i);
-                                                                              context
+                                                                      context
                                                                           .read<
                                                                               OrderTabController>()
                                                                           .filedata
@@ -1020,9 +1049,10 @@ class _FollowDialogState extends State<FollowDialog> {
                                                 return Container(
                                                     child: Column(children: [
                                                   SizedBox(
-                                                    height: Screens.padingHeight(
-                                                            context) *
-                                                        0.01,
+                                                    height:
+                                                        Screens.padingHeight(
+                                                                context) *
+                                                            0.01,
                                                   ),
                                                   Row(
                                                       mainAxisAlignment:
@@ -1032,9 +1062,10 @@ class _FollowDialogState extends State<FollowDialog> {
                                                         Container(
                                                             decoration:
                                                                 BoxDecoration(),
-                                                            width: Screens.width(
-                                                                    context) *
-                                                                0.09,
+                                                            width:
+                                                                Screens.width(
+                                                                        context) *
+                                                                    0.09,
                                                             height: Screens
                                                                     .padingHeight(
                                                                         context) *
@@ -1064,9 +1095,10 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                   .last,
                                                             )),
                                                         Container(
-                                                            width: Screens.width(
-                                                                    context) *
-                                                                0.1,
+                                                            width:
+                                                                Screens.width(
+                                                                        context) *
+                                                                    0.1,
                                                             height: Screens
                                                                     .padingHeight(
                                                                         context) *
@@ -1080,19 +1112,19 @@ class _FollowDialogState extends State<FollowDialog> {
                                                                         .files
                                                                         .removeAt(
                                                                             i);
-                                                                            context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .filedata
-                                                                          .removeAt(
-                                                                              i);
+                                                                    context
+                                                                        .read<
+                                                                            OrderTabController>()
+                                                                        .filedata
+                                                                        .removeAt(
+                                                                            i);
                                                                   });
                                                                 },
                                                                 icon: Icon(
                                                                   Icons
                                                                       .cancel_rounded,
-                                                                  color:
-                                                                      Colors.grey,
+                                                                  color: Colors
+                                                                      .grey,
                                                                 )))
                                                       ])
                                                 ]));
@@ -1127,19 +1159,21 @@ class _FollowDialogState extends State<FollowDialog> {
                                             ? () {
                                                 context
                                                     .read<OrderTabController>()
-                                                    .showFollowupWonDate(context);
+                                                    .showFollowupWonDate(
+                                                        context);
                                               }
                                             : null,
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
                                               horizontal:
-                                                  Screens.width(context) * 0.015),
+                                                  Screens.width(context) *
+                                                      0.015),
                                           width: Screens.width(context) * 0.4,
-                                          height:
-                                              Screens.bodyheight(context) * 0.05,
+                                          height: Screens.bodyheight(context) *
+                                              0.05,
                                           decoration: BoxDecoration(
-                                              border:
-                                                  Border.all(color: Colors.grey),
+                                              border: Border.all(
+                                                  color: Colors.grey),
                                               borderRadius:
                                                   BorderRadius.circular(4)),
                                           child: Row(
@@ -1147,22 +1181,25 @@ class _FollowDialogState extends State<FollowDialog> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Container(
-                                                width:
-                                                    Screens.width(context) * 0.24,
+                                                width: Screens.width(context) *
+                                                    0.24,
                                                 // color: Colors.red,
                                                 child: Text(
                                                   context
-                                                      .watch<OrderTabController>()
+                                                      .watch<
+                                                          OrderTabController>()
                                                       .getnextWonFD,
                                                   // context.read<OrderTabController>().getnextFD,
-                                                  style: theme.textTheme.bodyText2
+                                                  style: theme
+                                                      .textTheme.bodyText2
                                                       ?.copyWith(), //fontSize: 12
                                                 ),
                                               ),
                                               Container(
-                                                alignment: Alignment.centerRight,
-                                                width:
-                                                    Screens.width(context) * 0.12,
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                width: Screens.width(context) *
+                                                    0.12,
                                                 // color: Colors.red,
                                                 child: Icon(
                                                   Icons.calendar_month,
@@ -1181,986 +1218,993 @@ class _FollowDialogState extends State<FollowDialog> {
                                   ),
                                 ],
                               ),
-                          )
+                            )
                           : context
-                                  .read<OrderTabController>()
-                                  .getcaseStatusSelected ==
-                              'Invoice'?
-                               InkWell(
-                                 onTap: (){
-                              setState(() {
-                                 FocusScope.of(context).unfocus();
-                              });
-                            },
-                                 child: Column(
-                                                             children: [
-                                  SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
-                                  ),
-                                  TextFormField(
-                                    controller: context
-                                        .read<OrderTabController>()
-                                        .mycontroller[1],
-                                    decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[400]!),
-                                          borderRadius: BorderRadius.circular(6),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.grey[400]!,
-                                          ),
-                                          borderRadius: BorderRadius.circular(6),
-                                        ),
-                                        hintText: context
+                                      .read<OrderTabController>()
+                                      .getcaseStatusSelected ==
+                                  'Invoice'
+                              ? InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      FocusScope.of(context).unfocus();
+                                    });
+                                  },
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height:
+                                            Screens.bodyheight(context) * 0.01,
+                                      ),
+                                      TextFormField(
+                                        controller: context
                                             .read<OrderTabController>()
-                                            .getorderInvBillRefer!,
-                                        hintStyle:
-                                            theme.textTheme.bodyText2?.copyWith(
-                                          color: context
-                                                  .read<OrderTabController>()
-                                                  .getorderInvBillRefer!
-                                                  .contains(" *")
-                                              ? Colors.red
-                                              : Colors.grey,
-                                          // fontSize: 14
-                                        ),
-                                        // TextStyle(
-                                        //     color: context
-                                        //             .read<OrderTabController>()
-                                        //             .getorderBillRefer!
-                                        //             .contains("*")
-                                        //         ? Colors.red
-                                        //         : Colors.black),
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 10)),
-                                  ),
-                                  SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
-                                  ),
-                               
-                                  TextFormField(
-                                    controller: context
-                                        .read<OrderTabController>()
-                                        .mycontroller[2],
-                                    keyboardType: TextInputType.number,
-                                    inputFormatters:[
-                                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
-                                    ],
-                                    decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey[400]!),
-                                          borderRadius: BorderRadius.circular(6),
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: Colors.grey[400]!,
-                                          ),
-                                          borderRadius: BorderRadius.circular(6),
-                                        ),
-                                        hintText: context
+                                            .mycontroller[1],
+                                        decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey[400]!),
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.grey[400]!,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            hintText: context
+                                                .read<OrderTabController>()
+                                                .getorderInvBillRefer!,
+                                            hintStyle: theme.textTheme.bodyText2
+                                                ?.copyWith(
+                                              color: context
+                                                      .read<
+                                                          OrderTabController>()
+                                                      .getorderInvBillRefer!
+                                                      .contains(" *")
+                                                  ? Colors.red
+                                                  : Colors.grey,
+                                              // fontSize: 14
+                                            ),
+                                            // TextStyle(
+                                            //     color: context
+                                            //             .read<OrderTabController>()
+                                            //             .getorderBillRefer!
+                                            //             .contains("*")
+                                            //         ? Colors.red
+                                            //         : Colors.black),
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 10,
+                                                    horizontal: 10)),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            Screens.bodyheight(context) * 0.01,
+                                      ),
+
+                                      TextFormField(
+                                        controller: context
                                             .read<OrderTabController>()
-                                            .getorderInvvalue!,
-                                        hintStyle:
-                                            theme.textTheme.bodyText2?.copyWith(
-                                          color: context
-                                                  .read<OrderTabController>()
-                                                  .getorderInvvalue!
-                                                  .contains(" *")
-                                              ? Colors.red
-                                              : Colors.grey,
-                                          // fontSize: 14
-                                        ),
-                                        // TextStyle(
-                                        //     color: context
-                                        //             .read<OrderTabController>()
-                                        //             .getorderBillRefer!
-                                        //             .contains("*")
-                                        //         ? Colors.red
-                                        //         : Colors.black),
-                                        contentPadding: EdgeInsets.symmetric(
-                                            vertical: 10, horizontal: 10)),
-                                  ),
-                                  SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
-                                  ),
-                                  //AttachMents
-                               
-                                  Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(color: Colors.grey)),
-                                    padding: EdgeInsets.only(
-                                        top: Screens.padingHeight(context) * 0.01,
-                                        left:
-                                            Screens.padingHeight(context) * 0.01,
-                                        bottom:
-                                            Screens.padingHeight(context) * 0.015,
-                                        right:
-                                            Screens.padingHeight(context) * 0.01),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text('Attachment',
-                                                style: theme.textTheme.bodyText2
-                                                    ?.copyWith(
-                                                        color: context
-                                                                    .read<
-                                                                        OrderTabController>()
-                                                                    .fileValidation ==
-                                                                true
-                                                            ? Colors.red
-                                                            : Colors.grey)),
-                                            Row(
-                                              children: [
-                                                Container(
-                                                    // alignment: Alignment.center,
-                                                    height: Screens.padingHeight(
-                                                            context) *
-                                                        0.06,
-                                                    width:
-                                                        Screens.width(context) *
-                                                            0.13,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                6),
-                                                        color: context
-                                                                    .read<
-                                                                        OrderTabController>()
-                                                                    .fileValidation ==
-                                                                true
-                                                            ? Colors.red
-                                                            : theme.primaryColor
-                                                        // shape: BoxShape
-                                                        //     .circle
-                                                        ),
-                                                    child: Center(
-                                                      child: IconButton(
-                                                          onPressed: context
-                                                                      .read<
-                                                                          OrderTabController>()
-                                                                      .files
-                                                                      .length >
-                                                                  2
-                                                              ? null
-                                                              : () {
-                                                                  setState(() {
-                                                                    // log("files length" +
-                                                                    //     context
-                                                                    //         .read<
-                                                                    //             OrderTabController>()
-                                                                    //         .files
-                                                                    //         .length
-                                                                    //         .toString());
-                                                                    // showtoast();
-                                                                    if (context
-                                                                            .read<
-                                                                                OrderTabController>()
-                                                                            .files
-                                                                            .length <=
-                                                                        1) {
-                                                                      setState(
-                                                                          () {
-                                                                        context
-                                                                            .read<
-                                                                                OrderTabController>()
-                                                                            .imagetoBinary(
-                                                                                ImageSource.camera);
-                                                                        context
-                                                                            .read<
-                                                                                OrderTabController>()
-                                                                            .fileValidation = false;
-                                                                      });
-                                                                    } else {
-                                                                      print(
-                                                                          "obAAAAAject");
-                                                                      context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .showtoast();
-                                                                    }
-                                                                  });
-                                                                },
-                                                          icon: Icon(
-                                                            Icons.photo_camera,
-                                                            color: Colors.white,
-                                                          )),
-                                                    )),
-                                                SizedBox(
-                                                  width: Screens.width(context) *
-                                                      0.02,
-                                                ),
-                               
-                                                //old
-                                                Container(
-                                                    // alignment: Alignment.center,
-                                                    height: Screens.padingHeight(
-                                                            context) *
-                                                        0.06,
-                                                    width:
-                                                        Screens.width(context) *
-                                                            0.13,
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                6),
-                                                        color: context
-                                                                    .read<
-                                                                        OrderTabController>()
-                                                                    .fileValidation ==
-                                                                true
-                                                            ? Colors.red
-                                                            : theme.primaryColor
-                                                        // shape: BoxShape
-                                                        //     .circle
-                                                        ),
-                                                    child: Center(
-                                                      child: IconButton(
-                                                          onPressed: context
-                                                                      .read<
-                                                                          OrderTabController>()
-                                                                      .files
-                                                                      .length >
-                                                                  2
-                                                              ? null
-                                                              : () {
-                                                                  setState(() {
-                                                                    // log("files length" + files.length.toString());
-                                                                    // showtoast();
-                                                                    if (context
-                                                                            .read<
-                                                                                OrderTabController>()
-                                                                            .files
-                                                                            .length <=
-                                                                        1) {
-                                                                      setState(
-                                                                          () {
-                                                                        context
-                                                                            .read<
-                                                                                OrderTabController>()
-                                                                            .selectattachment();
-                               
-                                                                        context
-                                                                            .read<
-                                                                                OrderTabController>()
-                                                                            .fileValidation = false;
-                                                                      });
-                                                                    } else {
-                                                                      print(
-                                                                          "obAAAAAject");
-                               
-                                                                      context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .showtoast();
-                                                                    }
-                                                                  });
-                                                                },
-                                                          icon: Icon(
-                                                            Icons.attach_file,
-                                                            color: Colors.white,
-                                                          )),
-                                                    )),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
-                                  ),
-                               
-                                  context.read<OrderTabController>().files == null
-                                      ? Container(
-                                          height:
-                                              Screens.padingHeight(context) * 0.3,
-                                          padding: EdgeInsets.only(
+                                            .mycontroller[2],
+                                        keyboardType: TextInputType.number,
+                                        inputFormatters: [
+                                          FilteringTextInputFormatter.allow(
+                                              RegExp(r'^\d+\.?\d{0,2}')),
+                                        ],
+                                        decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.grey[400]!),
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.grey[400]!,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                            ),
+                                            hintText: context
+                                                .read<OrderTabController>()
+                                                .getorderInvvalue!,
+                                            hintStyle: theme.textTheme.bodyText2
+                                                ?.copyWith(
+                                              color: context
+                                                      .read<
+                                                          OrderTabController>()
+                                                      .getorderInvvalue!
+                                                      .contains(" *")
+                                                  ? Colors.red
+                                                  : Colors.grey,
+                                              // fontSize: 14
+                                            ),
+                                            // TextStyle(
+                                            //     color: context
+                                            //             .read<OrderTabController>()
+                                            //             .getorderBillRefer!
+                                            //             .contains("*")
+                                            //         ? Colors.red
+                                            //         : Colors.black),
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    vertical: 10,
+                                                    horizontal: 10)),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            Screens.bodyheight(context) * 0.01,
+                                      ),
+                                      //AttachMents
+
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            border:
+                                                Border.all(color: Colors.grey)),
+                                        padding: EdgeInsets.only(
                                             top: Screens.padingHeight(context) *
-                                                0.001,
-                                            right: Screens.padingHeight(context) *
-                                                0.015,
-                                            left: Screens.padingHeight(context) *
-                                                0.015,
+                                                0.01,
+                                            left:
+                                                Screens.padingHeight(context) *
+                                                    0.01,
                                             bottom:
                                                 Screens.padingHeight(context) *
                                                     0.015,
-                                          ),
-                                          child: Container(
-                                              alignment: Alignment.center,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Center(
-                                                      child: Text(
-                                                    "No Files Selected",
+                                            right:
+                                                Screens.padingHeight(context) *
+                                                    0.01),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text('Attachment',
                                                     style: theme
-                                                        .textTheme.bodyText1!
-                                                        .copyWith(
+                                                        .textTheme.bodyText2
+                                                        ?.copyWith(
                                                             color: context
                                                                         .read<
                                                                             OrderTabController>()
                                                                         .fileValidation ==
                                                                     true
                                                                 ? Colors.red
-                                                                : Colors.green),
-                                                  )),
-                                                  Icon(
-                                                    Icons.file_present_outlined,
-                                                    color: theme.primaryColor,
-                                                  )
-                                                ],
-                                              )))
-                                      : Container(
-                                          height: context
-                                                      .read<OrderTabController>()
-                                                      .files
-                                                      .length ==
-                                                  0
-                                              ? Screens.padingHeight(context) *
-                                                  0.0
-                                              : Screens.padingHeight(context) *
-                                                  0.3,
-                                          padding: EdgeInsets.only(
-                                            top: Screens.padingHeight(context) *
-                                                0.001,
-                                            right: Screens.padingHeight(context) *
-                                                0.015,
-                                            left: Screens.padingHeight(context) *
-                                                0.015,
-                                            bottom:
-                                                Screens.padingHeight(context) *
-                                                    0.015,
-                                          ),
-                                          child: ListView.builder(
-                                              itemCount: context
-                                                  .read<OrderTabController>()
-                                                  .files
-                                                  .length,
-                                              itemBuilder:
-                                                  (BuildContext context, int i) {
-                                                if (context
-                                                    .read<OrderTabController>()
-                                                    .files[i]
-                                                    .path
-                                                    .split('/')
-                                                    .last
-                                                    .contains("png")) {
-                                                  return Container(
-                                                      child: Column(children: [
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              width:
-                                                                  Screens.width(
-                                                                          context) *
-                                                                      0.09,
-                                                              height: Screens
-                                                                      .padingHeight(
-                                                                          context) *
-                                                                  0.06,
-                                                              child: Center(
-                                                                  child: Image.asset(
-                                                                      "Assets/img.jpg"))),
-                                                          Container(
-                                                              padding:
-                                                                  EdgeInsets.all(
-                                                                      10),
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              width: Screens.width(
-                                                                      context) *
-                                                                  0.6,
-                                                              // height: Screens.padingHeight(context) * 0.06,
-                                                              alignment: Alignment
-                                                                  .centerLeft,
-                                                              child: Text(
-                                                                context
-                                                                    .watch<
-                                                                        OrderTabController>()
-                                                                    .files[i]
-                                                                    .path
-                                                                    .split('/')
-                                                                    .last,
-                                                                // overflow: TextOverflow.ellipsis,
-                                                              )),
-                                                          Container(
-                                                              width:
-                                                                  Screens.width(
-                                                                          context) *
-                                                                      0.1,
-                                                              height: Screens
-                                                                      .padingHeight(
-                                                                          context) *
-                                                                  0.06,
-                                                              child: IconButton(
-                                                                  onPressed: () {
-                                                                    setState(() {
-                                                                      context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .files
-                                                                          .removeAt(
-                                                                              i);
-                                                                              context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .filedata
-                                                                          .removeAt(
-                                                                              i);
-                                                                    });
-                                                                  },
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .cancel_rounded,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                  )))
-                                                        ])
-                                                  ])
-                                                      // )
-                                                      );
-                                                } else if (context
-                                                    .read<OrderTabController>()
-                                                    .files[i]
-                                                    .path
-                                                    .split('/')
-                                                    .last
-                                                    .contains("jp")) {
-                                                  return Container(
-                                                      child: Column(children: [
-                                                    SizedBox(
-                                                      height: 10,
-                                                    ),
-                                                    Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              width:
-                                                                  Screens.width(
-                                                                          context) *
-                                                                      0.09,
-                                                              height: Screens
-                                                                      .padingHeight(
-                                                                          context) *
-                                                                  0.06,
-                                                              child: Center(
-                                                                  child: Image.asset(
-                                                                      "Assets/img.jpg"))),
-                                                          Container(
-                                                              padding:
-                                                                  EdgeInsets.all(
-                                                                      10),
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              width: Screens.width(
-                                                                      context) *
-                                                                  0.6,
-                                                              // height: Screens.padingHeight(context) * 0.06,
-                                                              alignment: Alignment
-                                                                  .centerLeft,
-                                                              child: Text(
-                                                                context
-                                                                    .watch<
-                                                                        OrderTabController>()
-                                                                    .files[i]
-                                                                    .path
-                                                                    .split('/')
-                                                                    .last,
-                                                              )),
-                                                          Container(
-                                                              width:
-                                                                  Screens.width(
-                                                                          context) *
-                                                                      0.1,
-                                                              height: Screens
-                                                                      .padingHeight(
-                                                                          context) *
-                                                                  0.06,
-                                                              child: IconButton(
-                                                                  onPressed: () {
-                                                                    setState(() {
-                                                                      context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .files
-                                                                          .removeAt(
-                                                                              i);
-                                                                              context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .filedata
-                                                                          .removeAt(
-                                                                              i);
-                                                                    });
-                                                                  },
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .cancel_rounded,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                  )))
-                                                        ])
-                                                  ])
-                                                      // )
-                                                      );
-                                                } else if (context
-                                                    .read<OrderTabController>()
-                                                    .files[i]
-                                                    .path
-                                                    .split('/')
-                                                    .last
-                                                    .contains("pdf")) {
-                                                  return Container(
-                                                      child: Column(children: [
-                                                    SizedBox(
-                                                      height:
-                                                          Screens.padingHeight(
-                                                                  context) *
-                                                              0.01,
-                                                    ),
-                                                    Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                            decoration:
-                                                                BoxDecoration(),
-                                                            width: Screens.width(
+                                                                : Colors.grey)),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                        // alignment: Alignment.center,
+                                                        height: Screens
+                                                                .padingHeight(
                                                                     context) *
-                                                                0.09,
-                                                            height: Screens
-                                                                    .padingHeight(
-                                                                        context) *
-                                                                0.06,
-                                                            child: Center(
-                                                                child: Image.asset(
-                                                                    "Assets/pdfimg.png")),
-                                                          ),
-                                                          Container(
-                                                              padding:
-                                                                  EdgeInsets.all(
-                                                                      10),
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              width: Screens.width(
-                                                                      context) *
-                                                                  0.6,
-                                                              // height: Screens.padingHeight(context) * 0.06,
-                                                              alignment: Alignment
-                                                                  .centerLeft,
-                                                              child: Text(
-                                                                context
-                                                                    .watch<
-                                                                        OrderTabController>()
-                                                                    .files[i]
-                                                                    .path
-                                                                    .split('/')
-                                                                    .last,
-                                                              )),
-                                                          Container(
-                                                              width:
-                                                                  Screens.width(
-                                                                          context) *
-                                                                      0.1,
-                                                              height: Screens
-                                                                      .padingHeight(
-                                                                          context) *
-                                                                  0.06,
-                                                              child: IconButton(
-                                                                  onPressed: () {
-                                                                    setState(() {
-                                                                      context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .files
-                                                                          .removeAt(
-                                                                              i);
-                                                                              context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .filedata
-                                                                          .removeAt(
-                                                                              i);
-                                                                    });
-                                                                  },
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .cancel_rounded,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                  )))
-                                                        ])
-                                                  ]));
-                                                } else if (context
-                                                    .read<OrderTabController>()
-                                                    .files[i]
-                                                    .path
-                                                    .split('/')
-                                                    .last
-                                                    .contains("xlsx")) {
-                                                  return Container(
-                                                      child: Column(children: [
-                                                    SizedBox(
-                                                      height:
-                                                          Screens.padingHeight(
-                                                                  context) *
-                                                              0.01,
-                                                    ),
-                                                    Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Container(
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              width:
-                                                                  Screens.width(
-                                                                          context) *
-                                                                      0.09,
-                                                              height: Screens
-                                                                      .padingHeight(
-                                                                          context) *
-                                                                  0.06,
-                                                              child: Center(
-                                                                  child: Image.asset(
-                                                                      "Assets/xls.png"))),
-                                                          Container(
-                                                              padding:
-                                                                  EdgeInsets.all(
-                                                                      10),
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              width: Screens.width(
-                                                                      context) *
-                                                                  0.6,
-                                                              // height: Screens.padingHeight(context) * 0.06,
-                                                              alignment: Alignment
-                                                                  .centerLeft,
-                                                              child: Text(
-                                                                context
-                                                                    .read<
-                                                                        OrderTabController>()
-                                                                    .files[i]
-                                                                    .path
-                                                                    .split('/')
-                                                                    .last,
-                                                              )),
-                                                          Container(
-                                                              width:
-                                                                  Screens.width(
-                                                                          context) *
-                                                                      0.1,
-                                                              height: Screens
-                                                                      .padingHeight(
-                                                                          context) *
-                                                                  0.06,
-                                                              child: IconButton(
-                                                                  onPressed: () {
-                                                                    setState(() {
-                                                                      context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .files
-                                                                          .removeAt(
-                                                                              i);
-                                                                              context
-                                                                          .read<
-                                                                              OrderTabController>()
-                                                                          .filedata
-                                                                          .removeAt(
-                                                                              i);
-                                                                    });
-                                                                  },
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .cancel_rounded,
-                                                                    color: Colors
-                                                                        .grey,
-                                                                  )))
-                                                        ])
-                                                  ])
-                                                      // )
-                                                      );
-                                                }
-                                                return Container(
-                                                    child: Column(children: [
-                                                  SizedBox(
-                                                    height: Screens.padingHeight(
-                                                            context) *
-                                                        0.01,
-                                                  ),
-                                                  Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Container(
-                                                            decoration:
-                                                                BoxDecoration(),
-                                                            width: Screens.width(
-                                                                    context) *
-                                                                0.09,
-                                                            height: Screens
-                                                                    .padingHeight(
-                                                                        context) *
-                                                                0.06,
-                                                            child: Center(
-                                                                child: Image.asset(
-                                                                    "Assets/txt.png"))),
-                                                        Container(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    10),
-                                                            decoration:
-                                                                BoxDecoration(),
-                                                            width: Screens.width(
-                                                                    context) *
-                                                                0.6,
-                                                            // height: Screens.padingHeight(context) * 0.06,
-                                                            alignment: Alignment
-                                                                .centerLeft,
-                                                            child: Text(
-                                                              context
-                                                                  .watch<
-                                                                      OrderTabController>()
-                                                                  .files[i]
-                                                                  .path
-                                                                  .split('/')
-                                                                  .last,
-                                                            )),
-                                                        Container(
-                                                            width: Screens.width(
-                                                                    context) *
-                                                                0.1,
-                                                            height: Screens
-                                                                    .padingHeight(
-                                                                        context) *
-                                                                0.06,
-                                                            child: IconButton(
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    context
+                                                            0.06,
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.13,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            color: context
                                                                         .read<
                                                                             OrderTabController>()
-                                                                        .files
-                                                                        .removeAt(
-                                                                            i);
-                                                                            context
+                                                                        .fileValidation ==
+                                                                    true
+                                                                ? Colors.red
+                                                                : theme
+                                                                    .primaryColor
+                                                            // shape: BoxShape
+                                                            //     .circle
+                                                            ),
+                                                        child: Center(
+                                                          child: IconButton(
+                                                              onPressed: context
                                                                           .read<
                                                                               OrderTabController>()
-                                                                          .filedata
-                                                                          .removeAt(
-                                                                              i);
-                                                                  });
-                                                                },
-                                                                icon: Icon(
-                                                                  Icons
-                                                                      .cancel_rounded,
-                                                                  color:
-                                                                      Colors.grey,
-                                                                )))
-                                                      ])
-                                                ]));
-                                              })),
-                                  SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
+                                                                          .files
+                                                                          .length >
+                                                                      2
+                                                                  ? null
+                                                                  : () {
+                                                                      setState(
+                                                                          () {
+                                                                        // log("files length" +
+                                                                        //     context
+                                                                        //         .read<
+                                                                        //             OrderTabController>()
+                                                                        //         .files
+                                                                        //         .length
+                                                                        //         .toString());
+                                                                        // showtoast();
+                                                                        if (context.read<OrderTabController>().files.length <=
+                                                                            1) {
+                                                                          setState(
+                                                                              () {
+                                                                            context.read<OrderTabController>().imagetoBinary(ImageSource.camera);
+                                                                            context.read<OrderTabController>().fileValidation =
+                                                                                false;
+                                                                          });
+                                                                        } else {
+                                                                          print(
+                                                                              "obAAAAAject");
+                                                                          context
+                                                                              .read<OrderTabController>()
+                                                                              .showtoast();
+                                                                        }
+                                                                      });
+                                                                    },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .photo_camera,
+                                                                color: Colors
+                                                                    .white,
+                                                              )),
+                                                        )),
+                                                    SizedBox(
+                                                      width: Screens.width(
+                                                              context) *
+                                                          0.02,
+                                                    ),
+
+                                                    //old
+                                                    Container(
+                                                        // alignment: Alignment.center,
+                                                        height: Screens
+                                                                .padingHeight(
+                                                                    context) *
+                                                            0.06,
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.13,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6),
+                                                            color: context
+                                                                        .read<
+                                                                            OrderTabController>()
+                                                                        .fileValidation ==
+                                                                    true
+                                                                ? Colors.red
+                                                                : theme
+                                                                    .primaryColor
+                                                            // shape: BoxShape
+                                                            //     .circle
+                                                            ),
+                                                        child: Center(
+                                                          child: IconButton(
+                                                              onPressed: context
+                                                                          .read<
+                                                                              OrderTabController>()
+                                                                          .files
+                                                                          .length >
+                                                                      2
+                                                                  ? null
+                                                                  : () {
+                                                                      setState(
+                                                                          () {
+                                                                        // log("files length" + files.length.toString());
+                                                                        // showtoast();
+                                                                        if (context.read<OrderTabController>().files.length <=
+                                                                            1) {
+                                                                          setState(
+                                                                              () {
+                                                                            context.read<OrderTabController>().selectattachment();
+
+                                                                            context.read<OrderTabController>().fileValidation =
+                                                                                false;
+                                                                          });
+                                                                        } else {
+                                                                          print(
+                                                                              "obAAAAAject");
+
+                                                                          context
+                                                                              .read<OrderTabController>()
+                                                                              .showtoast();
+                                                                        }
+                                                                      });
+                                                                    },
+                                                              icon: Icon(
+                                                                Icons
+                                                                    .attach_file,
+                                                                color: Colors
+                                                                    .white,
+                                                              )),
+                                                        )),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            Screens.bodyheight(context) * 0.01,
+                                      ),
+
+                                      context
+                                                  .read<OrderTabController>()
+                                                  .files ==
+                                              null
+                                          ? Container(
+                                              height: Screens.padingHeight(
+                                                      context) *
+                                                  0.3,
+                                              padding: EdgeInsets.only(
+                                                top: Screens.padingHeight(
+                                                        context) *
+                                                    0.001,
+                                                right: Screens.padingHeight(
+                                                        context) *
+                                                    0.015,
+                                                left: Screens.padingHeight(
+                                                        context) *
+                                                    0.015,
+                                                bottom: Screens.padingHeight(
+                                                        context) *
+                                                    0.015,
+                                              ),
+                                              child: Container(
+                                                  alignment: Alignment.center,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Center(
+                                                          child: Text(
+                                                        "No Files Selected",
+                                                        style: theme.textTheme
+                                                            .bodyText1!
+                                                            .copyWith(
+                                                                color: context
+                                                                            .read<
+                                                                                OrderTabController>()
+                                                                            .fileValidation ==
+                                                                        true
+                                                                    ? Colors.red
+                                                                    : Colors
+                                                                        .green),
+                                                      )),
+                                                      Icon(
+                                                        Icons
+                                                            .file_present_outlined,
+                                                        color:
+                                                            theme.primaryColor,
+                                                      )
+                                                    ],
+                                                  )))
+                                          : Container(
+                                              height: context
+                                                          .read<
+                                                              OrderTabController>()
+                                                          .files
+                                                          .length ==
+                                                      0
+                                                  ? Screens.padingHeight(
+                                                          context) *
+                                                      0.0
+                                                  : Screens.padingHeight(
+                                                          context) *
+                                                      0.3,
+                                              padding: EdgeInsets.only(
+                                                top: Screens.padingHeight(
+                                                        context) *
+                                                    0.001,
+                                                right: Screens.padingHeight(
+                                                        context) *
+                                                    0.015,
+                                                left: Screens.padingHeight(
+                                                        context) *
+                                                    0.015,
+                                                bottom: Screens.padingHeight(
+                                                        context) *
+                                                    0.015,
+                                              ),
+                                              child: ListView.builder(
+                                                  itemCount: context
+                                                      .read<
+                                                          OrderTabController>()
+                                                      .files
+                                                      .length,
+                                                  itemBuilder:
+                                                      (BuildContext context,
+                                                          int i) {
+                                                    if (context
+                                                        .read<
+                                                            OrderTabController>()
+                                                        .files[i]
+                                                        .path
+                                                        .split('/')
+                                                        .last
+                                                        .contains("png")) {
+                                                      return Container(
+                                                          child: Column(
+                                                              children: [
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.09,
+                                                                      height: Screens.padingHeight(
+                                                                              context) *
+                                                                          0.06,
+                                                                      child: Center(
+                                                                          child:
+                                                                              Image.asset("Assets/img.jpg"))),
+                                                                  Container(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              10),
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.6,
+                                                                      // height: Screens.padingHeight(context) * 0.06,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerLeft,
+                                                                      child:
+                                                                          Text(
+                                                                        context
+                                                                            .watch<OrderTabController>()
+                                                                            .files[i]
+                                                                            .path
+                                                                            .split('/')
+                                                                            .last,
+                                                                        // overflow: TextOverflow.ellipsis,
+                                                                      )),
+                                                                  Container(
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.1,
+                                                                      height: Screens.padingHeight(
+                                                                              context) *
+                                                                          0.06,
+                                                                      child: IconButton(
+                                                                          onPressed: () {
+                                                                            setState(() {
+                                                                              context.read<OrderTabController>().files.removeAt(i);
+                                                                              context.read<OrderTabController>().filedata.removeAt(i);
+                                                                            });
+                                                                          },
+                                                                          icon: Icon(
+                                                                            Icons.cancel_rounded,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          )))
+                                                                ])
+                                                          ])
+                                                          // )
+                                                          );
+                                                    } else if (context
+                                                        .read<
+                                                            OrderTabController>()
+                                                        .files[i]
+                                                        .path
+                                                        .split('/')
+                                                        .last
+                                                        .contains("jp")) {
+                                                      return Container(
+                                                          child: Column(
+                                                              children: [
+                                                            SizedBox(
+                                                              height: 10,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.09,
+                                                                      height: Screens.padingHeight(
+                                                                              context) *
+                                                                          0.06,
+                                                                      child: Center(
+                                                                          child:
+                                                                              Image.asset("Assets/img.jpg"))),
+                                                                  Container(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              10),
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.6,
+                                                                      // height: Screens.padingHeight(context) * 0.06,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerLeft,
+                                                                      child:
+                                                                          Text(
+                                                                        context
+                                                                            .watch<OrderTabController>()
+                                                                            .files[i]
+                                                                            .path
+                                                                            .split('/')
+                                                                            .last,
+                                                                      )),
+                                                                  Container(
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.1,
+                                                                      height: Screens.padingHeight(
+                                                                              context) *
+                                                                          0.06,
+                                                                      child: IconButton(
+                                                                          onPressed: () {
+                                                                            setState(() {
+                                                                              context.read<OrderTabController>().files.removeAt(i);
+                                                                              context.read<OrderTabController>().filedata.removeAt(i);
+                                                                            });
+                                                                          },
+                                                                          icon: Icon(
+                                                                            Icons.cancel_rounded,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          )))
+                                                                ])
+                                                          ])
+                                                          // )
+                                                          );
+                                                    } else if (context
+                                                        .read<
+                                                            OrderTabController>()
+                                                        .files[i]
+                                                        .path
+                                                        .split('/')
+                                                        .last
+                                                        .contains("pdf")) {
+                                                      return Container(
+                                                          child: Column(
+                                                              children: [
+                                                            SizedBox(
+                                                              height: Screens
+                                                                      .padingHeight(
+                                                                          context) *
+                                                                  0.01,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    width: Screens.width(
+                                                                            context) *
+                                                                        0.09,
+                                                                    height: Screens.padingHeight(
+                                                                            context) *
+                                                                        0.06,
+                                                                    child: Center(
+                                                                        child: Image.asset(
+                                                                            "Assets/pdfimg.png")),
+                                                                  ),
+                                                                  Container(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              10),
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.6,
+                                                                      // height: Screens.padingHeight(context) * 0.06,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerLeft,
+                                                                      child:
+                                                                          Text(
+                                                                        context
+                                                                            .watch<OrderTabController>()
+                                                                            .files[i]
+                                                                            .path
+                                                                            .split('/')
+                                                                            .last,
+                                                                      )),
+                                                                  Container(
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.1,
+                                                                      height: Screens.padingHeight(
+                                                                              context) *
+                                                                          0.06,
+                                                                      child: IconButton(
+                                                                          onPressed: () {
+                                                                            setState(() {
+                                                                              context.read<OrderTabController>().files.removeAt(i);
+                                                                              context.read<OrderTabController>().filedata.removeAt(i);
+                                                                            });
+                                                                          },
+                                                                          icon: Icon(
+                                                                            Icons.cancel_rounded,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          )))
+                                                                ])
+                                                          ]));
+                                                    } else if (context
+                                                        .read<
+                                                            OrderTabController>()
+                                                        .files[i]
+                                                        .path
+                                                        .split('/')
+                                                        .last
+                                                        .contains("xlsx")) {
+                                                      return Container(
+                                                          child: Column(
+                                                              children: [
+                                                            SizedBox(
+                                                              height: Screens
+                                                                      .padingHeight(
+                                                                          context) *
+                                                                  0.01,
+                                                            ),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Container(
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.09,
+                                                                      height: Screens.padingHeight(
+                                                                              context) *
+                                                                          0.06,
+                                                                      child: Center(
+                                                                          child:
+                                                                              Image.asset("Assets/xls.png"))),
+                                                                  Container(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              10),
+                                                                      decoration:
+                                                                          BoxDecoration(),
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.6,
+                                                                      // height: Screens.padingHeight(context) * 0.06,
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .centerLeft,
+                                                                      child:
+                                                                          Text(
+                                                                        context
+                                                                            .read<OrderTabController>()
+                                                                            .files[i]
+                                                                            .path
+                                                                            .split('/')
+                                                                            .last,
+                                                                      )),
+                                                                  Container(
+                                                                      width: Screens.width(
+                                                                              context) *
+                                                                          0.1,
+                                                                      height: Screens.padingHeight(
+                                                                              context) *
+                                                                          0.06,
+                                                                      child: IconButton(
+                                                                          onPressed: () {
+                                                                            setState(() {
+                                                                              context.read<OrderTabController>().files.removeAt(i);
+                                                                              context.read<OrderTabController>().filedata.removeAt(i);
+                                                                            });
+                                                                          },
+                                                                          icon: Icon(
+                                                                            Icons.cancel_rounded,
+                                                                            color:
+                                                                                Colors.grey,
+                                                                          )))
+                                                                ])
+                                                          ])
+                                                          // )
+                                                          );
+                                                    }
+                                                    return Container(
+                                                        child: Column(
+                                                            children: [
+                                                          SizedBox(
+                                                            height: Screens
+                                                                    .padingHeight(
+                                                                        context) *
+                                                                0.01,
+                                                          ),
+                                                          Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Container(
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    width: Screens.width(
+                                                                            context) *
+                                                                        0.09,
+                                                                    height: Screens.padingHeight(
+                                                                            context) *
+                                                                        0.06,
+                                                                    child: Center(
+                                                                        child: Image.asset(
+                                                                            "Assets/txt.png"))),
+                                                                Container(
+                                                                    padding:
+                                                                        EdgeInsets.all(
+                                                                            10),
+                                                                    decoration:
+                                                                        BoxDecoration(),
+                                                                    width: Screens.width(
+                                                                            context) *
+                                                                        0.6,
+                                                                    // height: Screens.padingHeight(context) * 0.06,
+                                                                    alignment:
+                                                                        Alignment
+                                                                            .centerLeft,
+                                                                    child: Text(
+                                                                      context
+                                                                          .watch<
+                                                                              OrderTabController>()
+                                                                          .files[
+                                                                              i]
+                                                                          .path
+                                                                          .split(
+                                                                              '/')
+                                                                          .last,
+                                                                    )),
+                                                                Container(
+                                                                    width: Screens.width(
+                                                                            context) *
+                                                                        0.1,
+                                                                    height: Screens.padingHeight(
+                                                                            context) *
+                                                                        0.06,
+                                                                    child: IconButton(
+                                                                        onPressed: () {
+                                                                          setState(
+                                                                              () {
+                                                                            context.read<OrderTabController>().files.removeAt(i);
+                                                                            context.read<OrderTabController>().filedata.removeAt(i);
+                                                                          });
+                                                                        },
+                                                                        icon: Icon(
+                                                                          Icons
+                                                                              .cancel_rounded,
+                                                                          color:
+                                                                              Colors.grey,
+                                                                        )))
+                                                              ])
+                                                        ]));
+                                                  })),
+                                      SizedBox(
+                                        height:
+                                            Screens.bodyheight(context) * 0.01,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                              child: Text(
+                                            context
+                                                .watch<OrderTabController>()
+                                                .getorderInvBillDate!, // "Next Follow up",
+                                            style: theme.textTheme.bodyText2
+                                                ?.copyWith(
+                                              color: context
+                                                      .watch<
+                                                          OrderTabController>()
+                                                      .getorderInvBillDate!
+                                                      .contains(" *")
+                                                  ? Colors.red
+                                                  : Colors.grey,
+                                            ), // fontSize: 12
+                                          )),
+                                          InkWell(
+                                            onTap: () {
+                                              context
+                                                  .read<OrderTabController>()
+                                                  .showFollowupInvDate(context);
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      Screens.width(context) *
+                                                          0.015),
+                                              width:
+                                                  Screens.width(context) * 0.4,
+                                              height:
+                                                  Screens.bodyheight(context) *
+                                                      0.05,
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(
+                                                      color: Colors.grey),
+                                                  borderRadius:
+                                                      BorderRadius.circular(4)),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(
+                                                    width:
+                                                        Screens.width(context) *
+                                                            0.24,
+                                                    // color: Colors.red,
+                                                    child: Text(
+                                                      context
+                                                          .watch<
+                                                              OrderTabController>()
+                                                          .getnextInvFD,
+                                                      // context.read<OrderTabController>().getnextFD,
+                                                      style: theme
+                                                          .textTheme.bodyText2
+                                                          ?.copyWith(), //fontSize: 12
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    width:
+                                                        Screens.width(context) *
+                                                            0.12,
+                                                    // color: Colors.red,
+                                                    child: Icon(
+                                                      Icons.calendar_month,
+                                                      // size: Screens.,
+                                                      color: theme.primaryColor,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            Screens.bodyheight(context) * 0.01,
+                                      ),
+                                    ],
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                          child: Text(
+                                )
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          Screens.bodyheight(context) * 0.001,
+                                    ),
+                                    Container(
+                                      width: Screens.width(context),
+                                      // height: Screens.,
+                                      padding: EdgeInsets.only(
+                                          top: 1, left: 10, right: 10),
+                                      decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.grey),
+                                          borderRadius:
+                                              BorderRadius.circular(8)),
+                                      child: DropdownButton(
+                                        hint: Text(
+                                          context
+                                              .watch<OrderTabController>()
+                                              .gethinttextforcancel!,
+                                          style: theme.textTheme.bodyText2
+                                              ?.copyWith(
+                                                  color: context
+                                                          .watch<
+                                                              OrderTabController>()
+                                                          .gethinttextforcancel!
+                                                          .contains(" *")
+                                                      ? Colors.red
+                                                      : Colors.grey),
+                                        ),
+                                        value: context
+                                            .read<OrderTabController>()
+                                            .valuecancelStatus,
+                                        //dropdownColor:Colors.green,
+                                        icon: Icon(Icons.arrow_drop_down),
+                                        iconSize: 30,
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 16),
+                                        isExpanded: true,
+                                        onChanged: (val) {
+                                          setState(() {
+                                            context
+                                                .read<OrderTabController>()
+                                                .choosedcancelStatus(
+                                                    val.toString());
+                                          });
+                                        },
+                                        items: context
+                                            .read<OrderTabController>()
+                                            .orderdialogdata
+                                            .map((e) {
+                                          return DropdownMenuItem(
+                                              // ignore: unnecessary_brace_in_string_interps
+                                              value: "${e.code}",
+                                              child: Container(
+                                                  // height: Screens.bodyheight(context)*0.1,
+                                                  child: Text("${e.name}")));
+                                        }).toList(),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          Screens.bodyheight(context) * 0.01,
+                                    ),
+                                    Container(
+                                      child: Text(
                                         context
                                             .watch<OrderTabController>()
-                                            .getorderInvBillDate!, // "Next Follow up",
+                                            .getfeedbackcancel!, // "Feedback",
                                         style:
                                             theme.textTheme.bodyText2?.copyWith(
                                           color: context
                                                   .watch<OrderTabController>()
-                                                  .getorderInvBillDate!
+                                                  .getfeedbackcancel!
                                                   .contains(" *")
                                               ? Colors.red
                                               : Colors.grey,
-                                        ), // fontSize: 12
-                                      )),
-                                      InkWell(
-                                        onTap: () {
-                                          context
-                                              .read<OrderTabController>()
-                                              .showFollowupInvDate(context);
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal:
-                                                  Screens.width(context) * 0.015),
-                                          width: Screens.width(context) * 0.4,
-                                          height:
-                                              Screens.bodyheight(context) * 0.05,
-                                          decoration: BoxDecoration(
-                                              border:
-                                                  Border.all(color: Colors.grey),
-                                              borderRadius:
-                                                  BorderRadius.circular(4)),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                width:
-                                                    Screens.width(context) * 0.24,
-                                                // color: Colors.red,
-                                                child: Text(
-                                                  context
-                                                      .watch<OrderTabController>()
-                                                      .getnextInvFD,
-                                                  // context.read<OrderTabController>().getnextFD,
-                                                  style: theme.textTheme.bodyText2
-                                                      ?.copyWith(), //fontSize: 12
-                                                ),
-                                              ),
-                                              Container(
-                                                alignment: Alignment.centerRight,
-                                                width:
-                                                    Screens.width(context) * 0.12,
-                                                // color: Colors.red,
-                                                child: Icon(
-                                                  Icons.calendar_month,
-                                                  // size: Screens.,
-                                                  color: theme.primaryColor,
-                                                ),
-                                              )
-                                            ],
-                                          ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
-                                  ),
-                                                             ],
-                                                           ),
-                               ):
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                              SizedBox(
-                                  height: Screens.bodyheight(context) * 0.001,
-                                ),
-                                
-                                 Container(
-                                    width: Screens.width(context),
-                              // height: Screens.,
-                              padding:
-                                  EdgeInsets.only(top: 1, left: 10, right: 10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(8)),
-                                   child: DropdownButton(
-                                                                 hint: Text(
-                                    context
-                                        .watch<OrderTabController>()
-                                        .gethinttextforcancel!,
-                                    style: theme.textTheme.bodyText2?.copyWith(
-                                        color: context
-                                                .watch<OrderTabController>()
-                                                .gethinttextforcancel!
-                                                .contains(" *")
-                                            ? Colors.red
-                                            : Colors.grey),
-                                                                 ),
-                                                                 value: context
-                                      .read<OrderTabController>()
-                                      .valuecancelStatus,
-                                                                 //dropdownColor:Colors.green,
-                                                                 icon: Icon(Icons.arrow_drop_down),
-                                                                 iconSize: 30,
-                                                                 style: TextStyle(
-                                      color: Colors.black, fontSize: 16),
-                                                                 isExpanded: true,
-                                                                 onChanged: (val) {
-                                    setState(() {
-                                      context
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          Screens.bodyheight(context) * 0.01,
+                                    ),
+                                    TextFormField(
+                                      controller: context
                                           .read<OrderTabController>()
-                                          .choosedcancelStatus(val.toString());
-                                    });
-                                                                 },
-                                                                 items: context
-                                      .read<OrderTabController>()
-                                      .orderdialogdata
-                                      .map((e) {
-                                    return DropdownMenuItem(
-                                        // ignore: unnecessary_brace_in_string_interps
-                                        value: "${e.code}",
-                                        child: Container(
-                                            // height: Screens.bodyheight(context)*0.1,
-                                            child: Text("${e.name}")));
-                                                                 }).toList(),
-                                                               ),
-                                 ),
-SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
+                                          .mycontroller[5],
+                                      decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.grey[400]!),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.grey[400]!,
+                                              width: 2.0),
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                  Container(
-                        child: Text(
-                          context
-                              .watch<OrderTabController>()
-                              .getfeedbackcancel!, // "Feedback",
-                          style: theme.textTheme.bodyText2?.copyWith(
-                            color: context
-                                    .watch<OrderTabController>()
-                                    .getfeedbackcancel!
-                                    .contains(" *")
-                                ? Colors.red
-                                : Colors.grey,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
-                                ),
-                                 TextFormField(
-                        controller:
-                            context.read<OrderTabController>().mycontroller[5],
-                        decoration: InputDecoration(
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey[400]!),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey[400]!, width: 2.0),
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                        ),
-                      ),
-                            ],),
                       SizedBox(
                         height: Screens.bodyheight(context) * 0.02,
                       ),
@@ -2198,18 +2242,21 @@ SizedBox(
                     )), //Radius.circular(6)
                   ),
                   child: context
-                                  .read<OrderTabController>()
-                                  .getcaseStatusSelected ==
-                              'Cancel'?Text("Confirm Cancel"): Text("Save")),
+                              .read<OrderTabController>()
+                              .getcaseStatusSelected ==
+                          'Cancel'
+                      ? Text("Confirm Cancel")
+                      : Text("Save")),
             ),
           ],
         ),
       ),
     );
   }
-Container callLoadingPage(BuildContext context) {
+
+  Container callLoadingPage(BuildContext context) {
     return Container(
-      // color: Colors.amber,
+        // color: Colors.amber,
         width: Screens.width(context) * 0.9,
         height: Screens.bodyheight(context) * 0.1,
         padding: EdgeInsets.all(10),
@@ -2219,17 +2266,16 @@ Container callLoadingPage(BuildContext context) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              // width: Screens.width(context) * 0.1,
-              child: CircularProgressIndicator()),
-              SizedBox(
-                width:Screens.width(context) * 0.1 ,
-              ),
-              Container(
-              
-              child: Text("Connecting ....")),
+                // width: Screens.width(context) * 0.1,
+                child: CircularProgressIndicator()),
+            SizedBox(
+              width: Screens.width(context) * 0.1,
+            ),
+            Container(child: Text("Connecting ....")),
           ],
         ));
   }
+
   Container CallDialog(BuildContext context, ThemeData theme) {
     return Container(
       width: Screens.width(context),
@@ -2251,19 +2297,20 @@ Container callLoadingPage(BuildContext context) {
             height: Screens.bodyheight(context) * 0.06,
             child: ElevatedButton(
                 onPressed: () {
-                  log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
-                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && context
-                                  .read<OrderTabController>().userid !=''){
-                              context
-                                  .read<OrderTabController>()
-                                  . calldialApi(widget.leadOpenAllData!.Mobile!);
-
-                              }else{
-                                context
-                                  .read<OrderTabController>()
-                                  .makePhoneCall(widget.leadOpenAllData!.Mobile!);
-
-                              }
+                  log("ConstantValues.tenetID::" +
+                      ConstantValues.tenetID.toString());
+                  if (ConstantValues.tenetID!
+                          .toLowerCase()
+                          .contains("bus002") &&
+                      context.read<OrderTabController>().userid != '') {
+                    context
+                        .read<OrderTabController>()
+                        .calldialApi(widget.leadOpenAllData!.Mobile!);
+                  } else {
+                    context
+                        .read<OrderTabController>()
+                        .makePhoneCall(widget.leadOpenAllData!.Mobile!);
+                  }
                   // context.read<OrderTabController>().makePhoneCall(context
                   //     .read<OrderTabController>()
                   //     .getAllLeadData[widget.index]
@@ -2321,6 +2368,7 @@ Container callLoadingPage(BuildContext context) {
                       children: [
                         Container(
                           width: Screens.width(context) * 0.35,
+
                           //  height: Screens.padingHeight(context)*0.2,
                           child: ElevatedButton(
                             onPressed: widget.leadOpenAllData!.isDelivered ==
@@ -2513,24 +2561,30 @@ Container callLoadingPage(BuildContext context) {
                         Container(
                           width: Screens.width(context) * 0.35,
                           child: ElevatedButton(
-                            onPressed:
-                             (widget.leadOpenAllData!.isDelivered == 0 &&
-                                        widget.leadOpenAllData!.isInvoiced == 1) || 
-                                        (widget.leadOpenAllData!.isDelivered == 1 &&
-                                        widget.leadOpenAllData!.isInvoiced == 0)||   widget.leadOpenAllData!.isDelivered == 1 &&
+                            onPressed: (widget.leadOpenAllData!.isDelivered ==
+                                            0 &&
+                                        widget.leadOpenAllData!.isInvoiced ==
+                                            1) ||
+                                    (widget.leadOpenAllData!.isDelivered == 1 &&
+                                        widget.leadOpenAllData!.isInvoiced ==
+                                            0) ||
+                                    widget.leadOpenAllData!.isDelivered == 1 &&
                                         widget.leadOpenAllData!.isInvoiced == 1
-                                    ? () {}
-                                    : () {
-                                        context
-                                            .read<OrderTabController>()
-                                            .mapvaluesmodify(
-                                                widget.leadOpenAllData);
-                                      },
-                            style:(widget.leadOpenAllData!.isDelivered == 0 &&
-                                        widget.leadOpenAllData!.isInvoiced == 1) || 
-                                        (widget.leadOpenAllData!.isDelivered == 1 &&
-                                        widget.leadOpenAllData!.isInvoiced == 0)|| widget.leadOpenAllData!.isDelivered == 1 &&
-                                    widget.leadOpenAllData!.isInvoiced == 1
+                                ? () {}
+                                : () {
+                                    context
+                                        .read<OrderTabController>()
+                                        .mapvaluesmodify(
+                                            widget.leadOpenAllData);
+                                  },
+                            style: (widget.leadOpenAllData!.isDelivered == 0 &&
+                                        widget.leadOpenAllData!.isInvoiced ==
+                                            1) ||
+                                    (widget.leadOpenAllData!.isDelivered == 1 &&
+                                        widget.leadOpenAllData!.isInvoiced ==
+                                            0) ||
+                                    widget.leadOpenAllData!.isDelivered == 1 &&
+                                        widget.leadOpenAllData!.isInvoiced == 1
                                 ? ElevatedButton.styleFrom(
                                     backgroundColor:
                                         // widget.leadOpenAllData!.isDelivered == 1
@@ -2577,15 +2631,24 @@ Container callLoadingPage(BuildContext context) {
                                   child: Text(
                                     "Modify",
                                     style: theme.textTheme.bodyText1!.copyWith(
-                                        color:(widget.leadOpenAllData!.isDelivered == 0 &&
-                                        widget.leadOpenAllData!.isInvoiced == 1) || 
-                                        (widget.leadOpenAllData!.isDelivered == 1 &&
-                                        widget.leadOpenAllData!.isInvoiced == 0)|| widget.leadOpenAllData!
-                                                        .isDelivered ==
-                                                    1 &&
+                                        color: (widget.leadOpenAllData!
+                                                            .isDelivered ==
+                                                        0 &&
+                                                    widget.leadOpenAllData!
+                                                            .isInvoiced ==
+                                                        1) ||
+                                                (widget.leadOpenAllData!
+                                                            .isDelivered ==
+                                                        1 &&
+                                                    widget.leadOpenAllData!
+                                                            .isInvoiced ==
+                                                        0) ||
                                                 widget.leadOpenAllData!
-                                                        .isInvoiced ==
-                                                    1
+                                                            .isDelivered ==
+                                                        1 &&
+                                                    widget.leadOpenAllData!
+                                                            .isInvoiced ==
+                                                        1
                                             ? theme.primaryColor
                                             : Colors.white),
                                   ),
@@ -2599,24 +2662,27 @@ Container callLoadingPage(BuildContext context) {
                         Container(
                           width: Screens.width(context) * 0.35,
                           child: ElevatedButton(
-                            onPressed:
-                          (widget.leadOpenAllData!.isDelivered == 0 &&
-                                        widget.leadOpenAllData!.isInvoiced == 1) || 
-                                        (widget.leadOpenAllData!.isDelivered == 1 &&
-                                        widget.leadOpenAllData!.isInvoiced == 0)?(){}:
-                             () {
-                              setState(() {
-                                  context
-                                        .read<OrderTabController>()
-                                        .caseStatusSelectBtn("Cancel");
-                                context
-                                        .read<OrderTabController>()
-                                        .changetoFolloweUp();
-                              });
-                            },
+                            onPressed: (widget.leadOpenAllData!.isDelivered ==
+                                            0 &&
+                                        widget.leadOpenAllData!.isInvoiced ==
+                                            1) ||
+                                    (widget.leadOpenAllData!.isDelivered == 1 &&
+                                        widget.leadOpenAllData!.isInvoiced == 0)
+                                ? () {}
+                                : () {
+                                    setState(() {
+                                      context
+                                          .read<OrderTabController>()
+                                          .caseStatusSelectBtn("Cancel");
+                                      context
+                                          .read<OrderTabController>()
+                                          .changetoFolloweUp();
+                                    });
+                                  },
                             style: (widget.leadOpenAllData!.isDelivered == 0 &&
-                                        widget.leadOpenAllData!.isInvoiced == 1) || 
-                                        (widget.leadOpenAllData!.isDelivered == 1 &&
+                                        widget.leadOpenAllData!.isInvoiced ==
+                                            1) ||
+                                    (widget.leadOpenAllData!.isDelivered == 1 &&
                                         widget.leadOpenAllData!.isInvoiced == 0)
                                 ? ElevatedButton.styleFrom(
                                     backgroundColor:
@@ -2630,12 +2696,12 @@ Container callLoadingPage(BuildContext context) {
                                         //     ? Colors.green
                                         // :
                                         theme.primaryColor),
-                                //          ElevatedButton.styleFrom(
-                                // backgroundColor:
-                                //     // widget  .  leadOpenAllData!.isInvoiced  ==1
-                                //     //     ? Colors.green
-                                //     //     :
-                                //     theme.primaryColor),
+                            //          ElevatedButton.styleFrom(
+                            // backgroundColor:
+                            //     // widget  .  leadOpenAllData!.isInvoiced  ==1
+                            //     //     ? Colors.green
+                            //     //     :
+                            //     theme.primaryColor),
                             child: Column(
                               children: [
                                 Stack(
@@ -2669,17 +2735,24 @@ Container callLoadingPage(BuildContext context) {
                                 Container(
                                   child: Text(
                                     "Cancel",
-                                    style: theme.textTheme.bodyText1!
-                                        .copyWith(color:
-                                        (widget.leadOpenAllData!.isDelivered == 0 &&
-                                        widget.leadOpenAllData!.isInvoiced == 1) || 
-                                        (widget.leadOpenAllData!.isDelivered == 1 &&
-                                        widget.leadOpenAllData!.isInvoiced == 0)
+                                    style: theme.textTheme.bodyText1!.copyWith(
+                                        color: (widget.leadOpenAllData!
+                                                            .isDelivered ==
+                                                        0 &&
+                                                    widget.leadOpenAllData!
+                                                            .isInvoiced ==
+                                                        1) ||
+                                                (widget.leadOpenAllData!
+                                                            .isDelivered ==
+                                                        1 &&
+                                                    widget.leadOpenAllData!
+                                                            .isInvoiced ==
+                                                        0)
                                             ? theme.primaryColor
                                             : Colors.white
-                                        
+
                                         //  Colors.white
-                                         ),
+                                        ),
                                   ),
                                 ),
                               ],
@@ -2965,7 +3038,7 @@ Container callLoadingPage(BuildContext context) {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                    context
+                      context
                                       .watch<OrderTabController>()
                                       .getleadDeatilsQTHData![0]
                                       .CardCode ==
@@ -2980,37 +3053,44 @@ Container callLoadingPage(BuildContext context) {
                                   .getleadDeatilsQTHData![0]
                                   .CardCode!
                                   .isEmpty
-                          ? Container():  InkWell(
-                        onTap: (){
-                           log("ConstantValues.tenetID::"+ConstantValues.tenetID.toString());
-                              if(ConstantValues.tenetID!.toLowerCase().contains("bus002") && context
-                                  .read<OrderTabController>().userid !=''){
-                              context
-                                  .read<OrderTabController>()
-                                  . calldialApi(context
-                      .read<OrderTabController>()
-                      .getleadDeatilsQTHData![0].CardCode!);
-
-                              }else{
-                                context
-                                  .read<OrderTabController>()
-                                  .makePhoneCall(context
-                      .read<OrderTabController>()
-                      .getleadDeatilsQTHData![0].CardCode!);
-
-                              }
-                      //      context.read<OrderTabController>().makePhoneCall(context
-                      // .read<OrderTabController>()
-                      // .getleadDeatilsQTHData![0].CardCode!);
-                        },
-                        child: Container(
-                          width: Screens.width(context) * 0.4,
-                          child: Text(
-                            "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].CardCode}",
-                            style: theme.textTheme.bodyText2?.copyWith(decoration:  TextDecoration.underline,color:Colors.blue),
-                          ),
-                        ),
-                      ),
+                          ? Container()
+                          : InkWell(
+                              onTap: () {
+                                log("ConstantValues.tenetID::" +
+                                    ConstantValues.tenetID.toString());
+                                if (ConstantValues.tenetID!
+                                        .toLowerCase()
+                                        .contains("bus002") &&
+                                    context.read<OrderTabController>().userid !=
+                                        '') {
+                                  context
+                                      .read<OrderTabController>()
+                                      .calldialApi(context
+                                          .read<OrderTabController>()
+                                          .getleadDeatilsQTHData![0]
+                                          .CardCode!);
+                                } else {
+                                  context
+                                      .read<OrderTabController>()
+                                      .makePhoneCall(context
+                                          .read<OrderTabController>()
+                                          .getleadDeatilsQTHData![0]
+                                          .CardCode!);
+                                }
+                                //      context.read<OrderTabController>().makePhoneCall(context
+                                // .read<OrderTabController>()
+                                // .getleadDeatilsQTHData![0].CardCode!);
+                              },
+                              child: Container(
+                                width: Screens.width(context) * 0.4,
+                                child: Text(
+                                  "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].CardCode}",
+                                  style: theme.textTheme.bodyText2?.copyWith(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.blue),
+                                ),
+                              ),
+                            ),
                       // Container(
                       //   alignment: Alignment.centerRight,
                       //   width: Screens.width(context) * 0.43,
@@ -3214,9 +3294,7 @@ Container callLoadingPage(BuildContext context) {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${ context
-                                    .read<OrderTabController>()
-                                    .config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].subtotal!.toString())}",
+                                          "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].subtotal!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3240,9 +3318,7 @@ Container callLoadingPage(BuildContext context) {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<OrderTabController>()
-                                    .config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].basetotal!.toString())}",
+                                          "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].basetotal!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3266,9 +3342,7 @@ Container callLoadingPage(BuildContext context) {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<OrderTabController>()
-                                    .config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].taxAmount!.toString())}",
+                                          "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].taxAmount!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3292,9 +3366,7 @@ Container callLoadingPage(BuildContext context) {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<OrderTabController>()
-                                    .config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].RoundOff!.toString())}",
+                                          "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].RoundOff!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3318,9 +3390,7 @@ Container callLoadingPage(BuildContext context) {
                                       ),
                                       Container(
                                         child: Text(
-                                          "${context
-                                    .read<OrderTabController>()
-                                    .config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].DocTotal!.toString())}",
+                                          "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].DocTotal!.toString())}",
                                           style: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.black),
                                         ),
@@ -3335,7 +3405,7 @@ Container callLoadingPage(BuildContext context) {
                       ],
                     ),
                   ),
-                  
+
                   SizedBox(
                     height: Screens.padingHeight(context) * 0.02,
                   ),
@@ -3356,18 +3426,21 @@ Container callLoadingPage(BuildContext context) {
                           child: Column(
                             children: [
                               Container(
-                                 width: Screens.width(context)*0.8,
+                                width: Screens.width(context) * 0.8,
                                 alignment: Alignment.centerLeft,
-                                child: Text("Delivered on " +
-                                    context
-                                        .watch<OrderTabController>()
-                                        .config
-                                        .alignDate(
-                                            '${context.watch<OrderTabController>().getleadDeatilsQTHData![0].DeliveryDate}') +
-                                    " by referenced " +
-                                    "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].DeliveryNo}" +
-                                    "", style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.black),),
+                                child: Text(
+                                  "Delivered on " +
+                                      context
+                                          .watch<OrderTabController>()
+                                          .config
+                                          .alignDate(
+                                              '${context.watch<OrderTabController>().getleadDeatilsQTHData![0].DeliveryDate}') +
+                                      " by referenced " +
+                                      "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].DeliveryNo}" +
+                                      "",
+                                  style: theme.textTheme.bodyText1!
+                                      .copyWith(color: Colors.black),
+                                ),
                               )
                             ],
                           ),
@@ -3386,12 +3459,12 @@ Container callLoadingPage(BuildContext context) {
                                   .watch<OrderTabController>()
                                   .getleadDeatilsQTHData![0]
                                   .DeliveryURL1 !=
-                              null  &&
+                              null &&
                           context
                                   .watch<OrderTabController>()
                                   .getleadDeatilsQTHData![0]
                                   .DeliveryURL2 !=
-                              null 
+                              null
                       ? Container(
                           width: Screens.width(context),
                           padding: EdgeInsets.symmetric(
@@ -3439,17 +3512,20 @@ Container callLoadingPage(BuildContext context) {
                             children: [
                               Container(
                                 alignment: Alignment.centerLeft,
-                                width: Screens.width(context)*0.8,
-                                child: Text("Invoiced on " +
-                                    context
-                                        .watch<OrderTabController>()
-                                        .config
-                                        .alignDate(
-                                            '${context.watch<OrderTabController>().getleadDeatilsQTHData![0].InvoiceDate}') +
-                                    " by referenced " +
-                                    "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].InvoiceNo}" +
-                                    "", style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.black),),
+                                width: Screens.width(context) * 0.8,
+                                child: Text(
+                                  "Invoiced on " +
+                                      context
+                                          .watch<OrderTabController>()
+                                          .config
+                                          .alignDate(
+                                              '${context.watch<OrderTabController>().getleadDeatilsQTHData![0].InvoiceDate}') +
+                                      " by referenced " +
+                                      "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].InvoiceNo}" +
+                                      "",
+                                  style: theme.textTheme.bodyText1!
+                                      .copyWith(color: Colors.black),
+                                ),
                               )
                             ],
                           ),
@@ -3468,12 +3544,12 @@ Container callLoadingPage(BuildContext context) {
                                   .watch<OrderTabController>()
                                   .getleadDeatilsQTHData![0]
                                   .InvoiceURL1 !=
-                              null ) &&
+                              null) &&
                           (context
                                   .watch<OrderTabController>()
                                   .getleadDeatilsQTHData![0]
                                   .InvoiceURL2 !=
-                              null )
+                              null)
                       ? Container(
                           width: Screens.width(context),
                           padding: EdgeInsets.symmetric(
@@ -3507,39 +3583,64 @@ Container callLoadingPage(BuildContext context) {
                   //     itemCount: 10,
                   //   ),
                   // ),
-               InkWell(
-                                onTap: ()async{
-             
-await context.read<OrderTabController>(). callcustomerapi();
- for(int i=0;i<context.read<OrderTabController>().paymode.length;i++){
-        if(context.read<OrderTabController>().paymode[i].Code ==context.read<OrderTabController>().getleadDeatilsQTHData![0].PaymentTerms){
- pdfviewState.paymode =context.read<OrderTabController>(). paymode[i].ModeName.toString();
-        }
+                  InkWell(
+                    onTap:
+                        ConstantValues.tenetID!.toLowerCase().contains("bus009")
+                            ? () {}
+                            : () async {
+                                await context
+                                    .read<OrderTabController>()
+                                    .callcustomerapi();
+                                for (int i = 0;
+                                    i <
+                                        context
+                                            .read<OrderTabController>()
+                                            .paymode
+                                            .length;
+                                    i++) {
+                                  if (context
+                                          .read<OrderTabController>()
+                                          .paymode[i]
+                                          .Code ==
+                                      context
+                                          .read<OrderTabController>()
+                                          .getleadDeatilsQTHData![0]
+                                          .PaymentTerms) {
+                                    pdfviewState.paymode = context
+                                        .read<OrderTabController>()
+                                        .paymode[i]
+                                        .ModeName
+                                        .toString();
+                                  }
+                                }
 
-       } 
+                                pdfviewState.data = context
+                                    .read<OrderTabController>()
+                                    .getleadDeatilsQTLData;
+                                pdfviewState.orderMasterdata2 = context
+                                    .read<OrderTabController>()
+                                    .getleadDeatilsQTHData;
+                                pdfviewState.customermodeldata = context
+                                    .read<OrderTabController>()
+                                    .customermodeldata;
 
-
-                                  pdfviewState.data=context.read<OrderTabController>().getleadDeatilsQTLData;
-                                pdfviewState. orderMasterdata2=context.read<OrderTabController>().getleadDeatilsQTHData;
-                                pdfviewState. customermodeldata =context.read<OrderTabController>().customermodeldata;
-                              
                                 // PdfPreview(build: (format)=>pdfState().generatePdf(format, 'title'),);
                                 // pdfviewState.paymode=paymode;
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>pdfview()));
-                                },
-                                 child: Container(
-                                   child: Text(
-                                    
-                                    "Convert as Pdf",
-                                    textAlign: TextAlign.end,
-                                    style: TextStyle(
-                                      
-                                      decoration: TextDecoration.underline,
-                                      color: Colors.blue
-                                    ),
-                                                               ),
-                                 ),
-                               ),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => pdfview()));
+                              },
+                    child: Container(
+                      child: Text(
+                        "Convert as Pdf",
+                        textAlign: TextAlign.end,
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

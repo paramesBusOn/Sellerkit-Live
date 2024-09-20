@@ -41,7 +41,7 @@ class _quotepageState extends State<quotepage> with TickerProviderStateMixin {
   DateTime? currentBackPressTime;
   void _handleTabChange() {
     setState(() {
-      context.read<QuotestabController>().mycontroller[5].clear();
+      context.read<QuotestabController>().mycontroller[4].clear();
       context.read<QuotestabController>().setListData();
     });
   }
@@ -93,7 +93,7 @@ class _quotepageState extends State<quotepage> with TickerProviderStateMixin {
                         ]),
                     child: TextField(
                       controller:
-                          context.read<QuotestabController>().mycontroller[5],
+                          context.read<QuotestabController>().mycontroller[4],
                       onTap: () {
                         // Get.toNamed(ConstantRoutes.screenshot);
                       },

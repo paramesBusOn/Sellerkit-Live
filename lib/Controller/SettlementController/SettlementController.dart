@@ -225,7 +225,7 @@ log("dupdatalist2::"+dupdatalist2.length.toString());
 //      }
 log("dupdatalist::"+dupdatalist.length.toString());
 
-    SettlementPdfHelper.assignedTo = settlementList[0].AssignedTo;
+    // SettlementPdfHelper.assignedTo = settlementList[0].AssignedTo;
     // for (int i = 0; i < settlementList.length; i++) {
     //   if (settlementList[i].Mode == 'Cash') {
     //     settelGetListCash.add(SettlementGetData(
@@ -348,9 +348,9 @@ log("dupdatalist::"+dupdatalist.length.toString());
     //         totalAmount: settlementList[i].totalAmount,
     //         ref: settlementList[i].ref));
     //   }
-    //   SettlementPdfHelper.assignedTo = settlementList[0].AssignedTo;
+    
     // }
-     
+      SettlementPdfHelper.assignedTo = settlementList[0].AssignedTo; 
     progress = false;
     notifyListeners();
   }

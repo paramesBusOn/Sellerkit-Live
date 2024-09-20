@@ -1503,8 +1503,8 @@ Container drawer3(BuildContext context) {
                                 callback: () {
                                   // if (MenuAuthDetail.ScoreCard == "Y") {
                                   //   Navigator.pop(context);
-                                  //   Get.toNamed(
-                                  //       ConstantRoutes.scoreCardScreenOne);
+                                    Get.toNamed(
+                                        ConstantRoutes.scoreCardScreenOne);
                                   // } else {
                                   //   showDialog(
                                   //       context: context,

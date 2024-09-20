@@ -28,6 +28,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
       context.read<PriceListController>().clearAllData();
       context.read<PriceListController>().getDataFromDB();
       context.read<PriceListController>().getdataFromDb();
+      context.read<PriceListController>().getLeveofType();
     });
   }
 

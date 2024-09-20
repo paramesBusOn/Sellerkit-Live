@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
+import 'package:printing/printing.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
 
@@ -49,6 +50,8 @@ class SettlementPdfHelper {
     final TtfFont font = await loadFont();
     final TtfFont Calibrifont = await caliberFont();
     final TtfFont Calibrifontbold = await caliberFontbold();
+     final netImage =frmAddressmodeldata!.storeLogoUrl != null&& frmAddressmodeldata!.storeLogoUrl!.isNotEmpty? await networkImage(frmAddressmodeldata!.storeLogoUrl!):null;
+   
     final pdf = Document(
       pageMode: PdfPageMode.none,
     );
@@ -64,7 +67,7 @@ class SettlementPdfHelper {
         height: PdfPageFormat.a4.height,
       ),
       header: (context) {
-        return buildHeader(font, Calibrifont, config, Calibrifontbold);
+        return buildHeader(font, Calibrifont, config, Calibrifontbold,netImage ??null);
       },
       build: (context) => [
         createLineTable(font, Calibrifont, config, Calibrifontbold),
@@ -77,7 +80,7 @@ class SettlementPdfHelper {
   }
 
   static pw.Widget buildHeader(TtfFont font, TtfFont Calibrifont, Config config,
-          TtfFont Calibrifontbold) =>
+          TtfFont Calibrifontbold,ImageProvider? netImage) =>
       Container(
           decoration: BoxDecoration(
               border: Border(
@@ -90,7 +93,9 @@ class SettlementPdfHelper {
                 top: PdfPageFormat.a4.height * 0.05,
               ),
               child: Column(children: [
+                
                 pw.SizedBox(height: 2 * PdfPageFormat.cm),
+               
                 Container(
                     // color: PdfColors.amber,
                     child: Row(
@@ -188,7 +193,13 @@ class SettlementPdfHelper {
                                 ),
                               ),
                             )
-                          ]))
+                          ])),
+                            netImage !=null ?       Container(
+                  alignment:pw.Alignment.centerRight,
+                          height: PdfPageFormat.a4.height*0.07,
+                          width: PdfPageFormat.a4.width *0.1,
+                        child:pw.Image(netImage,fit: BoxFit.fill)
+                      ):Container(),
                     ])),
                 Container(),
                 Container()
@@ -441,7 +452,8 @@ class SettlementPdfHelper {
                               fontSize: 10,
                             ),
                           ),
-                          Text(
+                        assignedTo == null || assignedTo == 'null' || assignedTo!.isEmpty
+                  ? Text(''):  Text(
                             assignedTo!,
                             style: TextStyle(
                               font: Calibrifont,

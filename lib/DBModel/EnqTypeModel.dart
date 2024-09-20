@@ -18,6 +18,13 @@ class CusLevelDBModel {
   static const String code = "Code";
   static const String name = "Name";
 }
+
+
+const String particularprice = "Particularprice";
+
+class particularpriceDBModel {
+  static const String priceList = "PriceList";
+}
 const String tableOrderType = "OrderType";
 
 class OrderTypeDBModel {

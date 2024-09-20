@@ -34,13 +34,13 @@ class qrscannerState extends State<qrscanner> {
   List<Barcode> barcodes=[];
 @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     setState(() {
       barcodes.clear(); 
 
     });
-   log("barcodes:::"+barcodes.toString());
+   log("barcodes:::$barcodes");
     
   }
   DateTime? currentBackPressTime;
@@ -48,7 +48,7 @@ class qrscannerState extends State<qrscanner> {
     DateTime now = DateTime.now();
 
     if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+        now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
       currentBackPressTime = now;
       Get.back();
       return Future.value(true);
@@ -59,6 +59,13 @@ class qrscannerState extends State<qrscanner> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
+      // canPop: false,
+      // onPopInvoked:(bool didPop){
+      //   log("didPop::"+didPop.toString());
+      //   if(didPop) return;
+      //   onbackpress();
+        
+      // } ,
       onWillPop: onbackpress,
       child: Scaffold(
         appBar: AppBar(
@@ -67,7 +74,7 @@ class qrscannerState extends State<qrscanner> {
           //     Get.back();
           //   },
           //   child: Icon(Icons.arrow_back,color: Colors.amber,)),
-          title:Text("Mobile Scanner"), 
+          title:const Text("Mobile Scanner"), 
           ),
           body: GestureDetector(
             onHorizontalDragUpdate: (details) {

@@ -279,6 +279,7 @@ Container(
                               SettlementPdfHelper.frmAddressmodeldata = context
                                   .read<SettlementController>()
                                   .frmAddmodeldata;
+                                  // SettlementPdfHelper.assignedTo=widget.settlemaster!.AssignedTo.toString();
 
                               Navigator.push(
                                   context,

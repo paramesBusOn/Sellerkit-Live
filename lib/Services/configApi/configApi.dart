@@ -19,6 +19,7 @@ class GetconfigApi {
       // print(Url.queryApi + 'SkClientPortal/GetallMaster?MasterTypeId=2');
       // print("token:"+ConstantValues.token);
       // await config.getSetup();
+       final stopwatch = Stopwatch()..start();
        final response = await http.get(Uri.parse(Url.queryApi + 'Sellerkit_Flexi/v3/GetConfig'),
           headers: {
             "content-type": "application/json",
@@ -33,7 +34,9 @@ class GetconfigApi {
       // print(response.statusCode.toString());
       log("Enquiry Type"+response.body.toString());
       if (response.statusCode == 200) {
-      
+        stopwatch.stop();
+    log('DB configApi ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.configApi =stopwatch.elapsedMilliseconds.toString();
         return GetconfigModal.fromJson(
             json.decode(response.body), response.statusCode);
       } else {

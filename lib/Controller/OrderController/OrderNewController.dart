@@ -11,8 +11,14 @@ import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/OrderTypeModel.da
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/couponModel.dart';
+import 'package:sellerkit/Models/ordergiftModel/ParticularpricelistModel.dart';
+import 'package:sellerkit/Models/ordergiftModel/ordergiftModel.dart';
+import 'package:sellerkit/Models/ordergiftModel/orderpricecheckModel.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/paymenttermdialog.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/shorefdialog.dart';
+import 'package:sellerkit/Services/OrdergiftApi/ordergiftapi.dart';
+import 'package:sellerkit/Services/OrdergiftApi/orderpricecheckApi.dart';
+import 'package:sellerkit/Services/OrdergiftApi/pricelistparticularApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/OrdersApi/couponApi.dart';
 import 'package:sellerkit/Services/PostQueryApi/OrdersApi/paymentmode.dart';
 import 'package:sellerkit/Services/PostQueryApi/QuotatationApi/QuotesQTHApi.dart';
@@ -172,10 +178,12 @@ class OrderNewController extends ChangeNotifier {
   getLeveofType() async {
     leveofdata.clear();
     ordertypedata.clear();
+    Particularprice.clear();
     final Database db = (await DBHelper.getInstance())!;
 
     leveofdata = await DBOperation.getlevelofData(db);
     ordertypedata = await DBOperation.getordertypeData(db);
+    Particularprice = await DBOperation.getparticularprice(db);
     notifyListeners();
   }
 
@@ -515,6 +523,8 @@ class OrderNewController extends ChangeNotifier {
   double? unitPrice;
   double? quantity;
   double? taxvalue;
+  int? offeridval;
+  String? itemtypemodify;
 
   double total = 0.00;
   List<Custype> custype = [
@@ -768,7 +778,7 @@ class OrderNewController extends ChangeNotifier {
 // Navigator.pop(context);
     notifyListeners();
     for (int ij = 0; ij < allProductDetails.length; ij++) {
-      if (allProductDetails[ij].itemCode == Scancode) {
+      if (allProductDetails[ij].partCode == Scancode) {
         itemAlreadyscanned = true;
         indexscanning = ij;
         notifyListeners();
@@ -799,7 +809,14 @@ class OrderNewController extends ChangeNotifier {
   }
 
   changeVisible() {
+    allProductDetails = filterProductDetails;
     showItemList = !showItemList;
+    notifyListeners();
+  }
+
+  changeVisible2() {
+    allProductDetails = filterProductDetails;
+
     notifyListeners();
   }
 
@@ -831,6 +848,135 @@ class OrderNewController extends ChangeNotifier {
   //   }
   //   notifyListeners();
   // }
+
+  showpopdialogunitprice(
+      BuildContext context, String headtext, String childtext) async {
+    await showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(builder: (context, setst) {
+        return AlertDialog(
+          insetPadding: EdgeInsets.all(10),
+          contentPadding: EdgeInsets.all(0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          // title: Text("Are you sure?"),
+          // content: Text("Do you want to exit?"),
+          content: Container(
+            width: Screens.width(context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: Screens.width(context),
+                  height: Screens.bodyheight(context) * 0.06,
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        textStyle: TextStyle(
+                            // fontSize: 12,
+                            ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          topLeft: Radius.circular(10),
+                        )), //Radius.circular(6)
+                      ),
+                      child: Text("Alert", style: TextStyle(fontSize: 15))),
+                ),
+                SizedBox(
+                  height: Screens.padingHeight(context) * 0.01,
+                ),
+                Container(
+                    padding: EdgeInsets.only(left: 40),
+                    width: Screens.width(context) * 0.85,
+                    child: Divider(
+                      color: Colors.grey,
+                    )),
+                Container(
+                    alignment: Alignment.center,
+                    // width: Screens.width(context)*0.5,
+                    // padding: EdgeInsets.only(left:20),
+                    //Entered Amount is less than SP
+                    child: Text(
+                      "$headtext",
+                      style: TextStyle(fontSize: 15),
+                    )),
+                SizedBox(
+                  height: Screens.padingHeight(context) * 0.01,
+                ),
+                childtext == ''
+                    ? Container()
+                    : Container(
+                        alignment: Alignment.center,
+                        // padding: EdgeInsets.only(left:20),
+                        //To proceed with order creation...get price approval
+                        child:
+                            Text("$childtext", style: TextStyle(fontSize: 15))),
+                Container(
+                    padding: EdgeInsets.only(left: 40),
+                    width: Screens.width(context) * 0.85,
+                    child: Divider(color: Colors.grey)),
+                SizedBox(
+                  height: Screens.bodyheight(context) * 0.01,
+                ),
+                Container(
+                  width: Screens.width(context),
+                  height: Screens.bodyheight(context) * 0.06,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        // primary: theme.primaryColor,
+                        textStyle: TextStyle(color: Colors.white),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(0),
+                        )),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        //  exit(0);
+                        // setst(() {
+                        //   if (ispopupshown == true) {
+                        //     ispopupallow = true;
+                        //     notifyListeners();
+                        //   } else if (ispopupshown2 == true) {
+                        //     ispopupallow2 = true;
+                        //     notifyListeners();
+                        //   } else if (ispopupshown3 == true) {
+                        //     ispopupallow3 = true;
+                        //     notifyListeners();
+                        //   } else if (ispopupshown4 == true) {
+                        //     ispopupallow4 = true;
+                        //     notifyListeners();
+                        //   }
+
+                        //   Navigator.pop(context);
+                        // });
+                      },
+                      child: Text(
+                        "Ok",
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
+              ],
+            ),
+          ),
+          // actions: [
+          //   TextButton(
+          //     onPressed: () => Navigator.of(context).pop(false),
+          //     child: Text("No"),
+          //   ),
+          //   TextButton(
+          //       onPressed: () {
+          //         exit(0);
+          //       },
+          //       child: Text("yes"))
+          // ],
+        );
+      }),
+    );
+  }
 
   String? taxRate;
   String? taxCode;
@@ -925,13 +1071,13 @@ class OrderNewController extends ChangeNotifier {
                                 notifyListeners();
                               } else if (ispopupshown2 == true) {
                                 ispopupallow2 = true;
-                                 notifyListeners();
+                                notifyListeners();
                               } else if (ispopupshown3 == true) {
                                 ispopupallow3 = true;
-                                 notifyListeners();
+                                notifyListeners();
                               } else if (ispopupshown4 == true) {
                                 ispopupallow4 = true;
-                                 notifyListeners();
+                                notifyListeners();
                               }
 
                               Navigator.pop(context);
@@ -959,16 +1105,16 @@ class OrderNewController extends ChangeNotifier {
                             setst(() {
                               if (ispopupshown == true) {
                                 ispopupallow = false;
-                                 notifyListeners();
+                                notifyListeners();
                               } else if (ispopupshown2 == true) {
                                 ispopupallow2 = false;
-                                 notifyListeners();
+                                notifyListeners();
                               } else if (ispopupshown3 == true) {
                                 ispopupallow3 = false;
-                                 notifyListeners();
+                                notifyListeners();
                               } else if (ispopupshown4 == true) {
                                 ispopupallow4 = false;
-                                 notifyListeners();
+                                notifyListeners();
                               }
 
                               Navigator.pop(context);
@@ -1013,6 +1159,275 @@ class OrderNewController extends ChangeNotifier {
   bool ispopupfinal2 = false;
   bool ispopupfinal3 = false;
   bool ispopupfinal4 = false;
+  List<giftoffers> finalgiftlist = [];
+//  List<giftoffers> tempGiftList = [];
+  List<giftoffers> modifyfinalgiftlist = [];
+  
+  deepCopyGiftList(List<giftoffers> originalList) {
+    return originalList
+        .map((gift) => giftoffers(
+            itemtype: gift.itemtype,
+            GiftQty: gift.GiftQty,
+            OfferSetup_Id: gift.OfferSetup_Id,
+            ItemCode: gift.ItemCode,
+            Attach_Qty: gift.Attach_Qty,
+            BasicPrice: gift.BasicPrice,
+            ItemName: gift.ItemName,
+            MRP: gift.MRP,
+            Price: gift.Price,
+            SP: gift.SP,
+            TaxAmt_PerUnit: gift.TaxAmt_PerUnit,
+            TaxRate: gift.TaxRate,
+            quantity: gift.quantity))
+        .toList();
+  }
+
+  deepCopyGiftList2(List<giftoffers> originalList) {
+    return originalList
+        .map((gift) => giftoffers(
+            itemtype: gift.itemtype,
+            GiftQty: gift.GiftQty,
+            OfferSetup_Id: gift.OfferSetup_Id,
+            ItemCode: gift.ItemCode,
+            Attach_Qty: gift.Attach_Qty,
+            BasicPrice: gift.BasicPrice,
+            ItemName: gift.ItemName,
+            MRP: gift.MRP,
+            Price: gift.Price,
+            SP: gift.SP,
+            TaxAmt_PerUnit: gift.TaxAmt_PerUnit,
+            TaxRate: gift.TaxRate,
+            quantity: gift.quantity))
+        .toList();
+  }
+
+  List<OrderPricecheckData> orderpricecheckData = [];
+  bool pricecheckloading = false;
+  String? pricecheckerror = '';
+  callPricecheckApi(
+    String? itemcode,
+    int? quantity,
+    double? unitprice,
+    String? couponcode,
+    BuildContext context,
+    ThemeData theme,
+    int i,
+    bool addproduct,
+    ItemMasterDBModel updateallProductDetails,
+  ) async {
+    orderpricecheckData.clear();
+    pricecheckloading = true;
+    pricecheckerror = '';
+    await OrderPricecheckApi.getData(itemcode, quantity, unitprice, couponcode)
+        .then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        // log("Step 3" + value.Ordercheckdatageader.toString());
+
+        if (value.itemdata!.childdata != null &&
+            value.itemdata!.childdata!.isNotEmpty) {
+          log("not null");
+
+          orderpricecheckData = value.itemdata!.childdata!;
+          if (orderpricecheckData[0].validity == 'valid') {
+            if (ConstantValues.ordergiftlogic!.toLowerCase() == 'y') {
+              callgiftApi(
+                  itemcode.toString(),
+                  int.parse(mycontroller[11].text),
+                  double.parse(mycontroller[10].text),
+                  context,
+                  i,
+                  theme,
+                  addproduct,
+                  allProductDetails[i]);
+            } else {
+              if (addproduct == true) {
+                mycontroller[12].clear();
+                addProductDetails(context, allProductDetails[i]);
+                notifyListeners();
+              } else if (addproduct == false) {
+                updateProductDetails(context, i, updateallProductDetails);
+                notifyListeners();
+              }
+            }
+          } else {
+            showpopdialogunitprice(
+                context,
+                "Price cannot be deviated from your allowed Limit. Required Special Pricing Approval to Proceed..!!",
+                '');
+            notifyListeners();
+          }
+          // showgiftitems(context, i, theme, addproduct, updateallProductDetails);
+          pricecheckloading = false;
+          pricecheckerror = '';
+          notifyListeners();
+        } else if (value.itemdata!.childdata == null ||
+            value.itemdata!.childdata!.isEmpty) {
+          log("Order data null");
+          pricecheckloading = false;
+          pricecheckerror = 'No data in CheckPriceValidity..!!';
+          showpopdialogunitprice(context, "$pricecheckerror", '');
+          // gifterror = 'No data..!!';
+          // if (addproduct == true) {
+          //   mycontroller[12].clear();
+          //   addProductDetails(context, allProductDetails[i]);
+          //   notifyListeners();
+          // } else if (addproduct == false) {
+          //   updateProductDetails(context, i, updateallProductDetails);
+          // }
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        pricecheckloading = false;
+        pricecheckerror = '${value.message}..!!${value.exception}....!!';
+        showpopdialogunitprice(context, "$pricecheckerror", '');
+        // if (addproduct == true) {
+        //   mycontroller[12].clear();
+        //   addProductDetails(context, allProductDetails[i]);
+        //   notifyListeners();
+        // } else if (addproduct == false) {
+        //   updateProductDetails(context, i, updateallProductDetails);
+        // }
+
+        notifyListeners();
+      } else {
+        if (value.exception!.contains("Network is unreachable")) {
+          pricecheckloading = false;
+          pricecheckerror =
+              '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+          showpopdialogunitprice(context, "$pricecheckerror", '');
+          // if (addproduct == true) {
+          //   mycontroller[12].clear();
+          //   addProductDetails(context, allProductDetails[i]);
+          //   notifyListeners();
+          // } else if (addproduct == false) {
+          //   updateProductDetails(context, i, updateallProductDetails);
+          // }
+
+          notifyListeners();
+        } else {
+          pricecheckloading = false;
+          pricecheckerror =
+              '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+          showpopdialogunitprice(context, "$pricecheckerror", '');
+          // if (addproduct == true) {
+          //   mycontroller[12].clear();
+          //   addProductDetails(context, allProductDetails[i]);
+          //   notifyListeners();
+          // } else if (addproduct == false) {
+          //   updateProductDetails(context, i, updateallProductDetails);
+          // }
+
+          notifyListeners();
+        }
+
+        notifyListeners();
+      }
+    });
+  }
+
+  List<ParticularpriceData> Particularprice = [];
+
+  List<OrdergiftData> ordergiftData = [];
+  bool isgiftloading = false;
+  String? gifterror = '';
+  callgiftApi(
+      String? itemcode,
+      int? quantity,
+      double? unitprice,
+      BuildContext context,
+      int i,
+      ThemeData theme,
+      bool addproduct,
+      ItemMasterDBModel updateallProductDetails) async {
+    ordergiftData.clear();
+    isgiftloading = true;
+    await OrdergiftDetailsApi.getData(itemcode, quantity, unitprice)
+        .then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        // log("Step 3" + value.Ordercheckdatageader.toString());
+
+        if (value.itemdata!.childdata != null &&
+            value.itemdata!.childdata!.isNotEmpty) {
+          log("not null");
+
+          ordergiftData = value.itemdata!.childdata!;
+          showgiftitems(context, i, theme, addproduct, updateallProductDetails);
+          isgiftloading = false;
+          gifterror = '';
+          notifyListeners();
+        } else if (value.itemdata!.childdata == null ||
+            value.itemdata!.childdata!.isEmpty) {
+          log("Order data null");
+          isgiftloading = false;
+          gifterror = 'No data..!!';
+          if (addproduct == true) {
+            mycontroller[12].clear();
+            addProductDetails(context, allProductDetails[i]);
+            notifyListeners();
+          } else if (addproduct == false) {
+            updateProductDetails(context, i, updateallProductDetails);
+          }
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        isgiftloading = false;
+        gifterror = '${value.message}..!!${value.exception}....!!';
+        if (addproduct == true) {
+          mycontroller[12].clear();
+          addProductDetails(context, allProductDetails[i]);
+          notifyListeners();
+        } else if (addproduct == false) {
+          updateProductDetails(context, i, updateallProductDetails);
+        }
+
+        notifyListeners();
+      } else {
+        if (value.exception!.contains("Network is unreachable")) {
+          isgiftloading = false;
+          gifterror =
+              '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+          if (addproduct == true) {
+            mycontroller[12].clear();
+            addProductDetails(context, allProductDetails[i]);
+            notifyListeners();
+          } else if (addproduct == false) {
+            updateProductDetails(context, i, updateallProductDetails);
+          }
+
+          notifyListeners();
+        } else {
+          isgiftloading = false;
+          gifterror =
+              '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+          if (addproduct == true) {
+            mycontroller[12].clear();
+            addProductDetails(context, allProductDetails[i]);
+            notifyListeners();
+          } else if (addproduct == false) {
+            updateProductDetails(context, i, updateallProductDetails);
+          }
+
+          notifyListeners();
+        }
+
+        notifyListeners();
+      }
+    });
+  }
+
+  getlinetotalgift(int index) {
+    double linetotalgift = 0.00;
+    double finallinetotal = 0.00;
+    if (productDetails[index].giftitems != null &&
+        productDetails[index].giftitems!.isNotEmpty) {
+      for (int ij = 0; ij < productDetails[index].giftitems!.length; ij++) {
+        linetotalgift = linetotalgift +
+            (productDetails[index].giftitems![ij].quantity! *
+                productDetails[index].giftitems![ij].Price!);
+      }
+    }
+    linetotalgift = linetotalgift + getProduct[index].LineTotal!;
+    return linetotalgift.toString();
+  }
+
   addProductDetails(
       BuildContext context, ItemMasterDBModel allProductDetails) async {
     log("sellect" + allProductDetails.mgrPrice.toString());
@@ -1021,6 +1436,26 @@ class OrderNewController extends ChangeNotifier {
     log("sellect" + productDetails.length.toString());
 
     if (formkey[1].currentState!.validate()) {
+      finalgiftlist.clear();
+      for (int i = 0; i < ordergiftData.length; i++) {
+        if (int.parse(ordergiftData[i].quantity.toString()) > 0) {
+          finalgiftlist.add(giftoffers(
+              itemtype: "G",
+              GiftQty: ordergiftData[i].GiftQty,
+              OfferSetup_Id: ordergiftData[i].OfferSetup_Id,
+              ItemCode: ordergiftData[i].ItemCode,
+              Attach_Qty: ordergiftData[i].Attach_Qty,
+              BasicPrice: ordergiftData[i].BasicPrice,
+              ItemName: ordergiftData[i].ItemName,
+              MRP: ordergiftData[i].MRP,
+              Price: ordergiftData[i].Price,
+              SP: ordergiftData[i].SP,
+              TaxAmt_PerUnit: ordergiftData[i].TaxAmt_PerUnit,
+              TaxRate: ordergiftData[i].TaxRate,
+              quantity: ordergiftData[i].quantity));
+          notifyListeners();
+        }
+      }
       ispopupshown = false;
       ispopupshown2 = false;
       ispopupshown3 = false;
@@ -1029,37 +1464,37 @@ class OrderNewController extends ChangeNotifier {
       ispopupallow2 = false;
       ispopupallow3 = false;
       ispopupallow4 = false;
-      ispopupfinal1 =false;
-      ispopupfinal2 =false;
-      ispopupfinal3 =false;
-      ispopupfinal4 =false;
+      ispopupfinal1 = false;
+      ispopupfinal2 = false;
+      ispopupfinal3 = false;
+      ispopupfinal4 = false;
       notifyListeners();
       if (unitPrice! > allProductDetails.mgrPrice!) {
         ispopupshown = true;
         ispopupshown2 = false;
         ispopupshown3 = false;
         ispopupshown4 = false;
-        ispopupfinal1=true;
+        ispopupfinal1 = true;
         notifyListeners();
         await showpopdialog(context, "Entered price is greater than MRP");
       }
       if (unitPrice! < allProductDetails.slpPrice!) {
         ispopupshown = false;
-        
+
         ispopupshown3 = false;
         ispopupshown4 = false;
         ispopupshown2 = true;
-        ispopupfinal2=true;
+        ispopupfinal2 = true;
         notifyListeners();
         await showpopdialog(context, "Entered price is less than Cost");
       }
       if (isselected[0] == true) {
         if (quantity! > allProductDetails.storeStock!) {
           ispopupshown = false;
-        ispopupshown2 = false;
-        ispopupshown4 = false;
+          ispopupshown2 = false;
+          ispopupshown4 = false;
           ispopupshown3 = true;
-          ispopupfinal3=true;
+          ispopupfinal3 = true;
           notifyListeners();
           await showpopdialog(
               context, "Entered quantity is greater than Storestock");
@@ -1068,9 +1503,9 @@ class OrderNewController extends ChangeNotifier {
         if (quantity! > allProductDetails.whsStock!) {
           ispopupshown4 = true;
           ispopupshown = false;
-        ispopupshown2 = false;
-        ispopupshown3 = false;
-        ispopupfinal4=true;
+          ispopupshown2 = false;
+          ispopupshown3 = false;
+          ispopupfinal4 = true;
           notifyListeners();
           await showpopdialog(
               context, "Entered quantity is greater than Whsestock");
@@ -1096,78 +1531,11 @@ class OrderNewController extends ChangeNotifier {
           notifyListeners();
           showtoastforall();
         } else {
+          log("finalgiftlist::" + finalgiftlist.length.toString());
+          var giftListCopy = deepCopyGiftList(finalgiftlist);
           productDetails.add(DocumentLines(
-            id: 0,
-            docEntry: 0,
-            linenum: 0,
-            ItemCode: selectedItemCode,
-            ItemDescription: selectedItemName,
-            Quantity: quantity,
-            LineTotal: total,
-            Price: unitPrice,
-            TaxCode: taxvalue,
-            TaxLiable: "tNO",
-            storecode: ConstantValues.Storecode,
-            deliveryfrom: isselected[0] == true ? "store" : "Whse",
-            sp: sporder,
-            slpprice: slppriceorder,
-            storestock: storestockorder,
-            whsestock: whsestockorder,
-            isfixedprice: isfixedpriceorder,
-            allownegativestock: allownegativestockorder,
-            alloworderbelowcost: alloworderbelowcostorder,
-            complementary: assignvalue,
-            couponcode:
-                mycontroller[36].text == null || mycontroller[36].text.isEmpty
-                    ? null
-                    : mycontroller[36].text,
-            partcode: selectedapartcode == null || selectedapartcode.isEmpty
-                ? null
-                : selectedapartcode,
-            partname: selectedapartname == null || selectedapartname.isEmpty
-                ? null
-                : selectedapartname,
-          ));
-          showItemList = false;
-          mycontroller[12].clear();
-          Navigator.pop(context);
-
-          isUpdateClicked = false;
-          postpaymentdata.clear();
-          deletepaymode2();
-          notifyListeners();
-        }
-      } else {
-        log("ispopupallow3::"+ispopupallow3.toString());
-        if (ispopupfinal1 == true && ispopupallow == false) {
-            log("error occured in popupshown1");
-        }else if(ispopupfinal2 == true && ispopupallow2 == false){
-          log("error occured in popupshown2");
-          }
-        else if(ispopupfinal3 == true && ispopupallow3 == false){
-          log("error occured in popupshown3");
-          }
-        else if(ispopupfinal4 == true && ispopupallow4 == false){
-          log("error occured in popupshown4");
-          }
-         else {
-          bool itemAlreadyAdded = false;
-
-          for (int i = 0; i < productDetails.length; i++) {
-            if (productDetails[i].ItemCode == selectedItemCode) {
-              itemAlreadyAdded = true;
-              break;
-            }
-          }
-          if (itemAlreadyAdded) {
-            showItemList = false;
-            mycontroller[12].clear();
-            Navigator.pop(context);
-            isUpdateClicked = false;
-            notifyListeners();
-            showtoastforall();
-          } else {
-            productDetails.add(DocumentLines(
+              itemtype: 'R',
+              OfferSetup_Id: null,
               id: 0,
               docEntry: 0,
               linenum: 0,
@@ -1198,7 +1566,78 @@ class OrderNewController extends ChangeNotifier {
               partname: selectedapartname == null || selectedapartname.isEmpty
                   ? null
                   : selectedapartname,
-            ));
+              giftitems: giftListCopy));
+          showItemList = false;
+          mycontroller[12].clear();
+          Navigator.pop(context);
+
+          isUpdateClicked = false;
+          postpaymentdata.clear();
+          deletepaymode2();
+          notifyListeners();
+        }
+      } else {
+        log("ispopupallow3::" + ispopupallow3.toString());
+        if (ispopupfinal1 == true && ispopupallow == false) {
+          log("error occured in popupshown1");
+        } else if (ispopupfinal2 == true && ispopupallow2 == false) {
+          log("error occured in popupshown2");
+        } else if (ispopupfinal3 == true && ispopupallow3 == false) {
+          log("error occured in popupshown3");
+        } else if (ispopupfinal4 == true && ispopupallow4 == false) {
+          log("error occured in popupshown4");
+        } else {
+          bool itemAlreadyAdded = false;
+
+          for (int i = 0; i < productDetails.length; i++) {
+            if (productDetails[i].ItemCode == selectedItemCode) {
+              itemAlreadyAdded = true;
+              break;
+            }
+          }
+          if (itemAlreadyAdded) {
+            showItemList = false;
+            mycontroller[12].clear();
+            Navigator.pop(context);
+            isUpdateClicked = false;
+            notifyListeners();
+            showtoastforall();
+          } else {
+            var giftListCopy = deepCopyGiftList(finalgiftlist);
+            productDetails.add(DocumentLines(
+                itemtype: 'R',
+                OfferSetup_Id: null,
+                id: 0,
+                docEntry: 0,
+                linenum: 0,
+                ItemCode: selectedItemCode,
+                ItemDescription: selectedItemName,
+                Quantity: quantity,
+                LineTotal: total,
+                Price: unitPrice,
+                TaxCode: taxvalue,
+                TaxLiable: "tNO",
+                storecode: ConstantValues.Storecode,
+                deliveryfrom: isselected[0] == true ? "store" : "Whse",
+                sp: sporder,
+                slpprice: slppriceorder,
+                storestock: storestockorder,
+                whsestock: whsestockorder,
+                isfixedprice: isfixedpriceorder,
+                allownegativestock: allownegativestockorder,
+                alloworderbelowcost: alloworderbelowcostorder,
+                complementary: assignvalue,
+                couponcode: mycontroller[36].text == null ||
+                        mycontroller[36].text.isEmpty
+                    ? null
+                    : mycontroller[36].text,
+                partcode: selectedapartcode == null || selectedapartcode.isEmpty
+                    ? null
+                    : selectedapartcode,
+                partname: selectedapartname == null || selectedapartname.isEmpty
+                    ? null
+                    : selectedapartname,
+                giftitems: giftListCopy));
             showItemList = false;
             mycontroller[12].clear();
             Navigator.pop(context);
@@ -1211,10 +1650,15 @@ class OrderNewController extends ChangeNotifier {
         }
       }
     }
+    // for(int i=0;i<productDetails.length;i++){
+    //   log("hhhhh::"+productDetails[i].giftitems![0].name.toString());
+    // }
   }
 
   addfinalproduct(BuildContext context) {
     productDetails.add(DocumentLines(
+        itemtype: 'R',
+        OfferSetup_Id: null,
         id: 0,
         docEntry: 0,
         linenum: 0,
@@ -1357,6 +1801,26 @@ class OrderNewController extends ChangeNotifier {
   updateProductDetails(
       BuildContext context, int i, ItemMasterDBModel allProductDetails) async {
     if (formkey[1].currentState!.validate()) {
+      finalgiftlist.clear();
+      for (int i = 0; i < ordergiftData.length; i++) {
+        if (int.parse(ordergiftData[i].quantity.toString()) > 0) {
+          finalgiftlist.add(giftoffers(
+              itemtype: 'G',
+              GiftQty: ordergiftData[i].GiftQty,
+              OfferSetup_Id: ordergiftData[i].OfferSetup_Id,
+              ItemCode: ordergiftData[i].ItemCode,
+              Attach_Qty: ordergiftData[i].Attach_Qty,
+              BasicPrice: ordergiftData[i].BasicPrice,
+              ItemName: ordergiftData[i].ItemName,
+              MRP: ordergiftData[i].MRP,
+              Price: ordergiftData[i].Price,
+              SP: ordergiftData[i].SP,
+              TaxAmt_PerUnit: ordergiftData[i].TaxAmt_PerUnit,
+              TaxRate: ordergiftData[i].TaxRate,
+              quantity: ordergiftData[i].quantity));
+          notifyListeners();
+        }
+      }
       ispopupshown = false;
       ispopupshown2 = false;
       ispopupshown3 = false;
@@ -1365,36 +1829,36 @@ class OrderNewController extends ChangeNotifier {
       ispopupallow2 = false;
       ispopupallow3 = false;
       ispopupallow4 = false;
-      ispopupfinal1 =false;
-      ispopupfinal2 =false;
-      ispopupfinal3 =false;
-      ispopupfinal4 =false;
+      ispopupfinal1 = false;
+      ispopupfinal2 = false;
+      ispopupfinal3 = false;
+      ispopupfinal4 = false;
       notifyListeners();
       if (unitPrice! > allProductDetails.mgrPrice!) {
         ispopupshown = true;
-         ispopupshown2 = false;
+        ispopupshown2 = false;
         ispopupshown3 = false;
         ispopupshown4 = false;
-        ispopupfinal1=true;
+        ispopupfinal1 = true;
         notifyListeners();
         await showpopdialog(context, "Entered price is greater than MRP");
       }
       if (unitPrice! < allProductDetails.slpPrice!) {
         ispopupshown2 = true;
         ispopupshown = false;
-      ispopupshown3 = false;
-      ispopupshown4 = false;
-      ispopupfinal2=true;
+        ispopupshown3 = false;
+        ispopupshown4 = false;
+        ispopupfinal2 = true;
         notifyListeners();
         await showpopdialog(context, "Entered price is less than Cost");
       }
       if (isselected[0] == true) {
         if (quantity! > allProductDetails.storeStock!) {
           ispopupshown3 = true;
-           ispopupshown = false;
-      ispopupshown2 = false;
-      ispopupshown4 = false;
-      ispopupfinal3=true;
+          ispopupshown = false;
+          ispopupshown2 = false;
+          ispopupshown4 = false;
+          ispopupfinal3 = true;
           notifyListeners();
           await showpopdialog(
               context, "Entered quantity is greater than Storestock");
@@ -1402,10 +1866,10 @@ class OrderNewController extends ChangeNotifier {
       } else {
         if (quantity! > allProductDetails.whsStock!) {
           ispopupshown4 = true;
-           ispopupshown = false;
-      ispopupshown2 = false;
-      ispopupshown3 = false;
-      ispopupfinal4=true;
+          ispopupshown = false;
+          ispopupshown2 = false;
+          ispopupshown3 = false;
+          ispopupfinal4 = true;
           notifyListeners();
           await showpopdialog(
               context, "Entered quantity is greater than Whsestock");
@@ -1416,6 +1880,7 @@ class OrderNewController extends ChangeNotifier {
           ispopupfinal2 == false &&
           ispopupfinal3 == false &&
           ispopupfinal4 == false) {
+        var giftListCopy = deepCopyGiftList(finalgiftlist);
         productDetails[i].Quantity = quantity;
         productDetails[i].Price = unitPrice;
         productDetails[i].LineTotal = total;
@@ -1431,6 +1896,7 @@ class OrderNewController extends ChangeNotifier {
             mycontroller[36].text == null || mycontroller[36].text.isEmpty
                 ? productDetails[i].couponcode
                 : mycontroller[36].text;
+        productDetails[i].giftitems = giftListCopy;
         showItemList = false;
         Navigator.pop(context);
         postpaymentdata.clear();
@@ -1438,18 +1904,17 @@ class OrderNewController extends ChangeNotifier {
         isUpdateClicked = false;
         notifyListeners();
       } else {
-          log("ispopupallow3::"+ispopupallow3.toString());
+        log("ispopupallow3::" + ispopupallow3.toString());
         if (ispopupfinal1 == true && ispopupallow == false) {
-            log("error occured in popupshown1");
-        }else if(ispopupfinal2 == true && ispopupallow2 == false){
+          log("error occured in popupshown1");
+        } else if (ispopupfinal2 == true && ispopupallow2 == false) {
           log("error occured in popupshown2");
-          }
-        else if(ispopupfinal3 == true && ispopupallow3 == false){
+        } else if (ispopupfinal3 == true && ispopupallow3 == false) {
           log("error occured in popupshown3");
-          }
-        else if(ispopupfinal4 == true && ispopupallow4 == false){
+        } else if (ispopupfinal4 == true && ispopupallow4 == false) {
           log("error occured in popupshown4");
-          }else {
+        } else {
+          var giftListCopy = deepCopyGiftList(finalgiftlist);
           productDetails[i].Quantity = quantity;
           productDetails[i].Price = unitPrice;
           productDetails[i].LineTotal = total;
@@ -1466,6 +1931,7 @@ class OrderNewController extends ChangeNotifier {
                   ? productDetails[i].couponcode
                   : mycontroller[36].text;
           showItemList = false;
+          productDetails[i].giftitems = giftListCopy;
           Navigator.pop(context);
           postpaymentdata.clear();
           deletepaymode2();
@@ -1478,6 +1944,10 @@ class OrderNewController extends ChangeNotifier {
 
   List<GetCustomerData>? customerdetails;
   resetItems(int i) {
+    orderpricecheckData.clear();
+    ordergiftData.clear();
+    isgiftloading = false;
+    gifterror = '';
     unitPrice = 0.00;
     quantity = 0;
     total = 0.00;
@@ -1501,10 +1971,10 @@ class OrderNewController extends ChangeNotifier {
     ispopupallow2 = false;
     ispopupallow3 = false;
     ispopupallow4 = false;
-    ispopupfinal1 =false;
-      ispopupfinal2 =false;
-      ispopupfinal3 =false;
-      ispopupfinal4 =false;
+    ispopupfinal1 = false;
+    ispopupfinal2 = false;
+    ispopupfinal3 = false;
+    ispopupfinal4 = false;
 
     isappliedcoupon = false;
     notifyListeners();
@@ -1575,8 +2045,8 @@ class OrderNewController extends ChangeNotifier {
             //           orderdetails = value.itemdata!.orderdetails;
             //           alertDialogOpenLeadOREnq(context,"Orders");
             //         }
-            if (value.itemdata!.enquirydetails!.isNotEmpty &&
-                value.itemdata!.enquirydetails != null) {
+            if (value.itemdata!.enquirydetails != null &&
+                value.itemdata!.enquirydetails!.isNotEmpty) {
               // log("Anbulead");
               for (int i = 0; i < value.itemdata!.enquirydetails!.length; i++) {
                 if (value.itemdata!.enquirydetails![i].DocType == "Lead") {
@@ -2088,6 +2558,7 @@ class OrderNewController extends ChangeNotifier {
     notifyListeners();
   }
 
+  static List<String> datafromsp = [];
   static List<String> datafromAcc = [];
   static List<String> datafrommodify = [];
   static List<String> datafromquotes = [];
@@ -2141,7 +2612,13 @@ class OrderNewController extends ChangeNotifier {
       mapvaluesfromlead(context);
       notifyListeners();
     }
-
+    if (datafromsp.length > 0) {
+      // log("ANBUORDER");
+      clearAllData();
+      customerapicLoading = true;
+      mapvaluesfromSp(context);
+      notifyListeners();
+    }
     if (datafrommodify.length > 0) {
       // log("ANBUORDER");
       clearAllData();
@@ -2404,33 +2881,36 @@ class OrderNewController extends ChangeNotifier {
               total = unitPrice! * quantity!;
 
               productDetails.add(DocumentLines(
-                id: 0,
-                docEntry: 0,
-                linenum: 0,
-                ItemCode: selectedItemCode,
-                ItemDescription: selectedItemName,
-                Quantity: quantity,
-                LineTotal: total,
-                Price: unitPrice,
-                TaxCode: taxvalue,
-                TaxLiable: "tNO",
-                storecode: storecode,
-                deliveryfrom: deliveryfrom,
-                sp: sporder,
-                slpprice: slppriceorder,
-                storestock: storestockorder,
-                whsestock: whsestockorder,
-                isfixedprice: isfixedpriceorder,
-                allownegativestock: allownegativestockorder,
-                alloworderbelowcost: alloworderbelowcostorder,
-                //    sp: sporder,
-                // slpprice: slppriceorder,
-                // storestock: storestockorder,
-                // whsestock:whsestockorder ,
-                // isfixedprice: isfixedpriceorder,
-                // allownegativestock:allownegativestockorder ,
-                // alloworderbelowcost: alloworderbelowcostorder,
-              ));
+                  itemtype: 'R',
+                  OfferSetup_Id: null,
+                  id: 0,
+                  docEntry: 0,
+                  linenum: 0,
+                  ItemCode: selectedItemCode,
+                  ItemDescription: selectedItemName,
+                  Quantity: quantity,
+                  LineTotal: total,
+                  Price: unitPrice,
+                  TaxCode: taxvalue,
+                  TaxLiable: "tNO",
+                  storecode: storecode,
+                  deliveryfrom: deliveryfrom,
+                  sp: sporder,
+                  slpprice: slppriceorder,
+                  storestock: storestockorder,
+                  whsestock: whsestockorder,
+                  isfixedprice: isfixedpriceorder,
+                  allownegativestock: allownegativestockorder,
+                  alloworderbelowcost: alloworderbelowcostorder,
+                  giftitems: []
+                  //    sp: sporder,
+                  // slpprice: slppriceorder,
+                  // storestock: storestockorder,
+                  // whsestock:whsestockorder ,
+                  // isfixedprice: isfixedpriceorder,
+                  // allownegativestock:allownegativestockorder ,
+                  // alloworderbelowcost: alloworderbelowcostorder,
+                  ));
             }
           }
         }
@@ -2752,33 +3232,36 @@ class OrderNewController extends ChangeNotifier {
               total = unitPrice! * quantity!;
 
               productDetails.add(DocumentLines(
-                id: 0,
-                docEntry: 0,
-                linenum: 0,
-                ItemCode: selectedItemCode,
-                ItemDescription: selectedItemName,
-                Quantity: quantity,
-                LineTotal: total,
-                Price: unitPrice,
-                TaxCode: taxvalue,
-                TaxLiable: "tNO",
-                storecode: storecode,
-                deliveryfrom: deliveryfrom,
-                sp: sporder,
-                slpprice: slppriceorder,
-                storestock: storestockorder,
-                whsestock: whsestockorder,
-                isfixedprice: isfixedpriceorder,
-                allownegativestock: allownegativestockorder,
-                alloworderbelowcost: alloworderbelowcostorder,
-                //    sp: sporder,
-                // slpprice: slppriceorder,
-                // storestock: storestockorder,
-                // whsestock:whsestockorder ,
-                // isfixedprice: isfixedpriceorder,
-                // allownegativestock:allownegativestockorder ,
-                // alloworderbelowcost: alloworderbelowcostorder,
-              ));
+                  itemtype: 'R',
+                  OfferSetup_Id: null,
+                  id: 0,
+                  docEntry: 0,
+                  linenum: 0,
+                  ItemCode: selectedItemCode,
+                  ItemDescription: selectedItemName,
+                  Quantity: quantity,
+                  LineTotal: total,
+                  Price: unitPrice,
+                  TaxCode: taxvalue,
+                  TaxLiable: "tNO",
+                  storecode: storecode,
+                  deliveryfrom: deliveryfrom,
+                  sp: sporder,
+                  slpprice: slppriceorder,
+                  storestock: storestockorder,
+                  whsestock: whsestockorder,
+                  isfixedprice: isfixedpriceorder,
+                  allownegativestock: allownegativestockorder,
+                  alloworderbelowcost: alloworderbelowcostorder,
+                  giftitems: []
+                  //    sp: sporder,
+                  // slpprice: slppriceorder,
+                  // storestock: storestockorder,
+                  // whsestock:whsestockorder ,
+                  // isfixedprice: isfixedpriceorder,
+                  // allownegativestock:allownegativestockorder ,
+                  // alloworderbelowcost: alloworderbelowcostorder,
+                  ));
             }
           }
         }
@@ -2948,7 +3431,7 @@ class OrderNewController extends ChangeNotifier {
     notifyListeners();
     String? storecode;
     String? deliveryfrom;
-
+    modifyfinalgiftlist.clear();
     await GetOrderQTHApi.getData(datafrommodify[0]).then((value) {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         for (int ik = 0;
@@ -2956,6 +3439,11 @@ class OrderNewController extends ChangeNotifier {
             ik++) {
           GetleadItemCode =
               value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemCode;
+
+          offeridval =
+              value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].OfferId;
+          itemtypemodify =
+              value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemType;
 
           mycontroller[11].text = value
               .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].Quantity
@@ -2969,132 +3457,134 @@ class OrderNewController extends ChangeNotifier {
           deliveryfrom = value
               .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].deliveryFrom
               .toString();
-          // log("selectedItemCode::"+selectedItemCode.toString());
-          for (int i = 0; i < allProductDetails.length; i++) {
-            if (allProductDetails[i].itemCode == GetleadItemCode) {
-              //          selectedItemCode =
-              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemCode;
-              // selectedItemName =
-              //     value.leadDeatilheadsData!.leadDeatilsQTLData![i].ItemName;
-              selectedItemName = allProductDetails[i].itemName.toString();
-              selectedItemCode = allProductDetails[i].itemCode.toString();
-              taxvalue = double.parse(allProductDetails[i].taxRate.toString());
-              sporder = allProductDetails[i].sp == null
-                  ? 0.0
-                  : double.parse(allProductDetails[i].sp.toString());
-              slppriceorder = allProductDetails[i].slpPrice == null
-                  ? 0.0
-                  : double.parse(allProductDetails[i].slpPrice.toString());
-              storestockorder = allProductDetails[i].storeStock == null
-                  ? 0.0
-                  : double.parse(allProductDetails[i].storeStock.toString());
-              whsestockorder = allProductDetails[i].whsStock == null
-                  ? 0.0
-                  : double.parse(allProductDetails[i].whsStock.toString());
-              isfixedpriceorder = allProductDetails[i].isFixedPrice;
-              allownegativestockorder = allProductDetails[i].allowNegativeStock;
-              alloworderbelowcostorder =
-                  allProductDetails[i].allowOrderBelowCost;
 
-              unitPrice = double.parse(mycontroller[10].text);
-              quantity = double.parse(mycontroller[11].text);
-              total = unitPrice! * quantity!;
+          if (itemtypemodify!.toLowerCase() == 'p' ||
+              itemtypemodify!.toLowerCase() == 'r' ||
+              itemtypemodify == null ||
+              itemtypemodify == '') {
+            for (int i = 0; i < allProductDetails.length; i++) {
+              if (allProductDetails[i].itemCode == GetleadItemCode) {
+                selectedItemName = allProductDetails[i].itemName.toString();
+                selectedItemCode = allProductDetails[i].itemCode.toString();
+                taxvalue =
+                    double.parse(allProductDetails[i].taxRate.toString());
+                sporder = allProductDetails[i].sp == null
+                    ? 0.0
+                    : double.parse(allProductDetails[i].sp.toString());
+                slppriceorder = allProductDetails[i].slpPrice == null
+                    ? 0.0
+                    : double.parse(allProductDetails[i].slpPrice.toString());
+                storestockorder = allProductDetails[i].storeStock == null
+                    ? 0.0
+                    : double.parse(allProductDetails[i].storeStock.toString());
+                whsestockorder = allProductDetails[i].whsStock == null
+                    ? 0.0
+                    : double.parse(allProductDetails[i].whsStock.toString());
+                isfixedpriceorder = allProductDetails[i].isFixedPrice;
+                allownegativestockorder =
+                    allProductDetails[i].allowNegativeStock;
+                alloworderbelowcostorder =
+                    allProductDetails[i].allowOrderBelowCost;
 
-              productDetails.add(DocumentLines(
-                id: 0,
-                docEntry: 0,
-                linenum: 0,
-                ItemCode: selectedItemCode,
-                ItemDescription: selectedItemName,
-                Quantity: quantity,
-                LineTotal: total,
-                Price: unitPrice,
-                TaxCode: taxvalue,
-                TaxLiable: "tNO",
-                storecode: storecode,
-                deliveryfrom: deliveryfrom,
-                sp: sporder,
-                slpprice: slppriceorder,
-                storestock: storestockorder,
-                whsestock: whsestockorder,
-                isfixedprice: isfixedpriceorder,
-                allownegativestock: allownegativestockorder,
-                alloworderbelowcost: alloworderbelowcostorder,
-                //    sp: sporder,
-                // slpprice: slppriceorder,
-                // storestock: storestockorder,
-                // whsestock:whsestockorder ,
-                // isfixedprice: isfixedpriceorder,
-                // allownegativestock:allownegativestockorder ,
-                // alloworderbelowcost: alloworderbelowcostorder,
-              ));
+                unitPrice = double.parse(mycontroller[10].text);
+                quantity = double.parse(mycontroller[11].text);
+                total = unitPrice! * quantity!;
+
+                productDetails.add(DocumentLines(
+                    itemtype: itemtypemodify,
+                    OfferSetup_Id: offeridval,
+                    id: 0,
+                    docEntry: 0,
+                    linenum: 0,
+                    ItemCode: selectedItemCode,
+                    ItemDescription: selectedItemName,
+                    Quantity: quantity,
+                    LineTotal: total,
+                    Price: unitPrice,
+                    TaxCode: taxvalue,
+                    TaxLiable: "tNO",
+                    storecode: storecode,
+                    deliveryfrom: deliveryfrom,
+                    sp: sporder,
+                    slpprice: slppriceorder,
+                    storestock: storestockorder,
+                    whsestock: whsestockorder,
+                    isfixedprice: isfixedpriceorder,
+                    allownegativestock: allownegativestockorder,
+                    alloworderbelowcost: alloworderbelowcostorder,
+                    giftitems: []));
+              }
             }
+          } else if (itemtypemodify!.toLowerCase() == 'g') {
+            modifyfinalgiftlist.add(giftoffers(
+                itemtype: itemtypemodify,
+                GiftQty: null,
+                OfferSetup_Id: offeridval,
+                ItemCode: value
+                    .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemCode,
+                Attach_Qty: null,
+                BasicPrice: value
+                    .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].BasePrice,
+                ItemName: value
+                    .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemName,
+                MRP: value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].MRP,
+                Price: value
+                    .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].Price,
+                SP: value
+                    .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].Info_SP,
+                TaxAmt_PerUnit: null,
+                TaxRate: value
+                    .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].TaxCode,
+                quantity: value
+                    .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].Quantity!
+                    .toInt()));
           }
-          //       sporder= value
-          //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].Info_SP;
-          //   slppriceorder= value
-          //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].Cost;
-          //   storestockorder= value
-          //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].StoreStock;
-          //   whsestockorder=value
-          //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].WhseStock ;
-          //   isfixedpriceorder= value
-          //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].isFixedPrice;
-          //   allownegativestockorder=value
-          //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].AllowNegativestock;
-          //   alloworderbelowcostorder= value
-          //     .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].AllowOrderBelowCost;
-
-          // selectedItemName =
-          //     value.OrderDeatilsheaderData!.OrderDeatilsQTLData![i].ItemName;
-
-          //       // total=value.leadDeatilsQTHData!.DocTotal!;
-          // unitPrice = double.parse(mycontroller[10].text);
-          // quantity = double.parse(mycontroller[11].text);
-          // total = unitPrice! * quantity!;
-
-          // productDetails.add(DocumentLines(
-          //     id: 0,
-          //     docEntry: 0,
-          //     linenum: 0,
-          //     ItemCode: selectedItemCode,
-          //     ItemDescription: selectedItemName,
-          //     Quantity: quantity,
-          //     LineTotal: total,
-          //     Price: unitPrice,
-          //     TaxCode: 0.0,
-          //     TaxLiable: "tNO",
-          //     storecode: storecode,
-          //     deliveryfrom: deliveryfrom,
-          //     sp: sporder,
-          //   slpprice: slppriceorder,
-          //   storestock: storestockorder,
-          //   whsestock:whsestockorder ,
-          //   isfixedprice: isfixedpriceorder,
-          //   allownegativestock:allownegativestockorder ,
-          //   alloworderbelowcost: alloworderbelowcostorder,
-          //     ));
+          log("modifyfinalgiftlist::" + modifyfinalgiftlist.length.toString());
+        }
+        if (modifyfinalgiftlist.isNotEmpty) {
+          for (int iu = 0; iu < productDetails.length; iu++) {
+            // tempGiftList.clear();
+            List<giftoffers> tempGiftList = [];
+            log("productDetailsfinalgiftlist::" +
+                productDetails[iu].itemtype.toString());
+            log("productDetailsfinalgiftlist::" +
+                productDetails[iu].ItemCode.toString());
+            for (int ih = 0; ih < modifyfinalgiftlist.length; ih++) {
+              if (productDetails[iu].itemtype!.toLowerCase() == 'p' &&
+                  productDetails[iu].OfferSetup_Id ==
+                      modifyfinalgiftlist[ih].OfferSetup_Id) {
+                tempGiftList.add(giftoffers(
+                    itemtype: modifyfinalgiftlist[ih].itemtype,
+                    GiftQty: modifyfinalgiftlist[ih].GiftQty,
+                    OfferSetup_Id: modifyfinalgiftlist[ih].OfferSetup_Id,
+                    ItemCode: modifyfinalgiftlist[ih].ItemCode,
+                    Attach_Qty: modifyfinalgiftlist[ih].Attach_Qty,
+                    BasicPrice: modifyfinalgiftlist[ih].BasicPrice,
+                    ItemName: modifyfinalgiftlist[ih].ItemName,
+                    MRP: modifyfinalgiftlist[ih].MRP,
+                    Price: modifyfinalgiftlist[ih].Price,
+                    SP: modifyfinalgiftlist[ih].SP,
+                    TaxAmt_PerUnit: modifyfinalgiftlist[ih].TaxAmt_PerUnit,
+                    TaxRate: modifyfinalgiftlist[ih].TaxRate,
+                    quantity: modifyfinalgiftlist[ih].quantity));
+                log("finalgiftlist::" + finalgiftlist.length.toString());
+              }
+            }
+            if (tempGiftList.isNotEmpty) {
+              productDetails[iu].giftitems = tempGiftList;
+            }
+            log("productDetails[iu].giftitems::" +
+                productDetails[iu].giftitems!.length.toString());
+          }
         }
         notifyListeners();
 
-        // log("productslist" + productDetails.length.toString());
-        // log("product" + productDetails[0].ItemDescription.toString());
         showItemList = false;
 
-        // leadDeatilsQTHData = value.leadDeatilsQTHData;
-        // leadDeatilsQTLData = value.leadDeatilsQTHData!.leadDeatilsQTLData!;
-        // leadLoadingdialog = false;
-        // leadForwarddialog = false;
-        // updateFollowUpDialog = false;
-        // viewDetailsdialog = true;
         notifyListeners();
       } else if (value.stcode! >= 400 && value.stcode! <= 490) {
-        // forwardSuccessMsg = 'Something wemt wrong..!!';
-        // leadLoadingdialog = false;
         notifyListeners();
       } else {
-        // forwardSuccessMsg = 'Something wemt wrong..!!';
-        // leadLoadingdialog = false;
         notifyListeners();
       }
     });
@@ -3276,33 +3766,36 @@ class OrderNewController extends ChangeNotifier {
               total = unitPrice! * quantity!;
 
               productDetails.add(DocumentLines(
-                id: 0,
-                docEntry: 0,
-                linenum: 0,
-                ItemCode: selectedItemCode,
-                ItemDescription: selectedItemName,
-                Quantity: quantity,
-                LineTotal: total,
-                Price: unitPrice,
-                TaxCode: taxvalue,
-                TaxLiable: "tNO",
-                storecode: storecode,
-                deliveryfrom: deliveryfrom,
-                sp: sporder,
-                slpprice: slppriceorder,
-                storestock: storestockorder,
-                whsestock: whsestockorder,
-                isfixedprice: isfixedpriceorder,
-                allownegativestock: allownegativestockorder,
-                alloworderbelowcost: alloworderbelowcostorder,
-                //    sp: sporder,
-                // slpprice: slppriceorder,
-                // storestock: storestockorder,
-                // whsestock:whsestockorder ,
-                // isfixedprice: isfixedpriceorder,
-                // allownegativestock:allownegativestockorder ,
-                // alloworderbelowcost: alloworderbelowcostorder,
-              ));
+                  itemtype: "R",
+                  OfferSetup_Id: null,
+                  id: 0,
+                  docEntry: 0,
+                  linenum: 0,
+                  ItemCode: selectedItemCode,
+                  ItemDescription: selectedItemName,
+                  Quantity: quantity,
+                  LineTotal: total,
+                  Price: unitPrice,
+                  TaxCode: taxvalue,
+                  TaxLiable: "tNO",
+                  storecode: storecode,
+                  deliveryfrom: deliveryfrom,
+                  sp: sporder,
+                  slpprice: slppriceorder,
+                  storestock: storestockorder,
+                  whsestock: whsestockorder,
+                  isfixedprice: isfixedpriceorder,
+                  allownegativestock: allownegativestockorder,
+                  alloworderbelowcost: alloworderbelowcostorder,
+                  giftitems: []
+                  //    sp: sporder,
+                  // slpprice: slppriceorder,
+                  // storestock: storestockorder,
+                  // whsestock:whsestockorder ,
+                  // isfixedprice: isfixedpriceorder,
+                  // allownegativestock:allownegativestockorder ,
+                  // alloworderbelowcost: alloworderbelowcostorder,
+                  ));
             }
           }
 
@@ -3370,6 +3863,115 @@ class OrderNewController extends ChangeNotifier {
     customerapicLoading = false;
     datafromquotes.clear();
     // productDetails.clear();
+    notifyListeners();
+  }
+
+  mapvaluesfromSp(BuildContext context) async {
+    productDetails.clear();
+    getdataFromDb();
+    getEnqRefferes();
+
+    await stateApicallfromDB();
+    await getLeveofType();
+    await callLeadCheckApi();
+    await callrefparnerApi();
+    await getCustomerTag();
+    await callpaymodeApi();
+
+    // log("datafromlead" + datafromlead[5].toString());
+    mycontroller[0].text = datafromsp[1];
+    mycontroller[16].text = datafromsp[2];
+    await callApi(context);
+    // mycontroller[1].text = datafromlead[1];
+
+    // log("datafromlead[11] !=null::"+datafromlead[11].toString());
+
+    enqID = null;
+    basetype = null;
+
+    String? storecode;
+    String? deliveryfrom;
+    // await GetLeadQTHApi.getData(datafromlead[6]).then((value) {
+    // if (value.stcode! >= 200 && value.stcode! <= 210) {
+    // for (int ik = 0;
+    //     ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
+    //     ik++) {
+    GetleadItemCode = datafromsp[3];
+    mycontroller[11].text = datafromsp[5];
+    mycontroller[10].text = datafromsp[6];
+    mycontroller[36].text = datafromsp[7];
+    // log("selectedItemCode::"+GetleadItemCode.toString());
+    for (int i = 0; i < allProductDetails.length; i++) {
+      if (allProductDetails[i].itemCode == GetleadItemCode) {
+        selectedItemName = allProductDetails[i].itemName.toString();
+        selectedItemCode = allProductDetails[i].itemCode.toString();
+        taxvalue = double.parse(allProductDetails[i].taxRate.toString());
+        sporder = allProductDetails[i].sp == null
+            ? 0.0
+            : double.parse(allProductDetails[i].sp.toString());
+        slppriceorder = allProductDetails[i].slpPrice == null
+            ? 0.0
+            : double.parse(allProductDetails[i].slpPrice.toString());
+        storestockorder = allProductDetails[i].storeStock == null
+            ? 0.0
+            : double.parse(allProductDetails[i].storeStock.toString());
+        whsestockorder = allProductDetails[i].whsStock == null
+            ? 0.0
+            : double.parse(allProductDetails[i].whsStock.toString());
+        isfixedpriceorder = allProductDetails[i].isFixedPrice;
+        allownegativestockorder = allProductDetails[i].allowNegativeStock;
+        alloworderbelowcostorder = allProductDetails[i].allowOrderBelowCost;
+
+        storecode = ConstantValues.Storecode;
+
+        deliveryfrom = "store";
+
+        unitPrice = double.parse(mycontroller[10].text);
+        quantity = double.parse(mycontroller[11].text);
+        total = unitPrice! * quantity!;
+
+        productDetails.add(DocumentLines(
+            itemtype: 'R',
+            OfferSetup_Id: null,
+            id: 0,
+            docEntry: 0,
+            linenum: 0,
+            couponcode: mycontroller[36].text,
+            ItemCode: selectedItemCode,
+            ItemDescription: selectedItemName,
+            Quantity: quantity,
+            LineTotal: total,
+            Price: unitPrice,
+            TaxCode: taxvalue,
+            TaxLiable: "tNO",
+            storecode: storecode,
+            deliveryfrom: deliveryfrom,
+            sp: sporder,
+            slpprice: slppriceorder,
+            storestock: storestockorder,
+            whsestock: whsestockorder,
+            isfixedprice: isfixedpriceorder,
+            allownegativestock: allownegativestockorder,
+            alloworderbelowcost: alloworderbelowcostorder,
+            giftitems: []));
+      }
+    }
+    // }
+
+    showItemList = false;
+
+    notifyListeners();
+    // } else if (value.stcode! >= 400 && value.stcode! <= 490) {
+
+    //   notifyListeners();
+    // } else {
+
+    //   notifyListeners();
+    // }
+    // });
+    customerapicLoading = false;
+    datafromsp.clear();
+
     notifyListeners();
   }
 
@@ -3512,33 +4114,36 @@ class OrderNewController extends ChangeNotifier {
               total = unitPrice! * quantity!;
 
               productDetails.add(DocumentLines(
-                id: 0,
-                docEntry: 0,
-                linenum: 0,
-                ItemCode: selectedItemCode,
-                ItemDescription: selectedItemName,
-                Quantity: quantity,
-                LineTotal: total,
-                Price: unitPrice,
-                TaxCode: taxvalue,
-                TaxLiable: "tNO",
-                storecode: storecode,
-                deliveryfrom: deliveryfrom,
-                sp: sporder,
-                slpprice: slppriceorder,
-                storestock: storestockorder,
-                whsestock: whsestockorder,
-                isfixedprice: isfixedpriceorder,
-                allownegativestock: allownegativestockorder,
-                alloworderbelowcost: alloworderbelowcostorder,
-                //    sp: sporder,
-                // slpprice: slppriceorder,
-                // storestock: storestockorder,
-                // whsestock:whsestockorder ,
-                // isfixedprice: isfixedpriceorder,
-                // allownegativestock:allownegativestockorder ,
-                // alloworderbelowcost: alloworderbelowcostorder,
-              ));
+                  itemtype: "R",
+                  OfferSetup_Id: null,
+                  id: 0,
+                  docEntry: 0,
+                  linenum: 0,
+                  ItemCode: selectedItemCode,
+                  ItemDescription: selectedItemName,
+                  Quantity: quantity,
+                  LineTotal: total,
+                  Price: unitPrice,
+                  TaxCode: taxvalue,
+                  TaxLiable: "tNO",
+                  storecode: storecode,
+                  deliveryfrom: deliveryfrom,
+                  sp: sporder,
+                  slpprice: slppriceorder,
+                  storestock: storestockorder,
+                  whsestock: whsestockorder,
+                  isfixedprice: isfixedpriceorder,
+                  allownegativestock: allownegativestockorder,
+                  alloworderbelowcost: alloworderbelowcostorder,
+                  giftitems: []
+                  //    sp: sporder,
+                  // slpprice: slppriceorder,
+                  // storestock: storestockorder,
+                  // whsestock:whsestockorder ,
+                  // isfixedprice: isfixedpriceorder,
+                  // allownegativestock:allownegativestockorder ,
+                  // alloworderbelowcost: alloworderbelowcostorder,
+                  ));
             }
           }
         }
@@ -3748,6 +4353,11 @@ class OrderNewController extends ChangeNotifier {
 
   clearAllData() {
     log("step1");
+    offeridval = null;
+    itemtypemodify = '';
+    ordergiftData.clear();
+    isgiftloading = false;
+    gifterror = '';
     postpaymentdata.clear();
     refpartdata.clear();
     ispopupshown = false;
@@ -3758,10 +4368,10 @@ class OrderNewController extends ChangeNotifier {
     ispopupallow2 = false;
     ispopupallow3 = false;
     ispopupallow4 = false;
-    ispopupfinal1 =false;
-      ispopupfinal2 =false;
-      ispopupfinal3 =false;
-      ispopupfinal4 =false;
+    ispopupfinal1 = false;
+    ispopupfinal2 = false;
+    ispopupfinal3 = false;
+    ispopupfinal4 = false;
     mycontroller[46].clear();
     filterrefpartdata.clear();
     mycontroller[36].clear();
@@ -3777,6 +4387,7 @@ class OrderNewController extends ChangeNotifier {
     leaddetails.clear();
     orderdetails.clear();
     ordertypedata.clear();
+    Particularprice.clear();
     valueChosedStatus = null;
     valueChosedCusType = null;
     valueChosedCusType = null;
@@ -3965,6 +4576,26 @@ class OrderNewController extends ChangeNotifier {
   bool iscomeforupdate = false;
   String? DocDateold = '';
 //save all values tp server
+  onbackthired() async {
+    for (int i = productDetails.length - 1; i >= 0; i--) {
+      log('productDetails[i].OfferSetup_Id::' +
+          productDetails[i].OfferSetup_Id.toString());
+      if (productDetails[i].itemtype!.toLowerCase() == 'g') {
+        productDetails.removeAt(i);
+        notifyListeners();
+      } else {
+        notifyListeners();
+      }
+      // log("aaajj::"+productDetails[i].giftitems!.length.toString());
+    }
+    log("productDetails::" + productDetails.length.toString());
+    notifyListeners();
+    // pageController
+    //                               .animateToPage(
+    //                                   --pageChanged,
+    //                                   duration: Duration(milliseconds: 250),
+    //                                   curve: Curves.bounceIn);
+  }
 
   saveToServer(BuildContext context) async {
     await callcustomerapi();
@@ -4002,6 +4633,33 @@ class OrderNewController extends ChangeNotifier {
     // });
     // await callApi()
     // log("Step----------2");
+    for (int i = 0; i < productDetails.length; i++) {
+      if (productDetails[i].giftitems != null &&
+          productDetails[i].giftitems!.isNotEmpty) {
+        for (int ik = 0; ik < productDetails[i].giftitems!.length; ik++) {
+          productDetails[i].OfferSetup_Id =
+              productDetails[i].giftitems![ik].OfferSetup_Id;
+          productDetails[i].itemtype = 'P';
+          productDetails.add(DocumentLines(
+              itemtype: productDetails[i].giftitems![ik].itemtype,
+              OfferSetup_Id: productDetails[i].giftitems![ik].OfferSetup_Id,
+              id: 0,
+              docEntry: 0,
+              linenum: 0,
+              storecode: ConstantValues.Storecode,
+              deliveryfrom: "store",
+              ItemCode: productDetails[i].giftitems![ik].ItemCode,
+              couponcode: null,
+              partcode: null,
+              ItemDescription: productDetails[i].giftitems![ik].ItemName,
+              Quantity: productDetails[i].giftitems![ik].quantity!.toDouble(),
+              LineTotal: productDetails[i].giftitems![ik].quantity!.toDouble() *
+                  productDetails[i].giftitems![ik].Price!,
+              Price: productDetails[i].giftitems![ik].Price!,
+              TaxCode: productDetails[i].giftitems![ik].TaxRate));
+        }
+      }
+    }
 
     String date = config.currentDateOnly();
     PatchExCus patch = new PatchExCus();
@@ -4331,11 +4989,14 @@ class OrderNewController extends ChangeNotifier {
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
         isloadingBtn = false;
         notifyListeners();
+
         showLeadDeatilsDialog(
             context, "${value.message}..!!${value.exception}..!!");
+        // onbackthired();
       } else if (value.stcode! >= 500) {
         isloadingBtn = false;
         notifyListeners();
+        // onbackthired();
         showLeadDeatilsDialog(context,
             "${value.stcode!}..!!Network Issue..\nTry again Later..!!");
       }
@@ -4471,11 +5132,13 @@ class OrderNewController extends ChangeNotifier {
       } else if (value.stcode! >= 400 && value.stcode! <= 410) {
         isloadingBtn = false;
         notifyListeners();
+        // onbackthired();
         showLeadDeatilsDialog(
             context, "${value.message}..!!${value.exception}..");
       } else if (value.stcode! >= 500) {
         isloadingBtn = false;
         notifyListeners();
+        // onbackthired();
         showLeadDeatilsDialog(context,
             "${value.stcode!}..!!Network Issue..\nTry again Later..!!");
       }
@@ -4817,105 +5480,32 @@ class OrderNewController extends ChangeNotifier {
                       SizedBox(
                         height: 10,
                       ),
-                      createTable4(theme, i),
-                      // SizedBox(
-                      //   height: Screens.padingHeight(context) * 0.06,
-                      //   child: TextFormField(
-                      //     enabled: true,
-                      //     controller: mycontroller[27],
-                      //     readOnly: true,
-                      //     style: TextStyle(fontSize: 15),
-                      //     decoration: InputDecoration(
-                      //       enabledBorder: OutlineInputBorder(
-                      //         borderSide: BorderSide(
-                      //             width: 1, color: theme.primaryColor),
-                      //         borderRadius: BorderRadius.circular(10),
-                      //       ),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : createTable4(
+                              theme,
+                              i,
+                            ),
+                      if (ConstantValues.showallslab!.toLowerCase() == 'y') ...[
+                        Container()
+                      ] else ...[
+                        if (Particularprice.length <= 5) ...[
+                          createTableparticular(theme, i, context),
+                        ] else if (Particularprice.length <= 10) ...[
+                          createTableparticular(theme, i, context),
+                          SizedBox(height: 5),
+                          createTableparticular2(theme, i, context),
+                        ] else if (Particularprice.length <= 15) ...[
+                          createTableparticular(theme, i, context),
+                          SizedBox(height: 5),
+                          createTableparticular2(theme, i, context),
+                          SizedBox(height: 5),
+                          createTableparticular3(theme, i, context),
+                        ] else ...[
+                          Container(), // Fallback if none of the conditions are met
+                        ],
+                      ],
 
-                      //       alignLabelWithHint: true,
-                      //       hintText: "",
-                      //       labelText: "SP",
-                      //       labelStyle: theme.textTheme.bodyText1
-                      //           ?.copyWith(color: theme.primaryColor),
-
-                      //       contentPadding: EdgeInsets.symmetric(
-                      //           vertical: 10, horizontal: 10),
-
-                      //       // border: OutlineInputBorder(
-
-                      //       //   borderRadius: BorderRadius.all(
-                      //       //     Radius.circular(10),
-                      //       //   ),
-                      //       // ),
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: 5,
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     SizedBox(
-                      //       width: Screens.width(context) * 0.44,
-                      //       height: Screens.padingHeight(context) * 0.06,
-                      //       child: TextFormField(
-                      //         // enabled: tr,
-                      //         controller: mycontroller[28],
-                      //         readOnly: true,
-                      //         style: TextStyle(fontSize: 15),
-                      //         decoration: InputDecoration(
-                      //           enabledBorder: OutlineInputBorder(
-                      //             borderSide: BorderSide(
-                      //                 width: 1, color: theme.primaryColor),
-                      //             borderRadius: BorderRadius.circular(10),
-                      //           ),
-                      //           alignLabelWithHint: true,
-                      //           hintText: "",
-                      //           labelText: "Cost",
-                      //           labelStyle: theme.textTheme.bodyText1
-                      //               ?.copyWith(color: theme.primaryColor),
-                      //           contentPadding: EdgeInsets.symmetric(
-                      //               vertical: 10, horizontal: 10),
-                      //           border: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.all(
-                      //               Radius.circular(8),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //     SizedBox(
-                      //       width: Screens.width(context) * 0.44,
-                      //       height: Screens.padingHeight(context) * 0.06,
-                      //       child: TextFormField(
-                      //         // enabled: tr,
-                      //         controller: mycontroller[41],
-                      //         readOnly: true,
-                      //         style: TextStyle(fontSize: 15),
-                      //         decoration: InputDecoration(
-                      //           enabledBorder: OutlineInputBorder(
-                      //             borderSide: BorderSide(
-                      //                 width: 1, color: theme.primaryColor),
-                      //             borderRadius: BorderRadius.circular(10),
-                      //           ),
-                      //           alignLabelWithHint: true,
-                      //           hintText: "",
-                      //           labelText: "MRP",
-                      //           labelStyle: theme.textTheme.bodyText1
-                      //               ?.copyWith(color: theme.primaryColor),
-                      //           contentPadding: EdgeInsets.symmetric(
-                      //               vertical: 10, horizontal: 10),
-                      //           border: OutlineInputBorder(
-                      //             borderRadius: BorderRadius.all(
-                      //               Radius.circular(8),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
                       SizedBox(
                         height: 5,
                       ),
@@ -4926,11 +5516,17 @@ class OrderNewController extends ChangeNotifier {
                       //  SizedBox(
                       //       width: 15,
                       //     ),
-                      createTable(theme, i),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      createTable2(theme, i),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : createTable(theme, i),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : SizedBox(
+                              height: 5,
+                            ),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : createTable2(theme, i),
                       SizedBox(
                         height: 5,
                       ),
@@ -5201,6 +5797,1171 @@ class OrderNewController extends ChangeNotifier {
             ));
   }
 
+  Widget createTableparticular(ThemeData theme, int ij, BuildContext context) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Particularprice.length > 0 && Particularprice[0] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[0].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.left,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 1 && Particularprice[1] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[1].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 2 && Particularprice[2] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[2].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 3 && Particularprice[3] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[3].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 4 && Particularprice[4] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[4].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Particularprice.length > 0 && Particularprice[0].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[0].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[0].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[0].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[0].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[0].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[0]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[0]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[0]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[0].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[0].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[0].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.left,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 1 && Particularprice[1].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[1].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[1].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[1].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[1].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[1].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[1]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[1]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[1]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[1].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[1].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[1].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 2 && Particularprice[2].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[2].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[2].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[2].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[2].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[2].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[2]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[2]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[2]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[2].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[2].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[2].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 3 && Particularprice[3].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[3].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[3].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[3].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[3].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[3].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[3]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[3]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[3]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[3].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[3].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[3].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 4 && Particularprice[4].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[4].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[4].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[4].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[4].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[4].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[4]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[4]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[4]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[4].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[4].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[4].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+
+  Widget createTableparticular2(ThemeData theme, int ij, BuildContext context) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Particularprice.length > 5 && Particularprice[5] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[5].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.left,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 6 && Particularprice[6] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[6].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 7 && Particularprice[7] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[7].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 8 && Particularprice[8] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[8].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 9 && Particularprice[9] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[9].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Particularprice.length > 5 && Particularprice[5].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[5].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[5].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[5].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[5].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[5].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[5]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[5]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[5]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[5].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[5].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[5].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.left,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 6 && Particularprice[6].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[6].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[6].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[6].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[6].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[6].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[6]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[6]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[6]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[6].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[6].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[6].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 7 && Particularprice[7].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[7].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[7].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[7].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[7].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[7].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[7]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[7]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[7]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[7].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[7].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[7].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 8 && Particularprice[8].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[8].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[8].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[8].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[8].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[8].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[8]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[8]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[8]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[8].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[8].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[8].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 9 && Particularprice[9].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[9].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[9].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[9].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[9].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[9].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[9]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[9]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[9]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(
+                                                        allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[9].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[9].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[9].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+
+  Widget createTableparticular3(ThemeData theme, int ij, BuildContext context) {
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+      Particularprice.length > 10 && Particularprice[10] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[10].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.left,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 11 && Particularprice[11] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[11].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 12 && Particularprice[12] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[12].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 13 && Particularprice[13] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[13].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+      Particularprice.length > 14 && Particularprice[14] != null
+          ? Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "${Particularprice[14].PriceList}",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            )
+          : Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+      Particularprice.length > 10 && Particularprice[10].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[10].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[10].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[10].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[10].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[10].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[10]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[10]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[10]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[10].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[10].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[10].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.left,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 11 && Particularprice[11].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[11].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[11].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[11].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[11].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[11].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[11]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[11]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[11]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[11].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[11].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[11].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 12 && Particularprice[12].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[12].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[12].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[12].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[12].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[12].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[12]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[12]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[12]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[12].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[12].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[12].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 13 && Particularprice[13].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[13].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[13].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[13].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[13].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[13].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[13]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[13]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[13]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[13].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[13].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[13].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+      Particularprice.length > 14 && Particularprice[14].PriceList != null
+          ? Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                Particularprice[14].PriceList!.toLowerCase() == 'mrp'
+                    ? config.slpitCurrency22(
+                        allProductDetails[ij].mgrPrice.toString())
+                    : Particularprice[14].PriceList!.toLowerCase() == 'sp'
+                        ? config.slpitCurrency22(
+                            allProductDetails[ij].sp.toString())
+                        : Particularprice[14].PriceList!.toLowerCase() == 'cost'
+                            ? config.slpitCurrency22(
+                                allProductDetails[ij].slpPrice.toString())
+                            : Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? config.slpitCurrency22(
+                                    allProductDetails[ij].ssp1.toString())
+                                : Particularprice[14].PriceList!.toLowerCase() ==
+                                        'ssp2'
+                                    ? config.slpitCurrency22(
+                                        allProductDetails[ij].ssp2.toString())
+                                    : Particularprice[14].PriceList!.toLowerCase() ==
+                                            'ssp3'
+                                        ? config.slpitCurrency22(allProductDetails[ij]
+                                            .ssp3
+                                            .toString())
+                                        : Particularprice[14]
+                                                    .PriceList!
+                                                    .toLowerCase() ==
+                                                'ssp4'
+                                            ? config.slpitCurrency22(
+                                                allProductDetails[ij]
+                                                    .ssp4
+                                                    .toString())
+                                            : Particularprice[14]
+                                                        .PriceList!
+                                                        .toLowerCase() ==
+                                                    'ssp5'
+                                                ? config.slpitCurrency22(
+                                                    allProductDetails[ij]
+                                                        .ssp5
+                                                        .toString())
+                                                : Particularprice[14]
+                                                            .PriceList!
+                                                            .toLowerCase() ==
+                                                        'ssp1_inc'
+                                                    ? config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString())
+                                                    : Particularprice[14].PriceList!.toLowerCase() == 'ssp2_inc'
+                                                        ? config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString())
+                                                        : Particularprice[14].PriceList!.toLowerCase() == 'ssp3_inc'
+                                                            ? config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString())
+                                                            : Particularprice[14].PriceList!.toLowerCase() == 'ssp4_inc'
+                                                                ? config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString())
+                                                                : '',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            )
+          : Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+
   Widget createTable(ThemeData theme, int ij) {
     List<TableRow> rows = [];
     rows.add(TableRow(children: [
@@ -5383,56 +7144,37 @@ class OrderNewController extends ChangeNotifier {
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
-          "SP",
-          style: theme.textTheme.bodyText1
-              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
-          textAlign: TextAlign.left,
-        ),
-      ),
-      Container(
-        color: theme.primaryColor,
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
-          "Cost",
-          style: theme.textTheme.bodyText1
-              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-      ),
-      Container(
-        color: theme.primaryColor,
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
           "MRP",
           style: theme.textTheme.bodyText1
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
       ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "SP",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+      ConstantValues.showallslab!.toLowerCase() != 'y'
+          ? Container()
+          : Container(
+              color: theme.primaryColor,
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                "Cost",
+                style: theme.textTheme.bodyText1?.copyWith(
+                    fontWeight: FontWeight.normal, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+            ),
     ]));
 
     rows.add(TableRow(children: [
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
-          config.slpitCurrency22(allProductDetails[ij].sp.toString()),
-          textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
-            color: theme.primaryColor,
-          ),
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
-          config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()),
-          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
-          textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
-            color: theme.primaryColor,
-          ),
-        ),
-      ),
       Padding(
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
@@ -5444,6 +7186,30 @@ class OrderNewController extends ChangeNotifier {
           ),
         ),
       ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].sp.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      ConstantValues.showallslab!.toLowerCase() != 'y'
+          ? Container()
+          : Padding(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              child: Text(
+                config
+                    .slpitCurrency22(allProductDetails[ij].slpPrice.toString()),
+                // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.bodyText1?.copyWith(
+                  color: theme.primaryColor,
+                ),
+              ),
+            ),
     ]));
     // }
     return Table(columnWidths: {
@@ -5831,7 +7597,28 @@ class OrderNewController extends ChangeNotifier {
                       SizedBox(
                         height: 10,
                       ),
-                      createTable4(theme, indexshow!),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : createTable4(theme, indexshow!),
+                      if (ConstantValues.showallslab!.toLowerCase() == 'y') ...[
+                        Container()
+                      ] else ...[
+                        if (Particularprice.length <= 5) ...[
+                          createTableparticular(theme, indexshow!, context),
+                        ] else if (Particularprice.length <= 10) ...[
+                          createTableparticular(theme, indexshow!, context),
+                          SizedBox(height: 5),
+                          createTableparticular2(theme, indexshow!, context),
+                        ] else if (Particularprice.length <= 15) ...[
+                          createTableparticular(theme, indexshow!, context),
+                          SizedBox(height: 5),
+                          createTableparticular2(theme, indexshow!, context),
+                          SizedBox(height: 5),
+                          createTableparticular3(theme, indexshow!, context),
+                        ] else ...[
+                          Container(), // Fallback if none of the conditions are met
+                        ],
+                      ],
                       // SizedBox(
                       //   height: Screens.padingHeight(context) * 0.06,
                       //   child: TextFormField(
@@ -5930,9 +7717,14 @@ class OrderNewController extends ChangeNotifier {
                       //     ),
                       //   ],
                       // ),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      ConstantValues.showallslab!.toLowerCase() == 'y'
+                          ? Container()
+                          : createTableparticular(theme, indexshow!, context),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : SizedBox(
+                              height: 5,
+                            ),
 
                       // SizedBox(
                       //   height: 10,
@@ -5940,14 +7732,22 @@ class OrderNewController extends ChangeNotifier {
                       //  SizedBox(
                       //       width: 15,
                       //     ),
-                      createTable(theme, indexshow),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      createTable2(theme, indexshow),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : createTable(theme, indexshow!),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : SizedBox(
+                              height: 5,
+                            ),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : createTable2(theme, indexshow!),
+                      ConstantValues.showallslab!.toLowerCase() != 'y'
+                          ? Container()
+                          : SizedBox(
+                              height: 5,
+                            ),
                       Container(
                         // width: Screens.width(context)*0.7,
                         // color: Colors.red,
@@ -5959,7 +7759,7 @@ class OrderNewController extends ChangeNotifier {
                       SizedBox(
                         height: 1,
                       ),
-                      createTable5(theme, indexshow),
+                      createTable5(theme, indexshow!),
                       SizedBox(
                         height: 5,
                       ),
@@ -6663,18 +8463,18 @@ class OrderNewController extends ChangeNotifier {
                               Container(
                                 height: Screens.padingHeight(context) * 0.04,
                                 // width:Screens.width(context)*0.20 ,
-                                padding:  EdgeInsets.all(1.0),
+                                padding: EdgeInsets.all(1.0),
                                 decoration: BoxDecoration(
-                                    color:Colors.white,
+                                    color: Colors.white,
                                     boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 3,
-                              offset: Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ]
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 2,
+                                        blurRadius: 3,
+                                        offset: Offset(
+                                            0, 3), // changes position of shadow
+                                      ),
+                                    ]
                                     // borderRadius: BorderRadius.circular(5),
                                     // boxShadow:[
                                     //   BoxShadow(
@@ -6698,12 +8498,14 @@ class OrderNewController extends ChangeNotifier {
                                     Padding(
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 10),
-                                      child: Text("Store (${allProductDetails[i].storeStock!.toStringAsFixed(0)})"),
+                                      child: Text(
+                                          "Store (${allProductDetails[i].storeStock!.toStringAsFixed(0)})"),
                                     ),
                                     Padding(
                                       padding:
                                           EdgeInsets.symmetric(horizontal: 10),
-                                      child: Text("Warehouse (${allProductDetails[i].whsStock!.toStringAsFixed(0)})"),
+                                      child: Text(
+                                          "Warehouse (${allProductDetails[i].whsStock!.toStringAsFixed(0)})"),
                                     )
                                   ],
                                   onPressed: (int newindex) {
@@ -6779,7 +8581,8 @@ class OrderNewController extends ChangeNotifier {
                           //         child: Text("Refcode: $selectedapartcode")):Container(),
                           Align(
                               alignment: Alignment.bottomRight,
-                              child: Text("Total: $total")),
+                              child:
+                                  Text("Total: ${total.toStringAsFixed(2)}")),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -6808,9 +8611,46 @@ class OrderNewController extends ChangeNotifier {
                                         if (mycontroller[11].text.isNotEmpty &&
                                             int.parse(mycontroller[11].text) >
                                                 0) {
-                                          mycontroller[12].clear();
-                                          addProductDetails(
-                                              context, allProductDetails[i]);
+                                          if (ConstantValues.unitpricelogic!
+                                                  .toLowerCase() ==
+                                              'y') {
+                                            callPricecheckApi(
+                                                allProductDetails[i].itemCode,
+                                                int.parse(
+                                                    mycontroller[11].text),
+                                                double.parse(
+                                                    mycontroller[10].text),
+                                                mycontroller[36].text!.isEmpty
+                                                    ? ''
+                                                    : mycontroller[36].text,
+                                                context,
+                                                theme,
+                                                i,
+                                                true,
+                                                allProductDetails[i]);
+                                          } else {
+                                            if (ConstantValues.ordergiftlogic!
+                                                    .toLowerCase() ==
+                                                'y') {
+                                              callgiftApi(
+                                                  allProductDetails[i]
+                                                      .itemCode
+                                                      .toString(),
+                                                  int.parse(
+                                                      mycontroller[11].text),
+                                                  double.parse(
+                                                      mycontroller[10].text),
+                                                  context,
+                                                  i,
+                                                  theme,
+                                                  true,
+                                                  allProductDetails[i]);
+                                            } else {
+                                              mycontroller[12].clear();
+                                              addProductDetails(context,
+                                                  allProductDetails[i]);
+                                            }
+                                          }
                                         } else {
                                           showtoastproduct();
                                         }
@@ -6837,6 +8677,662 @@ class OrderNewController extends ChangeNotifier {
                 ));
       }),
     );
+  }
+
+  List<giftitems> giftlist = [];
+  giftitemsadd() {
+    giftlist = [
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          offerprice: 10.00,
+          name: "Vector 1",
+          itemcode: "Vector itemcode",
+          price: 100.00,
+          quantity: "0",
+          addproduct: false),
+      giftitems(
+          name: "Vector 2",
+          itemcode: "Vector2 itemcode",
+          price: 100.00,
+          quantity: "0",
+          offerprice: 10.00,
+          addproduct: false)
+    ];
+  }
+
+  checkeligible() {
+    int? eligible = 0;
+    eligible = 0;
+    for (int i = 0; i < ordergiftData.length; i++) {
+      if (ordergiftData[i].quantity! > 0) {
+        eligible = eligible! + 1;
+      }
+    }
+    return eligible;
+  }
+
+  checkeligible2() {
+    int? eligible = 0;
+    eligible = 0;
+    for (int i = 0; i < ordergiftData.length; i++) {
+      if (ordergiftData[i].quantity! > 0) {
+        eligible = eligible! + ordergiftData[i].quantity!;
+      }
+    }
+    log("eligibleeligible::" + eligible.toString());
+    return eligible;
+  }
+
+  showgiftitems(BuildContext context, int index, ThemeData theme,
+      bool addproduct, ItemMasterDBModel updateallProductDetails) {
+    showModalBottomSheet(
+        isScrollControlled: true,
+        context: context,
+        backgroundColor: Colors.grey[100],
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        )),
+        builder: (context) => StatefulBuilder(builder: (context, st) {
+              return Container(
+                decoration: BoxDecoration(
+                    // color: Colors.grey[200],
+                    borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                )),
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: Screens.width(context) * 0.7,
+                          child: Text("Recommended offers ",
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                  color: theme.primaryColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                        ConstantValues.ordergiftskip!.toLowerCase() == 'y'
+                            ? Container()
+                            : GestureDetector(
+                                onTap: () {
+                                  st(() {
+                                    if (addproduct == true) {
+                                      mycontroller[12].clear();
+                                      ordergiftData.clear();
+                                      addProductDetails(
+                                          context, allProductDetails[index]);
+                                      notifyListeners();
+                                    } else if (addproduct == false) {
+                                      ordergiftData.clear();
+                                      updateProductDetails(context, index,
+                                          updateallProductDetails);
+                                    }
+                                  });
+                                },
+                                child: Container(
+                                  // width: Screens.width(context)*0.7,
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: theme.primaryColor))),
+                                  child: Row(
+                                    children: [
+                                      Text("Skip",
+                                          style: theme.textTheme.bodyMedium!
+                                              .copyWith(
+                                                  color: theme.primaryColor,
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold)),
+                                      Icon(
+                                        Icons.keyboard_double_arrow_right,
+                                        color: theme.primaryColor,
+                                        size: 12,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: Screens.padingHeight(context) * 0.01,
+                    ),
+                    Container(
+                      child: Text(
+                          "Eligible Gifts : ${ordergiftData != null && ordergiftData.isNotEmpty ? ordergiftData[0].GiftQty!.toStringAsFixed(0) : ""}",
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                              color: theme.primaryColor, fontSize: 15)),
+                    ),
+                    SizedBox(
+                      height: Screens.padingHeight(context) * 0.01,
+                    ),
+                    Container(
+                      child: Text(
+                          "Minimum eligible price : ${ordergiftData != null && ordergiftData.isNotEmpty ? "${ordergiftData[0].UptoPriceSlab!.toLowerCase() == 'ssp1' ? ConstantValues.ssp1 : ordergiftData[0].UptoPriceSlab!.toLowerCase() == 'ssp2' ? ConstantValues.ssp2 : ordergiftData[0].UptoPriceSlab!.toLowerCase() == 'ssp3' ? ConstantValues.ssp3 : ordergiftData[0].UptoPriceSlab!.toLowerCase() == 'ssp4' ? ConstantValues.ssp4 : ordergiftData[0].UptoPriceSlab!.toLowerCase() == 'ssp5' ? ConstantValues.ssp5 : ordergiftData[0].UptoPriceSlab!}" '-' "${ordergiftData[0].MinimumPrice!.toStringAsFixed(2)}" : ""}",
+                          style: theme.textTheme.bodyMedium!.copyWith(
+                              color: theme.primaryColor, fontSize: 15)),
+                    ),
+                    SizedBox(
+                      height: Screens.padingHeight(context) * 0.01,
+                    ),
+                    Container(
+                        // height: Screens.padingHeight(context) * 0.3,
+                        child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                          maxHeight: Screens.padingHeight(context) * 0.5),
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: ordergiftData.length,
+                          itemBuilder: (context, i) {
+                            return Container(
+                                child: Card(
+                                    elevation: 5,
+                                    // shape: RoundedRectangleBorder(
+                                    //     borderRadius:
+                                    //         BorderRadius.circular(10)),
+                                    // color: Colors.grey[100],
+                                    child: Container(
+                                        width: Screens.width(context),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical:
+                                                Screens.bodyheight(context) *
+                                                    0.01,
+                                            horizontal:
+                                                Screens.width(context) * 0.02),
+                                        //                                decoration: BoxDecoration(
+                                        // border: Border(
+                                        //     left: BorderSide(
+                                        //         color: theme.primaryColor,
+                                        //         width: Screens.width(context) * 0.05))),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.6,
+                                                        child: Text(
+                                                            "${ordergiftData[i].ItemCode}",
+                                                            style: theme
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                              fontSize: 15,
+                                                              // color:Colors.grey,
+                                                              // fontWeight: FontWeight.bold
+                                                            ))),
+                                                    SizedBox(
+                                                      height:
+                                                          Screens.padingHeight(
+                                                                  context) *
+                                                              0.01,
+                                                    ),
+                                                    Container(
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.6,
+                                                        child: Text(
+                                                            "${ordergiftData[i].ItemName}",
+                                                            style: theme
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                              fontSize: 15,
+                                                              // fontWeight: FontWeight.bold,
+                                                              // decoration: TextDecoration.lineThrough
+                                                            ))),
+                                                  ],
+                                                ),
+                                                Container(
+                                                    child: Row(
+                                                        // crossAxisAlignment: CrossAxisAlignment.end,
+                                                        children: [
+                                                      GestureDetector(
+                                                        onTap: ordergiftData[i]
+                                                                    .quantity ==
+                                                                ordergiftData[i]
+                                                                    .MinQty
+                                                            ? () {
+                                                                //   st(() {
+                                                                //     showtoastgift(
+                                                                //         "Allowed Quantity for this product is ${ordergiftData[i].Attach_Qty}..!!");
+                                                                //   });
+                                                              }
+                                                            : () {
+                                                                st(() {
+                                                                  int? qty = int.parse(ordergiftData[
+                                                                              i]
+                                                                          .quantity
+                                                                          .toString()) -
+                                                                      1;
+                                                                  ordergiftData[
+                                                                              i]
+                                                                          .quantity =
+                                                                      qty;
+                                                                });
+                                                              },
+                                                        child: Container(
+                                                          child: Icon(
+                                                              Icons.remove,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.01,
+                                                      ),
+                                                      Container(
+                                                        child: Text(
+                                                            "${ordergiftData[i].quantity}",
+                                                            style: TextStyle(
+                                                                fontSize: 16)),
+                                                      ),
+                                                      SizedBox(
+                                                        width: Screens.width(
+                                                                context) *
+                                                            0.01,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: ordergiftData[i]
+                                                                    .quantity ==
+                                                                ordergiftData[i]
+                                                                    .Attach_Qty
+                                                            ? () {
+                                                                st(() {
+                                                                  showtoastgift(
+                                                                      "Allowed Quantity for this product is ${ordergiftData[i].Attach_Qty}..!!");
+                                                                });
+                                                              }
+                                                            : checkeligible2() >=
+                                                                    ordergiftData[
+                                                                            0]
+                                                                        .GiftQty
+                                                                //         &&
+                                                                // ordergiftData[i]
+                                                                //         .quantity ==
+                                                                //     0
+                                                                ? () {
+                                                                    st(() {
+                                                                      showtoastgift(
+                                                                          "Eligible gift quantity is ${ordergiftData[0].GiftQty!.toStringAsFixed(0)}..!!");
+                                                                    });
+                                                                  }
+                                                                : () {
+                                                                    st(() {
+                                                                      int? qty =
+                                                                          int.parse(ordergiftData[i].quantity.toString()) +
+                                                                              1;
+                                                                      ordergiftData[
+                                                                              i]
+                                                                          .quantity = qty;
+                                                                    });
+                                                                  },
+                                                        child: Container(
+                                                          child: Icon(Icons.add,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                        ),
+                                                      ),
+                                                    ]))
+                                              ],
+                                            ),
+                                            // SizedBox(
+                                            //   height: Screens
+                                            //           .padingHeight(
+                                            //               context) *
+                                            //       0.01,
+                                            // ),
+                                            // Row(
+                                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            //   children: [
+
+                                            //   ],
+                                            // ),
+                                            SizedBox(
+                                              height: Screens.padingHeight(
+                                                      context) *
+                                                  0.01,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                        child: Text("MRP : ",
+                                                            style: theme
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                                    // fontSize: 15,
+                                                                    // fontWeight: FontWeight.bold,
+                                                                    // decoration: TextDecoration.lineThrough
+
+                                                                    ))),
+                                                    Container(
+                                                        child: Text(
+                                                            "${config.slpitCurrency22(ordergiftData[i].MRP.toString())}",
+                                                            style: theme
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        15,
+                                                                    // fontWeight: FontWeight.bold,
+                                                                    decoration:
+                                                                        TextDecoration
+                                                                            .lineThrough))),
+                                                  ],
+                                                ),
+                                                Container(
+                                                    child: Text(
+                                                        "Offer Price : ${config.slpitCurrency22(ordergiftData[i].Price.toString())}",
+                                                        style: theme.textTheme
+                                                            .bodyMedium!
+                                                            .copyWith(
+                                                          fontSize: 15,
+                                                          // fontWeight: FontWeight.bold,
+                                                          // decoration: TextDecoration.lineThrough
+                                                        ))),
+                                              ],
+                                            ),
+                                          ],
+                                        ))));
+                          }),
+                    )),
+                    SizedBox(
+                      height: Screens.padingHeight(context) * 0.01,
+                    ),
+                    Container(
+                      width: Screens.width(context),
+                      // color: Colors.amber,
+                      // alignment: Alignment.center,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            if (checkeligible2() > ordergiftData[0].GiftQty) {
+                              st(() {
+                                showtoastgift(
+                                    "Eligible gift quantity is ${ordergiftData[0].GiftQty!.toStringAsFixed(0)}..!!");
+                              });
+                            } else {
+                              if (ordergiftData[0].allowpartialgift == 0) {
+                                if (checkeligible2() ==
+                                    ordergiftData[0].GiftQty) {
+                                  bool isproceed3newgift = false;
+                                  int? indexgift2;
+                                  isproceed3newgift = false;
+                                  indexgift2 = null;
+                                  for (int ik = 0;
+                                      ik < ordergiftData.length;
+                                      ik++) {
+                                    if (ordergiftData[ik].quantity! > 0) {
+                                      if (ordergiftData[ik].quantity! <
+                                          ordergiftData[ik].MinQty!) {
+                                        isproceed3newgift = true;
+                                        indexgift2 = ik;
+                                        break;
+                                      }
+                                    }
+                                  }
+                                  if (isproceed3newgift == true) {
+                                    showtoastgift(
+                                        "${ordergiftData[indexgift2!].ItemCode} Minimum Quantity should be  ${ordergiftData[indexgift2!].MinQty}..!!");
+                                  } else {
+                                    if (addproduct == true) {
+                                      mycontroller[12].clear();
+                                      addProductDetails(
+                                          context, allProductDetails[index]);
+                                      notifyListeners();
+                                    } else if (addproduct == false) {
+                                      updateProductDetails(context, index,
+                                          updateallProductDetails);
+                                    }
+                                  }
+                                } else {
+                                  st(() {
+                                    log("mandatory");
+                                    showtoastgift(
+                                        "Eligible gift quantity is ${ordergiftData[0].GiftQty!.toStringAsFixed(0)}..!!");
+                                  });
+                                }
+                              } else if (ordergiftData[0].allowpartialgift ==
+                                  1) {
+                                //  else
+                                if (checkeligible2() <=
+                                    ordergiftData[0].GiftQty) {
+                                  bool isproceed3new = false;
+                                  int? indexgift;
+                                  isproceed3new = false;
+                                  indexgift = null;
+                                  for (int ik = 0;
+                                      ik < ordergiftData.length;
+                                      ik++) {
+                                    if (ordergiftData[ik].quantity! > 0) {
+                                      if (ordergiftData[ik].quantity! <
+                                          ordergiftData[ik].MinQty!) {
+                                        isproceed3new = true;
+                                        indexgift = ik;
+                                        break;
+                                      }
+                                    }
+                                  }
+                                  if (isproceed3new == true) {
+                                    showtoastgift(
+                                        "${ordergiftData[indexgift!].ItemCode} Minimum Quantity should be  ${ordergiftData[indexgift!].MinQty}..!!");
+                                  } else {
+                                    if (addproduct == true) {
+                                      mycontroller[12].clear();
+                                      addProductDetails(
+                                          context, allProductDetails[index]);
+                                      notifyListeners();
+                                    } else if (addproduct == false) {
+                                      updateProductDetails(context, index,
+                                          updateallProductDetails);
+                                    }
+                                  }
+                                }
+                              }
+                            }
+
+                            // st(() {
+                            //   bool isproceed = false;
+                            //   int? indexgift;
+                            //   isproceed = false;
+                            //   indexgift = null;
+                            //   for (int ij = 0;
+                            //       ij < ordergiftData.length;
+                            //       ij++) {
+                            //     if (ordergiftData[ij].quantity! > 0) {
+                            //       isproceed = true;
+                            //     }
+                            //   }
+                            //   if (isproceed == true) {
+                            //     if (addproduct == true) {
+                            //       mycontroller[12].clear();
+                            //       addProductDetails(
+                            //           context, allProductDetails[index]);
+                            //       notifyListeners();
+                            //     } else if (addproduct == false) {
+                            //       updateProductDetails(
+                            //           context, index, updateallProductDetails);
+                            //     }
+                            //     // mycontroller[12].clear();
+                            //     // addProductDetails(
+                            //     //     context, allProductDetails[index]);
+                            //   } else {
+                            //     showtoastgift(
+                            //         "gift Products Quantity should be greater than 0..!!");
+                            //   }
+                            // });
+                          },
+                          child: Text("Attach offers")),
+                    ),
+                  ],
+                ),
+              );
+            })).then((value) => Navigator.pop(context));
   }
 
   List<GetAllcouponData> getcoupondata = [];
@@ -6885,6 +9381,9 @@ class OrderNewController extends ChangeNotifier {
     allownegativestockorder = productDetails[i].allownegativestock;
     alloworderbelowcostorder = productDetails[i].alloworderbelowcost;
     for (int ij = 0; ij < allProductDetails.length; ij++) {
+      log("allProductDetails[ij].itemCode::" +
+          allProductDetails[ij].itemCode.toString());
+      log("selectedItemCode::" + selectedItemCode.toString());
       if (allProductDetails[ij].itemCode == selectedItemCode) {
         indexupdate = ij;
         break;
@@ -6991,9 +9490,12 @@ class OrderNewController extends ChangeNotifier {
                             }
                             return null;
                           },
-                          readOnly: productDetails[i].isfixedprice == false
-                              ? false
-                              : true,
+                          readOnly: (productDetails[i].couponcode != null &&
+                                  productDetails[i].couponcode != '')
+                              ? true
+                              : productDetails[i].isfixedprice == false
+                                  ? false
+                                  : true,
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: <TextInputFormatter>[
@@ -7042,9 +9544,10 @@ class OrderNewController extends ChangeNotifier {
                             }
                             return null;
                           },
-                          // readOnly: isDescriptionSelected == "TRANSPORTCHARGES"
-                          //     ? true
-                          //     : false,
+                          readOnly: (productDetails[i].couponcode != null &&
+                                  productDetails[i].couponcode != '')
+                              ? true
+                              : false,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -7282,15 +9785,14 @@ class OrderNewController extends ChangeNotifier {
                                 // border: Border.all(color: theme.primaryColor)
                                 color: Colors.white,
                                 boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 2,
-                              blurRadius: 3,
-                              offset: Offset(
-                                  0, 3), // changes position of shadow
-                            ),
-                          ]
-                                ),
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 3,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
+                                  ),
+                                ]),
                             child: ToggleButtons(
                               selectedColor: Colors.white,
                               color: theme.primaryColor,
@@ -7300,11 +9802,13 @@ class OrderNewController extends ChangeNotifier {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text("Store (${allProductDetails[indexupdate!].storeStock!.toStringAsFixed(0)})"),
+                                  child: Text(
+                                      "Store (${indexupdate == null ? '' : allProductDetails[indexupdate!].storeStock!.toStringAsFixed(0)})"),
                                 ),
                                 Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Text("Warehouse (${allProductDetails[indexupdate!].whsStock!.toStringAsFixed(0)})"),
+                                  child: Text(
+                                      "Warehouse (${indexupdate == null ? '' : allProductDetails[indexupdate!].whsStock!.toStringAsFixed(0)})"),
                                 )
                               ],
                               onPressed: (int newindex) {
@@ -7380,7 +9884,7 @@ class OrderNewController extends ChangeNotifier {
                       //     child: Text("Refcode: $selectedapartcode")):Container(),
                       Align(
                           alignment: Alignment.bottomRight,
-                          child: Text("Total: $total")),
+                          child: Text("Total: ${total.toStringAsFixed(2)}")),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -7420,8 +9924,45 @@ class OrderNewController extends ChangeNotifier {
                                   onPressed: () {
                                     if (mycontroller[11].text.isNotEmpty &&
                                         int.parse(mycontroller[11].text) > 0) {
-                                      updateProductDetails(context, i,
-                                          allProductDetails[indexupdate!]);
+                                      if (ConstantValues.unitpricelogic!
+                                              .toLowerCase() ==
+                                          'y') {
+                                        callPricecheckApi(
+                                            productDetails[i].ItemCode,
+                                            int.parse(mycontroller[11].text),
+                                            double.parse(mycontroller[10].text),
+                                            productDetails[i].couponcode ==
+                                                        null ||
+                                                    productDetails[i]
+                                                        .couponcode!
+                                                        .isEmpty
+                                                ? ''
+                                                : productDetails[i].couponcode,
+                                            context,
+                                            theme,
+                                            i,
+                                            false,
+                                            allProductDetails[indexupdate!]);
+                                      } else {
+                                        if (ConstantValues.ordergiftlogic!
+                                                .toLowerCase() ==
+                                            'y') {
+                                          productDetails[i].giftitems!.clear();
+                                          callgiftApi(
+                                              productDetails[i].ItemCode,
+                                              int.parse(mycontroller[11].text),
+                                              double.parse(
+                                                  mycontroller[10].text),
+                                              context,
+                                              i,
+                                              theme,
+                                              false,
+                                              allProductDetails[indexupdate!]);
+                                        } else {
+                                          updateProductDetails(context, i,
+                                              allProductDetails[indexupdate!]);
+                                        }
+                                      }
                                     } else {
                                       showtoastproduct();
                                     }
@@ -7462,6 +10003,16 @@ class OrderNewController extends ChangeNotifier {
     "assets/xls.png",
     "assets/img.jpg"
   ];
+  void showtoastgift(String? msg) {
+    Fluttertoast.showToast(
+        msg: "$msg",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 14.0);
+  }
 
   void showtoastproduct() {
     Fluttertoast.showToast(
@@ -7833,11 +10384,63 @@ class OrderNewController extends ChangeNotifier {
     for (int i = 0; i < productDetails.length; i++) {
       // log("LineTotal::"+productDetails.length.toString());
       taxpercentage = productDetails[i].TaxCode;
+      // log("aaa"+"${productDetails[i].LineTotal! / (1 + taxpercentage! / 100)}");
       LineTotal = LineTotal! +
           (productDetails[i].LineTotal! / (1 + taxpercentage! / 100));
-      // log("LineTotal5555::"+LineTotal.toString());
+      // log("LineTotal5555::" + LineTotal.toString());
     }
+    LineTotal = LineTotal! + getTotalGiftLineAmount();
+    // log("LineTotalppp::" + LineTotal.toString());
     return config.slpitCurrency22(LineTotal!.toString());
+  }
+
+  getTotalGiftTaxAmount() {
+    double? taxtotal = 0.00;
+    double? gifttaxpercentage;
+    for (int i = 0; i < productDetails.length; i++) {
+      if (productDetails[i].giftitems != null &&
+          productDetails[i].giftitems!.isNotEmpty) {
+        for (int ij = 0; ij < productDetails[i].giftitems!.length; ij++) {
+          gifttaxpercentage = productDetails[i].giftitems![ij].TaxRate;
+          taxtotal = taxtotal! +
+              (gifttaxpercentage! *
+                      ((productDetails[i].giftitems![ij].Price! *
+                              productDetails[i].giftitems![ij].quantity!) /
+                          (1 + gifttaxpercentage! / 100))) /
+                  100;
+          log("gifttaxtotal:::" + taxtotal.toString());
+        }
+      }
+
+      // log("productDetails[i].LineTotal:::"+productDetails[i].LineTotal!.toString());
+      // log("taxpercentage:::"+taxpercentage.toString());
+
+      //  log("taxtotal:::"+taxtotal.toString());
+    }
+    return taxtotal!;
+  }
+
+  getTotalGiftLineAmount() {
+    double? LineTotal = 0.00;
+    double? taxpercentage;
+    for (int i = 0; i < productDetails.length; i++) {
+      log("productDetails[i].giftitems::" +
+          productDetails[i].giftitems.toString());
+      if (productDetails[i].giftitems != null &&
+          productDetails[i].giftitems!.isNotEmpty) {
+        for (int ij = 0; ij < productDetails[i].giftitems!.length; ij++) {
+          taxpercentage = productDetails[i].giftitems![ij].TaxRate;
+          LineTotal = LineTotal! +
+              ((productDetails[i].giftitems![ij].Price! *
+                      productDetails[i].giftitems![ij].quantity!) /
+                  (1 + taxpercentage! / 100));
+          // log("getTotalTaxAmountbefore:::" + LineTotal.toString());
+          // LineTotal=taxtotal+getTotalGiftTaxAmount()??0.0;
+          // log("getTotalgiftAmount:::" + LineTotal.toString());
+        }
+      }
+    }
+    return LineTotal!;
   }
 
   getTotalTaxAmount() {
@@ -7852,7 +10455,9 @@ class OrderNewController extends ChangeNotifier {
           (taxpercentage! *
                   (productDetails[i].LineTotal! / (1 + taxpercentage! / 100))) /
               100;
-      //  log("taxtotal:::"+taxtotal.toString());
+      // log("getTotalTaxAmountbefore:::" + taxtotal.toString());
+      taxtotal = taxtotal + getTotalGiftTaxAmount() ?? 0.0;
+      // log("getTotalTaxAmount:::" + taxtotal.toString());
     }
     return config.slpitCurrency22(taxtotal!.toString());
   }
@@ -8125,4 +10730,20 @@ class complementary {
       required this.SP,
       required this.offer,
       required this.qty});
+}
+
+class giftitems {
+  String? name;
+  String? itemcode;
+  double? price;
+  String? quantity;
+  bool? addproduct;
+  double? offerprice;
+  giftitems(
+      {required this.offerprice,
+      required this.name,
+      required this.itemcode,
+      required this.price,
+      required this.quantity,
+      required this.addproduct});
 }

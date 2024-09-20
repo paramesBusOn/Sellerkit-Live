@@ -56,7 +56,7 @@ itemAlreadyscanned = false;
 // Navigator.pop(context);
 notifyListeners();
    for (int ij=0;ij<filterdataprice.length;ij++){
-    if(filterdataprice[ij].itemCode ==Scancode){
+    if(filterdataprice[ij].partCode ==Scancode){
       itemAlreadyscanned=true;
       indexscanning =ij;
         notifyListeners();

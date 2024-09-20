@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +30,7 @@ class StockAvailState extends State<StockAvail> {
       context.read<StockListController>().clearAllData();
       context.read<StockListController>(). getdataFromDb();
       context.read<StockListController>().getDataFromDB();
+     context.read<StockListController>(). getLeveofType();
      
     });
   }
@@ -141,47 +144,57 @@ class StockAvailState extends State<StockAvail> {
                                   children: [
                                     InkWell(
                                       onLongPress: () async {
-                                        context
+                                        // bool permission = await context
+                                        //     .read<StockListController>()
+                                        //     .getPermissionStorage();
+                                     
+                                        // context
+                                        //         .read<StockListController>()
+                                        //         .source1 =
+                                        //     await context
+                                        //         .read<StockListController>()
+                                        //         .getPathOFDB();
+                                        // context
+                                        //         .read<StockListController>()
+                                        //         .copyTo =
+                                        //     await context
+                                        //         .read<StockListController>()
+                                        //         .getDirectory();
+    context
                                                 .read<StockListController>()
-                                                .source1 =
-                                            await context
-                                                .read<StockListController>()
-                                                .getPathOFDB();
-                                        context
-                                                .read<StockListController>()
-                                                .copyTo =
-                                            await context
-                                                .read<StockListController>()
-                                                .getDirectory();
-    
-                                        bool permission = await context
-                                            .read<StockListController>()
-                                            .getPermissionStorage();
-                                        if (permission == true) {
-                                          if ((await context
-                                              .read<StockListController>()
-                                              .copyTo!
-                                              .exists())) {
-                                            print("EXISTS");
-                                            context
-                                                .read<StockListController>()
-                                                .createDBFile(context
-                                                    .read<StockListController>()
-                                                    .copyTo!
-                                                    .path);
-                                          } else {
-                                            print("Not EXISTS");
-                                            context
-                                                .read<StockListController>()
-                                                .createDirectory();
-                                          }
-                                        } else if (permission == false) {
-                                          context
-                                              .read<StockListController>()
-                                              .showSnackBars(
-                                                  'Please give stoage permission to continue!!..',
-                                                  Colors.red);
-                                        }
+                                                .  copyDatabaseToExternalStorage();
+                                        // bool permission = await context
+                                        //     .read<StockListController>()
+                                        //     .getPermissionStorage();
+                                        //     log("permission::"+permission.toString());
+                                        // if (permission == true) {
+                                        //    context
+                                        //         .read<StockListController>()
+                                        //         .  copyDatabaseToExternalStorage();
+                                        //   // if ((await context
+                                        //   //     .read<StockListController>()
+                                        //   //     .copyTo!
+                                        //   //     .exists())) {
+                                        //   //   print("EXISTS");
+                                        //   //   context
+                                        //   //       .read<StockListController>()
+                                        //   //       .createDBFile(context
+                                        //   //           .read<StockListController>()
+                                        //   //           .copyTo!
+                                        //   //           .path);
+                                        //   // } else {
+                                        //   //   print("Not EXISTS");
+                                        //   //   context
+                                        //   //       .read<StockListController>()
+                                        //   //       .createDirectory();
+                                        //   // }
+                                        // } else if (permission == false) {
+                                        //   // context
+                                        //   //     .read<StockListController>()
+                                        //   //     .showSnackBars(
+                                        //   //         'Please give stoage permission to continue!!..',
+                                        //   //         Colors.red);
+                                        // }
                                       },
                                       child: Container(
                                         child: Row(

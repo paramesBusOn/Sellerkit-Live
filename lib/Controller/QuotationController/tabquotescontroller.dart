@@ -603,6 +603,7 @@ class QuotestabController extends ChangeNotifier {
     caseStatusSelected = '';
     hinttextforcancel = 'Cancellation Reason:* ';
     leadCheckDataExcep = '';
+    mycontroller[4].clear();
     mycontroller[5].text = '';
     leadDeatilsQTHData.clear();
     leadDeatilsQTLData.clear();

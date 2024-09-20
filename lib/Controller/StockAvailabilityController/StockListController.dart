@@ -6,6 +6,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/ConstantRoutes.dart';
@@ -13,6 +14,7 @@ import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/DBHelper/DBHelper.dart';
 import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/ItemMasterModelNew.dart/itemviewModel.dart';
+import 'package:sellerkit/Models/ordergiftModel/ParticularpricelistModel.dart';
 import 'package:sellerkit/Services/PostQueryApi/ItemMasterApi/itemviewApi.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../DBHelper/DBOperation.dart';
@@ -185,9 +187,9 @@ itemAlreadyscanned = false;
 // Navigator.pop(context);
 
    for (int ij=0;ij<filterdataprice.length;ij++){
-    if(filterdataprice[ij].itemCode ==Scancode){
+    if(filterdataprice[ij].partCode ==Scancode){
       itemAlreadyscanned=true;
-      indexscanning =filterdataprice[ij].itemCode;
+      indexscanning =filterdataprice[ij].partCode;
         notifyListeners();
       break;
     
@@ -540,6 +542,7 @@ filterList2(String v) {
   ///clear alll
 
   clearAllData() {
+     Particularprice.clear();
     isselectedBrandString.clear();
     isselectedProductString.clear();
     isselectedSegmentString.clear();
@@ -1497,6 +1500,13 @@ onfieldSccanned(String indexscanning)async{
   //   notifyListeners();
   // }
 
+List<ParticularpriceData> Particularprice=[];
+getLeveofType() async {
+    Particularprice.clear();
+   final Database db = (await DBHelper.getInstance())!;
+    Particularprice = await DBOperation.getparticularprice(db);
+    notifyListeners();
+}
   callItemMasterPriceUpdateNew(
       String itemcode, int Itmid, int indexfromList) async {
     isLoadingListView = true;
@@ -1635,15 +1645,60 @@ onfieldSccanned(String indexscanning)async{
   }
 
   Future<Directory> getDirectory() async {
-    Directory copyTo = Directory("storage/emulated/0/Sqlite Backup");
+    Directory copyTo = Directory("storage/emulated/0/SE-Sqlite Backup");
     return Future.value(copyTo);
   }
 
+Future<void> copyDatabaseToExternalStorage() async {
+    // Request permissions first
+    await getPermissionStorage();
+
+    // Get the app's internal database path
+    final internalDbPath = await getDatabasesPath();
+    final dbFile = File('$internalDbPath/SellerKit2.db');
+    log("message::" + dbFile.toString());
+
+    // Get the external storage directory path
+    final externalDir = await getExternalStorageDirectory();
+    log("message::" + externalDir.toString());
+    final externalDbPath = '${externalDir?.path}/SellerKit2.db';
+
+    // Copy the database file
+    if (await dbFile.exists()) {
+      await dbFile.copy(externalDbPath);
+      print("Database copied to: $externalDbPath");
+      showSnackBars(
+          "${externalDbPath} db saved Successfully", Colors.deepPurpleAccent);
+    } else {
+      print("Database file does not exist.");
+    }
+  }
+
+  // Future<bool> getPermissionStorage() async {
+  //   try {
+  //     var statusStorage = await Permission.storage.status;
+  //     if (statusStorage.isDenied) {
+  //       Permission.storage.request();
+  //       return Future.value(false);
+  //     }
+  //     if (statusStorage.isGranted) {
+  //       return Future.value(true);
+  //     }
+  //   } catch (e) {
+  //     showSnackBars("hiiiiii$e", Colors.red);
+  //   }
+  //   return Future.value(false);
+  // }
   Future<bool> getPermissionStorage() async {
     try {
       var statusStorage = await Permission.storage.status;
+      log("statusStorage::"+statusStorage.toString());
       if (statusStorage.isDenied) {
-        Permission.storage.request();
+        await  Permission.storage.request();
+        //  await openAppSettings();
+        return Future.value(false);
+      }if (statusStorage.isLimited) {
+      await   Permission.storage.request();
         return Future.value(false);
       }
       if (statusStorage.isGranted) {
@@ -1687,3 +1742,45 @@ onfieldSccanned(String indexscanning)async{
     }
   }
 }
+
+//store db in localdb
+// Future<void> copyDatabaseToExternalStorage() async {
+//     // Request permissions first
+//     await getPermissionStorage();
+
+//     // Get the app's internal database path
+//     final internalDbPath = await getDatabasesPath();
+//     final dbFile = File('$internalDbPath/Verifyt.db');
+//     log("message::" + dbFile.toString());
+
+//     // Get the external storage directory path
+//     final externalDir = await getExternalStorageDirectory();
+//     log("message::" + externalDir.toString());
+//     final externalDbPath = '${externalDir?.path}/Verifyt.db';
+
+//     // Copy the database file
+//     if (await dbFile.exists()) {
+//       await dbFile.copy(externalDbPath);
+//       print("Database copied to: $externalDbPath");
+//       showSnackBars(
+//           "${externalDbPath} db saved Successfully", Colors.deepPurpleAccent);
+//     } else {
+//       print("Database file does not exist.");
+//     }
+//   }
+
+//   Future<bool> getPermissionStorage() async {
+//     try {
+//       var statusStorage = await Permission.storage.status;
+//       if (statusStorage.isDenied) {
+//         Permission.storage.request();
+//         return Future.value(false);
+//       }
+//       if (statusStorage.isGranted) {
+//         return Future.value(true);
+//       }
+//     } catch (e) {
+//       showSnackBars("hiiiiii$e", Colors.red);
+//     }
+//     return Future.value(false);
+//   }

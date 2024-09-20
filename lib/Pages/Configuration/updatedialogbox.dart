@@ -3,12 +3,18 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
 import 'package:sellerkit/Controller/ConfigurationController/ConfigurationController.dart';
+import 'package:sellerkit/DBHelper/DBOperation.dart';
 import 'package:sellerkit/Pages/Configuration/ConfigurationPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../Constant/Screen.dart';
+import '../../DBHelper/DBHelper.dart';
 
 class Upgraderdialogbox extends StatefulWidget {
   Upgraderdialogbox({
@@ -97,9 +103,9 @@ class ShowSearchDialogState extends State<Upgraderdialogbox> {
                 ],
               ),
             ),
-              // context
-              // .read<ConfigurationContoller>()
-              // .checkStartingPage(pagename, docEntry);
+            // context
+            // .read<ConfigurationContoller>()
+            // .checkStartingPage(pagename, docEntry);
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -110,21 +116,23 @@ class ShowSearchDialogState extends State<Upgraderdialogbox> {
                         backgroundColor: theme.primaryColor,
                       ),
                       onPressed: () async {
+                        await cleardatamethod();
                         if (Platform.isAndroid || Platform.isIOS) {
-                          final appId = Platform.isAndroid
-                              ? 'com.busondigitalservice.sellerkit'
-                              : 'com.busondigitalservice.sellerkit';
+                          // final appId = Platform.isAndroid
+                          //     ? 'com.busondigitalservice.sellerkit'
+                          //     : 'com.busondigitalservice.sellerkit';
                           final url = Uri.parse(
                             Platform.isAndroid
                                 ? "https://play.google.com/store/apps/details?id=com.busondigitalservice.sellerkit"
-                                : "https://apps.apple.com/app/id$appId",
+                                : "https://apps.apple.com/app/id6468899888",
                           );
+
+                        //  await HelperFunctions.clearHost();
+                          await DefaultCacheManager().emptyCache();
                           launchUrl(
                             url,
                             mode: LaunchMode.externalApplication,
-                          ).then((value) {
-                            // exit(0);
-                          });
+                          ).then((value) => Get.back());
                         }
                       },
                       child: Text('Update')),
@@ -136,7 +144,7 @@ class ShowSearchDialogState extends State<Upgraderdialogbox> {
                         backgroundColor: theme.primaryColor,
                       ),
                       onPressed: () async {
-                       Navigator.of(context).pop('Close');
+                        Navigator.of(context).pop('Close');
                       },
                       child: Text('Close')),
                 ),
@@ -146,5 +154,33 @@ class ShowSearchDialogState extends State<Upgraderdialogbox> {
         ),
       ),
     );
+  }
+  
+
+  cleardatamethod() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+    final Database db = (await DBHelper.getInstance())!;
+    await DBOperation.truncateQuotFilter(db);
+    await DBOperation.truncustomerMaster(db);
+    await DBOperation.truncareItemMaster(db);
+    await DBOperation.truncareoutstandingmaste(db);
+    await DBOperation.truncareoutstandingline(db);
+    await DBOperation.truncareEnqType(db);
+    await DBOperation.truncarelevelofType(db);
+    await DBOperation.truncareparticularprice(db);
+
+    await DBOperation.truncareorderType(db);
+
+    await DBOperation.truncareCusTagType(db);
+    await DBOperation.trunstateMaster(db);
+    await DBOperation.truncareEnqReffers(db);
+    await DBOperation.truncateUserList(db);
+    await DBOperation.truncateLeadstatus(db);
+    await DBOperation.truncateOfferZone(db);
+    await DBOperation.truncateOfferZonechild1(db);
+    await DBOperation.truncateOfferZonechild2(db);
+    await DBOperation.truncatetableitemlist1(db);
+    await DBOperation.truncatetableitemlist2(db);
   }
 }

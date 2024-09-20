@@ -54,6 +54,46 @@ static String? ageslab3='';
 static String? ageslab4='';
 static String? ageslab5='';
 static String? splpricelogic='';
+static String? unitpricelogic='';
+static String? ordergiftlogic='';
+static String? ordergiftskip='';
+static String? showallslab='';
+static String? ItemMasApi='';
+static String? ItemMasDB='';
+static String? configApi='';
+static String? enquiryTypeApi='';
+static String? customerTagTypeApi='';
+static String? levelofApi='';
+static String? orderTypeApi='';
+static String? enquiryRefferesApi='';
+static String? stateApiNew='';
+static String? GetUserApi='';
+static String? GetLeadStatusApi='';
+static String? ProfileApi='';
+static String? OfferZoneApi1='';
+static String? MenuAuthApi='';
+static String? inserstateMaster='';
+static String? insertCusTagType='';
+static String? insertlevelofType='';
+static String? insertOrderTypeta='';
+static String? insertEnqType='';
+static String? insertEnqReffers='';
+static String? insertUserList='';
+static String? insertLeadStatusList='';
+static String? insertOfferZone='';
+static String? itemMasterlegth='';
+
+static String? tableItemMasterlenth='';
+
+
+
+
+
+// EnquiryRefferesApi
+
+
+
+
 
 
 }

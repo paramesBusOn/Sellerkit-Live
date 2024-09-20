@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_string_interpolations, unnecessary_new, prefer_const_constructors_in_immutables, prefer_interpolation_to_compose_strings, sized_box_for_whitespace
 
 import 'dart:developer';
 
@@ -14,7 +13,7 @@ import '../../Widgets/Appbar.dart';
 import '../../Widgets/Navi3.dart';
 
 class NewCustomerReg extends StatefulWidget {
-  NewCustomerReg({Key? key}) : super(key: key);
+ const NewCustomerReg({Key? key}) : super(key: key);
 
   @override
   State<NewCustomerReg> createState() => NewCustomerRegState();
@@ -81,7 +80,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                     }
                   },
             child:context.read<NewCustomerContoller>(). customerapicLoading==true?
-            Center(child:CircularProgressIndicator()) 
+            const Center(child:CircularProgressIndicator()) 
             
             : Column(
               children: [
@@ -108,7 +107,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                 border: Border.all(color: theme.primaryColor)),
                             child: Column(
                               children: [
-                                Container(
+                                SizedBox(
                                   width: Screens.width(context),
                                   child: Text(
                                     "Customer Info",
@@ -162,7 +161,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                     },
                                     inputFormatters: [
                                       FilteringTextInputFormatter.digitsOnly,
-                                      new LengthLimitingTextInputFormatter(10),
+                                       LengthLimitingTextInputFormatter(10),
                                     ],
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
@@ -664,7 +663,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                       labelText: 'Email',
                                       labelStyle: theme.textTheme.bodyText1!
                                           .copyWith(color: Colors.grey),
-                                      enabledBorder: UnderlineInputBorder(
+                                      enabledBorder:const UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.grey),
                                         //  when the TextFormField in unfocused

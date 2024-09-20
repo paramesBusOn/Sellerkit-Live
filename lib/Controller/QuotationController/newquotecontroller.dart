@@ -33,6 +33,7 @@ import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetAllLeadMo
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/GetOrderCheckListModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 import 'package:sellerkit/Models/QuoteModel/quotemodel.dart';
+import 'package:sellerkit/Models/ordergiftModel/ParticularpricelistModel.dart';
 import 'package:sellerkit/Models/stateModel/stateModel.dart';
 import 'package:sellerkit/Pages/OrderBooking/Screens/OrderSuccessPage.dart';
 import 'package:sellerkit/Pages/Quoatation/Succcesspage.dart';
@@ -97,7 +98,7 @@ itemAlreadyscanned = false;
 // Navigator.pop(context);
 notifyListeners();
    for (int ij=0;ij<allProductDetails.length;ij++){
-    if(allProductDetails[ij].itemCode ==Scancode){
+    if(allProductDetails[ij].partCode ==Scancode){
       itemAlreadyscanned=true;
       indexscanning =ij;
         notifyListeners();
@@ -191,15 +192,20 @@ choosedStatus(String? val){
   valueChosedStatus=val;
 notifyListeners();
 }
+
+
+List<ParticularpriceData> Particularprice=[];
 List<LevelofData> leveofdata=[];
  List<OrderTypeData> ordertypedata=[];
    getLeveofType() async {
     leveofdata.clear();
+     Particularprice.clear();
     ordertypedata.clear();
     final Database db = (await DBHelper.getInstance())!;
 
     leveofdata = await DBOperation.getlevelofData(db);
     ordertypedata=await DBOperation.getordertypeData(db);
+     Particularprice = await DBOperation.getparticularprice(db);
     notifyListeners();
   }
     clearAllData() {
@@ -208,6 +214,7 @@ List<LevelofData> leveofdata=[];
       selectedapartcode='';
       refpartdata.clear();
       mycontroller[46].clear();
+       Particularprice.clear();
   filterrefpartdata.clear();
       paymentTerm=false;
        leveofdata.clear();
@@ -216,6 +223,7 @@ List<LevelofData> leveofdata=[];
     valueChosedCusType=null;
     valueChosedCusType=null;
       mycontroller[31].clear();
+      mycontroller[4].clear();
     log("step1"); isAnother == true;
     leadnum='';
       statecode = '';
@@ -1355,7 +1363,28 @@ break;
                       SizedBox(
                         height: 10,
                       ),
-                       createTable4(theme, indexshow!),
+                     ConstantValues.showallslab!.toLowerCase() !='y'?Container():    createTable4(theme, indexshow!),
+                      if(ConstantValues.showallslab!.toLowerCase() =='y')...[
+  Container()
+]
+
+else ...[
+   if (Particularprice.length <= 5) ...[
+      createTableparticular(theme, indexshow!, context),
+    ] else if (Particularprice.length <= 10) ...[
+      createTableparticular(theme, indexshow!, context),
+      SizedBox(height: 5),
+      createTableparticular2(theme, indexshow!, context),
+    ] else if (Particularprice.length <= 15) ...[
+      createTableparticular(theme, indexshow!, context),
+      SizedBox(height: 5),
+      createTableparticular2(theme, indexshow!, context),
+      SizedBox(height: 5),
+      createTableparticular3(theme, indexshow!, context),
+    ] else ...[
+      Container(), // Fallback if none of the conditions are met
+    ],
+],
                       // SizedBox(
                       //   height: Screens.padingHeight(context) * 0.06,
                       //   child: TextFormField(
@@ -1464,12 +1493,12 @@ break;
                       //  SizedBox(
                       //       width: 15,
                       //     ),
-                      createTable(theme, indexshow),
-                      SizedBox(
+                   ConstantValues.showallslab!.toLowerCase() !='y'?Container():     createTable(theme, indexshow!),
+                   ConstantValues.showallslab!.toLowerCase() !='y'?Container():     SizedBox(
                         height: 5,
                       ),
-                      createTable2(theme, indexshow),
-                      SizedBox(
+                   ConstantValues.showallslab!.toLowerCase() !='y'?Container():     createTable2(theme, indexshow!),
+                   ConstantValues.showallslab!.toLowerCase() !='y'?Container():     SizedBox(
                         height: 5,
                       ),
                       Container(
@@ -1480,11 +1509,11 @@ break;
                                 ?.copyWith() //color: theme.primaryColor
                             ),
                       ),
-                      SizedBox(
+                       SizedBox(
                         height: 1,
                       ),
-                       createTable5(theme, indexshow),
-                      SizedBox(
+                        createTable5(theme, indexshow!),
+                       SizedBox(
                         height: 5,
                       ),
                       Container(
@@ -1498,7 +1527,7 @@ break;
                       SizedBox(
                         height: 1,
                       ),
-                      createTable6(theme, indexshow),
+                    createTable6(theme, indexshow),
                       Divider(
                         color: theme.primaryColor,
                       ),
@@ -1565,8 +1594,8 @@ break;
                       //     ),
                       //   ),
                       // ),
-                      createTable3(theme, indexshow),
-                       SizedBox(
+                     createTable3(theme, indexshow),
+                        SizedBox(
                         height: 5,
                       ),
                       Row(
@@ -2256,26 +2285,7 @@ String? valueChosedrefcode;
   Widget createTable4(ThemeData theme, int ij) {
     List<TableRow> rows = [];
     rows.add(TableRow(children: [
-      Container(
-        color: theme.primaryColor,
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
-          "SP",
-          style: theme.textTheme.bodyText1
-              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
-          textAlign: TextAlign.left,
-        ),
-      ),
-      Container(
-        color: theme.primaryColor,
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
-          "Cost",
-          style: theme.textTheme.bodyText1
-              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
-          textAlign: TextAlign.center,
-        ),
-      ),
+      
       Container(
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
@@ -2286,31 +2296,32 @@ String? valueChosedrefcode;
           textAlign: TextAlign.center,
         ),
       ),
+      Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "SP",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ),
+    ConstantValues.showallslab!.toLowerCase() !='y'?Container():    Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "Cost",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ),
+      
      
     ]));
    
     rows.add(TableRow(children: [
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
-          config.slpitCurrency22(allProductDetails[ij].sp.toString()),
-          textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
-            color: theme.primaryColor,
-          ),
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
-          config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()),
-          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
-          textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
-            color: theme.primaryColor,
-          ),
-        ),
-      ),
+      
        Padding(
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
@@ -2322,6 +2333,28 @@ String? valueChosedrefcode;
           ),
         ),
       ),
+      Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].sp.toString()),
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+    ConstantValues.showallslab!.toLowerCase() !='y'?Container():    Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()),
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ),
+      
       
     ]));
     // }
@@ -2655,6 +2688,739 @@ Widget createTable5(ThemeData theme, int ij) {
       4: FlexColumnWidth(1.0),
     }, children: rows);
   }
+
+   Widget createTableparticular(ThemeData theme, int ij,BuildContext context) {
+ 
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+ Particularprice.length > 0 &&   Particularprice[0] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[0].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ):Container(),
+ Particularprice.length > 1 &&   Particularprice[1] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[1].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  Particularprice.length > 2 &&  Particularprice[2] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[2].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+   Particularprice.length > 3 &&  Particularprice[3] !=null?  Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[3].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  Particularprice.length > 4 &&  Particularprice[4] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[4].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+  Particularprice.length > 0 &&  Particularprice[0].PriceList !=null?
+     Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(Particularprice[0].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[0].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 1 &&  Particularprice[1].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+         Particularprice[1].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[1].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 2 &&  Particularprice[2].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[2].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[2].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 3 &&   Particularprice[3].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[3].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[3].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+   Particularprice.length > 4 &&   Particularprice[4].PriceList !=null? Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[4].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[4].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+
+
+  Widget createTableparticular2(ThemeData theme, int ij,BuildContext context) {
+ 
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+ Particularprice.length > 5 &&   Particularprice[5] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[5].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ):Container(),
+ Particularprice.length > 6 &&   Particularprice[6] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[6].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  Particularprice.length > 7 &&  Particularprice[7] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[7].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+   Particularprice.length > 8 &&  Particularprice[8] !=null?  Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[8].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  Particularprice.length > 9 &&  Particularprice[9] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[9].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+  Particularprice.length > 5 &&  Particularprice[5].PriceList !=null?
+     Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(Particularprice[5].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[5].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 6 &&  Particularprice[6].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+         Particularprice[6].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[6].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 7 &&  Particularprice[7].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[7].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[7].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 8 &&   Particularprice[8].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[8].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[8].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+   Particularprice.length > 9 &&   Particularprice[9].PriceList !=null? Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[9].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[9].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
+
+  Widget createTableparticular3(ThemeData theme, int ij,BuildContext context) {
+ 
+    List<TableRow> rows = [];
+    rows.add(TableRow(children: [
+ Particularprice.length > 10 &&   Particularprice[10] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[10].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.left,
+        ),
+      ):Container(),
+ Particularprice.length > 11 &&   Particularprice[11] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[11].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  Particularprice.length > 12 &&  Particularprice[12] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[12].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+   Particularprice.length > 13 &&  Particularprice[13] !=null?  Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[13].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+  Particularprice.length > 14 &&  Particularprice[14] !=null?   Container(
+        color: theme.primaryColor,
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          "${Particularprice[14].PriceList}",
+          style: theme.textTheme.bodyText1
+              ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      ):Container(),
+    ]));
+    // for (int i = 0;
+    //     i < allProductDetails.length;
+    //     ++i) {
+    rows.add(TableRow(children: [
+  Particularprice.length > 10 &&  Particularprice[10].PriceList !=null?
+     Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(Particularprice[10].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[10].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.left,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 11 &&  Particularprice[11].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+         Particularprice[11].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[11].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 12 &&  Particularprice[12].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[12].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[12].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+  Particularprice.length > 13 &&   Particularprice[13].PriceList !=null?
+       Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[13].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[13].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+   Particularprice.length > 14 &&   Particularprice[14].PriceList !=null? Padding(
+        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        child: Text(
+          Particularprice[14].PriceList!.toLowerCase() == 'mrp'?
+        config.slpitCurrency22(allProductDetails[ij].mgrPrice.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'sp'?
+        config.slpitCurrency22(allProductDetails[ij].sp.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'cost'?
+        config.slpitCurrency22(allProductDetails[ij].slpPrice.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp1'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp2'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp3'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp4'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp5'?
+        config.slpitCurrency22(allProductDetails[ij].ssp5.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp1_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp1Inc.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp2_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp2Inc.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp3_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp3Inc.toString()):
+        Particularprice[14].PriceList!.toLowerCase() == 'ssp4_inc'?
+        config.slpitCurrency22(allProductDetails[ij].ssp4Inc.toString()):
+          '',
+          textAlign: TextAlign.center,
+          style: theme.textTheme.bodyText1?.copyWith(
+            color: theme.primaryColor,
+          ),
+        ),
+      ):Container(),
+    ]));
+    // }
+    return Table(columnWidths: {
+      0: FlexColumnWidth(1.0),
+      1: FlexColumnWidth(1.0),
+      2: FlexColumnWidth(1.0),
+      3: FlexColumnWidth(1.0),
+      4: FlexColumnWidth(1.0),
+    }, children: rows);
+  }
   showBottomSheetInsert2(BuildContext context, int i) {
     final theme = Theme.of(context);
     selectedItemName = allProductDetails[i].itemName.toString();
@@ -2706,7 +3472,28 @@ Widget createTable5(ThemeData theme, int ij) {
                       SizedBox(
                         height: 10,
                       ),
-                      createTable4(theme, i),
+                       ConstantValues.showallslab!.toLowerCase() !='y'?Container():   createTable4(theme, i),
+                    if(ConstantValues.showallslab!.toLowerCase() =='y')...[
+  Container()
+]
+
+else ...[
+   if (Particularprice.length <= 5) ...[
+      createTableparticular(theme, i, context),
+    ] else if (Particularprice.length <= 10) ...[
+      createTableparticular(theme, i, context),
+      SizedBox(height: 5),
+      createTableparticular2(theme, i, context),
+    ] else if (Particularprice.length <= 15) ...[
+      createTableparticular(theme, i, context),
+      SizedBox(height: 5),
+      createTableparticular2(theme, i, context),
+      SizedBox(height: 5),
+      createTableparticular3(theme, i, context),
+    ] else ...[
+      Container(), // Fallback if none of the conditions are met
+    ],
+],
                       // SizedBox(
                       //   height: Screens.padingHeight(context) * 0.06,
                       //   child: TextFormField(
@@ -2815,15 +3602,15 @@ Widget createTable5(ThemeData theme, int ij) {
                       //  SizedBox(
                       //       width: 15,
                       //     ),
-                      createTable(theme, i),
-                      SizedBox(
+                    ConstantValues.showallslab!.toLowerCase() !='y'?Container():    createTable(theme, i),
+                   ConstantValues.showallslab!.toLowerCase() !='y'?Container():     SizedBox(
                         height: 5,
                       ),
-                      createTable2(theme, i),
-                      SizedBox(
+                   ConstantValues.showallslab!.toLowerCase() !='y'?Container():     createTable2(theme, i),
+                   ConstantValues.showallslab!.toLowerCase() !='y'?Container():     SizedBox(
                         height: 5,
                       ),
-                      Container(
+                     Container(
                         // width: Screens.width(context)*0.7,
                         // color: Colors.red,
                         child: Text("Store Age Slab:",
@@ -2834,11 +3621,11 @@ Widget createTable5(ThemeData theme, int ij) {
                       SizedBox(
                         height: 1,
                       ),
-                       createTable5(theme, i),
-                      SizedBox(
+                         createTable5(theme, i),
+                    SizedBox(
                         height: 5,
                       ),
-                      Container(
+                  Container(
                         // width: Screens.width(context)*0.7,
                         // color: Colors.red,
                         child: Text("Whse Age Slab:",
@@ -2846,17 +3633,17 @@ Widget createTable5(ThemeData theme, int ij) {
                                 ?.copyWith() //color: theme.primaryColor
                             ),
                       ),
-                      SizedBox(
+                     SizedBox(
                         height: 1,
                       ),
                       createTable6(theme, i),
-                      Divider(
+                       Divider(
                         color: theme.primaryColor,
                       ),
-                      SizedBox(
+                       SizedBox(
                         height: 5,
                       ),
-                      createTable3(theme, i),
+                   ConstantValues.showallslab!.toLowerCase() !='y'?Container():     createTable3(theme, i),
                       // SizedBox(
                       //   height: Screens.padingHeight(context) * 0.06,
                       //   child: TextFormField(
@@ -2916,7 +3703,7 @@ Widget createTable5(ThemeData theme, int ij) {
                       //     ),
                       //   ),
                       // ),
-                      SizedBox(
+                     SizedBox(
                         height: 5,
                       ),
                       
@@ -3626,6 +4413,8 @@ updateProductDetails(BuildContext context, int i) {
       selectedapartcode='';
   }
  changeVisible() {
+    allProductDetails   = filterProductDetails;
+                     
     showItemList = !showItemList;
     notifyListeners();
   }

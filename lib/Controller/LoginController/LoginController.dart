@@ -26,7 +26,7 @@ import 'package:sellerkit/Services/LoginApi/LoginApi.dart';
 import 'package:sellerkit/Services/LoginVerificationApi/LoginVerificationApi.dart';
 import 'package:sellerkit/Services/URL/GetURLApi.dart';
 import 'package:sellerkit/Widgets/Dialogbox.dart';
-import 'package:sellerkit/Widgets/RestrictedPage.dart';
+import 'package:sellerkit/Widgets/restricted_page.dart';
 import 'package:sellerkit/main.dart';
 import 'package:sqflite/sqflite.dart';
 // import 'package:share/share.dart';
@@ -673,6 +673,7 @@ if (VerificationDataDBData.isNotEmpty) {
       await DBOperation.truncareoutstandingline(db);
     await DBOperation.truncareEnqType(db);
     await DBOperation.truncarelevelofType(db);
+    await DBOperation.truncareparticularprice(db);
     await DBOperation.truncareorderType(db);
     
     await DBOperation.truncareCusTagType(db);

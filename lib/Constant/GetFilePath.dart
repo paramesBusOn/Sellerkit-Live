@@ -1,11 +1,9 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, prefer_const_constructors
 
 import 'dart:convert';
 import 'dart:developer';
 
 import 'dart:io';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart'; 
 import 'package:permission_handler/permission_handler.dart'; 
 

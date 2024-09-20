@@ -18,7 +18,7 @@ class SPupdateModal {
       this.exception,
       required this.stcode});
   factory SPupdateModal.fromJson(Map<String,dynamic> jsons, int stcode) {
-    print("inside class" + jsons.toString());
+    // print("inside class" + jsons.toString());
 
     if (jsons != null || jsons.isNotEmpty) {
      

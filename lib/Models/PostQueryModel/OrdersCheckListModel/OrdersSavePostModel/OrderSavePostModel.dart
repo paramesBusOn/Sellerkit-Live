@@ -465,9 +465,16 @@ class DocumentLines {
   String? couponcode;
   String? partcode;
    String? partname;
+   String? itemtype;
+   int? OfferSetup_Id;
+   List<giftoffers>? giftitems;
 
   DocumentLines(
-      {this.partcode,
+      {
+        this.itemtype,
+         this.OfferSetup_Id,
+        this.giftitems,
+        this.partcode,
       this.couponcode,
       this.complementary,
       this.MRP,
@@ -512,6 +519,7 @@ class DocumentLines {
 
   Map<String, dynamic> tojason() {
     Map<String, dynamic> map = {
+      "offerId":OfferSetup_Id,
       "id": id,
       "docEntry": docEntry,
       "lineNum": linenum,
@@ -528,6 +536,7 @@ class DocumentLines {
 
   Map<String, dynamic> tojason2() {
     Map<String, dynamic> map = {
+      "offerId":OfferSetup_Id,
       "itemcode": ItemCode!.replaceAll("'", "''"),
       "itemname": ItemDescription!.replaceAll("'", "''"),
       "quantity": Quantity!,
@@ -535,8 +544,41 @@ class DocumentLines {
       "storecode": storecode,
       "deliveryfrom": deliveryfrom,
       "couponcode": couponcode,
-      "partnercode": partcode
+      "partnercode": partcode,
+      "itemtype":itemtype
+      
     };
     return map;
   }
+}
+class giftoffers{
+  String? itemtype;
+int? OfferSetup_Id;
+String? ItemCode;
+String? ItemName;
+int? Attach_Qty;
+double? Price;
+double? SP;
+double? MRP;
+double? TaxRate;
+double? BasicPrice;
+double? TaxAmt_PerUnit;
+int? quantity;
+
+double? GiftQty;
+  giftoffers(
+      {
+        required this.itemtype,
+        required this.GiftQty,
+        required this.OfferSetup_Id,
+    required this.ItemCode,
+    required this.Attach_Qty,
+    required this.BasicPrice,
+    required this.ItemName,
+    required this.MRP,
+    required this.Price,
+    required this.SP,
+    required this.TaxAmt_PerUnit,
+    required this.TaxRate,
+   required this. quantity});
 }

@@ -23,6 +23,7 @@ import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestMo
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetAllLeadModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
 import 'package:sellerkit/Models/TestModel.dart';
+import 'package:sellerkit/Models/ordergiftModel/ParticularpricelistModel.dart';
 import 'package:sellerkit/Models/stateModel/stateModel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/GetUserModel.dart';
@@ -65,6 +66,9 @@ log("values len:xxxx "+e.toString());
     }
     stopwatch.stop();
     log('DB tableItemMaster ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.ItemMasDB =stopwatch.elapsedMilliseconds.toString();
+    ConstantValues.tableItemMasterlenth =tableItemMaster.length.toString();
+
     // var data = values.map((e) => e.toMap()).toList();
     // log("values len: " + values.length.toString());
     // log("data len: " + data.length.toString());
@@ -902,7 +906,7 @@ WHERE $fav IS NOT '';
     final List<Map<String, Object?>> result = await db.rawQuery("""
  SELECT * From ItemMaster A
       Where 
-      Instr(case when length('$itemcode') <> 0 then ', ' || '$itemcode' || ',' else ', '|| A.ItemCode || ','  end,', ' || A.ItemCode || ',' ) > 0
+      Instr(case when length('$itemcode') <> 0 then ', ' || '$itemcode' || ',' else ', '|| A.PartCode || ','  end,', ' || A.PartCode || ',' ) > 0
       
 """);
 
@@ -2206,6 +2210,8 @@ case when DATE('now')<=TransDueDate then sum(BalanceToPay) else 0 END upcoming ,
     });
     stopwatch.stop();
     log('API insertEnqType ${stopwatch.elapsedMilliseconds} milliseconds');
+    
+ConstantValues.insertEnqType =stopwatch.elapsedMilliseconds.toString();
 
     await batch.commit();
 
@@ -2229,7 +2235,7 @@ case when DATE('now')<=TransDueDate then sum(BalanceToPay) else 0 END upcoming ,
     });
     stopwatch.stop();
     log('API insertCusTagType ${stopwatch.elapsedMilliseconds} milliseconds');
-
+ConstantValues.insertCusTagType =stopwatch.elapsedMilliseconds.toString();
     await batch.commit();
 
     // ReceivePort port = new ReceivePort();
@@ -2251,6 +2257,27 @@ case when DATE('now')<=TransDueDate then sum(BalanceToPay) else 0 END upcoming ,
     });
     stopwatch.stop();
     log('API insertlevelofType ${stopwatch.elapsedMilliseconds} milliseconds');
+    
+ConstantValues.insertlevelofType =stopwatch.elapsedMilliseconds.toString();
+
+    await batch.commit();
+  }
+
+  static Future insertparticularprice(List<ParticularpriceData> values, Database db) async {
+    final stopwatch = Stopwatch()..start();
+    log("Start:insertlevelofType ");
+
+    var data = values.map((e) => e.toMap()).toList();
+    // log("ItemMasterDBModel len: " + data.length.toString());
+    var batch = db.batch();
+    data.forEach((es) async {
+      batch.insert(particularprice, es);
+      // log("Enq Batchhhh Item...");
+    });
+    stopwatch.stop();
+    log('API insertlevelofType ${stopwatch.elapsedMilliseconds} milliseconds');
+    
+ConstantValues.insertlevelofType =stopwatch.elapsedMilliseconds.toString();
 
     await batch.commit();
   }
@@ -2269,6 +2296,7 @@ case when DATE('now')<=TransDueDate then sum(BalanceToPay) else 0 END upcoming ,
     stopwatch.stop();
     log('API insertOrderTypeta ${stopwatch.elapsedMilliseconds} milliseconds');
 
+ConstantValues.insertOrderTypeta =stopwatch.elapsedMilliseconds.toString();
     await batch.commit();
   }
 
@@ -2324,6 +2352,23 @@ SELECT * FROM Levelof;
       return LevelofData(
         Code: result[i]['Code'].toString(),
         Name: result[i]['Name'].toString(),
+      );
+    });
+  }
+
+  static Future<List<ParticularpriceData>> getparticularprice(Database db) async {
+    final List<Map<String, Object?>> result = await db.rawQuery('''
+SELECT * FROM Particularprice;
+''');
+
+  //  final String? result = "select ";
+    log("Saved AllocATE: " + result.toList().toString());
+    // log("Saved AllocATE length: " + result.length.toString());
+
+    return List.generate(result.length, (i) {
+      return ParticularpriceData(
+        PriceList: result[i]['PriceList'].toString(),
+        
       );
     });
   }
@@ -2534,6 +2579,9 @@ SELECT * from $loginverificationDB
   static Future<void> truncarelevelofType(Database db) async {
     await db.rawQuery('delete from $tableLevelof');
   }
+  static Future<void> truncareparticularprice(Database db) async {
+    await db.rawQuery('delete from $particularprice');
+  }
 
   static Future<void> truncareorderType(Database db) async {
     await db.rawQuery('delete from $tableOrderType');
@@ -2560,6 +2608,8 @@ SELECT * from $loginverificationDB
     });
     stopwatch.stop();
     log('API insertEnqReffers ${stopwatch.elapsedMilliseconds} milliseconds');
+    
+ConstantValues.insertEnqReffers =stopwatch.elapsedMilliseconds.toString();
 
     await batch.commit();
 
@@ -2611,6 +2661,7 @@ SELECT * from $loginverificationDB
     stopwatch.stop();
     log('API insertUserList ${stopwatch.elapsedMilliseconds} milliseconds');
 
+ConstantValues.insertUserList =stopwatch.elapsedMilliseconds.toString();
     await batch.commit();
 
     // ReceivePort port = new ReceivePort();
@@ -2665,6 +2716,7 @@ SELECT * FROM $tableUserList;
     stopwatch.stop();
     log('API insertLeadStatusList ${stopwatch.elapsedMilliseconds} milliseconds');
 
+ConstantValues.insertLeadStatusList =stopwatch.elapsedMilliseconds.toString();
     await batch.commit();
 
     // ReceivePort port = new ReceivePort();
@@ -2744,6 +2796,7 @@ SELECT * FROM $tableUserList;
     stopwatch.stop();
     log('API insertOfferZone ${stopwatch.elapsedMilliseconds} milliseconds');
 
+ConstantValues.insertOfferZone =stopwatch.elapsedMilliseconds.toString();
     await batch.commit();
 
     // ReceivePort port = new ReceivePort();
@@ -3377,6 +3430,7 @@ SELECT * FROM CusTagType where Name='$custagName' ;
     });
     stopwatch.stop();
     log('API inserstateMaster ${stopwatch.elapsedMilliseconds} milliseconds');
+    ConstantValues.inserstateMaster =stopwatch.elapsedMilliseconds.toString();
     await batch.commit();
   }
 

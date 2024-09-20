@@ -14,6 +14,7 @@ import 'package:sellerkit/DBHelper/DBHelper.dart';
 import 'package:sellerkit/DBHelper/DBOperation.dart';
 import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/ItemMasterModelNew.dart/itemviewModel.dart';
+import 'package:sellerkit/Models/ordergiftModel/ParticularpricelistModel.dart';
 import 'package:sellerkit/Services/PostQueryApi/ItemMasterApi/itemviewApi.dart';
 import 'package:sqflite/sqflite.dart';
 import '../../Services/PostQueryApi/ItemMasterUpdateApi.dart/ItemMasterUpdateApiNew.dart';
@@ -188,9 +189,9 @@ itemAlreadyscanned = false;
 // Navigator.pop(context);
 notifyListeners();
    for (int ij=0;ij<filterdataprice.length;ij++){
-    if(filterdataprice[ij].itemCode ==Scancode){
+    if(filterdataprice[ij].partCode ==Scancode){
       itemAlreadyscanned=true;
-      indexscanning =filterdataprice[ij].itemCode;
+      indexscanning =filterdataprice[ij].partCode;
         notifyListeners();
       break;
     
@@ -567,6 +568,7 @@ filterList2(String v) {
   ///clear alll
 
   clearAllData() {
+     Particularprice.clear();
     isselectedBrandString.clear();
     isselectedProductString.clear();
     isselectedSegmentString.clear();
@@ -1521,6 +1523,13 @@ onfieldSccanned(String indexscanning)async{
   //   notifyListeners();
   // }
 
+List<ParticularpriceData> Particularprice=[];
+getLeveofType() async {
+    Particularprice.clear();
+   final Database db = (await DBHelper.getInstance())!;
+    Particularprice = await DBOperation.getparticularprice(db);
+    notifyListeners();
+}
   callItemMasterPriceUpdateNew(String itemcode, int Itmid, int indexfromList) async {
     isLoadingListView = true;
     listPriceAvail[indexfromList].isselected = 1;

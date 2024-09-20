@@ -142,11 +142,12 @@ class _paytermdialogState extends State<paytermdialog> {
                         ? Container()
                         : Container(
                             width: Screens.width(context),
-                            height: Screens.padingHeight(context) * 0.06,
-                            padding: EdgeInsets.all(8),
+                            // height: Screens.padingHeight(context) * 0.06,
+                            // padding: EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: Border.all()),
+                                // borderRadius: BorderRadius.circular(8),
+                                // border: Border.all()
+                                ),
                             child: DropdownButtonFormField(
                                 value: context
                                     .read<NewCollectionContoller>()

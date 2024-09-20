@@ -23,9 +23,9 @@ class _FollowdialogState extends State<Followdialog> {
       contentPadding: EdgeInsets.all(0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       content: (context.watch<tabpriceController>().isviewdetail == false &&
-              context.watch<tabpriceController>().isloadingstart == true)
+              context.watch<tabpriceController>().isloadingstart == true &&context.watch<tabpriceController>().isapprovedpage == false)
           ? loadingDialog(context)
-          : (context.watch<tabpriceController>().isviewdetail == false &&
+          : (context.watch<tabpriceController>().isviewdetail == false&&context.watch<tabpriceController>().isapprovedpage == false &&
                   context.watch<tabpriceController>().isloadingstart == false &&
                   context
                       .watch<tabpriceController>()
@@ -37,8 +37,16 @@ class _FollowdialogState extends State<Followdialog> {
                           .watch<tabpriceController>()
                           .forwardSuccessMsg
                           .isEmpty &&
-                      context.watch<tabpriceController>().isviewdetail == true)
+                      context.watch<tabpriceController>().isviewdetail == true&&context.watch<tabpriceController>().isapprovedpage == false)
                   ? detailsDialog(context, theme)
+                  :(context.watch<tabpriceController>().isloadingstart == false &&
+                      context
+                          .watch<tabpriceController>()
+                          .forwardSuccessMsg
+                          .isEmpty &&
+                      context.watch<tabpriceController>().isviewdetail == false&&context.watch<tabpriceController>().isapprovedpage == true)?
+
+                  approvedialog(theme)
                   : initialdialog(theme),
     );
   }
@@ -746,7 +754,74 @@ class _FollowdialogState extends State<Followdialog> {
       2: FlexColumnWidth(2),
     }, children: rows);
   }
+approvedialog( ThemeData theme) {
+    return Container(
+      width: Screens.width(context),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: Screens.width(context),
+            height: Screens.padingHeight(context) * 0.06,
+            child: ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ))),
+                child: Container(
+                  alignment: Alignment.center,
+                //  width: Screens.width(context)*0.6,
+                  child: Text("Special Price Details"))),
+          ),
+          SizedBox(
+            height: Screens.padingHeight(context) * 0.01,
+          ),
+          Padding(
+            padding: EdgeInsets.all(Screens.padingHeight(context) * 0.02),
+            child:
+         Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
 
+
+                SizedBox(
+                    // width: Screens.width(context) * 0.35,
+                    child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                          context.read<tabpriceController>().   covertToorder(widget.getalldata);
+                           
+                          });
+                        },
+                        child: const Text("Convert to order"))),
+               
+              ],
+            )
+          ),
+          // Container(
+          //   width: Screens.width(context),
+          //   height: Screens.padingHeight(context) * 0.06,
+          //   child: ElevatedButton(
+          //       onPressed: () {
+          //         setState(() {
+          //           context.read<tabpriceController>().ontapview();
+          //         });
+          //       },
+          //       style: ElevatedButton.styleFrom(
+          //           shape: RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.only(
+          //         bottomLeft: Radius.circular(10),
+          //         bottomRight: Radius.circular(10),
+          //       ))),
+          //       child: Text("View Details")),
+          // ),
+        ],
+      ),
+    );
+  }
   initialdialog( ThemeData theme) {
     return Container(
       width: Screens.width(context),
@@ -764,7 +839,24 @@ class _FollowdialogState extends State<Followdialog> {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ))),
-                child: Text("Special Price Details")),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      alignment: Alignment.centerRight,
+                     width: Screens.width(context)*0.6,
+                      child: Text("Special Price Details")),
+                   GestureDetector(
+                          onTap: (){
+                          context.read<tabpriceController>().     callitemdetails(widget.getalldata.ItemCode.toString(),context);
+                          },
+                           child: Container(
+                            child: Icon(Icons.more_horiz,color: Colors.white,),
+                           ),
+                         ),
+                  ],
+                )),
           ),
           SizedBox(
             height: Screens.padingHeight(context) * 0.01,

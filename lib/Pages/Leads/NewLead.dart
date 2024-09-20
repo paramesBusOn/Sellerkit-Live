@@ -552,6 +552,16 @@ context.read<LeadNewController>().isdatevalid == false
                     context.read<LeadNewController>().filterList(val);
                   },
                   controller: context.read<LeadNewController>().mycontroller[12],
+                  // onEditingComplete: (){
+                  //       setState(() {
+                  //      if(context.read<LeadNewController>().showItemList == true){
+                  //       context.read<LeadNewController>(). scannerreset();
+                  //       context.read<LeadNewController>().Scancode=context.read<LeadNewController>().mycontroller[12].text;
+                  //   context.read<LeadNewController>().scanneddataget(context);
+                  //     }   
+                  //       });
+                        
+                  //     },
                   decoration: InputDecoration(
                     filled: false,
                     hintText: 'Search Here!!..',
