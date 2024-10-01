@@ -13,8 +13,8 @@ class OrdergiftDetailsApi{
   static Future<OrdergiftDetails> getData(String? itemcode,int? quantity,double? unitprice)async{
      int resCode = 500;
      try{
-      log("SkClientPortal/getOfferWithParameter?ItemCode=$itemcode&StoreCode=${ConstantValues.Storecode}&Quantity=$quantity&Price=$unitprice::aaa::"+Url.queryApi + 'SkClientPortal/getOfferWithParameter/$itemcode/${ConstantValues.Storecode}/$quantity/$unitprice');
-      final response=await http.get(Uri.parse(Url.queryApi + 'SkClientPortal/getOfferWithParameter?ItemCode=$itemcode&StoreCode=${ConstantValues.Storecode}&Quantity=$quantity&Price=$unitprice'),
+      log("SkClientPortal/getOfferWithParameter?ItemCode=${Uri.encodeComponent(itemcode!)}&StoreCode=${ConstantValues.Storecode}&Quantity=$quantity&Price=$unitprice::aaa::"+Url.queryApi + 'SkClientPortal/getOfferWithParameter/$itemcode/${ConstantValues.Storecode}/$quantity/$unitprice');
+      final response=await http.get(Uri.parse(Url.queryApi + 'SkClientPortal/getOfferWithParameter?ItemCode=${Uri.encodeComponent(itemcode!)}&StoreCode=${ConstantValues.Storecode}&Quantity=$quantity&Price=$unitprice'),
       headers: {
         "content-type": "application/json",
         "Authorization": 'bearer '+ ConstantValues.token,

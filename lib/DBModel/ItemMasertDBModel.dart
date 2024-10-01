@@ -71,6 +71,7 @@ class ItemMasterColumns {
   static const String whsAgeSlab3 = "whsAgeSlab3";
   static const String whsAgeSlab4 = "whsAgeSlab4";
   static const String whsAgeSlab5 = "whsAgeSlab5";
+  static const String Isbundle = "isbundle";
   
 }
 
@@ -100,7 +101,7 @@ class ItemMasterDBModel {
   String? sizeCapacity;
   String? clasification;
   String? uoM;
-  int? taxRate;
+  double? taxRate;
   String? catalogueUrl1;
   String? catalogueUrl2;
   String? imageUrl1;
@@ -146,6 +147,7 @@ class ItemMasterDBModel {
   double? whsAgeSlab3;
   double? whsAgeSlab4;
   double? whsAgeSlab5;
+  bool? Isbundle;
 
   ItemMasterDBModel(
       {this.id,
@@ -218,6 +220,7 @@ class ItemMasterDBModel {
   required this. whsAgeSlab3,
   required this. whsAgeSlab4,
   required this. whsAgeSlab5,
+   required this. Isbundle,
       });
 
   Map<String, Object?> toMap() => {
@@ -290,6 +293,7 @@ class ItemMasterDBModel {
         ItemMasterColumns.whsAgeSlab3: whsAgeSlab3,
         ItemMasterColumns.whsAgeSlab4: whsAgeSlab4,
         ItemMasterColumns.whsAgeSlab5: whsAgeSlab5,
+        ItemMasterColumns.Isbundle: Isbundle,
         
       };
 }

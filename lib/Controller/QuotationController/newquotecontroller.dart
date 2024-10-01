@@ -777,8 +777,18 @@ restricteddialog(BuildContext context){
   getdataFromDb() async {
     final Database db = (await DBHelper.getInstance())!;
     allProductDetails = await DBOperation.getAllProducts(db);
+    await mapvaluesdb(allProductDetails);
     filterProductDetails = allProductDetails;
     notifyListeners();
+  }
+   mapvaluesdb(List<ItemMasterDBModel> allProductDetails)async{
+    for(int i=allProductDetails.length-1;i>=0;i--){
+      if(allProductDetails[i].Isbundle ==true){
+        log("allProductDetailsbundle::"+allProductDetails[i].itemCode.toString());
+        allProductDetails.removeAt(i);
+      }
+    }
+notifyListeners();
   }
  List<GetAllLeadData> leadOpenAllData = [];
   List<GetAllLeadData> get getAllLeadData => leadOpenAllData;
@@ -4516,7 +4526,8 @@ bool paymentTerm=false;
 thirPageBtnClicked(BuildContext context) {
     int passed = 0;
     if (formkey[1].currentState!.validate()) {
-
+ isloadingBtn = true;
+        notifyListeners();
 //       if(isSelectedpaymentTermsCode ==null ||isSelectedpaymentTermsCode.isEmpty){
 // paymentTerm=true;
 //       notifyListeners();

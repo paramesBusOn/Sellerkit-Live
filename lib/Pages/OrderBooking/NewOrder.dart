@@ -79,7 +79,7 @@ class OrderBookNewState extends State<OrderBookNew> {
   //  // });
   // }
   final GlobalKey<ScaffoldState> scaffoldKey1 = GlobalKey<ScaffoldState>();
-
+  final List<String> data = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -1435,27 +1435,25 @@ class OrderBookNewState extends State<OrderBookNew> {
                       child: ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              context
-                                .read<OrderNewController>()
-                                . onbackthired();
+                              context.read<OrderNewController>().onbackthired();
                             });
-  //                           setState(() {
-  //                              for (int i = 0; i <context.read<OrderNewController>(). getProduct.length; i++){
-  //   if(context.read<OrderNewController>(). getProduct[i].OfferSetup_Id != null){
-  //   setState(() {
-  //   context.read<OrderNewController>(). getProduct .removeAt(i);
-       
-  //   });
-     
-  //   }
-  //   // log("aaajj::"+productDetails[i].giftitems!.length.toString());
+                            //                           setState(() {
+                            //                              for (int i = 0; i <context.read<OrderNewController>(). getProduct.length; i++){
+                            //   if(context.read<OrderNewController>(). getProduct[i].OfferSetup_Id != null){
+                            //   setState(() {
+                            //   context.read<OrderNewController>(). getProduct .removeAt(i);
 
-  //  }
-  //  log("productDetails::"+context.read<OrderNewController>(). getProduct.length.toString());
-        
-  //                           });
-                            
-                                               context
+                            //   });
+
+                            //   }
+                            //   // log("aaajj::"+productDetails[i].giftitems!.length.toString());
+
+                            //  }
+                            //  log("productDetails::"+context.read<OrderNewController>(). getProduct.length.toString());
+
+                            //                           });
+
+                            context
                                 .read<OrderNewController>()
                                 .pageController
                                 .animateToPage(
@@ -1475,7 +1473,9 @@ class OrderBookNewState extends State<OrderBookNew> {
                                       .watch<OrderNewController>()
                                       .getisloadingBtn ==
                                   true
-                              ? null
+                              ? (){
+                                print("aaaa");
+                              }
                               : () {
                                   // print("aaaa");
                                   context
@@ -2045,6 +2045,32 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     ),
                                   ],
                                 ),
+                                context
+                                            .read<OrderNewController>()
+                                            .getAllProductDetails[i]
+                                            .Isbundle ==
+                                        true
+                                    ? SizedBox(
+                                        // width: Screens.width(context) * 0.4,
+                                        child: Text("(Bundled)",
+                                            style: theme.textTheme.bodyText1
+                                                ?.copyWith(
+                                                    color: theme.primaryColor
+                                                    )),
+                                      )
+                                    : Container(),
+                                //  context.read<OrderNewController>().getAllProductDetails[i].imageUrl1!.isEmpty?Container():      Container(
+                                //         width: Screens.width(context) * 0.1,
+                                //         height: Screens.padingHeight(context) * 0.05,
+                                //                  decoration: BoxDecoration(
+                                //                   color: Colors.amber,
+                                //                    shape: BoxShape.circle,
+                                //                                                       image: DecorationImage(
+                                //                                                           image:
+                                //                                                               NetworkImage(context.read<OrderNewController>().getAllProductDetails[i].imageUrl1.toString()),
+                                //                                                           fit: BoxFit.contain))
+                                //               ),
+                                // Text("hi")
                               ],
                             ),
                           ),
@@ -2063,482 +2089,619 @@ class OrderBookNewState extends State<OrderBookNew> {
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
-                          Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Container(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                            "" +
-                                                context
-                                                    .read<OrderNewController>()
-                                                    .getProduct[index]
-                                                    .ItemCode
-                                                    .toString(),
-                                            style: TextStyle(
-                                              color: theme.primaryColor,
-                                              fontSize: 15.0,
-                                            )),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      Row(
-                                        children: [
-                                          Text("Product",
+                          GestureDetector(
+                            onLongPress: () {
+                              log("long" +
+                                  context
+                                      .read<OrderNewController>()
+                                      .getProduct[index]
+                                      .ItemCode
+                                      .toString());
+                                     context
+                                      .read<OrderNewController>()
+                                      . resetrelateditems();
+                              showDialog(
+                                  context: context,
+                                  builder: (_) {
+                                     context
+                                      .read<OrderNewController>()
+                                      .calllinkedheader(index);
+                                    // context
+                                    //     .read<OrderNewController>()
+                                    //     .calllinkedApi(context
+                                    //         .read<OrderNewController>()
+                                    //         .getProduct[index]
+                                    //         .ItemCode
+                                    //         .toString());
+                                    return relateditems(theme,context
+                                            .read<OrderNewController>()
+                                            .getProduct[index]
+                                            .ItemCode
+                                            .toString());
+                                  });
+                            },
+                            child: Card(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                              "" +
+                                                  context
+                                                      .read<
+                                                          OrderNewController>()
+                                                      .getProduct[index]
+                                                      .ItemCode
+                                                      .toString(),
                                               style: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 15.0,
+                                                color: theme.primaryColor,
+                                                fontSize: 13.0,
                                               )),
-                                        ],
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      Container(
-                                        // width: Screens.width(context)*0.8,
-                                        ///  color: Colors.red,
-                                        child: Text(
-                                            context
-                                                .read<OrderNewController>()
-                                                .getProduct[index]
-                                                .ItemDescription!,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0,
-                                            )),
-                                      ),
-                                      SizedBox(height: 10.0),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                              "Qty: " +
-                                                  context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .Quantity!
-                                                      .toStringAsFixed(0),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15.0,
-                                              )),
-                                          // SizedBox(
-                                          //     width: Screens.bodyheight(context) /
-                                          //         2.9),
-                                          Text(
-                                              "Price: " +
-                                                  context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .config
-                                                      .slpitCurrency22(context
-                                                          .read<
-                                                              OrderNewController>()
-                                                          .getProduct[index]
-                                                          .Price
-                                                          .toString()),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15.0,
-                                              )),
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .partcode !=
-                                                  null
-                                              ? Container(
-                                                  child: Text("Referal Name",
-                                                      style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 15.0,
-                                                      )))
-                                              : Container(),
-                                          context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .couponcode !=
-                                                  null
-                                              ? Container(
-                                                  child: Text("Couponcode",
-                                                      style: TextStyle(
-                                                        color: Colors.grey,
-                                                        fontSize: 15.0,
-                                                      )))
-                                              : Container()
-                                        ],
-                                      ),
-                                      SizedBox(height: 5),
-                                      (context
-                                                          .read<
-                                                              OrderNewController>()
-                                                          .getProduct[index]
-                                                          .partname !=
-                                                      null &&
-                                                  context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .partname!
-                                                      .isNotEmpty) ||
-                                              (context
-                                                          .read<
-                                                              OrderNewController>()
-                                                          .getProduct[index]
-                                                          .couponcode !=
-                                                      null &&
-                                                  context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .couponcode!
-                                                      .isNotEmpty)
-                                          ? Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                context
-                                                            .read<
-                                                                OrderNewController>()
-                                                            .getProduct[index]
-                                                            .partcode !=
-                                                        null
-                                                    ? Container(
-                                                        child: Text(
-                                                            "${context.read<OrderNewController>().getProduct[index].partname}"))
-                                                    : Container(),
-                                                context
-                                                            .read<
-                                                                OrderNewController>()
-                                                            .getProduct[index]
-                                                            .couponcode !=
-                                                        null
-                                                    ? Container(
-                                                        child: Text(
-                                                            "${context.read<OrderNewController>().getProduct[index].couponcode}"))
-                                                    : Container()
-                                              ],
-                                            )
-                                          : Container(),
-                                      SizedBox(height: 10),
-                                    context
-                                                      .read<
-                                                          OrderNewController>()
-                                                      .getProduct[index]
-                                                      .giftitems ==
-                                                  null||  context
+                                        ),
+                                        SizedBox(height: 7.0),
+                                        Row(
+                                          children: [
+                                            Text("Product",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 13.0,
+                                                )),
+                                          ],
+                                        ),
+                                        SizedBox(height: 7.0),
+                                        Container(
+                                          // width: Screens.width(context)*0.8,
+                                          ///  color: Colors.red,
+                                          child: Text(
+                                              context
                                                   .read<OrderNewController>()
                                                   .getProduct[index]
-                                                  .giftitems!
-                                                  .isEmpty 
-                                              
-                                          ? Container()
-                                          : Container(
-                                              // height: Screens.padingHeight(context)*0.05,
-                                              child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      child: Text(
-                                                          "Gift Items :",
-                                                          style: theme.textTheme
-                                                              .bodyMedium!
-                                                              .copyWith(
-                                                                  color: theme
-                                                                      .primaryColor)),
-                                                    ),
-                                                    ListView.builder(
-                                                        shrinkWrap: true,
-                                                        itemCount: context
-                                                            .read<
-                                                                OrderNewController>()
-                                                            .getProduct[index]
-                                                            .giftitems!
-                                                            .length,
-                                                        itemBuilder:
-                                                            (context, i) {
-                                                          return Container(
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: Screens.width(context)*0.7,
-                                                                      child: Text(
-                                                                          "${context.read<OrderNewController>().getProduct[index].giftitems![i].ItemCode}"),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Container(
-                                                                  child: Text(
-                                                                      "Qty : ${context.read<OrderNewController>().getProduct[index].giftitems![i].quantity!.toStringAsFixed(0)}"),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Row(
-                                                                      children: [
-                                                                        Container(
-                                                                          child:
-                                                                              Text("MRP : "),
-                                                                        ),
-                                                                        Container(
-                                                                          child:
-                                                                              Text(
-                                                                            "${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getProduct[index].giftitems![i].MRP.toString())}",
-                                                                            style:
-                                                                                TextStyle(decoration: TextDecoration.lineThrough),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                    Container(
-                                                                      child: Text(
-                                                                          "Offer Price : ${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getProduct[index].giftitems![i].Price.toString())}"),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
-                                                                          left:
-                                                                              30,
-                                                                          right:
-                                                                              30),
-                                                                  child:
-                                                                      Divider(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          );
-                                                        })
-                                                  ]),
-                                            ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 40, right: 40),
-                                        child: Divider(
-                                          color: Colors.grey,
+                                                  .ItemDescription!,
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 13.0,
+                                              )),
                                         ),
-                                      ),
-
-                                      Row(
+                                        SizedBox(height: 7.0),
+                                        Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text("Total: " +
-                                                      context
-                                                          .read<
-                                                              OrderNewController>()
-                                                          .config
-                                                          .slpitCurrency22((context
-                                                              .read<
-                                                                  OrderNewController>()
-                                                              .getlinetotalgift(
-                                                                  index))))
-                                                ]),
+                                            Text(
+                                                "Qty: " +
+                                                    context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .getProduct[index]
+                                                        .Quantity!
+                                                        .toStringAsFixed(0),
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15.0,
+                                                )),
+                                            // SizedBox(
+                                            //     width: Screens.bodyheight(context) /
+                                            //         2.9),
+                                            Text(
+                                                "Price: " +
+                                                    context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .config
+                                                        .slpitCurrency22(context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .getProduct[index]
+                                                            .Price
+                                                            .toString()),
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15.0,
+                                                )),
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
                                             context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .getProduct[index]
+                                                        .partcode !=
+                                                    null
+                                                ? Container(
+                                                    child: Text("Referal Name",
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 15.0,
+                                                        )))
+                                                : Container(),
+                                            context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .getProduct[index]
+                                                        .couponcode !=
+                                                    null
+                                                ? Container(
+                                                    child: Text("Couponcode",
+                                                        style: TextStyle(
+                                                          color: Colors.grey,
+                                                          fontSize: 15.0,
+                                                        )))
+                                                : Container()
+                                          ],
+                                        ),
+                                        SizedBox(height: 5),
+                                        (context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .getProduct[index]
+                                                            .partname !=
+                                                        null &&
+                                                    context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .getProduct[index]
+                                                        .partname!
+                                                        .isNotEmpty) ||
+                                                (context
                                                             .read<
                                                                 OrderNewController>()
                                                             .getProduct[index]
                                                             .couponcode !=
                                                         null &&
                                                     context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .getProduct[index]
+                                                        .couponcode!
+                                                        .isNotEmpty)
+                                            ? Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .getProduct[index]
+                                                              .partcode !=
+                                                          null
+                                                      ? Container(
+                                                          child: Text(
+                                                              "${context.read<OrderNewController>().getProduct[index].partname}"))
+                                                      : Container(),
+                                                  context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .getProduct[index]
+                                                              .couponcode !=
+                                                          null
+                                                      ? Container(
+                                                          child: Text(
+                                                              "${context.read<OrderNewController>().getProduct[index].couponcode}"))
+                                                      : Container()
+                                                ],
+                                              )
+                                            : Container(),
+                                   (context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .getProduct[index]
+                                                            .partname !=
+                                                        null &&
+                                                    context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .getProduct[index]
+                                                        .partname!
+                                                        .isNotEmpty) ||
+                                                (context
                                                             .read<
                                                                 OrderNewController>()
                                                             .getProduct[index]
                                                             .couponcode !=
-                                                        ''
-                                                ? Container()
-                                                : Row(
+                                                        null &&
+                                                    context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .getProduct[index]
+                                                        .couponcode!
+                                                        .isNotEmpty)  ?    SizedBox(height: 10):Container(),
+                                        context
+                                                        .read<
+                                                            OrderNewController>()
+                                                        .getProduct[index]
+                                                        .giftitems ==
+                                                    null ||
+                                                context
+                                                    .read<OrderNewController>()
+                                                    .getProduct[index]
+                                                    .giftitems!
+                                                    .isEmpty
+                                            ? Container()
+                                            : Container(
+                                                // height: Screens.padingHeight(context)*0.05,
+                                                child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
-                                                      GestureDetector(
-                                                          onTap: () {
-                                                            setState(() {
-                                                              print(index);
-                                                              context
-                                                                  .read<
-                                                                      OrderNewController>()
-                                                                  .getProduct
-                                                                  .removeAt(
-                                                                      index);
-                                                              context
-                                                                  .read<
-                                                                      OrderNewController>()
-                                                                  .postpaymentdata
-                                                                  .clear();
-                                                              context
-                                                                  .read<
-                                                                      OrderNewController>()
-                                                                  .deletepaymode2();
-                                                              if (context
-                                                                  .read<
-                                                                      OrderNewController>()
-                                                                  .productDetails
-                                                                  .isEmpty) {
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .changeVisible();
-                                                              }
+                                                      Container(
+                                                        child: Text(
+                                                            "Gift Items :",
+                                                            style: theme
+                                                                .textTheme
+                                                                .bodyMedium!
+                                                                .copyWith(
+                                                                    color: theme
+                                                                        .primaryColor)),
+                                                      ),
+                                                      ListView.builder(
+                                                          shrinkWrap: true,
+                                                          itemCount: context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .getProduct[index]
+                                                              .giftitems!
+                                                              .length,
+                                                          itemBuilder:
+                                                              (context, i) {
+                                                            return Container(
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      Container(
+                                                                        width: Screens.width(context) *
+                                                                            0.7,
+                                                                        child: Text(
+                                                                            "${context.read<OrderNewController>().getProduct[index].giftitems![i].ItemCode}"),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  Container(
+                                                                    child: Text(
+                                                                        "Qty : ${context.read<OrderNewController>().getProduct[index].giftitems![i].quantity!.toStringAsFixed(0)}"),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      Row(
+                                                                        children: [
+                                                                          Container(
+                                                                            child:
+                                                                                Text("MRP : "),
+                                                                          ),
+                                                                          Container(
+                                                                            child:
+                                                                                Text(
+                                                                              "${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getProduct[index].giftitems![i].MRP.toString())}",
+                                                                              style: TextStyle(decoration: TextDecoration.lineThrough),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      Container(
+                                                                        child: Text(
+                                                                            "Offer Price : ${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getProduct[index].giftitems![i].Price.toString())}"),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsets.only(
+                                                                        left:
+                                                                            30,
+                                                                        right:
+                                                                            30),
+                                                                    child:
+                                                                        Divider(
+                                                                      color: Colors
+                                                                          .grey,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
+                                                          }),
+                                                    ]),
+                                              ),
+                                     Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                     context.read<OrderNewController>().getProduct[index].itemtype!.toLowerCase() =='b'?      Container(
+                                              child: Text(
+                                                  "(Bundled)",style:theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColor)),
+                                            ):Container(),
+                                             context.read<OrderNewController>().getProduct[index].linkeditems==true? Container(
+                                              child: Text(
+                                                  "(Linked)",style:theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColor)),
+                                            ):Container(),
+                                      ],
+                                    ),
+                                        //  Container(
+                                        //   child: Text(
+                                        //       "Item Type : ${context.read<OrderNewController>().getProduct[index].bundleId}"),
+                                        // ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              left: 40, right: 40),
+                                          child: Divider(
+                                            color: Colors.grey,
+                                          ),
+                                        ),
 
-                                                              for (int i = 0;
-                                                                  i <
-                                                                      context
-                                                                          .read<
-                                                                              OrderNewController>()
-                                                                          .productDetails
-                                                                          .length;
-                                                                  i++) {
-                                                                //  provi.productDetails[i].lineId =
-                                                                //     (i + 1).toString();
-                                                              }
-                                                            });
-                                                          },
-                                                          child: Icon(
-                                                            Icons.close,
-                                                            color: Colors.red,
-                                                          )),
-                                                      SizedBox(width: 10.0),
-                                                      GestureDetector(
-                                                          onTap: () {
-                                                            context.read<OrderNewController>().mycontroller[12].clear();
-                                                           context.read<OrderNewController>().changeVisible2();
-                                                            context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .mycontroller[
-                                                                        10]
-                                                                    .text =
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .getProduct[
-                                                                        index]
-                                                                    .Price!
-                                                                    .toStringAsFixed(
-                                                                        2);
-                                                            context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .mycontroller[
-                                                                        11]
-                                                                    .text =
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .getProduct[
-                                                                        index]
-                                                                    .Quantity!
-                                                                    .toStringAsFixed(
-                                                                        2);
-                                                            context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .mycontroller[
-                                                                        11]
-                                                                    .text =
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .getProduct[
-                                                                        index]
-                                                                    .Quantity!
-                                                                    .toStringAsFixed(
-                                                                        0);
-                                                            context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .total =
-                                                                context
-                                                                    .read<
-                                                                        OrderNewController>()
-                                                                    .getProduct[
-                                                                        index]
-                                                                    .LineTotal!;
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text("Total: " +
+                                                        context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .config
+                                                            .slpitCurrency22((context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .getlinetotalgift(
+                                                                    index))))
+                                                  ]),
+                                              // context
+                                              //                 .read<
+                                              //                     OrderNewController>()
+                                              //                 .getProduct[index]
+                                              //                 .couponcode !=
+                                              //             null &&
+                                              //         context
+                                              //                 .read<
+                                              //                     OrderNewController>()
+                                              //                 .getProduct[index]
+                                              //                 .couponcode !=
+                                              //             ''
+                                              //     ? Container()
+                                              //     :
+                                              Row(
+                                                children: [
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          print(index);
+                                                          if (context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .getProduct[
+                                                                      index]
+                                                                  .itemtype!
+                                                                  .toLowerCase() ==
+                                                              'b') {
                                                             context
                                                                 .read<
                                                                     OrderNewController>()
-                                                                .isUpdateClicked = true;
-
-                                                            context
-                                                                .read<
-                                                                    OrderNewController>()
-                                                                .showBottomSheetInsertforedit(
+                                                                .showpopdialogbundle(
                                                                     context,
+                                                                    context
+                                                                        .read<
+                                                                            OrderNewController>()
+                                                                        .getProduct[
+                                                                            index]
+                                                                        .bundleId);
+                                                          } else {
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .getProduct
+                                                                .removeAt(
                                                                     index);
-                                                          },
-                                                          child: Icon(
-                                                            Icons.edit,
-                                                            color: Colors.blue,
-                                                          )),
-                                                    ],
-                                                  ),
-                                          ]),
-                                      // SizedBox(height: 10),
-                                      // Padding(
-                                      //   padding: EdgeInsets.only(
-                                      //       left: 40, right: 40),
-                                      //   child: Divider(
-                                      //     color: Colors.grey,
-                                      //   ),
-                                      // ),
-                                      // Column(
-                                      //   crossAxisAlignment:
-                                      //       CrossAxisAlignment.start,
-                                      //   children: [
-                                      //     // Text("Complementary items:",
-                                      //     //     style: TextStyle(
-                                      //     //       color: Colors.grey,
-                                      //     //       fontSize: 15.0,
-                                      //     //     )),
-                                      //     // SizedBox(height: 10),
-                                      //     Container(
-                                      //         child: context
-                                      //             .read<OrderNewController>()
-                                      //             .splitcomplement(context
-                                      //                 .read<
-                                      //                     OrderNewController>()
-                                      //                 .getProduct[index]
-                                      //                 .complementary
-                                      //                 .toString())),
-                                      //   ],
-                                      // )
-                                    ]),
-                              )),
+                                                          }
+                                                          context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .postpaymentdata
+                                                              .clear();
+                                                          context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .deletepaymode2();
+                                                          if (context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .productDetails
+                                                              .isEmpty) {
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .changeVisible();
+                                                          }
+
+                                                          for (int i = 0;
+                                                              i <
+                                                                  context
+                                                                      .read<
+                                                                          OrderNewController>()
+                                                                      .productDetails
+                                                                      .length;
+                                                              i++) {
+                                                            //  provi.productDetails[i].lineId =
+                                                            //     (i + 1).toString();
+                                                          }
+                                                        });
+                                                      },
+                                                      child: Icon(
+                                                        Icons.close,
+                                                        color: Colors.red,
+                                                      )),
+                                                  SizedBox(width: 10.0),
+                                                  GestureDetector(
+                                                      onTap: () {
+                                                        context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .mycontroller[12]
+                                                            .clear();
+                                                        context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .changeVisible2();
+                                                        if (context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .getProduct[
+                                                                    index]
+                                                                .deliveryfrom ==
+                                                            'Whse') {
+                                                          context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .isselected = [
+                                                            false,
+                                                            true
+                                                          ];
+                                                        } else if (context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .getProduct[
+                                                                    index]
+                                                                .deliveryfrom ==
+                                                            'store') {
+                                                          context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .isselected = [
+                                                            true,
+                                                            false
+                                                          ];
+                                                        } else {
+                                                          context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              .isselected = [
+                                                            true,
+                                                            false
+                                                          ];
+                                                        }
+
+                                                        context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .mycontroller[10]
+                                                                .text =
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .getProduct[
+                                                                    index]
+                                                                .Price!
+                                                                .toStringAsFixed(
+                                                                    2);
+                                                        context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .mycontroller[11]
+                                                                .text =
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .getProduct[
+                                                                    index]
+                                                                .Quantity!
+                                                                .toStringAsFixed(
+                                                                    2);
+                                                        context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .mycontroller[11]
+                                                                .text =
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .getProduct[
+                                                                    index]
+                                                                .Quantity!
+                                                                .toStringAsFixed(
+                                                                    0);
+                                                        context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .total =
+                                                            context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .getProduct[
+                                                                    index]
+                                                                .LineTotal!;
+                                                        context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .isUpdateClicked = true;
+
+                                                        context
+                                                            .read<
+                                                                OrderNewController>()
+                                                            .showBottomSheetInsertforedit(
+                                                                context, index);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.edit,
+                                                        color: Colors.blue,
+                                                      )),
+                                                ],
+                                              ),
+                                            ]),
+                                        // SizedBox(height: 10),
+                                        // Padding(
+                                        //   padding: EdgeInsets.only(
+                                        //       left: 40, right: 40),
+                                        //   child: Divider(
+                                        //     color: Colors.grey,
+                                        //   ),
+                                        // ),
+                                        // Column(
+                                        //   crossAxisAlignment:
+                                        //       CrossAxisAlignment.start,
+                                        //   children: [
+                                        //     // Text("Complementary items:",
+                                        //     //     style: TextStyle(
+                                        //     //       color: Colors.grey,
+                                        //     //       fontSize: 15.0,
+                                        //     //     )),
+                                        //     // SizedBox(height: 10),
+                                        //     Container(
+                                        //         child: context
+                                        //             .read<OrderNewController>()
+                                        //             .splitcomplement(context
+                                        //                 .read<
+                                        //                     OrderNewController>()
+                                        //                 .getProduct[index]
+                                        //                 .complementary
+                                        //                 .toString())),
+                                        //   ],
+                                        // )
+                                      ]),
+                                )),
+                          ),
                         ],
                       );
                     },
@@ -2699,6 +2862,143 @@ class OrderBookNewState extends State<OrderBookNew> {
     //     );
     //   }
     // );
+  }
+
+  StatefulBuilder relateditems(ThemeData theme,String? itemcode) {
+    return StatefulBuilder(builder: (context, st) {
+      return AlertDialog(
+        contentPadding: EdgeInsets.all(0),
+        insetPadding: EdgeInsets.all(10),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        content: Container(
+          width: Screens.width(context),
+          padding: EdgeInsets.only(
+            top: Screens.padingHeight(context) * 0.01,
+            left: Screens.width(context) * 0.02,
+            right: Screens.width(context) * 0.02,
+            bottom: Screens.padingHeight(context) * 0.02,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //  Text(
+              //   "$itemcode",
+              //   style: theme.textTheme.bodyLarge!
+              //       .copyWith(fontSize: 14, ),
+              // ),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      
+                      )
+                  )
+                ),
+                child: Text(
+                  "Linked Items :",
+                  style: theme.textTheme.bodyLarge!
+                      .copyWith(fontSize: 16, color: theme.primaryColor),
+                ),
+              ),
+              SizedBox(
+                height: Screens.width(context) * 0.02,
+              ),
+       context.watch<OrderNewController>().finallinkload == true&&       context.watch<OrderNewController>().LinkedItemsloading == true &&
+                      context
+                          .watch<OrderNewController>()
+                          .linkedItemsdata
+                          .isEmpty &&
+                      context
+                          .watch<OrderNewController>()
+                          .LinkedItemserror!
+                          .isEmpty
+                  ? Center(child: CircularProgressIndicator())
+                  :context.watch<OrderNewController>().finallinkload == false&& context.watch<OrderNewController>().LinkedItemsloading ==
+                              false &&context
+                          .watch<OrderNewController>()
+                          .linkedItemsdata
+                          .isEmpty&&
+                          context
+                              .watch<OrderNewController>()
+                              .LinkedItemserror!
+                              .isNotEmpty
+                      ? Center(
+                          child: Text(
+                          "${context.read<OrderNewController>().LinkedItemserror}",
+                          textAlign: TextAlign.center,
+                        ))
+                      : Wrap(
+                          spacing: 6.0, // Space between chips
+                          runSpacing: 6.0,
+                          children: List.generate(
+                            context
+                                .read<OrderNewController>()
+                                .linkedItemsdata
+                                .length,
+                            (int index) {
+                              return FilterChip(
+                                padding: EdgeInsets.all(5),
+                                label: 
+                                // Container(
+                                //   width: Screens.width(context)*0.3,
+                                //   child:
+                                   Text(
+                                    '${context.read<OrderNewController>().linkedItemsdata[index].tagName.toString()}',
+                                    textAlign: TextAlign.center,
+                                    //   softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 10,
+                                  ),
+                                // ),
+                                labelStyle: TextStyle(
+                                  color: context
+                                              .watch<OrderNewController>()
+                                              .Linked ==
+                                          index
+                                      ? Colors.white
+                                      : theme.primaryColor,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                                backgroundColor:
+                                    theme.primaryColor.withOpacity(0.05),
+
+                                selectedColor:
+                                    theme.primaryColor.withOpacity(0.85),
+
+                                checkmarkColor: Colors.white,
+                                side:
+                                    // BorderSide.none,
+                                    BorderSide(color: theme.primaryColor),
+                                pressElevation: 10.0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(05)),
+                                // selected chip value
+                                selected: context
+                                        .watch<OrderNewController>()
+                                        .Linked ==
+                                    index,
+                                // onselected method
+                                onSelected: (bool selected) {
+                                  st(() {
+                                    context.read<OrderNewController>().Linked =
+                                        selected ? index : null;
+                                      Future.delayed(Duration(milliseconds: 170)).then((_) {
+  context.read<OrderNewController>().  onselectlinked(context,context.read<OrderNewController>().Linked);
+});
+                                      
+                                  });
+                                },
+                              );
+                            },
+                          ).toList(),
+                        )
+            ],
+          ),
+        ),
+      );
+    });
   }
 
   InkWell FirstPage(

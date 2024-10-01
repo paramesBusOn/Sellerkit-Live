@@ -149,11 +149,20 @@ getLeveofType() async {
   getdataFromDb() async {
     final Database db = (await DBHelper.getInstance())!;
     allProductDetails = await DBOperation.getAllProducts(db);
+     await mapvaluesdb(allProductDetails);
     filterProductDetails = filterProductDetails;
 
     notifyListeners();
   }
-
+ mapvaluesdb(List<ItemMasterDBModel> allProductDetails)async{
+    for(int i=allProductDetails.length-1;i>=0;i--){
+      if(allProductDetails[i].Isbundle ==true){
+        log("allProductDetailsbundle::"+allProductDetails[i].itemCode.toString());
+        allProductDetails.removeAt(i);
+      }
+    }
+notifyListeners();
+  }
   bool datagotByApi = true;
   List<GetAllSPData> GetAllData = [];
   List<GetAllSPData> openSPdata = [];

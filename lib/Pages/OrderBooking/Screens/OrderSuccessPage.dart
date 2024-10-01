@@ -7,6 +7,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
+import 'package:sellerkit/Constant/MenuAuth.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/Pdf.dart';
 import '../../../Constant/ConstantRoutes.dart';
@@ -275,7 +276,8 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
                                 height: Screens.bodyheight(context) * 0.01,
                               ),
                                InkWell(
-                                onTap: ()async{
+                                onTap: MenuAuthDetail.orderpdf!.toLowerCase() =='n'?(){}
+                            : ()async{
    
                                   pdfState.data=getsuccessRes!.orderSavePostheader!.documentdata!;
                                 pdfState. orderMasterdata2=getsuccessRes!.orderSavePostheader!.orderMasterdata;

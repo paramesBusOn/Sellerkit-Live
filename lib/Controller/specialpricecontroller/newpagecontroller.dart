@@ -359,13 +359,22 @@ String Apitodate='';
      notifyListeners();
     final Database db = (await DBHelper.getInstance())!;
     listPriceAvail = await DBOperation.getAllProducts(db);
+    await mapvaluesdb(listPriceAvail);
     filterdataprice = listPriceAvail;
 
     notifyListeners();
   isinitialloading=false;
   notifyListeners();
   }
-
+ mapvaluesdb(List<ItemMasterDBModel> allProductDetails)async{
+    for(int i=allProductDetails.length-1;i>=0;i--){
+      if(allProductDetails[i].Isbundle ==true){
+        log("allProductDetailsbundle::"+allProductDetails[i].itemCode.toString());
+        allProductDetails.removeAt(i);
+      }
+    }
+notifyListeners();
+  }
   itemvisible() {
     isitemcode = !isitemcode;
     notifyListeners();

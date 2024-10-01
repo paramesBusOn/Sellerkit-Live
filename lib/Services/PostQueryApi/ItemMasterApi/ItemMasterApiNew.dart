@@ -132,6 +132,8 @@ class ItemMasterApiNew {
   }
 
   static List<Map<String, dynamic>> jsonconvertexample(String tabularData) {
+    // tabularData = tabularData.replaceAll('\u00A0', ' '); 
+    // tabularData = tabularData.replaceAll(RegExp(r'[^\x00-\x7F]'), '');
   List<String> lines = tabularData.split('\n');
   List<String> headers = lines[0].split('\t');
 

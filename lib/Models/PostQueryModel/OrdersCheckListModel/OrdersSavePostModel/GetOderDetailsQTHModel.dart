@@ -278,8 +278,10 @@ class GetOrderQTLData {
   bool? AllowOrderBelowCost;
   bool? AllowNegativestock;
   int? OfferId;
+  int? BundleId;
   String? ItemType;
   GetOrderQTLData({
+    required this.BundleId,
     required this.ItemType,
     required this.OfferId,
     required this.MRP,
@@ -304,6 +306,7 @@ class GetOrderQTLData {
   });
   factory GetOrderQTLData.fromJson(Map<String, dynamic> json) =>
       GetOrderQTLData(
+        BundleId:json['BundleId']??0,
         OfferId:json['OfferId']??0,
         ItemType:json['ItemType']??'',
         MRP:json['MRP']??0.00,

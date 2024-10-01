@@ -953,6 +953,7 @@ ConstantValues.itemMasterlegth=itemMasterData.itemdata!.length.toString();
 
             for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
             valuesInserMaster.add(ItemMasterDBModel(
+              Isbundle: itemMasterData.itemdata![ij].Isbundle.toString().isEmpty?false:itemMasterData.itemdata![ij].Isbundle=='1'?true:false,
               storeAgeSlab1:itemMasterData.itemdata![ij].storeAgeSlab1 ==''?0.00: double.parse( itemMasterData.itemdata![ij].storeAgeSlab1.toString()),
               storeAgeSlab2:itemMasterData.itemdata![ij].storeAgeSlab2 ==''?0.00:double.parse(itemMasterData.itemdata![ij].storeAgeSlab2.toString()),
               storeAgeSlab3:itemMasterData.itemdata![ij].storeAgeSlab3 ==''?0.00:double.parse(itemMasterData.itemdata![ij].storeAgeSlab3.toString()),
@@ -993,7 +994,7 @@ ConstantValues.itemMasterlegth=itemMasterData.itemdata!.length.toString();
                 sizeCapacity: itemMasterData.itemdata![ij].sizeCapacity,
                 clasification: itemMasterData.itemdata![ij].clasification!.replaceAll("'", "''"),
                 uoM: itemMasterData.itemdata![ij].uoM,
-               taxRate:itemMasterData.itemdata![ij].taxRate.toString().isEmpty?0: int.parse(itemMasterData.itemdata![ij].taxRate.toString()),
+               taxRate:itemMasterData.itemdata![ij].taxRate.toString().isEmpty?0.0: double.parse(itemMasterData.itemdata![ij].taxRate.toString()),
                
                 catalogueUrl1: itemMasterData.itemdata![ij].catalogueUrl1,
                 catalogueUrl2: itemMasterData.itemdata![ij].catalogueUrl2,
@@ -1002,12 +1003,18 @@ ConstantValues.itemMasterlegth=itemMasterData.itemdata!.length.toString();
                 textNote: itemMasterData.itemdata![ij].textNote,
                 status: itemMasterData.itemdata![ij].status,
                 movingType: itemMasterData.itemdata![ij].movingType,
-               eol:itemMasterData.itemdata![ij].eol.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].eol.toString()),
-                veryFast:itemMasterData.itemdata![ij].veryFast.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].veryFast.toString()),
-                fast:itemMasterData.itemdata![ij].fast.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].fast.toString()),
-                slow:itemMasterData.itemdata![ij].slow.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].slow.toString()),
-                verySlow:itemMasterData.itemdata![ij].verySlow.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].verySlow.toString()),
-                serialNumber:itemMasterData.itemdata![ij].serialNumber.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].serialNumber.toString()),
+               eol:itemMasterData.itemdata![ij].eol.toString().isEmpty?false:itemMasterData.itemdata![ij].eol=='1'?true:false,
+                // bool.parse(itemMasterData.itemdata![ij].eol.toString()),
+                veryFast:itemMasterData.itemdata![ij].veryFast.toString().isEmpty?false:itemMasterData.itemdata![ij].veryFast=='1'?true:false,
+                //  bool.parse(itemMasterData.itemdata![ij].veryFast.toString()),
+                fast:itemMasterData.itemdata![ij].fast.toString().isEmpty?false:itemMasterData.itemdata![ij].fast=='1'?true:false ,
+                // bool.parse(itemMasterData.itemdata![ij].fast.toString()),
+                slow:itemMasterData.itemdata![ij].slow.toString().isEmpty?false:itemMasterData.itemdata![ij].slow=='1'?true:false ,
+                // bool.parse(itemMasterData.itemdata![ij].slow.toString()),
+                verySlow:itemMasterData.itemdata![ij].verySlow.toString().isEmpty?false:itemMasterData.itemdata![ij].verySlow=='1'?true:false, 
+                // bool.parse(itemMasterData.itemdata![ij].verySlow.toString()),
+                serialNumber:itemMasterData.itemdata![ij].serialNumber.toString().isEmpty?false:itemMasterData.itemdata![ij].serialNumber=='1'?true:false ,
+                // bool.parse(itemMasterData.itemdata![ij].serialNumber.toString()),
                 priceStockId:itemMasterData.itemdata![ij].priceStockId.toString().isEmpty?0: int.parse(itemMasterData.itemdata![ij].priceStockId.toString()),
                
                 storeCode: itemMasterData.itemdata![ij].storeCode,
@@ -1024,10 +1031,13 @@ ConstantValues.itemMasterlegth=itemMasterData.itemdata!.length.toString();
                 ssp4Inc:itemMasterData.itemdata![ij].ssp4Inc ==''?0.00:  double.parse(itemMasterData.itemdata![ij].ssp4Inc.toString()),
                 ssp5Inc:itemMasterData.itemdata![ij].ssp5Inc ==''?0.00: double.parse( itemMasterData.itemdata![ij].ssp5Inc.toString()),
                 allowNegativeStock:
-                itemMasterData.itemdata![ij].allowNegativeStock.toString().isEmpty?false:   bool.parse( itemMasterData.itemdata![ij].allowNegativeStock.toString()),
+                itemMasterData.itemdata![ij].allowNegativeStock.toString().isEmpty?false:  itemMasterData.itemdata![ij].allowNegativeStock=='1'?true:false,
+                //  bool.parse( itemMasterData.itemdata![ij].allowNegativeStock.toString()),
                 allowOrderBelowCost:
-                  itemMasterData.itemdata![ij].allowOrderBelowCost.toString().isEmpty?false: bool.parse( itemMasterData.itemdata![ij].allowOrderBelowCost.toString()),
-                isFixedPrice:itemMasterData.itemdata![ij].isFixedPrice.toString().isEmpty?false:bool.parse( itemMasterData.itemdata![ij].isFixedPrice.toString()),
+                  itemMasterData.itemdata![ij].allowOrderBelowCost.toString().isEmpty?false:itemMasterData.itemdata![ij].allowOrderBelowCost=='1'?true:false,
+                  //  bool.parse( itemMasterData.itemdata![ij].allowOrderBelowCost.toString()),
+                isFixedPrice:itemMasterData.itemdata![ij].isFixedPrice.toString().isEmpty?false:itemMasterData.itemdata![ij].isFixedPrice=='1'?true:false,
+                // bool.parse( itemMasterData.itemdata![ij].isFixedPrice.toString()),
                 validTill: itemMasterData.itemdata![ij].validTill.toString(),
                 color: itemMasterData.itemdata![ij].color!.replaceAll("'", "''")
               //
@@ -1035,6 +1045,94 @@ ConstantValues.itemMasterlegth=itemMasterData.itemdata!.length.toString();
             // log("valuesInserMaster2222" + valuesInserMaster.length.toString());
             // dbHelper.insertdocuments(valuesInserMaster[ij]);
           }
+
+
+//  for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
+//             valuesInserMaster.add(ItemMasterDBModel(
+//                Isbundle: false,
+           
+//               storeAgeSlab1:double.parse( itemMasterData.itemdata![ij].storeAgeSlab1.toString()),
+//               storeAgeSlab2:double.parse(itemMasterData.itemdata![ij].storeAgeSlab2.toString()),
+//               storeAgeSlab3:double.parse(itemMasterData.itemdata![ij].storeAgeSlab3.toString()),
+//               storeAgeSlab4:double.parse(itemMasterData.itemdata![ij].storeAgeSlab4.toString()),
+//               storeAgeSlab5:double.parse(itemMasterData.itemdata![ij].storeAgeSlab5.toString()),
+//               whsAgeSlab1:double.parse(itemMasterData.itemdata![ij].whsAgeSlab1.toString()),
+//               whsAgeSlab2:double.parse(itemMasterData.itemdata![ij].whsAgeSlab2.toString()),
+//               whsAgeSlab3:double.parse(itemMasterData.itemdata![ij].whsAgeSlab3.toString()),
+//               whsAgeSlab4:double.parse(itemMasterData.itemdata![ij].whsAgeSlab4.toString()),
+//               whsAgeSlab5:double.parse(itemMasterData.itemdata![ij].whsAgeSlab5.toString()),
+//               payOn:itemMasterData.itemdata![ij].payOn!,
+//               calcType:itemMasterData.itemdata![ij].calcType!,
+//                  id:itemMasterData.itemdata![ij].id.toString().isEmpty?0: int.parse (itemMasterData.itemdata![ij].id.toString()),
+//                  itemCode: itemMasterData.itemdata![ij].itemcode!.replaceAll("'", "''"),
+//                 brand: itemMasterData.itemdata![ij].Brand!.replaceAll("'", "''"),
+//                 division: itemMasterData.itemdata![ij].Division!.replaceAll("'", "''"),
+//                 category: itemMasterData.itemdata![ij].Category!.replaceAll("'", "''"),
+//                 itemName: itemMasterData.itemdata![ij].itemName!.replaceAll("'", "''"),
+//                 segment: itemMasterData.itemdata![ij].Segment!,
+//                 isselected: 0,
+//                 favorite: itemMasterData.itemdata![ij].Favorite!,
+//                 mgrPrice: double.parse(
+//                     itemMasterData.itemdata![ij].MgrPrice.toString()),
+//                 slpPrice: double.parse(
+//                     itemMasterData.itemdata![ij].SlpPrice.toString()),
+//                 storeStock: double.parse(
+//                     itemMasterData.itemdata![ij].StoreStock.toString()),
+//                 whsStock: double.parse(
+//                     itemMasterData.itemdata![ij].WhsStock.toString()),
+//                 refreshedRecordDate: date,
+//                 itemDescription: itemMasterData.itemdata![ij].itemDescription!.replaceAll("'", "''"),
+//                 modelNo: itemMasterData.itemdata![ij].modelNo!.replaceAll("'", "''"),
+//                 partCode: itemMasterData.itemdata![ij].partCode!.replaceAll("'", "''"),
+//                 skucode: itemMasterData.itemdata![ij].skucode,
+//                 brandCode: itemMasterData.itemdata![ij].brandCode!.replaceAll("'", "''"),
+//                 itemGroup: itemMasterData.itemdata![ij].itemGroup!.replaceAll("'", "''"),
+//                 specification: itemMasterData.itemdata![ij].specification!.replaceAll("'", "''"),
+//                 sizeCapacity: itemMasterData.itemdata![ij].sizeCapacity,
+//                 clasification: itemMasterData.itemdata![ij].clasification!.replaceAll("'", "''"),
+//                 uoM: itemMasterData.itemdata![ij].uoM,
+//                taxRate:itemMasterData.itemdata![ij].taxRate.toString().isEmpty?0.0: double.parse(itemMasterData.itemdata![ij].taxRate.toString()),
+               
+//                 catalogueUrl1: itemMasterData.itemdata![ij].catalogueUrl1,
+//                 catalogueUrl2: itemMasterData.itemdata![ij].catalogueUrl2,
+//                 imageUrl1: itemMasterData.itemdata![ij].imageUrl1,
+//                 imageUrl2: itemMasterData.itemdata![ij].imageUrl2,
+//                 textNote: itemMasterData.itemdata![ij].textNote,
+//                 status: itemMasterData.itemdata![ij].status,
+//                 movingType: itemMasterData.itemdata![ij].movingType,
+//                eol:itemMasterData.itemdata![ij].eol.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].eol.toString()),
+//                 veryFast:itemMasterData.itemdata![ij].veryFast.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].veryFast.toString()),
+//                 fast:itemMasterData.itemdata![ij].fast.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].fast.toString()),
+//                 slow:itemMasterData.itemdata![ij].slow.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].slow.toString()),
+//                 verySlow:itemMasterData.itemdata![ij].verySlow.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].verySlow.toString()),
+//                 serialNumber:itemMasterData.itemdata![ij].serialNumber.toString().isEmpty?false: bool.parse(itemMasterData.itemdata![ij].serialNumber.toString()),
+//                 priceStockId:itemMasterData.itemdata![ij].priceStockId.toString().isEmpty?0: int.parse(itemMasterData.itemdata![ij].priceStockId.toString()),
+               
+//                 storeCode: itemMasterData.itemdata![ij].storeCode,
+//                 whseCode: itemMasterData.itemdata![ij].whseCode,
+//                 sp:double.parse( itemMasterData.itemdata![ij].sp.toString()),
+//                 ssp1:double.parse( itemMasterData.itemdata![ij].ssp1.toString()),
+//                 ssp2: double.parse(itemMasterData.itemdata![ij].ssp2.toString()),
+//                 ssp3:double.parse( itemMasterData.itemdata![ij].ssp3.toString()),
+//                 ssp4: double.parse(itemMasterData.itemdata![ij].ssp4.toString()),
+//                 ssp5: double.parse(itemMasterData.itemdata![ij].ssp5.toString()),
+//                 ssp1Inc:double.parse( itemMasterData.itemdata![ij].ssp1Inc.toString()),
+//                 ssp2Inc: double.parse(itemMasterData.itemdata![ij].ssp2Inc.toString()),
+//                 ssp3Inc: double.parse(itemMasterData.itemdata![ij].ssp3Inc.toString()),
+//                 ssp4Inc: double.parse(itemMasterData.itemdata![ij].ssp4Inc.toString()),
+//                 ssp5Inc:double.parse( itemMasterData.itemdata![ij].ssp5Inc.toString()),
+//                 allowNegativeStock:
+//                 itemMasterData.itemdata![ij].allowNegativeStock.toString().isEmpty?false:   bool.parse( itemMasterData.itemdata![ij].allowNegativeStock.toString()),
+//                 allowOrderBelowCost:
+//                   itemMasterData.itemdata![ij].allowOrderBelowCost.toString().isEmpty?false: bool.parse( itemMasterData.itemdata![ij].allowOrderBelowCost.toString()),
+//                 isFixedPrice:itemMasterData.itemdata![ij].isFixedPrice.toString().isEmpty?false:bool.parse( itemMasterData.itemdata![ij].isFixedPrice.toString()),
+//                 validTill: itemMasterData.itemdata![ij].validTill.toString(),
+//                 color: itemMasterData.itemdata![ij].color!.replaceAll("'", "''")
+//               //
+//               ));
+//             // log("valuesInserMaster2222" + valuesInserMaster.length.toString());
+//             // dbHelper.insertdocuments(valuesInserMaster[ij]);
+//           }
 
           //old loop
           // for (int ij = 0; ij < itemMasterData.itemdata!.length; ij++) {
@@ -1350,6 +1448,20 @@ setMenuAuth(MenuAuthModel menuAuthModel) {
         MenuAuthDetail.ScoreCard = 'Y';
       } else {
         MenuAuthDetail.ScoreCard = 'N';
+      }
+    }
+     if (menuAuthModel.menuAuthData![i].MenuName == "Order-modify") {
+      if (menuAuthModel.menuAuthData![i].AuthStatus == "Y") {
+        MenuAuthDetail.ordermodify = 'Y';
+      } else {
+        MenuAuthDetail.ordermodify = 'N';
+      }
+    }
+    if (menuAuthModel.menuAuthData![i].MenuName == "Order-PDF") {
+      if (menuAuthModel.menuAuthData![i].AuthStatus == "Y") {
+        MenuAuthDetail.orderpdf = 'Y';
+      } else {
+        MenuAuthDetail.orderpdf = 'N';
       }
     }
     if (menuAuthModel.menuAuthData![i].MenuName == "Earnings") {

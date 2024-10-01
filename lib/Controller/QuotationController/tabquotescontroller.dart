@@ -1,6 +1,9 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Models/ordergiftModel/orderpricecheckModel.dart';
+import 'package:sellerkit/Services/OrdergiftApi/orderpricecheckApi.dart';
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -593,6 +596,8 @@ class QuotestabController extends ChangeNotifier {
     iscalltrue = false;
     userid = '';
     usernumber = '';
+    orderpricecheckData.clear();
+    orderconvert.clear();
     quotFilterList = [];
     final Database db = (await DBHelper.getInstance())!;
     orderdialogdata.clear();
@@ -1587,8 +1592,14 @@ class QuotestabController extends ChangeNotifier {
     Get.toNamed(ConstantRoutes.quotesnew);
     notifyListeners();
   }
+ List<OrderPricecheckData> orderpricecheckData = [];
+  List<convertcolumn> orderconvert = [];
 
-  mapvaluestoorder(GetAllQuotesData? leadOpenAllData) {
+  String? selectedItemName;
+
+  double? unitPrice;
+  double? quantity;
+  mapvaluestoorder(GetAllQuotesData? leadOpenAllData,BuildContext context)async {
     OrderNewController.datafromquotes.clear();
     OrderNewController.datafromquotes
         .add(leadOpenAllData!.OrderDocEntry.toString());
@@ -1642,14 +1653,278 @@ class QuotestabController extends ChangeNotifier {
     OrderNewController.datafromquotes.add(leadOpenAllData!.OrderNum.toString());
     OrderNewController.datafromquotes.add(leadOpenAllData!.gSTNo.toString());
     OrderNewController.datafromquotes.add(leadOpenAllData!.cusgroup.toString());
-
-    OrderNewController.datafromquotes
+     OrderNewController.datafromquotes
         .add(leadOpenAllData!.OrderType.toString());
-    OrderBookNewState.iscomfromLead = true;
+    await GetQuotesQTHApi.getData(leadOpenAllData!.OrderDocEntry.toString())
+        .then((value) async {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        for (int ik = 0;
+            ik < value.QuotesDeatilsheaderData!.OrderDeatilsQTLData!.length;
+            ik++) {
+          selectedItemName =
+              value.QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemCode;
+          unitPrice = value.QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].Price;
+          quantity =
+              value.QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].Quantity;
+          if (ConstantValues.unitpricelogic!.toLowerCase() == 'y') {
+            orderpricecheckData.clear();
+            await OrderPricecheckApi.getData(
+                    value.QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemCode,
+                    value.QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].Quantity!
+                        .toInt()!,
+                    value.QuotesDeatilsheaderData!.OrderDeatilsQTLData![ik].Price,
+                    '')
+                .then((value) {
+              if (value.stcode! >= 200 && value.stcode! <= 210) {
+                if (value.itemdata!.childdata != null &&
+                    value.itemdata!.childdata!.isNotEmpty) {
+                  orderpricecheckData = value.itemdata!.childdata!;
+                  if (orderpricecheckData[0].validity == 'valid') {
+                  } else {
+                    orderconvert.add(convertcolumn(
+                        itemcode: selectedItemName,
+                        quantity: quantity,
+                        unitprice: unitPrice));
+                    notifyListeners();
+                  }
+                }
+              }
+            });
+          }
+        }
+      }
+    });
+     if (orderconvert.isEmpty) {
+     OrderBookNewState.iscomfromLead = true;
     Get.toNamed(ConstantRoutes.ordernew);
+      notifyListeners();
+    } else {
+      popconvert(context);
+      notifyListeners();
+    }
+   
+   
     notifyListeners();
   }
+popconvert(BuildContext context) {
+    showDialog<dynamic>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          final theme = Theme.of(context);
+          return StatefulBuilder(builder: (context, st) {
+            return AlertDialog(
+                insetPadding: EdgeInsets.all(10),
+                contentPadding: EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                content: Container(
+                  width: Screens.width(context),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: Screens.width(context),
+                        height: Screens.bodyheight(context) * 0.06,
+                        child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              textStyle: TextStyle(
+                                  // fontSize: 12,
+                                  ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                topLeft: Radius.circular(10),
+                              )), //Radius.circular(6)
+                            ),
+                            child: Text(
+                              "Alert",
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                          // left: Screens.width(context) * 0.05,
+                          // right: Screens.width(context) * 0.05,
+                          top: Screens.bodyheight(context) * 0.02,
+                          // bottom: Screens.bodyheight(context) * 0.03,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Center(
+                                child: Text(
+                              "These Doucuments Price cannot be deviated from your allowed Limit. Required Special Pricing Approval to Proceed..!!",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyText1
+                                  ?.copyWith(fontSize: 15
+                                      //color:Colors.green
+                                      ),
+                            )),
 
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  color: theme.primaryColor,
+                                )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            //
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: orderconvert.length,
+                                itemBuilder: (context, i) {
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                      left: Screens.width(context) * 0.07,
+                                      right: Screens.width(context) * 0.05,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            width: Screens.width(context),
+                                            child: Text(
+                                              "${orderconvert[i].itemcode}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            )),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                                //  width: Screens.width(context),
+                                                child: Text(
+                                              "Qty : ${orderconvert[i].quantity!.toStringAsFixed(0)}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            )),
+                                            Container(
+                                                //  width: Screens.width(context),
+                                                child: Text(
+                                              "Price : ${orderconvert[i].unitprice!.toStringAsFixed(2)}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            ))
+                                          ],
+                                        ),
+                                        Container(
+                                            width: Screens.width(context) * 0.8,
+                                            child: Divider(
+                                              color: theme.primaryColor,
+                                            )),
+                                      ],
+                                    ),
+                                  );
+                                }),
+
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  color: theme.primaryColor,
+                                )),
+
+                            Center(
+                                child: Text(
+                              "Do you want to Continue",
+                              // "Click open to view this details",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyText1?.copyWith(
+                                  fontSize: 15, color: theme.primaryColor),
+                            )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  height: 10,
+                                  color: theme.primaryColor,
+                                )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: Screens.width(context) * 0.47,
+                                  height: Screens.bodyheight(context) * 0.06,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: theme.primaryColor,
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(0),
+                                        )),
+                                      ),
+                                      onPressed: () {
+                                        st(() {
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: Text(
+                                        "No",
+                                        style: theme.textTheme.bodyText2
+                                            ?.copyWith(color: Colors.white),
+                                      )),
+                                ),
+                                Container(
+                                  width: Screens.width(context) * 0.47,
+                                  height: Screens.bodyheight(context) * 0.06,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: theme.primaryColor,
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(0),
+                                          bottomRight: Radius.circular(10),
+                                        )),
+                                      ),
+                                      onPressed: () {
+                                        st(() {
+                                           OrderBookNewState.iscomfromLead = true;
+    Get.toNamed(ConstantRoutes.ordernew);
+                                        });
+                                      },
+                                      child: Text(
+                                        "Yes",
+                                        style: theme.textTheme.bodyText2
+                                            ?.copyWith(color: Colors.white),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ));
+          });
+        });
+  }
   callGetLeadDeatilsApi(String leadDocEnt) async {
     forwardSuccessMsg = '';
     leadLoadingdialog = true;
@@ -1738,4 +2013,13 @@ class QuotestabController extends ChangeNotifier {
 // filterQuotesClosedAllData.clear();
 // notifyListeners();
 //       }
+}
+class convertcolumn {
+  String? itemcode;
+  double? quantity;
+  double? unitprice;
+  convertcolumn(
+      {required this.itemcode,
+      required this.quantity,
+      required this.unitprice});
 }

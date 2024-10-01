@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/MenuAuth.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/pdfviewdetail.dart';
 import '../../../Constant/Screen.dart';
@@ -2558,10 +2559,10 @@ class _FollowDialogState extends State<FollowDialog> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
+                       Container(
                           width: Screens.width(context) * 0.35,
                           child: ElevatedButton(
-                            onPressed: (widget.leadOpenAllData!.isDelivered ==
+                            onPressed: MenuAuthDetail.ordermodify!.toLowerCase() =='n'?(){}: (widget.leadOpenAllData!.isDelivered ==
                                             0 &&
                                         widget.leadOpenAllData!.isInvoiced ==
                                             1) ||
@@ -3585,8 +3586,7 @@ class _FollowDialogState extends State<FollowDialog> {
                   // ),
                   InkWell(
                     onTap:
-                        ConstantValues.tenetID!.toLowerCase().contains("bus009")
-                            ? () {}
+                        MenuAuthDetail.orderpdf!.toLowerCase() =='n'?(){}
                             : () async {
                                 await context
                                     .read<OrderTabController>()

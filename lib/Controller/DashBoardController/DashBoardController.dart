@@ -1113,7 +1113,17 @@ getdataFromDb() async {
     final Database db = (await DBHelper.getInstance())!;
     allProductDetails = await DBOperation.getAllProducts(db);
     log("allProductDetails::"+allProductDetails.length.toString());
+    await mapvaluesdb(allProductDetails);
    notifyListeners();
+  }
+   mapvaluesdb(List<ItemMasterDBModel> allProductDetails)async{
+    for(int i=allProductDetails.length-1;i>=0;i--){
+      if(allProductDetails[i].Isbundle ==true){
+        log("allProductDetailsbundle::"+allProductDetails[i].itemCode.toString());
+        allProductDetails.removeAt(i);
+      }
+    }
+notifyListeners();
   }
   List<FeedsModalData> get getfeedData => feedData;
   FeedsModalData2? feeddata2;

@@ -260,16 +260,8 @@ Container callLoadingPage(BuildContext context) {
                         // Navigator.pop(context);
 
                         fUPCon.mapValuestoorder2(
-                         widget. followUPListData
-                            // widget.followUPListData.Phone,
-                            // // fUPCon
-                            // //     .fupODueListData[widget.index]
-                            // //     .Phone!,
-                            // widget.followUPListData.LeadDocEntry.toString()
-                            //     fUPCon
-                            // .fupODueListData[widget.index]
-                            // .LeadDocEntry
-                            // .toString()
+                         widget. followUPListData, context
+                            
                             );
                       },
                       child: Text("Convert to Order")),

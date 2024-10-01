@@ -77,7 +77,7 @@ class DBHelper {
              ${ItemMasterColumns.sizeCapacity} varchar ,
              ${ItemMasterColumns.clasification} varchar ,
              ${ItemMasterColumns.uoM} varchar ,
-             ${ItemMasterColumns.taxRate} int ,
+             ${ItemMasterColumns.taxRate} decimal ,
              ${ItemMasterColumns.catalogueUrl1} varchar ,
              ${ItemMasterColumns.catalogueUrl2} varchar ,
              ${ItemMasterColumns.imageUrl1} varchar ,
@@ -121,6 +121,7 @@ class DBHelper {
              ${ItemMasterColumns.whsAgeSlab2} decimal ,
              ${ItemMasterColumns.whsAgeSlab3} decimal ,
              ${ItemMasterColumns.whsAgeSlab4} decimal ,
+             ${ItemMasterColumns.Isbundle} varchar ,
              ${ItemMasterColumns.whsAgeSlab5} decimal 
              
              
@@ -1133,6 +1134,7 @@ WHERE $fav IS NOT '';
           allowOrderBelowCost:
               bool.parse(result[i]['AllowOrderBelowCost'].toString()),
           isFixedPrice: bool.parse(result[i]['IsFixedPrice'].toString()),
+           Isbundle: bool.parse(result[i]['isbundle'].toString()),
           validTill: '',
           color: '',
           calcType: '',
@@ -1208,7 +1210,7 @@ WHERE $fav IS NOT '';
           sizeCapacity: result[i]['SizeCapacity'].toString(),
           clasification: result[i]['Clasification'].toString(),
           uoM: result[i]['UoM'].toString(),
-          taxRate: int.parse(result[i]['TaxRate'].toString()),
+          taxRate: double.parse(result[i]['TaxRate'].toString()),
           catalogueUrl1: result[i]['CatalogueUrl1'].toString(),
           catalogueUrl2: result[i]['CatalogueUrl2'].toString(),
           imageUrl1: result[i]['ImageUrl1'].toString(),
@@ -1251,6 +1253,7 @@ WHERE $fav IS NOT '';
           allowOrderBelowCost:
               bool.parse(result[i]['AllowOrderBelowCost'].toString()),
           isFixedPrice: bool.parse(result[i]['IsFixedPrice'].toString()),
+           Isbundle: bool.parse(result[i]['isbundle'].toString()),
           validTill: result[i]['ValidTill'].toString(),
           color: result[i]['color'].toString(),
           calcType: result[i]['calcType'].toString(),
@@ -1342,6 +1345,7 @@ WHERE $data IS NOT '';
           allowOrderBelowCost:
               bool.parse(result[i]['AllowOrderBelowCost'].toString()),
           isFixedPrice: bool.parse(result[i]['IsFixedPrice'].toString()),
+           Isbundle: bool.parse(result[i]['isbundle'].toString()),
           validTill: '',
           color: '',
           payOn:'',
@@ -1387,7 +1391,7 @@ Select * from ItemMaster where (ItemCode || ' - ' || ItemName) Like '%$data%';
           sizeCapacity: result[i]['SizeCapacity'].toString(),
           clasification: result[i]['Clasification'].toString(),
           uoM: result[i]['UoM'].toString(),
-          taxRate: int.parse(result[i]['TaxRate'].toString()),
+          taxRate: double.parse(result[i]['TaxRate'].toString()),
           catalogueUrl1: result[i]['CatalogueUrl1'].toString(),
           catalogueUrl2: result[i]['CatalogueUrl2'].toString(),
           imageUrl1: result[i]['ImageUrl1'].toString(),
@@ -1430,6 +1434,7 @@ Select * from ItemMaster where (ItemCode || ' - ' || ItemName) Like '%$data%';
           allowOrderBelowCost:
               bool.parse(result[i]['AllowOrderBelowCost'].toString()),
           isFixedPrice: bool.parse(result[i]['IsFixedPrice'].toString()),
+           Isbundle: bool.parse(result[i]['isbundle'].toString()),
           validTill: result[i]['ValidTill'].toString(),
           color: result[i]['color'].toString(),
            payOn:result[i]['payOn'].toString(),

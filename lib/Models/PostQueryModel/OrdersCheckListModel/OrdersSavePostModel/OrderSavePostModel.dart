@@ -466,11 +466,14 @@ class DocumentLines {
   String? partcode;
    String? partname;
    String? itemtype;
+   bool? linkeditems;
+    int? bundleId;
    int? OfferSetup_Id;
    List<giftoffers>? giftitems;
 
   DocumentLines(
       {
+        this.linkeditems,
         this.itemtype,
          this.OfferSetup_Id,
         this.giftitems,
@@ -488,6 +491,7 @@ class DocumentLines {
       required this.id,
       this.storecode,
       this.deliveryfrom,
+       this.bundleId,
       required this.docEntry,
       required this.linenum,
       required this.ItemCode,
@@ -536,9 +540,10 @@ class DocumentLines {
 
   Map<String, dynamic> tojason2() {
     Map<String, dynamic> map = {
+       "bundleId": bundleId,
       "offerId":OfferSetup_Id,
-      "itemcode": ItemCode!.replaceAll("'", "''"),
-      "itemname": ItemDescription!.replaceAll("'", "''"),
+      "itemcode": ItemCode!.replaceAll("'", "''").trim(),
+      "itemname": ItemDescription!.replaceAll("'", "''").trim(),
       "quantity": Quantity!,
       "price": Price,
       "storecode": storecode,

@@ -29,5 +29,7 @@ class MenuAuthDetail {
   static String? LeaveApproval='Y';
   static String? Collection='Y';
   static String? Settlement='Y';
+  static String? ordermodify='Y';
+  static String? orderpdf='Y';
   
 }

@@ -5,6 +5,9 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Models/ordergiftModel/orderpricecheckModel.dart';
+import 'package:sellerkit/Services/OrdergiftApi/orderpricecheckApi.dart';
 
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'package:flutter/material.dart';
@@ -150,6 +153,7 @@ class LeadTabController extends ChangeNotifier {
   clearAllListData() {
     clearbool();
     iscalltrue = false;
+    orderpricecheckData.clear();
     userid = '';
     usernumber = '';
     VisitTime = '';
@@ -766,24 +770,22 @@ class LeadTabController extends ChangeNotifier {
         notifyListeners();
         leadCheckDataExcep = '${value.message}..!! ${value.exception}..!!';
       } else {
-
-         if(value.exception!.contains("Network is unreachable")){
-   isbool = false;
-        datagotByApi = true;
-        notifyListeners();
-        lottie = 'Assets/NetworkAnimation.json';
-        leadCheckDataExcep =
-            '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
-        notifyListeners();
-        }else{
-
-           isbool = false;
-        datagotByApi = true;
-        notifyListeners();
-        lottie = 'Assets/warning.png';
-        leadCheckDataExcep =
-            '${value.stcode}..!!Something went wrong..!!\nTry again Later..!!';
-         notifyListeners();
+        if (value.exception!.contains("Network is unreachable")) {
+          isbool = false;
+          datagotByApi = true;
+          notifyListeners();
+          lottie = 'Assets/NetworkAnimation.json';
+          leadCheckDataExcep =
+              '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+          notifyListeners();
+        } else {
+          isbool = false;
+          datagotByApi = true;
+          notifyListeners();
+          lottie = 'Assets/warning.png';
+          leadCheckDataExcep =
+              '${value.stcode}..!!Something went wrong..!!\nTry again Later..!!';
+          notifyListeners();
         }
         // isbool = false;
         // datagotByApi = true;
@@ -1265,6 +1267,7 @@ class LeadTabController extends ChangeNotifier {
     final Database db = (await DBHelper.getInstance())!;
     isSelectedFollowUp = '';
     nextFD = '';
+    orderconvert.clear();
     updateFollowUpDialog = false;
     leadForwarddialog = false;
     leadWondialog = false;
@@ -2393,8 +2396,16 @@ class LeadTabController extends ChangeNotifier {
   static bool isSameBranch = true;
   bool get getisSameBranch => isSameBranch;
 
-  mapValuestoorder(GetAllLeadData leadOpenAllData) {
+  List<OrderPricecheckData> orderpricecheckData = [];
+  List<convertcolumn> orderconvert = [];
+
+  String? selectedItemName;
+
+  double? unitPrice;
+  double? quantity;
+  mapValuestoorder(GetAllLeadData leadOpenAllData, BuildContext context) async {
     // log("AAAAA" + ind.toString());
+    orderconvert.clear();
     OrderNewController.datafromlead.clear();
     log("leadOpenAllData[ind].City!::" + leadOpenAllData.City!.toString());
     // OrderNewController.datafromlead.add(leadOpenAllData[ind].)
@@ -2413,9 +2424,276 @@ class LeadTabController extends ChangeNotifier {
     OrderNewController.datafromlead.add(leadOpenAllData.area.toString());
     OrderNewController.datafromlead.add(leadOpenAllData.OrderType.toString());
 
-    OrderBookNewState.iscomfromLead = true;
-    Get.toNamed(ConstantRoutes.ordernew);
+    await GetLeadQTHApi.getData(leadOpenAllData.LeadNum.toString())
+        .then((value) async {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        for (int ik = 0;
+            ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
+            ik++) {
+          selectedItemName =
+              value.leadDeatilheadsData!.leadDeatilsQTLData![ik].ItemCode;
+          unitPrice = value.leadDeatilheadsData!.leadDeatilsQTLData![ik].Price;
+          quantity =
+              value.leadDeatilheadsData!.leadDeatilsQTLData![ik].Quantity;
+          if (ConstantValues.unitpricelogic!.toLowerCase() == 'y') {
+            orderpricecheckData.clear();
+            await OrderPricecheckApi.getData(
+                    value.leadDeatilheadsData!.leadDeatilsQTLData![ik].ItemCode,
+                    value.leadDeatilheadsData!.leadDeatilsQTLData![ik].Quantity!
+                        .toInt()!,
+                    value.leadDeatilheadsData!.leadDeatilsQTLData![ik].Price,
+                    '')
+                .then((value) {
+              if (value.stcode! >= 200 && value.stcode! <= 210) {
+                if (value.itemdata!.childdata != null &&
+                    value.itemdata!.childdata!.isNotEmpty) {
+                  orderpricecheckData = value.itemdata!.childdata!;
+                  if (orderpricecheckData[0].validity == 'valid') {
+                  } else {
+                    orderconvert.add(convertcolumn(
+                        itemcode: selectedItemName,
+                        quantity: quantity,
+                        unitprice: unitPrice));
+                    notifyListeners();
+                  }
+                }
+              }
+            });
+          }
+        }
+      }
+    });
+    if (orderconvert.isEmpty) {
+      OrderBookNewState.iscomfromLead = true;
+      Get.toNamed(ConstantRoutes.ordernew);
+      notifyListeners();
+    } else {
+      popconvert(context);
+      notifyListeners();
+    }
+
     notifyListeners();
+  }
+
+  popconvert(BuildContext context) {
+    showDialog<dynamic>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          final theme = Theme.of(context);
+          return StatefulBuilder(builder: (context, st) {
+            return AlertDialog(
+                insetPadding: EdgeInsets.all(10),
+                contentPadding: EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                content: Container(
+                  width: Screens.width(context),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: Screens.width(context),
+                        height: Screens.bodyheight(context) * 0.06,
+                        child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              textStyle: TextStyle(
+                                  // fontSize: 12,
+                                  ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                topLeft: Radius.circular(10),
+                              )), //Radius.circular(6)
+                            ),
+                            child: Text(
+                              "Alert",
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                          // left: Screens.width(context) * 0.05,
+                          // right: Screens.width(context) * 0.05,
+                          top: Screens.bodyheight(context) * 0.02,
+                          // bottom: Screens.bodyheight(context) * 0.03,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Center(
+                                child: Text(
+                              "These Doucuments Price cannot be deviated from your allowed Limit. Required Special Pricing Approval to Proceed..!!",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyText1
+                                  ?.copyWith(fontSize: 15
+                                      //color:Colors.green
+                                      ),
+                            )),
+
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  color: theme.primaryColor,
+                                )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            //
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: orderconvert.length,
+                                itemBuilder: (context, i) {
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                      left: Screens.width(context) * 0.07,
+                                      right: Screens.width(context) * 0.05,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            width: Screens.width(context),
+                                            child: Text(
+                                              "${orderconvert[i].itemcode}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            )),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                                //  width: Screens.width(context),
+                                                child: Text(
+                                              "Qty : ${orderconvert[i].quantity!.toStringAsFixed(0)}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            )),
+                                            Container(
+                                                //  width: Screens.width(context),
+                                                child: Text(
+                                              "Price : ${orderconvert[i].unitprice!.toStringAsFixed(2)}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            ))
+                                          ],
+                                        ),
+                                        Container(
+                                            width: Screens.width(context) * 0.8,
+                                            child: Divider(
+                                              color: theme.primaryColor,
+                                            )),
+                                      ],
+                                    ),
+                                  );
+                                }),
+
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  color: theme.primaryColor,
+                                )),
+
+                            Center(
+                                child: Text(
+                              "Do you want to Continue",
+                              // "Click open to view this details",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyText1?.copyWith(
+                                  fontSize: 15, color: theme.primaryColor),
+                            )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  height: 10,
+                                  color: theme.primaryColor,
+                                )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: Screens.width(context) * 0.47,
+                                  height: Screens.bodyheight(context) * 0.06,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: theme.primaryColor,
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(0),
+                                        )),
+                                      ),
+                                      onPressed: () {
+                                        st(() {
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: Text(
+                                        "No",
+                                        style: theme.textTheme.bodyText2
+                                            ?.copyWith(color: Colors.white),
+                                      )),
+                                ),
+                                Container(
+                                  width: Screens.width(context) * 0.47,
+                                  height: Screens.bodyheight(context) * 0.06,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: theme.primaryColor,
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(0),
+                                          bottomRight: Radius.circular(10),
+                                        )),
+                                      ),
+                                      onPressed: () {
+                                        st(() {
+                                          OrderBookNewState.iscomfromLead =
+                                              true;
+                                          Get.toNamed(ConstantRoutes.ordernew);
+                                        });
+                                      },
+                                      child: Text(
+                                        "Yes",
+                                        style: theme.textTheme.bodyText2
+                                            ?.copyWith(color: Colors.white),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ));
+          });
+        });
   }
 
   mapValuestoquotes(GetAllLeadData leadOpenAllData) {
@@ -2734,6 +3012,16 @@ class Distordercolumn {
   Distordercolumn({
     required this.name,
   });
+}
+
+class convertcolumn {
+  String? itemcode;
+  double? quantity;
+  double? unitprice;
+  convertcolumn(
+      {required this.itemcode,
+      required this.quantity,
+      required this.unitprice});
 }
 
 class Distcustnamecolumn {

@@ -48,6 +48,8 @@ factory OrderpriceDetails.issues(Map<String,dynamic> jsons,int stcode) {
         exception:jsons);
   }
 
+  // get leadDeatilheadsData => null;
+
 }
 class Orderpriceheader{
   

@@ -34,7 +34,7 @@ class MenuAuthApi {
 
       resCode = response.statusCode;
       // print("Menu Auth::"+response.body.toString());
-      // log("MenuAuth:" + json.decode( response.body).toString());
+      log("MenuAuth:" + json.decode( response.body).toString());
       if (response.statusCode == 200) {
           stopwatch.stop();
     log(' MenuAuthApi ${stopwatch.elapsedMilliseconds} milliseconds');

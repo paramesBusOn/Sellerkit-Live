@@ -11,11 +11,15 @@ import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/OrderTypeModel.da
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/couponModel.dart';
+import 'package:sellerkit/Models/ordergiftModel/LiknkedItemsModel.dart';
 import 'package:sellerkit/Models/ordergiftModel/ParticularpricelistModel.dart';
+import 'package:sellerkit/Models/ordergiftModel/orderbundleModel.dart';
 import 'package:sellerkit/Models/ordergiftModel/ordergiftModel.dart';
 import 'package:sellerkit/Models/ordergiftModel/orderpricecheckModel.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/paymenttermdialog.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/shorefdialog.dart';
+import 'package:sellerkit/Services/OrdergiftApi/linkeditemsApi.dart';
+import 'package:sellerkit/Services/OrdergiftApi/orderbundleApi.dart';
 import 'package:sellerkit/Services/OrdergiftApi/ordergiftapi.dart';
 import 'package:sellerkit/Services/OrdergiftApi/orderpricecheckApi.dart';
 import 'package:sellerkit/Services/OrdergiftApi/pricelistparticularApi.dart';
@@ -525,6 +529,7 @@ class OrderNewController extends ChangeNotifier {
   double? taxvalue;
   int? offeridval;
   String? itemtypemodify;
+  int? bundleidmodify;
 
   double total = 0.00;
   List<Custype> custype = [
@@ -801,21 +806,202 @@ class OrderNewController extends ChangeNotifier {
   //    log("code:::::"+code.toString());
 
   // }
+  List<ItemMasterDBModel> bundleallProductDetails = [];
   getdataFromDb() async {
     final Database db = (await DBHelper.getInstance())!;
     allProductDetails = await DBOperation.getAllProducts(db);
+    await mapvaluesbundledb(allProductDetails);
     filterProductDetails = allProductDetails;
+    // log("allProductDetails::"+allProductDetails[1].imageUrl1!.toString());
+    notifyListeners();
+  }
+
+  mapvaluesbundledb(List<ItemMasterDBModel> allProductDetails) async {
+    bundleallProductDetails.clear();
+    notifyListeners();
+    for (int i = 0; i < allProductDetails.length; i++) {
+      if (allProductDetails[i].Isbundle == true) {
+        bundleallProductDetails.add(ItemMasterDBModel(
+            refreshedRecordDate: allProductDetails[i].refreshedRecordDate,
+            id: allProductDetails[i].id,
+            itemCode: allProductDetails[i].itemCode,
+            brand: allProductDetails[i].brand,
+            division: allProductDetails[i].division,
+            category: allProductDetails[i].category,
+            itemName: allProductDetails[i].itemName,
+            segment: allProductDetails[i].segment,
+            isselected: allProductDetails[i].isselected,
+            favorite: allProductDetails[i].favorite,
+            mgrPrice: allProductDetails[i].mgrPrice,
+            slpPrice: allProductDetails[i].slpPrice,
+            storeStock: allProductDetails[i].storeStock,
+            whsStock: allProductDetails[i].whsStock,
+            allowNegativeStock: allProductDetails[i].allowNegativeStock,
+            allowOrderBelowCost: allProductDetails[i].allowOrderBelowCost,
+            brandCode: allProductDetails[i].brandCode,
+            catalogueUrl1: allProductDetails[i].catalogueUrl1,
+            catalogueUrl2: allProductDetails[i].catalogueUrl2,
+            clasification: allProductDetails[i].clasification,
+            color: allProductDetails[i].color,
+            eol: allProductDetails[i].eol,
+            fast: allProductDetails[i].fast,
+            imageUrl1: allProductDetails[i].imageUrl1,
+            imageUrl2: allProductDetails[i].imageUrl2,
+            isFixedPrice: allProductDetails[i].isFixedPrice,
+            itemDescription: allProductDetails[i].itemDescription,
+            itemGroup: allProductDetails[i].itemGroup,
+            modelNo: allProductDetails[i].modelNo,
+            movingType: allProductDetails[i].movingType,
+            partCode: allProductDetails[i].partCode,
+            priceStockId: allProductDetails[i].priceStockId,
+            serialNumber: allProductDetails[i].serialNumber,
+            sizeCapacity: allProductDetails[i].sizeCapacity,
+            skucode: allProductDetails[i].skucode,
+            slow: allProductDetails[i].slow,
+            sp: allProductDetails[i].sp,
+            specification: allProductDetails[i].specification,
+            ssp1: allProductDetails[i].ssp1,
+            ssp1Inc: allProductDetails[i].ssp1Inc,
+            ssp2: allProductDetails[i].ssp2,
+            ssp2Inc: allProductDetails[i].ssp2Inc,
+            ssp3: allProductDetails[i].ssp3,
+            ssp3Inc: allProductDetails[i].ssp3Inc,
+            ssp4: allProductDetails[i].ssp4,
+            ssp4Inc: allProductDetails[i].ssp4Inc,
+            ssp5: allProductDetails[i].ssp5,
+            ssp5Inc: allProductDetails[i].ssp5Inc,
+            status: allProductDetails[i].status,
+            storeCode: allProductDetails[i].storeCode,
+            taxRate: allProductDetails[i].taxRate,
+            textNote: allProductDetails[i].textNote,
+            uoM: allProductDetails[i].uoM,
+            validTill: allProductDetails[i].validTill,
+            veryFast: allProductDetails[i].veryFast,
+            verySlow: allProductDetails[i].verySlow,
+            whseCode: allProductDetails[i].whseCode,
+            calcType: allProductDetails[i].calcType,
+            payOn: allProductDetails[i].payOn,
+            storeAgeSlab1: allProductDetails[i].storeAgeSlab1,
+            storeAgeSlab2: allProductDetails[i].storeAgeSlab2,
+            storeAgeSlab3: allProductDetails[i].storeAgeSlab3,
+            storeAgeSlab4: allProductDetails[i].storeAgeSlab4,
+            storeAgeSlab5: allProductDetails[i].storeAgeSlab5,
+            whsAgeSlab1: allProductDetails[i].whsAgeSlab1,
+            whsAgeSlab2: allProductDetails[i].whsAgeSlab2,
+            whsAgeSlab3: allProductDetails[i].whsAgeSlab3,
+            whsAgeSlab4: allProductDetails[i].whsAgeSlab4,
+            whsAgeSlab5: allProductDetails[i].whsAgeSlab5,
+            Isbundle: allProductDetails[i].Isbundle));
+      }
+    }
+    notifyListeners();
+    await mapvaluesdb(allProductDetails);
+    notifyListeners();
+  }
+
+  mapvaluesdb(List<ItemMasterDBModel> allProductDetails) async {
+    for (int i = allProductDetails.length - 1; i >= 0; i--) {
+      if (allProductDetails[i].Isbundle == true) {
+        log("allProductDetailsbundle::" +
+            allProductDetails[i].itemCode.toString());
+        allProductDetails.removeAt(i);
+      }
+    }
+    notifyListeners();
+    await addbundledb();
+    notifyListeners();
+  }
+
+  addbundledb() async {
+    if (bundleallProductDetails.isNotEmpty) {
+      for (int i = 0; i < bundleallProductDetails.length; i++) {
+        allProductDetails.add(ItemMasterDBModel(
+            refreshedRecordDate: allProductDetails[i].refreshedRecordDate,
+            id: bundleallProductDetails[i].id,
+            itemCode: bundleallProductDetails[i].itemCode,
+            brand: bundleallProductDetails[i].brand,
+            division: bundleallProductDetails[i].division,
+            category: bundleallProductDetails[i].category,
+            itemName: bundleallProductDetails[i].itemName,
+            segment: bundleallProductDetails[i].segment,
+            isselected: bundleallProductDetails[i].isselected,
+            favorite: bundleallProductDetails[i].favorite,
+            mgrPrice: bundleallProductDetails[i].mgrPrice,
+            slpPrice: bundleallProductDetails[i].slpPrice,
+            storeStock: bundleallProductDetails[i].storeStock,
+            whsStock: bundleallProductDetails[i].whsStock,
+            allowNegativeStock: bundleallProductDetails[i].allowNegativeStock,
+            allowOrderBelowCost: bundleallProductDetails[i].allowOrderBelowCost,
+            brandCode: bundleallProductDetails[i].brandCode,
+            catalogueUrl1: bundleallProductDetails[i].catalogueUrl1,
+            catalogueUrl2: bundleallProductDetails[i].catalogueUrl2,
+            clasification: bundleallProductDetails[i].clasification,
+            color: bundleallProductDetails[i].color,
+            eol: bundleallProductDetails[i].eol,
+            fast: bundleallProductDetails[i].fast,
+            imageUrl1: bundleallProductDetails[i].imageUrl1,
+            imageUrl2: bundleallProductDetails[i].imageUrl2,
+            isFixedPrice: bundleallProductDetails[i].isFixedPrice,
+            itemDescription: bundleallProductDetails[i].itemDescription,
+            itemGroup: bundleallProductDetails[i].itemGroup,
+            modelNo: bundleallProductDetails[i].modelNo,
+            movingType: bundleallProductDetails[i].movingType,
+            partCode: bundleallProductDetails[i].partCode,
+            priceStockId: bundleallProductDetails[i].priceStockId,
+            serialNumber: bundleallProductDetails[i].serialNumber,
+            sizeCapacity: bundleallProductDetails[i].sizeCapacity,
+            skucode: bundleallProductDetails[i].skucode,
+            slow: bundleallProductDetails[i].slow,
+            sp: bundleallProductDetails[i].sp,
+            specification: bundleallProductDetails[i].specification,
+            ssp1: bundleallProductDetails[i].ssp1,
+            ssp1Inc: bundleallProductDetails[i].ssp1Inc,
+            ssp2: bundleallProductDetails[i].ssp2,
+            ssp2Inc: bundleallProductDetails[i].ssp2Inc,
+            ssp3: bundleallProductDetails[i].ssp3,
+            ssp3Inc: bundleallProductDetails[i].ssp3Inc,
+            ssp4: bundleallProductDetails[i].ssp4,
+            ssp4Inc: bundleallProductDetails[i].ssp4Inc,
+            ssp5: bundleallProductDetails[i].ssp5,
+            ssp5Inc: bundleallProductDetails[i].ssp5Inc,
+            status: bundleallProductDetails[i].status,
+            storeCode: bundleallProductDetails[i].storeCode,
+            taxRate: bundleallProductDetails[i].taxRate,
+            textNote: bundleallProductDetails[i].textNote,
+            uoM: bundleallProductDetails[i].uoM,
+            validTill: bundleallProductDetails[i].validTill,
+            veryFast: bundleallProductDetails[i].veryFast,
+            verySlow: bundleallProductDetails[i].verySlow,
+            whseCode: bundleallProductDetails[i].whseCode,
+            calcType: bundleallProductDetails[i].calcType,
+            payOn: bundleallProductDetails[i].payOn,
+            storeAgeSlab1: bundleallProductDetails[i].storeAgeSlab1,
+            storeAgeSlab2: bundleallProductDetails[i].storeAgeSlab2,
+            storeAgeSlab3: bundleallProductDetails[i].storeAgeSlab3,
+            storeAgeSlab4: bundleallProductDetails[i].storeAgeSlab4,
+            storeAgeSlab5: bundleallProductDetails[i].storeAgeSlab5,
+            whsAgeSlab1: bundleallProductDetails[i].whsAgeSlab1,
+            whsAgeSlab2: bundleallProductDetails[i].whsAgeSlab2,
+            whsAgeSlab3: bundleallProductDetails[i].whsAgeSlab3,
+            whsAgeSlab4: bundleallProductDetails[i].whsAgeSlab4,
+            whsAgeSlab5: bundleallProductDetails[i].whsAgeSlab5,
+            Isbundle: bundleallProductDetails[i].Isbundle));
+      }
+    }
     notifyListeners();
   }
 
   changeVisible() {
     allProductDetails = filterProductDetails;
+    log("allProductDetails::" + allProductDetails[1].imageUrl1!.toString());
     showItemList = !showItemList;
     notifyListeners();
   }
 
   changeVisible2() {
     allProductDetails = filterProductDetails;
+
+// isselected = [true, false];
 
     notifyListeners();
   }
@@ -958,6 +1144,147 @@ class OrderNewController extends ChangeNotifier {
                         "Ok",
                         style: TextStyle(color: Colors.white),
                       )),
+                ),
+              ],
+            ),
+          ),
+          // actions: [
+          //   TextButton(
+          //     onPressed: () => Navigator.of(context).pop(false),
+          //     child: Text("No"),
+          //   ),
+          //   TextButton(
+          //       onPressed: () {
+          //         exit(0);
+          //       },
+          //       child: Text("yes"))
+          // ],
+        );
+      }),
+    );
+  }
+
+  showpopdialogbundle(BuildContext context, int? bundleId) async {
+    await showDialog(
+      context: context,
+      builder: (context) => StatefulBuilder(builder: (context, setst) {
+        return AlertDialog(
+          insetPadding: EdgeInsets.all(10),
+          contentPadding: EdgeInsets.all(0),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          // title: Text("Are you sure?"),
+          // content: Text("Do you want to exit?"),
+          content: Container(
+            width: Screens.width(context),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: Screens.width(context),
+                  height: Screens.bodyheight(context) * 0.06,
+                  child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        textStyle: TextStyle(
+                            // fontSize: 12,
+                            ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          topLeft: Radius.circular(10),
+                        )), //Radius.circular(6)
+                      ),
+                      child: Text("Alert", style: TextStyle(fontSize: 15))),
+                ),
+                SizedBox(
+                  height: Screens.padingHeight(context) * 0.01,
+                ),
+                Container(
+                    padding: EdgeInsets.only(left: 40),
+                    width: Screens.width(context) * 0.85,
+                    child: Divider(
+                      color: Colors.grey,
+                    )),
+                Container(
+                    alignment: Alignment.center,
+                    // width: Screens.width(context)*0.5,
+                    // padding: EdgeInsets.only(left:20),
+                    child: Text(
+                      "Removing this item will also remove the other items in the bundle",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    )),
+                SizedBox(
+                  height: Screens.padingHeight(context) * 0.01,
+                ),
+                Container(
+                    alignment: Alignment.center,
+                    // padding: EdgeInsets.only(left:20),
+                    child: Text("Do you want to continue?",
+                        style: TextStyle(fontSize: 15))),
+                Container(
+                    padding: EdgeInsets.only(left: 40),
+                    width: Screens.width(context) * 0.85,
+                    child: Divider(color: Colors.grey)),
+                SizedBox(
+                  height: Screens.bodyheight(context) * 0.01,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: Screens.width(context) * 0.47,
+                      height: Screens.bodyheight(context) * 0.06,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            // primary: theme.primaryColor,
+                            textStyle: TextStyle(color: Colors.white),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(0),
+                            )),
+                          ),
+                          onPressed: () {
+                            //  exit(0);
+                            setst(() {
+                              clearbundle(bundleId, context);
+                            });
+                          },
+                          child: Text(
+                            "Yes",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                    Container(
+                      width: Screens.width(context) * 0.47,
+                      height: Screens.bodyheight(context) * 0.06,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            // primary: theme.primaryColor,
+                            textStyle: TextStyle(color: Colors.white),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(10),
+                            )),
+                          ),
+                          onPressed: () {
+                            setst(() {
+                              Navigator.pop(context);
+                            });
+                            // context.read<EnquiryUserContoller>().checkDialogCon();
+                          },
+                          child: Text(
+                            "No",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -1162,7 +1489,7 @@ class OrderNewController extends ChangeNotifier {
   List<giftoffers> finalgiftlist = [];
 //  List<giftoffers> tempGiftList = [];
   List<giftoffers> modifyfinalgiftlist = [];
-  
+
   deepCopyGiftList(List<giftoffers> originalList) {
     return originalList
         .map((gift) => giftoffers(
@@ -1242,7 +1569,7 @@ class OrderNewController extends ChangeNotifier {
             } else {
               if (addproduct == true) {
                 mycontroller[12].clear();
-                addProductDetails(context, allProductDetails[i]);
+                addProductDetails(context, allProductDetails[i], false, null);
                 notifyListeners();
               } else if (addproduct == false) {
                 updateProductDetails(context, i, updateallProductDetails);
@@ -1324,6 +1651,264 @@ class OrderNewController extends ChangeNotifier {
     });
   }
 
+  List<Bundleheadlist> Bundleheaddetails = [];
+  List<BundleItemlist> BundleItemdetails = [];
+  List<Bundlestorelist> Bundlestoredetails = [];
+  bool isBundleloading = false;
+  String? Bundleerror = '';
+  callbundleApi(BuildContext context, int? id, bool addproduct, int i,
+      ItemMasterDBModel updateallProductDetails) async {
+    Bundleheaddetails.clear();
+    BundleItemdetails.clear();
+    Bundlestoredetails.clear();
+    isBundleloading = true;
+    Bundleerror = '';
+    await OrderbundleApi.getData(id).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        // log("Step 3" + value.Ordercheckdatageader.toString());
+
+        if (value.itemdata!.BundleItemdetails != null &&
+            value.itemdata!.BundleItemdetails!.isNotEmpty) {
+          log("not null");
+          Bundleheaddetails = value.itemdata!.Bundleheaddetails!;
+          BundleItemdetails = value.itemdata!.BundleItemdetails!;
+          Bundlestoredetails = value.itemdata!.Bundlestoredetails!;
+          isBundleloading = false;
+          Bundleerror = '';
+          if (addproduct == true) {
+            mycontroller[12].clear();
+            log("id::" + id.toString());
+            addProductDetails(context, allProductDetails[i], true, id);
+            notifyListeners();
+          } else if (addproduct == false) {
+            updateProductDetails(context, i, updateallProductDetails);
+          }
+          notifyListeners();
+        } else if (value.itemdata!.BundleItemdetails == null ||
+            value.itemdata!.BundleItemdetails!.isEmpty) {
+          log("Order data null");
+          isBundleloading = false;
+          Bundleerror = 'No data in Bundle..!!';
+          showpopdialogunitprice(context, "$Bundleerror", '');
+          // if (addproduct == true) {
+          //   mycontroller[12].clear();
+          //   addProductDetails(context, allProductDetails[i]);
+          //   notifyListeners();
+          // } else if (addproduct == false) {
+          //   updateProductDetails(context, i, updateallProductDetails);
+          // }
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        isBundleloading = false;
+        Bundleerror = '${value.message}..!!${value.exception}....!!';
+        showpopdialogunitprice(context, "$Bundleerror", '');
+        // if (addproduct == true) {
+        //   mycontroller[12].clear();
+        //   addProductDetails(context, allProductDetails[i]);
+        //   notifyListeners();
+        // } else if (addproduct == false) {
+        //   updateProductDetails(context, i, updateallProductDetails);
+        // }
+
+        notifyListeners();
+      } else {
+        if (value.exception!.contains("Network is unreachable")) {
+          isBundleloading = false;
+          Bundleerror =
+              '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+          showpopdialogunitprice(context, "$Bundleerror", '');
+          // if (addproduct == true) {
+          //   mycontroller[12].clear();
+          //   addProductDetails(context, allProductDetails[i]);
+          //   notifyListeners();
+          // } else if (addproduct == false) {
+          //   updateProductDetails(context, i, updateallProductDetails);
+          // }
+
+          notifyListeners();
+        } else {
+          isBundleloading = false;
+          Bundleerror =
+              '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+          // if (addproduct == true) {
+          //   mycontroller[12].clear();
+          //   addProductDetails(context, allProductDetails[i]);
+          //   notifyListeners();
+          // } else if (addproduct == false) {
+          //   updateProductDetails(context, i, updateallProductDetails);
+          // }
+
+          notifyListeners();
+        }
+
+        notifyListeners();
+      }
+    });
+  }
+
+  List<LinkeditemsData> linkedItemsdata = [];
+  List<LinkeditemsData> linkedItemsdatacheck = [];
+  bool LinkedItemsloading = false;
+  String? LinkedItemserror = '';
+  int? Linked;
+  resetrelateditems() {
+    Linked = null;
+    linkedItemsdata.clear();
+    LinkedItemsloading = true;
+    LinkedItemserror = '';
+    notifyListeners();
+  }
+
+  onselectlinked(BuildContext context, int? linkindex) {
+// linkedItemsdata[linkindex!].linkedItemcode
+    changeVisible2();
+    bool isboolchecked = false;
+    int? index;
+    isboolchecked = false;
+    for (int i = 0; i < allProductDetails.length; i++) {
+      if (allProductDetails[i].itemCode ==
+          linkedItemsdata[linkindex!].linkedItemcode) {
+        isboolchecked = true;
+        index = i;
+        break;
+      }
+    }
+    if (isboolchecked) {
+      Navigator.pop(context);
+      resetItems(index!);
+      showBottomSheetInsert(context, index!);
+      notifyListeners();
+    } else {
+      Navigator.pop(context);
+      showtoastforscanning();
+      notifyListeners();
+    }
+  }
+
+  bool finallinkload = false;
+  calllinkedheader(int index) async {
+    finallinkload = true;
+    await calllinkedApi(productDetails[index].ItemCode.toString());
+    notifyListeners();
+    if (productDetails[index].giftitems!.isNotEmpty) {
+      for (int i = 0; i < productDetails[index].giftitems!.length; i++) {
+        await calllinkedApi(
+            productDetails[index].giftitems![i].ItemCode.toString());
+      }
+      finallinkload = false;
+      notifyListeners();
+    }
+    finallinkload = false;
+    notifyListeners();
+  }
+
+  calllinkedApi22(
+    String? itemcode,
+  ) async {
+    // linkedItemsdata.clear();
+    // linkedItemsdatacheck=[];
+    // LinkedItemsloading = true;
+    // LinkedItemserror = '';
+    await LinkeditemsApi.getData(
+      itemcode,
+    ).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        // log("Step 3" + value.Ordercheckdatageader.toString());
+
+        if (value.itemdata!.childdata != null &&
+            value.itemdata!.childdata!.isNotEmpty) {
+          log("not null");
+
+          linkedItemsdatacheck = value.itemdata!.childdata!;
+
+          // LinkedItemsloading = false;
+          // LinkedItemserror = '';
+          notifyListeners();
+        } else if (value.itemdata!.childdata == null ||
+            value.itemdata!.childdata!.isEmpty) {
+          log("Order data null");
+          // LinkedItemsloading = false;
+          // LinkedItemserror = 'No related Items for this selected item..!!';
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        // LinkedItemsloading = false;
+        // LinkedItemserror = '${value.message}..!!${value.exception}....!!';
+
+        notifyListeners();
+      } else {
+        if (value.exception!.contains("Network is unreachable")) {
+          // LinkedItemsloading = false;
+          // LinkedItemserror =
+          //     '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+
+          notifyListeners();
+        } else {
+          // LinkedItemsloading = false;
+          // LinkedItemserror =
+          //     '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+
+          notifyListeners();
+        }
+
+        notifyListeners();
+      }
+    });
+  }
+
+  calllinkedApi(
+    String? itemcode,
+  ) async {
+    // linkedItemsdata.clear();
+    LinkedItemsloading = true;
+    LinkedItemserror = '';
+    await LinkeditemsApi.getData(
+      itemcode,
+    ).then((value) {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        // log("Step 3" + value.Ordercheckdatageader.toString());
+
+        if (value.itemdata!.childdata != null &&
+            value.itemdata!.childdata!.isNotEmpty) {
+          log("not null");
+
+          linkedItemsdata = value.itemdata!.childdata!;
+
+          LinkedItemsloading = false;
+          LinkedItemserror = '';
+          notifyListeners();
+        } else if (value.itemdata!.childdata == null ||
+            value.itemdata!.childdata!.isEmpty) {
+          log("Order data null");
+          LinkedItemsloading = false;
+          LinkedItemserror = 'No related Items..!!';
+          notifyListeners();
+        }
+      } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+        LinkedItemsloading = false;
+        LinkedItemserror = '${value.message}..!!${value.exception}....!!';
+
+        notifyListeners();
+      } else {
+        if (value.exception!.contains("Network is unreachable")) {
+          LinkedItemsloading = false;
+          LinkedItemserror =
+              '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+
+          notifyListeners();
+        } else {
+          LinkedItemsloading = false;
+          LinkedItemserror =
+              '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+
+          notifyListeners();
+        }
+
+        notifyListeners();
+      }
+    });
+  }
+
   List<ParticularpriceData> Particularprice = [];
 
   List<OrdergiftData> ordergiftData = [];
@@ -1361,7 +1946,7 @@ class OrderNewController extends ChangeNotifier {
           gifterror = 'No data..!!';
           if (addproduct == true) {
             mycontroller[12].clear();
-            addProductDetails(context, allProductDetails[i]);
+            addProductDetails(context, allProductDetails[i], false, null);
             notifyListeners();
           } else if (addproduct == false) {
             updateProductDetails(context, i, updateallProductDetails);
@@ -1372,7 +1957,7 @@ class OrderNewController extends ChangeNotifier {
         gifterror = '${value.message}..!!${value.exception}....!!';
         if (addproduct == true) {
           mycontroller[12].clear();
-          addProductDetails(context, allProductDetails[i]);
+          addProductDetails(context, allProductDetails[i], false, null);
           notifyListeners();
         } else if (addproduct == false) {
           updateProductDetails(context, i, updateallProductDetails);
@@ -1386,7 +1971,7 @@ class OrderNewController extends ChangeNotifier {
               '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
           if (addproduct == true) {
             mycontroller[12].clear();
-            addProductDetails(context, allProductDetails[i]);
+            addProductDetails(context, allProductDetails[i], false, null);
             notifyListeners();
           } else if (addproduct == false) {
             updateProductDetails(context, i, updateallProductDetails);
@@ -1399,7 +1984,7 @@ class OrderNewController extends ChangeNotifier {
               '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
           if (addproduct == true) {
             mycontroller[12].clear();
-            addProductDetails(context, allProductDetails[i]);
+            addProductDetails(context, allProductDetails[i], false, null);
             notifyListeners();
           } else if (addproduct == false) {
             updateProductDetails(context, i, updateallProductDetails);
@@ -1428,13 +2013,32 @@ class OrderNewController extends ChangeNotifier {
     return linetotalgift.toString();
   }
 
+  clearbundle(int? bundleid, BuildContext context) async {
+    log("bundleiddelete" + productDetails.length.toString());
+    for (int i = productDetails.length - 1; i >= 0; i--) {
+      log("bundleiddelete" +
+          productDetails[i].ItemCode.toString() +
+          "::sss" +
+          productDetails[i].bundleId.toString());
+      if (productDetails[i].bundleId == bundleid) {
+        productDetails.removeAt(i);
+      }
+      notifyListeners();
+    }
+    notifyListeners();
+    Navigator.pop(context);
+  }
+
   addProductDetails(
-      BuildContext context, ItemMasterDBModel allProductDetails) async {
-    log("sellect" + allProductDetails.mgrPrice.toString());
-    log("sellect" + allProductDetails.slpPrice.toString());
+      BuildContext context,
+      ItemMasterDBModel addallProductDetails,
+      bool isbundle,
+      int? bundleid) async {
+    log("sellect" + addallProductDetails.mgrPrice.toString());
+    log("sellect" + addallProductDetails.slpPrice.toString());
     log("unitPrice" + unitPrice.toString());
     log("sellect" + productDetails.length.toString());
-
+    // changeVisible2();
     if (formkey[1].currentState!.validate()) {
       finalgiftlist.clear();
       for (int i = 0; i < ordergiftData.length; i++) {
@@ -1469,7 +2073,7 @@ class OrderNewController extends ChangeNotifier {
       ispopupfinal3 = false;
       ispopupfinal4 = false;
       notifyListeners();
-      if (unitPrice! > allProductDetails.mgrPrice!) {
+      if (unitPrice! > addallProductDetails.mgrPrice!) {
         ispopupshown = true;
         ispopupshown2 = false;
         ispopupshown3 = false;
@@ -1478,7 +2082,7 @@ class OrderNewController extends ChangeNotifier {
         notifyListeners();
         await showpopdialog(context, "Entered price is greater than MRP");
       }
-      if (unitPrice! < allProductDetails.slpPrice!) {
+      if (unitPrice! < addallProductDetails.slpPrice!) {
         ispopupshown = false;
 
         ispopupshown3 = false;
@@ -1489,7 +2093,7 @@ class OrderNewController extends ChangeNotifier {
         await showpopdialog(context, "Entered price is less than Cost");
       }
       if (isselected[0] == true) {
-        if (quantity! > allProductDetails.storeStock!) {
+        if (quantity! > addallProductDetails.storeStock!) {
           ispopupshown = false;
           ispopupshown2 = false;
           ispopupshown4 = false;
@@ -1500,7 +2104,7 @@ class OrderNewController extends ChangeNotifier {
               context, "Entered quantity is greater than Storestock");
         }
       } else {
-        if (quantity! > allProductDetails.whsStock!) {
+        if (quantity! > addallProductDetails.whsStock!) {
           ispopupshown4 = true;
           ispopupshown = false;
           ispopupshown2 = false;
@@ -1532,41 +2136,122 @@ class OrderNewController extends ChangeNotifier {
           showtoastforall();
         } else {
           log("finalgiftlist::" + finalgiftlist.length.toString());
+          for (int iy = 0; iy < finalgiftlist.length; iy++) {
+            await calllinkedApi22(finalgiftlist[iy].ItemCode);
+          }
           var giftListCopy = deepCopyGiftList(finalgiftlist);
-          productDetails.add(DocumentLines(
-              itemtype: 'R',
-              OfferSetup_Id: null,
-              id: 0,
-              docEntry: 0,
-              linenum: 0,
-              ItemCode: selectedItemCode,
-              ItemDescription: selectedItemName,
-              Quantity: quantity,
-              LineTotal: total,
-              Price: unitPrice,
-              TaxCode: taxvalue,
-              TaxLiable: "tNO",
-              storecode: ConstantValues.Storecode,
-              deliveryfrom: isselected[0] == true ? "store" : "Whse",
-              sp: sporder,
-              slpprice: slppriceorder,
-              storestock: storestockorder,
-              whsestock: whsestockorder,
-              isfixedprice: isfixedpriceorder,
-              allownegativestock: allownegativestockorder,
-              alloworderbelowcost: alloworderbelowcostorder,
-              complementary: assignvalue,
-              couponcode:
-                  mycontroller[36].text == null || mycontroller[36].text.isEmpty
+
+          if (isbundle == true) {
+            log("bundleid::" + bundleid.toString());
+            for (int ib = 0; ib < BundleItemdetails.length; ib++) {
+              await calllinkedApi22(BundleItemdetails[ib].ItemCode);
+              for (int ij = 0; ij < allProductDetails.length; ij++) {
+                // log("allProductDetails[ij].itemCode::" +
+                //     allProductDetails[ij].itemCode.toString());
+
+                // log("selectedItemCode::" + selectedItemCode.toString());
+                if (allProductDetails[ij].itemCode ==
+                    BundleItemdetails[ib].ItemCode) {
+                  taxvalue =
+                      double.parse(allProductDetails[ij].taxRate.toString());
+                  slppriceorder = allProductDetails[ij].slpPrice == null
+                      ? 0.0
+                      : double.parse(allProductDetails[ij].slpPrice.toString());
+                  storestockorder = allProductDetails[ij].storeStock == null
+                      ? 0.0
+                      : double.parse(
+                          allProductDetails[ij].storeStock.toString());
+                  whsestockorder = allProductDetails[ij].whsStock == null
+                      ? 0.0
+                      : double.parse(allProductDetails[ij].whsStock.toString());
+                  isfixedpriceorder = allProductDetails[ij].isFixedPrice;
+                  allownegativestockorder =
+                      allProductDetails[ij].allowNegativeStock;
+                  alloworderbelowcostorder =
+                      allProductDetails[ij].allowOrderBelowCost;
+                  break;
+                }
+              }
+              productDetails.add(DocumentLines(
+                  bundleId: bundleid,
+                  itemtype: 'B',
+                  OfferSetup_Id: null,
+                  id: 0,
+                  docEntry: 0,
+                  linenum: 0,
+                  ItemCode: BundleItemdetails[ib].ItemCode,
+                  ItemDescription: BundleItemdetails[ib].ItemName,
+                  Quantity: BundleItemdetails[ib].Quantity,
+                  LineTotal: BundleItemdetails[ib].LineTotal,
+                  Price: BundleItemdetails[ib].Price,
+                  TaxCode: taxvalue,
+                  TaxLiable: "tNO",
+                  linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                  storecode: ConstantValues.Storecode,
+                  deliveryfrom: isselected[0] == true ? "store" : "Whse",
+                  sp: sporder,
+                  slpprice: slppriceorder,
+                  storestock: storestockorder,
+                  whsestock: whsestockorder,
+                  isfixedprice: isfixedpriceorder,
+                  allownegativestock: allownegativestockorder,
+                  alloworderbelowcost: alloworderbelowcostorder,
+                  complementary: assignvalue,
+                  couponcode: mycontroller[36].text == null ||
+                          mycontroller[36].text.isEmpty
                       ? null
                       : mycontroller[36].text,
-              partcode: selectedapartcode == null || selectedapartcode.isEmpty
-                  ? null
-                  : selectedapartcode,
-              partname: selectedapartname == null || selectedapartname.isEmpty
-                  ? null
-                  : selectedapartname,
-              giftitems: giftListCopy));
+                  partcode:
+                      selectedapartcode == null || selectedapartcode.isEmpty
+                          ? null
+                          : selectedapartcode,
+                  partname:
+                      selectedapartname == null || selectedapartname.isEmpty
+                          ? null
+                          : selectedapartname,
+                  giftitems: giftListCopy));
+            }
+          } else if (isbundle == false) {
+            await calllinkedApi22(selectedItemCode);
+
+            productDetails.add(DocumentLines(
+                bundleId: null,
+                itemtype: 'R',
+                OfferSetup_Id: null,
+                id: 0,
+                docEntry: 0,
+                linenum: 0,
+                linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                ItemCode: selectedItemCode,
+                ItemDescription: selectedItemName,
+                Quantity: quantity,
+                LineTotal: total,
+                Price: unitPrice,
+                TaxCode: taxvalue,
+                TaxLiable: "tNO",
+                storecode: ConstantValues.Storecode,
+                deliveryfrom: isselected[0] == true ? "store" : "Whse",
+                sp: sporder,
+                slpprice: slppriceorder,
+                storestock: storestockorder,
+                whsestock: whsestockorder,
+                isfixedprice: isfixedpriceorder,
+                allownegativestock: allownegativestockorder,
+                alloworderbelowcost: alloworderbelowcostorder,
+                complementary: assignvalue,
+                couponcode: mycontroller[36].text == null ||
+                        mycontroller[36].text.isEmpty
+                    ? null
+                    : mycontroller[36].text,
+                partcode: selectedapartcode == null || selectedapartcode.isEmpty
+                    ? null
+                    : selectedapartcode,
+                partname: selectedapartname == null || selectedapartname.isEmpty
+                    ? null
+                    : selectedapartname,
+                giftitems: giftListCopy));
+          }
+
           showItemList = false;
           mycontroller[12].clear();
           Navigator.pop(context);
@@ -1604,40 +2289,120 @@ class OrderNewController extends ChangeNotifier {
             showtoastforall();
           } else {
             var giftListCopy = deepCopyGiftList(finalgiftlist);
-            productDetails.add(DocumentLines(
-                itemtype: 'R',
-                OfferSetup_Id: null,
-                id: 0,
-                docEntry: 0,
-                linenum: 0,
-                ItemCode: selectedItemCode,
-                ItemDescription: selectedItemName,
-                Quantity: quantity,
-                LineTotal: total,
-                Price: unitPrice,
-                TaxCode: taxvalue,
-                TaxLiable: "tNO",
-                storecode: ConstantValues.Storecode,
-                deliveryfrom: isselected[0] == true ? "store" : "Whse",
-                sp: sporder,
-                slpprice: slppriceorder,
-                storestock: storestockorder,
-                whsestock: whsestockorder,
-                isfixedprice: isfixedpriceorder,
-                allownegativestock: allownegativestockorder,
-                alloworderbelowcost: alloworderbelowcostorder,
-                complementary: assignvalue,
-                couponcode: mycontroller[36].text == null ||
-                        mycontroller[36].text.isEmpty
-                    ? null
-                    : mycontroller[36].text,
-                partcode: selectedapartcode == null || selectedapartcode.isEmpty
-                    ? null
-                    : selectedapartcode,
-                partname: selectedapartname == null || selectedapartname.isEmpty
-                    ? null
-                    : selectedapartname,
-                giftitems: giftListCopy));
+            if (isbundle == true) {
+              log("bundleid::" + bundleid.toString());
+              for (int ib = 0; ib < BundleItemdetails.length; ib++) {
+                await calllinkedApi22(BundleItemdetails[ib].ItemCode);
+                for (int ij = 0; ij < allProductDetails.length; ij++) {
+                  // log("allProductDetails[ij].itemCode::" +
+                  //     allProductDetails[ij].itemCode.toString());
+
+                  // log("selectedItemCode::" + selectedItemCode.toString());
+                  if (allProductDetails[ij].itemCode ==
+                      BundleItemdetails[ib].ItemCode) {
+                    taxvalue =
+                        double.parse(allProductDetails[ij].taxRate.toString());
+                    slppriceorder = allProductDetails[ij].slpPrice == null
+                        ? 0.0
+                        : double.parse(
+                            allProductDetails[ij].slpPrice.toString());
+                    storestockorder = allProductDetails[ij].storeStock == null
+                        ? 0.0
+                        : double.parse(
+                            allProductDetails[ij].storeStock.toString());
+                    whsestockorder = allProductDetails[ij].whsStock == null
+                        ? 0.0
+                        : double.parse(
+                            allProductDetails[ij].whsStock.toString());
+                    isfixedpriceorder = allProductDetails[ij].isFixedPrice;
+                    allownegativestockorder =
+                        allProductDetails[ij].allowNegativeStock;
+                    alloworderbelowcostorder =
+                        allProductDetails[ij].allowOrderBelowCost;
+                    break;
+                  }
+                }
+                productDetails.add(DocumentLines(
+                    bundleId: bundleid,
+                    itemtype: 'B',
+                    OfferSetup_Id: null,
+                    id: 0,
+                    docEntry: 0,
+                    linenum: 0,
+                    ItemCode: BundleItemdetails[ib].ItemCode,
+                    ItemDescription: BundleItemdetails[ib].ItemName,
+                    Quantity: BundleItemdetails[ib].Quantity,
+                    LineTotal: BundleItemdetails[ib].LineTotal,
+                    Price: BundleItemdetails[ib].Price,
+                    linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                    TaxCode: taxvalue,
+                    TaxLiable: "tNO",
+                    storecode: ConstantValues.Storecode,
+                    deliveryfrom: isselected[0] == true ? "store" : "Whse",
+                    sp: sporder,
+                    slpprice: slppriceorder,
+                    storestock: storestockorder,
+                    whsestock: whsestockorder,
+                    isfixedprice: isfixedpriceorder,
+                    allownegativestock: allownegativestockorder,
+                    alloworderbelowcost: alloworderbelowcostorder,
+                    complementary: assignvalue,
+                    couponcode: mycontroller[36].text == null ||
+                            mycontroller[36].text.isEmpty
+                        ? null
+                        : mycontroller[36].text,
+                    partcode:
+                        selectedapartcode == null || selectedapartcode.isEmpty
+                            ? null
+                            : selectedapartcode,
+                    partname:
+                        selectedapartname == null || selectedapartname.isEmpty
+                            ? null
+                            : selectedapartname,
+                    giftitems: giftListCopy));
+              }
+            } else if (isbundle == false) {
+              await calllinkedApi22(selectedItemCode);
+              productDetails.add(DocumentLines(
+                  bundleId: null,
+                  itemtype: 'R',
+                  OfferSetup_Id: null,
+                  id: 0,
+                  docEntry: 0,
+                  linenum: 0,
+                  linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                  ItemCode: selectedItemCode,
+                  ItemDescription: selectedItemName,
+                  Quantity: quantity,
+                  LineTotal: total,
+                  Price: unitPrice,
+                  TaxCode: taxvalue,
+                  TaxLiable: "tNO",
+                  storecode: ConstantValues.Storecode,
+                  deliveryfrom: isselected[0] == true ? "store" : "Whse",
+                  sp: sporder,
+                  slpprice: slppriceorder,
+                  storestock: storestockorder,
+                  whsestock: whsestockorder,
+                  isfixedprice: isfixedpriceorder,
+                  allownegativestock: allownegativestockorder,
+                  alloworderbelowcost: alloworderbelowcostorder,
+                  complementary: assignvalue,
+                  couponcode: mycontroller[36].text == null ||
+                          mycontroller[36].text.isEmpty
+                      ? null
+                      : mycontroller[36].text,
+                  partcode:
+                      selectedapartcode == null || selectedapartcode.isEmpty
+                          ? null
+                          : selectedapartcode,
+                  partname:
+                      selectedapartname == null || selectedapartname.isEmpty
+                          ? null
+                          : selectedapartname,
+                  giftitems: giftListCopy));
+            }
+
             showItemList = false;
             mycontroller[12].clear();
             Navigator.pop(context);
@@ -1657,6 +2422,7 @@ class OrderNewController extends ChangeNotifier {
 
   addfinalproduct(BuildContext context) {
     productDetails.add(DocumentLines(
+        bundleId: null,
         itemtype: 'R',
         OfferSetup_Id: null,
         id: 0,
@@ -1897,6 +2663,8 @@ class OrderNewController extends ChangeNotifier {
                 ? productDetails[i].couponcode
                 : mycontroller[36].text;
         productDetails[i].giftitems = giftListCopy;
+        productDetails[i].deliveryfrom =
+            isselected[0] == true ? "store" : "Whse";
         showItemList = false;
         Navigator.pop(context);
         postpaymentdata.clear();
@@ -1932,6 +2700,8 @@ class OrderNewController extends ChangeNotifier {
                   : mycontroller[36].text;
           showItemList = false;
           productDetails[i].giftitems = giftListCopy;
+          productDetails[i].deliveryfrom =
+              isselected[0] == true ? "store" : "Whse";
           Navigator.pop(context);
           postpaymentdata.clear();
           deletepaymode2();
@@ -1944,6 +2714,13 @@ class OrderNewController extends ChangeNotifier {
 
   List<GetCustomerData>? customerdetails;
   resetItems(int i) {
+    linkedItemsdatacheck.clear();
+    Bundleheaddetails.clear();
+    BundleItemdetails.clear();
+    Bundlestoredetails.clear();
+    isBundleloading = false;
+    Bundleerror = '';
+    isselected = [true, false];
     orderpricecheckData.clear();
     ordergiftData.clear();
     isgiftloading = false;
@@ -1953,7 +2730,11 @@ class OrderNewController extends ChangeNotifier {
     total = 0.00;
     mycontroller[10].text = allProductDetails[i].sp!.toStringAsFixed(2);
     //.clear();
+
     mycontroller[11].clear();
+    if (allProductDetails[i].Isbundle == true) {
+      mycontroller[11].text = '1';
+    }
     mycontroller[36].clear();
     mycontroller[48].clear();
     selectedapartcode = '';
@@ -2802,7 +3583,7 @@ class OrderNewController extends ChangeNotifier {
             datafromopenlead[7] == "null" ||
             datafromopenlead[7].isEmpty
         ? ""
-        : datafromfollow[7]; //sta
+        : datafromopenlead[7]; //sta
     mycontroller[17].text = datafromopenlead[10] == null ||
             datafromopenlead[10] == "null" ||
             datafromopenlead[10].isEmpty
@@ -2819,7 +3600,7 @@ class OrderNewController extends ChangeNotifier {
     //     LineTotal: total,
     //     Price: unitPrice,
 
-    await GetLeadQTHApi.getData(datafromopenlead[6]).then((value) {
+    await GetLeadQTHApi.getData(datafromopenlead[6]).then((value) async{
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         for (int ik = 0;
             ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
@@ -2879,38 +3660,206 @@ class OrderNewController extends ChangeNotifier {
               unitPrice = double.parse(mycontroller[10].text);
               quantity = double.parse(mycontroller[11].text);
               total = unitPrice! * quantity!;
+               if (ConstantValues.unitpricelogic!.toLowerCase() == 'y') {
+                orderpricecheckData.clear();
+                pricecheckloading = true;
+                pricecheckerror = '';
 
-              productDetails.add(DocumentLines(
-                  itemtype: 'R',
-                  OfferSetup_Id: null,
-                  id: 0,
-                  docEntry: 0,
-                  linenum: 0,
-                  ItemCode: selectedItemCode,
-                  ItemDescription: selectedItemName,
-                  Quantity: quantity,
-                  LineTotal: total,
-                  Price: unitPrice,
-                  TaxCode: taxvalue,
-                  TaxLiable: "tNO",
-                  storecode: storecode,
-                  deliveryfrom: deliveryfrom,
-                  sp: sporder,
-                  slpprice: slppriceorder,
-                  storestock: storestockorder,
-                  whsestock: whsestockorder,
-                  isfixedprice: isfixedpriceorder,
-                  allownegativestock: allownegativestockorder,
-                  alloworderbelowcost: alloworderbelowcostorder,
-                  giftitems: []
-                  //    sp: sporder,
-                  // slpprice: slppriceorder,
-                  // storestock: storestockorder,
-                  // whsestock:whsestockorder ,
-                  // isfixedprice: isfixedpriceorder,
-                  // allownegativestock:allownegativestockorder ,
-                  // alloworderbelowcost: alloworderbelowcostorder,
-                  ));
+                await OrderPricecheckApi.getData(
+                        selectedItemCode, quantity!.toInt()!, unitPrice, '')
+                    .then((value) async{
+                  if (value.stcode! >= 200 && value.stcode! <= 210) {
+                    // log("Step 3" + value.Ordercheckdatageader.toString());
+
+                    if (value.itemdata!.childdata != null &&
+                        value.itemdata!.childdata!.isNotEmpty) {
+                      log("not null");
+
+                      orderpricecheckData = value.itemdata!.childdata!;
+                      if (orderpricecheckData[0].validity == 'valid') {
+                         await calllinkedApi22(selectedItemCode);
+
+                        productDetails.add(DocumentLines(
+                            bundleId: null,
+                            itemtype: "R",
+                            OfferSetup_Id: null,
+                            id: 0,
+                            docEntry: 0,
+                            linenum: 0,
+                             linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                            ItemCode: selectedItemCode,
+                            ItemDescription: selectedItemName,
+                            Quantity: quantity,
+                            LineTotal: total,
+                            Price: unitPrice,
+                            TaxCode: taxvalue,
+                            TaxLiable: "tNO",
+                            storecode: storecode,
+                            deliveryfrom: deliveryfrom,
+                            sp: sporder,
+                            slpprice: slppriceorder,
+                            storestock: storestockorder,
+                            whsestock: whsestockorder,
+                            isfixedprice: isfixedpriceorder,
+                            allownegativestock: allownegativestockorder,
+                            alloworderbelowcost: alloworderbelowcostorder,
+                            // partcode: selectedapartcode == null || selectedapartcode.isEmpty
+                            // ? null
+                            // : selectedapartcode,
+                            giftitems: []
+                            //    sp: sporder,
+                            // slpprice: slppriceorder,
+                            // storestock: storestockorder,
+                            // whsestock:whsestockorder ,
+                            // isfixedprice: isfixedpriceorder,
+                            // allownegativestock:allownegativestockorder ,
+                            // alloworderbelowcost: alloworderbelowcostorder,
+                            ));
+                        showItemList = false;
+                      } else {
+                        // showpopdialogunitprice(
+                        //     context,
+                        //     "Price cannot be deviated from your allowed Limit. Required Special Pricing Approval to Proceed..!!",
+                        //     '');
+                        notifyListeners();
+                      }
+                      // showgiftitems(context, i, theme, addproduct, updateallProductDetails);
+                      pricecheckloading = false;
+                      pricecheckerror = '';
+                      notifyListeners();
+                    } else if (value.itemdata!.childdata == null ||
+                        value.itemdata!.childdata!.isEmpty) {
+                      log("Order data null");
+                      pricecheckloading = false;
+                      pricecheckerror = 'No data in CheckPriceValidity..!!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // gifterror = 'No data..!!';
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+                    }
+                  } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+                    pricecheckloading = false;
+                    pricecheckerror =
+                        '${value.message}..!!${value.exception}....!!';
+                    showpopdialogunitprice(context, "$pricecheckerror", '');
+                    // if (addproduct == true) {
+                    //   mycontroller[12].clear();
+                    //   addProductDetails(context, allProductDetails[i]);
+                    //   notifyListeners();
+                    // } else if (addproduct == false) {
+                    //   updateProductDetails(context, i, updateallProductDetails);
+                    // }
+
+                    notifyListeners();
+                  } else {
+                    if (value.exception!.contains("Network is unreachable")) {
+                      pricecheckloading = false;
+                      pricecheckerror =
+                          '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+
+                      notifyListeners();
+                    } else {
+                      pricecheckloading = false;
+                      pricecheckerror =
+                          '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+
+                      notifyListeners();
+                    }
+
+                    notifyListeners();
+                  }
+                });
+              } else {
+                await calllinkedApi22(selectedItemCode);
+                productDetails.add(DocumentLines(
+                    bundleId: null,
+                    itemtype: "R",
+                    OfferSetup_Id: null,
+                    id: 0,
+                    docEntry: 0,
+                    linenum: 0,
+                    linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                    ItemCode: selectedItemCode,
+                    ItemDescription: selectedItemName,
+                    Quantity: quantity,
+                    LineTotal: total,
+                    Price: unitPrice,
+                    TaxCode: taxvalue,
+                    TaxLiable: "tNO",
+                    storecode: storecode,
+                    deliveryfrom: deliveryfrom,
+                    sp: sporder,
+                    slpprice: slppriceorder,
+                    storestock: storestockorder,
+                    whsestock: whsestockorder,
+                    isfixedprice: isfixedpriceorder,
+                    allownegativestock: allownegativestockorder,
+                    alloworderbelowcost: alloworderbelowcostorder,
+                    giftitems: []
+                    //    sp: sporder,
+                    // slpprice: slppriceorder,
+                    // storestock: storestockorder,
+                    // whsestock:whsestockorder ,
+                    // isfixedprice: isfixedpriceorder,
+                    // allownegativestock:allownegativestockorder ,
+                    // alloworderbelowcost: alloworderbelowcostorder,
+                    ));
+                showItemList = false;
+              }
+
+              // productDetails.add(DocumentLines(
+              //     bundleId: null,
+              //     itemtype: 'R',
+              //     OfferSetup_Id: null,
+              //     id: 0,
+              //     docEntry: 0,
+              //     linenum: 0,
+              //     ItemCode: selectedItemCode,
+              //     ItemDescription: selectedItemName,
+              //     Quantity: quantity,
+              //     LineTotal: total,
+              //     Price: unitPrice,
+              //     TaxCode: taxvalue,
+              //     TaxLiable: "tNO",
+              //     storecode: storecode,
+              //     deliveryfrom: deliveryfrom,
+              //     sp: sporder,
+              //     slpprice: slppriceorder,
+              //     storestock: storestockorder,
+              //     whsestock: whsestockorder,
+              //     isfixedprice: isfixedpriceorder,
+              //     allownegativestock: allownegativestockorder,
+              //     alloworderbelowcost: alloworderbelowcostorder,
+              //     giftitems: []
+              //     //    sp: sporder,
+              //     // slpprice: slppriceorder,
+              //     // storestock: storestockorder,
+              //     // whsestock:whsestockorder ,
+              //     // isfixedprice: isfixedpriceorder,
+              //     // allownegativestock:allownegativestockorder ,
+              //     // alloworderbelowcost: alloworderbelowcostorder,
+              //     ));
             }
           }
         }
@@ -3170,7 +4119,7 @@ class OrderNewController extends ChangeNotifier {
     //     LineTotal: total,
     //     Price: unitPrice,
 
-    await GetLeadQTHApi.getData(datafromfollow[6]).then((value) {
+    await GetLeadQTHApi.getData(datafromfollow[6]).then((value) async{
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         for (int ik = 0;
             ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
@@ -3230,38 +4179,205 @@ class OrderNewController extends ChangeNotifier {
               unitPrice = double.parse(mycontroller[10].text);
               quantity = double.parse(mycontroller[11].text);
               total = unitPrice! * quantity!;
+ if (ConstantValues.unitpricelogic!.toLowerCase() == 'y') {
+                orderpricecheckData.clear();
+                pricecheckloading = true;
+                pricecheckerror = '';
 
-              productDetails.add(DocumentLines(
-                  itemtype: 'R',
-                  OfferSetup_Id: null,
-                  id: 0,
-                  docEntry: 0,
-                  linenum: 0,
-                  ItemCode: selectedItemCode,
-                  ItemDescription: selectedItemName,
-                  Quantity: quantity,
-                  LineTotal: total,
-                  Price: unitPrice,
-                  TaxCode: taxvalue,
-                  TaxLiable: "tNO",
-                  storecode: storecode,
-                  deliveryfrom: deliveryfrom,
-                  sp: sporder,
-                  slpprice: slppriceorder,
-                  storestock: storestockorder,
-                  whsestock: whsestockorder,
-                  isfixedprice: isfixedpriceorder,
-                  allownegativestock: allownegativestockorder,
-                  alloworderbelowcost: alloworderbelowcostorder,
-                  giftitems: []
-                  //    sp: sporder,
-                  // slpprice: slppriceorder,
-                  // storestock: storestockorder,
-                  // whsestock:whsestockorder ,
-                  // isfixedprice: isfixedpriceorder,
-                  // allownegativestock:allownegativestockorder ,
-                  // alloworderbelowcost: alloworderbelowcostorder,
-                  ));
+                await OrderPricecheckApi.getData(
+                        selectedItemCode, quantity!.toInt()!, unitPrice, '')
+                    .then((value) async{
+                  if (value.stcode! >= 200 && value.stcode! <= 210) {
+                    // log("Step 3" + value.Ordercheckdatageader.toString());
+
+                    if (value.itemdata!.childdata != null &&
+                        value.itemdata!.childdata!.isNotEmpty) {
+                      log("not null");
+
+                      orderpricecheckData = value.itemdata!.childdata!;
+                      if (orderpricecheckData[0].validity == 'valid') {
+                         await calllinkedApi22(selectedItemCode);
+
+                        productDetails.add(DocumentLines(
+                            bundleId: null,
+                            itemtype: "R",
+                            OfferSetup_Id: null,
+                            id: 0,
+                            docEntry: 0,
+                            linenum: 0,
+                             linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                            ItemCode: selectedItemCode,
+                            ItemDescription: selectedItemName,
+                            Quantity: quantity,
+                            LineTotal: total,
+                            Price: unitPrice,
+                            TaxCode: taxvalue,
+                            TaxLiable: "tNO",
+                            storecode: storecode,
+                            deliveryfrom: deliveryfrom,
+                            sp: sporder,
+                            slpprice: slppriceorder,
+                            storestock: storestockorder,
+                            whsestock: whsestockorder,
+                            isfixedprice: isfixedpriceorder,
+                            allownegativestock: allownegativestockorder,
+                            alloworderbelowcost: alloworderbelowcostorder,
+                            // partcode: selectedapartcode == null || selectedapartcode.isEmpty
+                            // ? null
+                            // : selectedapartcode,
+                            giftitems: []
+                            //    sp: sporder,
+                            // slpprice: slppriceorder,
+                            // storestock: storestockorder,
+                            // whsestock:whsestockorder ,
+                            // isfixedprice: isfixedpriceorder,
+                            // allownegativestock:allownegativestockorder ,
+                            // alloworderbelowcost: alloworderbelowcostorder,
+                            ));
+                        showItemList = false;
+                      } else {
+                        // showpopdialogunitprice(
+                        //     context,
+                        //     "Price cannot be deviated from your allowed Limit. Required Special Pricing Approval to Proceed..!!",
+                        //     '');
+                        notifyListeners();
+                      }
+                      // showgiftitems(context, i, theme, addproduct, updateallProductDetails);
+                      pricecheckloading = false;
+                      pricecheckerror = '';
+                      notifyListeners();
+                    } else if (value.itemdata!.childdata == null ||
+                        value.itemdata!.childdata!.isEmpty) {
+                      log("Order data null");
+                      pricecheckloading = false;
+                      pricecheckerror = 'No data in CheckPriceValidity..!!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // gifterror = 'No data..!!';
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+                    }
+                  } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+                    pricecheckloading = false;
+                    pricecheckerror =
+                        '${value.message}..!!${value.exception}....!!';
+                    showpopdialogunitprice(context, "$pricecheckerror", '');
+                    // if (addproduct == true) {
+                    //   mycontroller[12].clear();
+                    //   addProductDetails(context, allProductDetails[i]);
+                    //   notifyListeners();
+                    // } else if (addproduct == false) {
+                    //   updateProductDetails(context, i, updateallProductDetails);
+                    // }
+
+                    notifyListeners();
+                  } else {
+                    if (value.exception!.contains("Network is unreachable")) {
+                      pricecheckloading = false;
+                      pricecheckerror =
+                          '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+
+                      notifyListeners();
+                    } else {
+                      pricecheckloading = false;
+                      pricecheckerror =
+                          '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+
+                      notifyListeners();
+                    }
+
+                    notifyListeners();
+                  }
+                });
+              } else {
+                await calllinkedApi22(selectedItemCode);
+                productDetails.add(DocumentLines(
+                    bundleId: null,
+                    itemtype: "R",
+                    OfferSetup_Id: null,
+                    id: 0,
+                    docEntry: 0,
+                    linenum: 0,
+                    linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                    ItemCode: selectedItemCode,
+                    ItemDescription: selectedItemName,
+                    Quantity: quantity,
+                    LineTotal: total,
+                    Price: unitPrice,
+                    TaxCode: taxvalue,
+                    TaxLiable: "tNO",
+                    storecode: storecode,
+                    deliveryfrom: deliveryfrom,
+                    sp: sporder,
+                    slpprice: slppriceorder,
+                    storestock: storestockorder,
+                    whsestock: whsestockorder,
+                    isfixedprice: isfixedpriceorder,
+                    allownegativestock: allownegativestockorder,
+                    alloworderbelowcost: alloworderbelowcostorder,
+                    giftitems: []
+                    //    sp: sporder,
+                    // slpprice: slppriceorder,
+                    // storestock: storestockorder,
+                    // whsestock:whsestockorder ,
+                    // isfixedprice: isfixedpriceorder,
+                    // allownegativestock:allownegativestockorder ,
+                    // alloworderbelowcost: alloworderbelowcostorder,
+                    ));
+                showItemList = false;
+              }
+              // productDetails.add(DocumentLines(
+              //     bundleId: null,
+              //     itemtype: 'R',
+              //     OfferSetup_Id: null,
+              //     id: 0,
+              //     docEntry: 0,
+              //     linenum: 0,
+              //     ItemCode: selectedItemCode,
+              //     ItemDescription: selectedItemName,
+              //     Quantity: quantity,
+              //     LineTotal: total,
+              //     Price: unitPrice,
+              //     TaxCode: taxvalue,
+              //     TaxLiable: "tNO",
+              //     storecode: storecode,
+              //     deliveryfrom: deliveryfrom,
+              //     sp: sporder,
+              //     slpprice: slppriceorder,
+              //     storestock: storestockorder,
+              //     whsestock: whsestockorder,
+              //     isfixedprice: isfixedpriceorder,
+              //     allownegativestock: allownegativestockorder,
+              //     alloworderbelowcost: alloworderbelowcostorder,
+              //     giftitems: []
+              //     //    sp: sporder,
+              //     // slpprice: slppriceorder,
+              //     // storestock: storestockorder,
+              //     // whsestock:whsestockorder ,
+              //     // isfixedprice: isfixedpriceorder,
+              //     // allownegativestock:allownegativestockorder ,
+              //     // alloworderbelowcost: alloworderbelowcostorder,
+              //     ));
             }
           }
         }
@@ -3269,7 +4385,7 @@ class OrderNewController extends ChangeNotifier {
 
         // log("productslist" + productDetails.length.toString());
         // log("product" + productDetails[0].ItemDescription.toString());
-        showItemList = false;
+        // showItemList = false;
         // leadDeatilsQTHData = value.leadDeatilsQTHData;
         // leadDeatilsQTLData = value.leadDeatilsQTHData!.leadDeatilsQTLData!;
         // leadLoadingdialog = false;
@@ -3432,11 +4548,12 @@ class OrderNewController extends ChangeNotifier {
     String? storecode;
     String? deliveryfrom;
     modifyfinalgiftlist.clear();
-    await GetOrderQTHApi.getData(datafrommodify[0]).then((value) {
+    await GetOrderQTHApi.getData(datafrommodify[0]).then((value) async {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         for (int ik = 0;
             ik < value.OrderDeatilsheaderData!.OrderDeatilsQTLData!.length;
             ik++) {
+              linkedItemsdatacheck.clear();
           GetleadItemCode =
               value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemCode;
 
@@ -3444,6 +4561,8 @@ class OrderNewController extends ChangeNotifier {
               value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].OfferId;
           itemtypemodify =
               value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].ItemType;
+          bundleidmodify =
+              value.OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].BundleId;
 
           mycontroller[11].text = value
               .OrderDeatilsheaderData!.OrderDeatilsQTLData![ik].Quantity
@@ -3459,9 +4578,11 @@ class OrderNewController extends ChangeNotifier {
               .toString();
 
           if (itemtypemodify!.toLowerCase() == 'p' ||
+              itemtypemodify!.toLowerCase() == 'b' ||
               itemtypemodify!.toLowerCase() == 'r' ||
               itemtypemodify == null ||
               itemtypemodify == '') {
+        
             for (int i = 0; i < allProductDetails.length; i++) {
               if (allProductDetails[i].itemCode == GetleadItemCode) {
                 selectedItemName = allProductDetails[i].itemName.toString();
@@ -3489,13 +4610,15 @@ class OrderNewController extends ChangeNotifier {
                 unitPrice = double.parse(mycontroller[10].text);
                 quantity = double.parse(mycontroller[11].text);
                 total = unitPrice! * quantity!;
-
+    await calllinkedApi22(selectedItemCode);
                 productDetails.add(DocumentLines(
+                    bundleId: bundleidmodify == 0 ? null : bundleidmodify,
                     itemtype: itemtypemodify,
                     OfferSetup_Id: offeridval,
                     id: 0,
                     docEntry: 0,
                     linenum: 0,
+                    linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
                     ItemCode: selectedItemCode,
                     ItemDescription: selectedItemName,
                     Quantity: quantity,
@@ -3571,6 +4694,12 @@ class OrderNewController extends ChangeNotifier {
               }
             }
             if (tempGiftList.isNotEmpty) {
+              for (int iq = 0; iq < tempGiftList.length; iq++) {
+                await calllinkedApi22(tempGiftList[iq].ItemCode);
+                notifyListeners();
+              }
+              productDetails[iu].linkeditems =
+                  linkedItemsdatacheck.length > 0 ? true : false;
               productDetails[iu].giftitems = tempGiftList;
             }
             log("productDetails[iu].giftitems::" +
@@ -3716,7 +4845,7 @@ class OrderNewController extends ChangeNotifier {
 
     String? storecode;
     String? deliveryfrom;
-    await GetQuotesQTHApi.getData(datafromquotes[0]).then((value) {
+    await GetQuotesQTHApi.getData(datafromquotes[0]).then((value) async{
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         for (int ik = 0;
             ik < value.QuotesDeatilsheaderData!.OrderDeatilsQTLData!.length;
@@ -3765,89 +4894,214 @@ class OrderNewController extends ChangeNotifier {
               quantity = double.parse(mycontroller[11].text);
               total = unitPrice! * quantity!;
 
-              productDetails.add(DocumentLines(
-                  itemtype: "R",
-                  OfferSetup_Id: null,
-                  id: 0,
-                  docEntry: 0,
-                  linenum: 0,
-                  ItemCode: selectedItemCode,
-                  ItemDescription: selectedItemName,
-                  Quantity: quantity,
-                  LineTotal: total,
-                  Price: unitPrice,
-                  TaxCode: taxvalue,
-                  TaxLiable: "tNO",
-                  storecode: storecode,
-                  deliveryfrom: deliveryfrom,
-                  sp: sporder,
-                  slpprice: slppriceorder,
-                  storestock: storestockorder,
-                  whsestock: whsestockorder,
-                  isfixedprice: isfixedpriceorder,
-                  allownegativestock: allownegativestockorder,
-                  alloworderbelowcost: alloworderbelowcostorder,
-                  giftitems: []
-                  //    sp: sporder,
-                  // slpprice: slppriceorder,
-                  // storestock: storestockorder,
-                  // whsestock:whsestockorder ,
-                  // isfixedprice: isfixedpriceorder,
-                  // allownegativestock:allownegativestockorder ,
-                  // alloworderbelowcost: alloworderbelowcostorder,
-                  ));
+ if (ConstantValues.unitpricelogic!.toLowerCase() == 'y') {
+                orderpricecheckData.clear();
+                pricecheckloading = true;
+                pricecheckerror = '';
+
+                await OrderPricecheckApi.getData(
+                        selectedItemCode, quantity!.toInt()!, unitPrice, '')
+                    .then((value) async{
+                  if (value.stcode! >= 200 && value.stcode! <= 210) {
+                    // log("Step 3" + value.Ordercheckdatageader.toString());
+
+                    if (value.itemdata!.childdata != null &&
+                        value.itemdata!.childdata!.isNotEmpty) {
+                      log("not null");
+
+                      orderpricecheckData = value.itemdata!.childdata!;
+                      if (orderpricecheckData[0].validity == 'valid') {
+                         await calllinkedApi22(selectedItemCode);
+
+                        productDetails.add(DocumentLines(
+                            bundleId: null,
+                            itemtype: "R",
+                            OfferSetup_Id: null,
+                            id: 0,
+                            docEntry: 0,
+                            linenum: 0,
+                             linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                            ItemCode: selectedItemCode,
+                            ItemDescription: selectedItemName,
+                            Quantity: quantity,
+                            LineTotal: total,
+                            Price: unitPrice,
+                            TaxCode: taxvalue,
+                            TaxLiable: "tNO",
+                            storecode: storecode,
+                            deliveryfrom: deliveryfrom,
+                            sp: sporder,
+                            slpprice: slppriceorder,
+                            storestock: storestockorder,
+                            whsestock: whsestockorder,
+                            isfixedprice: isfixedpriceorder,
+                            allownegativestock: allownegativestockorder,
+                            alloworderbelowcost: alloworderbelowcostorder,
+                            // partcode: selectedapartcode == null || selectedapartcode.isEmpty
+                            // ? null
+                            // : selectedapartcode,
+                            giftitems: []
+                            //    sp: sporder,
+                            // slpprice: slppriceorder,
+                            // storestock: storestockorder,
+                            // whsestock:whsestockorder ,
+                            // isfixedprice: isfixedpriceorder,
+                            // allownegativestock:allownegativestockorder ,
+                            // alloworderbelowcost: alloworderbelowcostorder,
+                            ));
+                        showItemList = false;
+                      } else {
+                        // showpopdialogunitprice(
+                        //     context,
+                        //     "Price cannot be deviated from your allowed Limit. Required Special Pricing Approval to Proceed..!!",
+                        //     '');
+                        notifyListeners();
+                      }
+                      // showgiftitems(context, i, theme, addproduct, updateallProductDetails);
+                      pricecheckloading = false;
+                      pricecheckerror = '';
+                      notifyListeners();
+                    } else if (value.itemdata!.childdata == null ||
+                        value.itemdata!.childdata!.isEmpty) {
+                      log("Order data null");
+                      pricecheckloading = false;
+                      pricecheckerror = 'No data in CheckPriceValidity..!!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // gifterror = 'No data..!!';
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+                    }
+                  } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+                    pricecheckloading = false;
+                    pricecheckerror =
+                        '${value.message}..!!${value.exception}....!!';
+                    showpopdialogunitprice(context, "$pricecheckerror", '');
+                    // if (addproduct == true) {
+                    //   mycontroller[12].clear();
+                    //   addProductDetails(context, allProductDetails[i]);
+                    //   notifyListeners();
+                    // } else if (addproduct == false) {
+                    //   updateProductDetails(context, i, updateallProductDetails);
+                    // }
+
+                    notifyListeners();
+                  } else {
+                    if (value.exception!.contains("Network is unreachable")) {
+                      pricecheckloading = false;
+                      pricecheckerror =
+                          '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+
+                      notifyListeners();
+                    } else {
+                      pricecheckloading = false;
+                      pricecheckerror =
+                          '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+
+                      notifyListeners();
+                    }
+
+                    notifyListeners();
+                  }
+                });
+              } else {
+                await calllinkedApi22(selectedItemCode);
+                productDetails.add(DocumentLines(
+                    bundleId: null,
+                    itemtype: "R",
+                    OfferSetup_Id: null,
+                    id: 0,
+                    docEntry: 0,
+                    linenum: 0,
+                    linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                    ItemCode: selectedItemCode,
+                    ItemDescription: selectedItemName,
+                    Quantity: quantity,
+                    LineTotal: total,
+                    Price: unitPrice,
+                    TaxCode: taxvalue,
+                    TaxLiable: "tNO",
+                    storecode: storecode,
+                    deliveryfrom: deliveryfrom,
+                    sp: sporder,
+                    slpprice: slppriceorder,
+                    storestock: storestockorder,
+                    whsestock: whsestockorder,
+                    isfixedprice: isfixedpriceorder,
+                    allownegativestock: allownegativestockorder,
+                    alloworderbelowcost: alloworderbelowcostorder,
+                    giftitems: []
+                    //    sp: sporder,
+                    // slpprice: slppriceorder,
+                    // storestock: storestockorder,
+                    // whsestock:whsestockorder ,
+                    // isfixedprice: isfixedpriceorder,
+                    // allownegativestock:allownegativestockorder ,
+                    // alloworderbelowcost: alloworderbelowcostorder,
+                    ));
+                showItemList = false;
+              }
+              // productDetails.add(DocumentLines(
+              //     bundleId: null,
+              //     itemtype: "R",
+              //     OfferSetup_Id: null,
+              //     id: 0,
+              //     docEntry: 0,
+              //     linenum: 0,
+              //     ItemCode: selectedItemCode,
+              //     ItemDescription: selectedItemName,
+              //     Quantity: quantity,
+              //     LineTotal: total,
+              //     Price: unitPrice,
+              //     TaxCode: taxvalue,
+              //     TaxLiable: "tNO",
+              //     storecode: storecode,
+              //     deliveryfrom: deliveryfrom,
+              //     sp: sporder,
+              //     slpprice: slppriceorder,
+              //     storestock: storestockorder,
+              //     whsestock: whsestockorder,
+              //     isfixedprice: isfixedpriceorder,
+              //     allownegativestock: allownegativestockorder,
+              //     alloworderbelowcost: alloworderbelowcostorder,
+              //     giftitems: []
+              //     //    sp: sporder,
+              //     // slpprice: slppriceorder,
+              //     // storestock: storestockorder,
+              //     // whsestock:whsestockorder ,
+              //     // isfixedprice: isfixedpriceorder,
+              //     // allownegativestock:allownegativestockorder ,
+              //     // alloworderbelowcost: alloworderbelowcostorder,
+              //     ));
             }
           }
 
-          //      sporder= value
-          //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].Info_SP;
-          //   slppriceorder= value
-          //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].Cost;
-          //   storestockorder= value
-          //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].StoreStock;
-          //   whsestockorder=value
-          //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].WhseStock ;
-          //   isfixedpriceorder= value
-          //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].isFixedPrice;
-          //   allownegativestockorder=value
-          //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].AllowNegativestock;
-          //   alloworderbelowcostorder= value
-          //     .QuotesDeatilsheaderData!.OrderDeatilsQTLData![i].AllowOrderBelowCost;
-
-          // // value
-          // // .OrderDeatilsheaderData!.OrderDeatilsQTLData![i].deliveryFrom.toString();
-          // // total=value.leadDeatilsQTHData!.DocTotal!;
-          // notifyListeners();
-          // unitPrice = double.parse(mycontroller[10].text);
-          // quantity = double.parse(mycontroller[11].text);
-          // total = unitPrice! * quantity!;
-          // productDetails.add(DocumentLines(
-          //     id: 0,
-          //     docEntry: 0,
-          //     linenum: 0,
-          //     ItemCode: selectedItemCode,
-          //     ItemDescription: selectedItemName,
-          //     Quantity: quantity,
-          //     LineTotal: total,
-          //     Price: unitPrice,
-          //     TaxCode: 0.0,
-          //     TaxLiable: "tNO",
-          //     storecode: storecode,
-          //     deliveryfrom: deliveryfrom,
-          //       sp: sporder,
-          //   slpprice: slppriceorder,
-          //   storestock: storestockorder,
-          //   whsestock:whsestockorder ,
-          //   isfixedprice: isfixedpriceorder,
-          //   allownegativestock:allownegativestockorder ,
-          //   alloworderbelowcost: alloworderbelowcostorder,
-
-          //     ));
+        
         }
 
         // log("productslist" + productDetails.length.toString());
         // log("product" + productDetails[0].ItemDescription.toString());
-        showItemList = false;
+        // showItemList = false;
 
         notifyListeners();
       } else if (value.stcode! >= 400 && value.stcode! <= 490) {
@@ -3878,6 +5132,7 @@ class OrderNewController extends ChangeNotifier {
     await getCustomerTag();
     await callpaymodeApi();
 
+// isselected=true;
     // log("datafromlead" + datafromlead[5].toString());
     mycontroller[0].text = datafromsp[1];
     mycontroller[16].text = datafromsp[2];
@@ -3929,13 +5184,16 @@ class OrderNewController extends ChangeNotifier {
         unitPrice = double.parse(mycontroller[10].text);
         quantity = double.parse(mycontroller[11].text);
         total = unitPrice! * quantity!;
+await calllinkedApi22(selectedItemCode);
 
         productDetails.add(DocumentLines(
+            bundleId: null,
             itemtype: 'R',
             OfferSetup_Id: null,
             id: 0,
             docEntry: 0,
             linenum: 0,
+             linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
             couponcode: mycontroller[36].text,
             ItemCode: selectedItemCode,
             ItemDescription: selectedItemName,
@@ -4052,7 +5310,7 @@ class OrderNewController extends ChangeNotifier {
 
     String? storecode;
     String? deliveryfrom;
-    await GetLeadQTHApi.getData(datafromlead[6]).then((value) {
+    await GetLeadQTHApi.getData(datafromlead[6]).then((value) async {
       if (value.stcode! >= 200 && value.stcode! <= 210) {
         for (int ik = 0;
             ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
@@ -4112,45 +5370,180 @@ class OrderNewController extends ChangeNotifier {
               unitPrice = double.parse(mycontroller[10].text);
               quantity = double.parse(mycontroller[11].text);
               total = unitPrice! * quantity!;
+              if (ConstantValues.unitpricelogic!.toLowerCase() == 'y') {
+                orderpricecheckData.clear();
+                pricecheckloading = true;
+                pricecheckerror = '';
 
-              productDetails.add(DocumentLines(
-                  itemtype: "R",
-                  OfferSetup_Id: null,
-                  id: 0,
-                  docEntry: 0,
-                  linenum: 0,
-                  ItemCode: selectedItemCode,
-                  ItemDescription: selectedItemName,
-                  Quantity: quantity,
-                  LineTotal: total,
-                  Price: unitPrice,
-                  TaxCode: taxvalue,
-                  TaxLiable: "tNO",
-                  storecode: storecode,
-                  deliveryfrom: deliveryfrom,
-                  sp: sporder,
-                  slpprice: slppriceorder,
-                  storestock: storestockorder,
-                  whsestock: whsestockorder,
-                  isfixedprice: isfixedpriceorder,
-                  allownegativestock: allownegativestockorder,
-                  alloworderbelowcost: alloworderbelowcostorder,
-                  giftitems: []
-                  //    sp: sporder,
-                  // slpprice: slppriceorder,
-                  // storestock: storestockorder,
-                  // whsestock:whsestockorder ,
-                  // isfixedprice: isfixedpriceorder,
-                  // allownegativestock:allownegativestockorder ,
-                  // alloworderbelowcost: alloworderbelowcostorder,
-                  ));
+                await OrderPricecheckApi.getData(
+                        selectedItemCode, quantity!.toInt()!, unitPrice, '')
+                    .then((value) async{
+                  if (value.stcode! >= 200 && value.stcode! <= 210) {
+                    // log("Step 3" + value.Ordercheckdatageader.toString());
+
+                    if (value.itemdata!.childdata != null &&
+                        value.itemdata!.childdata!.isNotEmpty) {
+                      log("not null");
+
+                      orderpricecheckData = value.itemdata!.childdata!;
+                      if (orderpricecheckData[0].validity == 'valid') {
+                         await calllinkedApi22(selectedItemCode);
+
+                        productDetails.add(DocumentLines(
+                            bundleId: null,
+                            itemtype: "R",
+                            OfferSetup_Id: null,
+                            id: 0,
+                            docEntry: 0,
+                            linenum: 0,
+                             linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                            ItemCode: selectedItemCode,
+                            ItemDescription: selectedItemName,
+                            Quantity: quantity,
+                            LineTotal: total,
+                            Price: unitPrice,
+                            TaxCode: taxvalue,
+                            TaxLiable: "tNO",
+                            storecode: storecode,
+                            deliveryfrom: deliveryfrom,
+                            sp: sporder,
+                            slpprice: slppriceorder,
+                            storestock: storestockorder,
+                            whsestock: whsestockorder,
+                            isfixedprice: isfixedpriceorder,
+                            allownegativestock: allownegativestockorder,
+                            alloworderbelowcost: alloworderbelowcostorder,
+                            // partcode: selectedapartcode == null || selectedapartcode.isEmpty
+                            // ? null
+                            // : selectedapartcode,
+                            giftitems: []
+                            //    sp: sporder,
+                            // slpprice: slppriceorder,
+                            // storestock: storestockorder,
+                            // whsestock:whsestockorder ,
+                            // isfixedprice: isfixedpriceorder,
+                            // allownegativestock:allownegativestockorder ,
+                            // alloworderbelowcost: alloworderbelowcostorder,
+                            ));
+                        showItemList = false;
+                      } else {
+                        // showpopdialogunitprice(
+                        //     context,
+                        //     "Price cannot be deviated from your allowed Limit. Required Special Pricing Approval to Proceed..!!",
+                        //     '');
+                        notifyListeners();
+                      }
+                      // showgiftitems(context, i, theme, addproduct, updateallProductDetails);
+                      pricecheckloading = false;
+                      pricecheckerror = '';
+                      notifyListeners();
+                    } else if (value.itemdata!.childdata == null ||
+                        value.itemdata!.childdata!.isEmpty) {
+                      log("Order data null");
+                      pricecheckloading = false;
+                      pricecheckerror = 'No data in CheckPriceValidity..!!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // gifterror = 'No data..!!';
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+                    }
+                  } else if (value.stcode! >= 400 && value.stcode! <= 410) {
+                    pricecheckloading = false;
+                    pricecheckerror =
+                        '${value.message}..!!${value.exception}....!!';
+                    showpopdialogunitprice(context, "$pricecheckerror", '');
+                    // if (addproduct == true) {
+                    //   mycontroller[12].clear();
+                    //   addProductDetails(context, allProductDetails[i]);
+                    //   notifyListeners();
+                    // } else if (addproduct == false) {
+                    //   updateProductDetails(context, i, updateallProductDetails);
+                    // }
+
+                    notifyListeners();
+                  } else {
+                    if (value.exception!.contains("Network is unreachable")) {
+                      pricecheckloading = false;
+                      pricecheckerror =
+                          '${value.stcode!}..!!Network Issue..\nTry again Later..!!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+
+                      notifyListeners();
+                    } else {
+                      pricecheckloading = false;
+                      pricecheckerror =
+                          '${value.stcode}..Something Went Wrong..!!\nContact System Admin..!';
+                      showpopdialogunitprice(context, "$pricecheckerror", '');
+                      // if (addproduct == true) {
+                      //   mycontroller[12].clear();
+                      //   addProductDetails(context, allProductDetails[i]);
+                      //   notifyListeners();
+                      // } else if (addproduct == false) {
+                      //   updateProductDetails(context, i, updateallProductDetails);
+                      // }
+
+                      notifyListeners();
+                    }
+
+                    notifyListeners();
+                  }
+                });
+              } else {
+                await calllinkedApi22(selectedItemCode);
+                productDetails.add(DocumentLines(
+                    bundleId: null,
+                    itemtype: "R",
+                    OfferSetup_Id: null,
+                    id: 0,
+                    docEntry: 0,
+                    linenum: 0,
+                    linkeditems: linkedItemsdatacheck.length > 0 ? true : false,
+                    ItemCode: selectedItemCode,
+                    ItemDescription: selectedItemName,
+                    Quantity: quantity,
+                    LineTotal: total,
+                    Price: unitPrice,
+                    TaxCode: taxvalue,
+                    TaxLiable: "tNO",
+                    storecode: storecode,
+                    deliveryfrom: deliveryfrom,
+                    sp: sporder,
+                    slpprice: slppriceorder,
+                    storestock: storestockorder,
+                    whsestock: whsestockorder,
+                    isfixedprice: isfixedpriceorder,
+                    allownegativestock: allownegativestockorder,
+                    alloworderbelowcost: alloworderbelowcostorder,
+                    giftitems: []
+                    //    sp: sporder,
+                    // slpprice: slppriceorder,
+                    // storestock: storestockorder,
+                    // whsestock:whsestockorder ,
+                    // isfixedprice: isfixedpriceorder,
+                    // allownegativestock:allownegativestockorder ,
+                    // alloworderbelowcost: alloworderbelowcostorder,
+                    ));
+                showItemList = false;
+              }
             }
           }
         }
 
         // log("productslist" + productDetails.length.toString());
         // log("product" + productDetails[0].ItemDescription.toString());
-        showItemList = false;
+
         // for (int i = 0;
         //     i < value.OrderDeatilsheaderData!.leadDeatilsQTLData!.length;
         //     i++) {
@@ -4352,9 +5745,23 @@ class OrderNewController extends ChangeNotifier {
   }
 
   clearAllData() {
+    Linked = null;
     log("step1");
+    linkedItemsdatacheck.clear();
+    finallinkload = false;
+    linkedItemsdata.clear();
+    LinkedItemsloading = false;
+    LinkedItemserror = '';
+    bundleallProductDetails.clear();
+    Bundleheaddetails.clear();
+    BundleItemdetails.clear();
+    Bundlestoredetails.clear();
+    isBundleloading = false;
+    Bundleerror = '';
+    isselected = [true, false];
     offeridval = null;
     itemtypemodify = '';
+    bundleidmodify = null;
     ordergiftData.clear();
     isgiftloading = false;
     gifterror = '';
@@ -4597,9 +6004,11 @@ class OrderNewController extends ChangeNotifier {
     //                                   curve: Curves.bounceIn);
   }
 
+  bool finalsaveload = false;
   saveToServer(BuildContext context) async {
     await callcustomerapi();
     log("Step----------1");
+
     // await GetCutomerDetailsApi.getData(
     //         mycontroller[0].text, "${ConstantValues.slpcode}")
     //     .then((value) {
@@ -4634,6 +6043,12 @@ class OrderNewController extends ChangeNotifier {
     // await callApi()
     // log("Step----------2");
     for (int i = 0; i < productDetails.length; i++) {
+      if (productDetails[i].itemtype!.toLowerCase() == 'g') {
+        productDetails.removeAt(i);
+        notifyListeners();
+      }
+    }
+    for (int i = 0; i < productDetails.length; i++) {
       if (productDetails[i].giftitems != null &&
           productDetails[i].giftitems!.isNotEmpty) {
         for (int ik = 0; ik < productDetails[i].giftitems!.length; ik++) {
@@ -4641,6 +6056,7 @@ class OrderNewController extends ChangeNotifier {
               productDetails[i].giftitems![ik].OfferSetup_Id;
           productDetails[i].itemtype = 'P';
           productDetails.add(DocumentLines(
+              bundleId: null,
               itemtype: productDetails[i].giftitems![ik].itemtype,
               OfferSetup_Id: productDetails[i].giftitems![ik].OfferSetup_Id,
               id: 0,
@@ -5390,6 +6806,8 @@ class OrderNewController extends ChangeNotifier {
   thirPageBtnClicked(BuildContext context) {
     int passed = 0;
     if (formkey[1].currentState!.validate()) {
+      isloadingBtn = true;
+      notifyListeners();
       // if (isSelectedpaymentTermsCode == null ||
       //     isSelectedpaymentTermsCode.isEmpty) {
       //   paymentTerm = true;
@@ -8089,6 +9507,7 @@ class OrderNewController extends ChangeNotifier {
                                             .toString(),
                                         style: theme.textTheme.bodyText1
                                             ?.copyWith(
+                                                fontSize: 13,
                                                 color: theme.primaryColor)),
                                   ),
                                   Container(
@@ -8098,37 +9517,42 @@ class OrderNewController extends ChangeNotifier {
                                         allProductDetails[i]
                                             .itemName
                                             .toString(),
-                                        style: theme.textTheme.bodyText1
-                                            ?.copyWith() //color: theme.primaryColor
+                                        style: theme.textTheme.bodyText1?.copyWith(
+                                            fontSize:
+                                                13) //color: theme.primaryColor
                                         ),
                                   ),
                                 ],
                               ),
-                              InkWell(
-                                onTap: () {
-                                  mycontroller[27].clear();
-                                  mycontroller[28].clear();
-                                  mycontroller[29].clear();
-                                  mycontroller[30].clear();
-                                  mycontroller[41].clear();
+                              allProductDetails[i].Isbundle == true
+                                  ? Container()
+                                  : InkWell(
+                                      onTap: () {
+                                        mycontroller[27].clear();
+                                        mycontroller[28].clear();
+                                        mycontroller[29].clear();
+                                        mycontroller[30].clear();
+                                        mycontroller[41].clear();
 
-                                  showBottomSheetInsert2(context, i);
-                                  notifyListeners();
-                                },
-                                child: Container(
-                                  alignment: Alignment.centerLeft,
-                                  //  padding: const EdgeInsets.only(right:10 ),
-                                  width: Screens.width(context) * 0.05,
-                                  height: Screens.padingHeight(context) * 0.04,
-                                  child: Center(
-                                      child: Icon(Icons.more_vert,
-                                          color: Colors.white)),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                    color: theme.primaryColor,
-                                  ),
-                                ),
-                              ),
+                                        showBottomSheetInsert2(context, i);
+                                        notifyListeners();
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.centerLeft,
+                                        //  padding: const EdgeInsets.only(right:10 ),
+                                        width: Screens.width(context) * 0.05,
+                                        height: Screens.padingHeight(context) *
+                                            0.04,
+                                        child: Center(
+                                            child: Icon(Icons.more_vert,
+                                                color: Colors.white)),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                          color: theme.primaryColor,
+                                        ),
+                                      ),
+                                    ),
                             ],
                           ),
 
@@ -8187,7 +9611,7 @@ class OrderNewController extends ChangeNotifier {
                           ),
 
                           SizedBox(
-                            height: 15,
+                            height: 10,
                           ),
                           SizedBox(
                             // width: 270,
@@ -8245,7 +9669,7 @@ class OrderNewController extends ChangeNotifier {
                           // ),
 
                           SizedBox(
-                            height: 10,
+                            height: 7,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -8447,7 +9871,7 @@ class OrderNewController extends ChangeNotifier {
                           ),
 
                           SizedBox(
-                            height: 10,
+                            height: 7,
                           ),
 
                           Row(
@@ -8534,9 +9958,10 @@ class OrderNewController extends ChangeNotifier {
                           SizedBox(
                             height: 5,
                           ),
-                          getcoupondata.isEmpty
-                              ? Container()
-                              : Row(
+                          // getcoupondata.isEmpty
+                          //     ? Container()
+                          //     :
+                               Row(
                                   children: [
                                     Container(
                                         alignment: Alignment.centerLeft,
@@ -8546,6 +9971,132 @@ class OrderNewController extends ChangeNotifier {
                                       alignment: Alignment.centerLeft,
                                       child: TextFormField(
                                         controller: mycontroller[36],
+                                        onEditingComplete: (){
+                                          if (mycontroller[11].text.isEmpty) {
+                                    st(() {
+                                      showtoastforcoupon("Enter QUANTITY");
+                                    });
+                                  } else {
+                                    st(() {
+//  callcouponApi();
+
+                                      st(() {
+                                        getcoupondata.clear();
+                                        couponload = true;
+                                      });
+
+                                      notifyListeners();
+                                      couponmodel coupondata = couponmodel();
+                                      coupondata.customerCode =
+                                          mycontroller[0].text;
+                                      coupondata.itemCode = selectedItemCode;
+                                      coupondata.storeCode =
+                                          ConstantValues.Storecode;
+                                      coupondata.qty =
+                                          int.parse(mycontroller[11].text);
+                                      coupondata.totalBillValue =
+                                          double.parse(mycontroller[10].text);
+                                      coupondata.requestedBy_UserCode =
+                                          ConstantValues.Usercode;
+
+                                      CouponApi.getData(coupondata)
+                                          .then((value) {
+                                        if (value.stcode! >= 200 &&
+                                            value.stcode! <= 210) {
+                                          if (value.CouponModaldatageader!
+                                                      .Ordercheckdata !=
+                                                  null &&
+                                              value.CouponModaldatageader!
+                                                  .Ordercheckdata!.isNotEmpty) {
+                                            log("not null");
+                                            st(() {
+                                              getcoupondata = value
+                                                  .CouponModaldatageader!
+                                                  .Ordercheckdata!;
+                                              log("getcoupondata::" +
+                                                  getcoupondata.length
+                                                      .toString());
+                                                      if(mycontroller[36].text ==getcoupondata[0]
+                                                      .CouponCode){
+                                                         mycontroller[10].text =
+                                                  getcoupondata[0]
+                                                      .RP!
+                                                      .toStringAsFixed(2);
+                                              mycontroller[11].text =
+                                                  getcoupondata[0]
+                                                      .Quantity!
+                                                      .toStringAsFixed(0);
+                                              unitPrice = double.parse(
+                                                  mycontroller[10].text);
+                                              quantity = double.parse(
+                                                  mycontroller[11].text);
+                                              total = unitPrice! * quantity!;
+                                              //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
+                                              notifyListeners();
+                                              isappliedcoupon = true;
+
+                                              notifyListeners();
+                                              couponload = false;
+
+                                                      }else{
+                                                         showtoastforcoupon(
+                                                  "you entered coupon code is not valid");
+                                                  mycontroller[36].clear();
+                                           
+                                                      }
+                                              // mycontroller[36].text =
+                                              //     getcoupondata[0]
+                                              //         .CouponCode
+                                              //         .toString();
+                                             
+                                            });
+
+                                            // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
+                                            notifyListeners();
+                                            // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
+                                          } else if (value
+                                                      .CouponModaldatageader!
+                                                      .Ordercheckdata ==
+                                                  null ||
+                                              value.CouponModaldatageader!
+                                                  .Ordercheckdata!.isEmpty) {
+                                            log("Order data null");
+                                            st(() {
+                                              couponload = false;
+
+                                              showtoastforcoupon(
+                                                  "you entered coupon code is not valid");
+                                                  mycontroller[36].clear();
+                                            });
+
+                                            notifyListeners();
+                                          }
+                                        } else if (value.stcode! >= 400 &&
+                                            value.stcode! <= 410) {
+                                          st(() {
+                                            couponload = false;
+                                            showtoastforcoupon(
+                                                '${value.message}..!!${value.exception}....!!');
+                                                mycontroller[36].clear();
+                                          });
+
+                                          notifyListeners();
+                                        } else {
+                                          st(() {
+                                            couponload = false;
+
+                                            showtoastforcoupon(
+                                                '${value.stcode!}..!!Network Issue..\nTry again Later..!!');
+                                                mycontroller[36].clear();
+                                          });
+
+                                          notifyListeners();
+                                        }
+                                        notifyListeners();
+                                      });
+                                    });
+                                  }
+                                        },
                                         decoration: InputDecoration(
                                           contentPadding:
                                               const EdgeInsets.symmetric(
@@ -8553,6 +10104,7 @@ class OrderNewController extends ChangeNotifier {
                                             horizontal: 10,
                                           ),
                                           labelText: 'Couponcode',
+                                          
                                           labelStyle: theme.textTheme.bodyText1!
                                               .copyWith(color: Colors.grey),
                                           enabledBorder: UnderlineInputBorder(
@@ -8594,61 +10146,64 @@ class OrderNewController extends ChangeNotifier {
                               isUpdateClicked == false
                                   ? ElevatedButton(
                                       onPressed: () {
-                                        //                             ScaffoldMessenger.of(context).showSnackBar(
-                                        //   SnackBar(
-                                        //     content: Text('Quantity Not equal to 0..!!'),
-                                        //     backgroundColor: Colors.red,
-                                        //     elevation: 10,
-                                        //     behavior: SnackBarBehavior.floating,
-
-                                        //     margin: EdgeInsets.only(
-
-                                        //       // bottom: Screens.bodyheight(context)-60
-                                        //     ),
-                                        //     dismissDirection: DismissDirection.down,
-                                        //   ),
-                                        // );
                                         if (mycontroller[11].text.isNotEmpty &&
                                             int.parse(mycontroller[11].text) >
                                                 0) {
-                                          if (ConstantValues.unitpricelogic!
-                                                  .toLowerCase() ==
-                                              'y') {
-                                            callPricecheckApi(
-                                                allProductDetails[i].itemCode,
-                                                int.parse(
-                                                    mycontroller[11].text),
-                                                double.parse(
-                                                    mycontroller[10].text),
-                                                mycontroller[36].text!.isEmpty
-                                                    ? ''
-                                                    : mycontroller[36].text,
+                                          if (allProductDetails[i].Isbundle ==
+                                              true) {
+                                            log("hhh::" +
+                                                allProductDetails[i]
+                                                    .id
+                                                    .toString());
+                                            callbundleApi(
                                                 context,
-                                                theme,
-                                                i,
+                                                allProductDetails[i].id!,
                                                 true,
+                                                i,
                                                 allProductDetails[i]);
                                           } else {
-                                            if (ConstantValues.ordergiftlogic!
+                                            if (ConstantValues.unitpricelogic!
                                                     .toLowerCase() ==
                                                 'y') {
-                                              callgiftApi(
-                                                  allProductDetails[i]
-                                                      .itemCode
-                                                      .toString(),
+                                              callPricecheckApi(
+                                                  allProductDetails[i].itemCode,
                                                   int.parse(
                                                       mycontroller[11].text),
                                                   double.parse(
                                                       mycontroller[10].text),
+                                                  mycontroller[36].text!.isEmpty
+                                                      ? ''
+                                                      : mycontroller[36].text,
                                                   context,
-                                                  i,
                                                   theme,
+                                                  i,
                                                   true,
                                                   allProductDetails[i]);
                                             } else {
-                                              mycontroller[12].clear();
-                                              addProductDetails(context,
-                                                  allProductDetails[i]);
+                                              if (ConstantValues.ordergiftlogic!
+                                                      .toLowerCase() ==
+                                                  'y') {
+                                                callgiftApi(
+                                                    allProductDetails[i]
+                                                        .itemCode
+                                                        .toString(),
+                                                    int.parse(
+                                                        mycontroller[11].text),
+                                                    double.parse(
+                                                        mycontroller[10].text),
+                                                    context,
+                                                    i,
+                                                    theme,
+                                                    true,
+                                                    allProductDetails[i]);
+                                              } else {
+                                                mycontroller[12].clear();
+                                                addProductDetails(
+                                                    context,
+                                                    allProductDetails[i],
+                                                    false,
+                                                    null);
+                                              }
                                             }
                                           }
                                         } else {
@@ -8908,7 +10463,10 @@ class OrderNewController extends ChangeNotifier {
                                       mycontroller[12].clear();
                                       ordergiftData.clear();
                                       addProductDetails(
-                                          context, allProductDetails[index]);
+                                          context,
+                                          allProductDetails[index],
+                                          false,
+                                          null);
                                       notifyListeners();
                                     } else if (addproduct == false) {
                                       ordergiftData.clear();
@@ -9243,7 +10801,10 @@ class OrderNewController extends ChangeNotifier {
                                     if (addproduct == true) {
                                       mycontroller[12].clear();
                                       addProductDetails(
-                                          context, allProductDetails[index]);
+                                          context,
+                                          allProductDetails[index],
+                                          false,
+                                          null);
                                       notifyListeners();
                                     } else if (addproduct == false) {
                                       updateProductDetails(context, index,
@@ -9285,7 +10846,10 @@ class OrderNewController extends ChangeNotifier {
                                     if (addproduct == true) {
                                       mycontroller[12].clear();
                                       addProductDetails(
-                                          context, allProductDetails[index]);
+                                          context,
+                                          allProductDetails[index],
+                                          false,
+                                          null);
                                       notifyListeners();
                                     } else if (addproduct == false) {
                                       updateProductDetails(context, index,
@@ -9381,9 +10945,9 @@ class OrderNewController extends ChangeNotifier {
     allownegativestockorder = productDetails[i].allownegativestock;
     alloworderbelowcostorder = productDetails[i].alloworderbelowcost;
     for (int ij = 0; ij < allProductDetails.length; ij++) {
-      log("allProductDetails[ij].itemCode::" +
-          allProductDetails[ij].itemCode.toString());
-      log("selectedItemCode::" + selectedItemCode.toString());
+      // log("allProductDetails[ij].itemCode::" +
+      //     allProductDetails[ij].itemCode.toString());
+      // log("selectedItemCode::" + selectedItemCode.toString());
       if (allProductDetails[ij].itemCode == selectedItemCode) {
         indexupdate = ij;
         break;
@@ -9417,8 +10981,9 @@ class OrderNewController extends ChangeNotifier {
                                 //  color: Colors.amber,
                                 child: Text(
                                     productDetails[i].ItemCode.toString(),
-                                    style: theme.textTheme.bodyText1
-                                        ?.copyWith(color: theme.primaryColor)),
+                                    style: theme.textTheme.bodyText1?.copyWith(
+                                        fontSize: 13,
+                                        color: theme.primaryColor)),
                               ),
                               Container(
                                 width: Screens.width(context) * 0.8,
@@ -9427,8 +10992,9 @@ class OrderNewController extends ChangeNotifier {
                                     productDetails[i]
                                         .ItemDescription
                                         .toString(),
-                                    style: theme.textTheme.bodyText1
-                                        ?.copyWith() //color: theme.primaryColor
+                                    style: theme.textTheme.bodyText1?.copyWith(
+                                        fontSize:
+                                            13) //color: theme.primaryColor
                                     ),
                               ),
                             ],
@@ -9490,12 +11056,15 @@ class OrderNewController extends ChangeNotifier {
                             }
                             return null;
                           },
-                          readOnly: (productDetails[i].couponcode != null &&
-                                  productDetails[i].couponcode != '')
-                              ? true
-                              : productDetails[i].isfixedprice == false
-                                  ? false
-                                  : true,
+                          readOnly:
+                              productDetails[i].itemtype!.toLowerCase() == 'b'
+                                  ? true
+                                  : (productDetails[i].couponcode != null &&
+                                          productDetails[i].couponcode != '')
+                                      ? true
+                                      : productDetails[i].isfixedprice == false
+                                          ? false
+                                          : true,
                           keyboardType:
                               TextInputType.numberWithOptions(decimal: true),
                           inputFormatters: <TextInputFormatter>[
@@ -9544,10 +11113,13 @@ class OrderNewController extends ChangeNotifier {
                             }
                             return null;
                           },
-                          readOnly: (productDetails[i].couponcode != null &&
-                                  productDetails[i].couponcode != '')
-                              ? true
-                              : false,
+                          readOnly:
+                              productDetails[i].itemtype!.toLowerCase() == 'b'
+                                  ? true
+                                  : (productDetails[i].couponcode != null &&
+                                          productDetails[i].couponcode != '')
+                                      ? true
+                                      : false,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
                             FilteringTextInputFormatter.digitsOnly,
@@ -9568,7 +11140,7 @@ class OrderNewController extends ChangeNotifier {
                       //  ),
 
                       SizedBox(
-                        height: 10,
+                        height: 7,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -9640,132 +11212,141 @@ class OrderNewController extends ChangeNotifier {
                           SizedBox(
                             height: 5,
                           ),
-                          InkWell(
-                            onTap: () async {
-                              if (mycontroller[11].text.isEmpty) {
-                                st(() {
-                                  showtoastforcoupon("Enter QUANTITY");
-                                });
-                              } else {
-                                st(() {
-//  callcouponApi();
-
-                                  st(() {
-                                    getcoupondata.clear();
-                                    couponload = true;
-                                  });
-
-                                  notifyListeners();
-                                  couponmodel coupondata = couponmodel();
-                                  coupondata.customerCode =
-                                      mycontroller[0].text;
-                                  coupondata.itemCode = selectedItemCode;
-                                  coupondata.storeCode =
-                                      ConstantValues.Storecode;
-                                  coupondata.qty =
-                                      int.parse(mycontroller[11].text);
-                                  coupondata.totalBillValue =
-                                      double.parse(mycontroller[10].text);
-                                  coupondata.requestedBy_UserCode =
-                                      ConstantValues.Usercode;
-
-                                  CouponApi.getData(coupondata).then((value) {
-                                    if (value.stcode! >= 200 &&
-                                        value.stcode! <= 210) {
-                                      if (value.CouponModaldatageader!
-                                                  .Ordercheckdata !=
-                                              null &&
-                                          value.CouponModaldatageader!
-                                              .Ordercheckdata!.isNotEmpty) {
-                                        log("not null");
-                                        st(() {
-                                          getcoupondata = value
-                                              .CouponModaldatageader!
-                                              .Ordercheckdata!;
-                                          log("getcoupondata::" +
-                                              getcoupondata.length.toString());
-                                          mycontroller[36].text =
-                                              getcoupondata[0]
-                                                  .CouponCode
-                                                  .toString();
-                                          mycontroller[10].text =
-                                              getcoupondata[0]
-                                                  .RP!
-                                                  .toStringAsFixed(2);
-                                          mycontroller[11].text =
-                                              getcoupondata[0]
-                                                  .Quantity!
-                                                  .toStringAsFixed(0);
-                                          unitPrice = double.parse(
-                                              mycontroller[10].text);
-                                          quantity = double.parse(
-                                              mycontroller[11].text);
-                                          total = unitPrice! * quantity!;
-                                          //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
-                                          notifyListeners();
-                                          isappliedcoupon = true;
-
-                                          notifyListeners();
-                                          couponload = false;
-                                        });
-
-                                        // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
-                                        notifyListeners();
-                                        // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
-                                      } else if (value.CouponModaldatageader!
-                                                  .Ordercheckdata ==
-                                              null ||
-                                          value.CouponModaldatageader!
-                                              .Ordercheckdata!.isEmpty) {
-                                        log("Order data null");
-                                        st(() {
-                                          couponload = false;
-
-                                          showtoastforcoupon(
-                                              "There is no couponcode for this customer");
-                                        });
-
-                                        notifyListeners();
-                                      }
-                                    } else if (value.stcode! >= 400 &&
-                                        value.stcode! <= 410) {
+                          productDetails[i].itemtype!.toLowerCase() == 'b'
+                              ? Container()
+                              : InkWell(
+                                  onTap: () async {
+                                    if (mycontroller[11].text.isEmpty) {
                                       st(() {
-                                        couponload = false;
-                                        showtoastforcoupon(
-                                            '${value.message}..!!${value.exception}....!!');
+                                        showtoastforcoupon("Enter QUANTITY");
                                       });
-
-                                      notifyListeners();
                                     } else {
                                       st(() {
-                                        couponload = false;
+//  callcouponApi();
 
-                                        showtoastforcoupon(
-                                            '${value.stcode!}..!!Network Issue..\nTry again Later..!!');
+                                        st(() {
+                                          getcoupondata.clear();
+                                          couponload = true;
+                                        });
+
+                                        notifyListeners();
+                                        couponmodel coupondata = couponmodel();
+                                        coupondata.customerCode =
+                                            mycontroller[0].text;
+                                        coupondata.itemCode = selectedItemCode;
+                                        coupondata.storeCode =
+                                            ConstantValues.Storecode;
+                                        coupondata.qty =
+                                            int.parse(mycontroller[11].text);
+                                        coupondata.totalBillValue =
+                                            double.parse(mycontroller[10].text);
+                                        coupondata.requestedBy_UserCode =
+                                            ConstantValues.Usercode;
+
+                                        CouponApi.getData(coupondata)
+                                            .then((value) {
+                                          if (value.stcode! >= 200 &&
+                                              value.stcode! <= 210) {
+                                            if (value.CouponModaldatageader!
+                                                        .Ordercheckdata !=
+                                                    null &&
+                                                value
+                                                    .CouponModaldatageader!
+                                                    .Ordercheckdata!
+                                                    .isNotEmpty) {
+                                              log("not null");
+                                              st(() {
+                                                getcoupondata = value
+                                                    .CouponModaldatageader!
+                                                    .Ordercheckdata!;
+                                                log("getcoupondata::" +
+                                                    getcoupondata.length
+                                                        .toString());
+                                                mycontroller[36].text =
+                                                    getcoupondata[0]
+                                                        .CouponCode
+                                                        .toString();
+                                                mycontroller[10].text =
+                                                    getcoupondata[0]
+                                                        .RP!
+                                                        .toStringAsFixed(2);
+                                                mycontroller[11].text =
+                                                    getcoupondata[0]
+                                                        .Quantity!
+                                                        .toStringAsFixed(0);
+                                                unitPrice = double.parse(
+                                                    mycontroller[10].text);
+                                                quantity = double.parse(
+                                                    mycontroller[11].text);
+                                                total = unitPrice! * quantity!;
+                                                //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
+                                                notifyListeners();
+                                                isappliedcoupon = true;
+
+                                                notifyListeners();
+                                                couponload = false;
+                                              });
+
+                                              // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
+                                              notifyListeners();
+                                              // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
+                                            } else if (value
+                                                        .CouponModaldatageader!
+                                                        .Ordercheckdata ==
+                                                    null ||
+                                                value.CouponModaldatageader!
+                                                    .Ordercheckdata!.isEmpty) {
+                                              log("Order data null");
+                                              st(() {
+                                                couponload = false;
+
+                                                showtoastforcoupon(
+                                                    "There is no couponcode for this customer");
+                                              });
+
+                                              notifyListeners();
+                                            }
+                                          } else if (value.stcode! >= 400 &&
+                                              value.stcode! <= 410) {
+                                            st(() {
+                                              couponload = false;
+                                              showtoastforcoupon(
+                                                  '${value.message}..!!${value.exception}....!!');
+                                            });
+
+                                            notifyListeners();
+                                          } else {
+                                            st(() {
+                                              couponload = false;
+
+                                              showtoastforcoupon(
+                                                  '${value.stcode!}..!!Network Issue..\nTry again Later..!!');
+                                            });
+
+                                            notifyListeners();
+                                          }
+                                          notifyListeners();
+                                        });
                                       });
-
-                                      notifyListeners();
                                     }
-                                    notifyListeners();
-                                  });
-                                });
-                              }
-                            },
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                "Apply Coupon Code",
-                                style: theme.textTheme.bodyText1!.copyWith(
-                                    color: theme.primaryColor,
-                                    decoration: TextDecoration.underline),
-                              ),
-                            ),
-                          ),
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "Apply Coupon Code",
+                                      style: theme.textTheme.bodyText1!
+                                          .copyWith(
+                                              color: theme.primaryColor,
+                                              decoration:
+                                                  TextDecoration.underline),
+                                    ),
+                                  ),
+                                ),
                         ],
                       ),
 
                       SizedBox(
-                        height: 10,
+                        height: 7,
                       ),
                       Row(
                         children: [
@@ -9837,9 +11418,10 @@ class OrderNewController extends ChangeNotifier {
                       SizedBox(
                         height: 5,
                       ),
-                      getcoupondata.isEmpty
-                          ? Container()
-                          : Row(
+                      // getcoupondata.isEmpty
+                      //     ? Container()
+                      //     :
+                           Row(
                               children: [
                                 Container(
                                     alignment: Alignment.centerLeft,
@@ -9849,6 +11431,137 @@ class OrderNewController extends ChangeNotifier {
                                   alignment: Alignment.centerLeft,
                                   child: TextFormField(
                                     controller: mycontroller[36],
+                                onEditingComplete: (){
+                                          if (mycontroller[11].text.isEmpty) {
+                                    st(() {
+                                      showtoastforcoupon("Enter QUANTITY");
+                                    });
+                                  } else {
+                                    st(() {
+//  callcouponApi();
+
+                                      st(() {
+                                        getcoupondata.clear();
+                                        couponload = true;
+                                      });
+
+                                      notifyListeners();
+                                      couponmodel coupondata = couponmodel();
+                                      coupondata.customerCode =
+                                          mycontroller[0].text;
+                                      coupondata.itemCode = selectedItemCode;
+                                      coupondata.storeCode =
+                                          ConstantValues.Storecode;
+                                      coupondata.qty =
+                                          int.parse(mycontroller[11].text);
+                                      coupondata.totalBillValue =
+                                          double.parse(mycontroller[10].text);
+                                      coupondata.requestedBy_UserCode =
+                                          ConstantValues.Usercode;
+
+                                      CouponApi.getData(coupondata)
+                                          .then((value) {
+                                        if (value.stcode! >= 200 &&
+                                            value.stcode! <= 210) {
+                                          if (value.CouponModaldatageader!
+                                                      .Ordercheckdata !=
+                                                  null &&
+                                              value.CouponModaldatageader!
+                                                  .Ordercheckdata!.isNotEmpty) {
+                                            log("not null");
+                                            st(() {
+                                              getcoupondata = value
+                                                  .CouponModaldatageader!
+                                                  .Ordercheckdata!;
+                                              log("getcoupondata::" +
+                                                  getcoupondata.length
+                                                      .toString());
+                                                      if(mycontroller[36].text ==getcoupondata[0]
+                                                      .CouponCode){
+                                                         mycontroller[10].text =
+                                                  getcoupondata[0]
+                                                      .RP!
+                                                      .toStringAsFixed(2);
+                                              mycontroller[11].text =
+                                                  getcoupondata[0]
+                                                      .Quantity!
+                                                      .toStringAsFixed(0);
+                                              unitPrice = double.parse(
+                                                  mycontroller[10].text);
+                                              quantity = double.parse(
+                                                  mycontroller[11].text);
+                                              total = unitPrice! * quantity!;
+                                              //  total = double.parse(mycontroller[10].text!) * double.parse(mycontroller[11].text!);
+                                              notifyListeners();
+                                              isappliedcoupon = true;
+
+                                              notifyListeners();
+                                              couponload = false;
+
+                                                      }else{
+                                                         showtoastforcoupon(
+                                                  "you entered coupon code is not valid");
+                                                  mycontroller[36].clear();
+                                           
+                                                      }
+                                              // mycontroller[36].text =
+                                              //     getcoupondata[0]
+                                              //         .CouponCode
+                                              //         .toString();
+                                             
+                                            });
+
+                                            // mapcoupon(value.CouponModaldatageader!.Ordercheckdata!);
+                                            notifyListeners();
+                                            // mapValues(value.Ordercheckdatageader!.Ordercheckdata!);
+                                          } else if (value
+                                                      .CouponModaldatageader!
+                                                      .Ordercheckdata ==
+                                                  null ||
+                                              value.CouponModaldatageader!
+                                                  .Ordercheckdata!.isEmpty) {
+                                            log("Order data null");
+                                            st(() {
+                                              couponload = false;
+
+                                              showtoastforcoupon(
+                                                  "you entered coupon code is not valid");
+                                                  mycontroller[36].clear();
+                                            });
+
+                                            notifyListeners();
+                                          }
+                                        } else if (value.stcode! >= 400 &&
+                                            value.stcode! <= 410) {
+                                          st(() {
+                                            couponload = false;
+                                            showtoastforcoupon(
+                                                '${value.message}..!!${value.exception}....!!');
+                                                mycontroller[36].clear();
+                                          });
+
+                                          notifyListeners();
+                                        } else {
+                                          st(() {
+                                            couponload = false;
+
+                                            showtoastforcoupon(
+                                                '${value.stcode!}..!!Network Issue..\nTry again Later..!!');
+                                                mycontroller[36].clear();
+                                          });
+
+                                          notifyListeners();
+                                        }
+                                        notifyListeners();
+                                      });
+                                    });
+                                  }
+                                        },
+                                        readOnly:
+                               (productDetails[i].couponcode != null &&
+                                          productDetails[i].couponcode != '')
+                                      ? true
+                                      : false,
                                     decoration: InputDecoration(
                                       contentPadding:
                                           const EdgeInsets.symmetric(
@@ -9896,25 +11609,14 @@ class OrderNewController extends ChangeNotifier {
                           isUpdateClicked == false
                               ? ElevatedButton(
                                   onPressed: () {
-                                    //                             ScaffoldMessenger.of(context).showSnackBar(
-                                    //   SnackBar(
-                                    //     content: Text('Quantity Not equal to 0..!!'),
-                                    //     backgroundColor: Colors.red,
-                                    //     elevation: 10,
-                                    //     behavior: SnackBarBehavior.floating,
-
-                                    //     margin: EdgeInsets.only(
-
-                                    //       // bottom: Screens.bodyheight(context)-60
-                                    //     ),
-                                    //     dismissDirection: DismissDirection.down,
-                                    //   ),
-                                    // );
                                     if (mycontroller[11].text.isNotEmpty &&
                                         int.parse(mycontroller[11].text) > 0) {
                                       mycontroller[12].clear();
-                                      addProductDetails(context,
-                                          allProductDetails[indexupdate!]);
+                                      addProductDetails(
+                                          context,
+                                          allProductDetails[indexupdate!],
+                                          false,
+                                          null);
                                     } else {
                                       showtoastproduct();
                                     }
@@ -9924,43 +11626,65 @@ class OrderNewController extends ChangeNotifier {
                                   onPressed: () {
                                     if (mycontroller[11].text.isNotEmpty &&
                                         int.parse(mycontroller[11].text) > 0) {
-                                      if (ConstantValues.unitpricelogic!
+                                      if (productDetails[i]
+                                              .itemtype!
                                               .toLowerCase() ==
-                                          'y') {
-                                        callPricecheckApi(
-                                            productDetails[i].ItemCode,
-                                            int.parse(mycontroller[11].text),
-                                            double.parse(mycontroller[10].text),
-                                            productDetails[i].couponcode ==
-                                                        null ||
-                                                    productDetails[i]
-                                                        .couponcode!
-                                                        .isEmpty
-                                                ? ''
-                                                : productDetails[i].couponcode,
-                                            context,
-                                            theme,
-                                            i,
-                                            false,
+                                          'b') {
+                                        unitPrice =
+                                            double.parse(mycontroller[10].text);
+                                        quantity =
+                                            double.parse(mycontroller[11].text);
+                                        total = unitPrice! * quantity!;
+                                        updateProductDetails(context, i,
                                             allProductDetails[indexupdate!]);
                                       } else {
-                                        if (ConstantValues.ordergiftlogic!
+                                        if (ConstantValues.unitpricelogic!
                                                 .toLowerCase() ==
                                             'y') {
-                                          productDetails[i].giftitems!.clear();
-                                          callgiftApi(
+                                          callPricecheckApi(
                                               productDetails[i].ItemCode,
                                               int.parse(mycontroller[11].text),
                                               double.parse(
                                                   mycontroller[10].text),
+                                              productDetails[i].couponcode ==
+                                                          null ||
+                                                      productDetails[i]
+                                                          .couponcode!
+                                                          .isEmpty
+                                                  ? ''
+                                                  : productDetails[i]
+                                                      .couponcode,
                                               context,
-                                              i,
                                               theme,
+                                              i,
                                               false,
                                               allProductDetails[indexupdate!]);
                                         } else {
-                                          updateProductDetails(context, i,
-                                              allProductDetails[indexupdate!]);
+                                          if (ConstantValues.ordergiftlogic!
+                                                  .toLowerCase() ==
+                                              'y') {
+                                            productDetails[i]
+                                                .giftitems!
+                                                .clear();
+                                            callgiftApi(
+                                                productDetails[i].ItemCode,
+                                                int.parse(
+                                                    mycontroller[11].text),
+                                                double.parse(
+                                                    mycontroller[10].text),
+                                                context,
+                                                i,
+                                                theme,
+                                                false,
+                                                allProductDetails[
+                                                    indexupdate!]);
+                                          } else {
+                                            updateProductDetails(
+                                                context,
+                                                i,
+                                                allProductDetails[
+                                                    indexupdate!]);
+                                          }
                                         }
                                       }
                                     } else {
@@ -10383,10 +12107,13 @@ class OrderNewController extends ChangeNotifier {
     double? LineTotal = 0.00;
     for (int i = 0; i < productDetails.length; i++) {
       // log("LineTotal::"+productDetails.length.toString());
-      taxpercentage = productDetails[i].TaxCode;
-      // log("aaa"+"${productDetails[i].LineTotal! / (1 + taxpercentage! / 100)}");
-      LineTotal = LineTotal! +
-          (productDetails[i].LineTotal! / (1 + taxpercentage! / 100));
+      if (productDetails[i].itemtype!.toLowerCase() != 'g') {
+        taxpercentage = productDetails[i].TaxCode;
+        // log("aaa"+"${productDetails[i].LineTotal! / (1 + taxpercentage! / 100)}");
+        LineTotal = LineTotal! +
+            (productDetails[i].LineTotal! / (1 + taxpercentage! / 100));
+      }
+
       // log("LineTotal5555::" + LineTotal.toString());
     }
     LineTotal = LineTotal! + getTotalGiftLineAmount();
@@ -10394,7 +12121,9 @@ class OrderNewController extends ChangeNotifier {
     return config.slpitCurrency22(LineTotal!.toString());
   }
 
-  getTotalGiftTaxAmount() {
+  getTotalGiftTaxAmount(
+    // int i
+    ) {
     double? taxtotal = 0.00;
     double? gifttaxpercentage;
     for (int i = 0; i < productDetails.length; i++) {
@@ -10446,19 +12175,29 @@ class OrderNewController extends ChangeNotifier {
   getTotalTaxAmount() {
     double? taxtotal = 0.00;
     double? taxpercentage;
+    
     for (int i = 0; i < productDetails.length; i++) {
-      taxpercentage = productDetails[i].TaxCode;
-      // log("productDetails[i].LineTotal:::"+productDetails[i].LineTotal!.toString());
-      // log("taxpercentage:::"+taxpercentage.toString());
+      // log(),
+      log("product"+productDetails[i].ItemCode.toString()+"type"+productDetails[i].itemtype.toString());
+      if (productDetails[i].itemtype!.toLowerCase() != 'g') {
+        taxpercentage = productDetails[i].TaxCode;
+        log("productDetails[i].LineTotal:::" +
+            productDetails[i].LineTotal!.toString());
+        log("taxpercentage:::"+taxpercentage.toString());
 
-      taxtotal = taxtotal! +
-          (taxpercentage! *
-                  (productDetails[i].LineTotal! / (1 + taxpercentage! / 100))) /
-              100;
-      // log("getTotalTaxAmountbefore:::" + taxtotal.toString());
-      taxtotal = taxtotal + getTotalGiftTaxAmount() ?? 0.0;
-      // log("getTotalTaxAmount:::" + taxtotal.toString());
+        taxtotal = taxtotal! +
+            (taxpercentage! *
+                    (productDetails[i].LineTotal! /
+                        (1 + taxpercentage! / 100))) /
+                100;
+        log("taxtotal:::" + taxtotal.toString());
+       
+        log("getTotalTaxAmount:::" + taxtotal.toString());
+      }
     }
+     taxtotal = taxtotal! 
+        +
+         getTotalGiftTaxAmount() ?? 0.0;
     return config.slpitCurrency22(taxtotal!.toString());
   }
 

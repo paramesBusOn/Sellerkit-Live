@@ -894,6 +894,7 @@ WHERE $fav IS NOT '';
           allowNegativeStock: false,
           allowOrderBelowCost: false,
           isFixedPrice: false,
+           Isbundle: false,
           validTill: '',
           color: '');
     });
@@ -952,8 +953,8 @@ WHERE $fav IS NOT '';
           clasification: result[i]['Clasification'].toString(),
           uoM: result[i]['UoM'].toString(),
           taxRate: result[i]['TaxRate'] == null
-              ? 0
-              : int.parse(result[i]['TaxRate'].toString()),
+              ? 0.0
+              : double.parse(result[i]['TaxRate'].toString()),
           catalogueUrl1: result[i]['CatalogueUrl1'].toString(),
           catalogueUrl2: result[i]['CatalogueUrl2'].toString(),
           imageUrl1: result[i]['ImageUrl1'].toString(),
@@ -1036,6 +1037,9 @@ WHERE $fav IS NOT '';
           isFixedPrice: result[i]['IsFixedPrice'] == null
               ? false
               : bool.parse(result[i]['IsFixedPrice'].toString()),
+               Isbundle:result[i]['isbundle'] == null
+              ? false
+              : bool.parse(result[i]['isbundle'].toString()) ,
           validTill: result[i]['ValidTill'].toString(),
           color: result[i]['color'].toString());
     });
@@ -1109,8 +1113,8 @@ WHERE $fav IS NOT '';
           clasification: result[i]['Clasification'].toString(),
           uoM: result[i]['UoM'].toString(),
           taxRate: result[i]['TaxRate'] == null
-              ? 0
-              : int.parse(result[i]['TaxRate'].toString()),
+              ? 0.0
+              : double.parse(result[i]['TaxRate'].toString()),
           catalogueUrl1: result[i]['CatalogueUrl1'].toString(),
           catalogueUrl2: result[i]['CatalogueUrl2'].toString(),
           imageUrl1: result[i]['ImageUrl1'].toString(),
@@ -1193,6 +1197,9 @@ WHERE $fav IS NOT '';
           isFixedPrice: result[i]['IsFixedPrice'] == null
               ? false
               : bool.parse(result[i]['IsFixedPrice'].toString()),
+               Isbundle:result[i]['isbundle'] == null
+              ? false
+              : bool.parse(result[i]['isbundle'].toString()) ,
           validTill: result[i]['ValidTill'].toString(),
           color: result[i]['color'].toString());
     });
@@ -1377,6 +1384,7 @@ WHERE $data IS NOT '';
           allowNegativeStock: false,
           allowOrderBelowCost: false,
           isFixedPrice: false,
+           Isbundle:false,
           validTill: '',
           color: '' //double.parse( result[i]['WhsStock'].toString()),
           );
@@ -1422,8 +1430,8 @@ Select * from ItemMaster where (ItemCode || ' - ' || ItemName) Like '%$data%';
           clasification: result[i]['Clasification'].toString(),
           uoM: result[i]['UoM'].toString(),
           taxRate: result[i]['TaxRate'] == null
-              ? 0
-              : int.parse(result[i]['TaxRate'].toString()),
+              ? 0.0
+              : double.parse(result[i]['TaxRate'].toString()),
           catalogueUrl1: result[i]['CatalogueUrl1'].toString(),
           catalogueUrl2: result[i]['CatalogueUrl2'].toString(),
           imageUrl1: result[i]['ImageUrl1'].toString(),
@@ -1506,6 +1514,9 @@ Select * from ItemMaster where (ItemCode || ' - ' || ItemName) Like '%$data%';
           isFixedPrice: result[i]['IsFixedPrice'] == null
               ? false
               : bool.parse(result[i]['IsFixedPrice'].toString()),
+               Isbundle:result[i]['isbundle'] == null
+              ? false
+              : bool.parse(result[i]['isbundle'].toString()) ,
           validTill: result[i]['ValidTill'].toString(),
           color: result[i]['color'].toString());
     });
@@ -1669,8 +1680,8 @@ Select * from tableopenlead where LeadDocEntry=$data;
           clasification: result[i]['Clasification'].toString(),
           uoM: result[i]['UoM'].toString(),
           taxRate: result[i]['TaxRate'] == null
-              ? 0
-              : int.parse(result[i]['TaxRate'].toString()),
+              ? 0.0
+              : double.parse(result[i]['TaxRate'].toString()),
           catalogueUrl1: result[i]['CatalogueUrl1'].toString(),
           catalogueUrl2: result[i]['CatalogueUrl2'].toString(),
           imageUrl1: result[i]['ImageUrl1'].toString(),
@@ -1753,6 +1764,9 @@ Select * from tableopenlead where LeadDocEntry=$data;
           isFixedPrice: result[i]['IsFixedPrice'] == null
               ? false
               : bool.parse(result[i]['IsFixedPrice'].toString()),
+               Isbundle:result[i]['isbundle'] == null
+              ? false
+              : bool.parse(result[i]['isbundle'].toString()) ,
           validTill: result[i]['ValidTill'].toString(),
           color: result[i]['color'].toString());
     });

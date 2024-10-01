@@ -13,9 +13,9 @@ class ApprovergetApi {
   static Future<getApproverModal> getdata(String? itemcode,String? rp) async {
     int resCode = 500;
     try {
-      log(Url.queryApi + 'Sellerkit_Flexi/v2/Decision_User_Get/ItemCode/RP?itemCode=$itemcode&RP=$rp');
+      log(Url.queryApi + 'Sellerkit_Flexi/v2/Decision_User_Get?itemCode=${Uri.encodeComponent(itemcode!)}&RP=$rp');
       final response = await http.get(
-          Uri.parse(Url.queryApi + 'Sellerkit_Flexi/v2/Decision_User_Get/ItemCode/RP?itemCode=$itemcode&RP=$rp'),
+          Uri.parse(Url.queryApi + 'Sellerkit_Flexi/v2/Decision_User_Get?itemCode=${Uri.encodeComponent(itemcode!)}&RP=$rp'),
           headers: {
             "content-type": "application/json",
             "Authorization": 'bearer ' + ConstantValues.token,

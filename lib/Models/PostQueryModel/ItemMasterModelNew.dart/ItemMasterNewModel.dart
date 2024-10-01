@@ -299,9 +299,11 @@ class ItemMasterNewModal {
       this.exception,
       required this.stcode});
   factory ItemMasterNewModal.fromJson(List<dynamic> jsons, int stcode) {
+    //  log("kkkk22::::"+jsons.toString());
     if (jsons != null && jsons.isNotEmpty) {
       // print("object::" + jsons.toString());
       var list = jsons as List;
+        // log("kkkk22::::"+list);
       List<ItemMasterNewData> dataList =
           list.map((data) => ItemMasterNewData.fromJson(data)).toList();
       return ItemMasterNewModal(
@@ -407,6 +409,7 @@ class ItemMasterNewData {
   required this. whsAgeSlab3,
   required this. whsAgeSlab4,
   required this. whsAgeSlab5,
+ required this. Isbundle
       });
 
   String? itemcode;
@@ -477,6 +480,7 @@ class ItemMasterNewData {
   String? whsAgeSlab3;
   String? whsAgeSlab4;
   String? whsAgeSlab5;
+  String? Isbundle;
 
 
 
@@ -484,8 +488,9 @@ class ItemMasterNewData {
   factory ItemMasterNewData.fromJson(Map<String, dynamic> json) {
     // print("!-----------------------------2--------");
     // log("kkkk"+json['Id'].toString());
-    // log("kkkk::::"+json.toString());
+    log("kkkk::::"+json.toString());
     return ItemMasterNewData(
+      Isbundle:json['Isbundle'] ?? '',
         MgrPrice: json['Mrp'] ?? '',
         itemcode: json['ItemCode'] ?? '',
         itemName: json['ItemName'] ?? '',

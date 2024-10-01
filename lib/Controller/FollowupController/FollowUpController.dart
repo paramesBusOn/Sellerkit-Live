@@ -6,6 +6,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Models/ordergiftModel/orderpricecheckModel.dart';
+import 'package:sellerkit/Services/OrdergiftApi/orderpricecheckApi.dart';
 
 import 'package:sellerkit/Services/getuserbyId/getuserbyid.dart';
 import 'package:flutter/material.dart';
@@ -116,6 +119,7 @@ class FollowupController extends ChangeNotifier {
   }
 
   clearAllData() {
+    orderpricecheckData.clear();
     iscalltrue = false;
     userid = '';
     usernumber = '';
@@ -473,8 +477,14 @@ class FollowupController extends ChangeNotifier {
     );
     await launchUrl(launchUri);
   }
+List<OrderPricecheckData> orderpricecheckData = [];
+  List<convertcolumn> orderconvert = [];
 
-  mapValuestoorder2(FollowUPListData leadOpenAllData) {
+  String? selectedItemName;
+
+  double? unitPrice;
+  double? quantity;
+  mapValuestoorder2(FollowUPListData leadOpenAllData,BuildContext context) async{
     OrderNewController.datafromfollow.clear();
     OrderNewController.datafromfollow.add(leadOpenAllData.Phone!);
     OrderNewController.datafromfollow.add(leadOpenAllData.Customer!);
@@ -490,67 +500,278 @@ class FollowupController extends ChangeNotifier {
     OrderNewController.datafromfollow.add(leadOpenAllData.cusgroup.toString());
 
     OrderNewController.datafromfollow.add(leadOpenAllData.area.toString());
-
-    OrderBookNewState.iscomfromLead = true;
-    Get.toNamed(ConstantRoutes.ordernew);
+ await GetLeadQTHApi.getData(leadOpenAllData.LeadDocNum.toString())
+        .then((value) async {
+      if (value.stcode! >= 200 && value.stcode! <= 210) {
+        for (int ik = 0;
+            ik < value.leadDeatilheadsData!.leadDeatilsQTLData!.length;
+            ik++) {
+          selectedItemName =
+              value.leadDeatilheadsData!.leadDeatilsQTLData![ik].ItemCode;
+          unitPrice = value.leadDeatilheadsData!.leadDeatilsQTLData![ik].Price;
+          quantity =
+              value.leadDeatilheadsData!.leadDeatilsQTLData![ik].Quantity;
+          if (ConstantValues.unitpricelogic!.toLowerCase() == 'y') {
+            orderpricecheckData.clear();
+            await OrderPricecheckApi.getData(
+                    value.leadDeatilheadsData!.leadDeatilsQTLData![ik].ItemCode,
+                    value.leadDeatilheadsData!.leadDeatilsQTLData![ik].Quantity!
+                        .toInt()!,
+                    value.leadDeatilheadsData!.leadDeatilsQTLData![ik].Price,
+                    '')
+                .then((value) {
+              if (value.stcode! >= 200 && value.stcode! <= 210) {
+                if (value.itemdata!.childdata != null &&
+                    value.itemdata!.childdata!.isNotEmpty) {
+                  orderpricecheckData = value.itemdata!.childdata!;
+                  if (orderpricecheckData[0].validity == 'valid') {
+                  } else {
+                    orderconvert.add(convertcolumn(
+                        itemcode: selectedItemName,
+                        quantity: quantity,
+                        unitprice: unitPrice));
+                    notifyListeners();
+                  }
+                }
+              }
+            });
+          }
+        }
+      }
+    });
+    if (orderconvert.isEmpty) {
+      OrderBookNewState.iscomfromLead = true;
+      Get.toNamed(ConstantRoutes.ordernew);
+      notifyListeners();
+    } else {
+      popconvert(context);
+      notifyListeners();
+    }
+    // OrderBookNewState.iscomfromLead = true;
+    // Get.toNamed(ConstantRoutes.ordernew);
     notifyListeners();
-    // GetCutomerDetailsApi.getData(mobile, "${ConstantValues.slpcode}")
-    //     .then((value) {
-    //   if (value.stcode! >= 200 && value.stcode! <= 210) {
-    //     if (value.itemdata != null) {
-    //       //  itemdata = value.itemdata!;
-
-    //       // OrderNewController.datafromfollow
-    //       //     .add(value.itemdata!.mobileNo==null?'':value.itemdata!.mobileNo.toString());
-    //       // OrderNewController.datafromfollow
-    //       //     .add(value.itemdata!.customerName==null?'':value.itemdata!.customerName.toString());
-    //       // OrderNewController.datafromfollow
-    //       //     .add(value.itemdata!.alternateMobileNo=="null"||value.itemdata!.alternateMobileNo ==null?"": value.itemdata!.alternateMobileNo.toString());
-    //       // OrderNewController.datafromfollow.add(value.itemdata!.email==null?"":value.itemdata!.email.toString());
-    //       // OrderNewController.datafromfollow
-    //       //     .add(value.itemdata!.address1==null?"":value.itemdata!.address1.toString());
-    //       // OrderNewController.datafromfollow
-    //       //     .add(value.itemdata!.address2==null?'':value.itemdata!.address2.toString());
-    //       // OrderNewController.datafromfollow.add(value.itemdata!.city==null?'':value.itemdata!.city.toString());
-    //       // OrderNewController.datafromfollow.add(value.itemdata!.state==null?'':value.itemdata!.state.toString());
-    //       // OrderNewController.datafromfollow
-    //       //     .add(value.itemdata!.pinCode==null?'':value.itemdata!.pinCode.toString());
-    //       // OrderNewController.datafromfollow.add(value.itemdata!.customerGroup.toString());
-    //       // OrderNewController.datafromfollow
-    //       //     .add(docen.toString());
-    //       //     OrderNewController.datafromfollow
-    //       //     .add(value.itemdata!.area==null?'':value.itemdata!.area.toString());
-    //       //  Get.toNamed(ConstantRoutes.ordernew);
-
-    //       log("datataa" + docen.toString());
-    //       notifyListeners();
-    //       OrderBookNewState.iscomfromLead = true;
-    //       Get.toNamed(ConstantRoutes.ordernew);
-    //     } else if (value.itemdata == null) {
-    //       //  leadLoadingdialog = false;
-    //       excepMsg = 'No Data found...!!';
-    //       //   forwardSuccessMsg = 'Some thing wrong \n${value.stcode} ${value.exception}..!!';
-
-    //       notifyListeners();
-    //     }
-    //   } else if (value.stcode! >= 400 && value.stcode! <= 410) {
-    //     // leadLoadingdialog = false;
-    //     excepMsg =
-    //         'Something went wrong try again\n${value.stcode} ${value.exception}...!!';
-    //     // forwardSuccessMsg = 'Some thing wrong \n${value.stcode} ${value.exception}..!!';
-
-    //     notifyListeners();
-    //   } else if (value.stcode == 500) {
-    //     //  leadLoadingdialog = false;
-    //     excepMsg =
-    //         'Something went wrong try again\n${value.stcode} ${value.exception}...!!';
-    //     //    forwardSuccessMsg = 'Some thing wrong \n${value.stcode} ${value.exception}..!!';
-
-    //     notifyListeners();
-    //   }
-    // });
+   
   }
+popconvert(BuildContext context) {
+    showDialog<dynamic>(
+        context: context,
+        barrierDismissible: false,
+        builder: (_) {
+          final theme = Theme.of(context);
+          return StatefulBuilder(builder: (context, st) {
+            return AlertDialog(
+                insetPadding: EdgeInsets.all(10),
+                contentPadding: EdgeInsets.all(0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                content: Container(
+                  width: Screens.width(context),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: Screens.width(context),
+                        height: Screens.bodyheight(context) * 0.06,
+                        child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              textStyle: TextStyle(
+                                  // fontSize: 12,
+                                  ),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                topLeft: Radius.circular(10),
+                              )), //Radius.circular(6)
+                            ),
+                            child: Text(
+                              "Alert",
+                            )),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                          // left: Screens.width(context) * 0.05,
+                          // right: Screens.width(context) * 0.05,
+                          top: Screens.bodyheight(context) * 0.02,
+                          // bottom: Screens.bodyheight(context) * 0.03,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Center(
+                                child: Text(
+                              "These Doucuments Price cannot be deviated from your allowed Limit. Required Special Pricing Approval to Proceed..!!",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyText1
+                                  ?.copyWith(fontSize: 15
+                                      //color:Colors.green
+                                      ),
+                            )),
 
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  color: theme.primaryColor,
+                                )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            //
+                            ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: orderconvert.length,
+                                itemBuilder: (context, i) {
+                                  return Container(
+                                    padding: EdgeInsets.only(
+                                      left: Screens.width(context) * 0.07,
+                                      right: Screens.width(context) * 0.05,
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                            width: Screens.width(context),
+                                            child: Text(
+                                              "${orderconvert[i].itemcode}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            )),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                                //  width: Screens.width(context),
+                                                child: Text(
+                                              "Qty : ${orderconvert[i].quantity!.toStringAsFixed(0)}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            )),
+                                            Container(
+                                                //  width: Screens.width(context),
+                                                child: Text(
+                                              "Price : ${orderconvert[i].unitprice!.toStringAsFixed(2)}",
+                                              style: theme.textTheme.bodyText2
+                                                  ?.copyWith(
+                                                // fontSize: 12,
+                                                color: theme.primaryColor,
+                                                //  fontWeight: FontWeight.bold
+                                              ),
+                                            ))
+                                          ],
+                                        ),
+                                        Container(
+                                            width: Screens.width(context) * 0.8,
+                                            child: Divider(
+                                              color: theme.primaryColor,
+                                            )),
+                                      ],
+                                    ),
+                                  );
+                                }),
+
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  color: theme.primaryColor,
+                                )),
+
+                            Center(
+                                child: Text(
+                              "Do you want to Continue",
+                              // "Click open to view this details",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyText1?.copyWith(
+                                  fontSize: 15, color: theme.primaryColor),
+                            )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Container(
+                                width: Screens.width(context) * 0.8,
+                                child: Divider(
+                                  height: 10,
+                                  color: theme.primaryColor,
+                                )),
+                            SizedBox(
+                              height: Screens.bodyheight(context) * 0.01,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: Screens.width(context) * 0.47,
+                                  height: Screens.bodyheight(context) * 0.06,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: theme.primaryColor,
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(0),
+                                        )),
+                                      ),
+                                      onPressed: () {
+                                        st(() {
+                                          Navigator.pop(context);
+                                        });
+                                      },
+                                      child: Text(
+                                        "No",
+                                        style: theme.textTheme.bodyText2
+                                            ?.copyWith(color: Colors.white),
+                                      )),
+                                ),
+                                Container(
+                                  width: Screens.width(context) * 0.47,
+                                  height: Screens.bodyheight(context) * 0.06,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: theme.primaryColor,
+                                        textStyle:
+                                            TextStyle(color: Colors.white),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(0),
+                                          bottomRight: Radius.circular(10),
+                                        )),
+                                      ),
+                                      onPressed: () {
+                                        st(() {
+                                          OrderBookNewState.iscomfromLead =
+                                              true;
+                                          Get.toNamed(ConstantRoutes.ordernew);
+                                        });
+                                      },
+                                      child: Text(
+                                        "Yes",
+                                        style: theme.textTheme.bodyText2
+                                            ?.copyWith(color: Colors.white),
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ));
+          });
+        });
+  }
   // mapValuesFUP(List<FollowUPListData> followUPListData) {
   //   for (int i = 0; i < followUPListData.length; i++) {
   //     if (followUPListData[i].Followup_Due_Type == 'Overdue') {
@@ -1841,4 +2062,14 @@ class FollowupController extends ChangeNotifier {
   //     }
   //   });
   // }
+}
+
+class convertcolumn {
+  String? itemcode;
+  double? quantity;
+  double? unitprice;
+  convertcolumn(
+      {required this.itemcode,
+      required this.quantity,
+      required this.unitprice});
 }

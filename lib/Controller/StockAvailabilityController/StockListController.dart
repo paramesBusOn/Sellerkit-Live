@@ -655,6 +655,7 @@ filterList2(String v) {
         
         allowOrderBelowCost:false,
         isFixedPrice:false,
+         Isbundle:false,
         validTill:'',
         color:'',
         calcType:"",
@@ -744,6 +745,7 @@ filterList2(String v) {
         
         allowOrderBelowCost:viewAll[i].allowOrderBelowCost,
         isFixedPrice:viewAll[i].isFixedPrice,
+         Isbundle:viewAll[i].Isbundle,
         validTill:viewAll[i].validTill,
         color:viewAll[i].color,
         calcType:viewAll[i].calcType,
@@ -833,6 +835,7 @@ filterList2(String v) {
         
         allowOrderBelowCost:viewAll[i].allowOrderBelowCost,
         isFixedPrice:viewAll[i].isFixedPrice,
+         Isbundle:viewAll[i].Isbundle,
         validTill:viewAll[i].validTill,
         color:viewAll[i].color,
         calcType:viewAll[i].calcType,
@@ -901,8 +904,18 @@ filterList2(String v) {
   getdataFromDb() async {
     final Database db = (await DBHelper.getInstance())!;
     listPriceAvail = await DBOperation.getAllProducts(db);
+    await mapvaluesdb(listPriceAvail);
     filterdataprice = listPriceAvail;
     notifyListeners();
+  }
+   mapvaluesdb(List<ItemMasterDBModel> allProductDetails)async{
+    for(int i=allProductDetails.length-1;i>=0;i--){
+      if(allProductDetails[i].Isbundle ==true){
+        log("allProductDetailsbundle::"+allProductDetails[i].itemCode.toString());
+        allProductDetails.removeAt(i);
+      }
+    }
+notifyListeners();
   }
 onfieldSccanned(String indexscanning)async{
   final Database db = (await DBHelper.getInstance())!;
@@ -1031,6 +1044,7 @@ onfieldSccanned(String indexscanning)async{
         
         allowOrderBelowCost:false,
         isFixedPrice:false,
+         Isbundle:false,
         validTill:"null",
         color:"null",
         calcType:"null",
@@ -1104,6 +1118,7 @@ onfieldSccanned(String indexscanning)async{
         
         allowOrderBelowCost:false,
         isFixedPrice:false,
+         Isbundle:false,
         validTill:"null",
         color:"null",
         calcType:"null",
@@ -1206,6 +1221,7 @@ onfieldSccanned(String indexscanning)async{
         
         allowOrderBelowCost:false,
         isFixedPrice:false,
+         Isbundle:false,
         validTill:"null",
         color:"null" ,
         calcType:"null",
@@ -1279,6 +1295,7 @@ onfieldSccanned(String indexscanning)async{
         
         allowOrderBelowCost:false,
         isFixedPrice:false,
+         Isbundle:false,
         validTill:"null",
         color:"null" ,
         calcType:"null",
@@ -1370,6 +1387,7 @@ onfieldSccanned(String indexscanning)async{
         
         allowOrderBelowCost:false,
         isFixedPrice:false,
+         Isbundle:false,
         validTill:"null",
         color:"null",
         calcType:"null",
@@ -1442,6 +1460,7 @@ onfieldSccanned(String indexscanning)async{
         
         allowOrderBelowCost:false,
         isFixedPrice:false,
+         Isbundle:false,
         validTill:"null",
         color:"null" ,
         calcType:"null",
@@ -1596,6 +1615,7 @@ getLeveofType() async {
         
         allowOrderBelowCost:false,
         isFixedPrice:false,
+         Isbundle:false,
         validTill:"null",
         color:"null" ,
         calcType:"null",
