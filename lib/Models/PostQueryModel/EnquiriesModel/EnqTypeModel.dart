@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison, unnecessary_cast
 
 import 'dart:convert';
-import '../../../DBModel/EnqTypeModel.dart';
+import '../../../DBModel/enqtype_model.dart';
 
 class EnquiryTypeModal {
 List<EnquiryTypeData>? itemdata;

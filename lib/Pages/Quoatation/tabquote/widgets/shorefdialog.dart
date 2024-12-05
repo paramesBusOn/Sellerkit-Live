@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
+import 'package:sellerkit/Controller/QuotationController/newquote_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 

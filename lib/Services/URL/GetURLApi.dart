@@ -29,7 +29,7 @@ print("get url body::"+response.body.toString());
         return GetUrlModel.issue(response.statusCode,response.body );
       }
     } catch (e) {
-      log("Exception: " + e.toString());
+      log("Exceptionreg: " + e.toString());
       return GetUrlModel.error(e.toString(), resCode);
     }
   }

@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/VisitplanController/NewVisitController.dart';
+import 'package:sellerkit/Controller/VisitplanController/newvisit_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 
@@ -191,7 +191,7 @@ class ShowSearchDialogState extends State<EnqAssignUserDialog> {
                   .UserName!,
               // maxLines: 1,
               //overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodyText2?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color: context

@@ -3,10 +3,11 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:sellerkit/Models/configModel/getconfigmodel.dart';
+import 'package:sellerkit/Models/configModel/getconfig_model.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 
 class GetconfigApi {
   static Future<GetconfigModal> getData(
@@ -32,7 +33,7 @@ class GetconfigApi {
 
       resCode = response.statusCode;
       // print(response.statusCode.toString());
-      log("Enquiry Type"+response.body.toString());
+      log("configApi Type"+response.body.toString());
       if (response.statusCode == 200) {
         stopwatch.stop();
     log('DB configApi ${stopwatch.elapsedMilliseconds} milliseconds');

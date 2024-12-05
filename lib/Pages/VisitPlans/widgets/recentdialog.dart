@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Controller/VisitplanController/newvisit_controller.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../Controller/VisitplanController/NewVisitController.dart';
 
 import 'package:intl/intl.dart';
 
@@ -96,7 +96,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Customer",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -105,7 +105,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Date",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -119,7 +119,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                   child: Text(
                                     // "AAA",
                                       "${context.watch<NewVisitplanController>().customerdetails![0].customerName}",
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                         color: theme.primaryColor,
                                         // fontWeight: FontWeight.bold
                                       )),
@@ -135,7 +135,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                           .alignDate(
                                               "${context.watch<NewVisitplanController>().enquirydetails![index].DocDate}"
                                       ),
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
                                       )),
@@ -152,7 +152,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Product",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -161,7 +161,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Potential Value",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -176,7 +176,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                     // "Looking for ",
                                      " ${context.watch<NewVisitplanController>().enquirydetails![index].Store}",
                                       // ",
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
                                       )),
@@ -191,7 +191,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                       //   context.watch<NewVisitplanController>().getopenEnqData[i].PotentialValue!.toStringAsFixed(0)
                                       // ),
                                       "₹ ${context.watch<NewVisitplanController>().enquirydetails![index].BusinessValue}",
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
                                       )),
@@ -211,7 +211,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                     // "ANb",
                                   
                                       "Call assigned to ${context.watch<NewVisitplanController>().enquirydetails![index].AssignedTo}",
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                         color: Colors.grey,
                                         // fontWeight: FontWeight.bold
                                       )),
@@ -232,7 +232,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                     child: Text(
                                       // "uuuu",
                                         "${context.watch<NewVisitplanController>().enquirydetails![index].CurrentStatus}",
-                                        style: theme.textTheme.bodyText2?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             color: Colors.green[700], fontSize: 12
                                             // fontWeight: FontWeight.bold
                                             )),
@@ -260,7 +260,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                   child: Text(
                                     // "aaaaa",
                                       "${context.watch<NewVisitplanController>().customerdetails![index].customerGroup}",
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey,
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500)),
@@ -276,7 +276,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                 //         .watch<NewVisitplanController>()
                                 //         .config
                                 //         .alignDate(context.watch<NewVisitplanController>().enquirydetails![index].visitTime.toString())}",
-                                //       style: theme.textTheme.bodyText2?.copyWith(
+                                //       style: theme.textTheme.bodyMedium?.copyWith(
                                 //           fontSize: 12,
                                 //           color: Colors.grey,
                                 //           fontStyle: FontStyle.italic
@@ -344,7 +344,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                               child: Text(
                                                 "Customer",
                                                 style:
-                                                    theme.textTheme.bodyText2
+                                                    theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -354,7 +354,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                                   Screens.width(context) * 0.4,
                                               child: Text(
                                                 "",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -370,7 +370,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                                   Screens.width(context) * 0.4,
                                               child: Text(
                                                   "${context.read<NewVisitplanController>().customerdetails![0].customerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
-                                                  style: theme.textTheme.bodyText2
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                     color:theme.primaryColor,
                                                     // fontWeight: FontWeight.bold
@@ -389,7 +389,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                                   // .config
                                                   // .alignDate(
                                                   //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
-                                                  style: theme.textTheme.bodyText2
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                     color: theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
@@ -411,7 +411,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                               width: Screens.width(context),
                                               child: Text(
                                                 "Product",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -421,7 +421,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                               // color: Colors.red,
                                               child: Text(
                                                   "${context.read<NewVisitplanController>().leaddetails![i].Store}",
-                                                  style: theme.textTheme.bodyText2
+                                                  style: theme.textTheme.bodyMedium
                                                   //?.copyWith(color: Colors.grey),
                                                   ),
                                             ),
@@ -441,7 +441,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                               // color: Colors.red,
                                               child: Text(
                                                   "Next Follow up", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
-                                                  style: theme.textTheme.bodyText2
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color:theme.primaryColor,
                                                           //fontWeight: FontWeight.bold
@@ -454,7 +454,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                               alignment: Alignment.centerRight,
                                               child: Text(
                                                   "Order Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                                  style: theme.textTheme.bodyText2
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color:theme.primaryColor,
                                                           //fontWeight: FontWeight.bold
@@ -478,7 +478,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                                           .config
                                                           .alignDate(
                                                               "${context.watch<NewVisitplanController>().leaddetails![i].DocDate}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
-                                                  style: theme.textTheme.bodyText2
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color:theme.primaryColor,
                                                           //fontWeight: FontWeight.bold
@@ -516,7 +516,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                                                 .toStringAsFixed(
                                                                     0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                                     style: theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             //color:theme.primaryColor,
                                                             //fontWeight: FontWeight.bold
@@ -555,7 +555,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                                         ? ''
                                                         : "${context.watch<NewVisitplanController>().leaddetails![i].CurrentStatus}",
                                                     style: theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       //color:theme.primaryColor,
                                                       color: Colors.green[700],
@@ -588,7 +588,7 @@ class ShowSearchDialogState extends State<recentactivites> {
                                                             .config
                                                             .subtractDateTime(
                                                                 "${context.watch<NewVisitplanController>().leaddetails![i].DocDate!}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                   color: Colors.grey,
                                                   // color: Colors.green[700],

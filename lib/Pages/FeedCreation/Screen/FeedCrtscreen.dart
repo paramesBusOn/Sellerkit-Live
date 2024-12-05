@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
-import '../../../Controller/FeedCreationcontroller/FeedCrtController.dart';
+import '../../../Controller/FeedCreationcontroller/feedcrt_controller.dart';
 import '../../../Widgets/Navi3.dart';
 import '../widgets/FeedCreationPage.dart';
 

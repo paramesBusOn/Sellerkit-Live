@@ -168,8 +168,8 @@
 //                       .watch<LeadTabController>()
 //                       .getforwardSuccessMsg
 //                       .contains("Success")
-//                   ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-//                   : theme.textTheme.headline6?.copyWith(color: Colors.red),
+//                   ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+//                   : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
 //             ),
 //             SizedBox(
 //               height: Screens.bodyheight(context) * 0.02,
@@ -177,7 +177,7 @@
 //             Text(
 //               context.watch<LeadTabController>().getforwardSuccessMsg,
 //               textAlign: TextAlign.center,
-//               style: theme.textTheme.bodyText1,
+//               style: theme.textTheme.bodyMedium,
 //             ),
 //             SizedBox(
 //               height: Screens.bodyheight(context) * 0.02,
@@ -255,7 +255,7 @@
 //                         child: Text(
 //                           // 'How you made the follow up?',
 //                           context.watch<LeadTabController>().followup!,
-//                           style: theme.textTheme.bodyText2?.copyWith(
+//                           style: theme.textTheme.bodyMedium?.copyWith(
 //                             color: context
 //                                     .watch<LeadTabController>()
 //                                     .getfollowup!
@@ -315,7 +315,7 @@
 //                       Container(
 //                         child: Text(
 //                           "What is the case status now?",
-//                           style: theme.textTheme.bodyText2
+//                           style: theme.textTheme.bodyMedium
 //                               ?.copyWith(color: theme.primaryColor),
 //                         ),
 //                       ),
@@ -481,7 +481,7 @@
 //                                   context
 //                                       .watch<LeadTabController>()
 //                                       .gethinttextforOpenLead!,
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                       color: context
 //                                               .watch<LeadTabController>()
 //                                               .gethinttextforOpenLead!
@@ -545,7 +545,7 @@
 //                                   context
 //                                       .read<LeadTabController>()
 //                                       .gethinttextforWonLead!,
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                       color: context
 //                                               .read<LeadTabController>()
 //                                               .gethinttextforWonLead!
@@ -602,7 +602,7 @@
 //                                       .read<LeadTabController>()
 //                                       .getorderBillRefer!,
 //                                   hintStyle:
-//                                       theme.textTheme.bodyText2?.copyWith(
+//                                       theme.textTheme.bodyMedium?.copyWith(
 //                                     color: context
 //                                             .read<LeadTabController>()
 //                                             .getorderBillRefer!
@@ -632,7 +632,7 @@
 //                                   context
 //                                       .watch<LeadTabController>()
 //                                       .getorderBillDate!, // "Next Follow up",
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                     color: context
 //                                             .watch<LeadTabController>()
 //                                             .getorderBillDate!
@@ -673,7 +673,7 @@
 //                                                 .watch<LeadTabController>()
 //                                                 .getnextWonFD,
 //                                             // context.read<LeadTabController>().getnextFD,
-//                                             style: theme.textTheme.bodyText2
+//                                             style: theme.textTheme.bodyMedium
 //                                                 ?.copyWith(), //fontSize: 12
 //                                           ),
 //                                         ),
@@ -720,7 +720,7 @@
 //                                   context
 //                                       .read<LeadTabController>()
 //                                       .gethinttextforLostLead!,
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                       color: context
 //                                               .read<LeadTabController>()
 //                                               .gethinttextforLostLead!
@@ -766,7 +766,7 @@
 //                           context
 //                               .watch<LeadTabController>()
 //                               .getfeedbackLead!, // "Feedback",
-//                           style: theme.textTheme.bodyText2?.copyWith(
+//                           style: theme.textTheme.bodyMedium?.copyWith(
 //                             color: context
 //                                     .watch<LeadTabController>()
 //                                     .getfeedbackLead!
@@ -805,7 +805,7 @@
 //                             context
 //                                 .watch<LeadTabController>()
 //                                 .getnextFollowupDate!, // "Next Follow up",
-//                             style: theme.textTheme.bodyText2?.copyWith(
+//                             style: theme.textTheme.bodyMedium?.copyWith(
 //                               color: context
 //                                       .watch<LeadTabController>()
 //                                       .getnextFollowupDate!
@@ -845,7 +845,7 @@
 //                                           .watch<LeadTabController>()
 //                                           .getnextFD,
 //                                       // context.read<LeadTabController>().getnextFD,
-//                                       style: theme.textTheme.bodyText2
+//                                       style: theme.textTheme.bodyMedium
 //                                           ?.copyWith(), //fontSize: 12
 //                                     ),
 //                                   ),
@@ -995,7 +995,7 @@
 //                         Container(
 //                           child: Text(
 //                             "Update Followup FeedBack",
-//                             style: theme.textTheme.bodyText1?.copyWith(
+//                             style: theme.textTheme.bodyMedium?.copyWith(
 //                                 color: theme.primaryColor,
 //                                 fontWeight: FontWeight.w400),
 //                           ),
@@ -1003,7 +1003,7 @@
 //                         Container(
 //                           child: Text(
 //                             "Click Here",
-//                             style: theme.textTheme.bodyText2
+//                             style: theme.textTheme.bodyMedium
 //                                 ?.copyWith(color: Colors.grey),
 //                           ),
 //                         ),
@@ -1152,7 +1152,7 @@
 //                   Container(
 //                     alignment: Alignment.center,
 //                     child: Text("Lead Details",
-//                         style: theme.textTheme.bodyText1
+//                         style: theme.textTheme.bodyMedium
 //                             ?.copyWith(color: Colors.white)),
 //                   ),
 //                   InkWell(
@@ -1191,7 +1191,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].CardName}",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                       Container(
@@ -1215,7 +1215,7 @@
 //                                         DateTime.now().toString()
 //                                         ),
 //                       textAlign: TextAlign.center,
-//                      style: theme.textTheme.bodyText2?.copyWith(),
+//                      style: theme.textTheme.bodyMedium?.copyWith(),
 //                      ),
 //                    ),
 //                  )
@@ -1228,7 +1228,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Address1}",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                       Container(
@@ -1243,7 +1243,7 @@
 //                                     "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].DocTotal!.toString()}",
 //                                   ) +'/-',
 
-//                           style: theme.textTheme.bodyText2?.copyWith(
+//                           style: theme.textTheme.bodyMedium?.copyWith(
 //                             color: theme.primaryColor,
 //                           ),
 //                         ),
@@ -1257,7 +1257,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Address2}",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                       Container(
@@ -1265,7 +1265,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "# ${context.watch<LeadTabController>().getleadDeatilsQTHData![0].LeadNum}",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                     ],
@@ -1277,7 +1277,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].City}",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                       Container(
@@ -1288,7 +1288,7 @@
 //                               context.watch<LeadTabController>().config.alignDate3(
 //                                   "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].LeadCreatedDate}" //.LastFUPUpdate
 //                                   ),
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                     ],
@@ -1300,7 +1300,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Pincode}",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                       Container(
@@ -1311,7 +1311,7 @@
 //                               context.watch<LeadTabController>().config.alignDate3(
 //                                   "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].LastFUPUpdate}" //.
 //                                   ),
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                     ],
@@ -1341,7 +1341,7 @@
 //                                     context.watch<LeadTabController>().config.alignDate(
 //                                         '${context.watch<LeadTabController>().getleadDeatilsLeadData[context.watch<LeadTabController>().getleadDeatilsLeadData.length - 1].NextFollowup_Date}'),
 //                                 textAlign: TextAlign.center,
-//                                 style: theme.textTheme.bodyText2?.copyWith(
+//                                 style: theme.textTheme.bodyMedium?.copyWith(
 //                                   color: theme.primaryColor,
 //                                 ),
 //                               ),
@@ -1366,7 +1366,7 @@
 //                           child: Text(
 //                             'Last status # ${context.watch<LeadTabController>().getleadDeatilsLeadData[context.watch<LeadTabController>().getleadDeatilsLeadData.length - 1].Status}',
 //                             textAlign: TextAlign.center,
-//                             style: theme.textTheme.bodyText2?.copyWith(
+//                             style: theme.textTheme.bodyMedium?.copyWith(
 //                               color: theme.primaryColor,
 //                             ),
 //                           ),
@@ -1390,7 +1390,7 @@
 //                   //         child: Text(
 //                   //           'Last status # ${context.watch<LeadTabController>().getleadDeatilsQLData[context.watch<LeadTabController>().getleadDeatilsQLData.length - 1].Status}',
 //                   //           textAlign: TextAlign.center,
-//                   //           style: theme.textTheme.bodyText2?.copyWith(
+//                   //           style: theme.textTheme.bodyMedium?.copyWith(
 //                   //             color: theme.primaryColor,
 //                   //           ),
 //                   //         ),
@@ -1488,7 +1488,7 @@
 //                   Container(
 //                     alignment: Alignment.center,
 //                     child: Text("Lead Details",
-//                         style: theme.textTheme.bodyText1
+//                         style: theme.textTheme.bodyMedium
 //                             ?.copyWith(color: Colors.white)),
 //                   ),
 //                   InkWell(
@@ -1527,7 +1527,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "Customer",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                     ],
@@ -1539,7 +1539,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                             "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].CardName}",
-//                             style: theme.textTheme.bodyText2?.copyWith(
+//                             style: theme.textTheme.bodyMedium?.copyWith(
 //                               color: theme.primaryColor,
 //                               // fontWeight: FontWeight.bold
 //                             )),
@@ -1548,7 +1548,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         alignment: Alignment.centerRight,
 //                         child: Text("",
-//                             style: theme.textTheme.bodyText2?.copyWith(
+//                             style: theme.textTheme.bodyMedium?.copyWith(
 //                               color: theme.primaryColor,
 //                             )),
 //                       ),
@@ -1572,7 +1572,7 @@
 //                           child: Text(
 //                             "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Address1}\n${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Address2}",
 //                             //"31 west street \nkottucherry \nkaraikal 609-609 \npondicherry",
-//                             style: theme.textTheme.bodyText2?.copyWith(
+//                             style: theme.textTheme.bodyMedium?.copyWith(
 //                               color: theme.primaryColor,
 //                             ), // color:  Colors.grey
 //                           ),
@@ -1598,7 +1598,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "Total Lead Value",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                       Container(
@@ -1606,7 +1606,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "20000.00",
-//                           style: theme.textTheme.bodyText2?.copyWith(
+//                           style: theme.textTheme.bodyMedium?.copyWith(
 //                             color: theme.primaryColor,
 //                           ),
 //                         ),
@@ -1623,7 +1623,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "Next Follow up",
-//                           style: theme.textTheme.bodyText2?.copyWith(),
+//                           style: theme.textTheme.bodyMedium?.copyWith(),
 //                         ),
 //                       ),
 //                       Container(
@@ -1631,7 +1631,7 @@
 //                         width: Screens.width(context) * 0.4,
 //                         child: Text(
 //                           "12-08-2022",
-//                           style: theme.textTheme.bodyText2?.copyWith(
+//                           style: theme.textTheme.bodyMedium?.copyWith(
 //                             color: theme.primaryColor,
 //                           ),
 //                         ),
@@ -1686,7 +1686,7 @@
 //         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
 //         child: Text(
 //           "Product",
-//           style: theme.textTheme.bodyText1
+//           style: theme.textTheme.bodyMedium
 //               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
 //           textAlign: TextAlign.left,
 //         ),
@@ -1696,7 +1696,7 @@
 //         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
 //         child: Text(
 //           "Price",
-//           style: theme.textTheme.bodyText1
+//           style: theme.textTheme.bodyMedium
 //               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
 //           textAlign: TextAlign.left,
 //         ),
@@ -1706,7 +1706,7 @@
 //         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
 //         child: Text(
 //           "Qty",
-//           style: theme.textTheme.bodyText1
+//           style: theme.textTheme.bodyMedium
 //               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
 //           textAlign: TextAlign.left,
 //         ),
@@ -1721,7 +1721,7 @@
 //           child: Text(
 //             '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].ItemName!}',
 //             textAlign: TextAlign.left,
-//             style: theme.textTheme.bodyText1?.copyWith(
+//             style: theme.textTheme.bodyMedium?.copyWith(
 //               color: theme.primaryColor,
 //             ),
 //           ),
@@ -1736,7 +1736,7 @@
 //                 .toStringAsFixed(0)),
 //             // '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
 //             textAlign: TextAlign.center,
-//             style: theme.textTheme.bodyText1?.copyWith(
+//             style: theme.textTheme.bodyMedium?.copyWith(
 //               color: theme.primaryColor,
 //             ),
 //           ),
@@ -1746,7 +1746,7 @@
 //           child: Text(
 //             '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Quantity!.toStringAsFixed(0)}',
 //             textAlign: TextAlign.center,
-//             style: theme.textTheme.bodyText1?.copyWith(
+//             style: theme.textTheme.bodyMedium?.copyWith(
 //               color: theme.primaryColor,
 //             ),
 //           ),
@@ -1810,7 +1810,7 @@
 //                       alignment: Alignment.centerLeft,
 //                       child: Text(
 //                         "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Status} ",
-//                         style: theme.textTheme.bodyText2,
+//                         style: theme.textTheme.bodyMedium,
 //                       ),
 //                     ),
 //                     SizedBox(
@@ -1821,7 +1821,7 @@
 //                       child: Text(
 //                         // context.read<LeadTabController>().config.alignDate(
 //                         "By ${context.read<LeadTabController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode}", //),
-//                         style: theme.textTheme.bodyText2?.copyWith(
+//                         style: theme.textTheme.bodyMedium?.copyWith(
 //                             // color: theme.primaryColor,
 //                             ),
 //                       ),
@@ -1840,7 +1840,7 @@
 //                             child: Text(
 //                               // context.read<LeadTabController>().config.alignDate(
 //                               "# ${context.read<LeadTabController>().getleadDeatilsLeadData[index].Feedback}",
-//                               style: theme.textTheme.bodyText2?.copyWith(
+//                               style: theme.textTheme.bodyMedium?.copyWith(
 //                                   // color: theme.primaryColor,
 //                                   ),
 //                             ),
@@ -1869,7 +1869,7 @@
 //                                     "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
 //                                   ),
 //                                   textAlign:TextAlign.center,
-//                               style: theme.textTheme.bodyText2,
+//                               style: theme.textTheme.bodyMedium,
 //                             ),
 //                           ],
 //                         )),
@@ -1929,7 +1929,7 @@
 //                       alignment: Alignment.centerLeft,
 //                       child: Text(
 //                         "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Status} ",
-//                         style: theme.textTheme.bodyText2,
+//                         style: theme.textTheme.bodyMedium,
 //                       ),
 //                     ),
 //                     SizedBox(
@@ -1940,7 +1940,7 @@
 //                       child: Text(
 //                         // context.read<LeadTabController>().config.alignDate(
 //                         "By ${context.read<LeadTabController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode}", //),
-//                         style: theme.textTheme.bodyText2?.copyWith(
+//                         style: theme.textTheme.bodyMedium?.copyWith(
 //                             // color: theme.primaryColor,
 //                             ),
 //                       ),
@@ -1960,7 +1960,7 @@
 //                               // context.read<LeadTabController>().config.alignDate(
 //                               "# ${context.read<LeadTabController>().getleadDeatilsLeadData[index].Feedback}",
 //                               style:
-//                                   theme.textTheme.bodyText2?.copyWith(
+//                                   theme.textTheme.bodyMedium?.copyWith(
 //                                       // color: theme.primaryColor,
 //                                       ),
 //                             ),
@@ -1987,7 +1987,7 @@
 //                                     "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
 //                                   ),
 //                                   textAlign:TextAlign.center,
-//                               style: theme.textTheme.bodyText2,
+//                               style: theme.textTheme.bodyMedium,
 //                             ),
 //                           ],
 //                         )),
@@ -2038,7 +2038,7 @@
 //                       alignment: Alignment.centerLeft,
 //                       child: Text(
 //                         "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Status} ",
-//                         style: theme.textTheme.bodyText2,
+//                         style: theme.textTheme.bodyMedium,
 //                       ),
 //                     ),
 //                     SizedBox(
@@ -2049,7 +2049,7 @@
 //                       child: Text(
 //                         // context.read<LeadTabController>().config.alignDate(
 //                         "By ${context.read<LeadTabController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode}", //),
-//                         style: theme.textTheme.bodyText2?.copyWith(
+//                         style: theme.textTheme.bodyMedium?.copyWith(
 //                             // color: theme.primaryColor,
 //                             ),
 //                       ),
@@ -2069,7 +2069,7 @@
 //                               // context.read<LeadTabController>().config.alignDate(
 //                               "# ${context.read<LeadTabController>().getleadDeatilsLeadData[index].Feedback}",
 //                               style:
-//                                   theme.textTheme.bodyText2?.copyWith(
+//                                   theme.textTheme.bodyMedium?.copyWith(
 //                                       // color: theme.primaryColor,
 //                                       ),
 //                             ),
@@ -2097,7 +2097,7 @@
 //                                     "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
 //                                   ),
 //                                   textAlign:TextAlign.center,
-//                               style: theme.textTheme.bodyText2,
+//                               style: theme.textTheme.bodyMedium,
 //                             ),
 //                           ],
 //                         )),
@@ -2160,7 +2160,7 @@
 //                 context
 //                     .watch<LeadTabController>()
 //                     .getforwardNextFollowDate!, // "Next Follow up",
-//                 style: theme.textTheme.bodyText2?.copyWith(
+//                 style: theme.textTheme.bodyMedium?.copyWith(
 //                   color: context
 //                           .watch<LeadTabController>()
 //                           .getforwardNextFollowDate!
@@ -2194,7 +2194,7 @@
 //                               .watch<LeadTabController>()
 //                               .getforwardnextWonFD,
 //                           // context.read<LeadTabController>().getnextFD,
-//                           style: theme.textTheme.bodyText2
+//                           style: theme.textTheme.bodyMedium
 //                               ?.copyWith(), //fontSize: 12
 //                         ),
 //                       ),
@@ -2289,7 +2289,7 @@
 //           child: Text(
 //               context.watch<LeadTabController>().getuserLtData[ind].UserName!,
 //               textAlign: TextAlign.center,
-//               style: theme.textTheme.bodyText1?.copyWith(
+//               style: theme.textTheme.bodyMedium?.copyWith(
 //                 fontWeight: FontWeight.normal,
 //                 fontSize: 16,
 //                 color: context

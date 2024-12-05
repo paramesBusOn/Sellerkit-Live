@@ -7,11 +7,11 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/MenuAuth.dart';
+import 'package:sellerkit/Constant/menu_auth.dart';
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Controller/OrderController/ordernew_controller.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/Pdf.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Controller/OrderController/OrderNewController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderSavePostModel.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
@@ -108,7 +108,7 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
                                     child: Text(
                                   "Order Created Successfully",
                                   textAlign: TextAlign.center,
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.grey),
                                 )),
                               ),
@@ -122,7 +122,7 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "Order Entry #${getsuccessRes!.orderSavePostheader!.orderMasterdata![0].DocNo.toString()}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -136,7 +136,7 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "${getsuccessRes!.orderSavePostheader!.orderMasterdata![0].CardName}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -150,7 +150,7 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "${getsuccessRes!.orderSavePostheader!.orderMasterdata![0].CardCode}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -164,7 +164,7 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
                               //   child: Center(
                               //       child: Text(
                               //     "${getsuccessRes!.U_sk_email}",
-                              //     style: theme.textTheme.bodyText2,
+                              //     style: theme.textTheme.bodyMedium,
                               //     textAlign: TextAlign.center,
                               //   )),
                               // ),
@@ -203,7 +203,7 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
                                           .aligndateorder(
                                               getsuccessRes!.orderSavePostheader!.orderMasterdata![0].U_sk_NextFollowDt!)
                                           
-                                ,  style: theme.textTheme.bodyText2,
+                                ,  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -330,7 +330,7 @@ class OrderSuccessPageState extends State<OrderSuccessPage> {
           width: Screens.width(context),
           
           child: Text(data[index].ItemDescription.toString(),
-              textAlign: TextAlign.center, style: theme.textTheme.bodyText2)),
+              textAlign: TextAlign.center, style: theme.textTheme.bodyMedium)),
     );
   }
 }

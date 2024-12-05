@@ -60,7 +60,7 @@ class ForgotRegisterPageState extends State<ForgotRegisterPage> {
                 //     children: [
                 //       Text(
                 //         "Forgot password",
-                //         style: theme.textTheme.headline5
+                //         style: theme.textTheme.headlineSmall
                 //             ?.copyWith(color: Colors.white),
                 //       )
                 //     ],

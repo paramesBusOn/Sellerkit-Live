@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/NotificationController/NotificationController.dart';
+import 'package:sellerkit/Controller/NotificationController/notification_controller.dart';
 import '../../../Constant/Screen.dart';
 
 class NotifyDeleteDialog extends StatefulWidget {

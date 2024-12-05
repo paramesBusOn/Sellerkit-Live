@@ -4,22 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Controller/LeadController/LeadNewController.dart';
-import 'package:sellerkit/Controller/OrderController/OrderNewController.dart';
-import 'package:sellerkit/Controller/PriceListController/PriceListController.dart';
-import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
-import 'package:sellerkit/Controller/StockAvailabilityController/StockListController.dart';
-import 'package:sellerkit/Controller/specialpricecontroller/newpagecontroller.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 
-class qrscanner extends StatefulWidget {
-   qrscanner({Key? key}) : super(key: key);
+import 'package:sellerkit/Controller/LeadController/leadnew_controller.dart';
+import 'package:sellerkit/Controller/OrderController/ordernew_controller.dart';
+import 'package:sellerkit/Controller/PriceListController/pricelist_controller.dart';
+import 'package:sellerkit/Controller/QuotationController/newquote_controller.dart';
+import 'package:sellerkit/Controller/StockAvailabilityController/stocklist_controller.dart';
+import 'package:sellerkit/Controller/specialpricecontroller/newpage_controller.dart';
+
+class Qrscanner extends StatefulWidget {
+ const  Qrscanner({Key? key}) : super(key: key);
 
   @override
-  State<qrscanner> createState() => qrscannerState();
+  State<Qrscanner> createState() => QrscannerState();
 }
 
-class qrscannerState extends State<qrscanner> {
+class QrscannerState extends State<Qrscanner> {
   static bool orderscan=false;
   static bool leadscan=false;
   static bool quotescan=false;

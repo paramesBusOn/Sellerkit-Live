@@ -4,7 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import '../../../Constant/Screen.dart';
-import '../../../Controller/FeedCreationcontroller/CameraController.dart';
+import '../../../Controller/FeedCreationcontroller/camera_controller.dart';
 
 class CameraRecordVideoWidget extends StatelessWidget {
   const CameraRecordVideoWidget({
@@ -30,7 +30,7 @@ class CameraRecordVideoWidget extends StatelessWidget {
               alignment: Alignment.topCenter,
                width: Screens.width(context),
               child: Text("${fdp.hours}:${fdp.minutes}:${fdp.seconds}",
-              style: theme.textTheme.headline5?.copyWith(color: Colors.red),
+              style: theme.textTheme.headlineSmall?.copyWith(color: Colors.red),
               ),
             )),
           Positioned(

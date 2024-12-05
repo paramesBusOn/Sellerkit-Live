@@ -8,12 +8,13 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Pages/SiteOut/Widgets/AssignToMeAlertBox.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Constant/ShowSearchDialog.dart';
+import '../../../Constant/show_searchdialog.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/LeaveApproveController/LeaveApproveController.dart';
+import '../../../Controller/LeaveApproveController/leaveapprove_controller.dart';
 // import '../../../Controller/LeaveReqController/LeaveReqController.dart';
 // import '../../../Controller/VisitplanController/NewVisitController.dart';
 import '../../../Widgets/Appbar.dart';
@@ -103,7 +104,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                 decoration: InputDecoration(
                                   labelText: 'Emp Name',
                                   border: UnderlineInputBorder(),
-                                  // labelStyle: theme.textTheme.bodyText1!
+                                  // labelStyle: theme.textTheme.bodyMedium!
                                   //     .copyWith(color: Colors.grey),
                                   enabledBorder: UnderlineInputBorder(
                                     // borderSide: BorderSide(color: Colors.grey),
@@ -240,7 +241,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                             decoration: InputDecoration(
                                               labelText: 'Leave type',
                                               // labelStyle: theme
-                                              //     .textTheme.bodyText1!
+                                              //     .textTheme.bodyMedium!
                                               //     .copyWith(color: Colors.grey),
           
                                               enabledBorder: UnderlineInputBorder(
@@ -305,7 +306,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                                       border:
                                                           UnderlineInputBorder(),
                                                       // labelStyle: theme
-                                                      //     .textTheme.bodyText1!
+                                                      //     .textTheme.bodyMedium!
                                                       //     .copyWith(
                                                       //         color: Colors.grey),
                                                       enabledBorder:
@@ -360,7 +361,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                                       border:
                                                           UnderlineInputBorder(),
                                                       // labelStyle: theme
-                                                      //     .textTheme.bodyText1!
+                                                      //     .textTheme.bodyMedium!
                                                       //     .copyWith(
                                                       //         color: Colors.grey),
                                                       enabledBorder:
@@ -392,7 +393,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                           width: Screens.width(context),
                                           child: Text(
                                             "No Of Leave Request Days : ${context.read<LeaveApproveContoller>().noOfDays()}",
-                                            style: theme.textTheme.bodyText1,
+                                            style: theme.textTheme.bodyMedium,
                                           ),
                                         ),
                                         SizedBox(
@@ -456,7 +457,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                                           UnderlineInputBorder(),
                                                       // labelStyle:
                                                       //     theme.textTheme
-                                                      //         .bodyText1!
+                                                      //         .bodyMedium!
                                                       //         .copyWith(
                                                       //             color: Colors
                                                       //                 .grey),
@@ -556,7 +557,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                             //   width: Screens.width(context),
                                             //   child: Text(
                                             //     "No Of Leave Request Days",
-                                            //     style: theme.textTheme.bodyText1,
+                                            //     style: theme.textTheme.bodyMedium,
                                             //   ),
                                             // ),
                                           ],
@@ -609,7 +610,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                                       border:
                                                           UnderlineInputBorder(),
                                                       // labelStyle: theme
-                                                      //     .textTheme.bodyText1!
+                                                      //     .textTheme.bodyMedium!
                                                       //     .copyWith(
                                                       //         color: Colors.grey),
                                                       enabledBorder:
@@ -664,7 +665,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                                     // autofocus: true,
                                                     readOnly: true,
                                                     style: theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             backgroundColor:
                                                                 Colors.white),
@@ -675,7 +676,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                                       border:
                                                           UnderlineInputBorder(),
                                                       // labelStyle: theme
-                                                      //     .textTheme.bodyText1!
+                                                      //     .textTheme.bodyMedium!
                                                       //     .copyWith(
                                                       //         color: Colors.grey),
                                                       enabledBorder:
@@ -754,7 +755,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                                     // autofocus: true,
                                                     readOnly: true,
                                                     style: theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             backgroundColor:
                                                                 Colors.white),
@@ -765,7 +766,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                                       border:
                                                           UnderlineInputBorder(),
                                                       // labelStyle: theme
-                                                      //     .textTheme.bodyText1!
+                                                      //     .textTheme.bodyMedium!
                                                       //     .copyWith(
                                                       //         color: Colors.grey),
                                                       enabledBorder:
@@ -927,7 +928,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                               height: Screens.bodyheight(context) * 0.05,
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                "Resons",
+                                "Reason",
                                 style: TextStyle(
                                     color: theme.primaryColor,
                                     fontWeight: FontWeight.bold),
@@ -972,7 +973,7 @@ class _LeaveApprovePageState extends State<LeaveApprovePage> {
                                 decoration: InputDecoration(
                                   labelText: 'Manager Name',
                                   border: UnderlineInputBorder(),
-                                  // labelStyle: theme.textTheme.bodyText1!
+                                  // labelStyle: theme.textTheme.bodyMedium!
                                   //     .copyWith(color: Colors.grey),
                                   enabledBorder: UnderlineInputBorder(
                                     // borderSide: BorderSide(color: Colors.grey),

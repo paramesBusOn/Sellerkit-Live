@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/OrderController/TabOrderController.dart';
+import 'package:sellerkit/Controller/OrderController/taborder_controller.dart';
 
 class navDrawerOrder extends StatefulWidget {
   const navDrawerOrder({Key? key}) : super(key: key);
@@ -100,7 +100,7 @@ class _navDrawerOrderState extends State<navDrawerOrder> {
                         )
            
                        ),
-                       child: Text("Order",style: theme.textTheme.bodyText2!.copyWith(color: Colors.white),),
+                       child: Text("Order",style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),),
                       ),
               Container(
                 width: Screens.width(context),

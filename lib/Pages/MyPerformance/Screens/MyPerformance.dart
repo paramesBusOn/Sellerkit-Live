@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import '../../../Constant/padings.dart';
@@ -277,7 +278,7 @@ class Content {
         //   vertical: Screens.bodyheight(context)*0.02,
         //   horizontal: Screens.width(context)*0.04
         // ),
-        //            child: Text("85 Lacks",  style: theme.textTheme.subtitle1?.copyWith(color: theme.primaryColor,fontWeight: FontWeight.bold),),
+        //            child: Text("85 Lacks",  style: theme.textTheme.titleMedium?.copyWith(color: theme.primaryColor,fontWeight: FontWeight.bold),),
         //          ),
         //          Container(
         //              padding: EdgeInsets.symmetric(
@@ -290,7 +291,7 @@ class Content {
         //           bottomRight: Radius.circular(10),
         //           bottomLeft:Radius.circular(10) )
         //      ),
-        //            child: Text("Month Taget",  style: theme.textTheme.subtitle1?.copyWith(color: Colors.white,fontWeight: FontWeight.bold),),
+        //            child: Text("Month Taget",  style: theme.textTheme.titleMedium?.copyWith(color: Colors.white,fontWeight: FontWeight.bold),),
         //          )
         //        ],
         //      ),

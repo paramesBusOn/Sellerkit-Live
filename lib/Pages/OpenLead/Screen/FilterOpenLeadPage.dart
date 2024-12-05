@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/OpenLeadController/OpenLeadController.dart';
+import '../../../Controller/OpenLeadController/openlead_controller.dart';
 
 class FilterOpenLeadPage extends StatefulWidget {
    FilterOpenLeadPage({Key? key ,}) : super(key: key);
@@ -74,7 +75,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                   Container(
                                     child: Text(
                                       "Brand",
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: theme.primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -105,7 +106,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                       width: Screens.width(context),
                                       child:   Text(
                                         "View All",
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             fontSize: 16, color: Colors.grey),
                                       ),
                                     ),
@@ -135,7 +136,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                   Container(
                                     child: Text(
                                       "Group Property",
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: theme.primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -166,7 +167,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                       width: Screens.width(context),
                                       child:   Text(
                                         "View All",
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             fontSize: 16, color: Colors.grey),
                                       ),
                                     ),
@@ -196,7 +197,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                   Container(
                                     child: Text(
                                       "Group Segment",
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: theme.primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -228,7 +229,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                       width: Screens.width(context),
                                       child:   Text(
                                         "View All",
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             fontSize: 16, color: Colors.grey),
                                       ),
                                     ),
@@ -257,7 +258,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                   Container(
                                     child: Text(
                                       "Division",
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: theme.primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -289,7 +290,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                       width: Screens.width(context),
                                       child:   Text(
                                         "View All",
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             fontSize: 16, color: Colors.grey),
                                       ),
                                     ),
@@ -317,7 +318,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                   Container(
                                     child: Text(
                                       "Branch",
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: theme.primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -349,7 +350,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                       width: Screens.width(context),
                                       child:   Text(
                                         "View All",
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             fontSize: 16, color: Colors.grey),
                                       ),
                                     ),
@@ -377,7 +378,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                   Container(
                                     child: Text(
                                       "Sales Executive",
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: theme.primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -409,7 +410,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                       width: Screens.width(context),
                                       child:   Text(
                                         "View All",
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             fontSize: 16, color: Colors.grey),
                                       ),
                                     ),
@@ -437,7 +438,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                   Container(
                                     child: Text(
                                       "Branch Manager",
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: theme.primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -470,7 +471,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                       width: Screens.width(context),
                                       child:   Text(
                                         "View All",
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             fontSize: 16, color: Colors.grey),
                                       ),
                                     ),
@@ -499,7 +500,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                   Container(
                                     child: Text(
                                       "Regional Manager",
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: theme.primaryColor,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -532,7 +533,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                                       width: Screens.width(context),
                                       child:   Text(
                                         "View All",
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             fontSize: 16, color: Colors.grey),
                                       ),
                                     ),
@@ -617,7 +618,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
 
   Widget buildSlideLabel(String value, ThemeData theme) => Text(
         value.toString(),
-        style: theme.textTheme.bodyText1?.copyWith(color: Colors.grey),
+        style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
       );
 
   List<Widget> listContainers(
@@ -645,7 +646,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
                 child: Text(context.watch<OpenLeadController>().getBrandData[index].discColumn!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 12,
                       color: context.watch<OpenLeadController>().getBrandData[index].color == 1
                           ? Colors.white
@@ -675,7 +676,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text( context.watch<OpenLeadController>().getBrandData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color: context.watch<OpenLeadController>().getBrandData[index].color == 1
                       ? Colors.white
@@ -710,7 +711,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getGroupProperty[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getGroupProperty[index].color == 1
                       ? Colors.white
@@ -738,7 +739,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getGroupProperty[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getGroupProperty[index].color == 1
                       ? Colors.white
@@ -773,7 +774,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getgroupSegment[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getgroupSegment[index].color == 1
                       ? Colors.white
@@ -801,7 +802,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getgroupSegment[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getgroupSegment[index].color == 1
                       ? Colors.white
@@ -836,7 +837,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getDivisionData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getDivisionData[index].color == 1
                       ? Colors.white
@@ -864,7 +865,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getDivisionData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getDivisionData[index].color == 1
                       ? Colors.white
@@ -899,7 +900,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getBranchData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getBranchData[index].color == 1
                       ? Colors.white
@@ -927,7 +928,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getBranchData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getBranchData[index].color == 1
                       ? Colors.white
@@ -962,7 +963,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getsalesExecutiveData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getsalesExecutiveData[index].color == 1
                       ? Colors.white
@@ -990,7 +991,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getsalesExecutiveData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getsalesExecutiveData[index].color == 1
                       ? Colors.white
@@ -1028,7 +1029,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getbranchManagerData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getbranchManagerData[index].color == 1
                       ? Colors.white
@@ -1056,7 +1057,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getbranchManagerData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getbranchManagerData[index].color == 1
                       ? Colors.white
@@ -1092,7 +1093,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getRegionalManager[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getRegionalManager[index].color == 1
                       ? Colors.white
@@ -1121,7 +1122,7 @@ class FilterOpenLeadPageState extends State<FilterOpenLeadPage> {
             child: Text(context.watch<OpenLeadController>().getRegionalManager[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:context.watch<OpenLeadController>().getRegionalManager[index].color == 1
                       ? Colors.white

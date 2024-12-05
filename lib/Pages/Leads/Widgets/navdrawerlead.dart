@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/LeadController/TabLeadController.dart';
+import 'package:sellerkit/Controller/LeadController/tablead_controller.dart';
 
 class navDrawerlead extends StatefulWidget {
   const navDrawerlead({Key? key}) : super(key: key);
@@ -109,7 +109,7 @@ class _navDrawerleadState extends State<navDrawerlead> {
                         )
            
                        ),
-                       child: Text("Lead",style: theme.textTheme.bodyText2!.copyWith(color: Colors.white),),
+                       child: Text("Lead",style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),),
                       ),
               Container(
                 width: Screens.width(context),

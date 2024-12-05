@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/ReportsController/ReportsController.dart';
+import 'package:sellerkit/Controller/ReportsController/reports_controller.dart';
 import 'package:sellerkit/Pages/Reports/Reports/widgets/CardChart.dart';
 import 'package:sellerkit/Pages/Reports/Reports/widgets/barChart.dart';
 import 'package:sellerkit/Pages/Reports/Reports/widgets/bubbleChart.dart';
@@ -94,6 +96,8 @@ class ReportsPageState extends State<ReportsPage> {
                     )),
                 GestureDetector(
                   onTap: () async {
+                    log("hhjj"+context.read<ReportsController>().kpilottie.toString());
+                     log("hhjjj"+context.read<ReportsController>().reportexp.toString());
                     context.read<ReportsController>().source1 =
                         await context.read<ReportsController>().getPathOFDB();
                     context.read<ReportsController>().copyTo =
@@ -152,7 +156,9 @@ class ReportsPageState extends State<ReportsPage> {
                   theme,
                 )),
             (context.watch<ReportsController>().kpilottie == null) &&
-                    (context.watch<ReportsController>().reportexp == null) &&
+                    (context.watch<ReportsController>().reportexp == null)
+                    
+                     &&
                     (context
                             .watch<ReportsController>()
                             .leadAnalysismasterDataset2
@@ -163,10 +169,16 @@ class ReportsPageState extends State<ReportsPage> {
                       color: theme.primaryColor,
                     ),
                   )
-                : (context.watch<ReportsController>().kpilottie != null) &&
-                        (context.watch<ReportsController>().reportexp != null)
+                : 
+                (context.watch<ReportsController>().kpilottie != '') &&
+                        (context.watch<ReportsController>().reportexp != '') &&
+                    (context
+                            .watch<ReportsController>()
+                            .leadAnalysismasterDataset2
+                            .length <
+                        1)
                     ? Positioned(
-                        left: Screens.width(context) * 0.25,
+                        left: Screens.width(context) * 0.22,
                         top: Screens.padingHeight(context) * 0.35,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -177,7 +189,34 @@ class ReportsPageState extends State<ReportsPage> {
                                   height: Screens.padingHeight(context) * 0.2,
                                   width: Screens.width(context) * 0.5),
                             ),
-                            Center(
+                     context.watch<ReportsController>().reportexp!.contains("Network Issue") ?
+                     Center(
+                       child: Text(
+                                                        "NO INTERNET CONNECTION",
+                                                        style: theme
+                                                            .textTheme.bodyMedium
+                                                            ?.copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: theme
+                                                                    .primaryColor),
+                                                      ),
+                     )
+                                                  : Container(),
+                                                   context.watch<ReportsController>().reportexp!.contains("Network Issue") ?Container(
+                                                    width: Screens.width(context)*0.65,
+                                                     child: Text(
+                                                        "You are not connected to internet. Please connect to the internet and try again.",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: theme
+                                                            .textTheme.bodyMedium!
+                                                            .copyWith(),
+                                                      ),
+                                                   )
+                                                  : Container(),
+                        context.watch<ReportsController>().reportexp!.contains("Network Issue") ?Container():    Center(
                                 child: Text(
                               context.watch<ReportsController>().reportexp!,
                               style: theme.textTheme.bodyMedium

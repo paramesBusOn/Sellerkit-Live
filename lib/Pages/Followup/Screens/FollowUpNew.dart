@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import '../../../Controller/FollowupController/FollowUPController.dart';
+import 'package:sellerkit/Controller/FollowupController/followup_controller.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -140,7 +140,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Customer",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -148,7 +148,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -163,7 +163,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                       child: Text(
                                           "{leadOpenAllData[i].CustomerName}", 
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                             color: theme.primaryColor,
                                           )),
                                     ),
@@ -175,7 +175,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                           "#{leadOpenAllData[i].LeadNum}",
                                           
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                             color: theme.primaryColor,
                                           )),
                                     ),
@@ -193,14 +193,14 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                       width: Screens.width(context),
                                       child: Text(
                                         "Product",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
                                     Container(
                                       width: Screens.width(context),
                                       child: Text("{leadOpenAllData[i].Product}",
-                                          style: theme.textTheme.bodyText2
+                                          style: theme.textTheme.bodyMedium
                                           ),
                                     ),
                                   ],
@@ -217,7 +217,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                       child: Text(
                                           "Next Follow up",
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                                   color: Colors.grey)),
                                     ),
                                     Container(
@@ -227,7 +227,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                       child: Text(
                                           "Order Value", 
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                                   color: Colors.grey)),
                                     ),
                                   ],
@@ -241,7 +241,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                       child: Text(
                                          "data 2",
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                                   )),
                                     ),
                                     InkWell(
@@ -253,7 +253,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                             "ddtaa", 
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     )),
                                       ),
@@ -280,7 +280,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                                 BorderRadius.circular(4)),
                                         child: Text(
                                            "dta",
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               color: Colors.green[700],
                                             )),
@@ -301,7 +301,7 @@ class _FollowUpNewState extends State<FollowUpNew> {
                                     child: Text(
                                        "data",
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey,
                                         )),
                                   ),

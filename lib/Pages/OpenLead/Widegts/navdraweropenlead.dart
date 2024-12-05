@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/OpenLeadController/OpenLeadController.dart';
+import 'package:sellerkit/Controller/OpenLeadController/openlead_controller.dart';
 
 class navDraweropenlead extends StatefulWidget {
   const navDraweropenlead({Key? key}) : super(key: key);
@@ -109,7 +109,7 @@ class _navDraweropenleadState extends State<navDraweropenlead> {
                         )
            
                        ),
-                       child: Text("Open Lead",style: theme.textTheme.bodyText2!.copyWith(color: Colors.white),),
+                       child: Text("Open Lead",style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),),
                       ),
               Container(
                 width: Screens.width(context),

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/VisitplanController/NewVisitController.dart';
+import 'package:sellerkit/Controller/VisitplanController/newvisit_controller.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 // import '../Controller/FollowupController/FollowUPController.dart';
@@ -107,7 +107,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
                         Container(
                           child: Text(
                             "${widget.msg}",
-                            style: theme.textTheme.bodyText1?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.primaryColor,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -115,7 +115,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
                         // Container(
                         //   child: Text(
                         //     "Click Here",
-                        //     style: theme.textTheme.bodyText2
+                        //     style: theme.textTheme.bodyMedium
                         //         ?.copyWith(color: Colors.grey),
                         //   ),
                         // ),
@@ -192,8 +192,8 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                 ? "Success..!!"
   //                 : ' "Something wrong..!!"',
   //             style: fUPCon.getforwardSuccessMsg.contains("Success")
-  //                 ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-  //                 : theme.textTheme.headline6?.copyWith(color: Colors.red),
+  //                 ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+  //                 : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
   //           ),
   //           SizedBox(
   //             height: Screens.bodyheight(context) * 0.02,
@@ -201,7 +201,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //           Text(
   //             fUPCon.getforwardSuccessMsg,
   //             textAlign: TextAlign.center,
-  //             style: theme.textTheme.bodyText1,
+  //             style: theme.textTheme.bodyMedium,
   //           ),
   //           SizedBox(
   //             height: Screens.bodyheight(context) * 0.02,
@@ -264,7 +264,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                 Container(
   //                   alignment: Alignment.center,
   //                   child: Text("Lead Details",
-  //                       style: theme.textTheme.bodyText1
+  //                       style: theme.textTheme.bodyMedium
   //                           ?.copyWith(color: Colors.white)),
   //                 ),
   //                 InkWell(
@@ -303,7 +303,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${fUPCon.getleadDeatilsQTHData!.CardName}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -321,7 +321,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                               // "2020-05-18T00:00:00"
   //                               "${fUPCon.getleadDeatilsQTHData!.OrderCreatedDate}"),
   //                           textAlign: TextAlign.center,
-  //                           style: theme.textTheme.bodyText2?.copyWith(),
+  //                           style: theme.textTheme.bodyMedium?.copyWith(),
   //                         ),
   //                       ),
   //                     )
@@ -334,7 +334,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${fUPCon.getleadDeatilsQTHData!.Address1}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -346,7 +346,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                               "${fUPCon.getleadDeatilsQTHData!.DocTotal!.toStringAsFixed(0)}",
   //                             ) +
   //                             '/-',
-  //                         style: theme.textTheme.bodyText2?.copyWith(
+  //                         style: theme.textTheme.bodyMedium?.copyWith(
   //                           color: theme.primaryColor,
   //                         ),
   //                       ),
@@ -360,7 +360,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${fUPCon.getleadDeatilsQTHData!.Address2}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -368,7 +368,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "# ${fUPCon.getleadDeatilsQTHData!.OrderNum}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                   ],
@@ -380,7 +380,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${fUPCon.getleadDeatilsQTHData!.City}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -391,7 +391,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                             fUPCon.config.alignDate3(
   //                                 "${fUPCon.getleadDeatilsQTHData!.OrderCreatedDate}" //.LastFUPUpdate
   //                                 ),
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                   ],
@@ -403,7 +403,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${fUPCon.getleadDeatilsQTHData!.Pincode}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -414,7 +414,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                             fUPCon.config.alignDate3(
   //                                 "${fUPCon.getleadDeatilsQTHData!.LastFUPUpdate}" //.
   //                                 ),
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                   ],
@@ -444,7 +444,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                                   fUPCon.config.alignDate(
   //                                       '${fUPCon.getleadDeatilsLeadData[fUPCon.getleadDeatilsLeadData.length - 1].NextFollowup_Date}'),
   //                               textAlign: TextAlign.center,
-  //                               style: theme.textTheme.bodyText2?.copyWith(
+  //                               style: theme.textTheme.bodyMedium?.copyWith(
   //                                 color: theme.primaryColor,
   //                               ),
   //                             ),
@@ -467,7 +467,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                             child: Text(
   //                               'Last status # ${fUPCon.getleadDeatilsLeadData[fUPCon.getleadDeatilsLeadData.length - 1].Status}',
   //                               textAlign: TextAlign.center,
-  //                               style: theme.textTheme.bodyText2?.copyWith(
+  //                               style: theme.textTheme.bodyMedium?.copyWith(
   //                                 color: theme.primaryColor,
   //                               ),
   //                             ),
@@ -529,7 +529,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   //       child: Text(
   //         "Product",
-  //         style: theme.textTheme.bodyText1
+  //         style: theme.textTheme.bodyMedium
   //             ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
   //         textAlign: TextAlign.left,
   //       ),
@@ -539,7 +539,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   //       child: Text(
   //         "Price",
-  //         style: theme.textTheme.bodyText1
+  //         style: theme.textTheme.bodyMedium
   //             ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
   //         textAlign: TextAlign.left,
   //       ),
@@ -549,7 +549,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   //       child: Text(
   //         "Qty",
-  //         style: theme.textTheme.bodyText1
+  //         style: theme.textTheme.bodyMedium
   //             ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
   //         textAlign: TextAlign.left,
   //       ),
@@ -562,7 +562,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //         child: Text(
   //           '${fUPCon.getleadDeatilsQTLData[i].ItemName!}',
   //           textAlign: TextAlign.left,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -574,7 +574,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //               fUPCon.getleadDeatilsQTLData[i].Price!.toStringAsFixed(0)),
   //           // '${fUPCon.getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
   //           textAlign: TextAlign.center,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -584,7 +584,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //         child: Text(
   //           '${fUPCon.getleadDeatilsQTLData[i].Quantity!.toStringAsFixed(0)}',
   //           textAlign: TextAlign.center,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -648,7 +648,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                     alignment: Alignment.centerLeft,
   //                     child: Text(
   //                       "${fUPCon.getleadDeatilsLeadData[index].Status} ",
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ),
   //                   SizedBox(
@@ -659,7 +659,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                     child: Text(
   //                       // fUPCon.config.alignDate(
   //                       "By ${fUPCon.getleadDeatilsLeadData[index].UpdatedBy} through ${fUPCon.getleadDeatilsLeadData[index].FollowMode}", //),
-  //                       style: theme.textTheme.bodyText2?.copyWith(
+  //                       style: theme.textTheme.bodyMedium?.copyWith(
   //                           // color: theme.primaryColor,
   //                           ),
   //                     ),
@@ -674,7 +674,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                           child: Text(
   //                             // fUPCon.config.alignDate(
   //                             "# ${fUPCon.getleadDeatilsLeadData[index].Feedback}",
-  //                             style: theme.textTheme.bodyText2?.copyWith(
+  //                             style: theme.textTheme.bodyMedium?.copyWith(
   //                                 // color: theme.primaryColor,
   //                                 ),
   //                           ),
@@ -702,7 +702,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                         "${fUPCon.getleadDeatilsLeadData[index].Followup_Date_Time}",
   //                       ),
   //                       textAlign: TextAlign.center,
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ],
   //                 )),
@@ -761,7 +761,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                     alignment: Alignment.centerLeft,
   //                     child: Text(
   //                       "${fUPCon.getleadDeatilsLeadData[index].Status} ",
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ),
   //                   SizedBox(
@@ -772,7 +772,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                     child: Text(
   //                       // fUPCon.config.alignDate(
   //                       "By ${fUPCon.getleadDeatilsLeadData[index].UpdatedBy} through ${fUPCon.getleadDeatilsLeadData[index].FollowMode}", //),
-  //                       style: theme.textTheme.bodyText2?.copyWith(
+  //                       style: theme.textTheme.bodyMedium?.copyWith(
   //                           // color: theme.primaryColor,
   //                           ),
   //                     ),
@@ -787,7 +787,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                           child: Text(
   //                             // fUPCon.config.alignDate(
   //                             "# ${fUPCon.getleadDeatilsLeadData[index].Feedback}",
-  //                             style: theme.textTheme.bodyText2?.copyWith(
+  //                             style: theme.textTheme.bodyMedium?.copyWith(
   //                                 // color: theme.primaryColor,
   //                                 ),
   //                           ),
@@ -812,7 +812,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                         "${fUPCon.getleadDeatilsLeadData[index].Followup_Date_Time}",
   //                       ),
   //                       textAlign: TextAlign.center,
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ],
   //                 )),
@@ -864,7 +864,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                     alignment: Alignment.centerLeft,
   //                     child: Text(
   //                       "${fUPCon.getleadDeatilsLeadData[index].Status} ",
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ),
   //                   SizedBox(
@@ -875,7 +875,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                     child: Text(
   //                       // fUPCon.config.alignDate(
   //                       "By ${fUPCon.getleadDeatilsLeadData[index].UpdatedBy} through ${fUPCon.getleadDeatilsLeadData[index].FollowMode}", //),
-  //                       style: theme.textTheme.bodyText2?.copyWith(
+  //                       style: theme.textTheme.bodyMedium?.copyWith(
   //                           // color: theme.primaryColor,
   //                           ),
   //                     ),
@@ -890,7 +890,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                           child: Text(
   //                             // fUPCon.config.alignDate(
   //                             "# ${fUPCon.getleadDeatilsLeadData[index].Feedback}",
-  //                             style: theme.textTheme.bodyText2?.copyWith(
+  //                             style: theme.textTheme.bodyMedium?.copyWith(
   //                                 // color: theme.primaryColor,
   //                                 ),
   //                           ),
@@ -916,7 +916,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                         "${fUPCon.getleadDeatilsLeadData[index].Followup_Date_Time}",
   //                       ),
   //                       textAlign: TextAlign.center,
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ],
   //                 )),
@@ -959,7 +959,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //             Container(
   //                 child: Text(
   //               fUPCon.getforwardNextFollowDate!, // "Next Follow up",
-  //               style: theme.textTheme.bodyText2?.copyWith(
+  //               style: theme.textTheme.bodyMedium?.copyWith(
   //                 color: fUPCon.getforwardNextFollowDate!.contains("*")
   //                     ? Colors.red
   //                     : Colors.grey,
@@ -986,7 +986,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //                       child: Text(
   //                         fUPCon.getforwardnextWonFD,
   //                         // fUPCon.getnextFD,
-  //                         style: theme.textTheme.bodyText2
+  //                         style: theme.textTheme.bodyMedium
   //                             ?.copyWith(), //fontSize: 12
   //                       ),
   //                     ),
@@ -1062,7 +1062,7 @@ class _FollowUPDialogPGState extends State<SuccessDialogPG> {
   //             borderRadius: BorderRadius.circular(5)),
   //         child: Text(fUPCon.getuserLtData[ind].UserName!,
   //             textAlign: TextAlign.center,
-  //             style: theme.textTheme.bodyText1?.copyWith(
+  //             style: theme.textTheme.bodyMedium?.copyWith(
   //               fontWeight: FontWeight.normal,
   //               fontSize: 16,
   //               color: fUPCon.getuserLtData[ind].color == 1

@@ -1,4 +1,3 @@
-// ignore_for_file: unnecessary_string_interpolations, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_interpolation_to_compose_strings, unused_local_variable, unnecessary_new
 
 import 'dart:convert';
 import 'dart:developer';
@@ -7,28 +6,28 @@ import 'package:dart_ipify/dart_ipify.dart';
 
 import 'package:device_calendar/device_calendar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:get/get.dart';
 import 'package:get_ip_address/get_ip_address.dart';
 // import 'package:dart_ipify/dart_ipify.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Helper.dart';
-import '../Controller/PriceListController/PriceListController.dart';
-import '../Controller/StockAvailabilityController/StockListController.dart';
+import 'package:sellerkit/Controller/PriceListController/pricelist_controller.dart';
+import 'package:sellerkit/Controller/StockAvailabilityController/stocklist_controller.dart';
 import 'Screen.dart';
 // import 'package:my_swift_plugin/my_swift_plugin.dart';
 
 class Config {
   msgDialog(BuildContext context, String title, String msg) {
-    final theme = Theme.of(context);
+ 
     // Get.defaultDialog(
     //   title: "$title",
     //   titleStyle: TextStyle(color: Colors.black),
@@ -42,7 +41,7 @@ class Config {
     //     children: [
     //       Text(
     //         "$msg",
-    //         style: theme.textTheme.bodyText1?.copyWith(),
+    //         style: theme.textTheme.bodyMedium?.copyWith(),
     //       ),
     //     ],
     //   ),
@@ -55,20 +54,23 @@ class Config {
 
     try {
       var ipAddress = IpAddress(type: RequestType.text);
-      String data = await ipAddress.getIpAddress();
+      String? data = await ipAddress.getIpAddress();
       //
       final result = await platform.invokeMethod('getSwiftVariable');
-      NetworkinfoIos[0] = result == null ? 'Local Network' : result.toString();
-      NetworkinfoIos[1] = data == null ? '00.00.0.00' : data.toString();
-      print('Swift variable: ${NetworkinfoIos[0]} - ${NetworkinfoIos[1]}');
+      NetworkinfoIos[0] = result?.toString() ?? 'Local Network' ;
+      NetworkinfoIos[1] = data?.toString()?? '00.00.0.00' ;
+      // NetworkinfoIos[0] = result == null ? 'Local Network' : result.toString();
+      // NetworkinfoIos[1] = data == null ? '00.00.0.00' : data.toString();
+      // print('Swift variable: ${NetworkinfoIos[0]} - ${NetworkinfoIos[1]}');
 
       return NetworkinfoIos;
     } on PlatformException catch (e) {
       var ipAddress = IpAddress(type: RequestType.text);
-      String data = await ipAddress.getIpAddress();
+      String? data = await ipAddress.getIpAddress();
       //
       NetworkinfoIos[0] = 'Local Network';
-      NetworkinfoIos[1] = data == null ? '00.00.0.00' : data.toString();
+        NetworkinfoIos[1] = data?.toString()  ?? '00.00.0.00';
+      // NetworkinfoIos[1] = data == null ? '00.00.0.00' : data.toString();
       print('Failed to get Swift variable: ${e.message}');
       return NetworkinfoIos;
     }
@@ -123,7 +125,7 @@ class Config {
     Get.showSnackbar(GetSnackBar(
       title: title,
       message: msg,
-      duration: Duration(seconds: 2),
+      duration:const Duration(seconds: 2),
     ));
   }
 
@@ -150,8 +152,8 @@ class Config {
     String networkIPAddress = await getipaddress();
     ConstantValues.ipaddress = networkIPAddress;
     ConstantValues.ipname = networkName.replaceAll('"', '');
-    print('Network Name2: $networkName');
-    print('Network IP Address2: $networkIPAddress');
+    // print('Network Name2: $networkName');
+    // print('Network IP Address2: $networkIPAddress');
   }
 
   static Future<String> getipaddress() async {
@@ -247,7 +249,7 @@ DateTime findFirstDateOfYesterDay(DateTime dateTime) {
   }
 
   String findFirstDateOfYesterDay2(DateTime dateTime) {
-    Duration timeZoneOffset = Duration(hours: 5, minutes: 30);
+    // Duration timeZoneOffset = Duration(hours: 5, minutes: 30);
 
     DateTime dateTimeWithOffset = dateTime.toUtc();
     return dateTimeWithOffset
@@ -415,7 +417,7 @@ findLastDateOfTheMonth2(DateTime dateTime) {
   //   return result.toString();
   // }
  String currentQueryDateOnly(String date) {
-    DateTime now = DateTime.now();
+    // DateTime now = DateTime.now();
     DateTime inputDate = DateTime.parse(date);
     String currentDateTime =
         "${inputDate.year.toString()}-${inputDate.month.toString().padLeft(2, '0')}-${inputDate.day.toString().padLeft(2, '0')}";
@@ -460,9 +462,9 @@ findLastDateOfTheMonth2(DateTime dateTime) {
 
   String currentDateOnly2() {
     String date;
-    final DateTime now = DateTime.now();
+    // final DateTime now = DateTime.now();
     final DateFormat formatter = DateFormat('dd-MMMM-yyyy');
-    final String formatted = formatter.format(now);
+    // final String formatted = formatter.format(now);
     date = formatter.toString();
     return date.toString();
   }
@@ -647,41 +649,41 @@ findLastDateOfTheMonth2(DateTime dateTime) {
   }
 
   //Location
-  static Future<String?> getLocationDetails() async {
-    bool? serviceEnabled;
-    String latitude = '';
-    String longitude = '';
-    LocationPermission permission;
-    try {
-      LocationPermission permission;
-      permission = await Geolocator.requestPermission();
-      serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      if (serviceEnabled == false) {
-        await Geolocator.getCurrentPosition();
-        permission = await Geolocator.checkPermission();
-        if (permission == LocationPermission.denied) {
-          permission = await Geolocator.requestPermission();
-          if (permission == LocationPermission.denied) {
-            //return Future.error('Location permissions are denied');
-          }
-        }
-        var pos = await Geolocator.getCurrentPosition();
-        latitude = pos.latitude.toStringAsFixed(6);
-        longitude = pos.longitude.toStringAsFixed(6);
-        ConstantValues.latitude = latitude;
-        ConstantValues.langtitude = longitude;
-      } else if (serviceEnabled == true) {
-        var pos = await Geolocator.getCurrentPosition();
-        latitude = pos.latitude.toStringAsFixed(6);
-        longitude = pos.longitude.toStringAsFixed(6);
-        ConstantValues.latitude = latitude;
-        ConstantValues.langtitude = longitude;
-        // return latitude;
-      }
-    } catch (e) {
-      return null;
-    }
-  }
+  // static Future<String?> getLocationDetails() async {
+  //   bool? serviceEnabled;
+  //   String latitude = '';
+  //   String longitude = '';
+  //   // LocationPermission permission;
+  //   try {
+  //     LocationPermission permission;
+  //     permission = await Geolocator.requestPermission();
+  //     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //     if (serviceEnabled == false) {
+  //       await Geolocator.getCurrentPosition();
+  //       permission = await Geolocator.checkPermission();
+  //       if (permission == LocationPermission.denied) {
+  //         permission = await Geolocator.requestPermission();
+  //         if (permission == LocationPermission.denied) {
+  //           //return Future.error('Location permissions are denied');
+  //         }
+  //       }
+  //       var pos = await Geolocator.getCurrentPosition();
+  //       latitude = pos.latitude.toStringAsFixed(6);
+  //       longitude = pos.longitude.toStringAsFixed(6);
+  //       ConstantValues.latitude = latitude;
+  //       ConstantValues.langtitude = longitude;
+  //     } else if (serviceEnabled == true) {
+  //       var pos = await Geolocator.getCurrentPosition();
+  //       latitude = pos.latitude.toStringAsFixed(6);
+  //       longitude = pos.longitude.toStringAsFixed(6);
+  //       ConstantValues.latitude = latitude;
+  //       ConstantValues.langtitude = longitude;
+  //       // return latitude;
+  //     }
+  //   } catch (e) {
+  //     return null;
+  //   }
+  // }
 
   // static Future<String?> getLangtitute() async {
   //   bool? serviceEnabled;
@@ -898,8 +900,8 @@ String currentPDFDateOnly() {
   Future<void> addEventToCalendar(
       TZDateTime chosenDate, String? title, String? description) async {
     try {
-      final calendars = await DeviceCalendarPlugin().retrieveCalendars();
-      final calendar = calendars.data;
+      // final calendars = await DeviceCalendarPlugin().retrieveCalendars();
+      // final calendar = calendars.data;
 
       final reminder = Reminder(minutes: 30);
       // final tz.TZDateTime reminderDateTime = chosenDate.subtract(Duration(minutes: 30));
@@ -1063,9 +1065,9 @@ log("formattedDate:::"+formattedDate.toString());
     return formattedDate;
   }
 
-  String alignDate(String date) {
+  String alignDate(String? date) {
     if (date != null) {
-      String dateT = date.replaceAll("T", "");
+      String? dateT = date.replaceAll("T", "");
       var dates = DateTime.parse(date);
       print(
           "${dates.day.toString().padLeft(2, '0')}-${dates.month.toString().padLeft(2, '0')}-${dates.year}");
@@ -1074,7 +1076,7 @@ log("formattedDate:::"+formattedDate.toString());
       return "00-00-0000";
     }
   }
-String alignTimenew(String date) {
+String alignTimenew(String? date) {
     if (date != null) {
       String dateT = date.replaceAll("T", "");
       var dates = DateTime.parse(date);
@@ -1085,7 +1087,7 @@ String alignTimenew(String date) {
       return "00-00-0000";
     }
   }
-  String alignTime(String date) {
+  String alignTime(String? date) {
     if (date != null) {
       String dateT = date.replaceAll("T", "");
       var dates = DateTime.parse(date);
@@ -1097,7 +1099,7 @@ String alignTimenew(String date) {
     }
   }
 
-  String alignTimeleave(String date) {
+  String alignTimeleave(String? date) {
     if (date != null) {
       String dateT = date.replaceAll("T", "");
       var dates = DateTime.parse(date);
@@ -1246,16 +1248,22 @@ String alignTimenew(String date) {
     String formattedCurrency = format.format(values);
     return formattedCurrency;
   }
+  double truncateToTwoDecimals(double value) {
+    log("(value * 100).truncateToDouble() / 100::"+"${(value * 100).truncateToDouble() / 100}");
+  return (value * 100).truncateToDouble() / 100;
+}
+  
   String slpitCurrency22(String value) {
-    // log("value::" + value.toString());
+    
     double values = double.parse(value);
+    log("valuecc::" + value.toString());
     var format = NumberFormat.currency(
       name: "INR", locale: 'en_IN',
-      decimalDigits: 2, // change it to get decimal places
+      // decimalDigits: 2, // change it to get decimal places
       symbol: '',
     );
     String formattedCurrency = format.format(values);
-    // log("formattedCurrency::" + formattedCurrency.toString());
+    log("formattedCurrency::" + formattedCurrency.toString());
     return formattedCurrency;
   }
 
@@ -1341,7 +1349,7 @@ class NumberFormatter {
 //             title: Center(
 //                 child: Text(
 //               "$title",
-//               style: theme.textTheme.subtitle1?.copyWith(color: Colors.black),
+//               style: theme.textTheme.titleMedium?.copyWith(color: Colors.black),
 //             )),
 //             content: Container(
 //               width: Screens.width(context) * 0.8,
@@ -1352,7 +1360,7 @@ class NumberFormatter {
 //                 children: [
 //                   Text(
 //                     "$msg",
-//                     style: theme.textTheme.bodyText1?.copyWith(),
+//                     style: theme.textTheme.bodyMedium?.copyWith(),
 //                   ),
 //                   SizedBox(
 //                     height: Screens.bodyheight(context) * 0.01,
@@ -1378,7 +1386,7 @@ class NumberFormatter {
 //             title: Center(
 //                 child: Text(
 //               "Welcome to login",
-//               style: theme.textTheme.subtitle1?.copyWith(),
+//               style: theme.textTheme.titleMedium?.copyWith(),
 //             )),
 //             content: Container(
 //               width: Screens.width(context) * 0.8,
@@ -1393,7 +1401,7 @@ class NumberFormatter {
 //                       controller:
 //                           context.read<LoginController>().mycontroller[0],
 //                       keyboardType: TextInputType.text,
-//                       style: theme.textTheme.bodyText2,
+//                       style: theme.textTheme.bodyMedium,
 //                       validator: (data) {
 //                         if (data!.isEmpty) {
 //                           return "Required*";
@@ -1435,7 +1443,7 @@ class NumberFormatter {
 //                       },
 //                       obscureText:
 //                           context.watch<LoginController>().getHidepassword,
-//                       style: theme.textTheme.bodyText2,
+//                       style: theme.textTheme.bodyMedium,
 //                       decoration: InputDecoration(
 //                         contentPadding: EdgeInsets.symmetric(
 //                             vertical: 10.0, horizontal: 10.0),

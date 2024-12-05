@@ -1,5 +1,5 @@
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/ReportsController/ReportsController.dart';
+import 'package:sellerkit/Controller/ReportsController/reports_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:sellerkit/Constant/Screen.dart';

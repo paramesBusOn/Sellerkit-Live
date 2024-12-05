@@ -52,13 +52,13 @@ class GridContaiers extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5)),
                               child: Text("${data[i].num}",
-                                  style: theme.textTheme.headline6 
+                                  style: theme.textTheme.titleLarge 
                                       ?.copyWith(color:theme.primaryColor))),//
                           Container(
                               alignment: Alignment.topCenter,
                               child: Text(
                                 "${data[i].contect}",
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   fontSize: 12
                                   )
                               )),

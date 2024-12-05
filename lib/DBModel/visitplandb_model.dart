@@ -1,0 +1,54 @@
+const String tablevisitplanfilter="tablevisitplan";
+
+class tableVisitplanCulumns{
+  static const String visitplan ='Visitplan';
+  static const String customercode ='Customercode';
+  static const String purposeofvisit ='Purposeofvisit';
+  static const String meetingtime ='Meetingtime';
+  static const String userid ='Userid';
+  static const String createdby ='Createdby';
+  static const String closed ='Closed';
+  static const String customername ='Customername';
+  static const String address1 ='Address1';
+  static const String address2 ='Address2';
+  static const String address3 ='Address3';
+  static const String city ='City';
+  static const String product ='Product';
+  static const String visitstatus ='VisitStatus';
+  static const String pincode ='Pincode';
+  static const String state ='State';
+  static const String cusmobile ='Cusmobile';
+  static const String cusemail ='Cusemail';
+  static const String contactname ='Contactname';
+  static const String area ='Area';
+  static const String district ='District';
+  static const String country ='Country';
+  static const String storecode ='Storecode';
+  static const String plannedDate ='PlannedDate';
+  static const String checkinDateTime ='CheckinDateTime';
+  static const String checkinLat ='CheckinLat';
+  static const String checkinLong ='CheckinLong';
+  static const String checkoutDateTime ='CheckoutDateTime';
+  static const String checkoutLat ='CheckoutLat';
+  static const String checkoutLong ='CheckoutLong';
+  static const String lookingFor ='LookingFor';
+  static const String assignedTo ='AssignedTo';
+  static const String visitOutcome ='VisitOutcome';
+  static const String potentialBusinessValue ='PotentialBusinessValue';
+  static const String visitStatus ='VisitStatus';
+  static const String isClosed ='IsClosed';
+  static const String baseType ='BaseType';
+  static const String baseId ='BaseId';
+  static const String targetType ='TargetType';
+  static const String targetId ='TargetId';
+  static const String att1 ='Att1';
+  static const String att2 ='Att2';
+  static const String att3 ='Att3';
+  static const String att4 ='Att4';
+  static const String createdBy ='CreatedBy';
+  static const String createdDateTime ='CreatedDateTime';
+  static const String updatedBy ='UpdatedBy';
+  static const String updatedDateTime ='UpdatedDateTime';
+  static const String traceid ='Traceid';
+
+}

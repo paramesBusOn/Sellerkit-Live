@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/services.dart';
 
 class CallLogService {
@@ -15,6 +17,7 @@ class CallLogService {
         return [];
       }
     } on PlatformException catch (e) {
+      log("dd"+e.toString());
       // Handle platform exception
       return [];
     }
@@ -30,6 +33,7 @@ class YourPluginName {
           await _channel.invokeMethod('getCallLogDetails');
       return result;
     } on PlatformException catch (e) {
+       log("dd"+e.toString());
       return [];
     }
   }

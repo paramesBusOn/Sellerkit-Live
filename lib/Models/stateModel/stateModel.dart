@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:sellerkit/DBModel/stateDBModel.dart';
+import 'package:sellerkit/DBModel/statedb_model.dart';
 
 class stateDetails {
 stateHeader? itemdata;

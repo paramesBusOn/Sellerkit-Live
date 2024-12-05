@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Controller/SettlementController/SettlementController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import '../../../Controller/SettlementController/settlement_controller.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderCheckListPost.dart';
 import '../../../Models/SettlementModel/SettlementPostModel.dart';
 import '../../../Widgets/Appbar.dart';
@@ -99,7 +99,7 @@ class SettlementSuccessUPIState extends State<SettlementSuccessUPI> {
                               child: Text(
                             "Settlement Created Successfully",
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           )),
                         ),
@@ -113,7 +113,7 @@ class SettlementSuccessUPIState extends State<SettlementSuccessUPI> {
                           child: Center(
                               child: Text(
                             "Settlement Receipt #${widget.settlemaster!.DocNum}",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ),
@@ -127,7 +127,7 @@ class SettlementSuccessUPIState extends State<SettlementSuccessUPI> {
                         //   child: Center(
                         //       child: Text(
                         //     "${context.read<NewCollectionContoller>().mycontroller[1].text.toString()}",
-                        //     style: theme.textTheme.bodyText2,
+                        //     style: theme.textTheme.bodyMedium,
                         //     textAlign: TextAlign.center,
                         //   )),
                         // ),
@@ -141,7 +141,7 @@ class SettlementSuccessUPIState extends State<SettlementSuccessUPI> {
                           child: Center(
                               child: Text(
                             "UPI Amount Rs.${widget.settlemaster!.Amount.toStringAsFixed(2)}",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ),
@@ -236,7 +236,7 @@ class SettlementSuccessUPIState extends State<SettlementSuccessUPI> {
       (index) => Container(
           width: Screens.width(context),
           child: Text(data[index].ItemDescription.toString(),
-              textAlign: TextAlign.center, style: theme.textTheme.bodyText2)),
+              textAlign: TextAlign.center, style: theme.textTheme.bodyMedium)),
     );
   }
 }

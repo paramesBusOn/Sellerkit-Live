@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../../../DBModel/EnqTypeModel.dart';
+import '../../../DBModel/enqtype_model.dart';
 
 class OrdersCheckListModal {
   List<OrderCheckData>? Ordercheckdata;
@@ -46,12 +46,15 @@ class OrdersCheckListModal {
 
 class OrderCheckData {
   OrderCheckData(
-      {required this.MasterTypeId,
-      required this.id,
+      {this.MasterTypeId,
+       this.id,
       this.linenum,
-      required this.Code, 
-      required this.Name, 
-      required this.ischecked
+       this.Code, 
+       this.Name, 
+       this.ischecked,
+        this.descriptionTypes,
+        this.descitems,
+        this.valuechoosen,
       });
 int? id;
 int? MasterTypeId;
@@ -59,11 +62,17 @@ int? linenum;
   String? Code;
   String? Name;
   bool? ischecked;
+  String? descriptionTypes;
+  List<String>? descitems;
+  // List<TextEditingController> listcontroller ;
+  String? valuechoosen;
+  String? textdata;
 
   factory OrderCheckData.fromJson(Map<String, dynamic> json) => OrderCheckData(
       Code: json['code'] ?? '', Name: json['description'] ?? '', ischecked: false,
       id: json['id'],
       MasterTypeId: json['masterTypeId'],
+      descriptionTypes:json['descriptionTypes'],
       // linenum: json['lineId']
       );
 

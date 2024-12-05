@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../Constant/Screen.dart';
 import '../../../Constant/Configuration.dart';
-import '../../../Controller/OrderController/TabOrderController.dart';
+import '../../../Controller/OrderController/taborder_controller.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetOrderSummary.dart';
 import 'FollowDialog.dart';
@@ -71,7 +71,7 @@ class _InProcessPageState extends State<InProcessPage> {
                     child: Text(
                       // "Open Orders",
                       "${widget.leadSummaryinprocess[0].Caption}",
-                      style: widget.theme.textTheme.bodyText1
+                      style: widget.theme.textTheme.bodyMedium
                           ?.copyWith(color: widget.theme.primaryColor),
                     ),
                   ),
@@ -83,7 +83,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                 // Config.k_m_b_generator(
                                 //     widget.leadSummaryinprocess[0].Target!.toStringAsFixed(0)),
                              textAlign: TextAlign.end,
-                            // style: widget.theme.textTheme.headline6,
+                            // style: widget.theme.textTheme.titleLarge,
                           )),
                       // Container(
                       //   alignment: Alignment.centerRight,
@@ -107,7 +107,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                     .leadSummaryinprocess[0].Value!
                                     .toStringAsFixed(0)),
                            
-                            style: widget.theme.textTheme.headline6,
+                            style: widget.theme.textTheme.titleLarge,
                           )
                           ),
                      Container(
@@ -121,7 +121,7 @@ class _InProcessPageState extends State<InProcessPage> {
                           // Config.k_m_b_generator(widget
                           //     .leadSummaryinprocess[0].BTG!
                           //     .toStringAsFixed(0)),
-                      style: widget.theme.textTheme.bodyText1,
+                      style: widget.theme.textTheme.bodyMedium,
                     ),
                   )
 
@@ -236,7 +236,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Customer",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -244,7 +244,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -259,7 +259,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                       child: Text(
                                           "${widget.InProcessAllData[i].CustomerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             // fontWeight: FontWeight.bold
                                           )),
@@ -277,7 +277,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                           // .alignDate(
                                           //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             //fontWeight: FontWeight.bold
                                           )),
@@ -296,7 +296,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                       width: Screens.width(context),
                                       child: Text(
                                         "Product",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -305,7 +305,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                       // color: Colors.red,
                                       child: Text("${widget.InProcessAllData[i].Product}",
                                       // 
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                           //?.copyWith(color: Colors.grey),
                                           ),
                                     ),
@@ -324,7 +324,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                       child: Text(
                                           "Order Date", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -336,7 +336,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                       child: Text(
                                           "Order Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -358,7 +358,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                                   .alignDate(
                                                       "${widget.InProcessAllData[i].DocDate}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   )),
@@ -390,7 +390,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                                         .Value!
                                                         .toStringAsFixed(
                                                             0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     //color:theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
@@ -423,7 +423,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                                     .isEmpty
                                                 ? ''
                                                 : "${widget.InProcessAllData[i].CurrentStatus}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               //color:theme.primaryColor,
                                               color: Colors.green[700],
@@ -454,7 +454,7 @@ class _InProcessPageState extends State<InProcessPage> {
                                                     .subtractDateTime(
                                                         "${widget.InProcessAllData[i].createdon}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
                                         style:
-                                            widget.theme.textTheme.bodyText2?.copyWith(
+                                            widget.theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey,
                                           // color: Colors.green[700],
                                           // fontWeight: FontWeight.bold

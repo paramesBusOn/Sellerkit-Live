@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/StockAvailabilityController/StockListController.dart';
-import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
+import 'package:sellerkit/Controller/StockAvailabilityController/stocklist_controller.dart';
+import 'package:sellerkit/DBModel/itemmasertdb_model.dart';
 import 'package:sellerkit/Models/PostQueryModel/ItemMasterModelNew.dart/itemviewModel.dart';
 import 'package:sellerkit/main.dart';
 
@@ -102,7 +103,7 @@ class _showdialogstState extends State<showdialogst> {
                               Container(
                                 alignment: Alignment.center,
                                 child: Text("Stock Details",
-                                    style: theme.textTheme.bodyText1
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.white)),
                               ),
                               InkWell(
@@ -141,7 +142,7 @@ class _showdialogstState extends State<showdialogst> {
                               Container(
                                 child: Text(
                                   "Item Code",
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.grey),
                                 ),
                               ),
@@ -149,21 +150,21 @@ class _showdialogstState extends State<showdialogst> {
                                 height: Screens.bodyheight(context) * 0.002,
                               ),
                               Text("${widget.getalldata.itemCode}",
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor)),
                               SizedBox(
                                 height: Screens.bodyheight(context) * 0.01,
                               ),
                               Text(
                                 "Item Name",
-                                style: theme.textTheme.bodyText2
+                                style: theme.textTheme.bodyMedium
                                     ?.copyWith(color: Colors.grey),
                               ),
                               SizedBox(
                                 height: Screens.bodyheight(context) * 0.002,
                               ),
                               Text(widget.getalldata.itemName,
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor)),
                               SizedBox(
                                 height: Screens.bodyheight(context) * 0.01,
@@ -174,7 +175,7 @@ class _showdialogstState extends State<showdialogst> {
                                 // width: Screens.width(context)*0.7,
                                 // color: Colors.red,
                                 child: Text("Store Age Slab:",
-                                    style: theme.textTheme.bodyText1
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith() //color: theme.primaryColor
                                     ),
                               ),
@@ -186,7 +187,7 @@ class _showdialogstState extends State<showdialogst> {
                                 // width: Screens.width(context)*0.7,
                                 // color: Colors.red,
                                 child: Text("Whse Age Slab:",
-                                    style: theme.textTheme.bodyText1
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith() //color: theme.primaryColor
                                     ),
                               ),
@@ -220,7 +221,7 @@ else ...[
                             ]),
 
                         //           Container(
-                        //   child: Text("Store Code",style:  theme.textTheme.bodyText2?.copyWith(color: Colors.grey),),
+                        //   child: Text("Store Code",style:  theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),),
                         // ),
                         //  SizedBox(
                         //               height: Screens.bodyheight(context) * 0.01,
@@ -251,8 +252,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[0].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[0].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[0].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+           context.read<StockListController>(). Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[0].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().Particularprice[0].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -261,8 +300,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[1].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[1].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[1].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[1].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().Particularprice[1].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -271,8 +348,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[2].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[2].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[2].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[2].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().Particularprice[2].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -281,8 +396,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[3].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[3].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[3].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[3].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().Particularprice[3].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -291,8 +444,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[4].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[4].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[4].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+           context.read<StockListController>(). Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[4].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[4].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -331,7 +522,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -367,7 +558,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           '',
           // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -402,7 +593,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -437,7 +628,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -471,7 +662,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -496,18 +687,94 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[5].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[5].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[5].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[5].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[5].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
       ):Container(),
  context.read<StockListController>().  Particularprice.length > 6 &&   context.read<StockListController>().  Particularprice[6] !=null?   Container(
         color: theme.primaryColor,
-        padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+        padding:const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[6].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[6].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[6].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[6].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[6].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -516,8 +783,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[7].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[7].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[7].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[7].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[7].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -526,8 +831,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[8].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[8].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[8].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[8].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[8].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -536,8 +879,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[9].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[9].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[9].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[9].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[9].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -576,7 +957,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -612,7 +993,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           '',
           // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -647,7 +1028,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -682,7 +1063,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -716,7 +1097,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -740,8 +1121,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[10].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[10].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[10].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[10].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[10].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -750,8 +1169,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[11].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[11].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[11].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+           context.read<StockListController>(). Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[11].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[11].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -759,9 +1216,47 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
   context.read<StockListController>().  Particularprice.length > 12 &&  context.read<StockListController>().  Particularprice[12] !=null?   Container(
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-        child: Text(
+        child: Text( 
+          context.read<StockListController>(). Particularprice[12].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[12].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[12].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[12].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[12].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -770,8 +1265,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[13].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[13].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[13].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[13].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[13].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -780,8 +1313,46 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         color: theme.primaryColor,
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
+          context.read<StockListController>(). Particularprice[14].PriceList!.toLowerCase() == 'mrp'?
+                "${ConstantValues.configmrp}"
+                :context.read<StockListController>(). Particularprice[14].PriceList!.toLowerCase() == 'sp'?
+                "${ConstantValues.configsp}"
+                :context.read<StockListController>(). Particularprice[14].PriceList!.toLowerCase() == 'cost'?
+                "${ConstantValues.configcost}"
+                :
+          context.read<StockListController>(). Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp1'
+                                ? "${ConstantValues.ssp1}"
+                                : context.read<StockListController>().Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp2'
+                                ? "${ConstantValues.ssp2}"
+                                : context.read<StockListController>().Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp3'
+                                ? "${ConstantValues.ssp3}"
+                                : context.read<StockListController>().Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp4'
+                                ? "${ConstantValues.ssp4}"
+                                :context.read<StockListController>(). Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp5'
+                                ? "${ConstantValues.ssp5}"
+                                :context.read<StockListController>().Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp1_inc'
+                                ? "${ConstantValues.ssp1_Inc}"
+                                :context.read<StockListController>().Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp2_inc'
+                                ? "${ConstantValues.ssp2_Inc}"
+                                :context.read<StockListController>().Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp3_inc'
+                                ? "${ConstantValues.ssp3_Inc}"
+                                :context.read<StockListController>().Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp4_inc'
+                                ? "${ConstantValues.ssp4_Inc}"
+                                :context.read<StockListController>().Particularprice[14].PriceList!.toLowerCase() ==
+                                    'ssp5_inc'
+                                ? "${ConstantValues.ssp5_Inc}"
+                                :
           "${context.read<StockListController>().  Particularprice[14].PriceList}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -820,7 +1391,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -856,7 +1427,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           '',
           // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -891,7 +1462,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -926,7 +1497,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -960,7 +1531,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         config.slpitCurrency22(getalldata.ssp4Inc.toString()):
           '',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -983,7 +1554,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp1_Inc}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -993,7 +1564,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp2_Inc}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1003,7 +1574,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp3_Inc}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1013,7 +1584,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp4_Inc}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1023,7 +1594,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp5_Inc}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1038,7 +1609,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.ssp1Inc.toString()),
           textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1049,7 +1620,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           config.slpitCurrency22(getalldata.ssp2Inc.toString()),
           // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1059,7 +1630,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.ssp3Inc.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1069,7 +1640,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.ssp4Inc.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1079,7 +1650,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.ssp5Inc.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1103,7 +1674,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ageslab1}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -1113,7 +1684,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ageslab2}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1123,7 +1694,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ageslab3}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1133,7 +1704,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ageslab4}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1148,7 +1719,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.storeAgeSlab1.toString()),
           textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1159,7 +1730,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           config.slpitCurrency22(getalldata.storeAgeSlab2.toString()),
           // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1169,7 +1740,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.storeAgeSlab3.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1179,7 +1750,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.storeAgeSlab4.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1202,7 +1773,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp1}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -1212,7 +1783,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp2}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1222,7 +1793,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp3}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1232,7 +1803,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp4}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1242,7 +1813,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ssp5}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1257,7 +1828,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.ssp1.toString()),
           textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1268,7 +1839,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           config.slpitCurrency22(getalldata.ssp2.toString()),
           // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1278,7 +1849,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.ssp3.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1288,7 +1859,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.ssp4.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1298,7 +1869,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.ssp5.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1322,7 +1893,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ageslab1}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -1332,7 +1903,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ageslab2}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1342,7 +1913,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ageslab3}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1352,7 +1923,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "${ConstantValues.ageslab4}",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1367,7 +1938,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.whsAgeSlab1.toString()),
           textAlign: TextAlign.left,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1378,7 +1949,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           config.slpitCurrency22(getalldata.whsAgeSlab2.toString()),
           // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1388,7 +1959,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.whsAgeSlab3.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1398,7 +1969,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         child: Text(
           config.slpitCurrency22(getalldata.whsAgeSlab4.toString()),
           textAlign: TextAlign.center,
-          style: theme.textTheme.bodyText1?.copyWith(
+          style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.primaryColor,
           ),
         ),
@@ -1421,7 +1992,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Store",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -1431,7 +2002,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Whse Stock",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1441,7 +2012,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Store Stock",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -1456,7 +2027,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           child: Text(
             '${context.read<StockListController>().itemviewdata[i].storeCode}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -1467,7 +2038,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
             "${context.read<StockListController>().itemviewdata[i].WhsStock}",
             // '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -1477,7 +2048,7 @@ Widget createTableparticular(ThemeData theme, ItemMasterDBModel getalldata,Build
           child: Text(
             '${context.read<StockListController>().itemviewdata[i].StoreStock}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),

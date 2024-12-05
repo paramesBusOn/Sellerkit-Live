@@ -3,10 +3,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import 'package:sellerkit/Constant/menu_auth.dart';
+
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetAllLeadModel.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/LeadController/TabLeadController.dart';
+import '../../../Controller/LeadController/tablead_controller.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 //import 'package:timelines/timelines.dart';
 
@@ -224,7 +226,7 @@ Container callLoadingPage(BuildContext context) {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Alert",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -263,16 +265,20 @@ Container callLoadingPage(BuildContext context) {
                           .watch<LeadTabController>()
                           .getforwardSuccessMsg
                           .contains("Success")
-                      ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-                      : theme.textTheme.headline6?.copyWith(color: Colors.red),
+                      ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+                      : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
                 ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.02,
                 ),
-                Text(
+              context.read<LeadTabController>().forwardSuccessMsg2!.isNotEmpty?Text(context.read<LeadTabController>().forwardSuccessMsg2.toString(),
+                 
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium,
+                ):  Text(
                   context.watch<LeadTabController>().getforwardSuccessMsg,
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1,
+                  style: theme.textTheme.bodyMedium,
                 ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.02,
@@ -360,7 +366,7 @@ Container callLoadingPage(BuildContext context) {
                         child: Text(
                           // 'How you made the follow up?',
                           context.watch<LeadTabController>().followup!,
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: context
                                     .watch<LeadTabController>()
                                     .getfollowup!
@@ -429,7 +435,7 @@ Container callLoadingPage(BuildContext context) {
                       Container(
                         child: Text(
                           "What is the case status now?",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: theme.primaryColor),
                         ),
                       ),
@@ -603,7 +609,7 @@ Container callLoadingPage(BuildContext context) {
                                   context
                                       .watch<LeadTabController>()
                                       .gethinttextforOpenLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: context
                                               .watch<LeadTabController>()
                                               .gethinttextforOpenLead!
@@ -649,7 +655,7 @@ Container callLoadingPage(BuildContext context) {
                                 Container(
                                     child: Text(
                                   "Plan of Purchase Date", // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color: 
                                     // context
                                     //         .watch<LeadTabController>()
@@ -692,7 +698,7 @@ Container callLoadingPage(BuildContext context) {
                                                 .watch<LeadTabController>()
                                                 .nextpurchasedate,
                                             // context.read<LeadTabController>().getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -737,7 +743,7 @@ Container callLoadingPage(BuildContext context) {
                                   context
                                       .read<LeadTabController>()
                                       .gethinttextforWonLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: context
                                               .read<LeadTabController>()
                                               .gethinttextforWonLead!
@@ -794,7 +800,7 @@ Container callLoadingPage(BuildContext context) {
                                       .read<LeadTabController>()
                                       .getorderBillRefer!,
                                   hintStyle:
-                                      theme.textTheme.bodyText2?.copyWith(
+                                      theme.textTheme.bodyMedium?.copyWith(
                                     color: context
                                             .read<LeadTabController>()
                                             .getorderBillRefer!
@@ -824,7 +830,7 @@ Container callLoadingPage(BuildContext context) {
                                   context
                                       .watch<LeadTabController>()
                                       .getorderBillDate!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color: context
                                             .watch<LeadTabController>()
                                             .getorderBillDate!
@@ -865,7 +871,7 @@ Container callLoadingPage(BuildContext context) {
                                                 .watch<LeadTabController>()
                                                 .getnextWonFD,
                                             // context.read<LeadTabController>().getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -912,7 +918,7 @@ Container callLoadingPage(BuildContext context) {
                                   context
                                       .read<LeadTabController>()
                                       .gethinttextforLostLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: context
                                               .read<LeadTabController>()
                                               .gethinttextforLostLead!
@@ -958,7 +964,7 @@ Container callLoadingPage(BuildContext context) {
                           context
                               .watch<LeadTabController>()
                               .getfeedbackLead!, // "Feedback",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: context
                                     .watch<LeadTabController>()
                                     .getfeedbackLead!
@@ -1000,7 +1006,7 @@ Container callLoadingPage(BuildContext context) {
                                   context
                                       .watch<LeadTabController>()
                                       .getnextFollowupDate!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color: context
                                             .watch<LeadTabController>()
                                             .getnextFollowupDate!
@@ -1041,7 +1047,7 @@ Container callLoadingPage(BuildContext context) {
                                                 .watch<LeadTabController>()
                                                 .getnextFD,
                                             // context.read<LeadTabController>().getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -1076,7 +1082,7 @@ Container callLoadingPage(BuildContext context) {
                                   context
                                       .read<LeadTabController>()
                                       .nextVisitTime!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color: context
                                             .read<LeadTabController>()
                                             .nextVisitTime!
@@ -1119,7 +1125,7 @@ Container callLoadingPage(BuildContext context) {
                                                 .watch<LeadTabController>()
                                                 .VisitTime,
                                             //fUPCon.getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -1150,7 +1156,7 @@ Container callLoadingPage(BuildContext context) {
                               alignment: Alignment.centerRight,
                               child: Text("${context
                                                 .read<LeadTabController>()
-                                                . errorVisitTime}*",style: theme.textTheme.bodyText1!.copyWith(
+                                                . errorVisitTime}*",style: theme.textTheme.bodyMedium!.copyWith(
                                 color: Colors.red,
                                 fontSize: 13
                               ),),
@@ -1226,7 +1232,7 @@ Container callLoadingPage(BuildContext context) {
               ),
               child: Text(
                 "Quatation Details",
-                style: theme.textTheme.bodyText2!.copyWith(color: Colors.white),
+                style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),
               ),
             ),
             Container(
@@ -1270,7 +1276,7 @@ Container callLoadingPage(BuildContext context) {
                                   borderRadius: BorderRadius.circular(6),
                                 ),
                                 hintText: "Quatation No",
-                                hintStyle: theme.textTheme.bodyText2?.copyWith(
+                                hintStyle: theme.textTheme.bodyMedium?.copyWith(
                                   color: context
                                           .read<LeadTabController>()
                                           .gettextquatationNo!
@@ -1300,7 +1306,7 @@ Container callLoadingPage(BuildContext context) {
                                 context
                                     .watch<LeadTabController>()
                                     .gettextquatationDate!, // "Next Follow up",
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: context
                                           .watch<LeadTabController>()
                                           .gettextquatationDate!
@@ -1336,7 +1342,7 @@ Container callLoadingPage(BuildContext context) {
                                               .watch<LeadTabController>()
                                               .getQuataDate,
                                           // context.read<LeadTabController>().getnextFD,
-                                          style: theme.textTheme.bodyText2
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(), //fontSize: 12
                                         ),
                                       ),
@@ -1376,7 +1382,7 @@ Container callLoadingPage(BuildContext context) {
                               borderRadius: BorderRadius.circular(6),
                             ),
                             hintText: "Quatation Value",
-                            hintStyle: theme.textTheme.bodyText2?.copyWith(
+                            hintStyle: theme.textTheme.bodyMedium?.copyWith(
                               color: context
                                       .read<LeadTabController>()
                                       .gettextquatationValue!
@@ -1406,7 +1412,26 @@ Container callLoadingPage(BuildContext context) {
               height: Screens.bodyheight(context) * 0.06,
               child: ElevatedButton(
                   onPressed: () {
-                    context.read<LeadTabController>().convertToQuatatioMethod();
+                    if( MenuAuthDetail.quotes == "Y"){
+ context.read<LeadTabController>().convertToQuatatioMethod();
+                    }else{
+                       showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+                    }
+                   
                     // if (LeadTabController.comeFromEnq == -1) {
                     //   context.read<LeadTabController>().clickLeadSaveBtn(
                     //       context
@@ -1580,7 +1605,7 @@ Container callLoadingPage(BuildContext context) {
                         Container(
                           child: Text(
                             "Update Followup FeedBack",
-                            style: theme.textTheme.bodyText1?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.primaryColor,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -1588,7 +1613,7 @@ Container callLoadingPage(BuildContext context) {
                         Container(
                           child: Text(
                             "Click Here",
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           ),
                         ),
@@ -1678,10 +1703,28 @@ Container callLoadingPage(BuildContext context) {
                       ),
                       onPressed: () {
                         // Navigator.pop(context);
-
-                        context
+if( MenuAuthDetail.Orders == "Y"){
+  context
                             .read<LeadTabController>()
                             .mapValuestoorder(widget.leadopenalldata,context);
+}else{
+ showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+}
+                      
                       },
                       child: Text("Convert to Order")),
                 ),
@@ -1695,15 +1738,77 @@ Container callLoadingPage(BuildContext context) {
                           ),
                           onPressed: () {
                             // Navigator.pop(context);
-
-                            context
+                            if( MenuAuthDetail.quotes == "Y"){
+                               context
                                 .read<LeadTabController>()
                                 .mapValuestoquotes(widget.leadopenalldata);
+
+                            }else{
+                               showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+                            }
+
+                           
                           },
                           child: Text("Convert to Quotation")),
                     ),
                   ],
                 ),
+           
+           SizedBox(
+                  height: Screens.bodyheight(context) * 0.02,
+                ),
+            //  Container(
+            //           //  width: Screens.width(context) * 0.4,
+            //           height: Screens.bodyheight(context) * 0.06,
+            //           child: ElevatedButton(
+            //               style: ElevatedButton.styleFrom(
+            //                 shape: RoundedRectangleBorder(
+            //                     borderRadius: BorderRadius.all(Radius.circular(6))),
+            //               ),
+            //               onPressed: () {
+            //                 // Navigator.pop(context);
+            //                 if( MenuAuthDetail.Visitplane == "Y"){
+            //                    context
+            //                     .read<LeadTabController>()
+            //                     .mapvaluestovisitplan(widget.leadopenalldata,context);
+
+            //                 }else{
+            //                    showDialog(
+            //                             context: context,
+            //                             barrierDismissible: true,
+            //                             builder: (BuildContext context) {
+            //                               return AlertDialog(
+            //                                   shape: RoundedRectangleBorder(
+            //                                       borderRadius:
+            //                                           BorderRadius.all(
+            //                                               Radius.circular(4))),
+            //                                   contentPadding: EdgeInsets.all(0),
+            //                                   insetPadding: EdgeInsets.all(
+            //                                       Screens.bodyheight(context) *
+            //                                           0.02),
+            //                                   content: settings(context));
+            //                             });
+            //                 }
+
+                           
+            //               },
+            //               child: Text("Convert to Visitplan")),
+            //         ),
+             
               ],
             ),
           ),
@@ -1739,6 +1844,7 @@ Container callLoadingPage(BuildContext context) {
           Container(
             width: Screens.width(context),
             height: Screens.bodyheight(context) * 0.06,
+           
             child: ElevatedButton(
                 onPressed: () {
                   if (LeadTabController.comeFromEnq == -1) {
@@ -1805,7 +1911,7 @@ Container callLoadingPage(BuildContext context) {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Lead Details",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -1836,7 +1942,7 @@ Container callLoadingPage(BuildContext context) {
             ),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Row(
@@ -1846,7 +1952,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].CardName}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       context
@@ -1884,7 +1990,7 @@ Container callLoadingPage(BuildContext context) {
                                               // "2020-05-18T00:00:00"
                                               "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].LeadCreatedDate}"),
                                   textAlign: TextAlign.center,
-                                  style: theme.textTheme.bodyText2?.copyWith(),
+                                  style: theme.textTheme.bodyMedium?.copyWith(),
                                 ),
                               ),
                             )
@@ -1913,7 +2019,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Address1}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -1928,7 +2034,7 @@ Container callLoadingPage(BuildContext context) {
                                     "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].DocTotal!.toString()}",
                                   ) +
                               '/-',
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -1958,7 +2064,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Address2}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -1966,7 +2072,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "# ${context.watch<LeadTabController>().getleadDeatilsQTHData![0].LeadNum}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -1994,7 +2100,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].City}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -2005,7 +2111,7 @@ Container callLoadingPage(BuildContext context) {
                               context.watch<LeadTabController>().config.alignDate3(
                                   "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].LeadCreatedDate}" //.LastFUPUpdate
                                   ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -2056,7 +2162,7 @@ Container callLoadingPage(BuildContext context) {
                                                   width: Screens.width(context) * 0.35,
                                                   child: Text(
                             "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].CardCode}",
-                            style: theme.textTheme.bodyText2?.copyWith(decoration:  TextDecoration.underline,color:Colors.blue),
+                            style: theme.textTheme.bodyMedium?.copyWith(decoration:  TextDecoration.underline,color:Colors.blue),
                                                   ),
                                                 ),
                           ),
@@ -2068,7 +2174,7 @@ Container callLoadingPage(BuildContext context) {
                               context.watch<LeadTabController>().config.alignDate3(
                                   "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].LastFUPUpdate}" //.
                                   ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -2117,7 +2223,7 @@ Container callLoadingPage(BuildContext context) {
                                                     '${context.watch<LeadTabController>().getleadDeatilsQTHData![0].nextFollowupDate}'),
                                         textAlign: TextAlign.center,
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: theme.primaryColor,
                                         ),
                                       ),
@@ -2133,7 +2239,7 @@ Container callLoadingPage(BuildContext context) {
                                         //         '${context.watch<LeadTabController>().getleadDeatilsQTHData![0].nextFollowupDate}'),
                                         textAlign: TextAlign.center,
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: theme.primaryColor,
                                         ),
                                       ),
@@ -2155,7 +2261,7 @@ Container callLoadingPage(BuildContext context) {
                             child: Text(
                               'Last status # ${context.watch<LeadTabController>().getleadDeatilsLeadData[context.watch<LeadTabController>().getleadDeatilsLeadData.length - 1].Status}',
                               textAlign: TextAlign.center,
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.primaryColor,
                               ),
                             ),
@@ -2166,7 +2272,7 @@ Container callLoadingPage(BuildContext context) {
                               //     'Last status # ',
                               //     // ${context.watch<LeadTabController>().getleadDeatilsLeadData[context.watch<LeadTabController>().getleadDeatilsLeadData.length - 1].Status}',
                               //     textAlign: TextAlign.center,
-                              //     style: theme.textTheme.bodyText2?.copyWith(
+                              //     style: theme.textTheme.bodyMedium?.copyWith(
                               //       color: theme.primaryColor,
                               //     ),
                               //   ),
@@ -2190,14 +2296,36 @@ Container callLoadingPage(BuildContext context) {
                   //         child: Text(
                   //           'Last status # ${context.watch<LeadTabController>().getleadDeatilsQLData[context.watch<LeadTabController>().getleadDeatilsQLData.length - 1].Status}',
                   //           textAlign: TextAlign.center,
-                  //           style: theme.textTheme.bodyText2?.copyWith(
+                  //           style: theme.textTheme.bodyMedium?.copyWith(
                   //             color: theme.primaryColor,
                   //           ),
                   //         ),
                   //       ),
                   //     )),
 
-                  SizedBox(
+                ConstantValues.leadchecklist!.toLowerCase() =='y'?    SizedBox(
+                    height: Screens.bodyheight(context) * 0.015,
+                  ):Container(),
+            ConstantValues.leadchecklist!.toLowerCase() =='y'?       InkWell(
+                    onTap: (){
+                      context.read<LeadTabController>().checkpopup(context,theme,context.read<LeadTabController>().getleadDeatilsQTHData![0].LeadNum); 
+                    },
+                    child: Container(
+                       alignment: Alignment.centerLeft,
+                       width: Screens.width(context)*0.21,
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: theme.primaryColor
+                          )
+                        )
+                      ),
+                      child:Text("Checklist",style: theme.textTheme.bodyMedium!.copyWith(fontSize: 18,
+                      color: theme.primaryColor
+                      ),)
+                    ),
+                  ):Container(),
+                   SizedBox(
                     height: Screens.bodyheight(context) * 0.015,
                   ),
                   createTable(theme),
@@ -2290,7 +2418,7 @@ Container callLoadingPage(BuildContext context) {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Lead Details",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -2329,7 +2457,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "Customer",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -2341,7 +2469,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                             "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].CardName}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               // fontWeight: FontWeight.bold
                             )),
@@ -2350,7 +2478,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         alignment: Alignment.centerRight,
                         child: Text("",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                             )),
                       ),
@@ -2374,7 +2502,7 @@ Container callLoadingPage(BuildContext context) {
                           child: Text(
                             "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Address1}\n${context.watch<LeadTabController>().getleadDeatilsQTHData![0].Address2}",
                             //"31 west street \nkottucherry \nkaraikal 609-609 \npondicherry",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                             ), // color:  Colors.grey
                           ),
@@ -2400,7 +2528,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "Total Lead Value",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -2408,7 +2536,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "20000.00",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -2425,7 +2553,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "Next Follow up",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -2433,7 +2561,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "12-08-2022",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -2488,7 +2616,7 @@ Container callLoadingPage(BuildContext context) {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Product",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -2498,7 +2626,7 @@ Container callLoadingPage(BuildContext context) {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Price",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -2508,7 +2636,7 @@ Container callLoadingPage(BuildContext context) {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Qty",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -2523,7 +2651,7 @@ Container callLoadingPage(BuildContext context) {
           child: Text(
             '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].ItemName!}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -2538,7 +2666,7 @@ Container callLoadingPage(BuildContext context) {
                 .toStringAsFixed(0)),
             // '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -2548,7 +2676,7 @@ Container callLoadingPage(BuildContext context) {
           child: Text(
             '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Quantity!.toStringAsFixed(0)}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -2624,7 +2752,7 @@ Container callLoadingPage(BuildContext context) {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -2635,7 +2763,7 @@ Container callLoadingPage(BuildContext context) {
                       child: Text(
                         // context.read<LeadTabController>().config.alignDate(
                         "By ${context.read<LeadTabController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode == null || context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode == "null" || context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode!.isEmpty ? "" : context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -2654,7 +2782,7 @@ Container callLoadingPage(BuildContext context) {
                             child: Text(
                               // context.read<LeadTabController>().config.alignDate(
                               "# ${context.read<LeadTabController>().getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -2682,7 +2810,7 @@ Container callLoadingPage(BuildContext context) {
                               "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
                             ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -2751,7 +2879,7 @@ Container callLoadingPage(BuildContext context) {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -2762,7 +2890,7 @@ Container callLoadingPage(BuildContext context) {
                       child: Text(
                         // context.read<LeadTabController>().config.alignDate(
                         "By ${context.read<LeadTabController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -2781,7 +2909,7 @@ Container callLoadingPage(BuildContext context) {
                             child: Text(
                               // context.read<LeadTabController>().config.alignDate(
                               "# ${context.read<LeadTabController>().getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -2806,7 +2934,7 @@ Container callLoadingPage(BuildContext context) {
                               "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
                             ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -2867,7 +2995,7 @@ Container callLoadingPage(BuildContext context) {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -2878,7 +3006,7 @@ Container callLoadingPage(BuildContext context) {
                       child: Text(
                         // context.read<LeadTabController>().config.alignDate(
                         "By ${context.read<LeadTabController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<LeadTabController>().getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -2897,7 +3025,7 @@ Container callLoadingPage(BuildContext context) {
                             child: Text(
                               // context.read<LeadTabController>().config.alignDate(
                               "# ${context.read<LeadTabController>().getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -2923,7 +3051,7 @@ Container callLoadingPage(BuildContext context) {
                               "${context.read<LeadTabController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
                             ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -3239,7 +3367,7 @@ Container callLoadingPage(BuildContext context) {
                   context
                       .watch<LeadTabController>()
                       .getforwardNextFollowDate!, // "Next Follow up",
-                  style: theme.textTheme.bodyText2?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: context
                             .watch<LeadTabController>()
                             .getforwardNextFollowDate!
@@ -3273,7 +3401,7 @@ Container callLoadingPage(BuildContext context) {
                                 .watch<LeadTabController>()
                                 .getforwardnextWonFD,
                             // context.read<LeadTabController>().getnextFD,
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(), //fontSize: 12
                           ),
                         ),
@@ -3304,7 +3432,7 @@ Container callLoadingPage(BuildContext context) {
                   context
                       .read<LeadTabController>()
                       .assignVisitTime!, // "Next Follow up",
-                  style: theme.textTheme.bodyText2?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: context
                             .read<LeadTabController>()
                             .assignVisitTime!
@@ -3338,7 +3466,7 @@ Container callLoadingPage(BuildContext context) {
                           child: Text(
                             context.watch<LeadTabController>().forwaVisitTime,
                             //fUPCon.getnextFD,
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(), //fontSize: 12
                           ),
                         ),
@@ -3366,7 +3494,7 @@ Container callLoadingPage(BuildContext context) {
                               alignment: Alignment.centerRight,
                               child: Text("${context
                                                 .read<LeadTabController>()
-                                                .forwarderrorVisitTime}",style: theme.textTheme.bodyText1!.copyWith(
+                                                .forwarderrorVisitTime}",style: theme.textTheme.bodyMedium!.copyWith(
                                 color: Colors.red,
                                 fontSize: 13
                               ),),
@@ -3492,7 +3620,7 @@ context
                   .filteruserLtData[ind]
                   .UserName!,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyText1?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color: context
@@ -3507,4 +3635,73 @@ context
       ),
     );
   }
+  settings(BuildContext context) {
+  final theme = Theme.of(context);
+  return StatefulBuilder(builder: (context, st) {
+    return Container(
+      padding: EdgeInsets.only(
+          top: Screens.padingHeight(context) * 0.01,
+          left: Screens.width(context) * 0.03,
+          right: Screens.width(context) * 0.03,
+          bottom: Screens.padingHeight(context) * 0.01),
+      width: Screens.width(context) * 1.1,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: Screens.width(context),
+              height: Screens.padingHeight(context) * 0.05,
+              color: theme.primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: Screens.padingHeight(context) * 0.02,
+                        right: Screens.padingHeight(context) * 0.02),
+                    // color: Colors.red,
+                    width: Screens.width(context) * 0.5,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Alert",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        size: Screens.padingHeight(context) * 0.025,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+            Container(
+                alignment: Alignment.center,
+                width: Screens.width(context),
+                child: Text('You are not authorised..!!')),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+          ],
+        ),
+      ),
+    );
+  });
+}
 }

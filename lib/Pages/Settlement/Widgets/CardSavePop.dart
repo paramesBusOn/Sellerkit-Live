@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/SettlementController/SettlementController.dart';
+import 'package:sellerkit/Controller/SettlementController/settlement_controller.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 import '../../../../Constant/Screen.dart';
 
@@ -124,7 +124,7 @@ class CardAlertBoxState extends State<CardAlertBox> {
                         },
                         decoration: InputDecoration(
                           labelText: 'Settlement',
-                          labelStyle: theme.textTheme.bodyText1!
+                          labelStyle: theme.textTheme.bodyMedium!
                               .copyWith(color: Colors.grey),
 
                           enabledBorder: UnderlineInputBorder(
@@ -162,7 +162,7 @@ class CardAlertBoxState extends State<CardAlertBox> {
                         },
                         decoration: InputDecoration(
                           labelText: 'Reference',
-                          labelStyle: theme.textTheme.bodyText1!
+                          labelStyle: theme.textTheme.bodyMedium!
                               .copyWith(color: Colors.grey),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),

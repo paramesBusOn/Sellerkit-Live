@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Models/EarningModel/Earning2Model.dart';
+import 'package:sellerkit/Models/EarningModel/earning2_model.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 // import 'package:sellerkit/main.dart';
 
 class EarningtableApi {

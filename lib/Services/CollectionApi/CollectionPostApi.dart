@@ -7,8 +7,8 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:http/http.dart' as http;
 
-import '../../Constant/ConstantSapValues.dart';
-import '../../Models/CollectionModel/CollectionPostModel.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import '../../Models/CollectionModel/collectionpost_model.dart';
 // import 'package:sellerkit/main.dart';
 
 class CollectionPostApi {

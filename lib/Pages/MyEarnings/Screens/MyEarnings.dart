@@ -5,9 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/EarningController/EarningController.dart';
+import 'package:sellerkit/Controller/EarningController/earning_controller.dart';
 import 'package:sellerkit/Pages/MyEarnings/Screens/Earningloaddata.dart';
 import 'package:sellerkit/Pages/MyEarnings/Widgets/MoneyWidget.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
@@ -59,7 +60,7 @@ class MyEarningsState extends State<MyEarnings> {
             drawer: drawer3(context),
             body: SafeArea(
                 child: Container(
-              height: Screens.padingHeight(context),
+              height: Screens.bodyheight(context),
               padding: EdgeInsets.only(
                 top: Screens.padingHeight(context) * 0.015,
               ),
@@ -91,7 +92,7 @@ class MyEarningsState extends State<MyEarnings> {
                               .earningtableData1
                               .isEmpty
                       ? SizedBox(
-                          height: Screens.padingHeight(context) * 0.5,
+                          height: Screens.padingHeight(context) *0.7,
                           child: Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -104,14 +105,47 @@ class MyEarningsState extends State<MyEarnings> {
                                         '${context.watch<EarningController>().kpilottie}',
                                         height:
                                             Screens.padingHeight(context) * 0.2,
-                                        width: Screens.width(context) * 0.5)
+                                        width: Screens.width(context) * 0.4)
                                     : Lottie.asset(
                                         '${context.watch<EarningController>().kpilottie}',
                                         animate: true,
                                         repeat: true,
                                         // height: Screens.padingHeight(context) * 0.3,
                                         width: Screens.width(context) * 0.4),
-                                Text(context
+                               context
+                                    .watch<EarningController>()
+                                    .earningexp
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context
+                                    .watch<EarningController>()
+                                    .earningexp
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context
+                                    .watch<EarningController>()
+                                    .earningexp
+                                                      .contains("Network Issue")
+                                                  ? Container():  Text(context
                                     .watch<EarningController>()
                                     .earningexp)
                               ],
@@ -213,7 +247,7 @@ class MyEarningsState extends State<MyEarnings> {
                                                                   .toString(),
                                                               style: theme
                                                                   .textTheme
-                                                                  .bodyText2
+                                                                  .bodyMedium
                                                                   ?.copyWith(),
                                                             ),
                                                           ),
@@ -253,7 +287,7 @@ class MyEarningsState extends State<MyEarnings> {
                                                               // config.currentDateOnly(),
                                                               style: theme
                                                                   .textTheme
-                                                                  .bodyText2
+                                                                  .bodyMedium
                                                                   ?.copyWith(),
                                                             ),
                                                           ),

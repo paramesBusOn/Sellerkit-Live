@@ -1,8 +1,8 @@
 
 import 'dart:developer';
 
-import 'package:sellerkit/DBModel/TestDbmodel1.dart';
-import 'package:sellerkit/DBModel/testdbmodel2.dart';
+import 'package:sellerkit/DBModel/testdb_model1.dart';
+import 'package:sellerkit/DBModel/testdb_model2.dart';
 
 class ItemListheader{
   List<ItemlistPardata>? itemlispardara;

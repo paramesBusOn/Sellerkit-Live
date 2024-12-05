@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Controller/OrderController/ordernew_controller.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../Controller/OrderController/OrderNewController.dart';
 
 class OrderWarningDialog extends StatefulWidget {
   const OrderWarningDialog({
@@ -68,7 +68,7 @@ class OrderWarningDialogState extends State<OrderWarningDialog> {
                     child: Text(
                   "This Customer has an open ${OrderNewController.typeOfLeadOrEnq} with ${OrderNewController.branchOfLeadOrEnq} branch..!!",
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                       //color:Colors.green
                       ),
                 )),
@@ -104,7 +104,7 @@ class OrderWarningDialogState extends State<OrderWarningDialog> {
                               theme.primaryColor)),
                       child: Text(
                         "Cancel",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                     ),
@@ -125,7 +125,7 @@ class OrderWarningDialogState extends State<OrderWarningDialog> {
                               theme.primaryColor)),
                       child: Text(
                         "Open",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                     )

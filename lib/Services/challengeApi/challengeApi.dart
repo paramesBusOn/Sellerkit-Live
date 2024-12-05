@@ -2,12 +2,13 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import 'package:sellerkit/Models/challengeModel/challenge_model.dart';
+
 import 'dart:convert';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 // import 'package:sellerkit/main.dart';
 
-import '../../Models/ChallengeModel/challengemodel.dart';
 
 class ChallengeApi {
  static  Future<ChallengeModel> getdata() async {

@@ -1,21 +1,18 @@
 // ignore_for_file: prefer_const_constructors, unnecessary_new
 
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/LostandClosedDialog.dart';
 
 import '../../../../Constant/Screen.dart';
-import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
-import 'GlobalKeys.dart';
+import '../../../../Controller/EnquiryController/enquiryuser_contoller.dart';
 // import '../../../../Controller/EnquiryController/EnquiryMngController.dart';
 
 
 class LostEnqUserPage extends StatelessWidget {
   const LostEnqUserPage({
-    Key? key,
+    super.key,
     required this.theme,
-  }) : super(key: key);
+  });
 
   final ThemeData theme;
 
@@ -68,8 +65,8 @@ class LostEnqUserPage extends StatelessWidget {
                       width: Screens.width(context),
                       // height: Screens.bodyheight(context)*0.2,
                       padding: EdgeInsets.symmetric(
-                          horizontal: Screens.width(context) * 0.02,
-                          vertical: Screens.bodyheight(context) * 0.01),
+                          // horizontal: Screens.width(context) * 0.02,
+                          vertical: Screens.bodyheight(context) * 0.005),
                       child: Container(
                         // color: Colors.grey[200],
                           padding: EdgeInsets.symmetric(
@@ -92,7 +89,7 @@ class LostEnqUserPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Customer",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -101,7 +98,7 @@ class LostEnqUserPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Date",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -114,9 +111,10 @@ class LostEnqUserPage extends StatelessWidget {
                                 Container(
                                   width: Screens.width(context) * 0.4,
                                   child: Text("${context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].CardName}",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                               color: theme.primaryColor,
+                                              fontSize: 13
                                               // fontWeight:
                                               //     FontWeight.bold
                                                   )),
@@ -126,9 +124,10 @@ class LostEnqUserPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                   context.watch<EnquiryUserContoller>().config.alignDate("${context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].EnqDate}") ,
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                               color: theme.primaryColor,
+                                              fontSize: 13
                                               // fontWeight:
                                               //     FontWeight.bold
                                                   )),
@@ -136,7 +135,7 @@ class LostEnqUserPage extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: Screens.bodyheight(context) * 0.01,
+                              height: Screens.bodyheight(context) * 0.005,
                             ),
                              Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,7 +144,7 @@ class LostEnqUserPage extends StatelessWidget {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                         "",
-                                        style: theme.textTheme.bodyText2?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             color: theme.primaryColor,
                                            // fontWeight: FontWeight.bold
                                             )),
@@ -155,15 +154,16 @@ class LostEnqUserPage extends StatelessWidget {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                         "#${context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].EnqID}",
-                                        style: theme.textTheme.bodyText2?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                             color: Colors.grey,
+                                            fontSize: 13
                                             //fontWeight: FontWeight.bold
                                             )),
                                   ),
                                 ],
                               ),
                                SizedBox(
-                                height: Screens.bodyheight(context) * 0.01,
+                                height: Screens.bodyheight(context) * 0.005,
                               ),
                             Row(
                               mainAxisAlignment:
@@ -173,7 +173,7 @@ class LostEnqUserPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Product",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -182,7 +182,7 @@ class LostEnqUserPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Potential Value",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -195,9 +195,10 @@ class LostEnqUserPage extends StatelessWidget {
                                 Container(
                                   width: Screens.width(context) * 0.4,
                                   child: Text("Looking for ${context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].Lookingfor}",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                               color:theme.primaryColor,
+                                              fontSize: 13
                                               // fontWeight:
                                               //     FontWeight.bold
                                                   )),
@@ -210,9 +211,10 @@ class LostEnqUserPage extends StatelessWidget {
                                       context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].PotentialValue!.toStringAsFixed(0)
                                      ),
                                   //  "₹ ${context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].PotentialValue}",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                               color:theme.primaryColor,
+                                              fontSize: 13
                                               // fontWeight:
                                               //     FontWeight.bold
                                                   )),
@@ -220,7 +222,7 @@ class LostEnqUserPage extends StatelessWidget {
                               ],
                             ),
                             SizedBox(
-                              height: Screens.bodyheight(context) * 0.01,
+                              height: Screens.bodyheight(context) * 0.005,
                             ),
                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -229,7 +231,7 @@ class LostEnqUserPage extends StatelessWidget {
                                   //color: Colors.red,
                                   width: Screens.width(context) * 0.54,
                                   child: Text("Call assigned to ${context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].AssignedTo_UserName}",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                               color: Colors.grey,
                                              // fontWeight: FontWeight.bold
@@ -249,7 +251,7 @@ class LostEnqUserPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(4)
                                     ),
                                     child: Text("${context.watch<EnquiryUserContoller>().filterlostEnqUserdata[i].Status}",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(
                                                 color: Colors.red,
                                                 fontSize: 12

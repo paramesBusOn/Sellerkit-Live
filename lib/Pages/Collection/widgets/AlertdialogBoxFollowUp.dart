@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/CollectionController/CollectionController.dart';
-import 'package:sellerkit/Models/CollectionModel/CollectionModel.dart';
+import 'package:sellerkit/Constant/menu_auth.dart';
+import 'package:sellerkit/Controller/CollectionController/collection_controller.dart';
+import 'package:sellerkit/Models/CollectionModel/collection_model.dart';
 import 'package:sellerkit/Pages/Collection/widgets/CollectionPDF/CollectionPdfHelper.dart';
 import 'package:sellerkit/Pages/Collection/widgets/CollectionPDF/CollectionsPdf.dart';
 //import 'package:timelines/timelines.dart';
@@ -174,7 +175,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
 
                     //secode Row
                     Row(
-                      mainAxisAlignment:widget.tabvalue =='1'?MainAxisAlignment.center: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment:MenuAuthDetail.cocancelupdate =='N'|| widget.tabvalue =='1'?MainAxisAlignment.center: MainAxisAlignment.spaceAround,
                       
                      
                       children: [
@@ -208,13 +209,13 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                               },
                               child: Text(
                                 'Share Document',
-                                style: theme.textTheme.bodyText1!
+                                style: theme.textTheme.bodyMedium!
                                     .copyWith(color: Colors.white),
                               )),
                         ),
 
                         //invoice
-                     widget.tabvalue =='1'?Container():    Container(
+                    MenuAuthDetail.cocancelupdate =='N'|| widget.tabvalue =='1'?Container():    Container(
                           width: Screens.width(context) * 0.35,
                           child: ElevatedButton(
                             
@@ -362,7 +363,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                         decoration: InputDecoration(
                           // counterText: '',
                           labelText: 'Remarks',
-                          labelStyle: theme.textTheme.bodyText1!
+                          labelStyle: theme.textTheme.bodyMedium!
                               .copyWith(color: Colors.grey),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),
@@ -483,7 +484,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Collection Details",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -525,7 +526,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${widget.masterDetails!.customerName}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -547,7 +548,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                                         // "2020-05-18T00:00:00"
                                         "${context.read<ColletionContoller>().config.alignDateT(widget.masterDetails!.docDate!)}"),
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2?.copyWith(),
+                            style: theme.textTheme.bodyMedium?.copyWith(),
                           ),
                         ),
                       )
@@ -560,7 +561,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${widget.masterDetails!.bil_Address1}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -575,7 +576,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                                     "${widget.masterDetails!.amountpaid!.toString()}",
                                   ) +
                               '/-',
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -589,7 +590,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${widget.masterDetails!.bil_Address2}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -597,7 +598,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "# ${widget.masterDetails!.docNum}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -609,7 +610,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${widget.masterDetails!.bil_City}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -620,7 +621,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                               context.watch<ColletionContoller>().config.alignDate3(
                                   "${widget.masterDetails!.docDate}" //.LastFUPUpdate
                                   ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -632,7 +633,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${widget.masterDetails!.bil_Pincode}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       // Container(
@@ -643,7 +644,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                       //         context.watch<ColletionContoller>().config.alignDate3(
                       //             "${context.watch<ColletionContoller>().getleadDeatilsQTHData!.LastFUPUpdate}" //.
                       //             ),
-                      //     style: theme.textTheme.bodyText2?.copyWith(),
+                      //     style: theme.textTheme.bodyMedium?.copyWith(),
                       //   ),
                       // ),
                     ],
@@ -685,7 +686,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                                   Container(
                                     child: Text(
                                       "Total Amount",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -695,7 +696,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                                   .watch<ColletionContoller>()
                                   .config
                                   .slpitCurrency22(widget.masterDetails!.amountpaid.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.black),
                                     ),
                                   ),
@@ -746,7 +747,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Transref",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -756,7 +757,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Trans Num",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -767,7 +768,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Sum",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -780,7 +781,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
           child: Text(
             '${widget.lineDetails![i].transRef1}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -791,7 +792,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
             '${widget.lineDetails![i].transnum}',
             // '${context.watch<ColletionContoller>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -804,7 +805,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
                                   .config
                                   .slpitCurrency22(widget.lineDetails![i].sumApplied.toString())}',
             textAlign: TextAlign.right,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -843,7 +844,7 @@ class _FollowDialogState extends State<CollectionFollowDialog> {
   //         child: Text(
   //             context.watch<ColletionContoller>().getuserLtData[ind].UserName!,
   //             textAlign: TextAlign.center,
-  //             style: theme.textTheme.bodyText1?.copyWith(
+  //             style: theme.textTheme.bodyMedium?.copyWith(
   //               fontWeight: FontWeight.normal,
   //               fontSize: 12,
   //               color: context

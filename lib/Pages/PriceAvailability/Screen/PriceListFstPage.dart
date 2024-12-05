@@ -3,14 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/PriceListController/PriceListController.dart';
-import '../../../DBModel/ItemMasertDBModel.dart';
+import '../../../Controller/PriceListController/pricelist_controller.dart';
+import '../../../DBModel/itemmasertdb_model.dart';
 import '../../../Widgets/Navi3.dart';
 
 class PriceAvailability extends StatefulWidget {
@@ -141,7 +142,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                                       Container(
                                         child: Text(
                                           "Brand",
-                                          style: theme.textTheme.subtitle1
+                                          style: theme.textTheme.titleMedium
                                               ?.copyWith(
                                                   color: theme.primaryColor,
                                                   fontWeight: FontWeight.bold),
@@ -190,7 +191,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                                                 },
                                                 child: Text(
                                                   "View All",
-                                                  style: theme.textTheme.bodyText1
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           fontSize: 16,
                                                           color: Colors.grey),
@@ -229,7 +230,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                                     Container(
                                       child: Text(
                                         "Product",
-                                        style: theme.textTheme.subtitle1
+                                        style: theme.textTheme.titleMedium
                                             ?.copyWith(
                                                 color: theme.primaryColor,
                                                 fontWeight: FontWeight.bold),
@@ -268,7 +269,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                                             width: Screens.width(context) * 0.2,
                                             child: Text(
                                               "View All",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                       fontSize: 16,
                                                       color: Colors.grey),
@@ -307,7 +308,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                                     Container(
                                       child: Text(
                                         "Segment",
-                                        style: theme.textTheme.subtitle1
+                                        style: theme.textTheme.titleMedium
                                             ?.copyWith(
                                                 color: theme.primaryColor,
                                                 fontWeight: FontWeight.bold),
@@ -349,7 +350,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                                             // color: Colors.amber,
                                             child: Text(
                                               "View All",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                       fontSize: 16,
                                                       color: Colors.grey),
@@ -382,7 +383,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                         //           Container(
                         //             child: Text(
                         //               "Budget",
-                        //               style: theme.textTheme.subtitle1?.copyWith(
+                        //               style: theme.textTheme.titleMedium?.copyWith(
                         //                   color: theme.primaryColor,
                         //                   fontWeight: FontWeight.bold),
                         //             ),
@@ -447,7 +448,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                 //       Container(
                 //         child: Text(
                 //           "Spec",
-                //           style: theme.textTheme.subtitle1?.copyWith(
+                //           style: theme.textTheme.titleMedium?.copyWith(
                 //               color: theme.primaryColor,
                 //               fontWeight: FontWeight.bold),
                 //         ),
@@ -494,8 +495,8 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                           onPressed: () {
                              setState(() {
                    context.read<PriceListController>().     scannerreset();
-                   qrscannerState.pricelistscan=true;
-                Navigator.push(context,MaterialPageRoute(builder: (_) => qrscanner()))
+                   QrscannerState.pricelistscan=true;
+                Navigator.push(context,MaterialPageRoute(builder: (_) => Qrscanner()))
 //                 .then((value){
 // return context.read<PriceListController>().scanneddataget(context);
 //                 } 
@@ -562,7 +563,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
 
   Widget buildSlideLabel(String value, ThemeData theme) => Text(
         value.toString(),
-        style: theme.textTheme.bodyText1?.copyWith(color: Colors.grey),
+        style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
       );
 
   List<Widget> listContainers(
@@ -595,7 +596,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -632,7 +633,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -677,7 +678,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -716,7 +717,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -760,7 +761,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -798,7 +799,7 @@ class _PriceAvailabilityState extends State<PriceAvailability> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white

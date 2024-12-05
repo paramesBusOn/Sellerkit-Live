@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/LeadController/LeadNewController.dart';
+import 'package:sellerkit/Controller/LeadController/leadnew_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 

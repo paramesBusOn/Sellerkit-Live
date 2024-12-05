@@ -1,12 +1,9 @@
 
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/EnquiryController/EnquiryUserContoller.dart';
+import 'package:sellerkit/Controller/EnquiryController/enquiryuser_contoller.dart';
 
 class navDrawerEnq extends StatefulWidget {
   const navDrawerEnq({Key? key}) : super(key: key);
@@ -64,9 +61,9 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                         )
            
                        ),
-                       child: Text("Enquiry",style: theme.textTheme.bodyText2!.copyWith(color: Colors.white),),
+                       child: Text("Enquiry",style: theme.textTheme.bodySmall!.copyWith(color: Colors.white),),
                       ),
-              Container(
+              SizedBox(
                 width: Screens.width(context),
                   height: Screens.bodyheight(context)*0.85,
                   // color: Colors.amber,
@@ -124,7 +121,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                                context.watch<EnquiryUserContoller>(). isassignto ==true &&
                               context.watch<EnquiryUserContoller>(). assigncolumn.isNotEmpty?
                                
-                                  Container(
+                                  SizedBox(
                                     height: Screens.padingHeight(context)*0.15,
                                     // color:Colors.amber,
                                     child:SingleChildScrollView(
@@ -288,7 +285,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                       // ),
                   //  Customer
            
-                  Container(
+                  SizedBox(
                              width: Screens.width(context),
                             child: Padding(
                              padding:  EdgeInsets.only(
@@ -338,7 +335,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                                context.watch<EnquiryUserContoller>(). iscusgroup ==true &&
                               context.watch<EnquiryUserContoller>().cusgroupcolumn.isNotEmpty?
                                
-                                  Container(
+                                  SizedBox(
                                     height: Screens.padingHeight(context)*0.2,
                                     // color:Colors.amber,
                                     child:SingleChildScrollView(
@@ -414,7 +411,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                   // ),
                   //         ),
                           //Trans Number
-                          Container(
+                          SizedBox(
                   width: Screens.width(context),
                   // color: Colors.red,
                   child: Padding(
@@ -548,7 +545,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
            
            
                           //new
-                          Container(
+                          SizedBox(
                              width: Screens.width(context),
                             child: Padding(
                            padding:  EdgeInsets.only(
@@ -598,7 +595,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                                context.watch<EnquiryUserContoller>(). isenqstatus ==true &&
                                context.watch<EnquiryUserContoller>().enqstatuscolumn.isNotEmpty?
                                
-                                  Container(
+                                  SizedBox(
                                     height: Screens.padingHeight(context)*0.2,
                                     // color:Colors.amber,
                                     child:SingleChildScrollView(
@@ -675,7 +672,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                   //         ),
                           //looking for 
            
-                          Container(
+                          SizedBox(
                              width: Screens.width(context),
                             child: Padding(
                             padding:  EdgeInsets.only(
@@ -913,7 +910,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                      //                                           .name!,
                      //                                       // maxLines: 1,
                      //                                       //overflow: TextOverflow.ellipsis,
-                     //                                       style: theme.textTheme.bodyText2?.copyWith(
+                     //                                       style: theme.textTheme.bodySmall?.copyWith(
                      //                                         fontWeight: FontWeight.normal,
                      //                                         fontSize: 12,
                      //                                         color: context
@@ -1076,7 +1073,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                                context.watch<EnquiryUserContoller>(). isinterest ==true &&
                                context.read<EnquiryUserContoller>(). intlevelcolumn.isNotEmpty?
                                
-                                  Container(
+                                  SizedBox(
                                     height: Screens.padingHeight(context)*0.2,
                                     // color:Colors.amber,
                                     child:SingleChildScrollView(
@@ -1153,7 +1150,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                   //         ),
            
            
-                   Container(
+                   SizedBox(
                              width: Screens.width(context),
                             child: Padding(
                              padding:  EdgeInsets.only(
@@ -1325,7 +1322,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                   // ),
                   //         ),
                           //Balance Above
-                          Container(
+                          SizedBox(
                             // color:Colors.red,
                   width: Screens.width(context),
                   child: Padding(
@@ -1412,7 +1409,7 @@ class _navDrawerEnqState extends State<navDrawerEnq> {
                   )
                 ),
                child: Text("Cancel"))),
-              Container(
+              SizedBox(
                 width: Screens.width(context)*0.3,
                 
                 child: ElevatedButton(onPressed: (){
@@ -1478,10 +1475,10 @@ List<Widget>  listContainersProduct(ThemeData theme,){
                   context
                       .watch<EnquiryUserContoller>()
                       .filterlookingforcolumn[ind]
-                      .name!,
+                      .name,
                   // maxLines: 1,
                   //overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText2?.copyWith(
+                  style: theme.textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.normal,
                     fontSize: 12,
                     color: context
@@ -1534,10 +1531,10 @@ List<Widget>  listContainersProducttoshow(ThemeData theme,){
                   context
                       .watch<EnquiryUserContoller>()
                       .lookingforcolumnforshow[ind]
-                      .name!,
+                      .name,
                   // maxLines: 1,
                   //overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText2?.copyWith(
+                  style: theme.textTheme.bodySmall?.copyWith(
                     fontWeight: FontWeight.normal,
                     fontSize: 12,
                     color: context

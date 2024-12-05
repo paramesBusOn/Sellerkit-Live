@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../Constant/Screen.dart';
 import '../../../Constant/Configuration.dart';
-import '../../../Controller/OrderController/TabOrderController.dart';
+import '../../../Controller/OrderController/taborder_controller.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetOrderSummary.dart';
 
@@ -64,7 +64,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                 Container(
                   child: Text(
                     "${widget.leadSummaryLost[0].Caption}",
-                    style: widget.theme.textTheme.bodyText1
+                    style: widget.theme.textTheme.bodyMedium
                         ?.copyWith(color: widget.theme.primaryColor),
                   ),
                 ),
@@ -80,7 +80,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                           //NumberFormatter.formatter(leadSummaryLost[0].Value!.toStringAsFixed(0))
                           //  context.read<OrderTabController>().config.
                           //"₹ ${leadSummaryLost[0].Value}"),
-                          style: widget.theme.textTheme.headline6,
+                          style: widget.theme.textTheme.titleLarge,
                         )),
                     Container(
                       alignment: Alignment.centerRight,
@@ -98,7 +98,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                     "Target ₹ " +
                         Config.k_m_b_generator(
                             widget.leadSummaryLost[0].Target!.toString()),
-                    //     style: theme.textTheme.bodyText1?.copyWith(
+                    //     style: theme.textTheme.bodyMedium?.copyWith(
                     //   //color: Colors.grey
                     //   fontWeight: FontWeight.w400
                     // ),
@@ -151,7 +151,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Customer",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -159,7 +159,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -174,7 +174,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                       child: Text(
                                           "${widget.leadLostAllData[i].CustomerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             // fontWeight: FontWeight.bold
                                           )),
@@ -192,7 +192,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                           // .alignDate(
                                           //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             //fontWeight: FontWeight.bold
                                           )),
@@ -211,7 +211,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                       width: Screens.width(context),
                                       child: Text(
                                         "Product",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -219,7 +219,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                       width: Screens.width(context),
                                       // color: Colors.red,
                                       child: Text("${widget.leadLostAllData[i].Product}",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                           //?.copyWith(color: Colors.grey),
                                           ),
                                     ),
@@ -238,7 +238,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                       child: Text(
                                           "Next Follow up", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -250,7 +250,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                       child: Text(
                                           "Order Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -272,7 +272,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                       //             .alignDate(
                                       //                 "${leadLostAllData[i].NextFollowup}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                       //     style:
-                                      //         theme.textTheme.bodyText2?.copyWith(
+                                      //         theme.textTheme.bodyMedium?.copyWith(
                                       //             //color:theme.primaryColor,
                                       //             //fontWeight: FontWeight.bold
                                       //             )),
@@ -304,7 +304,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                                         .Value!
                                                         .toStringAsFixed(
                                                             0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     //color:theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
@@ -337,7 +337,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                                     .isEmpty
                                                 ? ''
                                                 : "${widget.leadLostAllData[i].LastUpdateMessage}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               //color:theme.primaryColor,
                                               color: Colors.red[700],
@@ -368,7 +368,7 @@ class _LostOrderPageState extends State<LostOrderPage> {
                                                     .subtractDateTime(
                                                         "${widget.leadLostAllData[i].LastUpdateTime}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
                                         style:
-                                            widget.theme.textTheme.bodyText2?.copyWith(
+                                            widget.theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey,
                                           // color: Colors.green[700],
                                           // fontWeight: FontWeight.bold

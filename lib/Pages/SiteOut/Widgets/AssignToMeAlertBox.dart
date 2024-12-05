@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/SiteOutController/SiteOutController.dart';
+import 'package:sellerkit/Controller/SiteOutController/siteout_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 
@@ -146,7 +146,7 @@ class ShowSearchDialogState extends State<AssignToMeDialog> {
                   .UserName!,
               // maxLines: 1,
               //overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodyText2?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color: context

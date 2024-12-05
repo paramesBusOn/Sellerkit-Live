@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:sellerkit/Models/AddressApiModel/AddressMoasterModel.dart';
+import 'package:sellerkit/Models/AddressApiModel/addressmoaster_model.dart';
 
 // import '../../Models/AddressMoasterModel.dart';
 
@@ -12,10 +12,10 @@ class AddressMasterApi {
 
 
     try {
-    log("addapi::"+"https://maps.googleapis.com/maps/api/geocode/json?latlng=$lan,$long&key=AIzaSyAdvVumVzr7teF3UDRchglwonf_vjvXtZo");
+    log("addapi::"+"https://maps.googleapis.com/maps/api/geocode/json?latlng=$lan,$long&key=AIzaSyA0AsgdazqBgDgkneQI43_EN2ndcILDZ9o");
       // await config.getSetup();
        final response = await http.get(
-        Uri.parse('https://maps.googleapis.com/maps/api/geocode/json?latlng=$lan,$long&key=AIzaSyAdvVumVzr7teF3UDRchglwonf_vjvXtZo'),
+        Uri.parse('https://maps.googleapis.com/maps/api/geocode/json?latlng=$lan,$long&key=AIzaSyA0AsgdazqBgDgkneQI43_EN2ndcILDZ9o'),
         headers: {
           "content-type": "application/json",
         },

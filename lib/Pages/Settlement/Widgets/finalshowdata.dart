@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/SettlementController/SettlementController.dart';
+import 'package:sellerkit/Controller/SettlementController/settlement_controller.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 
 class finalshown extends StatefulWidget {
@@ -95,7 +96,7 @@ class _finalshownState extends State<finalshown> {
                                                 child: Text(
                                                   "Customer",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.grey),
                                                 ),
@@ -108,7 +109,7 @@ class _finalshownState extends State<finalshown> {
                                                 child: Text(
                                                   "# ${filteredList[i].DocNum}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.grey),
                                                 ),
@@ -125,7 +126,7 @@ class _finalshownState extends State<finalshown> {
                                                 child: Text(
                                                     "${filteredList[i].CustomerName}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -140,7 +141,7 @@ class _finalshownState extends State<finalshown> {
                                                 child: Text(
                                                     '${context.watch<SettlementController>().config.alignDateT(filteredList[i].DocDate.toString())}',
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -164,7 +165,7 @@ class _finalshownState extends State<finalshown> {
                                                 child: Text(
                                                   "Total Amount",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.grey),
                                                 ),
@@ -177,7 +178,7 @@ class _finalshownState extends State<finalshown> {
                                                 child: Text(
                                                   "${filteredList[i].Mode}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.grey),
                                                 ),
@@ -197,7 +198,7 @@ class _finalshownState extends State<finalshown> {
                                                               SettlementController>()
                                                           .config.slpitCurrency22(filteredList[i].totalAmount!.toString())}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -217,7 +218,7 @@ class _finalshownState extends State<finalshown> {
                                                           .config.slpitCurrency22(filteredList[i].Amount.toString())}',
                                                     //"₹ ${context.watch<EnquiryMangerContoller>().getopenEnqData[i].PotentialValue}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -259,7 +260,7 @@ class _finalshownState extends State<finalshown> {
                                                     '${filteredList[i].ref}',
                                                     //"₹ ${context.watch<EnquiryMangerContoller>().getopenEnqData[i].PotentialValue}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -300,7 +301,7 @@ class _finalshownState extends State<finalshown> {
                           "${widget.name} Total Rs.${context.watch<SettlementController>().totalfinal(widget.name)}",
                           maxLines: 8,
                           overflow: TextOverflow.ellipsis,
-                          style: widget.theme.textTheme.bodyText1?.copyWith(
+                          style: widget.theme.textTheme.bodyMedium?.copyWith(
                             color: widget.theme.primaryColor,
                           ))
                     ],

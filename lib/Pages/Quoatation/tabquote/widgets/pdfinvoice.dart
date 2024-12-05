@@ -10,7 +10,8 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Models/QuoteModel/quotemodel.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
 
@@ -18,15 +19,16 @@ class PdfInvoicePdfHelperQuotes {
 //  static dynamic height;
 //   static dynamic width;
 
-static customerdetData? customermodeldata;
+  static customerdetData? customermodeldata;
   static List<DocumentLines> data2 = [];
   static List<ordermaster>? orderMasterdata2 = [];
   static List<ordermaster>? orderMasterdata = [];
-   static String paymode = '';
+  static String paymode = '';
 // int i=0;
 //  int pageNumber=i+1;
   // static List<InvoiceData>? dasa = [];
   String? date = '';
+
   static Future<TtfFont> loadFont() async {
     final ByteData data = await rootBundle.load('Assets/Ingeborg-Regular.ttf');
     final Uint8List bytes = data.buffer.asUint8List();
@@ -57,8 +59,11 @@ static customerdetData? customermodeldata;
     final TtfFont font = await loadFont();
     final TtfFont Calibrifont = await caliberFont();
     final TtfFont Calibrifontbold = await caliberFontbold();
-     final netImage =customermodeldata!.storeLogoUrl != null&& customermodeldata!.storeLogoUrl!.isNotEmpty? await networkImage(customermodeldata!.storeLogoUrl!):null;
-   
+    final netImage = customermodeldata!.storeLogoUrl != null &&
+            customermodeldata!.storeLogoUrl!.isNotEmpty
+        ? await networkImage(customermodeldata!.storeLogoUrl!)
+        : null;
+
     final pdf = Document(
       // pageFormat: PdfPageFormat.a4.copyWith(
       //     //  marginBottom: 0,
@@ -83,8 +88,8 @@ static customerdetData? customermodeldata;
         height: PdfPageFormat.a4.height,
       ),
       header: (context) {
-        return buildHeader(
-            orderMasterdata, font, Calibrifont, config, Calibrifontbold,netImage ??null);
+        return buildHeader(orderMasterdata, font, Calibrifont, config,
+            Calibrifontbold, netImage ?? null);
       },
       build: (context) => [
         // SizedBox(height: 1 * PdfPageFormat.cm),
@@ -113,8 +118,13 @@ static customerdetData? customermodeldata;
                       color: PdfColor.fromHex("#750537"),
                       width: PdfPageFormat.a4.width * 0.07)))));
 
-  static pw.Widget buildHeader(List<ordermaster>? orderMasterdata, TtfFont font,
-          TtfFont Calibrifont, Config config, TtfFont Calibrifontbold,ImageProvider? netImage) =>
+  static pw.Widget buildHeader(
+          List<ordermaster>? orderMasterdata,
+          TtfFont font,
+          TtfFont Calibrifont,
+          Config config,
+          TtfFont Calibrifontbold,
+          ImageProvider? netImage) =>
       // Row(
       //   children: [
       //       Container(
@@ -155,7 +165,7 @@ static customerdetData? customermodeldata;
                           ),
                           Container(
                             alignment: Alignment.centerRight,
-                               width: PdfPageFormat.a4.width *0.4,
+                            width: PdfPageFormat.a4.width * 0.4,
                             // width: width*0.5,
                             //  color: PdfColors.amber,
                             child: Column(
@@ -202,12 +212,13 @@ static customerdetData? customermodeldata;
                                   ),
                                 ]),
                           ),
-                       
-                        netImage !=null ?       Container(
-                          height: PdfPageFormat.a4.height*0.07,
-                          width: PdfPageFormat.a4.width *0.1,
-                        child:pw.Image(netImage,fit: BoxFit.fill)
-                      ):Container()
+                          netImage != null
+                              ? Container(
+                                  height: PdfPageFormat.a4.height * 0.07,
+                                  width: PdfPageFormat.a4.width * 0.1,
+                                  child: pw.Image(netImage, fit: BoxFit.fill))
+                              : Container(height: PdfPageFormat.a4.height * 0.07,
+                                  width: PdfPageFormat.a4.width * 0.05,)
                         ]),
                     SizedBox(height: 1 * PdfPageFormat.cm),
                     Row(
@@ -244,7 +255,7 @@ static customerdetData? customermodeldata;
                                       maxLines: 10,
                                       style: TextStyle(
                                         font: Calibrifont,
-                                          decoration: TextDecoration.underline,
+                                        decoration: TextDecoration.underline,
                                         color: PdfColors.blue,
                                         // fontWeight:FontWeight.bold,
                                         fontSize: 10,
@@ -565,82 +576,106 @@ static customerdetData? customermodeldata;
 
   static Widget buildInvoice(List<DocumentLines> data2, TtfFont font,
       TtfFont Calibrifont, Config config, TtfFont Calibrifontbold) {
-         int  i=1;
-    final headers = [
-      'S.No',
-      'Description',
-      'Qty',
-      'Price',
-      "Disc %",
-      'Tax %',
-      'Total',
-    ];
-     data2.sort((a, b) => b.BasePrice!.compareTo(a.BasePrice!));
+    int i = 1;
+    List<String> headers = [];
+    if (ConstantValues.quotesdisc!.toLowerCase() == 'n') {
+       headers = [
+        'S.No',
+        'Description',
+        'Qty',
+        'Price',
+        'Tax %',
+        'Total',
+      ];
+    } else {
+       headers = [
+        'S.No',
+        'Description',
+        'Qty',
+        'Price',
+        "Disc %",
+        'Tax %',
+        'Total',
+      ];
+    }
+    
+
+    data2.sort((a, b) => b.BasePrice!.compareTo(a.BasePrice!));
     final data = data2.map((item) {
       double? mrpvalue;
       double? Discount;
-      if(item.MRP! >0.00){
-      double mrp2=double.parse(item.MRP!.toStringAsFixed(2));
- 
- double tax2=double.parse(item.TaxCode!.toStringAsFixed(2));
-      mrpvalue=mrp2 /(1+(tax2/100));
-   log("mrpvalue::"+mrpvalue.toString());
-     
-      if(item.MRP! >0.00 ||item.Price! >0.00){
-        // double mrp2=double.parse(item.MRP!.toStringAsFixed(2));
-        double Price2=double.parse(item.Price!.toStringAsFixed(2));
-         log("mrp"+mrp2.toString()+"Price2"+Price2.toString());
-        
-         Discount = ((mrp2 - Price2)/mrp2) * 100;
-   
-   log("Discount2222::"+Discount.toString());
-      }else {
-   Discount=0.00;
-      log("Discount::"+Discount.toString());
-      }
-      if (mrpvalue.isNaN || mrpvalue.isInfinite) {
-    mrpvalue = 0.0; 
-  }
-  if (Discount.isNaN || Discount.isInfinite) {
-    Discount = 0.0; 
-  }  
-      }else{
-        double mrp2=double.parse(item.BasePrice!.toStringAsFixed(2));
- 
- double tax2=double.parse(item.TaxCode!.toStringAsFixed(2));
-      mrpvalue=mrp2 /(1+(tax2/100));
-   log("mrpvalue0000::"+mrpvalue.toString());
-   
-      if(item.MRP! >0.00 ||item.Price! >0.00){
-        // double mrp2=double.parse(item.MRP!.toStringAsFixed(2));
-        double Price2=double.parse(item.Price!.toStringAsFixed(2));
-         log("mrp"+mrp2.toString()+"Price2"+Price2.toString());
-        
-         Discount = ((mrp2 - Price2)/mrp2) * 100;
-   
-   log("Discount2222::"+Discount.toString());
-      }else {
-   Discount=0.00;
-      log("Discount::"+Discount.toString());
-      }
-      if (mrpvalue.isNaN || mrpvalue.isInfinite) {
-    mrpvalue = 0.0; 
-  }
-  if (Discount.isNaN || Discount.isInfinite) {
-    Discount = 0.0; 
-  }
+      if (item.MRP! > 0.00) {
+        double mrp2 = double.parse(item.MRP!.toStringAsFixed(2));
+
+        double tax2 = double.parse(item.TaxCode!.toStringAsFixed(2));
+        mrpvalue = mrp2 / (1 + (tax2 / 100));
+        log("mrpvalue::" + mrpvalue.toString());
+
+        if (item.MRP! > 0.00 || item.Price! > 0.00) {
+          // double mrp2=double.parse(item.MRP!.toStringAsFixed(2));
+          double Price2 = double.parse(item.Price!.toStringAsFixed(2));
+          log("mrp" + mrp2.toString() + "Price2" + Price2.toString());
+
+          Discount = ((mrp2 - Price2) / mrp2) * 100;
+
+          log("Discount2222::" + Discount.toString());
+        } else {
+          Discount = 0.00;
+          log("Discount::" + Discount.toString());
+        }
+        if (mrpvalue.isNaN || mrpvalue.isInfinite) {
+          mrpvalue = 0.0;
+        }
+        if (Discount.isNaN || Discount.isInfinite) {
+          Discount = 0.0;
+        }
+      } else {
+        double mrp2 = double.parse(item.BasePrice!.toStringAsFixed(2));
+
+        double tax2 = double.parse(item.TaxCode!.toStringAsFixed(2));
+        mrpvalue = mrp2 / (1 + (tax2 / 100));
+        log("mrpvalue0000::" + mrpvalue.toString());
+
+        if (item.MRP! > 0.00 || item.Price! > 0.00) {
+          // double mrp2=double.parse(item.MRP!.toStringAsFixed(2));
+          double Price2 = double.parse(item.Price!.toStringAsFixed(2));
+          log("mrp" + mrp2.toString() + "Price2" + Price2.toString());
+
+          Discount = ((mrp2 - Price2) / mrp2) * 100;
+
+          log("Discount2222::" + Discount.toString());
+        } else {
+          Discount = 0.00;
+          log("Discount::" + Discount.toString());
+        }
+        if (mrpvalue.isNaN || mrpvalue.isInfinite) {
+          mrpvalue = 0.0;
+        }
+        if (Discount.isNaN || Discount.isInfinite) {
+          Discount = 0.0;
+        }
       }
       // final total = item.unitPrice * item.quantity * (1 + item.vat);
-
-      return [
-       i++,
-        item.ItemDescription,
-        item.Quantity!.toInt(),
-       config.slpitCurrencypdf(mrpvalue.round().toStringAsFixed(2)) ,
-       Discount.round().toStringAsFixed(2),
-        item.TaxCode!.round().toStringAsFixed(2),
-       config.slpitCurrencypdf (item.LineTotal!.round().toStringAsFixed(2)),
-      ];
+      if (ConstantValues.quotesdisc!.toLowerCase() == 'n') {
+        return [
+          i++,
+          item.ItemDescription,
+          item.Quantity!.toInt(),
+          config.slpitCurrencypdf(mrpvalue.round().toStringAsFixed(2)),
+          item.TaxCode!.round().toStringAsFixed(2),
+          config.slpitCurrencypdf(item.LineTotal!.round().toStringAsFixed(2)),
+        ];
+      } else {
+        return [
+          i++,
+          item.ItemDescription,
+          item.Quantity!.toInt(),
+          config.slpitCurrencypdf(mrpvalue.round().toStringAsFixed(2)),
+          Discount.round().toStringAsFixed(2),
+          item.TaxCode!.round().toStringAsFixed(2),
+          config.slpitCurrencypdf(item.LineTotal!.round().toStringAsFixed(2)),
+        ];
+      }
     }).toList();
 
     return Container(
@@ -648,7 +683,9 @@ static customerdetData? customermodeldata;
             border: Border(
                 left: BorderSide(
                     color: PdfColor.fromHex("#750537"),
-                    width: PdfPageFormat.a4.width * 0.07))),
+                    width: PdfPageFormat.a4.width * 0.07)
+                    )
+                    ),
         child: Padding(
             padding: EdgeInsets.only(left: PdfPageFormat.a4.width * 0.07),
             child: Table.fromTextArray(
@@ -679,7 +716,7 @@ static customerdetData? customermodeldata;
                 3: Alignment.centerRight,
                 4: Alignment.centerRight,
                 5: Alignment.centerRight,
-                 6: Alignment.centerRight,
+                6: Alignment.centerRight,
               },
               cellAlignments: {
                 0: Alignment.topCenter,
@@ -688,21 +725,11 @@ static customerdetData? customermodeldata;
                 3: Alignment.centerRight,
                 4: Alignment.centerRight,
                 5: Alignment.centerRight,
-                 6: Alignment.centerRight,
+                6: Alignment.centerRight,
               },
-            )));
-//    Row(children: [
-//  Container(
-//              width: PdfPageFormat.a4.width*0.05,
+            ))
+            );
 
-//              height:PdfPageFormat.a4.marginLeft*0.3,
-//                       color: PdfColor.fromHex("#750537"),
-//            ),
-//                       SizedBox(width: PdfPageFormat.a4.width*0.05),
-//                       Column(children: [
-
-    //                     ])
-    //  ]);
   }
 
   static Widget buildTotal(List<ordermaster>? orderMasterdata, TtfFont font,
@@ -868,7 +895,7 @@ static customerdetData? customermodeldata;
                                               width:
                                                   PdfPageFormat.a4.width * 0.13,
                                               child: Text(
-                                                  "${ config.slpitCurrencypdf(orderMasterdata![0].GrossTotal!.round().toStringAsFixed(2))}",
+                                                  "${config.slpitCurrencypdf(orderMasterdata![0].GrossTotal!.round().toStringAsFixed(2))}",
                                                   textAlign: TextAlign.right,
                                                   style: TextStyle(
                                                     font: Calibrifont,
@@ -915,7 +942,7 @@ static customerdetData? customermodeldata;
                                               width:
                                                   PdfPageFormat.a4.width * 0.13,
                                               child: Text(
-                                                  "${ config.slpitCurrencypdf(orderMasterdata![0].TaxAmount!.round().toStringAsFixed(2))}",
+                                                  "${config.slpitCurrencypdf(orderMasterdata![0].TaxAmount!.round().toStringAsFixed(2))}",
                                                   textAlign: TextAlign.right,
                                                   style: TextStyle(
                                                     font: Calibrifont,
@@ -957,7 +984,7 @@ static customerdetData? customermodeldata;
                                               width:
                                                   PdfPageFormat.a4.width * 0.13,
                                               child: Text(
-                                                  "${config.slpitCurrencypdf(orderMasterdata![0].roundoff!.abs().round().toStringAsFixed(2)) }",
+                                                  "${config.slpitCurrencypdf(orderMasterdata![0].roundoff!.abs().round().toStringAsFixed(2))}",
                                                   // orderMasterdata![0].roundoff!.toStringAsFixed(2)
                                                   textAlign: TextAlign.right,
                                                   style: TextStyle(
@@ -1008,7 +1035,7 @@ static customerdetData? customermodeldata;
                                                       PdfPageFormat.a4.width *
                                                           0.13,
                                                   child: Text(
-                                                      "${ config.slpitCurrencypdf(orderMasterdata![0].DocTotal!.round().toStringAsFixed(2))}",
+                                                      "${config.slpitCurrencypdf(orderMasterdata![0].DocTotal!.round().toStringAsFixed(2))}",
                                                       textAlign:
                                                           TextAlign.right,
                                                       style: TextStyle(
@@ -1052,45 +1079,41 @@ static customerdetData? customermodeldata;
                   children: [
                     Divider(),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                        "Page ${context.pageNumber} of ${context.pagesCount}",
-                        style:
-                            TextStyle(font: font, fontSize: 10),
-                        textAlign: TextAlign.start),
-                         Text(
-                                      '${ConstantValues.firstName}',
-                                      textAlign: TextAlign.start,
-                                      style: TextStyle(
-                                        font: font,
-                                        // fontWeight: FontWeight.bold,
-                                        fontSize: 10,
-                                        //  color: PdfColor.fromHex("#750537")
-                                      ),
-                                    ),
- Container(
-                      // width: PdfPageFormat.a4.width*0.7,
-                      child:Text(
-                        '    This is a System Generated Document.Signature not Required',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(font: font, fontSize: 7)),),
-                        Text(config.currentDatepdf(),
-                    textAlign: TextAlign.end,
-                        style: TextStyle(
-                            font: font, fontSize: 10)),
-                    ]),
-                   
-                      SizedBox(height: 1 * PdfPageFormat.mm),
-                  //     Row(
-                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //       children: [
- 
-                 
-                    
-                    
-                  //     ]),
-                  //  SizedBox(height: 1 * PdfPageFormat.mm),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              "Page ${context.pageNumber} of ${context.pagesCount}",
+                              style: TextStyle(font: font, fontSize: 10),
+                              textAlign: TextAlign.start),
+                          Text(
+                            '${ConstantValues.firstName}',
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              font: font,
+                              // fontWeight: FontWeight.bold,
+                              fontSize: 10,
+                              //  color: PdfColor.fromHex("#750537")
+                            ),
+                          ),
+                          Container(
+                            // width: PdfPageFormat.a4.width*0.7,
+                            child: Text(
+                                '    This is a System Generated Document.Signature not Required',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(font: font, fontSize: 7)),
+                          ),
+                          Text(config.currentDatepdf(),
+                              textAlign: TextAlign.end,
+                              style: TextStyle(font: font, fontSize: 10)),
+                        ]),
+
+                    SizedBox(height: 1 * PdfPageFormat.mm),
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+
+                    //     ]),
+                    //  SizedBox(height: 1 * PdfPageFormat.mm),
 
                     // SizedBox(height: 1 * PdfPageFormat.mm),
 

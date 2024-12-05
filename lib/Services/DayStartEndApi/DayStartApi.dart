@@ -3,9 +3,10 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:sellerkit/Models/EarningModel/EraningModel1.dart';
+import 'package:sellerkit/Models/EarningModel/eraning_model1.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 // import 'package:sellerkit/main.dart';
 
 class DayStartApi {
@@ -29,15 +30,19 @@ class DayStartApi {
   "locaddress1": "${postData.startAddress}",
   "locaddress2": "${postData.address2}",
   "locaddress3": "${postData.address3}",
+  "attendanceat":postData.attendanceat ==null?null:"${postData.attendanceat}",
+  "remarks":postData.remarks ==null?null: "${postData.remarks}",
   "imageurl": postData.startPointImgurl==null?null:"${postData.startPointImgurl}"
     }));
 print("DayStart Post::"+jsonEncode({
-             "userid": postData.userId,
+         "userid": postData!.userId,
   "lat": double.parse(postData.latititudeST) ,
   "lon":double.parse(postData.longitudeST) ,
   "locaddress1": "${postData.startAddress}",
   "locaddress2": "${postData.address2}",
   "locaddress3": "${postData.address3}",
+  "attendanceat":postData.attendanceat ==null?null:"${postData.attendanceat}",
+  "remarks":postData.remarks ==null?null: "${postData.remarks}",
   "imageurl": postData.startPointImgurl==null?null:"${postData.startPointImgurl}"
           }));
       resCode = response.statusCode;
@@ -66,10 +71,14 @@ class DayStartList {
   String startPointImgurl; //strin
   String? address2;
   String? address3;
+  String? attendanceat;
+  String? remarks;
 
   DayStartList({
     this.address2,
     this.address3,
+    required this.attendanceat,
+    required this.remarks,
     required this.userId, //1
     required this.slpCode, // SLP001
     required this.startAddress, // 4/44

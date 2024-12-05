@@ -10,7 +10,8 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderSavePostModel.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
 
@@ -251,7 +252,7 @@ Container(
                                     alignment: Alignment.centerLeft,
                                     width: PdfPageFormat.a4.width * 0.5,
                                     child: Text(
-                                      '  ${orderMasterdata![0].CardCode}',
+                                      '  ${orderMasterdata[0].CardCode}',
                                       textAlign: TextAlign.right,
                                       maxLines: 3,
                                       style: TextStyle(
@@ -578,7 +579,18 @@ Container(
   static Widget buildInvoice(List<DocumentLines> data2, TtfFont font,
       TtfFont Calibrifont, Config config, TtfFont Calibrifontbold) {
         int  i=1;
-    final headers = [
+        List<String> headers = [];
+        if (ConstantValues.orderdisc!.toLowerCase() == 'n'){
+  headers = [
+      'S.No',
+      'Description',
+      'Qty',
+      'Price',
+      'Tax %',
+      'Total',
+    ];
+        }else{
+ headers = [
       'S.No',
       'Description',
       'Qty',
@@ -587,6 +599,8 @@ Container(
       'Tax %',
       'Total',
     ];
+        }
+    
      
      data2.sort((a, b) => b.BasePrice!.compareTo(a.BasePrice!));
     final data = data2.map((item) {
@@ -645,8 +659,17 @@ Container(
   }
       }
       // final total = item.unitPrice * item.quantity * (1 + item.vat);
-
-      return [
+if (ConstantValues.orderdisc!.toLowerCase() == 'n'){
+   return [
+        i++,
+       (item.ItemCode.toString())+"-"+ item.ItemDescription.toString(),
+        item.Quantity!.toInt(),
+       config.slpitCurrencypdf(mrpvalue.round().toStringAsFixed(2)) ,
+      item.TaxCode!.round().toStringAsFixed(2),
+       config.slpitCurrencypdf (item.LineTotal!.round().toStringAsFixed(2)),
+      ];
+}else{
+   return [
         i++,
        (item.ItemCode.toString())+"-"+ item.ItemDescription.toString(),
         item.Quantity!.toInt(),
@@ -655,6 +678,8 @@ Container(
         item.TaxCode!.round().toStringAsFixed(2),
        config.slpitCurrencypdf (item.LineTotal!.round().toStringAsFixed(2)),
       ];
+}
+     
     }).toList();
 
     return Container(

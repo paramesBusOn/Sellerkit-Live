@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/OpenLeadController/OpenLeadController.dart';
+import 'package:sellerkit/Controller/OpenLeadController/openlead_controller.dart';
 import '../../../Constant/Screen.dart';
 
 class CustomRadioBtnOPLFUP extends StatelessWidget {
@@ -48,7 +48,7 @@ class CustomRadioBtnOPLFUP extends StatelessWidget {
                 Text(text1,
                     maxLines: 8,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: 
                        context.read<OpenLeadController>().getisSelectedFollowUp ==
                              text1
@@ -82,7 +82,7 @@ class CustomRadioBtnOPLFUP extends StatelessWidget {
                 Text(text2,
                     maxLines: 8,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: 
                       context.read<OpenLeadController>().getisSelectedFollowUp ==
                              text2

@@ -39,7 +39,7 @@ class GetLeadDetailsQTH {
   factory GetLeadDetailsQTH.issues(Map<String, dynamic> jsons, int stcode) {
     return GetLeadDetailsQTH(
         leadDeatilheadsData: null,
-        message: jsons['respCode']??'',
+        message: jsons['respCode'] ?? '',
         status: null,
         stcode: stcode,
         exception: jsons['respDesc']);
@@ -59,7 +59,9 @@ class GetLeadDeatilsData {
   List<GetLeadDeatilsQTHData>? leadcheckQTHdata;
   List<GetLeadQTLData>? leadDeatilsQTLData;
   List<GetLeadDeatilsLData>? leadDeatilsLeadData;
+  List<GetLeadCheckData>? leadChecklistData;
   GetLeadDeatilsData({
+    required this.leadChecklistData,
     required this.leadcheckQTHdata,
     required this.leadDeatilsQTLData,
     required this.leadDeatilsLeadData,
@@ -75,41 +77,81 @@ class GetLeadDeatilsData {
         List<GetLeadQTLData> dataList2 =
             list2.map((data) => GetLeadQTLData.fromJson(data)).toList();
 
-        if (jsons['LeadChecklist'] != null) {
-          var list3 = jsons["LeadChecklist"] as List;
-
-          if (list3.isNotEmpty) {
+        if (jsons['LeadFollowUp'] != null || jsons['LeadChecklist'] != null) {
+          var list3 = jsons["LeadFollowUp"] as List;
+          var list4 = jsons["LeadChecklist"] as List;
+          if (list3.isNotEmpty && list4.isNotEmpty) {
             List<GetLeadDeatilsLData> dataList3 = list3
+                .map((data) => GetLeadDeatilsLData.fromJson(data))
+                .toList();
+            List<GetLeadCheckData> dataList4 =
+                list4.map((data) => GetLeadCheckData.fromJson(data)).toList();
+            return GetLeadDeatilsData(
+                leadcheckQTHdata: dataList1,
+                leadDeatilsQTLData: dataList2,
+                leadDeatilsLeadData: dataList3,
+                leadChecklistData: dataList4);
+          } else if (list3.isNotEmpty && list4.isEmpty) {
+              List<GetLeadDeatilsLData> dataList3 = list3
                 .map((data) => GetLeadDeatilsLData.fromJson(data))
                 .toList();
             return GetLeadDeatilsData(
                 leadcheckQTHdata: dataList1,
                 leadDeatilsQTLData: dataList2,
-                leadDeatilsLeadData: dataList3);
+                leadDeatilsLeadData: dataList3,
+                leadChecklistData: null);
           } else {
             return GetLeadDeatilsData(
                 leadcheckQTHdata: dataList1,
                 leadDeatilsQTLData: dataList2,
-                leadDeatilsLeadData: null);
+                leadDeatilsLeadData: null,
+                leadChecklistData: null);
           }
         } else {
           return GetLeadDeatilsData(
               leadcheckQTHdata: dataList1,
               leadDeatilsQTLData: dataList2,
-              leadDeatilsLeadData: null);
+              leadDeatilsLeadData: null,
+              leadChecklistData: null
+              );
         }
       } else {
         return GetLeadDeatilsData(
             leadcheckQTHdata: dataList1,
             leadDeatilsQTLData: null,
-            leadDeatilsLeadData: null);
+            leadDeatilsLeadData: null,
+            leadChecklistData: null
+            );
       }
     } else {
       return GetLeadDeatilsData(
           leadcheckQTHdata: null,
           leadDeatilsQTLData: null,
+          leadChecklistData: null,
           leadDeatilsLeadData: null);
     }
+  }
+}
+
+class GetLeadCheckData {
+  int? LeadId;
+  int? LineNum;
+  String? CheckListCode;
+  String? CheckListValue;
+  int? CreatedBy;
+  GetLeadCheckData(
+      {required this.CheckListCode,
+      required this.CheckListValue,
+      required this.CreatedBy,
+      required this.LeadId,
+      required this.LineNum});
+  factory GetLeadCheckData.fromJson(Map<String, dynamic> jsons) {
+    return GetLeadCheckData(
+        CheckListCode: jsons['CheckListCode'] ?? '',
+        CheckListValue: jsons['CheckListValue'] ?? '',
+        CreatedBy: jsons['CreatedBy'] ?? 0,
+        LeadId: jsons['LeadId'] ?? 0,
+        LineNum: jsons['LineNum'] ?? 0);
   }
 }
 
@@ -190,25 +232,25 @@ class GetLeadQTLData {
   bool? AllowNegativestock;
   GetLeadQTLData({
     required this.Info_SP,
-      required this.Cost,
-       required this.StoreStock,
-        required this.WhseStock,
-         required this.isFixedPrice,
-          required this.AllowOrderBelowCost,
-          required this.AllowNegativestock,
+    required this.Cost,
+    required this.StoreStock,
+    required this.WhseStock,
+    required this.isFixedPrice,
+    required this.AllowOrderBelowCost,
+    required this.AllowNegativestock,
     required this.ItemCode,
     required this.ItemName,
     required this.Quantity,
     required this.Price,
   });
   factory GetLeadQTLData.fromJson(Map<String, dynamic> json) => GetLeadQTLData(
-     Info_SP:json['SP']??0.00,
-        Cost:json['Price']??0.00,
-        StoreStock:json['StoreStock']??0.00,
-        WhseStock:json['WhseStock']??0.00,
-        isFixedPrice:json['isFixedPrice']??false,
-        AllowNegativestock:json['AllowNegativeStock']??false,
-        AllowOrderBelowCost:json['AllowOrderBelowCost']??false,
+        Info_SP: json['SP'] ?? 0.00,
+        Cost: json['Price'] ?? 0.00,
+        StoreStock: json['StoreStock'] ?? 0.00,
+        WhseStock: json['WhseStock'] ?? 0.00,
+        isFixedPrice: json['isFixedPrice'] ?? false,
+        AllowNegativestock: json['AllowNegativeStock'] ?? false,
+        AllowOrderBelowCost: json['AllowOrderBelowCost'] ?? false,
         ItemCode: json['ItemCode'] ?? '',
         ItemName: json['ItemName'] ?? '',
         Quantity: json['Quantity'] ?? 0.0,
@@ -243,7 +285,7 @@ class GetLeadDeatilsLData {
         // json['FollowupMode']== '02'?'Store Visit':json['FollowupMode']== '03'?'Sms/WhatsApp':
         // json['FollowupMode']== '04'?'Other':'',
         Followup_Date_Time: json['FollowupDate'] ?? '',
-        Status: json['ReasonType'] ?? '', 
+        Status: json['ReasonType'] ?? '',
         Feedback: json['Feedback'] ?? '',
         FollowupEntry: json['followupEntry'] ?? -1,
         LeadDocEntry: json['leadDocEntry'] ?? -1,

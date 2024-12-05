@@ -1,4 +1,4 @@
-import '../../DBModel/ReportsModel/TestReportModelDB.dart';
+import '../../DBModel/ReportsModel/testreportmodel_db.dart';
 
 class TestReportMod {
   String title;

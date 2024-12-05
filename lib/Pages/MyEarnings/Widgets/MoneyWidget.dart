@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 
-import '../../../Controller/EarningController/EarningController.dart';
+import '../../../Controller/EarningController/earning_controller.dart';
 
 class MoneyWidget extends StatelessWidget {
   MoneyWidget({
@@ -56,7 +56,7 @@ class MoneyWidget extends StatelessWidget {
                           : 0.toString(),
 
                       // context.watch<EarningController>().getearningData1[0].monthEarning.toString()}",
-                      style: theme.textTheme.subtitle1?.copyWith(
+                      style: theme.textTheme.titleMedium?.copyWith(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   )
@@ -84,7 +84,7 @@ class MoneyWidget extends StatelessWidget {
                   Container(
                     child: Text(
                       "${context.watch<EarningController>().getearningData1!.incentiveMasterData[0].today!.isEmpty || context.watch<EarningController>().getearningData1!.incentiveMasterData[0].today == null ? 0 : context.watch<EarningController>().getearningData1!.incentiveMasterData[0].today.toString()}",
-                      style: theme.textTheme.subtitle1?.copyWith(
+                      style: theme.textTheme.titleMedium?.copyWith(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                   )

@@ -64,11 +64,41 @@ class AlertMsgState extends State<AlertMsg> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Center(
+                widget.msg!.contains("Network Issue")?Container(
+
+               height: Screens.padingHeight(context) * 0.2,
+                        width: Screens.width(context)*0.4,
+                        child: Image.asset("Assets/network-signal.png"),
+            ):Container(),
+             SizedBox(
+              height: Screens.bodyheight(context) * 0.01,
+            ),
+            widget.msg!.contains("Network Issue")? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                                  widget.msg!.contains("Network Issue")?Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+          widget.msg!.contains("Network Issue")?Container():  Center(
                     child: Text(
                   "${widget.msg}",
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                       //color:Colors.green
                       ),
                 )),
@@ -82,7 +112,7 @@ class AlertMsgState extends State<AlertMsg> {
                       },
                       child: Text(
                         "Ok",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                       style: ButtonStyle(

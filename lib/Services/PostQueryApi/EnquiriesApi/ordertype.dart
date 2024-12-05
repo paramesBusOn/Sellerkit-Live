@@ -9,7 +9,8 @@ import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/levelofinterestMo
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../Models/PostQueryModel/EnquiriesModel/EnqTypeModel.dart';
 
 class OrderTypeApi {

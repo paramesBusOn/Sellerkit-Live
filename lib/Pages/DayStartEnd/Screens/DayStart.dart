@@ -9,10 +9,11 @@ import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import '../../../Controller/DayStartEndController/DayStartEndController.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
+import '../../../Controller/DayStartEndController/daystartend_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
 import '../../../Widgets/Appbar.dart';
@@ -182,7 +183,7 @@ DateTime? currentBackPressTime;
                                         child: Text(
                                           "Latitude ",
                                           style:
-                                              theme.textTheme.bodyText1?.copyWith(),
+                                              theme.textTheme.bodyMedium?.copyWith(),
                                         ),
                                       ),
                                       Container(
@@ -191,7 +192,7 @@ DateTime? currentBackPressTime;
                                         child: Text(
                                           "${context.watch<DayStartEndController>().latitude}",
                                           style:
-                                              theme.textTheme.bodyText1?.copyWith(),
+                                              theme.textTheme.bodyMedium?.copyWith(),
                                         ),
                                       )
                                     ],
@@ -207,7 +208,7 @@ DateTime? currentBackPressTime;
                                             width: Screens.width(context) * 0.2,
                                             child: Text(
                                               "Longitude",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(),
                                             ),
                                           ),
@@ -216,7 +217,7 @@ DateTime? currentBackPressTime;
                                             width: Screens.width(context) * 0.25,
                                             child: Text(
                                               "${context.watch<DayStartEndController>().langitude}",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(),
                                             ),
                                           )
@@ -249,18 +250,18 @@ DateTime? currentBackPressTime;
                                               "${context.watch<DayStartEndController>().adrress}",
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 5,
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(),
                                             )),
                                   // Container(
                                   //     child: Text(
                                   //   "Coimbatore",
-                                  //   style: theme.textTheme.bodyText1?.copyWith(),
+                                  //   style: theme.textTheme.bodyMedium?.copyWith(),
                                   // )),
                                   // Container(
                                   //     child: Text(
                                   //   "620006",
-                                  //   style: theme.textTheme.bodyText1?.copyWith(),
+                                  //   style: theme.textTheme.bodyMedium?.copyWith(),
                                   // )),
                                 ],
                               ),
@@ -322,8 +323,84 @@ DateTime? currentBackPressTime;
                                 ),
                               ],
                             ),
+                     
                           ],
                         ))),
+                           SizedBox(
+                    height: Screens.padingHeight(context)*0.005,
+                  ),
+              Container(
+                padding:  EdgeInsets.symmetric(
+                                    horizontal: Screens.width(context)*0.01,
+                                    // vertical: Screens.padingHeight(context)*0.02
+                                  ),
+                child: Row(children: [
+                  InkWell(
+                    onTap: (){
+                     context
+                                                    .read<DayStartEndController>()
+                                                    . ontapchoos2();
+                    },
+                    child: Container(
+                       alignment: Alignment.center,
+                        padding:  EdgeInsets.symmetric(
+                                    horizontal: Screens.width(context)*0.02,
+                                    vertical: Screens.padingHeight(context)*0.02
+                                  ),
+                      width: Screens.width(context)*0.47,
+                      
+                      decoration: BoxDecoration(
+                        color:context
+                                                      .watch<DayStartEndController>()
+                                                      .atchoose ==0? theme.primaryColor:Colors.white,
+                        border: Border.all(
+                          color: Colors.black26
+                        ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft:  Radius.circular(10)
+                        )
+                      ),
+                      child: Text("At office",
+                      style: theme.textTheme.bodyMedium!.copyWith(color:context
+                                                      .watch<DayStartEndController>()
+                                                      .atchoose ==0? Colors.white: Colors.black),
+                      ),
+                    ),
+                  ),
+                   InkWell(
+                    onTap: (){
+                     context
+                                                    .read<DayStartEndController>()
+                                                    . ontapchoose();
+                    },
+                     child: Container(
+                      alignment: Alignment.center,
+                       padding:  EdgeInsets.symmetric(
+                                     horizontal: Screens.width(context)*0.02,
+                                     vertical: Screens.padingHeight(context)*0.02
+                                   ),
+                      width: Screens.width(context)*0.5,
+                     
+                      decoration: BoxDecoration (
+                         border: Border.all(
+                          color: Colors.black26
+                        ),
+                         color:context
+                                                      .watch<DayStartEndController>()
+                                                      .atchoose ==1? theme.primaryColor: Colors.white ,
+                         borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomRight:  Radius.circular(10)
+                        )
+                      ),
+                         child: Text("At customer's site",  style: theme.textTheme.bodyMedium!.copyWith(color:context
+                                                      .watch<DayStartEndController>()
+                                                      .atchoose ==1? Colors.white :  Colors.black)),
+                                       ),
+                   ),
+                ],),
+              ),
                 Container(
                   width: Screens.width(context),
                   height: Screens.bodyheight(context) * 0.077,
@@ -332,6 +409,9 @@ DateTime? currentBackPressTime;
                       vertical: Screens.bodyheight(context) * 0.005),
                   child: ElevatedButton(
                       onPressed: () {
+                       context
+                                        .read<DayStartEndController>()
+                                        . mycontroller[21].clear();
                         Get.toNamed(ConstantRoutes.cameraPage);
                       },
                       style: ElevatedButton.styleFrom(

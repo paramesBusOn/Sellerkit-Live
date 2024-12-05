@@ -3,8 +3,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Controller/VisitplanController/VisitPlanController.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
+import 'package:sellerkit/Controller/VisitplanController/visitplan_controller.dart';
 import 'package:sellerkit/Models/getvisitmodel/getvisitmodel.dart';import '../../../Constant/Screen.dart';
 //import 'package:timelines/timelines.dart';
 
@@ -202,7 +203,7 @@ Container callLoadingPage(BuildContext context) {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Alert",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -237,8 +238,8 @@ Container callLoadingPage(BuildContext context) {
                           .watch<VisitplanController>()
                           .forwardSuccessMsg
                           .contains("Success")
-                      ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-                      : theme.textTheme.headline6?.copyWith(color: Colors.red),
+                      ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+                      : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
                 ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.02,
@@ -246,7 +247,7 @@ Container callLoadingPage(BuildContext context) {
                 Text(
                   context.watch<VisitplanController>().forwardSuccessMsg,
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1,
+                  style: theme.textTheme.bodyMedium,
                 ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.02,
@@ -358,7 +359,7 @@ Container callLoadingPage(BuildContext context) {
 //                                           .read<VisitplanController>()
 //                                           .getorderBillRefer!,
 //                                       hintStyle:
-//                                           theme.textTheme.bodyText2?.copyWith(
+//                                           theme.textTheme.bodyMedium?.copyWith(
 //                                         color: context
 //                                                 .read<VisitplanController>()
 //                                                 .getorderBillRefer!
@@ -404,7 +405,7 @@ Container callLoadingPage(BuildContext context) {
 //                                             MainAxisAlignment.spaceBetween,
 //                                         children: [
 //                                           Text('Attachment',
-//                                               style: theme.textTheme.bodyText2
+//                                               style: theme.textTheme.bodyMedium
 //                                                   ?.copyWith(
 //                                                       color: context
 //                                                                   .read<
@@ -601,7 +602,7 @@ Container callLoadingPage(BuildContext context) {
 //                                                     child: Text(
 //                                                   "No Files Selected",
 //                                                   style: theme
-//                                                       .textTheme.bodyText1!
+//                                                       .textTheme.bodyMedium!
 //                                                       .copyWith(
 //                                                           color: context
 //                                                                       .read<
@@ -1066,7 +1067,7 @@ Container callLoadingPage(BuildContext context) {
 //                                           .watch<VisitplanController>()
 //                                           .getorderBillDate!, // "Next Follow up",
 //                                       style:
-//                                           theme.textTheme.bodyText2?.copyWith(
+//                                           theme.textTheme.bodyMedium?.copyWith(
 //                                         color: context
 //                                                 .watch<VisitplanController>()
 //                                                 .getorderBillDate!
@@ -1111,7 +1112,7 @@ Container callLoadingPage(BuildContext context) {
 //                                                     .watch<VisitplanController>()
 //                                                     .getnextWonFD,
 //                                                 // context.read<VisitplanController>().getnextFD,
-//                                                 style: theme.textTheme.bodyText2
+//                                                 style: theme.textTheme.bodyMedium
 //                                                     ?.copyWith(), //fontSize: 12
 //                                               ),
 //                                             ),
@@ -1166,7 +1167,7 @@ Container callLoadingPage(BuildContext context) {
 //                                           .read<VisitplanController>()
 //                                           .getorderInvBillRefer!,
 //                                       hintStyle:
-//                                           theme.textTheme.bodyText2?.copyWith(
+//                                           theme.textTheme.bodyMedium?.copyWith(
 //                                         color: context
 //                                                 .read<VisitplanController>()
 //                                                 .getorderInvBillRefer!
@@ -1210,7 +1211,7 @@ Container callLoadingPage(BuildContext context) {
 //                                           .read<VisitplanController>()
 //                                           .getorderInvvalue!,
 //                                       hintStyle:
-//                                           theme.textTheme.bodyText2?.copyWith(
+//                                           theme.textTheme.bodyMedium?.copyWith(
 //                                         color: context
 //                                                 .read<VisitplanController>()
 //                                                 .getorderBillRefer!
@@ -1255,7 +1256,7 @@ Container callLoadingPage(BuildContext context) {
 //                                             MainAxisAlignment.spaceBetween,
 //                                         children: [
 //                                           Text('Attachment',
-//                                               style: theme.textTheme.bodyText2
+//                                               style: theme.textTheme.bodyMedium
 //                                                   ?.copyWith(
 //                                                       color: context
 //                                                                   .read<
@@ -1451,7 +1452,7 @@ Container callLoadingPage(BuildContext context) {
 //                                                     child: Text(
 //                                                   "No Files Selected",
 //                                                   style: theme
-//                                                       .textTheme.bodyText1!
+//                                                       .textTheme.bodyMedium!
 //                                                       .copyWith(
 //                                                           color: context
 //                                                                       .read<
@@ -1916,7 +1917,7 @@ Container callLoadingPage(BuildContext context) {
 //                                           .watch<VisitplanController>()
 //                                           .getorderInvBillDate!, // "Next Follow up",
 //                                       style:
-//                                           theme.textTheme.bodyText2?.copyWith(
+//                                           theme.textTheme.bodyMedium?.copyWith(
 //                                         color: context
 //                                                 .watch<VisitplanController>()
 //                                                 .getorderInvBillDate!
@@ -1956,7 +1957,7 @@ Container callLoadingPage(BuildContext context) {
 //                                                     .watch<VisitplanController>()
 //                                                     .getnextInvFD,
 //                                                 // context.read<VisitplanController>().getnextFD,
-//                                                 style: theme.textTheme.bodyText2
+//                                                 style: theme.textTheme.bodyMedium
 //                                                     ?.copyWith(), //fontSize: 12
 //                                               ),
 //                                             ),
@@ -2001,7 +2002,7 @@ Container callLoadingPage(BuildContext context) {
 //                                     context
 //                                         .watch<VisitplanController>()
 //                                         .gethinttextforcancel!,
-//                                     style: theme.textTheme.bodyText2?.copyWith(
+//                                     style: theme.textTheme.bodyMedium?.copyWith(
 //                                         color: context
 //                                                 .watch<VisitplanController>()
 //                                                 .gethinttextforcancel!
@@ -2046,7 +2047,7 @@ Container callLoadingPage(BuildContext context) {
 //                           context
 //                               .watch<VisitplanController>()
 //                               .getfeedbackcancel!, // "Feedback",
-//                           style: theme.textTheme.bodyText2?.copyWith(
+//                           style: theme.textTheme.bodyMedium?.copyWith(
 //                             color: context
 //                                     .watch<VisitplanController>()
 //                                     .getfeedbackcancel!
@@ -2287,7 +2288,7 @@ Container callLoadingPage(BuildContext context) {
                     //     //         Container(
                     //     //           child: Text(
                     //     //             "Delivered",
-                    //     //             style: theme.textTheme.bodyText1!.copyWith(
+                    //     //             style: theme.textTheme.bodyMedium!.copyWith(
                     //     //                 color: widget.leadOpenAllData!
                     //     //                                 .isDelivered ==
                     //     //                             1 ||
@@ -2378,7 +2379,7 @@ Container callLoadingPage(BuildContext context) {
                     //             ),
                     //             Container(
                     //               child: Text("Invoice",
-                    //                   style: theme.textTheme.bodyText1!.copyWith(
+                    //                   style: theme.textTheme.bodyMedium!.copyWith(
                     //                       color: widget.leadOpenAllData!
                     //                                       .isInvoiced ==
                     //                                   1 ||
@@ -2472,7 +2473,7 @@ Container callLoadingPage(BuildContext context) {
                                 Container(
                                   child: Text(
                                     "Modify",
-                                    style: theme.textTheme.bodyText1!.copyWith(
+                                    style: theme.textTheme.bodyMedium!.copyWith(
                                         color:
                                         //  widget.leadOpenAllData!
                                         //                 .isDelivered ==
@@ -2543,7 +2544,7 @@ Container callLoadingPage(BuildContext context) {
                                 Container(
                                   child: Text(
                                     "Cancel",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.white),
                                   ),
                                 ),
@@ -2688,7 +2689,7 @@ Container callLoadingPage(BuildContext context) {
   //                 Container(
   //                   alignment: Alignment.center,
   //                   child: Text("Order Details",
-  //                       style: theme.textTheme.bodyText1
+  //                       style: theme.textTheme.bodyMedium
   //                           ?.copyWith(color: Colors.white)),
   //                 ),
   //                 InkWell(
@@ -2727,7 +2728,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].CardName}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -2749,7 +2750,7 @@ Container callLoadingPage(BuildContext context) {
   //                                       // "2020-05-18T00:00:00"
   //                                       "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].OrderCreatedDate}"),
   //                           textAlign: TextAlign.center,
-  //                           style: theme.textTheme.bodyText2?.copyWith(),
+  //                           style: theme.textTheme.bodyMedium?.copyWith(),
   //                         ),
   //                       ),
   //                     )
@@ -2762,7 +2763,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].Address1}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -2777,7 +2778,7 @@ Container callLoadingPage(BuildContext context) {
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].DocTotal!.toStringAsFixed(0)}",
   //                                 ) +
   //                             '/-',
-  //                         style: theme.textTheme.bodyText2?.copyWith(
+  //                         style: theme.textTheme.bodyMedium?.copyWith(
   //                           color: theme.primaryColor,
   //                         ),
   //                       ),
@@ -2791,7 +2792,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].Address2}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -2799,7 +2800,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "# ${context.watch<VisitplanController>().getleadDeatilsQTHData![0].OrderNum}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                   ],
@@ -2811,7 +2812,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].City}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -2822,7 +2823,7 @@ Container callLoadingPage(BuildContext context) {
   //                             context.watch<VisitplanController>().config.alignDate3(
   //                                 "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].OrderCreatedDate}" //.LastFUPUpdate
   //                                 ),
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                   ],
@@ -2834,7 +2835,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].Pincode}",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     // Container(
@@ -2845,7 +2846,7 @@ Container callLoadingPage(BuildContext context) {
   //                     //         context.watch<VisitplanController>().config.alignDate3(
   //                     //             "${context.watch<VisitplanController>().getleadDeatilsQTHData!.LastFUPUpdate}" //.
   //                     //             ),
-  //                     //     style: theme.textTheme.bodyText2?.copyWith(),
+  //                     //     style: theme.textTheme.bodyMedium?.copyWith(),
   //                     //   ),
   //                     // ),
   //                   ],
@@ -2878,7 +2879,7 @@ Container callLoadingPage(BuildContext context) {
   //                 //           .alignDate(
   //                 //               '${context.watch<VisitplanController>().getleadDeatilsLeadData[context.watch<VisitplanController>().getleadDeatilsLeadData.length - 1].NextFollowup_Date}'),
   //                 //   textAlign: TextAlign.center,
-  //                 //   style: theme.textTheme.bodyText2?.copyWith(
+  //                 //   style: theme.textTheme.bodyMedium?.copyWith(
   //                 //     color: theme.primaryColor,
   //                 //   ),
   //                 // ),
@@ -2901,7 +2902,7 @@ Container callLoadingPage(BuildContext context) {
   //                 // child: Text(
   //                 //   'Last status # ${context.watch<VisitplanController>().getleadDeatilsLeadData[context.watch<VisitplanController>().getleadDeatilsLeadData.length - 1].Status}',
   //                 //   textAlign: TextAlign.center,
-  //                 //   style: theme.textTheme.bodyText2?.copyWith(
+  //                 //   style: theme.textTheme.bodyMedium?.copyWith(
   //                 //     color: theme.primaryColor,
   //                 //   ),
   //                 // ),
@@ -2925,7 +2926,7 @@ Container callLoadingPage(BuildContext context) {
   //                 //         child: Text(
   //                 //           'Last status # ${context.watch<VisitplanController>().getleadDeatilsQLData[context.watch<VisitplanController>().getleadDeatilsQLData.length - 1].Status}',
   //                 //           textAlign: TextAlign.center,
-  //                 //           style: theme.textTheme.bodyText2?.copyWith(
+  //                 //           style: theme.textTheme.bodyMedium?.copyWith(
   //                 //             color: theme.primaryColor,
   //                 //           ),
   //                 //         ),
@@ -2959,7 +2960,7 @@ Container callLoadingPage(BuildContext context) {
   //                               children: [
   //                                 Text(
   //                                   "Delivery Address :",
-  //                                   style: theme.textTheme.bodyText1!
+  //                                   style: theme.textTheme.bodyMedium!
   //                                       .copyWith(color: theme.primaryColor),
   //                                 ),
   //                                 SizedBox(
@@ -2968,7 +2969,7 @@ Container callLoadingPage(BuildContext context) {
   //                                 ),
   //                                 Text(
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].del_Address1}",
-  //                                   style: theme.textTheme.bodyText1!
+  //                                   style: theme.textTheme.bodyMedium!
   //                                       .copyWith(color: Colors.black),
   //                                 ),
   //                                 SizedBox(
@@ -2977,7 +2978,7 @@ Container callLoadingPage(BuildContext context) {
   //                                 ),
   //                                 Text(
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].del_Address2}",
-  //                                   style: theme.textTheme.bodyText1!
+  //                                   style: theme.textTheme.bodyMedium!
   //                                       .copyWith(color: Colors.black),
   //                                 ),
   //                                 SizedBox(
@@ -2986,7 +2987,7 @@ Container callLoadingPage(BuildContext context) {
   //                                 ),
   //                                 Text(
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].del_Area}",
-  //                                   style: theme.textTheme.bodyText1!
+  //                                   style: theme.textTheme.bodyMedium!
   //                                       .copyWith(color: Colors.black),
   //                                 ),
   //                                 SizedBox(
@@ -2995,7 +2996,7 @@ Container callLoadingPage(BuildContext context) {
   //                                 ),
   //                                 Text(
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].del_City}",
-  //                                   style: theme.textTheme.bodyText1!
+  //                                   style: theme.textTheme.bodyMedium!
   //                                       .copyWith(color: Colors.black),
   //                                 ),
   //                                 SizedBox(
@@ -3004,7 +3005,7 @@ Container callLoadingPage(BuildContext context) {
   //                                 ),
   //                                 Text(
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].del_State}",
-  //                                   style: theme.textTheme.bodyText1!
+  //                                   style: theme.textTheme.bodyMedium!
   //                                       .copyWith(color: Colors.black),
   //                                 ),
   //                                 SizedBox(
@@ -3013,7 +3014,7 @@ Container callLoadingPage(BuildContext context) {
   //                                 ),
   //                                 Text(
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].del_Pincode}",
-  //                                   style: theme.textTheme.bodyText1!
+  //                                   style: theme.textTheme.bodyMedium!
   //                                       .copyWith(color: Colors.black),
   //                                 ),
   //                               ],
@@ -3034,14 +3035,14 @@ Container callLoadingPage(BuildContext context) {
   //                                     Container(
   //                                       child: Text(
   //                                         "Sub Total",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.grey),
   //                                       ),
   //                                     ),
   //                                     Container(
   //                                       child: Text(
   //                                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].subtotal!.toStringAsFixed(2)}",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.black),
   //                                       ),
   //                                     ),
@@ -3058,14 +3059,14 @@ Container callLoadingPage(BuildContext context) {
   //                                     Container(
   //                                       child: Text(
   //                                         "Base Amount",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.grey),
   //                                       ),
   //                                     ),
   //                                     Container(
   //                                       child: Text(
   //                                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].basetotal!.toStringAsFixed(2)}",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.black),
   //                                       ),
   //                                     ),
@@ -3082,14 +3083,14 @@ Container callLoadingPage(BuildContext context) {
   //                                     Container(
   //                                       child: Text(
   //                                         "Tax Amount",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.grey),
   //                                       ),
   //                                     ),
   //                                     Container(
   //                                       child: Text(
   //                                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].taxAmount!.toStringAsFixed(2)}",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.black),
   //                                       ),
   //                                     ),
@@ -3106,14 +3107,14 @@ Container callLoadingPage(BuildContext context) {
   //                                     Container(
   //                                       child: Text(
   //                                         "Round Off",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.grey),
   //                                       ),
   //                                     ),
   //                                     Container(
   //                                       child: Text(
   //                                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].RoundOff!.toStringAsFixed(2)}",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.black),
   //                                       ),
   //                                     ),
@@ -3130,14 +3131,14 @@ Container callLoadingPage(BuildContext context) {
   //                                     Container(
   //                                       child: Text(
   //                                         "Total Amount",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.grey),
   //                                       ),
   //                                     ),
   //                                     Container(
   //                                       child: Text(
   //                                         "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].DocTotal!.toStringAsFixed(2)}",
-  //                                         style: theme.textTheme.bodyText1!
+  //                                         style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.black),
   //                                       ),
   //                                     ),
@@ -3181,7 +3182,7 @@ Container callLoadingPage(BuildContext context) {
   //                                           '${context.watch<VisitplanController>().getleadDeatilsQTHData![0].DeliveryDate}') +
   //                                   " by referenced " +
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].DeliveryNo}" +
-  //                                   "", style: theme.textTheme.bodyText1!
+  //                                   "", style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.black),),
   //                             )
   //                           ],
@@ -3263,7 +3264,7 @@ Container callLoadingPage(BuildContext context) {
   //                                           '${context.watch<VisitplanController>().getleadDeatilsQTHData![0].InvoiceDate}') +
   //                                   " by referenced " +
   //                                   "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].InvoiceNo}" +
-  //                                   "", style: theme.textTheme.bodyText1!
+  //                                   "", style: theme.textTheme.bodyMedium!
   //                                             .copyWith(color: Colors.black),),
   //                             )
   //                           ],
@@ -3386,7 +3387,7 @@ Container callLoadingPage(BuildContext context) {
   //                 Container(
   //                   alignment: Alignment.center,
   //                   child: Text("Lead Details",
-  //                       style: theme.textTheme.bodyText1
+  //                       style: theme.textTheme.bodyMedium
   //                           ?.copyWith(color: Colors.white)),
   //                 ),
   //                 InkWell(
@@ -3425,7 +3426,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "Customer",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                   ],
@@ -3437,7 +3438,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                           "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].CardName}",
-  //                           style: theme.textTheme.bodyText2?.copyWith(
+  //                           style: theme.textTheme.bodyMedium?.copyWith(
   //                             color: theme.primaryColor,
   //                             // fontWeight: FontWeight.bold
   //                           )),
@@ -3446,7 +3447,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       alignment: Alignment.centerRight,
   //                       child: Text("",
-  //                           style: theme.textTheme.bodyText2?.copyWith(
+  //                           style: theme.textTheme.bodyMedium?.copyWith(
   //                             color: theme.primaryColor,
   //                           )),
   //                     ),
@@ -3470,7 +3471,7 @@ Container callLoadingPage(BuildContext context) {
   //                         child: Text(
   //                           "${context.watch<VisitplanController>().getleadDeatilsQTHData![0].Address1}\n${context.watch<VisitplanController>().getleadDeatilsQTHData![0].Address2}",
   //                           //"31 west street \nkottucherry \nkaraikal 609-609 \npondicherry",
-  //                           style: theme.textTheme.bodyText2?.copyWith(
+  //                           style: theme.textTheme.bodyMedium?.copyWith(
   //                             color: theme.primaryColor,
   //                           ), // color:  Colors.grey
   //                         ),
@@ -3496,7 +3497,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "Total Lead Value",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -3504,7 +3505,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "20000.00",
-  //                         style: theme.textTheme.bodyText2?.copyWith(
+  //                         style: theme.textTheme.bodyMedium?.copyWith(
   //                           color: theme.primaryColor,
   //                         ),
   //                       ),
@@ -3521,7 +3522,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "Next Follow up",
-  //                         style: theme.textTheme.bodyText2?.copyWith(),
+  //                         style: theme.textTheme.bodyMedium?.copyWith(),
   //                       ),
   //                     ),
   //                     Container(
@@ -3529,7 +3530,7 @@ Container callLoadingPage(BuildContext context) {
   //                       width: Screens.width(context) * 0.4,
   //                       child: Text(
   //                         "12-08-2022",
-  //                         style: theme.textTheme.bodyText2?.copyWith(
+  //                         style: theme.textTheme.bodyMedium?.copyWith(
   //                           color: theme.primaryColor,
   //                         ),
   //                       ),
@@ -3584,7 +3585,7 @@ Container callLoadingPage(BuildContext context) {
   //       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   //       child: Text(
   //         "Product",
-  //         style: theme.textTheme.bodyText1
+  //         style: theme.textTheme.bodyMedium
   //             ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
   //         textAlign: TextAlign.left,
   //       ),
@@ -3594,7 +3595,7 @@ Container callLoadingPage(BuildContext context) {
   //       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   //       child: Text(
   //         "Price",
-  //         style: theme.textTheme.bodyText1
+  //         style: theme.textTheme.bodyMedium
   //             ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
   //         textAlign: TextAlign.left,
   //       ),
@@ -3604,7 +3605,7 @@ Container callLoadingPage(BuildContext context) {
   //       padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
   //       child: Text(
   //         "Qty",
-  //         style: theme.textTheme.bodyText1
+  //         style: theme.textTheme.bodyMedium
   //             ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
   //         textAlign: TextAlign.left,
   //       ),
@@ -3619,7 +3620,7 @@ Container callLoadingPage(BuildContext context) {
   //         child: Text(
   //           '${context.watch<VisitplanController>().getleadDeatilsQTLData[i].ItemName!}',
   //           textAlign: TextAlign.left,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -3634,7 +3635,7 @@ Container callLoadingPage(BuildContext context) {
   //               .toStringAsFixed(0)),
   //           // '${context.watch<VisitplanController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
   //           textAlign: TextAlign.left,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -3644,7 +3645,7 @@ Container callLoadingPage(BuildContext context) {
   //         child: Text(
   //           '${context.watch<VisitplanController>().getleadDeatilsQTLData[i].Quantity!.toStringAsFixed(0)}',
   //           textAlign: TextAlign.center,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -3700,7 +3701,7 @@ Container callLoadingPage(BuildContext context) {
   //                     alignment: Alignment.centerLeft,
   //                     child: Text(
   //                       "${context.read<VisitplanController>().getleadDeatilsQTHData![0].reasonType} ",
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ),
   //                   SizedBox(
@@ -3711,7 +3712,7 @@ Container callLoadingPage(BuildContext context) {
   //                     child: Text(
   //                       // context.read<VisitplanController>().config.alignDate(
   //                       "By ${context.read<VisitplanController>().getleadDeatilsQTHData![0].ordersalesperson} ", //),
-  //                       style: theme.textTheme.bodyText2?.copyWith(
+  //                       style: theme.textTheme.bodyMedium?.copyWith(
   //                           // color: theme.primaryColor,
   //                           ),
   //                     ),
@@ -3730,7 +3731,7 @@ Container callLoadingPage(BuildContext context) {
   //                   //         child: Text(
   //                   //           // context.read<VisitplanController>().config.alignDate(
   //                   //           "# ${context.read<VisitplanController>().getleadDeatilsLeadData[index].Feedback}",
-  //                   //           style: theme.textTheme.bodyText2?.copyWith(
+  //                   //           style: theme.textTheme.bodyMedium?.copyWith(
   //                   //               // color: theme.primaryColor,
   //                   //               ),
   //                   //         ),
@@ -3758,7 +3759,7 @@ Container callLoadingPage(BuildContext context) {
   //                             "${context.read<VisitplanController>().getleadDeatilsQTHData![0].OrderCreatedDate}",
   //                           ),
   //                       textAlign: TextAlign.center,
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ],
   //                 )),
@@ -3828,7 +3829,7 @@ Container callLoadingPage(BuildContext context) {
   //                     alignment: Alignment.centerLeft,
   //                     child: Text(
   //                       "${context.read<VisitplanController>().getleadDeatilsLeadData[index].Status} ",
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ),
   //                   SizedBox(
@@ -3839,7 +3840,7 @@ Container callLoadingPage(BuildContext context) {
   //                     child: Text(
   //                       // context.read<VisitplanController>().config.alignDate(
   //                       "By ${context.read<VisitplanController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<VisitplanController>().getleadDeatilsLeadData[index].FollowMode}", //),
-  //                       style: theme.textTheme.bodyText2?.copyWith(
+  //                       style: theme.textTheme.bodyMedium?.copyWith(
   //                           // color: theme.primaryColor,
   //                           ),
   //                     ),
@@ -3858,7 +3859,7 @@ Container callLoadingPage(BuildContext context) {
   //                           child: Text(
   //                             // context.read<VisitplanController>().config.alignDate(
   //                             "# ${context.read<VisitplanController>().getleadDeatilsLeadData[index].Feedback}",
-  //                             style: theme.textTheme.bodyText2?.copyWith(
+  //                             style: theme.textTheme.bodyMedium?.copyWith(
   //                                 // color: theme.primaryColor,
   //                                 ),
   //                           ),
@@ -3883,7 +3884,7 @@ Container callLoadingPage(BuildContext context) {
   //                             "${context.read<VisitplanController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
   //                           ),
   //                       textAlign: TextAlign.center,
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ],
   //                 )),
@@ -3944,7 +3945,7 @@ Container callLoadingPage(BuildContext context) {
   //                     alignment: Alignment.centerLeft,
   //                     child: Text(
   //                       "${context.read<VisitplanController>().getleadDeatilsLeadData[index].Status} ",
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ),
   //                   SizedBox(
@@ -3955,7 +3956,7 @@ Container callLoadingPage(BuildContext context) {
   //                     child: Text(
   //                       // context.read<VisitplanController>().config.alignDate(
   //                       "By ${context.read<VisitplanController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<VisitplanController>().getleadDeatilsLeadData[index].FollowMode}", //),
-  //                       style: theme.textTheme.bodyText2?.copyWith(
+  //                       style: theme.textTheme.bodyMedium?.copyWith(
   //                           // color: theme.primaryColor,
   //                           ),
   //                     ),
@@ -3974,7 +3975,7 @@ Container callLoadingPage(BuildContext context) {
   //                           child: Text(
   //                             // context.read<VisitplanController>().config.alignDate(
   //                             "# ${context.read<VisitplanController>().getleadDeatilsLeadData[index].Feedback}",
-  //                             style: theme.textTheme.bodyText2?.copyWith(
+  //                             style: theme.textTheme.bodyMedium?.copyWith(
   //                                 // color: theme.primaryColor,
   //                                 ),
   //                           ),
@@ -4000,7 +4001,7 @@ Container callLoadingPage(BuildContext context) {
   //                             "${context.read<VisitplanController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
   //                           ),
   //                       textAlign: TextAlign.center,
-  //                       style: theme.textTheme.bodyText2,
+  //                       style: theme.textTheme.bodyMedium,
   //                     ),
   //                   ],
   //                 )),
@@ -4063,7 +4064,7 @@ Container callLoadingPage(BuildContext context) {
   //               context
   //                   .watch<VisitplanController>()
   //                   .getforwardNextFollowDate!, // "Next Follow up",
-  //               style: theme.textTheme.bodyText2?.copyWith(
+  //               style: theme.textTheme.bodyMedium?.copyWith(
   //                 color: context
   //                         .watch<VisitplanController>()
   //                         .getforwardNextFollowDate!
@@ -4097,7 +4098,7 @@ Container callLoadingPage(BuildContext context) {
   //                             .watch<VisitplanController>()
   //                             .getforwardnextWonFD,
   //                         // context.read<VisitplanController>().getnextFD,
-  //                         style: theme.textTheme.bodyText2
+  //                         style: theme.textTheme.bodyMedium
   //                             ?.copyWith(), //fontSize: 12
   //                       ),
   //                     ),
@@ -4194,7 +4195,7 @@ Container callLoadingPage(BuildContext context) {
   //         child: Text(
   //             context.watch<VisitplanController>().getuserLtData[ind].UserName!,
   //             textAlign: TextAlign.center,
-  //             style: theme.textTheme.bodyText1?.copyWith(
+  //             style: theme.textTheme.bodyMedium?.copyWith(
   //               fontWeight: FontWeight.normal,
   //               fontSize: 12,
   //               color: context

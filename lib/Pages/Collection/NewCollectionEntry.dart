@@ -9,10 +9,11 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/CollectionController/NewCollectionEntryCotroller.dart';
+import 'package:sellerkit/Controller/CollectionController/newcollectionentry_cotroller.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
 
@@ -186,7 +187,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                           children: [
                             Text(
                               "Payment Terms *",
-                              style: theme.textTheme.bodyText1
+                              style: theme.textTheme.bodyMedium
                                   ?.copyWith(color: Colors.white),
                             ),
                             SizedBox(height: Screens.bodyheight(context) * 0.02),
@@ -249,17 +250,17 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     children: [
                                       Container(
                                         width: Screens.width(context)*0.3,
-                                        child:Text("${context.read<NewCollectionContoller>(). postpaymentdata[ind].paymodename}", style: theme.textTheme.bodyText1?.copyWith(
+                                        child:Text("${context.read<NewCollectionContoller>(). postpaymentdata[ind].paymodename}", style: theme.textTheme.bodyMedium?.copyWith(
                                                               ))
                                       ),
                                    Container(
-                                  child:Text(":", style: theme.textTheme.bodyText1?.copyWith(
+                                  child:Text(":", style: theme.textTheme.bodyMedium?.copyWith(
                         ))
                                 ),
                                 Container(
                                   
                                   child:Text(" ${context.read<NewCollectionContoller>().config.slpitCurrency22(context.read<NewCollectionContoller>(). postpaymentdata[ind].amount.toString())}",
-                                   style: theme.textTheme.bodyText1?.copyWith()
+                                   style: theme.textTheme.bodyMedium?.copyWith()
                                   )
                                 ),
                                     ],
@@ -307,7 +308,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //         width: Screens.width(context),
                 //         child: Text(
                 //           "Payment Mode",
-                //           style: theme.textTheme.headline6
+                //           style: theme.textTheme.titleLarge
                 //               ?.copyWith(color: theme.primaryColor),
                 //         ),
                 //       ),
@@ -349,7 +350,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //           // inputFormatters: [DecimalTextInputFormatter()],
                 //           decoration: InputDecoration(
                 //             labelText: 'Amount',
-                //             labelStyle: theme.textTheme.bodyText1!
+                //             labelStyle: theme.textTheme.bodyMedium!
                 //                 .copyWith(color: Colors.grey),
                 //             enabledBorder: UnderlineInputBorder(
                 //               borderSide: BorderSide(color: Colors.grey),
@@ -407,7 +408,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //               width: Screens.width(context),
                 //               child: Text(
                 //                 "${context.watch<NewCollectionContoller>().paymentmodeErro}",
-                //                 style: theme.textTheme.bodyText1!
+                //                 style: theme.textTheme.bodyMedium!
                 //                     .copyWith(color: Colors.red),
                 //               ),
                 //             ),
@@ -439,7 +440,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                 ),
                 //                 child: Text(
                 //                   'Cash',
-                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                   style: theme.textTheme.bodyMedium!.copyWith(
                 //                     color: context
                 //                                 .read<NewCollectionContoller>()
                 //                                 .returnboolValue('Cash') ==
@@ -473,7 +474,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                 ),
                 //                 child: Text(
                 //                   'Card',
-                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                   style: theme.textTheme.bodyMedium!.copyWith(
                 //                     color: context
                 //                                 .read<NewCollectionContoller>()
                 //                                 .returnboolValue('Card') ==
@@ -507,7 +508,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                 ),
                 //                 child: Text(
                 //                   'Cheque',
-                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                   style: theme.textTheme.bodyMedium!.copyWith(
                 //                     color: context
                 //                                 .read<NewCollectionContoller>()
                 //                                 .returnboolValue('Cheque') ==
@@ -541,7 +542,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                 ),
                 //                 child: Text(
                 //                   'NEFT',
-                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                   style: theme.textTheme.bodyMedium!.copyWith(
                 //                     color: context
                 //                                 .read<NewCollectionContoller>()
                 //                                 .returnboolValue('NEFT') ==
@@ -575,7 +576,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                 ),
                 //                 child: Text(
                 //                   'UPI',
-                //                   style: theme.textTheme.bodyText1!.copyWith(
+                //                   style: theme.textTheme.bodyMedium!.copyWith(
                 //                     color: context
                 //                                 .read<NewCollectionContoller>()
                 //                                 .returnboolValue('UPI') ==
@@ -607,7 +608,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //       //           // },
                 //       //           decoration: InputDecoration(
                 //       //         labelText: 'Reference',
-                //       //         labelStyle: theme.textTheme.bodyText1!
+                //       //         labelStyle: theme.textTheme.bodyMedium!
                 //       //             .copyWith(color: Colors.grey),
                 //       //         enabledBorder: UnderlineInputBorder(
                 //       //           borderSide: BorderSide(color: Colors.grey),
@@ -649,7 +650,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                     : (value) {},
                 //                 decoration: InputDecoration(
                 //                   labelText: 'NEFT Reference',
-                //                   labelStyle: theme.textTheme.bodyText1!
+                //                   labelStyle: theme.textTheme.bodyMedium!
                 //                       .copyWith(color: Colors.grey),
                 //                   enabledBorder: UnderlineInputBorder(
                 //                     borderSide: BorderSide(color: Colors.grey),
@@ -691,7 +692,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                     : (value) {},
                 //                 decoration: InputDecoration(
                 //                   labelText: 'UPI Reference',
-                //                   labelStyle: theme.textTheme.bodyText1!
+                //                   labelStyle: theme.textTheme.bodyMedium!
                 //                       .copyWith(color: Colors.grey),
                 //                   enabledBorder: UnderlineInputBorder(
                 //                     borderSide: BorderSide(color: Colors.grey),
@@ -733,7 +734,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                     : (value) {},
                 //                 decoration: InputDecoration(
                 //                   labelText: 'Card Reference',
-                //                   labelStyle: theme.textTheme.bodyText1!
+                //                   labelStyle: theme.textTheme.bodyMedium!
                 //                       .copyWith(color: Colors.grey),
                 //                   enabledBorder: UnderlineInputBorder(
                 //                     borderSide: BorderSide(color: Colors.grey),
@@ -774,7 +775,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //             //     // },
                 //             //     decoration: InputDecoration(
                 //             //   labelText: 'Cheque No',
-                //             //   labelStyle: theme.textTheme.bodyText1!
+                //             //   labelStyle: theme.textTheme.bodyMedium!
                 //             //       .copyWith(color: Colors.grey),
                 //             //   enabledBorder: UnderlineInputBorder(
                 //             //     borderSide: BorderSide(color: Colors.grey),
@@ -813,7 +814,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                     readOnly: true,
                 //                 decoration: InputDecoration(
                 //                   labelText: 'Cheque Date',
-                //                   labelStyle: theme.textTheme.bodyText1!
+                //                   labelStyle: theme.textTheme.bodyMedium!
                 //                       .copyWith(color: Colors.grey),
                 //                   enabledBorder: UnderlineInputBorder(
                 //                     borderSide: BorderSide(color: Colors.grey),
@@ -846,7 +847,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //                     : (value) {},
                 //                 decoration: InputDecoration(
                 //                   labelText: 'Cheque Reference',
-                //                   labelStyle: theme.textTheme.bodyText1!
+                //                   labelStyle: theme.textTheme.bodyMedium!
                 //                       .copyWith(color: Colors.grey),
                 //                   enabledBorder: UnderlineInputBorder(
                 //                     borderSide: BorderSide(color: Colors.grey),
@@ -885,7 +886,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                 //           // },
                 //           decoration: InputDecoration(
                 //             labelText: 'Remarks',
-                //             labelStyle: theme.textTheme.bodyText1!
+                //             labelStyle: theme.textTheme.bodyMedium!
                 //                 .copyWith(color: Colors.grey),
                 //             enabledBorder: UnderlineInputBorder(
                 //               borderSide: BorderSide(color: Colors.grey),
@@ -1002,7 +1003,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Attachment',
-                  style: theme.textTheme.subtitle1?.copyWith(
+                  style: theme.textTheme.titleMedium?.copyWith(
                       color: context
                                   .read<NewCollectionContoller>()
                                   .fileValidation ==
@@ -1132,7 +1133,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                           Center(
                               child: Text(
                             "No Files Selected",
-                            style: theme.textTheme.bodyText1!.copyWith(
+                            style: theme.textTheme.bodyMedium!.copyWith(
                                 color: context
                                             .read<NewCollectionContoller>()
                                             .fileValidation ==
@@ -1371,7 +1372,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   width: Screens.width(context),
                                   child: Text(
                                     "Customer Info",
-                                    style: theme.textTheme.headline6
+                                    style: theme.textTheme.titleLarge
                                         ?.copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -1421,7 +1422,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelText: 'Mobile*',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -1483,7 +1484,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     decoration: InputDecoration(
                                       labelText: 'Customer*',
                                       border: UnderlineInputBorder(),
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -1513,7 +1514,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     // },
                                     decoration: InputDecoration(
                                       labelText: 'Contact Name',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -1552,7 +1553,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelText: 'Alternate Mobile No',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -1592,7 +1593,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     },
                                     decoration: InputDecoration(
                                       labelText: 'Email',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -1631,7 +1632,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     decoration: InputDecoration(
                                       counterText: '',
                                       labelText: 'GST No',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -1670,7 +1671,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     decoration: InputDecoration(
                                       counterText: '',
                                       labelText: 'PAN',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -1726,7 +1727,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                               width: Screens.width(context),
                                               child: Text(
                                                 "Billing Address",
-                                                style: theme.textTheme.headline6
+                                                style: theme.textTheme.titleLarge
                                                     ?.copyWith(
                                                         color: theme.primaryColor),
                                               ),
@@ -1744,7 +1745,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                                 decoration: InputDecoration(
                                                   labelText: 'Address1*',
                                                   labelStyle: theme
-                                                      .textTheme.bodyText1!
+                                                      .textTheme.bodyMedium!
                                                       .copyWith(color: Colors.grey),
                                                   enabledBorder:
                                                       UnderlineInputBorder(
@@ -1782,7 +1783,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                                 decoration: InputDecoration(
                                                   labelText: 'Address2*',
                                                   labelStyle: theme
-                                                      .textTheme.bodyText1!
+                                                      .textTheme.bodyMedium!
                                                       .copyWith(color: Colors.grey),
                                                   enabledBorder:
                                                       UnderlineInputBorder(
@@ -1833,7 +1834,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                                         border:
                                                             UnderlineInputBorder(),
                                                         labelStyle: theme
-                                                            .textTheme.bodyText1!
+                                                            .textTheme.bodyMedium!
                                                             .copyWith(
                                                                 color: Colors.grey),
                                                         enabledBorder:
@@ -1873,7 +1874,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                                         border:
                                                             UnderlineInputBorder(),
                                                         labelStyle: theme
-                                                            .textTheme.bodyText1!
+                                                            .textTheme.bodyMedium!
                                                             .copyWith(
                                                                 color: Colors.grey),
                                                         enabledBorder:
@@ -1929,7 +1930,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                                         border:
                                                             UnderlineInputBorder(),
                                                         labelStyle: theme
-                                                            .textTheme.bodyText1!
+                                                            .textTheme.bodyMedium!
                                                             .copyWith(
                                                                 color: Colors.grey),
                                                         enabledBorder:
@@ -2067,7 +2068,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                                         border:
                                                             UnderlineInputBorder(),
                                                         labelStyle: theme
-                                                            .textTheme.bodyText1!
+                                                            .textTheme.bodyMedium!
                                                             .copyWith(
                                                                 color: Colors.grey),
                                                         enabledBorder:
@@ -2113,7 +2114,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                                     child: Text(
                                                       "Enter Correct State",
                                                       style: theme
-                                                          .textTheme.bodyText2!
+                                                          .textTheme.bodyMedium!
                                                           .copyWith(
                                                               color: Colors.red,
                                                               fontSize: 12),
@@ -2181,7 +2182,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                                       child: Text(
                                                         "${context.watch<NewCollectionContoller>().filterstateData[i].stateName}",
                                                         style: theme
-                                                            .textTheme.bodyText1
+                                                            .textTheme.bodyMedium
                                                             ?.copyWith(
                                                                 color: theme
                                                                     .primaryColor),
@@ -2285,7 +2286,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                   context.read<NewCollectionContoller>().mycontroller[22],
               decoration: InputDecoration(
                 filled: false,
-                hintText: 'Search Here!!..',
+                hintText: 'Search Here..',
                 enabledBorder: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 suffixIcon: IconButton(
@@ -2346,7 +2347,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                   Container(
                     child: Text(
                       "Total Outstanding",
-                      style: theme.textTheme.bodyText1
+                      style: theme.textTheme.bodyMedium
                           ?.copyWith(color: theme.primaryColor, fontSize: 15),
                     ),
                   ),
@@ -2354,7 +2355,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                     child: Text(
                       "₹ ${Config.k_m_b_generator(context.read<NewCollectionContoller>().totaloutstanding!.toStringAsFixed(0))}",
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyText1?.copyWith(fontSize: 15),
+                      style: theme.textTheme.bodyMedium?.copyWith(fontSize: 15),
                     ),
                   ),
                   SizedBox(
@@ -2366,14 +2367,14 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                       Container(
                         child: Text(
                           "Overdue",
-                          style: theme.textTheme.bodyText1?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor, fontSize: 15),
                         ),
                       ),
                       Container(
                         child: Text(
                           "Upcoming",
-                          style: theme.textTheme.bodyText1?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor, fontSize: 15),
                         ),
                       ),
@@ -2385,13 +2386,13 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                       Container(
                         child: Text(
                           "₹ ${Config.k_m_b_generator(context.read<NewCollectionContoller>().overdue!.toStringAsFixed(0))}",
-                          style: theme.textTheme.bodyText1?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
                         child: Text(
                           "₹ ${Config.k_m_b_generator(context.read<NewCollectionContoller>().upcoming!.toStringAsFixed(0))}",
-                          style: theme.textTheme.bodyText1?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -2443,14 +2444,14 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   Container(
                                     child: Text(
                                       "Invoice",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.black),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "${context.read<NewCollectionContoller>().allProductDetails[i].invoice}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.black),
                                     ),
                                   ),
@@ -2463,7 +2464,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                               //     Container(
                               //       child: Text('00',
                               //         // "${context.read<Outstandingcontroller>().allProductDetails[i].TransNum}",
-                              //         style: theme.textTheme.bodyText1!
+                              //         style: theme.textTheme.bodyMedium!
                               //             .copyWith(
                               //                 color: theme.primaryColor),
                               //       ),
@@ -2472,7 +2473,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                               //       child: Text(
                               //         '22',
                               //         // "${context.read<Outstandingcontroller>().allProductDetails[i].age!.toInt()}",
-                              //         style: theme.textTheme.bodyText1!
+                              //         style: theme.textTheme.bodyMedium!
                               //             .copyWith(
                               //                 color: theme.primaryColor),
                               //       ),
@@ -2489,14 +2490,14 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   Container(
                                     child: Text(
                                       "Due Date",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "Age",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -2510,7 +2511,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     child: Text(
                                       // '33',
                                       "${config.alignDate(context.read<NewCollectionContoller>().allProductDetails[i].date.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -2518,7 +2519,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     child: Text(
                                       // '44',
                                       "${context.read<NewCollectionContoller>().allProductDetails[i].age.toString()}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -2534,14 +2535,14 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   Container(
                                     child: Text(
                                       "Trans Amount",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "Paid Amount",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -2558,7 +2559,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   .watch<NewCollectionContoller>()
                                   .config
                                   .slpitCurrency22(context.read<NewCollectionContoller>().allProductDetails[i].trnsAmount.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -2569,7 +2570,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   .watch<NewCollectionContoller>()
                                   .config
                                   .slpitCurrency22(context.read<NewCollectionContoller>().allProductDetails[i].paidAmount.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -2585,14 +2586,14 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   Container(
                                     child: Text(
                                       "PenaltyAfterDue",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -2609,7 +2610,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   .watch<NewCollectionContoller>()
                                   .config
                                   .slpitCurrency22(context.read<NewCollectionContoller>().allProductDetails[i].penaltyAfterDue.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -2617,7 +2618,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                     child: Text(
                                       // '00',
                                       "",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -2643,7 +2644,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   .watch<NewCollectionContoller>()
                                   .config
                                   .slpitCurrency22(context.read<NewCollectionContoller>().allProductDetails[i].balancetoPay.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -2683,14 +2684,14 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                 Container(
                                   child: Text(
                                     "Invoice",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.black),
                                   ),
                                 ),
                                 Container(
                                   child: Text(
                                     "${context.read<NewCollectionContoller>().getProduct[index].invoice}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.black),
                                   ),
                                 ),
@@ -2703,7 +2704,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                             //     Container(
                             //       child: Text('00',
                             //         // "${context.read<Outstandingcontroller>().allProductDetails[i].TransNum}",
-                            //         style: theme.textTheme.bodyText1!
+                            //         style: theme.textTheme.bodyMedium!
                             //             .copyWith(
                             //                 color: theme.primaryColor),
                             //       ),
@@ -2712,7 +2713,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                             //       child: Text(
                             //         '22',
                             //         // "${context.read<Outstandingcontroller>().allProductDetails[i].age!.toInt()}",
-                            //         style: theme.textTheme.bodyText1!
+                            //         style: theme.textTheme.bodyMedium!
                             //             .copyWith(
                             //                 color: theme.primaryColor),
                             //       ),
@@ -2728,14 +2729,14 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                 Container(
                                   child: Text(
                                     "Due Date",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.grey),
                                   ),
                                 ),
                                 Container(
                                   child: Text(
                                     "Age",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -2748,7 +2749,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   child: Text(
                                     // '33',
                                     "${config.alignDate(context.read<NewCollectionContoller>().getProduct[index].date)}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -2756,7 +2757,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   child: Text(
                                     // '44',
                                     "${context.read<NewCollectionContoller>().getProduct[index].age.toString()}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -2771,14 +2772,14 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                 Container(
                                   child: Text(
                                     "Trans Amound",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.grey),
                                   ),
                                 ),
                                 Container(
                                   child: Text(
                                     "Paid Amount",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -2794,7 +2795,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   .watch<NewCollectionContoller>()
                                   .config
                                   .slpitCurrency22(context.read<NewCollectionContoller>().getProduct[index].trnsAmount.toString())}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -2805,7 +2806,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   .watch<NewCollectionContoller>()
                                   .config
                                   .slpitCurrency22(context.read<NewCollectionContoller>().getProduct[index].paidAmount.toString())}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -2830,7 +2831,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                                   .watch<NewCollectionContoller>()
                                   .config
                                   .slpitCurrency22(context.read<NewCollectionContoller>().getProduct[index].balancetoPay.toString())}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -2935,7 +2936,7 @@ class NewCollectionEntryState extends State<NewCollectionEntry> {
                               "Total Collection Value Rs.${context.read<NewCollectionContoller>().colletionTotal()}",
                               maxLines: 8,
                               overflow: TextOverflow.ellipsis,
-                              style: theme.textTheme.bodyText1?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.primaryColor,
                               ))
                         ],
@@ -3041,7 +3042,7 @@ List<Widget> listContainersPaymentTerms(
                   borderRadius: BorderRadius.circular(10)),
                   alignment: Alignment.center,
               child: context.read<NewCollectionContoller>().paymode[index].amount !=null && context.read<NewCollectionContoller>().paymode[index].amount !=""? 
-              Text("Rs.${context.read<NewCollectionContoller>().config.slpitCurrency22(context.read<NewCollectionContoller>().paymode[index].amount.toString())}",style: theme.textTheme.bodyText1?.copyWith(
+              Text("Rs.${context.read<NewCollectionContoller>().config.slpitCurrency22(context.read<NewCollectionContoller>().paymode[index].amount.toString())}",style: theme.textTheme.bodyMedium?.copyWith(
                        color: context
                              .read<NewCollectionContoller>()
                              .paymode[index]
@@ -3057,7 +3058,7 @@ List<Widget> listContainersPaymentTerms(
                           maxLines: 8,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-                         style: theme.textTheme.bodyText1?.copyWith(
+                         style: theme.textTheme.bodyMedium?.copyWith(
                        color: context
                              .read<NewCollectionContoller>()
                              .paymode[index]
@@ -3071,12 +3072,12 @@ List<Widget> listContainersPaymentTerms(
          Positioned(
           top: Screens.padingHeight(context)*0.005,
           left:Screens.width(context)*0.01,
-          child: context.read<NewCollectionContoller>().paymode[index].amount !=null && context.read<NewCollectionContoller>().paymode[index].amount !=""?Text("${context.read<NewCollectionContoller>().paymode[index].ModeName}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
+          child: context.read<NewCollectionContoller>().paymode[index].amount !=null && context.read<NewCollectionContoller>().paymode[index].amount !=""?Text("${context.read<NewCollectionContoller>().paymode[index].ModeName}",style:theme.textTheme.bodyMedium?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
           )
       //  Positioned(
       //     top: Screens.padingHeight(context)*0.005,
       //     left:Screens.width(context)*0.01,
-      //     child: context.read<NewCollectionContoller>().paymode[index].amount !=null && context.read<NewCollectionContoller>().paymode[index].amount !=""?Text("Rs.${context.read<NewCollectionContoller>().paymode[index].amount}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
+      //     child: context.read<NewCollectionContoller>().paymode[index].amount !=null && context.read<NewCollectionContoller>().paymode[index].amount !=""?Text("Rs.${context.read<NewCollectionContoller>().paymode[index].amount}",style:theme.textTheme.bodyMedium?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
       //     )
           ],
         ),

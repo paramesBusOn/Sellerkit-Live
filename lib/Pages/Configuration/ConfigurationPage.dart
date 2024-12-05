@@ -8,12 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 // import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/ConfigurationController/ConfigurationController.dart';
-import 'package:sellerkit/Controller/DashBoardController/DashBoardController.dart';
+import 'package:sellerkit/Controller/ConfigurationController/configuration_controller.dart';
+import 'package:sellerkit/Controller/DashBoardController/dashboard_controller.dart';
 import 'package:sellerkit/Models/LoginModel/LoginModel.dart';
 import 'package:sellerkit/Pages/Configuration/updatedialogbox.dart';
 import 'package:sellerkit/Services/LoginApi/LoginApi.dart';

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/VisitplanController/NewVisitController.dart';
+import 'package:sellerkit/Controller/VisitplanController/newvisit_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 

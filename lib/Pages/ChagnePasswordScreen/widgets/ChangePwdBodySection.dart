@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Controller/ForgotPasswordController/forgotpassword_controller.dart';
+import 'package:sellerkit/Controller/LoginController/login_controller.dart';
 import 'package:sellerkit/Pages/Splash/Widgets/custom_elevatedBtn.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/ForgotPasswordController/ForgotPasswordController.dart';
-import '../../../Controller/LoginController/LoginController.dart';
 
 class ChangePwdPageBodySection extends StatefulWidget {
   const ChangePwdPageBodySection({
@@ -45,7 +45,7 @@ class _ChangePwdPageBodySectionState extends State<ChangePwdPageBodySection> {
                             width: Screens.width(context),
                             child: Text(
                               "Forgot Password",
-                              style: theme.textTheme.headline6
+                              style: theme.textTheme.titleLarge
                                   ?.copyWith(color: theme.primaryColor),
                             ),
                           ),
@@ -87,7 +87,7 @@ class _ChangePwdPageBodySectionState extends State<ChangePwdPageBodySection> {
                                             Container(
                                                 child: Text(
                                               "User OTP",
-                                              style: theme.textTheme.subtitle1
+                                              style: theme.textTheme.titleMedium
                                                   ?.copyWith(
                                                       color:
                                                           prdfpw.getmanagerotpcompleted ==
@@ -187,7 +187,7 @@ class _ChangePwdPageBodySectionState extends State<ChangePwdPageBodySection> {
                                             // Text(
                                             //   "*User OTP is not matched",
                                             //   style: theme
-                                            //       .textTheme.bodyText2
+                                            //       .textTheme.bodyMedium
                                             //       ?.copyWith(
                                             //           color: theme
                                             //               .primaryColor),
@@ -305,7 +305,7 @@ class _ChangePwdPageBodySectionState extends State<ChangePwdPageBodySection> {
                                         Container(
                                             child: Text(
                                           "Manager OTP",
-                                          style: theme.textTheme.subtitle1
+                                          style: theme.textTheme.titleMedium
                                               ?.copyWith(
                                             color: prdfpw.getusergray == true
                                                 ? Colors.grey
@@ -381,7 +381,7 @@ class _ChangePwdPageBodySectionState extends State<ChangePwdPageBodySection> {
                                         //     visible: prdfpw.getuserhasError,
                                         //     child: Text(
                                         //       "*Manager OTP is not matched",
-                                        // style: theme.textTheme.bodyText2
+                                        // style: theme.textTheme.bodyMedium
                                         //     ?.copyWith(
                                         //         color:
                                         //             theme.primaryColor),

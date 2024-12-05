@@ -1,9 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/specialpricecontroller/tabcontroller.dart';
+import 'package:sellerkit/Controller/specialpricecontroller/tab_controller.dart';
 import 'package:sellerkit/Models/specialpriceModel/GetAllSPModel.dart';
 import 'package:sellerkit/Pages/SpecialPriceReq/widgets/Followdialog.dart';
 
@@ -130,35 +131,35 @@ class _ApprovedpageState extends State<Approvedpage> {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                       Container(
-                                        child: Text("UserName",style:widget. theme.textTheme.bodyText2!.copyWith(color: Colors.grey),),
+                                        child: Text("UserName",style:widget. theme.textTheme.bodyMedium!.copyWith(color: Colors.grey),),
                                       ),
                                        Container(
-                                        child: Text("StoreCode",style:widget. theme.textTheme.bodyText2!.copyWith(color: Colors.grey),),
+                                        child: Text("StoreCode",style:widget. theme.textTheme.bodyMedium!.copyWith(color: Colors.grey),),
                                       )
                                     ],),
                                     Row(
                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                       Container(
-                                        child: Text("${ConstantValues.firstName}",style:widget. theme.textTheme.bodyText2!.copyWith(color: widget.theme.primaryColor)),
+                                        child: Text("${ConstantValues.firstName}",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor,fontSize: 13)),
                                       ),
                                        Container(
-                                        child: Text("${widget.filtertabdata[ind].StoreCode}",style:widget. theme.textTheme.bodyText1!.copyWith(color: widget.theme.primaryColor)),
+                                        child: Text("${widget.filtertabdata[ind].StoreCode}",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor,fontSize: 13)),
                                       ),
                                
                                     ],),
                                     SizedBox(
-                                      height: Screens.padingHeight(context)*0.01,
+                                      height: Screens.padingHeight(context)*0.001,
                                     ),
                               
                                      Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                       Container(
-                                        child: Text("Customer Name",style:widget. theme.textTheme.bodyText2!.copyWith(color: Colors.grey)),
+                                        child: Text("Customer Name",style:widget. theme.textTheme.bodyMedium!.copyWith(color: Colors.grey)),
                                       ),
                                       Container(
-                                        child: Text("SP Price",style:widget. theme.textTheme.bodyText2!.copyWith(color: Colors.grey)),
+                                        child: Text("SP Price",style:widget. theme.textTheme.bodyMedium!.copyWith(color: Colors.grey)),
                                       ),
                                      
                                     ],),
@@ -166,13 +167,13 @@ class _ApprovedpageState extends State<Approvedpage> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                       Container(
-                                        child: Text("${widget.filtertabdata[ind].CustomerName}",style:widget. theme.textTheme.bodyText2!.copyWith(color: widget.theme.primaryColor)),
+                                        child: Text("${widget.filtertabdata[ind].CustomerName}",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor,fontSize: 13)),
                                       ),
                                        
                                      Container(
                                         child: Text("${context
                                                       .read<tabpriceController>()
-                                                      .config.slpitCurrency22(widget.filtertabdata[ind].SP.toString())}",style:widget. theme.textTheme.bodyText2!.copyWith(color: widget.theme.primaryColor)),
+                                                      .config.slpitCurrency22(widget.filtertabdata[ind].SP.toString())}",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor,fontSize: 13)),
                                       ),
                                     ],),
                                      SizedBox(
@@ -187,7 +188,7 @@ class _ApprovedpageState extends State<Approvedpage> {
                                                     child: Text(
                                                       "Customer Mobile",
                                                       style: widget
-                                                          .theme.textTheme.bodyText2
+                                                          .theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                               color: Colors.grey),
                                                     ),
@@ -197,7 +198,7 @@ class _ApprovedpageState extends State<Approvedpage> {
                                                     child: Text(
                                                       "Requested Price",
                                                       style: widget
-                                                          .theme.textTheme.bodyText2
+                                                          .theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                               color: Colors.grey),
                                                     ),
@@ -212,18 +213,18 @@ class _ApprovedpageState extends State<Approvedpage> {
                                       children: [
                                Container(
                                 width: Screens.width(context)*0.5,
-                                        child: Text("${widget.filtertabdata[ind].CustomerCode}",style:widget. theme.textTheme.bodyText1!.copyWith(color: widget.theme.primaryColor)),
+                                        child: Text("${widget.filtertabdata[ind].CustomerCode}",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor,fontSize: 13)),
                                       ),
                                        Container(
                                         child: Text("${
                                           context
                                                       .read<tabpriceController>()
                                                       .config.slpitCurrency22(widget.filtertabdata[ind].RP.toString())
-                                          }",style:widget. theme.textTheme.bodyText2!.copyWith(color: widget.theme.primaryColor)),
+                                          }",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor,fontSize: 13)),
                                       ),
                                     ],),
                                      SizedBox(
-                                      height: Screens.padingHeight(context)*0.01,
+                                      height: Screens.padingHeight(context)*0.001,
                                     ),
                                     Row(
                                       
@@ -234,7 +235,7 @@ class _ApprovedpageState extends State<Approvedpage> {
                                                     child: Text(
                                                       "Product",
                                                       style: widget
-                                                          .theme.textTheme.bodyText2
+                                                          .theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                               color: Colors.grey),
                                                     ),
@@ -244,7 +245,7 @@ class _ApprovedpageState extends State<Approvedpage> {
                                                     child: Text(
                                                       "Percentage",
                                                       style: widget
-                                                          .theme.textTheme.bodyText2
+                                                          .theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                               color: Colors.grey),
                                                     ),
@@ -258,12 +259,12 @@ class _ApprovedpageState extends State<Approvedpage> {
                                       children: [
                                          Container(
                                 width: Screens.width(context)*0.5,
-                                        child: Text("${widget.filtertabdata[ind].ItemName}",style:widget. theme.textTheme.bodyText1!.copyWith(color: widget.theme.primaryColor)),
+                                        child: Text("${widget.filtertabdata[ind].ItemName}",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor,fontSize: 13)),
                                       ),
                   Container(
                                         alignment: Alignment.centerRight,
                                         child: Text("${context
-                            .read<tabpriceController>().Discountcalculation(widget.filtertabdata[ind].RP, widget.filtertabdata[ind].SP)} ",style:widget. theme.textTheme.bodyText1!.copyWith(color: widget.theme.primaryColor)),
+                            .read<tabpriceController>().Discountcalculation(widget.filtertabdata[ind].RP, widget.filtertabdata[ind].SP)} ",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor,fontSize: 13)),
                                       )
                                     ],),
                               //       Column(
@@ -273,12 +274,12 @@ class _ApprovedpageState extends State<Approvedpage> {
                               //  Container(
                               //   alignment: Alignment.centerRight,
                                
-                              //           child: Text("",style:widget. theme.textTheme.bodyText1!.copyWith(color: widget.theme.primaryColor)),
+                              //           child: Text("",style:widget. theme.textTheme.bodyMedium!.copyWith(color: widget.theme.primaryColor)),
                               //         ),
                                       
                               //       ],),
                                      SizedBox(
-                                      height: Screens.padingHeight(context)*0.01,
+                                      height: Screens.padingHeight(context)*0.005,
                                     ),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -289,9 +290,9 @@ class _ApprovedpageState extends State<Approvedpage> {
                                                       .config.alignDate(widget.filtertabdata[ind].RequestDate.toString())} ${context
                                                       .read<tabpriceController>()
                                                       .config.alignTimenew(widget.filtertabdata[ind].RequestDate.toString())}" , style: widget
-                                                          .theme.textTheme.bodyText2
+                                                          .theme.textTheme.bodyMedium
                                                           ?.copyWith(
-                                                              color: Colors.grey),),
+                                                              color: Colors.grey,),),
                                       ),
                                        
                                     ],),

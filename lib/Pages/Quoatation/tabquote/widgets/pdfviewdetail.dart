@@ -71,6 +71,7 @@ class pdfviewState extends State<pdfview> {
         initialPageFormat:PdfPageFormat.a4,
         dynamicLayout:true,
         // pages: [1,2],
+        pdfFileName:"${orderMasterdata![0].CardName!}.pdf",
         onPageFormatChanged:(PdfPageFormat){
           
         },

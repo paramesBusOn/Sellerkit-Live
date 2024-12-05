@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../Controller/SettlementController/SettlementController.dart';
+import '../../../Controller/SettlementController/settlement_controller.dart';
 
 class finalpopBox extends StatefulWidget {
   finalpopBox({
@@ -123,7 +123,7 @@ class finalpopBoxState extends State<finalpopBox> {
                             },
                             decoration: InputDecoration(
                               labelText: 'Settlement',
-                              labelStyle: theme.textTheme.bodyText1!
+                              labelStyle: theme.textTheme.bodyMedium!
                                   .copyWith(color: Colors.grey),
         
                               enabledBorder: UnderlineInputBorder(
@@ -166,7 +166,7 @@ class finalpopBoxState extends State<finalpopBox> {
                             }),
                             decoration: InputDecoration(
                               labelText: 'Reference',
-                              labelStyle: theme.textTheme.bodyText1!
+                              labelStyle: theme.textTheme.bodyMedium!
                                   .copyWith(color: Colors.grey),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey),

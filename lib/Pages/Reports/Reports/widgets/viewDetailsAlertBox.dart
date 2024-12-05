@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/ReportsController/ReportsController.dart';
+import 'package:sellerkit/Controller/ReportsController/reports_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 class ViewDetailsAlertBox extends StatefulWidget {

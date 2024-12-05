@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Controller/NotificationController/NotificationController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import '../../../Controller/NotificationController/notification_controller.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 import '../Widgets/DeleteDialog.dart';
@@ -186,7 +186,7 @@ class _TestingState extends State<Testing> {
                   // color: Colors.red,
                   child: Text(
                     "${context.read<NotificationContoller>().getnotify[index].titile}",
-                    style: theme.textTheme.bodyText1,
+                    style: theme.textTheme.bodyMedium,
                   ),
                 ),
                 Container(
@@ -195,7 +195,7 @@ class _TestingState extends State<Testing> {
                   child: Text(
                     context.read<NotificationContoller>().config.subtractDTWith2(
                         "${context.read<NotificationContoller>().getnotify[index].receiveTime}"),
-                    style: theme.textTheme.bodyText2
+                    style: theme.textTheme.bodyMedium
                         ?.copyWith(fontSize: 12, color: Colors.grey),
                   ),
                 ),
@@ -213,7 +213,7 @@ class _TestingState extends State<Testing> {
               collapseText: 'show less',
               maxLines: 2,
               linkColor: Colors.blue,
-              style: theme.textTheme.bodyText2
+              style: theme.textTheme.bodyMedium
                   ?.copyWith(fontSize: 12, color: Colors.grey),
             ),
           ),
@@ -324,7 +324,7 @@ class _TestingState extends State<Testing> {
 // import 'package:provider/provider.dart';
 // import 'package:sellerkit/Constant/Screen.dart';
 // import 'package:sellerkit/Models/newNotificationModel/newnotifyModel.dart';
-// import '../../../Constant/ConstantRoutes.dart';
+// import 'package:sellerkit/Constant/constant_routes.dart';
 // import '../../../Controller/NotificationController/NotificationController.dart';
 // import '../../../Widgets/Appbar.dart';
 // import '../../../Widgets/Navi3.dart';
@@ -510,7 +510,7 @@ class _TestingState extends State<Testing> {
 //                   // color: Colors.red,
 //                   child: Text(
 //                     "${notifydatanew.title}",
-//                     style: theme.textTheme.bodyText1,
+//                     style: theme.textTheme.bodyMedium,
 //                   ),
 //                 ),
 //                 Container(
@@ -519,7 +519,7 @@ class _TestingState extends State<Testing> {
 //                   child:notifydatanew.sendTime ==null || notifydatanew.sendTime==''?Text(""): Text(
 //                     context.read<NotificationContoller>().config.alignmeetingdate(
 //                         "${notifydatanew.sendTime}"),
-//                     style: theme.textTheme.bodyText2
+//                     style: theme.textTheme.bodyMedium
 //                         ?.copyWith(fontSize: 12, color: Colors.grey),
 //                   ),
 //                 ),
@@ -537,7 +537,7 @@ class _TestingState extends State<Testing> {
 //               collapseText: 'show less',
 //               maxLines: 2,
 //               linkColor: Colors.blue,
-//               style: theme.textTheme.bodyText2
+//               style: theme.textTheme.bodyMedium
 //                   ?.copyWith(fontSize: 12, color: Colors.grey),
 //             ),
 //           ),

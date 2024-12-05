@@ -3,10 +3,11 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 // import '../../../Constant/DataBaseConf  ountsModel.dart';
-import '../../Models/CustomerMasterModel/CustomerMasterModel.dart';
+import '../../Models/CustomerMasterModel/customermaster_model.dart';
 // import 'package:sellerkit/main.dart';
 
 class CustomerMasterApiNew {

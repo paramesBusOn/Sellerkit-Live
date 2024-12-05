@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Controller/SiteInController/newcreatesitein.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Controller/SiteInController/newcreate_sitein.dart';
+
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Pages/SiteIn/Widgets/navdrawerend.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/SiteInController/SiteInController.dart';
+import '../../../Controller/SiteInController/sitein_controller.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 import '../Widgets/NewSiteIn.dart';
@@ -69,6 +71,7 @@ class _SiteInPageState extends State<SiteInPage> {
           key: scaffoldKey,
           drawer: drawer3(context),
           appBar: appbar("Site Check-In", scaffoldKey,theme, context),
+          endDrawer: navDrawervisit(),
           body: GestureDetector(
              onHorizontalDragUpdate: (details) {
                     // Check if the user is swiping from left to right
@@ -126,7 +129,7 @@ class _SiteInPageState extends State<SiteInPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         " Upcoming Visit Plans",
-                        style: theme.textTheme.headline6
+                        style: theme.textTheme.titleLarge
                             ?.copyWith(color: theme.primaryColor),
                       ),
                     ),
@@ -149,7 +152,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                  controller: context.read<SiteInController>().mycontroller[12],
                                  decoration: InputDecoration(
                                    filled: false,
-                                   hintText: 'Search Here!!..',
+                                   hintText: 'Search Here..',
                                    enabledBorder: InputBorder.none,
                                    focusedBorder: InputBorder.none,
                                    suffixIcon: IconButton(
@@ -234,7 +237,7 @@ class _SiteInPageState extends State<SiteInPage> {
                         // repeat: true,
                         
                         height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                        width: Screens.width(context)*0.4
                         ),
                   ):              InkWell(
                     onTap: () {
@@ -247,6 +250,34 @@ class _SiteInPageState extends State<SiteInPage> {
                         // height: Screens.padingHeight(context) * 0.3,
                         width: Screens.width(context) * 0.4),
                   ),
+                   context.watch<SiteInController>().errortabMsg
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context.watch<SiteInController>().errortabMsg
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context.watch<SiteInController>().errortabMsg
+                                                      .contains("Network Issue")
+                                                  ? Container():
                         Text("${context.watch<SiteInController>().errortabMsg}",textAlign: TextAlign.center,style: TextStyle(fontSize: 15),),
                       ],
                     ),)
@@ -289,7 +320,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                           "Customer",
-                                          style: theme.textTheme.bodyText2
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -298,7 +329,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                           "Date & Time",
-                                          style: theme.textTheme.bodyText2
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -312,7 +343,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                             "${context.watch<SiteInController>().filteropenVisitData[i].customername}",
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               color: theme.primaryColor,
                                               // fontWeight: FontWeight.bold
@@ -323,7 +354,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                             "${config.alignmeetingdate(context.watch<SiteInController>().filteropenVisitData[i].meetingtime.toString())}",
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               color: theme.primaryColor,
                                               //fontWeight: FontWeight.bold
@@ -342,7 +373,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                           "Purpose",
-                                          style: theme.textTheme.bodyText2
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -351,7 +382,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                           "Area",
-                                          style: theme.textTheme.bodyText2
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -369,7 +400,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                           width: Screens.width(context) * 0.4,
                                           child: Text(
                                               "${context.watch<SiteInController>().filteropenVisitData[i].purposeofvisit!}",
-                                              style: theme.textTheme.bodyText2
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                 color: theme.primaryColor,
                                                 //fontWeight: FontWeight.bold
@@ -385,7 +416,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 3,
                                               //"₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                              style: theme.textTheme.bodyText2
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                 color: theme.primaryColor,
                                                 //fontWeight: FontWeight.bold
@@ -408,7 +439,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                             //color: Colors.red,
                                             width: Screens.width(context) * 0.54,
                                             child: Text("Product",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                   color: Colors.grey,
                                                   // fontWeight: FontWeight.bold
@@ -421,7 +452,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                             child: Text(
                                                 "${context.watch<SiteInController>().filteropenVisitData[i].LookingFor!}",
                                                 //"₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                   color: theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
@@ -448,7 +479,7 @@ class _SiteInPageState extends State<SiteInPage> {
                                                 Screens.width(context) * 0.01),
                                             child: Text(
                                                 "${context.watch<SiteInController>().filteropenVisitData[i].visitstatus}",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color: Colors.green[700],
                                                         fontSize: 12
@@ -477,31 +508,48 @@ class _SiteInPageState extends State<SiteInPage> {
               ),
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              setState(() {
-              context.read<SiteInController>().clearText();
-               context.read<createSiteInController>().clearAll();
-           
-              });
-              Get.toNamed(ConstantRoutes.newsitein);
-            },
-            child: IconButton(
+          floatingActionButton: Column(
+             mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+               FloatingActionButton(
+              heroTag :'bt1',
+              onPressed: () {
+                 context.read<SiteInController> (). clearfilterval();
+                 context.read<SiteInController> ().  getdbmodel(context);
+                scaffoldKey.currentState?.openEndDrawer();
+              },
+              child: Icon(Icons.filter_alt),
+            ),
+            SizedBox(
+              height: Screens.padingHeight(context)*0.01,
+            ),
+              FloatingActionButton(
                 onPressed: () {
                   setState(() {
-                   context.read<SiteInController>().clearText();
-                  context.read<createSiteInController>().clearAll();
-                  
+                  context.read<SiteInController>().clearText();
+                   context.read<createSiteInController>().clearAll();
+               
                   });
-                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => NewSiteIn(),
-                                      ));
-                                  
-                  // Get.toNamed(ConstantRoutes.newsitein);
+                  Get.toNamed(ConstantRoutes.newsitein);
                 },
-                icon: Icon(Icons.add)),
+                child: IconButton(
+                    onPressed: () {
+                      setState(() {
+                       context.read<SiteInController>().clearText();
+                      context.read<createSiteInController>().clearAll();
+                      
+                      });
+                       Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => NewSiteIn(),
+                                          ));
+                                      
+                      // Get.toNamed(ConstantRoutes.newsitein);
+                    },
+                    icon: Icon(Icons.add)),
+              ),
+            ],
           ),
         ));
   }

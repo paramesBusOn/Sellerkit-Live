@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Pages/Stock%20Availability/screens/showdialogst.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/StockAvailabilityController/StockListController.dart';
+import '../../../Controller/StockAvailabilityController/stocklist_controller.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -98,7 +99,7 @@ onWillPop: onbackpress,
                      },
                      decoration: InputDecoration(
                        filled: false,
-                       hintText: 'Search Here!!..',
+                       hintText: 'Search Here..',
                        enabledBorder: InputBorder.none,
                        focusedBorder: InputBorder.none,
                        prefixIcon: IconButton(
@@ -238,24 +239,24 @@ onWillPop: onbackpress,
                                             SizedBox(
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
-                                                  "Item code: ${context.watch<StockListController>().getlistPriceAvail[i].itemCode}",
-                                                  style: theme.textTheme.bodyText1
+                                                  "Item Code: ${context.watch<StockListController>().getlistPriceAvail[i].itemCode}",
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color:
-                                                              theme.primaryColor)),
+                                                              theme.primaryColor,fontSize: 13)),
                                             ),
                                             Container(
                                               alignment: Alignment.centerRight,
                                               width: Screens.width(context) * 0.4,
                                               child: Column(
                                                 children: [
-                                                  Text("Store code: ${context.watch<StockListController>().getlistPriceAvail[i].storeCode}",
-                                                    style: theme.textTheme.bodyText1
+                                                  Text("Store Code: ${context.watch<StockListController>().getlistPriceAvail[i].storeCode}",
+                                                    style: theme.textTheme.bodyMedium
                                                         ?.copyWith( color:
-                                                              theme.primaryColor),),
+                                                              theme.primaryColor,fontSize: 13),),
                                                   Text(
                                                     context.watch<StockListController>().subtractDateTime(context.watch<StockListController>().getlistPriceAvail[i].refreshedRecordDate!),
-                                                    style: theme.textTheme.bodyText1
+                                                    style: theme.textTheme.bodyMedium
                                                         ?.copyWith(color: Colors.grey),
                                                   ),
                                                 ],
@@ -275,20 +276,21 @@ onWillPop: onbackpress,
                                           alignment: Alignment.centerLeft,
                                           width: Screens.width(context) * 0.4,
                                           child: Text("Product",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(color: Colors.grey)),
                                         ),
                                         SizedBox(
                                           height:
-                                              Screens.bodyheight(context) * 0.01,
+                                              Screens.bodyheight(context) * 0.005,
                                         ),
                                            Container(
                                             //  color: Colors.red,
                                               width: Screens.width(context) ,
                                               child: Text(
                                                   "${context.watch<StockListController>().getlistPriceAvail[i].itemName}",
-                                                  style: theme.textTheme.bodyText1
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
+                                                        fontSize: 13
                                                           //color: theme.primaryColor
                                                           )),
                                             ),
@@ -308,7 +310,7 @@ onWillPop: onbackpress,
                                              // ConstantValues.sapUser=='Manager'?
                                               "Total Whse Stock: ${context.watch<StockListController>().getlistPriceAvail[i].whsStock!.toStringAsFixed(0)}",
                                           // :'', 
-                                             style: theme.textTheme.bodyText1
+                                             style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                               color:
                                                   theme.primaryColor),
@@ -320,7 +322,7 @@ onWillPop: onbackpress,
                                                alignment: Alignment.centerRight,
                                                child: Text(
                                                  "Total Store Stock: ${context.watch<StockListController>().getlistPriceAvail[i].storeStock!.toStringAsFixed(0)}",
-                                                 style: theme.textTheme.bodyText1
+                                                 style: theme.textTheme.bodyMedium
                                                      ?.copyWith(
                                                  color:
                                                      theme.primaryColor),
@@ -343,18 +345,18 @@ onWillPop: onbackpress,
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                            Text("Features",style:  theme.textTheme.bodyText1
+                                            Text("Features",style:  theme.textTheme.bodyMedium
                                                   ?.copyWith(color: theme.primaryColor),),
                                         Row(children: [
                                           // Container(
                                           //   // color:Colors.amber,
                                           //   width: Screens.width(context) * 0.3,
-                                          //   child: Text("BrandCode",style: theme.textTheme.bodyText1
+                                          //   child: Text("BrandCode",style: theme.textTheme.bodyMedium
                                           //         ?.copyWith(color: Colors.grey)),
                                           // ),
                                    context.watch<StockListController>().getlistPriceAvail[i].brandCode!.isEmpty?Container():       Container(
                                              width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].brandCode}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].brandCode}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           ),),
@@ -363,12 +365,12 @@ onWillPop: onbackpress,
                                          Row(children: [
                                           // Container(
                                           //    width: Screens.width(context) * 0.3,
-                                          //   child: Text("ItemDescription",style: theme.textTheme.bodyText1
+                                          //   child: Text("ItemDescription",style: theme.textTheme.bodyMedium
                                           //         ?.copyWith(color: Colors.grey)),
                                           // ),
                                   context.watch<StockListController>().getlistPriceAvail[i].itemDescription!.isEmpty?Container():        Container(
                                              width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].itemDescription}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].itemDescription}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           )),
@@ -377,12 +379,12 @@ onWillPop: onbackpress,
                                         Row(children: [
                                           // Container(
                                           //    width: Screens.width(context) * 0.3,
-                                          //   child: Text("Specification",style: theme.textTheme.bodyText1
+                                          //   child: Text("Specification",style: theme.textTheme.bodyMedium
                                           //         ?.copyWith(color: Colors.grey)),
                                           // ),
                                       context.watch<StockListController>().getlistPriceAvail[i].specification!.isEmpty?Container():    Container(
                                              width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].specification}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].specification}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           )),
@@ -391,12 +393,12 @@ onWillPop: onbackpress,
                                         Row(children: [
                                           // Container(
                                           //   width: Screens.width(context) * 0.3,
-                                          //   child: Text("Clasification",style: theme.textTheme.bodyText1
+                                          //   child: Text("Clasification",style: theme.textTheme.bodyMedium
                                           //         ?.copyWith(color: Colors.grey)),
                                           // ),
                                  context.watch<StockListController>().getlistPriceAvail[i].clasification!.isEmpty?Container():         Container(
                                              width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].clasification}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].clasification}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           )),
@@ -405,12 +407,12 @@ onWillPop: onbackpress,
                                          Row(children: [
                                           // Container(
                                           //    width: Screens.width(context) * 0.3,
-                                          //   child: Text("Color",style: theme.textTheme.bodyText1
+                                          //   child: Text("Color",style: theme.textTheme.bodyMedium
                                           //         ?.copyWith(color: Colors.grey)),
                                           // ),
                                          context.watch<StockListController>().getlistPriceAvail[i].color!.isEmpty?Container(): Container(
                                             width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].color}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<StockListController>().getlistPriceAvail[i].color}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           )),

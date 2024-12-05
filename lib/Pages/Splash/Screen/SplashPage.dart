@@ -1,14 +1,18 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, use_build_context_synchronously
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/ConfigurationController/ConfigurationController.dart';
+import 'package:sellerkit/Constant/helper.dart';
+import 'package:sellerkit/Controller/ConfigurationController/configuration_controller.dart';
 import 'package:sellerkit/Pages/Configuration/updatedialogbox.dart';
-import '../../../Constant/AppConstant.dart';
-import '../../../Constant/ConstantRoutes.dart';
+import '../../../Constant/app_constant.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Widgets/LottieContainer.dart';
 
 class SplashPage extends StatefulWidget {
@@ -26,7 +30,9 @@ class SplashPageState extends State<SplashPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       //  context.read<SplashController>().setURL();
+    
       context.read<ConfigurationContoller>().showVersion();
+    
       String? storeversion = await context
           .read<ConfigurationContoller>()
           .getStoreVersion('com.busondigitalservice.sellerkit');
@@ -37,8 +43,9 @@ class SplashPageState extends State<SplashPage> {
               context: context,
               builder: ((context) => Upgraderdialogbox(
                     storeversion: storeversion,
-                  ))).then((value) {
+                  ))).then((value) async{
             try {
+     
               context
                   .read<ConfigurationContoller>()
                   .checkBeforeLoginApi(context);
@@ -48,11 +55,20 @@ class SplashPageState extends State<SplashPage> {
           });
         } else {
           try {
+            log("ininin");
+             
             context.read<ConfigurationContoller>().checkBeforeLoginApi(context);
           } catch (e) {
             errormsg = e.toString();
           }
         }
+      }else{
+         try {
+            log("inininout");
+            context.read<ConfigurationContoller>().checkBeforeLoginApi(context);
+          } catch (e) {
+            errormsg = e.toString();
+          }
       }
     });
   }
@@ -93,7 +109,7 @@ class SplashPageState extends State<SplashPage> {
                     Container(
                       child: Text(
                         "SELLERKIT-CRM",
-                        style: theme.textTheme.bodyText1!.copyWith(
+                        style: theme.textTheme.bodyMedium!.copyWith(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.bold),
                       ),
@@ -108,11 +124,26 @@ class SplashPageState extends State<SplashPage> {
                                     .watch<ConfigurationContoller>()
                                     .getexceptionOnApiCall ==
                                 '')
-                        ? Container(
-                            width: Screens.width(context) * 0.5,
-                            // color: Colors.red,
-                            child: LinearProgressIndicator(),
-                          )
+                        ? Column(
+                          children: [
+                            Container(
+                                width: Screens.width(context) * 0.5,
+                                // color: Colors.red,
+                                child: LinearProgressIndicator(),
+                              ),
+                              SizedBox(
+                      height: Screens.padingHeight(context) * 0.02,
+                    ),
+                         Container(
+                      child: Text(
+                        "Connecting to Sellerkit Server ${context.watch<ConfigurationContoller>().progressPercentage.toStringAsFixed(0)} %",
+                        style: theme.textTheme.bodyMedium!.copyWith(
+                            
+                            ),
+                      ),
+                    ),
+                          ],
+                        )
                         : Column(
                             children: [
                               Container(
@@ -164,7 +195,7 @@ class SplashPageState extends State<SplashPage> {
                                         Container(
                                             child: Text(
                                           "Click here to go ",
-                                          style: theme.textTheme.bodyText1
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
                                             color: Colors.grey,
                                           ),
@@ -172,7 +203,7 @@ class SplashPageState extends State<SplashPage> {
                                         Container(
                                             child: Text(
                                           "Login",
-                                          style: theme.textTheme.bodyText1
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
                                                   fontSize: 16,
                                                   color: theme.primaryColor,

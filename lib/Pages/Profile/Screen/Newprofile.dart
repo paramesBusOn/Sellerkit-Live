@@ -3,11 +3,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Controller/LoginController/login_controller.dart';
 import 'package:sellerkit/Pages/Splash/Widgets/custom_elevatedBtn.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Controller/LoginController/LoginController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Widgets/Navi3.dart';
 
 class NewProfile extends StatefulWidget {
@@ -102,7 +103,7 @@ class _NewProfileState extends State<NewProfile> {
                         readOnly: true,
                         decoration: InputDecoration(
                           hintText: "${ConstantValues.firstName}",
-                          hintStyle: theme.textTheme.bodyText2
+                          hintStyle: theme.textTheme.bodyMedium
                               ?.copyWith(color: theme.primaryColor),
                           prefixIcon: Container(
                               alignment: Alignment.centerLeft,
@@ -131,7 +132,7 @@ class _NewProfileState extends State<NewProfile> {
                       //   readOnly: true,
                       //   decoration: InputDecoration(
                       //     hintText: "${ConstantValues.lastName}",
-                      //     hintStyle: theme.textTheme.bodyText2
+                      //     hintStyle: theme.textTheme.bodyMedium
                       //         ?.copyWith(color: theme.primaryColor),
                       //     prefixIcon: Container(
                       //         alignment: Alignment.centerLeft,
@@ -160,7 +161,7 @@ class _NewProfileState extends State<NewProfile> {
                         readOnly: true,
                         decoration: InputDecoration(
                           hintText: "${ConstantValues.mailId}",
-                          hintStyle: theme.textTheme.bodyText2
+                          hintStyle: theme.textTheme.bodyMedium
                               ?.copyWith(color: theme.primaryColor),
                           prefixIcon: Container(
                               alignment: Alignment.centerLeft,
@@ -189,7 +190,7 @@ class _NewProfileState extends State<NewProfile> {
                         readOnly: true,
                         decoration: InputDecoration(
                           hintText: "${ConstantValues.phoneNum}",
-                          hintStyle: theme.textTheme.bodyText2
+                          hintStyle: theme.textTheme.bodyMedium
                               ?.copyWith(color: theme.primaryColor),
                           prefixIcon: Container(
                               alignment: Alignment.centerLeft,
@@ -218,7 +219,7 @@ class _NewProfileState extends State<NewProfile> {
                         readOnly: true,
                         decoration: InputDecoration(
                           hintText: "${ConstantValues.branch}",
-                          hintStyle: theme.textTheme.bodyText2
+                          hintStyle: theme.textTheme.bodyMedium
                               ?.copyWith(color: theme.primaryColor),
                           prefixIcon: Container(
                               alignment: Alignment.centerLeft,
@@ -247,7 +248,7 @@ class _NewProfileState extends State<NewProfile> {
                         readOnly: true,
                         decoration: InputDecoration(
                           hintText: ConstantValues.deviceId,
-                          hintStyle: theme.textTheme.bodyText2
+                          hintStyle: theme.textTheme.bodyMedium
                               ?.copyWith(color: theme.primaryColor),
                           prefixIcon: Container(
                               alignment: Alignment.centerLeft,

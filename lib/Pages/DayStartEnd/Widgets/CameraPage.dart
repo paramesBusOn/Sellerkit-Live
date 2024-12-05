@@ -6,13 +6,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import 'package:sellerkit/Constant/screen.dart';
+
 import 'package:sellerkit/Services/DayStartEndApi/DaycheckAPi.dart';
 
-import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/DayStartEndController/DayStartEndController.dart';
+import '../../../Controller/DayStartEndController/daystartend_controller.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -72,6 +73,7 @@ class _cameraPageState extends State<cameraPage> {
                     }
                   },
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Card(
                 elevation: 3,
@@ -83,7 +85,7 @@ class _cameraPageState extends State<cameraPage> {
                             color: theme.primaryColor.withOpacity(0.3)),
                         borderRadius: BorderRadius.circular(8)),
                     width: Screens.width(context),
-                    height: Screens.bodyheight(context) * 0.894,
+                    height: Screens.bodyheight(context) * 0.80,
                     padding: EdgeInsets.symmetric(
                         horizontal: Screens.width(context) * 0.015,
                         vertical: Screens.bodyheight(context) * 0.005),
@@ -118,6 +120,44 @@ class _cameraPageState extends State<cameraPage> {
                               ),
                             ],
                           ))),
+            
+            Padding(
+              padding:  EdgeInsets.symmetric(
+                horizontal: Screens.width(context)*0.01
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    child: TextFormField(
+                                                minLines: 2,
+                                                controller: context
+                                                    .read<DayStartEndController>()
+                                                    .mycontroller[21],
+                                                maxLines: null,
+                                                keyboardType: TextInputType.multiline,
+                                                validator: (value) {
+                                                //   if (value!.trim() == "") {
+                                                //     return "Enter Feedback..";
+                                                //   }
+                                                //   return null;
+                                                },
+                                                decoration: InputDecoration(
+                                                  contentPadding: EdgeInsets.only(
+                                                    top: Screens.bodyheight(context) *
+                                                        0.04,
+                                                    left: Screens.bodyheight(context) *
+                                                        0.01,
+                                                  ),
+                                                  alignLabelWithHint: true,
+                                                  // border: OutlineInputBorder(),
+                                                  hintText: 'Remarks',
+                                                ),
+                                              ),
+                  ),
+                  
+                ],
+              ),
+            ),
             Container(
               width: Screens.width(context),
               height: Screens.bodyheight(context) * 0.077,

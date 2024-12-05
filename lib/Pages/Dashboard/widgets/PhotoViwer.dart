@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Pages/Profile/Screen/Newprofile.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/NewProfileController/NewProfileController.dart';
+import '../../../Controller/NewProfileController/newprofile_controller.dart';
 
 class PhotoViewer extends StatefulWidget {
   @override
@@ -48,7 +49,7 @@ class PhotoViewState extends State<PhotoViewer> {
                       child: Text(
                         "Profile Photo",
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.headline6?.copyWith(
+                        style: theme.textTheme.titleLarge?.copyWith(
                             color: theme.primaryColor,
                             fontWeight: FontWeight.normal),
                       )),

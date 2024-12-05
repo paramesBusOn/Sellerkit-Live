@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/LoginController/LoginController.dart';
+import 'package:sellerkit/Controller/LoginController/login_controller.dart';
 import 'package:sellerkit/Pages/Splash/Widgets/custom_elevatedBtn.dart';
 
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/ChangePasswordContoller/ChangepwdCtrl.dart';
+import '../../../Controller/ChangePasswordContoller/change_pwdctrl.dart';
 import '../../../Widgets/custom_shake_transtition.dart';
 
 class ConfirmPasswordPage extends StatefulWidget {

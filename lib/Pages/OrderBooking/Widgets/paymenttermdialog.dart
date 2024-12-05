@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/OrderController/OrderNewController.dart';
 import 'package:provider/provider.dart';
+import 'package:sellerkit/Controller/OrderController/ordernew_controller.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/paymodemodel.dart';
 
 class paytermdialog extends StatefulWidget {
@@ -78,7 +78,7 @@ class _paytermdialogState extends State<paytermdialog> {
                                 // },
                                 decoration: InputDecoration(
                                   labelText: 'Ref1',
-                                  labelStyle: theme.textTheme.bodyText1!
+                                  labelStyle: theme.textTheme.bodyMedium!
                                       .copyWith(color: Colors.grey),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10.0),
@@ -116,7 +116,7 @@ class _paytermdialogState extends State<paytermdialog> {
                                 // },
                                 decoration: InputDecoration(
                                   labelText: 'Ref2',
-                                  labelStyle: theme.textTheme.bodyText1!
+                                  labelStyle: theme.textTheme.bodyMedium!
                                       .copyWith(color: Colors.grey),
                                   contentPadding: EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10.0),
@@ -235,7 +235,7 @@ class _paytermdialogState extends State<paytermdialog> {
                                 color: theme.primaryColor,
                               ),
                               labelText: 'Date Ref',
-                              labelStyle: theme.textTheme.bodyText1!
+                              labelStyle: theme.textTheme.bodyMedium!
                                   .copyWith(color: Colors.grey),
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 10.0),
@@ -339,7 +339,7 @@ class _paytermdialogState extends State<paytermdialog> {
                               },
                             ),
                             labelText: 'Amount',
-                            labelStyle: theme.textTheme.bodyText1!
+                            labelStyle: theme.textTheme.bodyMedium!
                                 .copyWith(color: Colors.grey),
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 10.0, horizontal: 10.0),
@@ -411,7 +411,7 @@ class _paytermdialogState extends State<paytermdialog> {
                             )
                           : Text(
                               "Update",
-                              style: theme.textTheme.bodyText1!
+                              style: theme.textTheme.bodyMedium!
                                   .copyWith(color: Colors.white, fontSize: 18),
                             ))
                   : ElevatedButton(
@@ -445,7 +445,7 @@ class _paytermdialogState extends State<paytermdialog> {
                             )
                           : Text(
                               "Save",
-                              style: theme.textTheme.bodyText1!
+                              style: theme.textTheme.bodyMedium!
                                   .copyWith(color: Colors.white, fontSize: 18),
                             )),
             )
@@ -473,7 +473,7 @@ class _paytermdialogState extends State<paytermdialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Attachment',
-                  style: theme.textTheme.subtitle1?.copyWith(
+                  style: theme.textTheme.titleMedium?.copyWith(
                       color:
                           context.read<OrderNewController>().fileValidation2 ==
                                   true
@@ -604,7 +604,7 @@ class _paytermdialogState extends State<paytermdialog> {
                           Center(
                               child: Text(
                             "No Files Selected",
-                            style: theme.textTheme.bodyText1!.copyWith(
+                            style: theme.textTheme.bodyMedium!.copyWith(
                                 color: context
                                             .read<OrderNewController>()
                                             .fileValidation2 ==

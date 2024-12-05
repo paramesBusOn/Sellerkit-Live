@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/EarningController/EarningController.dart';
+import 'package:sellerkit/Controller/EarningController/earning_controller.dart';
 
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../Constant/padings.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
@@ -82,7 +83,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                 width: Screens.width(context) * 0.3,
                                 child: Text(
                                   'From Date *',
-                                  style: theme.textTheme.subtitle1?.copyWith(
+                                  style: theme.textTheme.titleMedium?.copyWith(
                                     color: Colors.white,
                                     // fontWeight: FontWeight.bold
                                   ),
@@ -111,10 +112,10 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                     return null;
                                   },
                                   readOnly: true,
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.white),
                                   decoration: InputDecoration(
-                                    errorStyle: theme.textTheme.bodyText2
+                                    errorStyle: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.white),
                                     suffixIcon: const Icon(
                                         Icons.date_range_outlined,
@@ -155,7 +156,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                 width: Screens.width(context) * 0.3,
                                 child: Text(
                                   'To Date *',
-                                  style: theme.textTheme.subtitle1?.copyWith(
+                                  style: theme.textTheme.titleMedium?.copyWith(
                                     color: Colors.white,
                                   ),
                                 ),
@@ -183,10 +184,10 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                     return null;
                                   },
                                   readOnly: true,
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.white),
                                   decoration: InputDecoration(
-                                    errorStyle: theme.textTheme.bodyText2
+                                    errorStyle: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.white),
                                     suffixIcon: Icon(Icons.date_range_outlined,
                                         color: Colors.grey),
@@ -228,7 +229,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                     context
                                         .watch<EarningController>()
                                         .dateRangeError,
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.white),
                                   ),
                                 )
@@ -259,7 +260,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                           color: theme.primaryColor)
                                       : Text(
                                           "Load Data",
-                                          style: theme.textTheme.bodyText2
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
                                             color: theme.primaryColor,
                                           ),
@@ -310,7 +311,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                           .kpilottie,
                                       height:
                                           Screens.padingHeight(context) * 0.2,
-                                      width: Screens.width(context) * 0.5)
+                                      width: Screens.width(context) * 0.4)
                                   : Lottie.asset(
                                       context
                                           .watch<EarningController>()
@@ -319,7 +320,34 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                       repeat: true,
                                       // height: Screens.padingHeight(context) * 0.3,
                                       width: Screens.width(context) * 0.4),
-                              Text(
+                            context.watch<EarningController>().earningexp
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context.watch<EarningController>().earningexp
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context.watch<EarningController>().earningexp
+                                                      .contains("Network Issue")
+                                                  ? Container():   Text(
                                   context.watch<EarningController>().earningexp)
                             ],
                           ),
@@ -371,7 +399,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                                   .getearningloadData[i]
                                                   .description
                                                   .toString(),
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(),
                                             ),
                                           ),
@@ -404,7 +432,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                                   .transDate
                                                   .toString(),
                                               // ),
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(),
                                             ),
                                           ),
@@ -518,7 +546,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
 //                                         width: Screens.width(context) * 0.22,
 //                                         child: Text(
 //                                           "From Date",
-                                          // style: theme.textTheme.subtitle1
+                                          // style: theme.textTheme.titleMedium
                                           //     ?.copyWith(
                                           //         color: Colors.white,
                                           //         fontWeight: FontWeight.bold),
@@ -542,12 +570,12 @@ class _EarningMoreDataState extends State<EarningMoreData> {
 //                                         controller:
 //                                             prdearn.dateController[2],
                                         // style: theme
-                                        //     .textTheme.bodyText2
+                                        //     .textTheme.bodyMedium
                                         //     ?.copyWith(
                                         //         color: Colors.white),
 //                                         decoration: InputDecoration(
                                           // errorStyle: theme
-                                          //     .textTheme.bodyText2
+                                          //     .textTheme.bodyMedium
                                           //     ?.copyWith(
                                           //         color:
                                           //             Colors.white),
@@ -604,7 +632,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
 //                                         width: Screens.width(context) * 0.22,
 //                                         child: Text(
 //                                           "To Date",
-//                                           style: theme.textTheme.subtitle1
+//                                           style: theme.textTheme.titleMedium
 //                                               ?.copyWith(
 //                                                   color: Colors.white,
 //                                                   fontWeight: FontWeight.bold),
@@ -668,7 +696,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
 //                                                                           .text,
 //                                                                       style: theme
 //                                                                           .textTheme
-//                                                                           .bodyText2
+//                                                                           .bodyMedium
 //                                                                           ?.copyWith(
 //                                                                               color: Colors.white),
 //                                                                     ),
@@ -701,7 +729,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
 //                                                           controller: prdearn
 //                                                               .dateController[3],
 //                                                           style: theme.textTheme
-//                                                               .bodyText2
+//                                                               .bodyMedium
 //                                                               ?.copyWith(
 //                                                                   color: Colors
 //                                                                       .white),
@@ -709,7 +737,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
 //                                                               InputDecoration(
 //                                                             errorStyle: theme
 //                                                                 .textTheme
-//                                                                 .bodyText2
+//                                                                 .bodyMedium
 //                                                                 ?.copyWith(
 //                                                                     color: Colors
 //                                                                         .white),
@@ -779,7 +807,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
 //                                                 child: Text(
 //                                                   "Choose To Date",
 //                                                   style: theme
-//                                                       .textTheme.bodyText2
+//                                                       .textTheme.bodyMedium
 //                                                       ?.copyWith(
 //                                                           color: Colors.white),
 //                                                 )),
@@ -805,7 +833,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                                         //         color: theme.primaryColor)
                                         //     : Text(
 //                                                 'Load Data',
-                                                // style: theme.textTheme.bodyText2
+                                                // style: theme.textTheme.bodyMedium
                                                 //     ?.copyWith(
                                                 //   color: theme.primaryColor,
                                                 // ),
@@ -869,7 +897,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                   //                             ),
                   //                             child: Text(
                   //                               keys[i].transDetails.toString(),
-                  //                               style: theme.textTheme.bodyText1
+                  //                               style: theme.textTheme.bodyMedium
                   //                                   ?.copyWith(),
                   //                             ),
                   //                           ),
@@ -895,7 +923,7 @@ class _EarningMoreDataState extends State<EarningMoreData> {
                   //                             child: Text(
                   //                               prdearn.loadedDateOnly(
                   //                                   keys[i].date!.toString()),
-                  //                               style: theme.textTheme.bodyText1
+                  //                               style: theme.textTheme.bodyMedium
                   //                                   ?.copyWith(),
                   //                             ),
                   //                           ),

@@ -64,7 +64,7 @@ class IconContainer extends StatelessWidget {
                         alignment: Alignment.center,
                       child: Text(
                         "$title",textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText1?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                            color: theme.primaryColor,
                            
                            //color:Colors.red,//Colors.white,// 

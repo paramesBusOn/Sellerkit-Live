@@ -1,5 +1,7 @@
 import 'dart:convert';
-import '../../../DBModel/EnqTypeModel.dart';
+import 'package:flutter/material.dart';
+
+import '../../../DBModel/enqtype_model.dart';
 
 class LeadsCheckListModal {
   List<LeadCheckData>? leadcheckdata;
@@ -51,7 +53,11 @@ class LeadCheckData {
       this.linenum,
        this.Code, 
        this.Name, 
-       this.ischecked
+       this.ischecked,
+        this.descriptionTypes,
+        this.descitems,
+        this.valuechoosen,
+      // required   this.listcontroller
       });
 int? id;
 int? MasterTypeId;
@@ -59,11 +65,19 @@ int? linenum;
   String? Code;
   String? Name;
   bool? ischecked;
+  String? descriptionTypes;
+  List<String>? descitems;
+  // List<TextEditingController> listcontroller ;
+  String? valuechoosen;
+  String? textdata;
 
   factory LeadCheckData.fromJson(Map<String, dynamic> json) => LeadCheckData(
       Code: json['code'] ?? '', Name: json['description'] ?? '', ischecked: false,
       id: json['id'],
+      // linenum: json['id'],
       MasterTypeId: json['masterTypeId'],
+      descriptionTypes:json['descriptionTypes'],
+      // listcontroller: []
       // linenum: json['lineId']
       );
 
@@ -96,7 +110,8 @@ int? linenum;
    Map<String, dynamic> tojson3() {
     Map<String, dynamic> map = {
     
-      "u_CheckCode": Code,
+      "checkListCode": Code,
+      "checkListValue":valuechoosen !=null?valuechoosen:null,
       
       
     };

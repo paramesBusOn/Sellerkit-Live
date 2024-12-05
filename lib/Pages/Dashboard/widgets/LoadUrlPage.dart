@@ -23,7 +23,7 @@
 //         appBar: AppBar(
 //           automaticallyImplyLeading: false,
 //           title:Center(child: Text("PurchaseOrder",
-//           style:theme.textTheme.headline5?.copyWith(color: Colors.white) ,
+//           style:theme.textTheme.headlineSmall?.copyWith(color: Colors.white) ,
 //           ),)
 
 //         ),

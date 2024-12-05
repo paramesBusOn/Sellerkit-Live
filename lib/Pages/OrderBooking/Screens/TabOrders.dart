@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/Inprocesspage.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/navdrawerOrder.dart';
-import '../../../Controller/OrderController/TabOrderController.dart';
+import '../../../Controller/OrderController/taborder_controller.dart';
 import '../../../Widgets/Navi3.dart';
 import '../Widgets/WonOrderPage.dart';
 import '../Widgets/OpenOrder.dart';
@@ -353,7 +354,7 @@ class LeadsTabState extends State<OrdersTabPage> with TickerProviderStateMixin {
                         // repeat: true,
                         
                         height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                        width: Screens.width(context)*0.4
                         ),
                   ):              InkWell(
                     onTap: () {
@@ -366,7 +367,40 @@ class LeadsTabState extends State<OrdersTabPage> with TickerProviderStateMixin {
                         // height: Screens.padingHeight(context) * 0.3,
                         width: Screens.width(context) * 0.4),
                   ),
-                     
+                     context
+                                  .watch<OrderTabController>()
+                                  .getLeadCheckDataExcep
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context
+                                  .watch<OrderTabController>()
+                                  .getLeadCheckDataExcep
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context
+                                  .watch<OrderTabController>()
+                                  .getLeadCheckDataExcep
+                                                      .contains("Network Issue")
+                                                  ? Container():
                               Text(context
                                   .watch<OrderTabController>()
                                   .getLeadCheckDataExcep,textAlign: TextAlign.center,),

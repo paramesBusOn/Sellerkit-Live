@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/CustomerCreationModel.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Controller/LeadController/LeadNewController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import '../../../Controller/LeadController/leadnew_controller.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -102,7 +102,7 @@ class LeadSuccessPageState extends State<LeadSuccessPage> {
                                     child: Text(
                                   "Lead Created Successfully",
                                   textAlign: TextAlign.center,
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.grey),
                                 )),
                               ),
@@ -116,7 +116,7 @@ class LeadSuccessPageState extends State<LeadSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "Lead Entry #${getsuccessRes!.leaddetail![0].DocNo.toString()}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -130,7 +130,7 @@ class LeadSuccessPageState extends State<LeadSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "${getsuccessRes!.leaddetail![0].CardName}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -144,7 +144,7 @@ class LeadSuccessPageState extends State<LeadSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "${getsuccessRes!.leaddetail![0].CardCode}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -158,7 +158,7 @@ class LeadSuccessPageState extends State<LeadSuccessPage> {
                                 child: Center(
                                     child: getsuccessRes!.leaddetail![0].U_sk_email==null||getsuccessRes!.leaddetail![0].U_sk_email!.isEmpty?Text(""): Text(
                                   "${getsuccessRes!.leaddetail![0].U_sk_email}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -202,7 +202,7 @@ class LeadSuccessPageState extends State<LeadSuccessPage> {
                                           .alignDate(
                                               getsuccessRes!.leaddetail![0].U_sk_NextFollowDt!)
                                           .toString(),
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -220,7 +220,7 @@ class LeadSuccessPageState extends State<LeadSuccessPage> {
                               //             .alignDate(
                               //                 getsuccessRes!.U_sk_NextFollowDt!)
                               //             .toString(),
-                              //     style: theme.textTheme.bodyText2,
+                              //     style: theme.textTheme.bodyMedium,
                               //     textAlign: TextAlign.center,
                               //   )),
                               // ),
@@ -294,7 +294,7 @@ class LeadSuccessPageState extends State<LeadSuccessPage> {
         width: Screens.width(context),
           
           child: Text(data[index].itemName.toString(),
-              textAlign: TextAlign.center, style: theme.textTheme.bodyText2)),
+              textAlign: TextAlign.center, style: theme.textTheme.bodyMedium)),
     );
   }
 }

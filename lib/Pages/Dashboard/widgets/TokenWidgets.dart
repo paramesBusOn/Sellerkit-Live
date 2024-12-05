@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Controller/DashBoardController/DashBoardController.dart';
+import '../../../Controller/DashBoardController/dashboard_controller.dart';
 import '../../../Constant/Screen.dart';
 
 class TokenWidgets extends StatelessWidget {
@@ -61,7 +61,7 @@ class TokenWidgets extends StatelessWidget {
                 //      color:  Color(0xffC6AC5F),
                 //      ),
                 //      child: Text("2 New !",
-                //      style: theme.textTheme.bodyText2?.copyWith(
+                //      style: theme.textTheme.bodyMedium?.copyWith(
                 //        fontSize: 10
                 //      ),
                 //      ),
@@ -72,14 +72,14 @@ class TokenWidgets extends StatelessWidget {
                            borderRadius: BorderRadius.circular(5)),
                        child: Text("$value",
                         textAlign: TextAlign.center,
-                           style: theme.textTheme.subtitle1 
+                           style: theme.textTheme.titleMedium 
                                ?.copyWith(color:theme.primaryColor,fontWeight: FontWeight.w500))),//
                    Container(
                        alignment: Alignment.topCenter,
                        child: Text(
                         textAlign: TextAlign.center,
                          "$name",
-                         style: theme.textTheme.bodyText2?.copyWith(
+                         style: theme.textTheme.bodyMedium?.copyWith(
                            fontSize: 12
                            )
                        )),

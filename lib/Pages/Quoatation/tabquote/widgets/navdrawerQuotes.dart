@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 
-import '../../../../Controller/QuotationController/tabquotescontroller.dart';
+import '../../../../Controller/QuotationController/tabquotes_controller.dart';
 
 class navDrawerQuotes extends StatefulWidget {
   const navDrawerQuotes({Key? key}) : super(key: key);
@@ -62,7 +62,7 @@ class _navDrawerQuotesState extends State<navDrawerQuotes> {
                           )),
                       child: Text(
                         "Quotation",
-                        style: theme.textTheme.bodyText2!
+                        style: theme.textTheme.bodyMedium!
                             .copyWith(color: Colors.white),
                       ),
                     ),
@@ -966,7 +966,7 @@ class _navDrawerQuotesState extends State<navDrawerQuotes> {
                             //                                           .name!,
                             //                                       // maxLines: 1,
                             //                                       //overflow: TextOverflow.ellipsis,
-                            //                                       style: theme.textTheme.bodyText2?.copyWith(
+                            //                                       style: theme.textTheme.bodyMedium?.copyWith(
                             //                                         fontWeight: FontWeight.normal,
                             //                                         fontSize: 12,
                             //                                         color: context
@@ -1442,7 +1442,7 @@ class _navDrawerQuotesState extends State<navDrawerQuotes> {
                         .name!,
                     // maxLines: 1,
                     //overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText2?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.normal,
                       fontSize: 12,
                       color: context
@@ -1497,7 +1497,7 @@ class _navDrawerQuotesState extends State<navDrawerQuotes> {
                     .name!,
                 // maxLines: 1,
                 //overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText2?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.normal,
                   fontSize: 12,
                   color: context
@@ -1596,7 +1596,7 @@ class _navDrawerQuotesState extends State<navDrawerQuotes> {
 //                           )),
 //                       child: Text(
 //                         "Quotation",
-//                         style: theme.textTheme.bodyText2!
+//                         style: theme.textTheme.bodyMedium!
 //                             .copyWith(color: Colors.white),
 //                       ),
 //                     ),
@@ -2388,7 +2388,7 @@ class _navDrawerQuotesState extends State<navDrawerQuotes> {
 //                       )
 
 //                      ),
-//                      child: Text("Quotation",style: theme.textTheme.bodyText2!.copyWith(color: Colors.white),),
+//                      child: Text("Quotation",style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),),
 //                     ),
 //             Container(
 //               width: Screens.width(context),

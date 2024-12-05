@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/LeaveReqController/LeaveReqController.dart';
+import 'package:sellerkit/Controller/LeaveReqController/leavereq_controller.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
 
 class leaveReqtab extends StatefulWidget {
@@ -84,7 +85,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                         // repeat: true,
                         
                         height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                        width: Screens.width(context)*0.4
                         ),
                   ):              InkWell(
                     onTap: () {
@@ -97,6 +98,40 @@ class _leaveReqtabState extends State<leaveReqtab> {
                         // height: Screens.padingHeight(context) * 0.3,
                         width: Screens.width(context) * 0.4),
                   ),
+                   context
+                                  .watch<LeaveReqContoller>()
+                                  .Errormsg
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context
+                                  .watch<LeaveReqContoller>()
+                                  .Errormsg
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context
+                                  .watch<LeaveReqContoller>()
+                                  .Errormsg
+                                                      .contains("Network Issue")
+                                                  ? Container():
                                   Text("${context
                                   .watch<LeaveReqContoller>()
                                   .Errormsg}",textAlign: TextAlign.center,),
@@ -162,7 +197,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Name",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(color: Colors.grey),
                                               ),
                                             ),
@@ -171,7 +206,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
                                                 "User Code",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(color: Colors.grey),
                                               ),
                                             ),
@@ -185,7 +220,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
                                                 "${ConstantValues.firstName}",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(color: theme.primaryColor),
                                               ),
                                             ),
@@ -194,7 +229,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
                                                 "${context.read<LeaveReqContoller>().getallleavereqdetails[i].slpcode}",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(color:theme.primaryColor),
                                               ),
                                             ),
@@ -210,7 +245,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Leave Req Type",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(color: Colors.grey),
                                               ),
                                             ),
@@ -219,7 +254,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Date",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(color: Colors.grey),
                                               ),
                                             ),
@@ -233,7 +268,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
                                                 "${context.read<LeaveReqContoller>().getallleavereqdetails[i].leaveRequestType}",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(color: theme.primaryColor),
                                               ),
                                             ),
@@ -242,7 +277,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               width: Screens.width(context) * 0.45,
                                               child: Text(
                                                 "${context.read<LeaveReqContoller>().config.alignDate(context.read<LeaveReqContoller>().getallleavereqdetails[i].startDate.toString()) }",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(color:theme.primaryColor),
                                               ),
                                             ),
@@ -258,7 +293,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                           //     width: Screens.width(context) * 0.4,
                                           //     child: Text(
                                           //       "${context.read<LeaveReqContoller>().getallleavereqdetails[i].leaveRequestType}",
-                                          //       style: theme.textTheme.bodyText2
+                                          //       style: theme.textTheme.bodyMedium
                                           //           ?.copyWith(color: theme.primaryColor),
                                           //     ),
                                           //   ),
@@ -281,7 +316,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                               context.watch<LeaveReqContoller>().getallleavereqdetails[i].status ==1?
                                                Text(
                                                   "Approved",
-                                                  style: theme.textTheme.bodyText2?.copyWith(
+                                                  style: theme.textTheme.bodyMedium?.copyWith(
                                                       color: Colors.green[700],
                                                       fontSize: 12
                                                      // fontWeight: FontWeight.bold
@@ -289,7 +324,7 @@ class _leaveReqtabState extends State<leaveReqtab> {
                                                       ): context.watch<LeaveReqContoller>().getallleavereqdetails[i].status == -1?
                                                       Text(
                                                   "Rejected",
-                                                  style: theme.textTheme.bodyText2?.copyWith(
+                                                  style: theme.textTheme.bodyMedium?.copyWith(
                                                       color: Colors.green[700],
                                                       fontSize: 12
                                                      // fontWeight: FontWeight.bold

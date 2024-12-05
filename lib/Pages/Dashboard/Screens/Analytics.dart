@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter_new/flutter.dart' as charts;
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/DashBoardController/DashBoardController.dart';
+import 'package:sellerkit/Controller/DashBoardController/dashboard_controller.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -67,7 +67,7 @@ class AnalyticsPage extends StatelessWidget {
                         width: Screens.width(context),
                         child: Text(
                           "Target Achievement",
-                          style: theme.textTheme.bodyText1,
+                          style: theme.textTheme.bodyMedium,
                         ),
                       ),
                       Container(
@@ -110,7 +110,7 @@ class AnalyticsPage extends StatelessWidget {
                         width: Screens.width(context),
                         child: Text(
                           "Self growth sales",
-                          style: theme.textTheme.bodyText1,
+                          style: theme.textTheme.bodyMedium,
                         ),
                       ),
                       Container(

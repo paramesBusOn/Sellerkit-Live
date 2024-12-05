@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Models/LeadAnalysisModel/LeadAnalysisModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 

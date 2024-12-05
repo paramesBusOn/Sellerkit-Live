@@ -7,11 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
-import '../../Controller/LeadController/LeadNewController.dart';
+import '../../Controller/LeadController/leadnew_controller.dart';
 import '../../Widgets/Appbar.dart';
 import '../../Widgets/Navi3.dart';
 
@@ -27,19 +28,17 @@ class LeadBookNewState extends State<LeadBookNew> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-
-     if(ConstantValues.  multistoreuser ==1){
-context.read<LeadNewController>().restricteddialog(context);
-     } else{
- context.read<LeadNewController>().checkComeFromEnq();
-     }
-      // 
-     
- });
+      if (ConstantValues.multistoreuser == 1) {
+        context.read<LeadNewController>().restricteddialog(context);
+      } else {
+        context.read<LeadNewController>().checkComeFromEnq();
+      }
+      //
+    });
   }
 
   DateTime? currentBackPressTime;
-  
+
   Future<bool> onbackpress() {
     DateTime now = DateTime.now();
 
@@ -171,7 +170,7 @@ context.read<LeadNewController>().restricteddialog(context);
                         children: [
                           Text(
                             "Referrals",
-                            style: theme.textTheme.bodyText1
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.white),
                           ),
                           SizedBox(height: Screens.bodyheight(context) * 0.02),
@@ -181,7 +180,7 @@ context.read<LeadNewController>().restricteddialog(context);
                           //     children: [
                           //       Text(
                           //         "Required Referral*",
-                          //         style: theme.textTheme.bodyText1
+                          //         style: theme.textTheme.bodyMedium
                           //             ?.copyWith(color: Colors.white),
                           //       ),
                           //     ],
@@ -269,74 +268,73 @@ context.read<LeadNewController>().restricteddialog(context);
                                         focusedErrorBorder:
                                             UnderlineInputBorder(),
                                         suffixIcon:
-                                            Icon(Icons.date_range_outlined))
-                                            ),
+                                            Icon(Icons.date_range_outlined))),
                               ),
                               InkWell(
-                               
                                 child: Container(
-                                  width: Screens.width(context) * 0.4,
-                                  // color: Colors.red,
-                                  child:TextFormField(
-                                     onTap:
-                                    //   context
-                                    //         .read<LeadNewController>()
-                                    //         .visiblefollTime ==
-                                    //     true
-                                    // ?
-                                     () {
-                                        setState(() {
-                                          context
-                                              .read<LeadNewController>()
-                                              .selectTime(context);
-                                        });
-                                      }
-                                    // : null
-                                    ,
-                                  controller: context
-                                  .read<LeadNewController>()
-                                  .mycontroller[19],
-                                  validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Choose Followup Time"; //
-                                }
-                                return null;
-                                  },
-                                  readOnly: true,
-                                  decoration: InputDecoration(
-                                  hintText: '',
-                                  border: UnderlineInputBorder(),
-                                  enabledBorder: UnderlineInputBorder(),
-                                  focusedBorder: UnderlineInputBorder(),
-                                  errorBorder: UnderlineInputBorder(),
-                                  focusedErrorBorder:
-                                      UnderlineInputBorder(),
-                                  suffixIcon:
-                                      Icon( Icons.timer,))
+                                    width: Screens.width(context) * 0.4,
+                                    // color: Colors.red,
+                                    child: TextFormField(
+                                        onTap:
+                                            //   context
+                                            //         .read<LeadNewController>()
+                                            //         .visiblefollTime ==
+                                            //     true
+                                            // ?
+                                            () {
+                                          setState(() {
+                                            context
+                                                .read<LeadNewController>()
+                                                .selectTime(context);
+                                          });
+                                        }
+                                        // : null
+                                        ,
+                                        controller: context
+                                            .read<LeadNewController>()
+                                            .mycontroller[19],
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return "Choose Followup Time"; //
+                                          }
+                                          return null;
+                                        },
+                                        readOnly: true,
+                                        decoration: InputDecoration(
+                                            hintText: '',
+                                            border: UnderlineInputBorder(),
+                                            enabledBorder:
+                                                UnderlineInputBorder(),
+                                            focusedBorder:
+                                                UnderlineInputBorder(),
+                                            errorBorder: UnderlineInputBorder(),
+                                            focusedErrorBorder:
+                                                UnderlineInputBorder(),
+                                            suffixIcon: Icon(
+                                              Icons.timer,
+                                            )))
 
-                                  )
-                                  
-                                //    Text(
-                                //     context
-                                //         .read<LeadNewController>()
-                                //         .getnextFDTime,
-                                //     //       context
-                                //     // .read<LeadNewController>().apiNdate,
-                                //     style: theme.textTheme.bodyText2
-                                //         ?.copyWith(), //fontSize: 12
-                                //   ),
-                                // ),
-                                // Container(
-                                //   alignment: Alignment.centerRight,
-                                //   width: Screens.width(context) * 0.15,
-                                //   // color: Colors.red,
-                                //   child: Icon(
-                                //     Icons.timer,
-                                //     // size: Screens.,
-                                //     color: theme.primaryColor
-                                //         .withOpacity(0.5),
-                                //   ),
-                                ),
+                                    //    Text(
+                                    //     context
+                                    //         .read<LeadNewController>()
+                                    //         .getnextFDTime,
+                                    //     //       context
+                                    //     // .read<LeadNewController>().apiNdate,
+                                    //     style: theme.textTheme.bodyMedium
+                                    //         ?.copyWith(), //fontSize: 12
+                                    //   ),
+                                    // ),
+                                    // Container(
+                                    //   alignment: Alignment.centerRight,
+                                    //   width: Screens.width(context) * 0.15,
+                                    //   // color: Colors.red,
+                                    //   child: Icon(
+                                    //     Icons.timer,
+                                    //     // size: Screens.,
+                                    //     color: theme.primaryColor
+                                    //         .withOpacity(0.5),
+                                    //   ),
+                                    ),
                               ),
                             ],
                           ),
@@ -347,114 +345,796 @@ context.read<LeadNewController>().restricteddialog(context);
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-context.read<LeadNewController>().isdatevalid == false
-                            ? Container()
-                            : Container(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "${context.read<LeadNewController>().excError}",
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                              ),
-                               context.read<LeadNewController>().istimevalid == false
-                          && context.watch<LeadNewController>().errorTime==''  ? Container()
-                            : Container(
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  "${context.read<LeadNewController>().errorTime}",
-                                  style: TextStyle(color: Colors.red,fontSize: 13),
-                                ),
-                              ),
-                        ],)
-                        
+                            context.read<LeadNewController>().isdatevalid ==
+                                    false
+                                ? Container()
+                                : Container(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      "${context.read<LeadNewController>().excError}",
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                  ),
+                            context.read<LeadNewController>().istimevalid ==
+                                        false &&
+                                    context
+                                            .watch<LeadNewController>()
+                                            .errorTime ==
+                                        ''
+                                ? Container()
+                                : Container(
+                                    alignment: Alignment.centerRight,
+                                    child: Text(
+                                      "${context.read<LeadNewController>().errorTime}",
+                                      style: TextStyle(
+                                          color: Colors.red, fontSize: 13),
+                                    ),
+                                  ),
+                          ],
+                        )
                       ],
                     ),
                   ),
 
                   // SizedBox(height: Screens.bodyheight(context) * 0.02),
-                  Container(
-                    width: Screens.width(context),
-                    height: Screens.bodyheight(context) * 0.3,
-                    child: ListView.builder(
-                      padding: EdgeInsets.only(
-                          bottom: Screens.bodyheight(context) * 0.02),
-                      itemCount: context
-                          .read<LeadNewController>()
-                          .getleadcheckdatas
-                          .length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: () {
-                            print("");
-                          },
-                          child: Container(
-                            width: Screens.width(context),
-                            padding: EdgeInsets.only(
-                              top: Screens.bodyheight(context) * 0.01,
-                              //  bottom: Screens.bodyheight(context) * 0.01,
-                              left: Screens.width(context) * 0.02,
-                              right: Screens.width(context) * 0.02,
-                            ),
-                            child: Column(
-                              children: [
-                                Row(children: [
-                                  Container(
-                                    width: Screens.width(context) * 0.7,
-                                    child: Text(
-                                      "${context.watch<LeadNewController>().getleadcheckdatas[index].Name}",
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  // Checkbox(
-                                  //     value: provi
-                                  //         .getleadcheckdatas[index].ischecked,
-                                  //     onChanged: (v) {
-                                  //       provi.LeadcheckListClicked(v, index);
-                                  //     })
-
-                                  FlutterSwitch(
-                                      showOnOff: true,
-                                      width: 60,
-                                      height: 25,
-                                      activeText: "Yes",
-                                      inactiveText: "No",
-                                      activeColor: theme.primaryColor,
-                                      value: context
-                                          .read<LeadNewController>()
-                                          .getleadcheckdatas[index]
-                                          .ischecked!,
-                                      onToggle: (val) {
-                                        // context.read<LeadNewController>().switchremainder(val);
-                                        //  print(val);
-                                        // setState(() {
-                                        //   switched = val;
-                                        //   reqfinance = "Y";
-                                        // });
-                                        context
-                                            .read<LeadNewController>()
-                                            .LeadcheckListClicked(val, index);
-                                      })
-                                ]),
-                                SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.grey))),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
+              ConstantValues.leadchecklist!.toLowerCase() =='y'?    InkWell(
+                    onTap: (){
+                      context.read<LeadNewController>().checkpopup(context,theme); 
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: theme.primaryColor
+                          )
+                        )
+                      ),
+                      child:Text("Checklist",style: theme.textTheme.bodyMedium!.copyWith(fontSize: 18,
+                      color: theme.primaryColor
+                      ),)
                     ),
-                  ),
+                  ):Container(),
+//                   Container(
+//                     width: Screens.width(context),
+//                     height: Screens.bodyheight(context) * 0.3,
+//                     child: ListView.builder(
+//                       padding: EdgeInsets.only(
+//                           bottom: Screens.bodyheight(context) * 0.02),
+//                       itemCount: context
+//                           .read<LeadNewController>()
+//                           .getleadcheckdatas
+//                           .length,
+//                       itemBuilder: (BuildContext context, int index) {
+//                         return InkWell(
+//                           onTap: () {
+//                             print("");
+//                           },
+//                           child: Container(
+//                             width: Screens.width(context),
+//                             padding: EdgeInsets.only(
+//                               top: Screens.bodyheight(context) * 0.01,
+//                               //  bottom: Screens.bodyheight(context) * 0.01,
+//                               left: Screens.width(context) * 0.02,
+//                               right: Screens.width(context) * 0.02,
+//                             ),
+//                             child: Column(
+//                               children: [
+//                                 Row(
+//                                     mainAxisAlignment:
+//                                         MainAxisAlignment.spaceBetween,
+//                                     children: [
+//                                       Container(
+//                                         width: Screens.width(context) * 0.6,
+//                                         child: Text(
+//                                           "${context.watch<LeadNewController>().getleadcheckdatas[index].Name}",
+//                                           textAlign: TextAlign.left,
+//                                         ),
+//                                       ),
+//                                       // Checkbox(
+//                                       //     value: provi
+//                                       //         .getleadcheckdatas[index].ischecked,
+//                                       //     onChanged: (v) {
+//                                       //       provi.LeadcheckListClicked(v, index);
+//                                       //     })
+//                                       context
+//                                                       .read<LeadNewController>()
+//                                                       .getleadcheckdatas[index]
+//                                                       .descriptionTypes !=
+//                                                   null &&
+//                                               context
+//                                                       .read<LeadNewController>()
+//                                                       .getleadcheckdatas[index]
+//                                                       .descriptionTypes !=
+//                                                   "@"
+//                                           ? Container(
+//                                               width:
+//                                                   Screens.width(context) * 0.3,
+//                                               child: DropdownButtonFormField(
+//                                                 icon:
+//                                                     Icon(Icons.arrow_drop_down),
+//                                                 iconSize: 30,
+//                                                 style: TextStyle(
+//                                                     color: Colors.black,
+//                                                     fontSize: 12),
+//                                                 isExpanded: true,
+//                                                 value: context
+//                                                     .watch<LeadNewController>()
+//                                                     .getleadcheckdatas[index]
+//                                                     .valuechoosen,
+//                                                 onChanged: (val) {
+//                                                   setState(() {
+//                                                     // context
+//                                                     //     .read<LeadNewController>()
+//                                                     //     .resonChoosed(val.toString());
+//                                                     context
+//                                                             .read<
+//                                                                 LeadNewController>()
+//                                                             .getleadcheckdatas[
+//                                                                 index]
+//                                                             .valuechoosen =
+//                                                         val.toString();
+//                                                   });
+//                                                 },
+//                                                 decoration: InputDecoration(
+//                                                   labelText: '',
+//                                                   contentPadding:
+//                                                       EdgeInsets.all(0),
+//                                                   // labelStyle: theme
+//                                                   //     .textTheme.bodyMedium!
+//                                                   //     .copyWith(color: Colors.grey),
 
-                  //save btn
+//                                                   enabledBorder:
+//                                                       InputBorder.none,
+//                                                   focusedBorder:
+//                                                       InputBorder.none,
+//                                                   border: InputBorder.none,
+//                                                   // contentPadding: EdgeInsets.symmetric(
+//                                                   //   horizontal: Screens.width(context) * 0.05,
+//                                                   //   // vertical: Screens.width(context)
+//                                                   // )
+//                                                 ),
+//                                                 items: context
+//                                                     .watch<LeadNewController>()
+//                                                     .getleadcheckdatas[index]
+//                                                     .descitems!
+//                                                     .map((String value) {
+//                                                   return DropdownMenuItem(
+//                                                       value: value,
+//                                                       child: Text(
+//                                                           value.toString()));
+//                                                 }).toList(),
+//                                               ),
+//                                             )
+//                                           :context
+//                                                       .read<LeadNewController>()
+//                                                       .getleadcheckdatas[index]
+//                                                       .descriptionTypes !=
+//                                                   null &&
+//                                               context
+//                                                       .read<LeadNewController>()
+//                                                       .getleadcheckdatas[index]
+//                                                       .descriptionTypes ==
+//                                                   "@"
+//                                           ?Container(
+//                                             width: Screens.width(context) * 0.3,
+//                                             // height: Screens.padingHeight(context)*0.05,
+//                                             child: TextFormField(
+//                                               minLines: 1,
+//                                               maxLines: 5,
+//                                               onChanged: (val) {
+                                              
+//   setState(() {
+//     // log(context.read<LeadNewController>().getleadcheckdatas[index].listcontroller[index].text.toString());
+//     context.read<LeadNewController>().getleadcheckdatas[index].textdata = val;
+//   });
+                                                
+
+// },
+//                                               // controller:context
+//                                               //         .read<LeadNewController>()
+//                                               //         .getleadcheckdatas[index].listcontroller !=null? context
+//                                               //         .read<LeadNewController>()
+//                                               //         .getleadcheckdatas[index].listcontroller[index]:null ,
+                                                      
+//                                                       decoration: InputDecoration(),
+
+//                                             ),
+//                                           ): FlutterSwitch(
+//                                               showOnOff: true,
+//                                               width: 60,
+//                                               height: 25,
+//                                               activeText: "Yes",
+//                                               inactiveText: "No",
+//                                               activeColor: theme.primaryColor,
+//                                               value: context
+//                                                   .read<LeadNewController>()
+//                                                   .getleadcheckdatas[index]
+//                                                   .ischecked!,
+//                                               onToggle: (val) {
+//                                                 // context.read<LeadNewController>().switchremainder(val);
+//                                                 //  print(val);
+//                                                 // setState(() {
+//                                                 //   switched = val;
+//                                                 //   reqfinance = "Y";
+//                                                 // });
+//                                                 context
+//                                                     .read<LeadNewController>()
+//                                                     .LeadcheckListClicked(
+//                                                         val, index);
+//                                               })
+//                                     ]),
+//                                 SizedBox(
+//                                   height: Screens.bodyheight(context) * 0.01,
+//                                 ),
+//                                 Container(
+//                                   decoration: BoxDecoration(
+//                                       border: Border(
+//                                           bottom:
+//                                               BorderSide(color: Colors.grey))),
+//                                 ),
+//                               ],
+//                             ),
+//                           ),
+//                         );
+//                       },
+//                     ),
+//                   ),
+
+//                   //save btn
                   SizedBox(
                     height: Screens.bodyheight(context) * 0.03,
+                  ),
+                  Container(
+                    width: Screens.width(context),
+
+                    // height:Screens.bodyheight(context)*0.28 ,
+                    decoration: BoxDecoration(
+                        color: theme.primaryColor,
+                        // border: Border.all(color:theme.primaryColor),
+                        borderRadius: BorderRadius.circular(8)),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Screens.width(context) * 0.02,
+                        vertical: Screens.bodyheight(context) * 0.01),
+
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          // color: Colors.amber,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Required Sitevisit",
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                    // color: theme.primaryColor
+                                    color: Colors.white),
+                              ),
+                              Checkbox(
+                                  checkColor: theme.primaryColor,
+                                  // Colors.white,
+                                  activeColor: Colors.white,
+                                  //  theme.primaryColor,
+                                  side: BorderSide(
+                                    color: Colors.white,
+                                    // color: theme.primaryColor
+                                  ),
+                                  value: context
+                                      .read<LeadNewController>()
+                                      .sitevisitreq,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      context
+                                          .read<LeadNewController>()
+                                          .checksitevisit(value!);
+                                    });
+                                  }),
+                            ],
+                          ),
+                        ),
+
+                        //time date
+
+                        context.read<LeadNewController>().sitevisitreq == false
+                            ? Container()
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    height: context
+                                                .read<LeadNewController>()
+                                                .visitDatebool ==
+                                            false
+                                        ? Screens.bodyheight(context) * 0.06
+                                        : null,
+                                    // height: cashHeight * 0.2,
+                                    width: Screens.width(context) * 0.5,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.grey.withOpacity(0.01),
+                                    ),
+                                    // child: GestureDetector(
+                                    //   onTap: () {
+                                    //     st(() {
+                                    //       posC.getDate(context, 'Cheque');
+                                    //     });
+                                    //   },
+                                    child: TextFormField(
+                                      controller: context
+                                          .read<LeadNewController>()
+                                          .mycontroller[51],
+
+                                      onTap: () {
+                                        setState(() {
+                                          context
+                                              .read<LeadNewController>()
+                                              .getDatevisit(context);
+                                        });
+                                      },
+                                      autofocus: true,
+                                      readOnly: true,
+                                      // controller: posC.mycontroller[24],
+                                      cursorColor: Colors.grey,
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                              backgroundColor: Colors.white),
+                                      onChanged: (v) {},
+                                      validator: (value) {
+                                        if (value!.isEmpty &&
+                                            context
+                                                    .read<LeadNewController>()
+                                                    .visitDatebool ==
+                                                false) {
+                                          setState(() {
+                                            context
+                                                .read<LeadNewController>()
+                                                .visitDatebool = true;
+                                          });
+
+                                          return 'Please Enter Date';
+                                        } else if (value.isNotEmpty) {
+                                          setState(() {
+                                            context
+                                                .read<LeadNewController>()
+                                                .visitDatebool = false;
+                                          });
+
+                                          return null;
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        suffixIcon: IconButton(
+                                            padding: EdgeInsets.only(
+                                                top: Screens.bodyheight(
+                                                        context) *
+                                                    0.002),
+                                            onPressed: () {
+                                              context
+                                                  .read<LeadNewController>()
+                                                  .getDatevisit(context);
+                                            },
+                                            icon: Icon(
+                                              Icons.date_range,
+                                              color: theme.primaryColor,
+                                            )),
+                                        filled: true,
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: Colors.red),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: Colors.red),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: Colors.grey),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                          vertical: 11,
+                                          horizontal: 10,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    height: context
+                                                .read<LeadNewController>()
+                                                .visittimebool ==
+                                            false
+                                        ? Screens.bodyheight(context) * 0.06
+                                        : null,
+                                    // height: cashHeight * 0.2,
+                                    width: Screens.width(context) * 0.37,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      // color: Colors.grey
+                                      //     .withOpacity(0.01),
+                                    ),
+
+                                    child: TextFormField(
+                                      controller: context
+                                          .read<LeadNewController>()
+                                          .mycontroller[52],
+
+                                      onTap: () {
+                                        setState(() {
+                                          // context
+                                          //     .read<NewEnqController>()
+                                          //     .clearbool();
+                                          context
+                                              .read<LeadNewController>()
+                                              .selectTimevisit(context);
+                                        });
+                                      },
+                                      autofocus: true,
+                                      readOnly: true,
+                                      // controller: posC.mycontroller[24],
+                                      cursorColor: Colors.grey,
+                                      style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                              backgroundColor: Colors.white),
+                                      onChanged: (v) {},
+                                      validator: (value) {
+                                        if (value!.isEmpty &&
+                                            context
+                                                    .read<LeadNewController>()
+                                                    .visittimebool ==
+                                                false) {
+                                          setState(() {
+                                            context
+                                                .read<LeadNewController>()
+                                                .visittimebool = true;
+                                          });
+
+                                          return 'Enter the Time';
+                                        } else if (value.isNotEmpty) {
+                                          setState(() {
+                                            context
+                                                .read<LeadNewController>()
+                                                .visittimebool = false;
+                                          });
+
+                                          return null;
+                                        }
+                                      },
+                                      decoration: InputDecoration(
+                                        fillColor: Colors.white,
+                                        suffixIcon: IconButton(
+                                            padding: EdgeInsets.only(
+                                                top: Screens.bodyheight(
+                                                        context) *
+                                                    0.002),
+                                            onPressed: () {
+                                              setState(() {
+                                                context
+                                                    .read<LeadNewController>()
+                                                    .selectTimevisit(context);
+                                              });
+                                            },
+                                            icon: Icon(
+                                              Icons.timer,
+                                              color: theme.primaryColor,
+                                            )),
+                                        filled: true,
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: Colors.red),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: Colors.red),
+                                        ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: Colors.grey),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          borderSide:
+                                              BorderSide(color: Colors.grey),
+                                        ),
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                          vertical: 11,
+                                          horizontal: 10,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                        SizedBox(
+                          height:
+                              context.read<LeadNewController>().sitevisitreq ==
+                                      false
+                                  ? Screens.padingHeight(context) * 0.01
+                                  : Screens.padingHeight(context) * 0.01,
+                        ),
+
+                        //Reminder
+                        Text(
+                          "Reminder On*",
+                          style: theme.textTheme.bodyMedium
+                              ?.copyWith(color: Colors.white),
+                        ),
+
+                        SizedBox(
+                          height: Screens.padingHeight(context) * 0.01,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: context
+                                          .read<LeadNewController>()
+                                          .reminderDatebool ==
+                                      false
+                                  ? Screens.bodyheight(context) * 0.06
+                                  : null,
+                              // height: cashHeight * 0.2,
+                              width: Screens.width(context) * 0.5,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.grey.withOpacity(0.01),
+                              ),
+                              // child: GestureDetector(
+                              //   onTap: () {
+                              //     st(() {
+                              //       posC.getDate(context, 'Cheque');
+                              //     });
+                              //   },
+                              child: TextFormField(
+                                controller: context
+                                    .read<LeadNewController>()
+                                    .mycontroller[53],
+                                // decoration: InputDecoration(
+                                //   filled:
+                                //       true, //<-- SEE HERE
+                                //   fillColor: Colors
+                                //       .white, //<-- SEE HERE
+                                // ),
+                                onTap: () {
+                                  setState(() {
+                                    context
+                                        .read<LeadNewController>()
+                                        .clearbool2();
+                                    context
+                                        .read<LeadNewController>()
+                                        .getDatereminder(context);
+                                  });
+                                },
+                                autofocus: true,
+                                readOnly: true,
+                                // controller: posC.mycontroller[24],
+                                cursorColor: Colors.grey,
+                                style: theme.textTheme.bodyMedium
+                                    ?.copyWith(backgroundColor: Colors.white),
+                                onChanged: (v) {},
+                                validator: context
+                                            .read<LeadNewController>()
+                                            .mycontroller[53]
+                                            .text
+                                            .isEmpty &&
+                                        context
+                                            .read<LeadNewController>()
+                                            .mycontroller[54]
+                                            .text
+                                            .isEmpty
+                                    ? null
+                                    : (value) {
+                                        if (value!.isEmpty &&
+                                            context
+                                                    .read<LeadNewController>()
+                                                    .reminderDatebool ==
+                                                false) {
+                                          setState(() {
+                                            context
+                                                .read<LeadNewController>()
+                                                .reminderDatebool = true;
+                                          });
+
+                                          return 'Please Enter Date';
+                                        } else if (value.isNotEmpty) {
+                                          setState(() {
+                                            context
+                                                .read<LeadNewController>()
+                                                .reminderDatebool = false;
+                                          });
+
+                                          return null;
+                                        }
+                                      },
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  suffixIcon: IconButton(
+                                      padding: EdgeInsets.only(
+                                          top: Screens.bodyheight(context) *
+                                              0.002),
+                                      onPressed: () {
+                                        context
+                                            .read<LeadNewController>()
+                                            .getDatereminder(context);
+                                      },
+                                      icon: Icon(
+                                        Icons.date_range,
+                                        color: theme.primaryColor,
+                                      )),
+                                  filled: true,
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(color: Colors.red),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(color: Colors.red),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 11,
+                                    horizontal: 10,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: Screens.bodyheight(context) * 0.06,
+                              // : null,
+                              // height: cashHeight * 0.2,
+                              width: Screens.width(context) * 0.37,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                // color: Colors.grey
+                                //     .withOpacity(0.01),
+                              ),
+                              // child: GestureDetector(
+                              //   onTap: () {
+                              //     st(() {
+                              //       posC.getDate(context, 'Cheque');
+                              //     });
+                              //   },
+                              child: TextFormField(
+                                controller: context
+                                    .read<LeadNewController>()
+                                    .mycontroller[54],
+
+                                onTap: () {
+                                  setState(() {
+                                    // context
+                                    //     .read<
+                                    //         NewEnqController>()
+                                    //     .clearbool2();
+                                    context
+                                        .read<LeadNewController>()
+                                        .selectTime2(context);
+                                  });
+                                },
+                                autofocus: true,
+                                readOnly: true,
+                                // controller: posC.mycontroller[24],
+                                cursorColor: Colors.grey,
+                                style: theme.textTheme.bodyMedium
+                                    ?.copyWith(backgroundColor: Colors.white),
+                                onChanged: (v) {},
+
+                                decoration: InputDecoration(
+                                  fillColor: Colors.white,
+                                  suffixIcon: IconButton(
+                                      padding: EdgeInsets.only(
+                                          top: Screens.bodyheight(context) *
+                                              0.002),
+                                      onPressed: () {
+                                        setState(() {
+                                          context
+                                              .read<LeadNewController>()
+                                              .selectTime2(context);
+                                        });
+                                      },
+                                      icon: Icon(
+                                        Icons.timer,
+                                        color: theme.primaryColor,
+                                      )),
+                                  filled: true,
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(color: Colors.red),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(color: Colors.red),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(5),
+                                    borderSide: BorderSide(color: Colors.grey),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 11,
+                                    horizontal: 10,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(
+                          height: Screens.padingHeight(context) * 0.01,
+                        ),
+
+                        context.read<LeadNewController>().checkretime ==
+                                    false &&
+                                context
+                                        .watch<LeadNewController>()
+                                        .errorTimenew ==
+                                    ''
+                            ? Container()
+                            : Container(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  "${context.watch<LeadNewController>().errorTimenew}",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+
+                        context.read<LeadNewController>().checkdata == false
+                            ? Container()
+                            : Container(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  "choose less then Visit Date",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                              Visibility(
+                                        visible: context
+                                            .read<LeadNewController>()
+                                            .getvisibleremainder,
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "${context.read<LeadNewController>().isremaider}",
+                                              style: theme.textTheme.bodyMedium
+                                                  ?.copyWith(color: Colors.red),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -535,14 +1215,16 @@ context.read<LeadNewController>().isdatevalid == false
       child: Column(
         children: [
           Row(
-             mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                width:context.read<LeadNewController>().showItemList == true? Screens.width(context)*0.80:Screens.width(context)*0.95,
-                
+                width: context.read<LeadNewController>().showItemList == true
+                    ? Screens.width(context) * 0.80
+                    : Screens.width(context) * 0.95,
                 height: Screens.bodyheight(context) * 0.06,
                 decoration: BoxDecoration(
-                  color: theme.primaryColor.withOpacity(0.1), //Colors.grey[200],
+                  color:
+                      theme.primaryColor.withOpacity(0.1), //Colors.grey[200],
                   borderRadius:
                       BorderRadius.circular(Screens.width(context) * 0.02),
                 ),
@@ -551,20 +1233,21 @@ context.read<LeadNewController>().isdatevalid == false
                   onChanged: (val) {
                     context.read<LeadNewController>().filterList(val);
                   },
-                  controller: context.read<LeadNewController>().mycontroller[12],
+                  controller:
+                      context.read<LeadNewController>().mycontroller[12],
                   // onEditingComplete: (){
                   //       setState(() {
                   //      if(context.read<LeadNewController>().showItemList == true){
                   //       context.read<LeadNewController>(). scannerreset();
                   //       context.read<LeadNewController>().Scancode=context.read<LeadNewController>().mycontroller[12].text;
                   //   context.read<LeadNewController>().scanneddataget(context);
-                  //     }   
+                  //     }
                   //       });
-                        
+
                   //     },
                   decoration: InputDecoration(
                     filled: false,
-                    hintText: 'Search Here!!..',
+                    hintText: 'Search Here..',
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     suffixIcon: IconButton(
@@ -585,26 +1268,32 @@ context.read<LeadNewController>().isdatevalid == false
                   ),
                 ),
               ),
-          
-           context.read<LeadNewController>().showItemList == true?   Container(
-            // alignment: Alignment.center,
-            child: IconButton(
-              onPressed: (){
-                setState(() {
-                   context.read<LeadNewController>().     scannerreset();
-                   qrscannerState.leadscan=true;
-                Navigator.push(context,MaterialPageRoute(builder: (_) => qrscanner()))
+              context.read<LeadNewController>().showItemList == true
+                  ? Container(
+                      // alignment: Alignment.center,
+                      child: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              context.read<LeadNewController>().scannerreset();
+                              QrscannerState.leadscan = true;
+                              Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => Qrscanner()))
 //                 .then((value){
 // return context.read<LeadNewController>().scanneddataget(context);
-//                 } 
+//                 }
 //                  )
-                 ;
-                });
-           
-              },
-              icon: Icon(Icons.qr_code_scanner_outlined,color: theme.primaryColor,size: 30,)),
-          ):Container()
-          
+                                  ;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.qr_code_scanner_outlined,
+                            color: theme.primaryColor,
+                            size: 30,
+                          )),
+                    )
+                  : Container()
             ],
           ),
           context.read<LeadNewController>().showItemList == true
@@ -644,10 +1333,11 @@ context.read<LeadNewController>().isdatevalid == false
                                     SizedBox(
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
-                                          "Item code: ${context.read<LeadNewController>().getAllProductDetails[i].itemCode}",
-                                          style: theme.textTheme.bodyText1
+                                          "Item Code: ${context.read<LeadNewController>().getAllProductDetails[i].itemCode}",
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
-                                                  color: theme.primaryColor)),
+                                                  color: theme.primaryColor,
+                                                  fontSize: 13)),
                                     ),
                                     Container(
                                       alignment: Alignment.centerRight,
@@ -668,7 +1358,7 @@ context.read<LeadNewController>().isdatevalid == false
                                         //         .read<LeadNewController>()
                                         //         .getAllProductDetails[i]
                                         //         .refreshedRecordDate!),
-                                        style: theme.textTheme.bodyText1
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -686,11 +1376,11 @@ context.read<LeadNewController>().isdatevalid == false
                                   alignment: Alignment.centerLeft,
                                   width: Screens.width(context) * 0.4,
                                   child: Text("Product",
-                                      style: theme.textTheme.bodyText1
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey)),
                                 ),
                                 SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
+                                  height: Screens.bodyheight(context) * 0.005,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -700,8 +1390,8 @@ context.read<LeadNewController>().isdatevalid == false
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                           "${context.read<LeadNewController>().getAllProductDetails[i].itemName}",
-                                          style: theme.textTheme.bodyText1
-                                              ?.copyWith(
+                                          style: theme.textTheme.bodyMedium
+                                              ?.copyWith(fontSize: 13
                                                   //color: theme.primaryColor
                                                   )),
                                     ),
@@ -714,7 +1404,7 @@ context.read<LeadNewController>().isdatevalid == false
                                           width: Screens.width(context) * 0.1,
                                           child: Text(
                                             "₹ ",
-                                            style: theme.textTheme.bodyText1
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(color: Colors.grey),
                                           ),
                                         ),
@@ -722,10 +1412,8 @@ context.read<LeadNewController>().isdatevalid == false
                                           alignment: Alignment.centerRight,
                                           //width: Screens.width(context) * 0.2,
                                           child: Text(
-                                            "${ context
-                                                .read<LeadNewController>()
-                                                .config.slpitCurrency22(context.read<LeadNewController>().getAllProductDetails[i].sp.toString())}",
-                                            style: theme.textTheme.bodyText1
+                                            "${context.read<LeadNewController>().config.slpitCurrency22(context.read<LeadNewController>().getAllProductDetails[i].sp.toString())}",
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     color: theme.primaryColor),
                                           ),
@@ -765,10 +1453,10 @@ context.read<LeadNewController>().isdatevalid == false
                                                 .toString(),
                                         style: TextStyle(
                                           color: theme.primaryColor,
-                                          fontSize: 15.0,
+                                          fontSize: 13.0,
                                         )),
                                   ),
-                                  SizedBox(height: 10.0),
+                                  SizedBox(height: 5.0),
                                   Row(
                                     children: [
                                       Text("Product",
@@ -778,7 +1466,7 @@ context.read<LeadNewController>().isdatevalid == false
                                           )),
                                     ],
                                   ),
-                                  SizedBox(height: 10.0),
+                                  SizedBox(height: 5.0),
                                   Container(
                                     // width: Screens.width(context)*0.8,
                                     ///  color: Colors.red,
@@ -789,10 +1477,10 @@ context.read<LeadNewController>().isdatevalid == false
                                             .ItemDescription!,
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 15.0,
+                                          fontSize: 13.0,
                                         )),
                                   ),
-                                  SizedBox(height: 10.0),
+                                  SizedBox(height: 5.0),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -806,53 +1494,56 @@ context.read<LeadNewController>().isdatevalid == false
                                                   .toString(),
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 15.0,
+                                            fontSize: 13.0,
                                           )),
                                       // SizedBox(
                                       //     width: Screens.bodyheight(context) /
                                       //         2.9),
                                       Text(
                                           "Price: " +
-                                          context
-                                                .read<LeadNewController>()
-                                                .config.slpitCurrency22(context
+                                              context
                                                   .read<LeadNewController>()
-                                                  .getProduct[index]
-                                                  .Price
-                                                  .toString()),
+                                                  .config
+                                                  .slpitCurrency22(context
+                                                      .read<LeadNewController>()
+                                                      .getProduct[index]
+                                                      .Price
+                                                      .toString()),
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 15.0,
+                                            fontSize: 13.0,
                                           )),
                                     ],
                                   ),
                                   SizedBox(height: 5),
-                        (context
-                                                      .read<
-                                                          LeadNewController>()
-                                                      .getProduct[index]
-                                                      .partname !=null &&        context
-                                                      .read<
-                                                          LeadNewController>()
-                                                      .getProduct[index]
-                                                      .partname!.isNotEmpty)?      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                        context
-                                                      .read<
-                                                          LeadNewController>()
-                                                      .getProduct[index]
-                                                      .partname !=null?  Container(
-                                            child:Text("${context
-                                                      .read<
-                                                          LeadNewController>()
-                                                      .getProduct[index]
-                                                      .partname}")
-                                          ):Container(),
-                               
-
-                                      ],):Container(),
-                                  SizedBox(height: 10),
+                                  (context
+                                                  .read<LeadNewController>()
+                                                  .getProduct[index]
+                                                  .partname !=
+                                              null &&
+                                          context
+                                              .read<LeadNewController>()
+                                              .getProduct[index]
+                                              .partname!
+                                              .isNotEmpty)
+                                      ? Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            context
+                                                        .read<
+                                                            LeadNewController>()
+                                                        .getProduct[index]
+                                                        .partname !=
+                                                    null
+                                                ? Container(
+                                                    child: Text(
+                                                        "${context.read<LeadNewController>().getProduct[index].partname}"))
+                                                : Container(),
+                                          ],
+                                        )
+                                      : Container(),
+                                  SizedBox(height: 5),
                                   Padding(
                                     padding:
                                         EdgeInsets.only(left: 40, right: 40),
@@ -871,13 +1562,15 @@ context.read<LeadNewController>().isdatevalid == false
                                                 MainAxisAlignment.start,
                                             children: [
                                               Text("Total: " +
-                                                 context
-                                                .read<LeadNewController>()
-                                                .config.slpitCurrency22(  context
+                                                  context
                                                       .read<LeadNewController>()
-                                                      .getProduct[index]
-                                                      .LineTotal
-                                                      .toString()))
+                                                      .config
+                                                      .slpitCurrency22(context
+                                                          .read<
+                                                              LeadNewController>()
+                                                          .getProduct[index]
+                                                          .LineTotal
+                                                          .toString()))
                                             ]),
                                         Row(
                                           children: [
@@ -890,16 +1583,16 @@ context.read<LeadNewController>().isdatevalid == false
                                                             LeadNewController>()
                                                         .getProduct
                                                         .removeAt(index);
-                                                        if(context
-                                                                .read<
-                                                                    LeadNewController>()
-                                                                .productDetails.isEmpty){
-                                                            context
-                                                                .read<
-                                                                    LeadNewController>()
-                                                                .      changeVisible();
-
-                                                        }
+                                                    if (context
+                                                        .read<
+                                                            LeadNewController>()
+                                                        .productDetails
+                                                        .isEmpty) {
+                                                      context
+                                                          .read<
+                                                              LeadNewController>()
+                                                          .changeVisible();
+                                                    }
 
                                                     for (int i = 0;
                                                         i <
@@ -1072,7 +1765,7 @@ context.read<LeadNewController>().isdatevalid == false
                   ),
                 )
               : Container(
-                   color: Colors.white,
+                  color: Colors.white,
                   width: Screens.width(context),
                   height: Screens.bodyheight(context),
                   padding: EdgeInsets.symmetric(
@@ -1116,16 +1809,18 @@ context.read<LeadNewController>().isdatevalid == false
                                   context.read<LeadNewController>().clearnum();
                                 }
                               },
-                              onEditingComplete: (){
-                                          if(context
-                                            .read<LeadNewController>()
-                                            .mycontroller[0].text.length==10){
- context
-                                                .read<LeadNewController>()
-                                                .callApi(context);
-                                            }
-                                         
-                                        },
+                              onEditingComplete: () {
+                                if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[0]
+                                        .text
+                                        .length ==
+                                    10) {
+                                  context
+                                      .read<LeadNewController>()
+                                      .callApi(context);
+                                }
+                              },
                               inputFormatters: [
                                 FilteringTextInputFormatter.digitsOnly,
                                 new LengthLimitingTextInputFormatter(10),
@@ -1182,7 +1877,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //                 Text("Corporate",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText2
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                           fontSize: 12,
                           //                           color: context
@@ -1221,7 +1916,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //                 Text("Doctor",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                           fontSize: 12,
                           //                       color: context
@@ -1260,7 +1955,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //                 Text("Govt",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                           fontSize: 12,
                           //                       color: context
@@ -1301,7 +1996,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //                 Text("Student",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                           fontSize: 12,
                           //                       color: context
@@ -1348,7 +2043,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //                 Text("Police/Army",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                           fontSize: 12,
                           //                       color: context
@@ -1387,7 +2082,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //                 Text("Advocate",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                           fontSize: 12,
                           //                       color: context
@@ -1427,7 +2122,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //                 Text("Celebrity",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                           fontSize: 12,
                           //                       color: context
@@ -1455,29 +2150,35 @@ context.read<LeadNewController>().isdatevalid == false
                               controller: context
                                   .read<LeadNewController>()
                                   .mycontroller[1],
-                                  onTap: (){
-                                                    if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isEmpty){
- context
-                                                  .read<LeadNewController>()
-                                                  . ontapvalid(context);
-                                                  
-                                                  }else if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isNotEmpty){
-                                                    setState(() {
-                                                        context
-                                                  .read<LeadNewController>()
-                                                  .statebool = false;
-                                                    });
-                                                  
-                                                  }
-                                                  },
+                              onTap: () {
+                                if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[16]
+                                        .text
+                                        .isNotEmpty &&
+                                    context
+                                        .read<LeadNewController>()
+                                        .statecode
+                                        .isEmpty) {
+                                  context
+                                      .read<LeadNewController>()
+                                      .ontapvalid(context);
+                                } else if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[16]
+                                        .text
+                                        .isNotEmpty &&
+                                    context
+                                        .read<LeadNewController>()
+                                        .statecode
+                                        .isNotEmpty) {
+                                  setState(() {
+                                    context
+                                        .read<LeadNewController>()
+                                        .statebool = false;
+                                  });
+                                }
+                              },
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return "Enter Customer";
@@ -1486,7 +2187,7 @@ context.read<LeadNewController>().isdatevalid == false
                               },
                               decoration: InputDecoration(
                                 // hintText: 'Customer',
-                                 labelText: 'Customer*',
+                                labelText: 'Customer*',
                                 border: UnderlineInputBorder(),
                                 enabledBorder: UnderlineInputBorder(),
                                 focusedBorder: UnderlineInputBorder(),
@@ -1500,29 +2201,35 @@ context.read<LeadNewController>().isdatevalid == false
                               controller: context
                                   .read<LeadNewController>()
                                   .mycontroller[17],
-                                  onTap: (){
-                                                    if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isEmpty){
- context
-                                                  .read<LeadNewController>()
-                                                  . ontapvalid(context);
-                                                  
-                                                  }else if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isNotEmpty){
-                                                    setState(() {
-                                                        context
-                                                  .read<LeadNewController>()
-                                                  .statebool = false;
-                                                    });
-                                                  
-                                                  }
-                                                  },
+                              onTap: () {
+                                if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[16]
+                                        .text
+                                        .isNotEmpty &&
+                                    context
+                                        .read<LeadNewController>()
+                                        .statecode
+                                        .isEmpty) {
+                                  context
+                                      .read<LeadNewController>()
+                                      .ontapvalid(context);
+                                } else if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[16]
+                                        .text
+                                        .isNotEmpty &&
+                                    context
+                                        .read<LeadNewController>()
+                                        .statecode
+                                        .isNotEmpty) {
+                                  setState(() {
+                                    context
+                                        .read<LeadNewController>()
+                                        .statebool = false;
+                                  });
+                                }
+                              },
                               // validator: (value) {
                               //   if (value!.isEmpty) {
                               //     return "Enter Contact Name";
@@ -1545,29 +2252,35 @@ context.read<LeadNewController>().isdatevalid == false
                               controller: context
                                   .read<LeadNewController>()
                                   .mycontroller[2],
-                                 onTap: (){
-                                                    if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isEmpty){
- context
-                                                  .read<LeadNewController>()
-                                                  . ontapvalid(context);
-                                                  
-                                                  }else if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isNotEmpty){
-                                                    setState(() {
-                                                        context
-                                                  .read<LeadNewController>()
-                                                  .statebool = false;
-                                                    });
-                                                  
-                                                  }
-                                                  },
+                              onTap: () {
+                                if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[16]
+                                        .text
+                                        .isNotEmpty &&
+                                    context
+                                        .read<LeadNewController>()
+                                        .statecode
+                                        .isEmpty) {
+                                  context
+                                      .read<LeadNewController>()
+                                      .ontapvalid(context);
+                                } else if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[16]
+                                        .text
+                                        .isNotEmpty &&
+                                    context
+                                        .read<LeadNewController>()
+                                        .statecode
+                                        .isNotEmpty) {
+                                  setState(() {
+                                    context
+                                        .read<LeadNewController>()
+                                        .statebool = false;
+                                  });
+                                }
+                              },
                               // validator: (value) {
                               //   if (value!.isEmpty) {
                               //     return "Enter Address1";
@@ -1590,29 +2303,36 @@ context.read<LeadNewController>().isdatevalid == false
                           TextFormField(
                               controller: context
                                   .read<LeadNewController>()
-                                  .mycontroller[3],onTap: (){
-                                                    if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isEmpty){
- context
-                                                  .read<LeadNewController>()
-                                                  . ontapvalid(context);
-                                                  
-                                                  }else if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isNotEmpty){
-                                                    setState(() {
-                                                        context
-                                                  .read<LeadNewController>()
-                                                  .statebool = false;
-                                                    });
-                                                  
-                                                  }
-                                                  },
+                                  .mycontroller[3],
+                              onTap: () {
+                                if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[16]
+                                        .text
+                                        .isNotEmpty &&
+                                    context
+                                        .read<LeadNewController>()
+                                        .statecode
+                                        .isEmpty) {
+                                  context
+                                      .read<LeadNewController>()
+                                      .ontapvalid(context);
+                                } else if (context
+                                        .read<LeadNewController>()
+                                        .mycontroller[16]
+                                        .text
+                                        .isNotEmpty &&
+                                    context
+                                        .read<LeadNewController>()
+                                        .statecode
+                                        .isNotEmpty) {
+                                  setState(() {
+                                    context
+                                        .read<LeadNewController>()
+                                        .statebool = false;
+                                  });
+                                }
+                              },
                               // validator: (value) {
                               //   if (value!.isEmpty) {
                               //     return "Enter Address2";
@@ -1641,29 +2361,35 @@ context.read<LeadNewController>().isdatevalid == false
                                     controller: context
                                         .read<LeadNewController>()
                                         .mycontroller[15],
-                                       onTap: (){
-                                                    if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isEmpty){
- context
-                                                  .read<LeadNewController>()
-                                                  . ontapvalid(context);
-                                                  
-                                                  }else if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isNotEmpty){
-                                                    setState(() {
-                                                        context
-                                                  .read<LeadNewController>()
-                                                  .statebool = false;
-                                                    });
-                                                  
-                                                  }
-                                                  },
+                                    onTap: () {
+                                      if (context
+                                              .read<LeadNewController>()
+                                              .mycontroller[16]
+                                              .text
+                                              .isNotEmpty &&
+                                          context
+                                              .read<LeadNewController>()
+                                              .statecode
+                                              .isEmpty) {
+                                        context
+                                            .read<LeadNewController>()
+                                            .ontapvalid(context);
+                                      } else if (context
+                                              .read<LeadNewController>()
+                                              .mycontroller[16]
+                                              .text
+                                              .isNotEmpty &&
+                                          context
+                                              .read<LeadNewController>()
+                                              .statecode
+                                              .isNotEmpty) {
+                                        setState(() {
+                                          context
+                                              .read<LeadNewController>()
+                                              .statebool = false;
+                                        });
+                                      }
+                                    },
                                     // validator: (value) {
                                     //   if (value!.isEmpty) {
                                     //     return "Enter City";
@@ -1687,29 +2413,35 @@ context.read<LeadNewController>().isdatevalid == false
                                     controller: context
                                         .read<LeadNewController>()
                                         .mycontroller[5],
-                                         onTap: (){
-                                                    if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isEmpty){
- context
-                                                  .read<LeadNewController>()
-                                                  . ontapvalid(context);
-                                                  
-                                                  }else if(context
-                                                  .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isNotEmpty){
-                                                    setState(() {
-                                                        context
-                                                  .read<LeadNewController>()
-                                                  .statebool = false;
-                                                    });
-                                                  
-                                                  }
-                                                  },
+                                    onTap: () {
+                                      if (context
+                                              .read<LeadNewController>()
+                                              .mycontroller[16]
+                                              .text
+                                              .isNotEmpty &&
+                                          context
+                                              .read<LeadNewController>()
+                                              .statecode
+                                              .isEmpty) {
+                                        context
+                                            .read<LeadNewController>()
+                                            .ontapvalid(context);
+                                      } else if (context
+                                              .read<LeadNewController>()
+                                              .mycontroller[16]
+                                              .text
+                                              .isNotEmpty &&
+                                          context
+                                              .read<LeadNewController>()
+                                              .statecode
+                                              .isNotEmpty) {
+                                        setState(() {
+                                          context
+                                              .read<LeadNewController>()
+                                              .statebool = false;
+                                        });
+                                      }
+                                    },
                                     // validator: (value) {
                                     //   if (value!.isEmpty) {
                                     //     return "Enter City";
@@ -1718,7 +2450,7 @@ context.read<LeadNewController>().isdatevalid == false
                                     // },
                                     decoration: InputDecoration(
                                       // hintText: 'City',
-                                       labelText: 'City',
+                                      labelText: 'City',
                                       border: UnderlineInputBorder(),
                                       enabledBorder: UnderlineInputBorder(),
                                       focusedBorder: UnderlineInputBorder(),
@@ -1756,7 +2488,8 @@ context.read<LeadNewController>().isdatevalid == false
                                               //   return null;
                                               // },
                                               inputFormatters: [
-                                                FilteringTextInputFormatter.digitsOnly,
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly,
                                                 new LengthLimitingTextInputFormatter(
                                                     6),
                                               ],
@@ -1785,15 +2518,13 @@ context.read<LeadNewController>().isdatevalid == false
                                               focusNode: context
                                                   .read<LeadNewController>()
                                                   .focusNode1,
-                                              autovalidateMode: AutovalidateMode
-                                                  .always,
+                                              autovalidateMode:
+                                                  AutovalidateMode.always,
                                               onChanged: (v) {
-                                                
                                                 setState(() {
-                                                   context
-                                                              .read<
-                                                                  LeadNewController>()
-                                                              .  isText1Correct = false;
+                                                  context
+                                                      .read<LeadNewController>()
+                                                      .isText1Correct = false;
                                                   context
                                                       .read<LeadNewController>()
                                                       .filterListState2(v);
@@ -1812,14 +2543,16 @@ context.read<LeadNewController>().isdatevalid == false
 
                                                   else {
                                                     context
-                                                            .read<
-                                                                LeadNewController>()
-                                                            .methidstate(context
+                                                        .read<
+                                                            LeadNewController>()
+                                                        .methidstate(
+                                                            context
                                                                 .read<
                                                                     LeadNewController>()
                                                                 .mycontroller[
                                                                     16]
-                                                                .text,context);
+                                                                .text,
+                                                            context);
                                                     context
                                                         .read<
                                                             LeadNewController>()
@@ -1838,16 +2571,18 @@ context.read<LeadNewController>().isdatevalid == false
                                                         .isEmpty) {
                                                   context
                                                       .read<LeadNewController>()
-                                                      .methidstate(context
+                                                      .methidstate(
+                                                          context
+                                                              .read<
+                                                                  LeadNewController>()
+                                                              .mycontroller[16]
+                                                              .text,
+                                                          context);
+                                                  FocusScope.of(context)
+                                                      .requestFocus(context
                                                           .read<
                                                               LeadNewController>()
-                                                          .mycontroller[16]
-                                                          .text,context);
-                                                  FocusScope.of(context)
-                                                      .requestFocus(
-                                                          context
-                                                  .read<LeadNewController>()
-                                                  .focusNode1);
+                                                          .focusNode1);
                                                   context
                                                       .read<LeadNewController>()
                                                       .statebool = false;
@@ -1861,18 +2596,21 @@ context.read<LeadNewController>().isdatevalid == false
                                                       .read<LeadNewController>()
                                                       .statebool = false;
                                                   context
-                                                  .read<LeadNewController>()
-                                                  .focusNode1.unfocus();
+                                                      .read<LeadNewController>()
+                                                      .focusNode1
+                                                      .unfocus();
                                                   // context
                                                   //   .read<NewEnqController>()
                                                   //   .  methodfortest();
                                                   context
                                                       .read<LeadNewController>()
-                                                      .methidstate(context
-                                                          .read<
-                                                              LeadNewController>()
-                                                          .mycontroller[16]
-                                                          .text,context);
+                                                      .methidstate(
+                                                          context
+                                                              .read<
+                                                                  LeadNewController>()
+                                                              .mycontroller[16]
+                                                              .text,
+                                                          context);
 
                                                   // context
                                                   // .read<NewEnqController>()
@@ -1909,7 +2647,7 @@ context.read<LeadNewController>().isdatevalid == false
                                             alignment: Alignment.centerRight,
                                             child: Text(
                                               "Enter Correct State",
-                                              style: theme.textTheme.bodyText2!
+                                              style: theme.textTheme.bodyMedium!
                                                   .copyWith(
                                                       color: Colors.red,
                                                       fontSize: 12),
@@ -1924,15 +2662,15 @@ context.read<LeadNewController>().isdatevalid == false
                                         controller: context
                                             .read<LeadNewController>()
                                             .mycontroller[6],
-                                            validator: (value) {
-                                      if (value!.isNotEmpty) {
-                                        if (value.length > 10 ||
-                                            value.length < 10) {
-                                          return "Enter a valid Mobile Number";
-                                        }
-                                      }
-                                      return null;
-                                    },
+                                        validator: (value) {
+                                          if (value!.isNotEmpty) {
+                                            if (value.length > 10 ||
+                                                value.length < 10) {
+                                              return "Enter a valid Mobile Number";
+                                            }
+                                          }
+                                          return null;
+                                        },
                                         // validator: (value) {
                                         //   if (value!.isEmpty) {
                                         //     return "Enter Alternate Mobile No";
@@ -1942,7 +2680,8 @@ context.read<LeadNewController>().isdatevalid == false
                                         //   return null;
                                         // },
                                         inputFormatters: [
-                                          FilteringTextInputFormatter.digitsOnly,
+                                          FilteringTextInputFormatter
+                                              .digitsOnly,
                                           new LengthLimitingTextInputFormatter(
                                               10),
                                         ],
@@ -1965,30 +2704,35 @@ context.read<LeadNewController>().isdatevalid == false
                                         controller: context
                                             .read<LeadNewController>()
                                             .mycontroller[7],
-                                             onTap: (){
-                                                    if(context
+                                        onTap: () {
+                                          if (context
                                                   .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
+                                                  .mycontroller[16]
+                                                  .text
+                                                  .isNotEmpty &&
+                                              context
                                                   .read<LeadNewController>()
-                                                  .statecode.isEmpty){
- context
+                                                  .statecode
+                                                  .isEmpty) {
+                                            context
+                                                .read<LeadNewController>()
+                                                .ontapvalid(context);
+                                          } else if (context
                                                   .read<LeadNewController>()
-                                                  . ontapvalid(context);
-                                                  
-                                                  }else if(context
+                                                  .mycontroller[16]
+                                                  .text
+                                                  .isNotEmpty &&
+                                              context
                                                   .read<LeadNewController>()
-                                                  .mycontroller[16].text.isNotEmpty &&context
-                                                  .read<LeadNewController>()
-                                                  .statecode.isNotEmpty){
-                                                    setState(() {
-                                                        context
+                                                  .statecode
+                                                  .isNotEmpty) {
+                                            setState(() {
+                                              context
                                                   .read<LeadNewController>()
                                                   .statebool = false;
-                                                    });
-                                                  
-                                                  }
-                                                  },
-                                           
+                                            });
+                                          }
+                                        },
                                         validator: (value) {
                                           if (value!.isNotEmpty) {
                                             //   // context.read<SalesQuotationCon>().ffff =
@@ -2088,8 +2832,8 @@ context.read<LeadNewController>().isdatevalid == false
                                                           context),
                                                       child: Text(
                                                         "${context.watch<LeadNewController>().filterstateData[i].stateName}",
-                                                        style: theme
-                                                            .textTheme.bodyText1
+                                                        style: theme.textTheme
+                                                            .bodyMedium
                                                             ?.copyWith(
                                                                 color: theme
                                                                     .primaryColor),
@@ -2129,121 +2873,112 @@ context.read<LeadNewController>().isdatevalid == false
                                 errorBorder: UnderlineInputBorder(),
                                 focusedErrorBorder: UnderlineInputBorder(),
                               )),
-                             Container(
-                                      height: Screens.padingHeight(context)*0.1,
-                                       child: DropdownButtonFormField(
-                                        
-                                         decoration: InputDecoration(
-                                                  // hintText: 'Email',
-                                                  labelText: 'Level of Interest',
-                                                  border: UnderlineInputBorder(),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(),
-                                                ),
-                                                                     // hint: Text(
-                                                                     //   context
-                                                                     //       .watch<NewEnqController>()
-                                                                     //       .gethinttextforOpenLead!,
-                                                                     //   style: theme.textTheme.bodyText2?.copyWith(
-                                                                     //       color: context
-                                                                     //               .watch<NewEnqController>()
-                                                                     //               .gethinttextforOpenLead!
-                                                                     //               .contains(" *")
-                                                                     //           ? Colors.red
-                                                                     //           : Colors.black),
-                                                                     // ),
-                                                                     value: context
-                                                                         .read<LeadNewController>()
-                                                                         .valueChosedStatus,
-                                                                     //dropdownColor:Colors.green,
-                                                                     icon: Icon(Icons.arrow_drop_down),
-                                                                     iconSize: 30,
-                                                                     style: TextStyle(
-                                                                         color: Colors.black, fontSize: 16),
-                                                                     isExpanded: true,
-                                                                     onChanged: (val) {
-                                                                       setState(() {
-                                                                         context
-                                          .read<LeadNewController>()
-                                          .choosedStatus(val.toString());
-                                                                       });
-                                                                     },
-                                                                     items: context
-                                                                         .read<LeadNewController>()
-                                                                         .leveofdata
-                                                                         .map((e) {
-                                                                       return DropdownMenuItem(
-                                        // ignore: unnecessary_brace_in_string_interps
-                                        value: "${e.Code}",
-                                        child: Container(
-                                            // height: Screens.bodyheight(context)*0.1,
-                                            child: Text("${e.Name}")));
-                                                                     }).toList(),
-                                                                   ),
-                                     ),
-                                     Container(
-                                      height: Screens.padingHeight(context)*0.1,
-                                       child: DropdownButtonFormField(
-                                         decoration: InputDecoration(
-                                                  // hintText: 'Email',
-                                                  labelText: 'Select Order Type',
-                                                  border: UnderlineInputBorder(),
-                                                  enabledBorder:
-                                                      UnderlineInputBorder(),
-                                                  focusedBorder:
-                                                      UnderlineInputBorder(),
-                                                  errorBorder:
-                                                      UnderlineInputBorder(),
-                                                  focusedErrorBorder:
-                                                      UnderlineInputBorder(),
-                                                ),
-                                                                     // hint: Text(
-                                                                     //   context
-                                                                     //       .watch<NewEnqController>()
-                                                                     //       .gethinttextforOpenLead!,
-                                                                     //   style: theme.textTheme.bodyText2?.copyWith(
-                                                                     //       color: context
-                                                                     //               .watch<NewEnqController>()
-                                                                     //               .gethinttextforOpenLead!
-                                                                     //               .contains(" *")
-                                                                     //           ? Colors.red
-                                                                     //           : Colors.black),
-                                                                     // ),
-                                                                     value: context
-                                                                         .read<LeadNewController>()
-                                                                         .valueChosedCusType,
-                                                                     //dropdownColor:Colors.green,
-                                                                     icon: Icon(Icons.arrow_drop_down),
-                                                                     iconSize: 30,
-                                                                     style: TextStyle(
-                                                                         color: Colors.black, fontSize: 16),
-                                                                     isExpanded: true,
-                                                                     onChanged: (val) {
-                                                                       setState(() {
-                                                                         context
-                                          .read<LeadNewController>()
-                                          .choosedType(val.toString());
-                                                                       });
-                                                                     },
-                                                                     items: context
-                                                                         .read<LeadNewController>()
-                                                                         .ordertypedata
-                                                                         .map((e) {
-                                                                       return DropdownMenuItem(
-                                        // ignore: unnecessary_brace_in_string_interps
-                                        value: "${e.Code}",
-                                        child: Container(
-                                            // height: Screens.bodyheight(context)*0.1,
-                                            child: Text("${e.Name}")));
-                                                                     }).toList(),
-                                                                   ),
-                                     ),
+                          Container(
+                            height: Screens.padingHeight(context) * 0.1,
+                            child: DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                // hintText: 'Email',
+                                labelText: 'Level Of Interest',
+                                border: UnderlineInputBorder(),
+                                enabledBorder: UnderlineInputBorder(),
+                                focusedBorder: UnderlineInputBorder(),
+                                errorBorder: UnderlineInputBorder(),
+                                focusedErrorBorder: UnderlineInputBorder(),
+                              ),
+                              // hint: Text(
+                              //   context
+                              //       .watch<NewEnqController>()
+                              //       .gethinttextforOpenLead!,
+                              //   style: theme.textTheme.bodyMedium?.copyWith(
+                              //       color: context
+                              //               .watch<NewEnqController>()
+                              //               .gethinttextforOpenLead!
+                              //               .contains(" *")
+                              //           ? Colors.red
+                              //           : Colors.black),
+                              // ),
+                              value: context
+                                  .read<LeadNewController>()
+                                  .valueChosedStatus,
+                              //dropdownColor:Colors.green,
+                              icon: Icon(Icons.arrow_drop_down),
+                              iconSize: 30,
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              isExpanded: true,
+                              onChanged: (val) {
+                                setState(() {
+                                  context
+                                      .read<LeadNewController>()
+                                      .choosedStatus(val.toString());
+                                });
+                              },
+                              items: context
+                                  .read<LeadNewController>()
+                                  .leveofdata
+                                  .map((e) {
+                                return DropdownMenuItem(
+                                    // ignore: unnecessary_brace_in_string_interps
+                                    value: "${e.Code}",
+                                    child: Container(
+                                        // height: Screens.bodyheight(context)*0.1,
+                                        child: Text("${e.Name}")));
+                              }).toList(),
+                            ),
+                          ),
+                          Container(
+                            height: Screens.padingHeight(context) * 0.1,
+                            child: DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                // hintText: 'Email',
+                                labelText: 'Select Order Type',
+                                border: UnderlineInputBorder(),
+                                enabledBorder: UnderlineInputBorder(),
+                                focusedBorder: UnderlineInputBorder(),
+                                errorBorder: UnderlineInputBorder(),
+                                focusedErrorBorder: UnderlineInputBorder(),
+                              ),
+                              // hint: Text(
+                              //   context
+                              //       .watch<NewEnqController>()
+                              //       .gethinttextforOpenLead!,
+                              //   style: theme.textTheme.bodyMedium?.copyWith(
+                              //       color: context
+                              //               .watch<NewEnqController>()
+                              //               .gethinttextforOpenLead!
+                              //               .contains(" *")
+                              //           ? Colors.red
+                              //           : Colors.black),
+                              // ),
+                              value: context
+                                  .read<LeadNewController>()
+                                  .valueChosedCusType,
+                              //dropdownColor:Colors.green,
+                              icon: Icon(Icons.arrow_drop_down),
+                              iconSize: 30,
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              isExpanded: true,
+                              onChanged: (val) {
+                                setState(() {
+                                  context
+                                      .read<LeadNewController>()
+                                      .choosedType(val.toString());
+                                });
+                              },
+                              items: context
+                                  .read<LeadNewController>()
+                                  .ordertypedata
+                                  .map((e) {
+                                return DropdownMenuItem(
+                                    // ignore: unnecessary_brace_in_string_interps
+                                    value: "${e.Code}",
+                                    child: Container(
+                                        // height: Screens.bodyheight(context)*0.1,
+                                        child: Text("${e.Name}")));
+                              }).toList(),
+                            ),
+                          ),
                           SizedBox(
                             height: Screens.bodyheight(context) * 0.03,
                           ),
@@ -2264,9 +2999,9 @@ context.read<LeadNewController>().isdatevalid == false
                                             .read<LeadNewController>()
                                             .validateGender ==
                                         true
-                                    ? theme.textTheme.bodyText1
+                                    ? theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.red)
-                                    : theme.textTheme.bodyText1,
+                                    : theme.textTheme.bodyMedium,
                               ),
                               SizedBox(
                                 height: Screens.bodyheight(context) * 0.01,
@@ -2314,7 +3049,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("Male",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2359,7 +3094,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("Female",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2404,7 +3139,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("Other",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2440,9 +3175,9 @@ context.read<LeadNewController>().isdatevalid == false
                                             .read<LeadNewController>()
                                             .validateAge ==
                                         true
-                                    ? theme.textTheme.bodyText1
+                                    ? theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.red)
-                                    : theme.textTheme.bodyText1,
+                                    : theme.textTheme.bodyMedium,
                               ),
                               SizedBox(
                                 height: Screens.bodyheight(context) * 0.01,
@@ -2490,7 +3225,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("20-30",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2535,7 +3270,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("30-40",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2580,7 +3315,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("40-50",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2625,7 +3360,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //         Text("50>",
                               //             maxLines: 8,
                               //             overflow: TextOverflow.ellipsis,
-                              //             style: theme.textTheme.bodyText1
+                              //             style: theme.textTheme.bodyMedium
                               //                 ?.copyWith(
                               //               color: context
                               //                           .watch<
@@ -2655,15 +3390,15 @@ context.read<LeadNewController>().isdatevalid == false
                                             .read<LeadNewController>()
                                             .validateComas ==
                                         true
-                                    ? "Came as *"
-                                    : "Came as",
+                                    ? "Came As *"
+                                    : "Came As",
                                 style: context
                                             .read<LeadNewController>()
                                             .validateComas ==
                                         true
-                                    ? theme.textTheme.bodyText1
+                                    ? theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.red)
-                                    : theme.textTheme.bodyText1,
+                                    : theme.textTheme.bodyMedium,
                               ),
                               SizedBox(
                                 height: Screens.bodyheight(context) * 0.01,
@@ -2711,7 +3446,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("Family",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2756,7 +3491,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("Individual",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2801,7 +3536,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //             Text("Friends",
                               //                 maxLines: 8,
                               //                 overflow: TextOverflow.ellipsis,
-                              //                 style: theme.textTheme.bodyText1
+                              //                 style: theme.textTheme.bodyMedium
                               //                     ?.copyWith(
                               //                   color: context
                               //                               .watch<
@@ -2846,7 +3581,7 @@ context.read<LeadNewController>().isdatevalid == false
                               //         Text("Corporate",
                               //             maxLines: 8,
                               //             overflow: TextOverflow.ellipsis,
-                              //             style: theme.textTheme.bodyText1
+                              //             style: theme.textTheme.bodyMedium
                               //                 ?.copyWith(
                               //               color: context
                               //                           .watch<
@@ -2884,7 +3619,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //       //Reminder
                           //       Text(
                           //         "Reminder On",
-                          //         style: theme.textTheme.bodyText1
+                          //         style: theme.textTheme.bodyMedium
                           //             ?.copyWith(color: Colors.white),
                           //       ),
 
@@ -2938,7 +3673,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //               readOnly: true,
                           //               // controller: posC.mycontroller[24],
                           //               cursorColor: Colors.grey,
-                          //               style: theme.textTheme.bodyText2
+                          //               style: theme.textTheme.bodyMedium
                           //                   ?.copyWith(
                           //                       backgroundColor: Colors.white),
                           //               onChanged: (v) {},
@@ -3068,7 +3803,7 @@ context.read<LeadNewController>().isdatevalid == false
                           //               readOnly: true,
                           //               // controller: posC.mycontroller[24],
                           //               cursorColor: Colors.grey,
-                          //               style: theme.textTheme.bodyText2
+                          //               style: theme.textTheme.bodyMedium
                           //                   ?.copyWith(
                           //                       backgroundColor: Colors.white),
                           //               onChanged: (v) {},
@@ -3228,7 +3963,7 @@ context.read<LeadNewController>().isdatevalid == false
         },
         child: Container(
           width: Screens.width(context) * 0.4,
-          height: Screens.bodyheight(context) * 0.06,
+          height: Screens.bodyheight(context) * 0.05,
           //  padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: context.read<LeadNewController>().isSelectedrefcode ==
@@ -3252,7 +3987,7 @@ context.read<LeadNewController>().isdatevalid == false
                       .toString(),
                   maxLines: 8,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: context
                                 .read<LeadNewController>()
                                 .getisSelectedenquiryReffers ==

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/DashBoardController/DashBoardController.dart';
+import '../../../Controller/DashBoardController/dashboard_controller.dart';
 import '../../../Models/KpiModel/KpiModelList.dart';
 import '../widgets/TokenWidgets.dart';
 

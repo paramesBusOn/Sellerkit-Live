@@ -12,7 +12,7 @@ import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderSavePostModel.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
 
-import '../../../../../Controller/OutStandingController/OutStandingController.dart';
+import '../../../../../Controller/OutStandingController/outstanding_controller.dart';
 import '../../../../../Models/OutStandingModel/outstandingmodel.dart';
 
 class OutStandingPdfHelper {

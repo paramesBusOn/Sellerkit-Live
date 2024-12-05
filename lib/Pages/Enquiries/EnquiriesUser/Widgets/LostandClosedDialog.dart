@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/EnquiryController/EnquiryUserContoller.dart';
+import 'package:sellerkit/Controller/EnquiryController/enquiryuser_contoller.dart';
 import '../../../../Constant/Screen.dart';
 
 
@@ -142,7 +142,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
   //               },
   //               child: Text(
   //                 "Back",
-  //                 style: theme.textTheme.bodyText1
+  //                 style: theme.textTheme.bodyMedium
   //                     ?.copyWith(color: Colors.white),
   //               ),
   //               style: ButtonStyle(
@@ -164,7 +164,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
   //               },
   //               child: Text(
   //                 "Update",
-  //                 style: theme.textTheme.bodyText1
+  //                 style: theme.textTheme.bodyMedium
   //                     ?.copyWith(color: Colors.white),
   //               ),
   //               style: ButtonStyle(
@@ -191,7 +191,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
   //                 },
   //                 child: Text(
   //                   "Back",
-  //                   style: theme.textTheme.bodyText1
+  //                   style: theme.textTheme.bodyMedium
   //                       ?.copyWith(color: Colors.white),
   //                 ),
   //                 style: ButtonStyle(
@@ -220,7 +220,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
   //                 },
   //                 child: Text(
   //                   "Assign to",
-  //                   style: theme.textTheme.bodyText1
+  //                   style: theme.textTheme.bodyMedium
   //                       ?.copyWith(color: Colors.white),
   //                 ),
   //                 style: ButtonStyle(
@@ -261,13 +261,13 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                    style:
                    context.watch<EnquiryUserContoller>()
                    .getstatusUpdateApiResp.contains("Success")?
-                    theme.textTheme.headline6?.copyWith(color: Colors.green):
-                    theme.textTheme.headline6?.copyWith(color: Colors.red)
+                    theme.textTheme.titleLarge?.copyWith(color: Colors.green):
+                    theme.textTheme.titleLarge?.copyWith(color: Colors.red)
                     ,
                    ),
                    SizedBox(height: Screens.bodyheight(context)*0.02,),
                   Text( context.watch<EnquiryUserContoller>().getstatusUpdateApiRespMsg,
-                   style: theme.textTheme.bodyText1,
+                   style: theme.textTheme.bodyMedium,
                    ),
                  ],
                ),),
@@ -283,7 +283,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                  children: [
-                   Text("Status Update",style: theme.textTheme.headline6,),
+                   Text("Status Update",style: theme.textTheme.titleLarge,),
                     SizedBox(height: Screens.bodyheight(context)*0.02,),
                   
                    Container(
@@ -384,13 +384,13 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                    style:
                    context.watch<EnquiryUserContoller>()
                    .getassignedToApiActResp.contains("Success")?
-                    theme.textTheme.headline6?.copyWith(color: Colors.green):
-                    theme.textTheme.headline6?.copyWith(color: Colors.red)
+                    theme.textTheme.titleLarge?.copyWith(color: Colors.green):
+                    theme.textTheme.titleLarge?.copyWith(color: Colors.red)
                     ,
                    ),
                    SizedBox(height: Screens.bodyheight(context)*0.02,),
                    Text( context.watch<EnquiryUserContoller>().getassignedToApiActRespMsg,
-                   style: theme.textTheme.bodyText1,
+                   style: theme.textTheme.bodyMedium,
                    ),
                  ],
                ),),
@@ -465,7 +465,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           //     width: Screens.width(context) * 0.4,
                           child: Text(
                             "Customer",
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           ),
                         ),
@@ -475,7 +475,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           //    width: Screens.width(context) * 0.4,
                           child: Text(
                             "Date",
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           ),
                         ),
@@ -489,7 +489,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
 
                           //    width: Screens.width(context) * 0.4,
                           child: Text("${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].CardName}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 //  fontWeight: FontWeight.bold
                                   )),
@@ -501,7 +501,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           child: Text(
                                context.read<EnquiryUserContoller>().config.alignDate("${ context.watch<EnquiryUserContoller>()
                                .getopenEnqData[widget.i].EnqDate}"),
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                   //fontWeight: FontWeight.bold
                                   )),
@@ -520,7 +520,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           // width: Screens.width(context) * 0.4,
                           child: Text(
                             "Product",
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           ),
                         ),
@@ -530,7 +530,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           //   width: Screens.width(context) * 0.4,
                           child: Text(
                             "Potential Value",
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           ),
                         ),
@@ -545,7 +545,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           width: Screens.width(context) * 0.4,
                           child:
                               Text("Looking for ${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].Lookingfor}",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       //color:theme.primaryColor,
                                     //  fontWeight: FontWeight.bold
                                       )),
@@ -555,7 +555,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
 
                           width: Screens.width(context) * 0.2,
                           child: Text("₹ ${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].PotentialValue}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   //color:theme.primaryColor,
                                  // fontWeight: FontWeight.bold
                                   )),
@@ -575,7 +575,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           width: Screens.width(context) * 0.4,
                           child: Text(
                               "Call assigned to ${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].AssignedTo_UserName}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: Colors.grey,
                                  // fontWeight: FontWeight.bold
                                   )),
@@ -585,7 +585,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           //color: Colors.red,
                           width: Screens.width(context) * 0.2,
                           child: Text("${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].Status}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: Colors.grey,
                                 //  fontWeight: FontWeight.bold
                                   )),
@@ -605,7 +605,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           width: Screens.width(context) * 0.2,
                           child: Text(
                               "Follow Up Date",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: Colors.grey,
                                  // fontWeight: FontWeight.bold
                                   )),
@@ -615,7 +615,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           //color: Colors.red,
                           width: Screens.width(context) * 0.4,
                           child: Text("Enq type",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: Colors.grey,
                                //   fontWeight: FontWeight.bold
                                   )),
@@ -632,7 +632,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           child: Text(
                              context.read<EnquiryUserContoller>(). config.alignDate("${ context.watch<EnquiryUserContoller>()
                              .getopenEnqData[widget.i].Followup}"),
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                   //fontWeight: FontWeight.bold
                                   )),
@@ -642,7 +642,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           //color: Colors.red,
                           width: Screens.width(context) * 0.3,
                           child: Text("${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].EnqType}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 //  fontWeight: FontWeight.bold
                                   )),
@@ -658,7 +658,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           alignment: Alignment.centerLeft,
                           //color: Colors.red,
                           child: Text("Address",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: Colors.grey,
                                   //fontWeight: FontWeight.bold
                                   )),
@@ -667,7 +667,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           alignment: Alignment.centerLeft,
                           //color: Colors.red,
                           child: Text("${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].Address_Line_1}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 //  fontWeight: FontWeight.bold
                                   )),
@@ -676,7 +676,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           alignment: Alignment.centerLeft,
                           //color: Colors.red,
                           child: Text("${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].Address_Line_2}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 // fontWeight: FontWeight.bold
                                   )),
@@ -686,7 +686,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
                           //color: Colors.red,
                           child: Text("${ context.watch<EnquiryUserContoller>().
                           getopenEnqData[widget.i].City} - ${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.i].Pincode}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                   //fontWeight: FontWeight.bold
                                   )),
@@ -724,7 +724,7 @@ class LostToDialogUserState extends State<LostToDialogUser> {
               context.watch<EnquiryUserContoller>().getuserLtData[ind].UserName!,
                // maxLines: 1,
                 //overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.normal,
                   fontSize: 16,
                   color: 

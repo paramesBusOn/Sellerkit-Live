@@ -1,7 +1,5 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
 
 import 'package:encrypt/encrypt.dart';
-import 'package:encrypt/encrypt.dart' as encrypt;
 class EncryptData {
 //for AES Algorithms
 

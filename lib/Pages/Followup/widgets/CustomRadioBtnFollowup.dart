@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sellerkit/Controller/FollowupController/followup_controller.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/FollowupController/FollowUPController.dart';
 
 class CustomRadioBtnFUP extends StatelessWidget {
    CustomRadioBtnFUP({
@@ -47,7 +47,7 @@ class CustomRadioBtnFUP extends StatelessWidget {
                 Text(text1,
                     maxLines: 8,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: 
                        fUPCon.getisSelectedFollowUp ==
                              text1
@@ -81,7 +81,7 @@ class CustomRadioBtnFUP extends StatelessWidget {
                 Text(text2,
                     maxLines: 8,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: 
                       fUPCon.getisSelectedFollowUp ==
                              text2

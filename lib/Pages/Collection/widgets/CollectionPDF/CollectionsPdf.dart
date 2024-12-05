@@ -11,7 +11,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/CollectionController/NewCollectionEntryCotroller.dart';
+import 'package:sellerkit/Controller/CollectionController/newcollectionentry_cotroller.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderSavePostModel.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/pdfinv.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';

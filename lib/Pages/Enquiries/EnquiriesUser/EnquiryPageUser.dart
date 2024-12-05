@@ -5,16 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 // import 'package:sellerkit/Controller/EnquiryController/EnquiryMngController.dart';
-import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/ClosedEnq.dart';
+import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/closed_enq.dart';
 import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/LostEnqUser.dart';
 import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/OpenEnqPage.dart';
 import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/navdrawerenq.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/EnquiryController/EnquiryUserContoller.dart';
-import '../../../Controller/EnquiryController/NewEnqController.dart';
+import '../../../Controller/EnquiryController/enquiryuser_contoller.dart';
+import '../../../Controller/EnquiryController/newenq_controller.dart';
 import '../../../Widgets/Navi3.dart';
 
 class EnquiryUserPage extends StatefulWidget {
@@ -261,7 +262,7 @@ class EnquiryUserPageState extends State<EnquiryUserPage>
                                                 Screens.padingHeight(context) *
                                                     0.2,
                                             width:
-                                                Screens.width(context) * 0.5),
+                                                Screens.width(context) * 0.4),
                                       )
                                     : InkWell(
                                         onTap: () {
@@ -276,6 +277,34 @@ class EnquiryUserPageState extends State<EnquiryUserPage>
                                             width:
                                                 Screens.width(context) * 0.4),
                                       ),
+                                       context.watch<EnquiryUserContoller>().getErrorMsg
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context.watch<EnquiryUserContoller>().getErrorMsg
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context.watch<EnquiryUserContoller>().getErrorMsg
+                                                      .contains("Network Issue")
+                                                  ? Container():
                             Text(
                               context.watch<EnquiryUserContoller>().getErrorMsg,
                               textAlign: TextAlign.center,

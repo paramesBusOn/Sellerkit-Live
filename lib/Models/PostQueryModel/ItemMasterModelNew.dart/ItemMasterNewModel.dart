@@ -283,7 +283,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
+import 'package:sellerkit/DBModel/itemmasertdb_model.dart';
 
 class ItemMasterNewModal {
   List<ItemMasterNewData>? itemdata;
@@ -488,7 +488,7 @@ class ItemMasterNewData {
   factory ItemMasterNewData.fromJson(Map<String, dynamic> json) {
     // print("!-----------------------------2--------");
     // log("kkkk"+json['Id'].toString());
-    log("kkkk::::"+json.toString());
+    // log("kkkk::::"+json.toString());
     return ItemMasterNewData(
       Isbundle:json['Isbundle'] ?? '',
         MgrPrice: json['Mrp'] ?? '',

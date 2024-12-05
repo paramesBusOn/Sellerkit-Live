@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/SiteOutController/SiteOutController.dart';
+import 'package:sellerkit/Controller/SiteOutController/siteout_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 

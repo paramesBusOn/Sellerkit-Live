@@ -2,11 +2,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:sellerkit/Controller/FeedCreationcontroller/VideoPlayer.dart';
+import 'package:sellerkit/Controller/FeedCreationcontroller/video_player.dart';
 import 'package:swipe_image_gallery/swipe_image_gallery.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/FeedCreationcontroller/FeedCrtController.dart';
-import '../../../Controller/FeedCreationcontroller/ThumnailPage.dart';
+import '../../../Controller/FeedCreationcontroller/feedcrt_controller.dart';
+import '../../../Controller/FeedCreationcontroller/thumnail_page.dart';
 
 class FeedCreationPage extends StatelessWidget {
    FeedCreationPage({
@@ -113,7 +113,7 @@ class FeedCreationPage extends StatelessWidget {
                   children: [
                     Container(
                       child: Text(fdp.getchooseFileType,
-                      style: theme.textTheme.bodyText2?.
+                      style: theme.textTheme.bodyMedium?.
                       copyWith(color: Colors.white),
                       ),
                     ),
@@ -647,7 +647,7 @@ class FeedCreationPage extends StatelessWidget {
               Text(fdp.getmediatype[index].type.toString(),
                   maxLines: 8,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: fdp.getselectedMedia ==
                             fdp.getmediatype[index].type.toString()
                         ? theme.primaryColor //,Colors.white

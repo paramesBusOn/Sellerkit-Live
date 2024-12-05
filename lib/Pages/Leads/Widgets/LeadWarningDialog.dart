@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../Controller/LeadController/LeadNewController.dart';
+import '../../../Controller/LeadController/leadnew_controller.dart';
 
 class LeadWarningDialog extends StatefulWidget {
   LeadWarningDialog({Key? key, }) : super(key: key);
@@ -72,7 +72,7 @@ class LeadWarningDialogState extends State<LeadWarningDialog> {
                     child: Text(
                   "This Customer has an open ${LeadNewController.typeOfLeadOrEnq} with ${LeadNewController.branchOfLeadOrEnq} branch..!!",
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                       //color:Colors.green
                       ),
                 )),
@@ -104,7 +104,7 @@ class LeadWarningDialogState extends State<LeadWarningDialog> {
                       child: Text(
                         "Cancel",
                         style:
-                            theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+                            theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
                       ),
                       style: ButtonStyle(
                           backgroundColor:
@@ -122,7 +122,7 @@ class LeadWarningDialogState extends State<LeadWarningDialog> {
                       child: Text(
                         "Open",
                         style:
-                            theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+                            theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
                       ),
                       style: ButtonStyle(
                           backgroundColor:

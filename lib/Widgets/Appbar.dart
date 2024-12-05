@@ -20,7 +20,7 @@ AppBar appbar(String titles,GlobalKey<ScaffoldState> key,ThemeData theme,BuildCo
       )),
       
         Container(child: Text(titles,
-        style:theme.textTheme.headline6?.copyWith(color: theme.primaryColor,fontWeight: FontWeight.normal),
+        style:theme.textTheme.titleLarge?.copyWith(color: theme.primaryColor,fontWeight: FontWeight.normal),
         ),),
 //     titles =="Stock List"? Container(
 //             // alignment: Alignment.center,

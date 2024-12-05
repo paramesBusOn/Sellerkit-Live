@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:sellerkit/DBModel/EnqTypeModel.dart';
+import 'package:sellerkit/DBModel/enqtype_model.dart';
 
 class GetLeadStatusModal {
   List<GetLeadStatusData>? leadcheckdata;

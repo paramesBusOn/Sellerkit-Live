@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../Controller/SettlementController/SettlementController.dart';
+import '../../../Controller/SettlementController/settlement_controller.dart';
 
 class DDAlertBox extends StatefulWidget {
   const DDAlertBox({Key? key, required this.indx,required this.name}) : super(key: key);
@@ -121,7 +121,7 @@ class DDAlertBoxState extends State<DDAlertBox> {
                           },
                           decoration: InputDecoration(
                             labelText: 'Settlement',
-                            labelStyle: theme.textTheme.bodyText1!
+                            labelStyle: theme.textTheme.bodyMedium!
                                 .copyWith(color: Colors.grey),
 
                             enabledBorder: UnderlineInputBorder(
@@ -158,7 +158,7 @@ class DDAlertBoxState extends State<DDAlertBox> {
                         },
                         decoration: InputDecoration(
                           labelText: 'Reference',
-                          labelStyle: theme.textTheme.bodyText1!
+                          labelStyle: theme.textTheme.bodyMedium!
                               .copyWith(color: Colors.grey),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(color: Colors.grey),

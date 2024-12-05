@@ -36,7 +36,7 @@ class _SettingsState extends State<Settings> {
                   children: [
                     Container(
                       child: Text("About Us",
-                      style: theme.textTheme.subtitle1?.copyWith(),
+                      style: theme.textTheme.titleMedium?.copyWith(),
                       ),
                     ),
                     Container(
@@ -60,7 +60,7 @@ class _SettingsState extends State<Settings> {
                   children: [
                     Container(
                       child: Text("Contact Us",
-                      style: theme.textTheme.subtitle1?.copyWith(),
+                      style: theme.textTheme.titleMedium?.copyWith(),
                       ),
                     ),
                     Container(
@@ -84,7 +84,7 @@ class _SettingsState extends State<Settings> {
                   children: [
                     Container(
                       child: Text("Help",
-                      style: theme.textTheme.subtitle1?.copyWith(),
+                      style: theme.textTheme.titleMedium?.copyWith(),
                       ),
                     ),
                     Container(
@@ -108,7 +108,7 @@ class _SettingsState extends State<Settings> {
                   children: [
                     Container(
                       child: Text("Privacy policy",
-                      style: theme.textTheme.subtitle1?.copyWith(),
+                      style: theme.textTheme.titleMedium?.copyWith(),
                       ),
                     ),
                     Container(
@@ -132,7 +132,7 @@ class _SettingsState extends State<Settings> {
                   children: [
                     Container(
                       child: Text("Themes",
-                      style: theme.textTheme.subtitle1?.copyWith(),
+                      style: theme.textTheme.titleMedium?.copyWith(),
                       ),
                     ),
                     Container(

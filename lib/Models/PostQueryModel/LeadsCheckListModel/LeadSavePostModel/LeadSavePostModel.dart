@@ -144,10 +144,16 @@ class PostLead
   String? U_sk_NextFollowDt;
   String? U_sk_planofpurchase;
   String? slpCode;
+    String? isvist;
+  String? sitedate;
+  String? remainderdate;
   int? enqID;
   List<DocumentLines>? docLine;
 
   PostLead({
+    this.isvist,
+    this.remainderdate,
+    this.sitedate,
     this.doctotal,
     this.docEntry,
     this.docnum,

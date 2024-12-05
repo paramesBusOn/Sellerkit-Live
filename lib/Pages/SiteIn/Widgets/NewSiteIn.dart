@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 // import 'package:sellerkit/Controller/EnquiryController/NewEnqController.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/SiteInController/newcreatesitein.dart';
+import '../../../Controller/SiteInController/newcreate_sitein.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 import 'ShowSearchDialog.dart';
@@ -768,7 +769,7 @@ class NewSiteInState extends State<NewSiteIn> {
                                                       child: Text(
                                                         "Enter Correct State",
                                                         style: theme.textTheme
-                                                            .bodyText2!
+                                                            .bodyMedium!
                                                             .copyWith(
                                                                 color:
                                                                     Colors.red,
@@ -936,7 +937,7 @@ class NewSiteInState extends State<NewSiteIn> {
                                                                   "${context.watch<createSiteInController>().filterstateData[i].stateName}",
                                                                   style: theme
                                                                       .textTheme
-                                                                      .bodyText1
+                                                                      .bodyMedium
                                                                       ?.copyWith(
                                                                           color:
                                                                               theme.primaryColor),

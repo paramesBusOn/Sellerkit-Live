@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/ReportsController/ReportsController.dart';
+import 'package:sellerkit/Controller/ReportsController/reports_controller.dart';
 // import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import '../../../../Constant/Screen.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';

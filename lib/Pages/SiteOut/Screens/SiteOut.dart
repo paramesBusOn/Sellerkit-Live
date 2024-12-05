@@ -9,17 +9,18 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Pages/SiteOut/Widgets/AssignToMeAlertBox.dart';
 import 'package:sellerkit/Pages/SiteOut/Widgets/userdialog.dart';
 // import 'package:sellerkit/Controller/EnquiryController/SiteOutController.dart';
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Constant/ShowSearchDialog.dart';
+import '../../../Constant/show_searchdialog.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/SiteOutController/SiteOutController.dart';
-import '../../../Controller/SiteOutController/SiteOutController.dart';
-import '../../../Controller/VisitplanController/NewVisitController.dart';
+import '../../../Controller/SiteOutController/siteout_controller.dart';
+import '../../../Controller/SiteOutController/siteout_controller.dart';
+import '../../../Controller/VisitplanController/newvisit_controller.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 import '../../VisitPlans/widgets/PurposeShowSearchDialog.dart';
@@ -106,6 +107,7 @@ class _SiteOutState extends State<SiteOut> {
                       }
                     },
                     child: Column(
+                      //
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
@@ -114,7 +116,7 @@ class _SiteOutState extends State<SiteOut> {
                           // color: Colors.amber,
                           child:context.watch<SiteOutController>().customerName==null||context.watch<SiteOutController>().customerName=='null'||context.watch<SiteOutController>().customerName!.isEmpty?Text(""): Text(
                             "${context.watch<SiteOutController>().customerName}",
-                            style: theme.textTheme.headline6
+                            style: theme.textTheme.titleLarge
                                 ?.copyWith(color: theme.primaryColor),
                           ),
                         ),
@@ -123,6 +125,7 @@ class _SiteOutState extends State<SiteOut> {
                           // height: Screens.bodyheight(context) * 0.9,
                           child: SingleChildScrollView(
                             child: Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 // TextFormField(
                                 //     controller: context
@@ -143,7 +146,7 @@ class _SiteOutState extends State<SiteOut> {
                                 //     decoration: InputDecoration(
                                 //       labelText: 'Customer',
                                 //       border: UnderlineInputBorder(),
-                                //       labelStyle: theme.textTheme.bodyText1!
+                                //       labelStyle: theme.textTheme.bodyMedium!
                                 //           .copyWith(color: Colors.grey),
                                 //       enabledBorder: UnderlineInputBorder(
                                 //         borderSide: BorderSide(color: Colors.grey),
@@ -178,7 +181,7 @@ class _SiteOutState extends State<SiteOut> {
                                     decoration: InputDecoration(
                                       labelText: 'Contact Name',
                                       border: UnderlineInputBorder(),
-                                      // labelStyle: theme.textTheme.bodyText1!
+                                      // labelStyle: theme.textTheme.bodyMedium!
                                       //     .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         // borderSide: BorderSide(color: Colors.grey),
@@ -214,7 +217,7 @@ class _SiteOutState extends State<SiteOut> {
                                     decoration: InputDecoration(
                                       labelText: 'Mobile No*',
                                       border: UnderlineInputBorder(),
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide(color: Colors.grey),
@@ -246,7 +249,7 @@ class _SiteOutState extends State<SiteOut> {
                                     decoration: InputDecoration(
                                       labelText: 'Location',
                                       border: UnderlineInputBorder(),
-                                      // labelStyle: theme.textTheme.bodyText1!
+                                      // labelStyle: theme.textTheme.bodyMedium!
                                       //     .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         // borderSide: BorderSide(color: Colors.grey),
@@ -547,110 +550,123 @@ class _SiteOutState extends State<SiteOut> {
                                     hintText: '',
                                   ),
                                 ),
-                                // SizedBox(
-                                //   height: Screens.bodyheight(context) * 0.015,
+                              //   SizedBox(
+                              //     height: Screens.bodyheight(context) * 0.015,
+                              //   ),
+                  
+                              // ConstantValues.leadchecklist!.toLowerCase() =='y'?   InkWell(
+
+                              //   onTap:(){
+                              //     context.read<SiteOutController>().checkpopup(context,theme);
+                              //   },
+                              //   child: Container(
+                              //       // height: Screens.bodyheight(context) * 0.02,
+                              //       width: Screens.width(context)*0.4,
+                              //       alignment: Alignment.centerLeft,
+                              //       decoration: BoxDecoration(
+                              //                           border: Border(
+                              //                             bottom: BorderSide(
+                              //                               color: theme.primaryColor
+                              //                             )
+                              //                           )
+                              //                         ),
+                              //       child: Text(
+                              //         " Site Visit CheckList",
+                              //         style: TextStyle(
+                              //           fontSize: 15,
+                              //             color: theme.primaryColor,
+                              //             fontWeight: FontWeight.bold),
+                              //       ),
+                              //     ),
+                              // ):Container(),
+                                // context
+                                //         .read<SiteOutController>()
+                                //         .getleadcheckdatas.isEmpty?Container():  Container(
+                                //   width: Screens.width(context),
+                                //   height: Screens.bodyheight(context) * 0.3,
+                                //   decoration: BoxDecoration(
+                                //       border: Border.all(color: theme.primaryColor),
+                                //       borderRadius: BorderRadius.circular(8)),
+                                //   child: ListView.builder(
+                                //     padding: EdgeInsets.only(
+                                //         bottom: Screens.bodyheight(context) * 0.02),
+                                //     itemCount: context
+                                //         .read<SiteOutController>()
+                                //         .getleadcheckdatas
+                                //         .length,
+                                //     itemBuilder: (BuildContext context, int index) {
+                                //       return InkWell(
+                                //         onTap: () {
+                                //           print("");
+                                //         },
+                                //         child: Container(
+                                //           width: Screens.width(context),
+                                //           padding: EdgeInsets.only(
+                                //             top: Screens.bodyheight(context) * 0.01,
+                                //             //  bottom: Screens.bodyheight(context) * 0.01,
+                                //             left: Screens.width(context) * 0.02,
+                                //             right: Screens.width(context) * 0.02,
+                                //           ),
+                                //           child: Column(
+                                //             children: [
+                                //               Row(children: [
+                                //                 SizedBox(
+                                //                   width:
+                                //                       Screens.width(context) * 0.7,
+                                //                   child: Text(
+                                //                     "${context.watch<SiteOutController>().getleadcheckdatas[index].Name}",
+                                //                     textAlign: TextAlign.left,
+                                //                   ),
+                                //                 ),
+                                //                 // Checkbox(
+                                //                 //     value: provi
+                                //                 //         .getleadcheckdatas[index].ischecked,
+                                //                 //     onChanged: (v) {
+                                //                 //       provi.LeadcheckListClicked(v, index);
+                                //                 //     })
+                  
+                                //                 FlutterSwitch(
+                                //                     showOnOff: true,
+                                //                     width: 60,
+                                //                     height: 25,
+                                //                     activeText: "Yes",
+                                //                     inactiveText: "No",
+                                //                     activeColor: theme.primaryColor,
+                                //                     value: context
+                                //                         .read<SiteOutController>()
+                                //                         .getleadcheckdatas[index]
+                                //                         .ischecked!,
+                                //                     onToggle: (val) {
+                                //                       // context.read<SiteOutController>().switchremainder(val);
+                                //                       //  print(val);
+                                //                       // setState(() {
+                                //                       //   switched = val;
+                                //                       //   reqfinance = "Y";
+                                //                       // });
+                                //                       context
+                                //                           .read<SiteOutController>()
+                                //                           .LeadcheckListClicked(
+                                //                               val, index);
+                                //                     })
+                                //               ]),
+                                //               SizedBox(
+                                //                 height:
+                                //                     Screens.bodyheight(context) *
+                                //                         0.01,
+                                //               ),
+                                //               Container(
+                                //                 decoration: BoxDecoration(
+                                //                     border: Border(
+                                //                         bottom: BorderSide(
+                                //                             color: Colors.grey))),
+                                //               ),
+                                //             ],
+                                //           ),
+                                //         ),
+                                //       );
+                                //     },
+                                //   ),
                                 // ),
-                  
-                              context
-                                        .read<SiteOutController>()
-                                        .getleadcheckdatas.isEmpty?Container():   Container(
-                                  height: Screens.bodyheight(context) * 0.05,
-                                  alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    " Site Visit CheckList",
-                                    style: TextStyle(
-                                        color: theme.primaryColor,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                context
-                                        .read<SiteOutController>()
-                                        .getleadcheckdatas.isEmpty?Container():  Container(
-                                  width: Screens.width(context),
-                                  height: Screens.bodyheight(context) * 0.3,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: theme.primaryColor),
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: ListView.builder(
-                                    padding: EdgeInsets.only(
-                                        bottom: Screens.bodyheight(context) * 0.02),
-                                    itemCount: context
-                                        .read<SiteOutController>()
-                                        .getleadcheckdatas
-                                        .length,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          print("");
-                                        },
-                                        child: Container(
-                                          width: Screens.width(context),
-                                          padding: EdgeInsets.only(
-                                            top: Screens.bodyheight(context) * 0.01,
-                                            //  bottom: Screens.bodyheight(context) * 0.01,
-                                            left: Screens.width(context) * 0.02,
-                                            right: Screens.width(context) * 0.02,
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              Row(children: [
-                                                SizedBox(
-                                                  width:
-                                                      Screens.width(context) * 0.7,
-                                                  child: Text(
-                                                    "${context.watch<SiteOutController>().getleadcheckdatas[index].Name}",
-                                                    textAlign: TextAlign.left,
-                                                  ),
-                                                ),
-                                                // Checkbox(
-                                                //     value: provi
-                                                //         .getleadcheckdatas[index].ischecked,
-                                                //     onChanged: (v) {
-                                                //       provi.LeadcheckListClicked(v, index);
-                                                //     })
-                  
-                                                FlutterSwitch(
-                                                    showOnOff: true,
-                                                    width: 60,
-                                                    height: 25,
-                                                    activeText: "Yes",
-                                                    inactiveText: "No",
-                                                    activeColor: theme.primaryColor,
-                                                    value: context
-                                                        .read<SiteOutController>()
-                                                        .getleadcheckdatas[index]
-                                                        .ischecked!,
-                                                    onToggle: (val) {
-                                                      // context.read<SiteOutController>().switchremainder(val);
-                                                      //  print(val);
-                                                      // setState(() {
-                                                      //   switched = val;
-                                                      //   reqfinance = "Y";
-                                                      // });
-                                                      context
-                                                          .read<SiteOutController>()
-                                                          .LeadcheckListClicked(
-                                                              val, index);
-                                                    })
-                                              ]),
-                                              SizedBox(
-                                                height:
-                                                    Screens.bodyheight(context) *
-                                                        0.01,
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    border: Border(
-                                                        bottom: BorderSide(
-                                                            color: Colors.grey))),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
                                 SizedBox(
                                   height: Screens.bodyheight(context) * 0.015,
                                 ),
@@ -675,7 +691,7 @@ class _SiteOutState extends State<SiteOut> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text('Attachment',
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: context
                                                       .read<SiteOutController>()
                                                       .fileValidation ==
@@ -847,7 +863,7 @@ class _SiteOutState extends State<SiteOut> {
                                               Center(
                                                   child: Text(
                                                 "No Files Selected",
-                                                style: theme.textTheme.bodyText1!
+                                                style: theme.textTheme.bodyMedium!
                                                     .copyWith(
                                                         color: context
                                                                     .read<
@@ -1335,7 +1351,7 @@ class _SiteOutState extends State<SiteOut> {
                                 //                 MainAxisAlignment.spaceBetween,
                                 //             children: [
                                 //               Text('Attachment',
-                                //                   style: theme.textTheme.subtitle1
+                                //                   style: theme.textTheme.titleMedium
                                 //                       ?.copyWith(
                                 //                           color: context
                                 //                                       .read<
@@ -1529,7 +1545,7 @@ class _SiteOutState extends State<SiteOut> {
                                 //                               child: Text(
                                 //                             "No Files Selected",
                                 //                             style: theme.textTheme
-                                //                                 .bodyText1!
+                                //                                 .bodyMedium!
                                 //                                 .copyWith(
                                 //                                     color: context
                                 //                                                 .read<
@@ -1987,7 +2003,7 @@ class _SiteOutState extends State<SiteOut> {
                                 //     decoration: InputDecoration(
                                 //         labelText: 'Next Visit On', //
                                 //         border: UnderlineInputBorder(),
-                                //         labelStyle: theme.textTheme.bodyText1!
+                                //         labelStyle: theme.textTheme.bodyMedium!
                                 //             .copyWith(color: Colors.grey),
                                 //         enabledBorder: UnderlineInputBorder(
                                 //           borderSide:
@@ -2029,9 +2045,9 @@ class _SiteOutState extends State<SiteOut> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Required SiteVisit",
+                                                    "Required Sitevisit",
                                                     style: theme
-                                                        .textTheme.bodyText1
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             color: theme.primaryColor),
                                                   ),
@@ -2126,7 +2142,7 @@ class _SiteOutState extends State<SiteOut> {
                                                           cursorColor:
                                                               Colors.grey,
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   backgroundColor:
                                                                       Colors
@@ -2288,7 +2304,7 @@ class _SiteOutState extends State<SiteOut> {
                                                           cursorColor:
                                                               Colors.grey,
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   backgroundColor:
                                                                       Colors
@@ -2622,7 +2638,7 @@ class _SiteOutState extends State<SiteOut> {
                                 //         decoration: InputDecoration(
                                 //             labelText: 'Next Followup Date', //
                                 //             border: UnderlineInputBorder(),
-                                //             labelStyle: theme.textTheme.bodyText1!
+                                //             labelStyle: theme.textTheme.bodyMedium!
                                 //                 .copyWith(color: Colors.grey),
                                 //             enabledBorder: UnderlineInputBorder(
                                 //               borderSide:

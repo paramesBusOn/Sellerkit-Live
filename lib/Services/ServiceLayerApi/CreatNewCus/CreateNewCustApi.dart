@@ -7,8 +7,9 @@ import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetLeadCheck
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/LeadSavePostModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/Configuration.dart';
-import '../../../Constant/ConstantSapValues.dart';
-import '../../../Models/AddEnqModel/AddEnqModel.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import '../../../Models/AddEnqModel/addenq_model.dart';
 import '../../../Models/PostQueryModel/EnquiriesModel/CustomerCreationModel.dart';
 
 class NewCustCretApi {
@@ -20,7 +21,7 @@ class NewCustCretApi {
 
     try {
       log("Token::" + ConstantValues.token.toString());
-      log("Token::" + ConstantValues.EncryptedSetup.toString());
+      log("Token::" + Url.queryApi.toString());
       Config config = Config();
       // await config.getSetup();
       final response = await http.post(
@@ -31,82 +32,125 @@ class NewCustCretApi {
             "Location": '${ConstantValues.EncryptedSetup}'
           },
           body: jsonEncode({
-           "interestLevel":patch.levelof==null?null:"${patch.levelof}",
-           "orderType":patch.ordertype==null?null:"${patch.ordertype}",
+            "interestLevel": patch.levelof == null ? null : "${patch.levelof}",
+            "orderType": patch.ordertype == null ? null : "${patch.ordertype}",
             "leadDate": "${config.currentDate()}",
             "customerCode": "${patch.CardCode}",
             "customerName": "${patch.CardName!.replaceAll("'", "''")}",
             "customerMobile": "${patch.CardCode}",
-            "customerEmail": patch.U_EMail==null?null:"${patch.U_EMail!.replaceAll("'", "''")}",
-            "alternateMobileNo": patch.altermobileNo==null?null:"${patch.altermobileNo}",
-            "contactName": patch.cantactName==null?null:"${patch.cantactName!.replaceAll("'", "''")}",
-            "baseid":patch. enqid,
+            "customerEmail": patch.U_EMail == null
+                ? null
+                : "${patch.U_EMail!.replaceAll("'", "''")}",
+            "alternateMobileNo":
+                patch.altermobileNo == null ? null : "${patch.altermobileNo}",
+            "contactName": patch.cantactName == null
+                ? null
+                : "${patch.cantactName!.replaceAll("'", "''")}",
+            "baseid": patch.enqid,
             "companyName": null,
-            "customerGroup":patch.U_Type==null?null: "${patch.U_Type}",
+            "customerGroup": patch.U_Type == null ? null : "${patch.U_Type}",
             "storeCode": ConstantValues.Storecode,
-            "address1": patch.U_Address1==null?null:"${patch.U_Address1!.replaceAll("'", "''")}",
-            "address2":patch.U_Address2==null?null: "${patch.U_Address2!.replaceAll("'", "''")}",
-            "area": patch.area==null?null:"${patch.area!.replaceAll("'", "''")}",
-            "city": patch.U_City==null?null:"${patch.U_City!.replaceAll("'", "''")}",
+            "address1": patch.U_Address1 == null
+                ? null
+                : "${patch.U_Address1!.replaceAll("'", "''")}",
+            "address2": patch.U_Address2 == null
+                ? null
+                : "${patch.U_Address2!.replaceAll("'", "''")}",
+            "area": patch.area == null
+                ? null
+                : "${patch.area!.replaceAll("'", "''")}",
+            "city": patch.U_City == null
+                ? null
+                : "${patch.U_City!.replaceAll("'", "''")}",
             "district": null,
-            "state": patch.U_State==null?null: "${patch.U_State}",
+            "state": patch.U_State == null ? null : "${patch.U_State}",
             "country": "${patch.U_Country}",
-      "pincode":patch.U_Pincode==null?null :int.parse(patch.U_Pincode.toString()),
-           
-            "gender":postLead!.U_sk_gender==null?null: "${postLead.U_sk_gender}",
+            "pincode": patch.U_Pincode == null
+                ? null
+                : int.parse(patch.U_Pincode.toString()),
+            "gender": postLead!.U_sk_gender == null
+                ? null
+                : "${postLead.U_sk_gender}",
             "headcount": int.parse(postLead.U_sk_headcount.toString()),
             "maxbudget": int.parse(postLead.U_sk_budget.toString()),
-            "ageGroup":postLead.U_sk_Agegroup==null?null: "${postLead.U_sk_Agegroup}",
-            "cameAs":postLead.U_sk_cameas==null?null: "${postLead.U_sk_cameas}",
-            "assignedTo":null,
+            "ageGroup": postLead.U_sk_Agegroup == null
+                ? null
+                : "${postLead.U_sk_Agegroup}",
+            "cameAs":
+                postLead.U_sk_cameas == null ? null : "${postLead.U_sk_cameas}",
+            "assignedTo": null,
             "refferal": "${postLead.U_sk_Referals}",
             "purchasePlan": "${postLead.U_sk_planofpurchase}",
             "nextFollowupDate": "${postLead.U_sk_NextFollowDt}",
             "enquiryDescription": null,
+            "isVisitRequired": "${postLead.isvist}",
+            "visitTime":postLead.sitedate == null ? null :  "${postLead.sitedate}",
+            "remindOn": postLead.remainderdate == null ? null : "${postLead.remainderdate}",
             "leadLines": postLead.docLine!.map((e) => e.tojason2()).toList(),
             "checkList": leadCheckData.map((e) => e.tojson3()).toList()
           }));
       print("body Lead:" +
           jsonEncode({
-           
-        "interestLevel":patch.levelof==null?null:"${patch.levelof}",
-           "orderType":patch.ordertype==null?null:"${patch.ordertype}",
+            "interestLevel": patch.levelof == null ? null : "${patch.levelof}",
+            "orderType": patch.ordertype == null ? null : "${patch.ordertype}",
             "leadDate": "${config.currentDate()}",
             "customerCode": "${patch.CardCode}",
-            "customerName": "${patch.CardName}",
+            "customerName": "${patch.CardName!.replaceAll("'", "''")}",
             "customerMobile": "${patch.CardCode}",
-            "customerEmail": patch.U_EMail==null?null:"${patch.U_EMail}",
-            "alternateMobileNo": patch.altermobileNo==null?null:"${patch.altermobileNo}",
-            "contactName": patch.cantactName==null?null:"${patch.cantactName}",
-            "baseid":patch. enqid,
+            "customerEmail": patch.U_EMail == null
+                ? null
+                : "${patch.U_EMail!.replaceAll("'", "''")}",
+            "alternateMobileNo":
+                patch.altermobileNo == null ? null : "${patch.altermobileNo}",
+            "contactName": patch.cantactName == null
+                ? null
+                : "${patch.cantactName!.replaceAll("'", "''")}",
+            "baseid": patch.enqid,
             "companyName": null,
-            "customerGroup":patch.U_Type==null?null: "${patch.U_Type}",
+            "customerGroup": patch.U_Type == null ? null : "${patch.U_Type}",
             "storeCode": ConstantValues.Storecode,
-            "address1": patch.U_Address1==null?null:"${patch.U_Address1}",
-            "address2":patch.U_Address2==null?null: "${patch.U_Address2}",
-            "area": patch.area==null?null:"${patch.area}",
-            "city": patch.U_City==null?null:"${patch.U_City}",
+            "address1": patch.U_Address1 == null
+                ? null
+                : "${patch.U_Address1!.replaceAll("'", "''")}",
+            "address2": patch.U_Address2 == null
+                ? null
+                : "${patch.U_Address2!.replaceAll("'", "''")}",
+            "area": patch.area == null
+                ? null
+                : "${patch.area!.replaceAll("'", "''")}",
+            "city": patch.U_City == null
+                ? null
+                : "${patch.U_City!.replaceAll("'", "''")}",
             "district": null,
-            "state": patch.U_State==null?null: "${patch.U_State}",
+            "state": patch.U_State == null ? null : "${patch.U_State}",
             "country": "${patch.U_Country}",
-      "pincode":patch.U_Pincode==null?null :int.parse(patch.U_Pincode.toString()),
-           
-            "gender":postLead.U_sk_gender==null?null: "${postLead.U_sk_gender}",
+            "pincode": patch.U_Pincode == null
+                ? null
+                : int.parse(patch.U_Pincode.toString()),
+            "gender": postLead!.U_sk_gender == null
+                ? null
+                : "${postLead.U_sk_gender}",
             "headcount": int.parse(postLead.U_sk_headcount.toString()),
             "maxbudget": int.parse(postLead.U_sk_budget.toString()),
-            "ageGroup":postLead.U_sk_Agegroup==null?null: "${postLead.U_sk_Agegroup}",
-            "cameAs":postLead.U_sk_cameas==null?null: "${postLead.U_sk_cameas}",
-            "assignedTo":null,
+            "ageGroup": postLead.U_sk_Agegroup == null
+                ? null
+                : "${postLead.U_sk_Agegroup}",
+            "cameAs":
+                postLead.U_sk_cameas == null ? null : "${postLead.U_sk_cameas}",
+            "assignedTo": null,
             "refferal": "${postLead.U_sk_Referals}",
             "purchasePlan": "${postLead.U_sk_planofpurchase}",
             "nextFollowupDate": "${postLead.U_sk_NextFollowDt}",
             "enquiryDescription": null,
-            "leadLines": postLead.docLine!.map((e) => e.tojason2()).toList(),
+            "isVisitRequired": "${postLead.isvist}",
+            "visitTime": postLead.sitedate == null ? null : "${postLead.sitedate}",
+            "remindOn": postLead.remainderdate == null ? null : "${postLead.remainderdate}",
+            // "leadLines": postLead.docLine!.map((e) => e.tojason2()).toList(),
             "checkList": leadCheckData.map((e) => e.tojson3()).toList()
           }).toString());
       resCode = response.statusCode;
       print("New Customer ::" + response.statusCode.toString());
-      // log("New Customer response::" + json.decode(response.body).toString());
+      log("New Customer response::" + json.decode(response.body).toString());
       if (response.statusCode >= 200 && response.statusCode <= 210) {
         log("datain");
         return NewCustomerEnqValue.fromJson(
@@ -119,7 +163,8 @@ class NewCustCretApi {
             json.decode(response.body), response.statusCode);
       } else {
         // throw Exception("Error");
-        return NewCustomerEnqValue.issue(json.decode(response.body), response.statusCode);
+        return NewCustomerEnqValue.issue(
+            json.decode(response.body), response.statusCode);
       }
     } catch (e) {
       print("Exception: " + e.toString());
@@ -148,7 +193,6 @@ class NewCustCretApi {
 //               })
 
 //old Code
-// ignore_for_file: prefer_interpolation_to_compose_strings, unnecessary_string_interpolations, avoid_print
 
 // import 'dart:convert';
 // import 'dart:developer';
@@ -156,7 +200,8 @@ class NewCustCretApi {
 // import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/LeadSavePostModel.dart';
 // import 'package:sellerkit/Services/URL/LocalUrl.dart';
 // import '../../../Constant/Configuration.dart';
-// import '../../../Constant/ConstantSapValues.dart';
+// 
+// import 'package:sellerkit/Constant/constant_sapvalues.dart';
 // import '../../../Models/AddEnqModel/AddEnqModel.dart';
 // import '../../../Models/PostQueryModel/EnquiriesModel/CustomerCreationModel.dart';
 

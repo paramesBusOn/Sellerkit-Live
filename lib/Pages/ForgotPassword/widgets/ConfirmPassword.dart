@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/ForgotPasswordController/ForgotPasswordController.dart';
-import 'package:sellerkit/Controller/LoginController/LoginController.dart';
+import 'package:sellerkit/Controller/ForgotPasswordController/forgotpassword_controller.dart';
+import 'package:sellerkit/Controller/LoginController/login_controller.dart';
 import 'package:sellerkit/Pages/Splash/Widgets/custom_elevatedBtn.dart';
 
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
 import '../../../Widgets/custom_shake_transtition.dart';
@@ -55,7 +55,7 @@ class _ForgotConfirmPasswordPageState extends State<ForgotConfirmPasswordPage> {
                               CustomShakeTransition(
                                 child: Text(
                                   "New Password",
-                                  style: theme.textTheme.headline6
+                                  style: theme.textTheme.titleLarge
                                       ?.copyWith(color: theme.primaryColor),
                                   maxLines: 1,
                                 ),
@@ -121,7 +121,7 @@ class _ForgotConfirmPasswordPageState extends State<ForgotConfirmPasswordPage> {
                               CustomShakeTransition(
                                 child: Text(
                                   "Confirm Password",
-                                  style: theme.textTheme.headline6
+                                  style: theme.textTheme.titleLarge
                                       ?.copyWith(color: theme.primaryColor),
                                   maxLines: 1,
                                 ),

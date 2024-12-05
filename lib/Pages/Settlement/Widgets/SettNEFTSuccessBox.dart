@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdf.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/SettlementPdfHelper.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Controller/SettlementController/SettlementController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import '../../../Controller/SettlementController/settlement_controller.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderCheckListPost.dart';
 import '../../../Models/SettlementModel/SettlementPostModel.dart';
 import '../../../Widgets/Appbar.dart';
@@ -99,7 +99,7 @@ class SettlementSuccessDDState extends State<SettlementSuccessDD> {
                               child: Text(
                             "Settlement Created Successfully",
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           )),
                         ),
@@ -113,7 +113,7 @@ class SettlementSuccessDDState extends State<SettlementSuccessDD> {
                           child: Center(
                               child: Text(
                             "Settlement Receipt #${widget.settlemaster!.DocNum}",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ),
@@ -127,7 +127,7 @@ class SettlementSuccessDDState extends State<SettlementSuccessDD> {
                         //   child: Center(
                         //       child: Text(
                         //     "${context.read<NewCollectionContoller>().mycontroller[1].text.toString()}",
-                        //     style: theme.textTheme.bodyText2,
+                        //     style: theme.textTheme.bodyMedium,
                         //     textAlign: TextAlign.center,
                         //   )),
                         // ),
@@ -141,7 +141,7 @@ class SettlementSuccessDDState extends State<SettlementSuccessDD> {
                           child: Center(
                               child: Text(
                             "NEFT Amount Rs.${widget.settlemaster!.Amount.toStringAsFixed(2)}",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ),
@@ -179,7 +179,7 @@ class SettlementSuccessDDState extends State<SettlementSuccessDD> {
                         //         },
                         //         child: Text(
                         //           "Print Receipt ",
-                        //           style: theme.textTheme.bodyText2!.copyWith(
+                        //           style: theme.textTheme.bodyMedium!.copyWith(
                         //               decoration: TextDecoration.underline),
                         //           textAlign: TextAlign.center,
                         //         ),
@@ -230,7 +230,7 @@ class SettlementSuccessDDState extends State<SettlementSuccessDD> {
                         //   child: Center(
                         //       child: Text(
                         //     "Delivery Date "+config.alignDate(getsuccessRes!.U_sk_NextFollowDt!).toString(),
-                        //     style: theme.textTheme.bodyText2,
+                        //     style: theme.textTheme.bodyMedium,
                         //     textAlign: TextAlign.center,
                         //   )),
                         // ),
@@ -324,7 +324,7 @@ class SettlementSuccessDDState extends State<SettlementSuccessDD> {
       (index) => Container(
           width: Screens.width(context),
           child: Text(data[index].ItemDescription.toString(),
-              textAlign: TextAlign.center, style: theme.textTheme.bodyText2)),
+              textAlign: TextAlign.center, style: theme.textTheme.bodyMedium)),
     );
   }
 }

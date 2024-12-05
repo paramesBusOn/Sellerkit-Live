@@ -9,13 +9,14 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Pages/SiteOut/Widgets/AssignToMeAlertBox.dart';
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Constant/ShowSearchDialog.dart';
+import '../../../Constant/show_searchdialog.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/LeaveReqController/LeaveReqController.dart';
+import '../../../Controller/LeaveReqController/leavereq_controller.dart';
 // import '../../../Controller/VisitplanController/NewVisitController.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
@@ -115,7 +116,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                               //     decoration: InputDecoration(
                               //       labelText: 'Customer',
                               //       border: UnderlineInputBorder(),
-                              //       labelStyle: theme.textTheme.bodyText1!
+                              //       labelStyle: theme.textTheme.bodyMedium!
                               //           .copyWith(color: Colors.grey),
                               //       enabledBorder: UnderlineInputBorder(
                               //         borderSide: BorderSide(color: Colors.grey),
@@ -151,7 +152,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                   decoration: InputDecoration(
                                     labelText: 'Emp Name',
                                     border: UnderlineInputBorder(),
-                                    // labelStyle: theme.textTheme.bodyText1!
+                                    // labelStyle: theme.textTheme.bodyMedium!
                                     //     .copyWith(color: Colors.grey),
                                     enabledBorder: UnderlineInputBorder(
                                         // borderSide: BorderSide(color: Colors.grey),
@@ -316,7 +317,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                               decoration: InputDecoration(
                                                 labelText: 'Leave type',
                                                 labelStyle: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(color: Colors.grey),
                 
                                                 enabledBorder:
@@ -340,6 +341,8 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                               items: <String>[
                                                 "Casual Leave",
                                                 "Emergency Leave",
+                                                "Paid Leave",
+                                                "Medical Leave"
                                               ].map((String value) {
                                                 return DropdownMenuItem(
                                                     value: value,
@@ -388,7 +391,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                         border:
                                                             UnderlineInputBorder(),
                                                         labelStyle: theme
-                                                            .textTheme.bodyText1!
+                                                            .textTheme.bodyMedium!
                                                             .copyWith(
                                                                 color:
                                                                     Colors.grey),
@@ -471,7 +474,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                         border:
                                                             UnderlineInputBorder(),
                                                         labelStyle: theme
-                                                            .textTheme.bodyText1!
+                                                            .textTheme.bodyMedium!
                                                             .copyWith(
                                                                 color:
                                                                     Colors.grey),
@@ -506,7 +509,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                   child: Text(
                                                     "Choose Start Date",
                                                     style: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.red),
                                                   ),
@@ -523,7 +526,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                       child: Text(
                                                         "Choose Greater than Start Date",
                                                         style: theme
-                                                            .textTheme.bodyText1!
+                                                            .textTheme.bodyMedium!
                                                             .copyWith(
                                                                 color:
                                                                     Colors.red),
@@ -539,7 +542,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                             width: Screens.width(context),
                                             child: Text(
                                               "No Of Leave Request Days : ${context.watch<LeaveReqContoller>().noOfDays().toString()}",
-                                              style: theme.textTheme.bodyText1,
+                                              style: theme.textTheme.bodyMedium,
                                             ),
                                           ),
                                           SizedBox(
@@ -608,7 +611,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                         border:
                                                             UnderlineInputBorder(),
                                                         labelStyle: theme
-                                                            .textTheme.bodyText1!
+                                                            .textTheme.bodyMedium!
                                                             .copyWith(
                                                                 color:
                                                                     Colors.grey),
@@ -726,7 +729,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                               //   width: Screens.width(context),
                                               //   child: Text(
                                               //     "No Of Leave Request Days",
-                                              //     style: theme.textTheme.bodyText1,
+                                              //     style: theme.textTheme.bodyMedium,
                                               //   ),
                                               // ),
                                             ],
@@ -789,7 +792,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                                     UnderlineInputBorder(),
                                                                 labelStyle: theme
                                                                     .textTheme
-                                                                    .bodyText1!
+                                                                    .bodyMedium!
                                                                     .copyWith(
                                                                         color: Colors
                                                                             .grey),
@@ -904,7 +907,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                                 },
                 
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   backgroundColor:
                                                                       Colors
@@ -919,7 +922,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                                 UnderlineInputBorder(),
                                                             labelStyle: theme
                                                                 .textTheme
-                                                                .bodyText1!
+                                                                .bodyMedium!
                                                                 .copyWith(
                                                                     color: Colors
                                                                         .grey),
@@ -1022,7 +1025,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                           // autofocus: true,
                                                           readOnly: true,
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   backgroundColor:
                                                                       Colors
@@ -1037,7 +1040,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                                                 UnderlineInputBorder(),
                                                             labelStyle: theme
                                                                 .textTheme
-                                                                .bodyText1!
+                                                                .bodyMedium!
                                                                 .copyWith(
                                                                     color: Colors
                                                                         .grey),
@@ -1272,7 +1275,7 @@ class _LeaveReqPageState extends State<LeaveReqPage> {
                                   decoration: InputDecoration(
                                     labelText: 'Manager Name',
                                     border: UnderlineInputBorder(),
-                                    labelStyle: theme.textTheme.bodyText1!
+                                    labelStyle: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.grey),
                                     enabledBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(color: Colors.grey),

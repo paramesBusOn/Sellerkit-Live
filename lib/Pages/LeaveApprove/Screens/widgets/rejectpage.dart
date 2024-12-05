@@ -3,10 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/LeaveApproveController/LeaveApproveController.dart';
+import 'package:sellerkit/Controller/LeaveApproveController/leaveapprove_controller.dart';
 
 class rejectpage extends StatefulWidget {
    rejectpage({Key? key, required this.theme,}) : super(key: key);
@@ -166,7 +167,7 @@ class _rejectpageState extends State<rejectpage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Name",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -175,7 +176,7 @@ class _rejectpageState extends State<rejectpage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "User Code",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -189,7 +190,7 @@ class _rejectpageState extends State<rejectpage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "${context.read<LeaveApproveContoller>().leaveRejectsdetails[i].userName}",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: widget.theme.primaryColor),
                                       ),
                                     ),
@@ -198,7 +199,7 @@ class _rejectpageState extends State<rejectpage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "${context.read<LeaveApproveContoller>().leaveRejectsdetails[i].userCode}",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color:widget.theme.primaryColor),
                                       ),
                                     ),
@@ -214,7 +215,7 @@ class _rejectpageState extends State<rejectpage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Leave Type",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -223,7 +224,7 @@ class _rejectpageState extends State<rejectpage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Date",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -237,7 +238,7 @@ class _rejectpageState extends State<rejectpage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "${context.read<LeaveApproveContoller>().leaveRejectsdetails[i].leaveRequestType}",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: widget.theme.primaryColor),
                                       ),
                                     ),
@@ -246,7 +247,7 @@ class _rejectpageState extends State<rejectpage> {
                                       width: Screens.width(context) * 0.45,
                                       child: Text(
                                         "${context.read<LeaveApproveContoller>().config.alignDate(context.read<LeaveApproveContoller>().leaveRejectsdetails[i].startDate.toString()) }",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color:widget.theme.primaryColor),
                                       ),
                                     ),
@@ -262,7 +263,7 @@ class _rejectpageState extends State<rejectpage> {
                                       //     width: Screens.width(context) * 0.4,
                                       //     child: Text(
                                       //       "${context.read<LeaveReqContoller>().getallleavereqdetails[i].leaveRequestType}",
-                                      //       style: theme.textTheme.bodyText2
+                                      //       style: theme.textTheme.bodyMedium
                                       //           ?.copyWith(color: theme.primaryColor),
                                       //     ),
                                       //   ),
@@ -283,7 +284,7 @@ class _rejectpageState extends State<rejectpage> {
                                           child:
                                            Text(
                                               "Rejected",
-                                              style:widget. theme.textTheme.bodyText2?.copyWith(
+                                              style:widget. theme.textTheme.bodyMedium?.copyWith(
                                                   color: Colors.green[700],
                                                   fontSize: 12
                                                  // fontWeight: FontWeight.bold
@@ -340,7 +341,7 @@ class _rejectpageState extends State<rejectpage> {
                             //                   "${context.read<LeaveApproveContoller>().leaveRejectsdetails[i].empId}",
                             //                   // "${AccountsData[i].cardname}",
                             //                   // "${prdACC.getAccountsDataFilter[i].cardname}",
-                            //                   style: theme.textTheme.bodyText1
+                            //                   style: theme.textTheme.bodyMedium
                             //                       ?.copyWith(),
                             //                 ),
                             //               ),
@@ -379,7 +380,7 @@ class _rejectpageState extends State<rejectpage> {
                             //                   width: Screens.width(context) * 0.4,
                             //                   child: Text(
                             //                     "${context.read<LeaveApproveContoller>().leaveRejectsdetails[i].leaveType}",
-                            //                     style: theme.textTheme.bodyText1
+                            //                     style: theme.textTheme.bodyMedium
                             //                         ?.copyWith(),
                             //                   ),
                             //                 ),

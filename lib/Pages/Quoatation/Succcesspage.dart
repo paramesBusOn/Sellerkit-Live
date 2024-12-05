@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
+import 'package:sellerkit/Controller/QuotationController/newquote_controller.dart';
 import 'package:sellerkit/Models/QuoteModel/quotemodel.dart';
 import 'package:sellerkit/Pages/Quoatation/tabquote/widgets/pdfqoute.dart';
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -103,7 +103,7 @@ class QuotesSuccessPageState extends State<QuotesSuccessPage> {
                                     child: Text(
                                   "Quotation Created Successfully",
                                   textAlign: TextAlign.center,
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.grey),
                                 )),
                               ),
@@ -117,7 +117,7 @@ class QuotesSuccessPageState extends State<QuotesSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "Quotes Entry #${getsuccessRes!.orderSavePostheader!.orderMasterdata![0].DocNo.toString()}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -131,7 +131,7 @@ class QuotesSuccessPageState extends State<QuotesSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "${getsuccessRes!.orderSavePostheader!.orderMasterdata![0].CardName}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -145,7 +145,7 @@ class QuotesSuccessPageState extends State<QuotesSuccessPage> {
                                 child: Center(
                                     child: Text(
                                   "${getsuccessRes!.orderSavePostheader!.orderMasterdata![0].CardCode}",
-                                  style: theme.textTheme.bodyText2,
+                                  style: theme.textTheme.bodyMedium,
                                   textAlign: TextAlign.center,
                                 )),
                               ),
@@ -159,7 +159,7 @@ class QuotesSuccessPageState extends State<QuotesSuccessPage> {
                               //   child: Center(
                               //       child: Text(
                               //     "${getsuccessRes!.U_sk_email}",
-                              //     style: theme.textTheme.bodyText2,
+                              //     style: theme.textTheme.bodyMedium,
                               //     textAlign: TextAlign.center,
                               //   )),
                               // ),
@@ -198,7 +198,7 @@ class QuotesSuccessPageState extends State<QuotesSuccessPage> {
                               //             .aligndateorder(
                               //                 getsuccessRes!.orderSavePostheader!.orderMasterdata![0].U_sk_NextFollowDt!)
                                           
-                              //   ,  style: theme.textTheme.bodyText2,
+                              //   ,  style: theme.textTheme.bodyMedium,
                               //     textAlign: TextAlign.center,
                               //   )),
                               // ),
@@ -322,7 +322,7 @@ class QuotesSuccessPageState extends State<QuotesSuccessPage> {
           width: Screens.width(context),
           
           child: Text(data[index].ItemDescription.toString(),
-              textAlign: TextAlign.center, style: theme.textTheme.bodyText2)),
+              textAlign: TextAlign.center, style: theme.textTheme.bodyMedium)),
     );
   }
 }

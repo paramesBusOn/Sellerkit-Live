@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sellerkit/Models/challengeModel/challenge_model.dart';
 
 import '../../../Constant/Configuration.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Models/ChallengeModel/challengemodel.dart';
 
 class challengedesc extends StatefulWidget {
    challengedesc({Key? key,required this.pardata,}) : super(key: key);
@@ -58,7 +58,7 @@ class _challengedescState extends State<challengedesc> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Challenge ID", style: theme.textTheme.bodyText1
+                            Text("Challenge ID", style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor),),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -75,7 +75,7 @@ class _challengedescState extends State<challengedesc> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           // mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("Item code", style: theme.textTheme.bodyText1
+                            Text("Item code", style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor),),
                           Container(
                             alignment: Alignment.topRight,
@@ -99,7 +99,7 @@ class _challengedescState extends State<challengedesc> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Brand", style: theme.textTheme.bodyText1
+                            Text("Brand", style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor),),
                           Text(
                                   "${widget.pardata.challengeproductlist![ind].brand}",
@@ -112,7 +112,7 @@ class _challengedescState extends State<challengedesc> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("Quantity", style: theme.textTheme.bodyText1
+                            Text("Quantity", style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor),),
                           Container(
                             alignment: Alignment.centerRight,
@@ -136,7 +136,7 @@ class _challengedescState extends State<challengedesc> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Catagory", style: theme.textTheme.bodyText1
+                            Text("Catagory", style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor),),
                           Text(
                                   "${widget.pardata.challengeproductlist![ind].catagory}",
@@ -149,7 +149,7 @@ class _challengedescState extends State<challengedesc> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("SubCatagory", style: theme.textTheme.bodyText1
+                            Text("SubCatagory", style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor),),
                           Container(
                             alignment: Alignment.centerRight,
@@ -172,7 +172,7 @@ class _challengedescState extends State<challengedesc> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Incentive", style: theme.textTheme.bodyText1
+                            Text("Incentive", style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor),),
                           Text(
                                   "${widget.pardata.challengeproductlist![ind].incentive}",
@@ -185,7 +185,7 @@ class _challengedescState extends State<challengedesc> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text("Challenge", style: theme.textTheme.bodyText1
+                            Text("Challenge", style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: theme.primaryColor),),
                           Container(
                             // color: Colors.amber,
@@ -236,7 +236,7 @@ class _challengedescState extends State<challengedesc> {
                         width: Screens.width(context) * 0.5,
                         child: Text(
                           "${config2.alignmeetingdate333("${widget.pardata.createdon}")}",
-                          style: theme.textTheme.bodyText1
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.white),
                         ),
                       ),
@@ -249,7 +249,7 @@ class _challengedescState extends State<challengedesc> {
                       //   child: 
                       //   Text(
                       //     "${popvalues2[i].incentive}",
-                      //     style: theme.textTheme.bodyText1
+                      //     style: theme.textTheme.bodyMedium
                       //         ?.copyWith(color: Colors.white),
                       //   ),
                       // ),

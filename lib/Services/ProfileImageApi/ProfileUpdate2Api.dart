@@ -2,9 +2,10 @@
 
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'dart:convert';
-import 'package:sellerkit/Constant/DataBaseConfig.dart';
+import 'package:sellerkit/Constant/database_config.dart';
 import 'package:sellerkit/Models/NewProfileModel/ProfileUpdate2Model.dart';
 // import 'package:sellerkit/main.dart';
 

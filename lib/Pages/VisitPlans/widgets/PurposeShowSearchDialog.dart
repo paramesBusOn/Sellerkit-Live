@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../Controller/VisitplanController/NewVisitController.dart';
+import '../../../Controller/VisitplanController/newvisit_controller.dart';
 
 class VisitPlanShowDialog extends StatefulWidget {
   const VisitPlanShowDialog({Key? key}) : super(key: key);

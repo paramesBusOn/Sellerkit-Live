@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
+import 'package:sellerkit/DBModel/itemmasertdb_model.dart';
 
 class ItemviewNewModal {
   ItemMasterNewDataheader? itemdatahead;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/ReportsController/ReportsController.dart';
+import 'package:sellerkit/Controller/ReportsController/reports_controller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../Constant/Configuration.dart';

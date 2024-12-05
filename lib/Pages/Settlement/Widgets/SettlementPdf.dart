@@ -27,7 +27,7 @@ class SettlementPdfState extends State<SettlementPdf> {
         backgroundColor: theme.primaryColor,
         title: Text(
           'Settlement',
-          style: theme.textTheme.bodyText1!.copyWith(color: Colors.white),
+          style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),
         ),
       ),
       body: PdfPreview(

@@ -3,15 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 
 import '../../../../Constant/Screen.dart';
 // import '../../../../Controller/EnquiryController/EnquiryMngController.dart';
-import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
-import 'GlobalKeys.dart';
+import '../../../../Controller/EnquiryController/enquiryuser_contoller.dart';
 import 'OpenUserDialog.dart';
 
 
@@ -120,8 +119,9 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                       child: Container(
                         width: Screens.width(context),
                         padding: EdgeInsets.symmetric(
-                            horizontal: Screens.width(context) * 0.02,
-                            vertical: Screens.bodyheight(context) * 0.01),
+                            // horizontal: Screens.width(context) * 0.02,
+                            vertical: Screens.bodyheight(context) * 0.005
+                            ),
                         child: Container(
                           // color: Colors.grey[200],
                           padding: EdgeInsets.symmetric(
@@ -143,7 +143,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                       "Customer",
-                                      style: widget.theme.textTheme.bodyText2
+                                      style: widget.theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -152,7 +152,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                       "Date",
-                                      style: widget.theme.textTheme.bodyText2
+                                      style: widget.theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -165,8 +165,9 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                         "${context.watch<EnquiryUserContoller>().filteropenEnqData[i].CardName}",
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
+                                            fontSize: 13
                                            // fontWeight: FontWeight.bold
                                             )),
                                   ),
@@ -180,8 +181,9 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                             .config
                                             .alignDate(
                                                 "${context.watch<EnquiryUserContoller>().filteropenEnqData[i].EnqDate}"),
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
+                                            fontSize: 13
                                             //fontWeight: FontWeight.bold
                                             )),
                                   ),
@@ -197,7 +199,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                         "",
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                            // fontWeight: FontWeight.bold
                                             )),
@@ -207,15 +209,16 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                         "#${context.watch<EnquiryUserContoller>().filteropenEnqData[i].EnqID}",
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: Colors.grey,
+                                            fontSize: 13
                                             //fontWeight: FontWeight.bold
                                             )),
                                   ),
                                 ],
                               ),
                                SizedBox(
-                                height: Screens.bodyheight(context) * 0.01,
+                                height: Screens.bodyheight(context) * 0.005,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -224,7 +227,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                       "Product",
-                                      style: widget.theme.textTheme.bodyText2
+                                      style: widget.theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -233,7 +236,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                       "Potential Value",
-                                      style: widget.theme.textTheme.bodyText2
+                                      style: widget.theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -246,8 +249,9 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.5,
                                     child: Text(
                                         "Looking for ${context.watch<EnquiryUserContoller>().filteropenEnqData[i].Lookingfor}",
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                             color:widget.theme.primaryColor,
+                                            fontSize: 13
                                             //fontWeight: FontWeight.bold
                                             )),
                                   ),
@@ -260,15 +264,16 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                         context.watch<EnquiryUserContoller>().filteropenEnqData[i].PotentialValue!.toStringAsFixed(0)
                                       ),
                                         //"₹ ${context.watch<EnquiryUserContoller>().filteropenEnqData[i].PotentialValue}",
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                             color:widget.theme.primaryColor,
+                                            fontSize: 13
                                             //fontWeight: FontWeight.bold
                                             )),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height: Screens.bodyheight(context) * 0.01,
+                                height: Screens.bodyheight(context) * 0.005,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -278,7 +283,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                     width: Screens.width(context) * 0.54,
                                     child: Text(
                                         "Call assigned to ${context.watch<EnquiryUserContoller>().filteropenEnqData[i].AssignedTo_UserName}",
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: Colors.grey,
                                            // fontWeight: FontWeight.bold
                                             )),
@@ -299,7 +304,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                    // width: Screens.width(context) * 0.1,
                                       child: Text(
                                           "${context.watch<EnquiryUserContoller>().filteropenEnqData[i].Status}",
-                                          style: widget.theme.textTheme.bodyText2?.copyWith(
+                                          style: widget.theme.textTheme.bodyMedium?.copyWith(
                                               color: Colors.green[700],
                                               fontSize: 12
                                              // fontWeight: FontWeight.bold
@@ -328,7 +333,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                    // width: Screens.width(context) * 0.1,
                                       child: Text(
                                           "${context.watch<EnquiryUserContoller>().filteropenEnqData[i].customerGroup}",
-                                          style: widget.theme.textTheme.bodyText2?.copyWith(
+                                          style: widget.theme.textTheme.bodyMedium?.copyWith(
                                               color: Colors.grey,
                                               fontSize: 12,
       
@@ -349,7 +354,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                       ),
                                     child:
                                          Text(
-                                            "${context.watch<EnquiryUserContoller>().filteropenEnqData[i].InterestLevel.toString()}", style: widget.theme.textTheme.bodyText2?.copyWith(
+                                            "${context.watch<EnquiryUserContoller>().filteropenEnqData[i].InterestLevel.toString()}", style: widget.theme.textTheme.bodyMedium?.copyWith(
                                                fontSize: 12,
                                                 color:Colors.grey,
                                                 fontStyle: FontStyle.italic
@@ -377,7 +382,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                 //    // width: Screens.width(context) * 0.1,
                                 //       child: Text(
                                 //           "",
-                                //           style: widget.theme.textTheme.bodyText2?.copyWith(
+                                //           style: widget.theme.textTheme.bodyMedium?.copyWith(
                                 //               color: Colors.grey,
                                 //               fontSize: 12,
       
@@ -393,7 +398,7 @@ class _OpenEnqPageState extends State<OpenEnqPage> {
                                             "Site Visit on\t${context
                                               .watch<EnquiryUserContoller>()
                                               .config
-                                              .alignDate(context.watch<EnquiryUserContoller>().filteropenEnqData[i].visitTime.toString())}", style: widget.theme.textTheme.bodyText2?.copyWith(
+                                              .alignDate(context.watch<EnquiryUserContoller>().filteropenEnqData[i].visitTime.toString())}", style: widget.theme.textTheme.bodyMedium?.copyWith(
                                                fontSize: 12,
                                                 color:Colors.grey,
                                                 fontStyle: FontStyle.italic

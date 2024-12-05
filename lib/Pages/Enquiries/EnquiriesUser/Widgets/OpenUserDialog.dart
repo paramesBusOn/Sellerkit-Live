@@ -4,10 +4,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import 'package:sellerkit/Constant/menu_auth.dart';
+
 import 'package:sellerkit/Models/PostQueryModel/EnquiriesModel/EnquiriesModel.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
+import '../../../../Controller/EnquiryController/enquiryuser_contoller.dart';
 
 class AssignedToDialogUser extends StatefulWidget {
   AssignedToDialogUser(
@@ -162,7 +164,7 @@ Container callLoadingPage(BuildContext context) {
           },
           child: Text(
             "Back",
-            style: theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+            style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
           ),
           style: ButtonStyle(
               backgroundColor:
@@ -206,7 +208,7 @@ Container callLoadingPage(BuildContext context) {
                 },
           child: Text(
             "Forward to",
-            style: theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+            style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
           ),
           style: ButtonStyle(
               backgroundColor:
@@ -239,7 +241,7 @@ Container callLoadingPage(BuildContext context) {
               ),
               child: Text(
                 "Alert",
-                style: theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
               ),
             ),
           ),
@@ -263,9 +265,9 @@ Container callLoadingPage(BuildContext context) {
                             .watch<EnquiryUserContoller>()
                             .getstatusUpdateApiResp
                             .contains("Y")
-                        ? theme.textTheme.headline6
+                        ? theme.textTheme.titleLarge
                             ?.copyWith(color: Colors.green)
-                        : theme.textTheme.headline6
+                        : theme.textTheme.titleLarge
                             ?.copyWith(color: Colors.red),
                   ),
                   SizedBox(
@@ -278,7 +280,7 @@ Container callLoadingPage(BuildContext context) {
                         : context
                             .watch<EnquiryUserContoller>()
                             .getstatusUpdateApiRespMsg,
-                    style: theme.textTheme.bodyText1,
+                    style: theme.textTheme.bodyMedium,
                   ),
                   SizedBox(
                     height: Screens.bodyheight(context) * 0.01,
@@ -291,7 +293,7 @@ Container callLoadingPage(BuildContext context) {
                       },
                       child: Text(
                         "Ok",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                       style: ButtonStyle(
@@ -351,7 +353,7 @@ Container callLoadingPage(BuildContext context) {
               children: [
                 // Text(
                 //   "Status Update",
-                //   style: theme.textTheme.bodyText1,
+                //   style: theme.textTheme.bodyMedium,
                 // ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.01,
@@ -389,7 +391,7 @@ Container callLoadingPage(BuildContext context) {
                       },
                       child: Text(
                         "Back",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                       style: ButtonStyle(
@@ -429,7 +431,7 @@ Container callLoadingPage(BuildContext context) {
                       },
                       child: Text(
                         "Update",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                       style: ButtonStyle(
@@ -449,10 +451,29 @@ Container callLoadingPage(BuildContext context) {
                 height: Screens.bodyheight(context) * 0.06,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    if( MenuAuthDetail.Leads == "Y"){
+Navigator.pop(context);
                     context
                         .read<EnquiryUserContoller>()
                         .mapValuesToLead(widget.openenqdata);
+                    }else{
+                      showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+                    }
+                    
                   },
                   style: ElevatedButton.styleFrom(
                     textStyle: TextStyle(
@@ -478,10 +499,29 @@ Container callLoadingPage(BuildContext context) {
                 height: Screens.bodyheight(context) * 0.06,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    if( MenuAuthDetail.Orders == "Y"){
+Navigator.pop(context);
                     context
                         .read<EnquiryUserContoller>()
                         .mapValuesToOrder(widget.openenqdata);
+                    }else{
+                       showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+                    }
+                    
                   },
                   style: ElevatedButton.styleFrom(
                     textStyle: TextStyle(
@@ -531,7 +571,7 @@ Container callLoadingPage(BuildContext context) {
             ),
             child: Text(
               "Alert",
-              style: theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
             ),
           ),
         ),
@@ -547,8 +587,8 @@ Text(
                     .watch<EnquiryUserContoller>()
                     .getassignedToApiActResp
                     .contains("N")
-                ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-                : theme.textTheme.headline6?.copyWith(color: Colors.red),
+                ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+                : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
           ),
           SizedBox(
             height: Screens.bodyheight(context) * 0.02,
@@ -559,7 +599,7 @@ Text(
                 : context
                     .watch<EnquiryUserContoller>()
                     .getassignedToApiActRespMsg,
-            style: theme.textTheme.bodyText1,
+            style: theme.textTheme.bodyMedium,
           ),
        SizedBox(
                 height: Screens.bodyheight(context) * 0.02,
@@ -743,7 +783,7 @@ Text(
                       },
                       child: Text(
                         "Back",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                       style: ButtonStyle(
@@ -795,7 +835,7 @@ Text(
                                 },
                       child: Text(
                         "Forward to",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                       style: ButtonStyle(
@@ -887,7 +927,7 @@ Text(
                         //     width: Screens.width(context) * 0.4,
                         child: Text(
                           "Customer",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -897,7 +937,7 @@ Text(
                         //    width: Screens.width(context) * 0.4,
                         child: Text(
                           "Date",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -911,7 +951,7 @@ Text(
 
                         //    width: Screens.width(context) * 0.4,
                         child: Text("${widget.openenqdata.CardName}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               //  fontWeight: FontWeight.bold
                             )),
@@ -925,7 +965,7 @@ Text(
                                 .read<EnquiryUserContoller>()
                                 .config
                                 .alignDate("${widget.openenqdata.EnqDate}"),
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               //fontWeight: FontWeight.bold
                             )),
@@ -944,7 +984,7 @@ Text(
                         // width: Screens.width(context) * 0.4,
                         child: Text(
                           "Product",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -954,7 +994,7 @@ Text(
                         //   width: Screens.width(context) * 0.4,
                         child: Text(
                           "Potential Value",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -969,7 +1009,7 @@ Text(
                         width: Screens.width(context) * 0.4,
                         child:
                             Text("Looking for ${widget.openenqdata.Lookingfor}",
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                   //  fontWeight: FontWeight.bold
                                 )),
@@ -979,7 +1019,7 @@ Text(
                         alignment: Alignment.centerRight,
                         width: Screens.width(context) * 0.4,
                         child: Text("₹ ${context.watch<EnquiryUserContoller>().config.slpitCurrency22(widget.openenqdata.PotentialValue.toString())}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               // fontWeight: FontWeight.bold
                             )),
@@ -1000,7 +1040,7 @@ Text(
                         width: Screens.width(context) * 0.35,
                         child: Text("Follow Up Date",
                             //textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: Colors.grey,
                               // fontWeight: FontWeight.bold
                             )),
@@ -1011,7 +1051,7 @@ Text(
                         width: Screens.width(context) * 0.45,
                         child: Text("Enq type",
                             textAlign: TextAlign.right,
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: Colors.grey,
                               //   fontWeight: FontWeight.bold
                             )),
@@ -1032,7 +1072,7 @@ Text(
                                     .config
                                     .alignDate("${widget.openenqdata.Followup}")
                                 : '',
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               //fontWeight: FontWeight.bold
                             )),
@@ -1043,7 +1083,7 @@ Text(
                         width: Screens.width(context) * 0.45,
                         child: Text("${widget.openenqdata.EnqType}",
                             textAlign: TextAlign.right,
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               //  fontWeight: FontWeight.bold
                             )),
@@ -1058,7 +1098,7 @@ Text(
                       alignment: Alignment.centerLeft,
                       //color: Colors.red,
                       child: Text("Address",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: Colors.grey,
                             //fontWeight: FontWeight.bold
                           )),
@@ -1071,7 +1111,7 @@ Text(
                             alignment: Alignment.centerLeft,
                             //color: Colors.red,
                             child: Text("${widget.openenqdata.Address_Line_1}",
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                   //  fontWeight: FontWeight.bold
                                 )),
@@ -1084,7 +1124,7 @@ Text(
                             alignment: Alignment.centerLeft,
                             //color: Colors.red,
                             child: Text("${widget.openenqdata.Address_Line_2}",
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                   // fontWeight: FontWeight.bold
                                 )),
@@ -1098,12 +1138,39 @@ Text(
                             //color: Colors.red,
                             child: Text(
                                 "${widget.openenqdata.City}  ${widget.openenqdata.Pincode}",
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                   //fontWeight: FontWeight.bold
                                 )),
                           ),
                   ]),
+
+SizedBox(
+                    height: Screens.bodyheight(context) * 0.01,
+                  ),
+                  Column(
+                      
+                    children: [
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child:Text("Feedback ",style: theme.textTheme.bodyMedium?.copyWith(
+                            color: Colors.grey,
+                            //fontWeight: FontWeight.bold
+                          )),
+                          
+
+                      ),
+                      Container(
+                            alignment: Alignment.centerLeft,
+                            //color: Colors.red,
+                            child: Text("${widget.openenqdata.enquirydscription}",
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.primaryColor,
+                                  // fontWeight: FontWeight.bold
+                                )),
+                          )
+                    ],
+                  ),
 
                   //
                   SizedBox(
@@ -1142,7 +1209,7 @@ Text(
                             },
                             child: Text(
                               "Status Update",
-                              style: theme.textTheme.bodyText2
+                              style: theme.textTheme.bodyMedium
                                   ?.copyWith(color: Colors.white),
                             )),
                       ),
@@ -1224,15 +1291,36 @@ Text(
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+               
                 Container(
                   width: Screens.width(context) * 0.47,
                   height: Screens.bodyheight(context) * 0.06,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      if( MenuAuthDetail.Leads == "Y"){
+  Navigator.pop(context);
                       context
                           .read<EnquiryUserContoller>()
                           .mapValuesToLead(widget.openenqdata);
+                      }else{
+                        showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+                        
+                      }
+                    
                     },
                     style: ElevatedButton.styleFrom(
                       textStyle: TextStyle(
@@ -1258,10 +1346,28 @@ Text(
                   height: Screens.bodyheight(context) * 0.06,
                   child: ElevatedButton(
                     onPressed: () {
+                        if( MenuAuthDetail.Orders == "Y"){
                       Navigator.pop(context);
                       context
                           .read<EnquiryUserContoller>()
                           .mapValuesToOrder(widget.openenqdata);
+                        }else{
+                           showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+                        }
                     },
                     style: ElevatedButton.styleFrom(
                       textStyle: TextStyle(
@@ -1344,7 +1450,7 @@ Text(
                         //     width: Screens.width(context) * 0.4,
                         child: Text(
                           "Customer",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -1354,7 +1460,7 @@ Text(
                         //    width: Screens.width(context) * 0.4,
                         child: Text(
                           "Date",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -1368,7 +1474,7 @@ Text(
 
                         //    width: Screens.width(context) * 0.4,
                         child: Text("${widget.openenqdata.CardName}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               //  fontWeight: FontWeight.bold
                             )),
@@ -1382,7 +1488,7 @@ Text(
                                 .read<EnquiryUserContoller>()
                                 .config
                                 .alignDate("${widget.openenqdata.EnqDate}"),
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               //fontWeight: FontWeight.bold
                             )),
@@ -1401,7 +1507,7 @@ Text(
                         // width: Screens.width(context) * 0.4,
                         child: Text(
                           "Product",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -1411,7 +1517,7 @@ Text(
                         //   width: Screens.width(context) * 0.4,
                         child: Text(
                           "Potential Value",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -1425,7 +1531,7 @@ Text(
                         width: Screens.width(context) * 0.4,
                         child:
                             Text("Looking for ${widget.openenqdata.Lookingfor}",
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                   //  fontWeight: FontWeight.bold
                                 )),
@@ -1434,7 +1540,7 @@ Text(
                         alignment: Alignment.centerRight,
                         width: Screens.width(context) * 0.2,
                         child: Text("₹ ${widget.openenqdata.PotentialValue}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               // fontWeight: FontWeight.bold
                             )),
@@ -1454,7 +1560,7 @@ Text(
                         width: Screens.width(context) * 0.35,
                         child: Text("Follow Up Date",
                             //textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: Colors.grey,
                               // fontWeight: FontWeight.bold
                             )),
@@ -1465,7 +1571,7 @@ Text(
                         width: Screens.width(context) * 0.45,
                         child: Text("Enq type",
                             textAlign: TextAlign.right,
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: Colors.grey,
                               //   fontWeight: FontWeight.bold
                             )),
@@ -1484,7 +1590,7 @@ Text(
                                 .read<EnquiryUserContoller>()
                                 .config
                                 .alignDate("${widget.openenqdata.Followup}"),
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               //fontWeight: FontWeight.bold
                             )),
@@ -1495,7 +1601,7 @@ Text(
                         width: Screens.width(context) * 0.45,
                         child: Text("${widget.openenqdata.EnqType}",
                             textAlign: TextAlign.right,
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               //  fontWeight: FontWeight.bold
                             )),
@@ -1510,7 +1616,7 @@ Text(
                       alignment: Alignment.centerLeft,
                       //color: Colors.red,
                       child: Text("Address",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: Colors.grey,
                             //fontWeight: FontWeight.bold
                           )),
@@ -1519,7 +1625,7 @@ Text(
                       alignment: Alignment.centerLeft,
                       //color: Colors.red,
                       child: Text("${widget.openenqdata.Address_Line_1}",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                             //  fontWeight: FontWeight.bold
                           )),
@@ -1528,7 +1634,7 @@ Text(
                       alignment: Alignment.centerLeft,
                       //color: Colors.red,
                       child: Text("${widget.openenqdata.Address_Line_2}",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                             // fontWeight: FontWeight.bold
                           )),
@@ -1538,7 +1644,7 @@ Text(
                       //color: Colors.red,
                       child: Text(
                           "${widget.openenqdata.City} - ${widget.openenqdata.Pincode}",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                             //fontWeight: FontWeight.bold
                           )),
@@ -1609,7 +1715,7 @@ Text(
                   textAlign: TextAlign.center,
               // maxLines: 1,
               //overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodyText2?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color: context
@@ -1656,7 +1762,7 @@ Text(
                   .description!,
               // maxLines: 1,
               //overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodyText2?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color: context
@@ -1672,6 +1778,75 @@ Text(
       ),
     );
   }
+  settings(BuildContext context) {
+  final theme = Theme.of(context);
+  return StatefulBuilder(builder: (context, st) {
+    return Container(
+      padding: EdgeInsets.only(
+          top: Screens.padingHeight(context) * 0.01,
+          left: Screens.width(context) * 0.03,
+          right: Screens.width(context) * 0.03,
+          bottom: Screens.padingHeight(context) * 0.01),
+      width: Screens.width(context) * 1.1,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: Screens.width(context),
+              height: Screens.padingHeight(context) * 0.05,
+              color: theme.primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: Screens.padingHeight(context) * 0.02,
+                        right: Screens.padingHeight(context) * 0.02),
+                    // color: Colors.red,
+                    width: Screens.width(context) * 0.5,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Alert",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        size: Screens.padingHeight(context) * 0.025,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+            Container(
+                alignment: Alignment.center,
+                width: Screens.width(context),
+                child: Text('You are not authorised..!!')),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+          ],
+        ),
+      ),
+    );
+  });
+}
 }
 
 // SizedBox(
@@ -1687,7 +1862,7 @@ Text(
 //       width: Screens.width(context) * 0.4,
 //       child: Text(
 //           "Call assigned to ${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.indx].AssignedTo_UserName}",
-//           style: theme.textTheme.bodyText2?.copyWith(
+//           style: theme.textTheme.bodyMedium?.copyWith(
 //               color: Colors.grey,
 //              // fontWeight: FontWeight.bold
 //               )),
@@ -1697,7 +1872,7 @@ Text(
 //       //color: Colors.red,
 //       width: Screens.width(context) * 0.2,
 //       child: Text("${ context.watch<EnquiryUserContoller>().getopenEnqData[widget.indx].Status}",
-//           style: theme.textTheme.bodyText2?.copyWith(
+//           style: theme.textTheme.bodyMedium?.copyWith(
 //               color: Colors.grey,
 //             //  fontWeight: FontWeight.bold
 //               )),
@@ -1756,7 +1931,7 @@ Text(
 //                 },
 //                 child: Text(
 //                   "Status Update",
-//                   style: theme.textTheme.bodyText1
+//                   style: theme.textTheme.bodyMedium
 //                       ?.copyWith(color: Colors.white),
 //                 ),
 //                 style: ButtonStyle(
@@ -1776,7 +1951,7 @@ Text(
 //                     Icon(Icons.call,color: Colors.white,size: Screens.bodyheight(context)*0.03,),
 //                     //  Text(
 //                     //   "Call",
-//                     //   style: theme.textTheme.bodyText1
+//                     //   style: theme.textTheme.bodyMedium
 //                     //       ?.copyWith(color: Colors.white),
 //                     // ),
 //                     style: ButtonStyle(
@@ -1796,7 +1971,7 @@ Text(
 //                 },
 //                 child: Text(
 //                   "Forward to",
-//                   style: theme.textTheme.bodyText1
+//                   style: theme.textTheme.bodyMedium
 //                       ?.copyWith(color: Colors.white),
 //                 ),
 //                 style: ButtonStyle(
@@ -1823,7 +1998,7 @@ Text(
 //               },
 //               child: Text(
 //                 "Back",
-//                 style: theme.textTheme.bodyText1
+//                 style: theme.textTheme.bodyMedium
 //                     ?.copyWith(color: Colors.white),
 //               ),
 //               style: ButtonStyle(
@@ -1845,7 +2020,7 @@ Text(
 //               },
 //               child: Text(
 //                 "Update",
-//                 style: theme.textTheme.bodyText1
+//                 style: theme.textTheme.bodyMedium
 //                     ?.copyWith(color: Colors.white),
 //               ),
 //               style: ButtonStyle(
@@ -1873,7 +2048,7 @@ Text(
 //           contentPadding: EdgeInsets.symmetric(
 //               vertical: 10, horizontal: 10),
 //           labelText: "Next follow up Date",
-//           labelStyle: theme.textTheme.bodyText2,
+//           labelStyle: theme.textTheme.bodyMedium,
 //           // border: OutlineInputBorder(
 //           //   borderRadius: BorderRadius.circular(20),
 //           //   borderSide: BorderSide(color: Colors.green),
@@ -1912,7 +2087,7 @@ Text(
 //       borderRadius: BorderRadius.circular(8)),
 //   child: DropdownButton(
 //     hint: Text("Select Reason: ",
-//     style: theme.textTheme.bodyText2,
+//     style: theme.textTheme.bodyMedium,
 //     ),
 //     value: context.read<EnquiryUserContoller>(). valueChosedReason,
 //     //dropdownColor:Colors.green,

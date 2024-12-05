@@ -95,6 +95,8 @@ PaymodeModalist(
 
 class PaymodeModalData {
   PaymodeModalData({
+     required this.Applicable_CE,
+     required this.Applicable_SO,
     required this.Attach,
     required this.Code,
     required this.CreatedBy,
@@ -135,6 +137,8 @@ class PaymodeModalData {
   String? CreatedDatetime;
   bool? isselected;
   String? amount;
+  bool? Applicable_SO;
+  bool? Applicable_CE;
  
 
   // String? CODE;
@@ -154,6 +158,8 @@ class PaymodeModalData {
 
   factory PaymodeModalData.fromJson(Map<String, dynamic> json) =>
    PaymodeModalData(
+    Applicable_CE:json['Applicable_CE']??false ,
+    Applicable_SO:json['Applicable_SO']??false,
     Attach: json['Attach']??false, 
     Code: json['Code']??"", 
     CreatedBy: json['CreatedBy']??0, 

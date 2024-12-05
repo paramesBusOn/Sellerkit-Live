@@ -4,10 +4,11 @@ import 'dart:io';
 // import 'package:fijkplayer/fijkplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/DashBoardController/DashBoardController.dart';
+import '../../../Controller/DashBoardController/dashboard_controller.dart';
 import 'NewFeedContainer.dart';
 
 class FeedsPage extends StatefulWidget {

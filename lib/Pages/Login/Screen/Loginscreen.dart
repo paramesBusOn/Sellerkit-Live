@@ -3,13 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
+import 'package:sellerkit/Constant/app_constant.dart';
+import 'package:sellerkit/Controller/LoginController/login_controller.dart';
 import 'package:sellerkit/Pages/Login/Widgets/TermsAndConditions3.dart';
-import '../../../Constant/ConstantRoutes.dart';
-import '../../../Constant/AppConstant.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/LoginController/LoginController.dart';
 import '../../../Widgets/custom_shake_transtition.dart';
 import '../../Splash/Widgets/custom_elevatedBtn.dart';
 
@@ -38,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context, child) {
               return Consumer<LoginController>(
                   builder: (BuildContext context, prdlog, Widget? child) {
-                return Container(
+                return SizedBox(
                   width: Screens.width(context),
                   height: Screens.fullHeight(context),
                   child: Stack(
@@ -60,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                           children: [
                             Text(
                               "Login",
-                              style: theme.textTheme.headline5
+                              style: theme.textTheme.headlineSmall
                                   ?.copyWith(color: Colors.white),
                             )
                           ],
@@ -91,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                                         children: [
                                           Text(
                                             prdlog.errorMsh,
-                                            style: theme.textTheme.bodyText1
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(color: Colors.red),
                                             maxLines: 4,
                                           ),
@@ -110,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                       child: TextFormField(
                                         controller: prdlog.mycontroller[0],
                                         keyboardType: TextInputType.text,
-                                        style: theme.textTheme.bodyText2,
+                                        style: theme.textTheme.bodyMedium,
                                         validator: (data) {
                                           if (data!.isEmpty) {
                                             return "Required*";
@@ -157,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
                                           return null;
                                         },
                                         obscureText: prdlog.getHidepassword,
-                                        style: theme.textTheme.bodyText2,
+                                        style: theme.textTheme.bodyMedium,
                                         decoration: InputDecoration(
                                           contentPadding: EdgeInsets.symmetric(
                                               vertical: 10.0, horizontal: 10.0),
@@ -201,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                                         Checkbox(
                                           visualDensity: VisualDensity(
                                               horizontal: -4.0, vertical: -4.0),
-                                          value: prdlog.TCbool,
+                                          value: prdlog.tCbool,
                                           onChanged: (value) {
                                             setState(() {
                                               prdlog.setTermsAConditionsValue(
@@ -243,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                                     height:
                                         Screens.padingHeight(context) * 0.01,
                                   ),
-                                  prdlog.TCbool == false
+                                  prdlog.tCbool == false
                                       ?  CustomSpinkitdButton(
                                         color: Colors.grey[300],
                                           onTap:(){
@@ -266,7 +267,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   prdlog.isLoading == true
                                               ? null
                                               : () async {
-                                                  prdlog.validateLogin(context);
+                                                  prdlog.validateLogin(context,theme);
                                                   // prdlog.testApi();
                                                 },
                                           isLoading: prdlog.isLoading,
@@ -310,7 +311,7 @@ class _LoginPageState extends State<LoginPage> {
                                   //              prdlog.showShare("context");
                                   //             },
                                   //             child: Text("Register",
-                                  //                 style: theme.textTheme.subtitle1
+                                  //                 style: theme.textTheme.titleMedium
                                   //                     ?.copyWith(
                                   //                         color: theme.primaryColor))),
                                   //       ],
@@ -520,7 +521,7 @@ class _LoginPageState extends State<LoginPage> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "Configure",
-                        style: theme.textTheme.bodyText2
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white),
                       ),
                     ),
@@ -586,7 +587,7 @@ class _LoginPageState extends State<LoginPage> {
                     //         borderSide: BorderSide(color: Colors.grey),
                     //       ),
                     //       hintText: 'Host',
-                    //       hintStyle: theme.textTheme.bodyText2
+                    //       hintStyle: theme.textTheme.bodyMedium
                     //           ?.copyWith(color: Colors.grey),
                     //       filled: false,
                     //       contentPadding: const EdgeInsets.symmetric(
@@ -636,7 +637,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderSide: BorderSide(color: Colors.grey),
                           ),
                           hintText: 'Customer ID',
-                          hintStyle: theme.textTheme.bodyText2
+                          hintStyle: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                           filled: false,
                           contentPadding: const EdgeInsets.symmetric(
@@ -676,7 +677,7 @@ class _LoginPageState extends State<LoginPage> {
                           : Text(
                               "Ok",
                               textAlign: TextAlign.center,
-                              style: theme.textTheme.bodyText1
+                              style: theme.textTheme.bodyMedium
                                   ?.copyWith(color: Colors.white),
                             ),
                     ),

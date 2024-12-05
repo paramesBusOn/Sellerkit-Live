@@ -5,10 +5,11 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/OutStandingController/OutStandingController.dart';
+import 'package:sellerkit/Controller/OutStandingController/outstanding_controller.dart';
 import 'package:sellerkit/Pages/Outstanding/widgets/Followdialog.dart';
 import 'package:sellerkit/Pages/Outstanding/widgets/navDrawer.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
@@ -78,6 +79,7 @@ class OutStandingPageState extends State<OutStandingPage> {
       onWillPop:onbackpress,
       child: Scaffold(
         key: scaffoldKey1,
+        resizeToAvoidBottomInset: false,
         // backgroundColor: Colors.grey[200],
         appBar: AppBar(
           backgroundColor: theme.primaryColor,
@@ -122,16 +124,16 @@ class OutStandingPageState extends State<OutStandingPage> {
                       // HelperFunctions.clearUserLoggedInSharedPref();
                     },
                     child: Image.asset('${context.watch<Outstandingcontroller>().lottie}',
-        //               opacity: AnimationController(
-        //     vsync: this,
-        //     value: 1
-        // ),
-        // color:Colors.transparent,
+                  //               opacity: AnimationController(
+                  //     vsync: this,
+                  //     value: 1
+                  // ),
+                  // color:Colors.transparent,
                         // animate: true,
                         // repeat: true,
                         
                         height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                        width: Screens.width(context)*0.4
                         ),
                   ):              InkWell(
                     onTap: () {
@@ -144,324 +146,409 @@ class OutStandingPageState extends State<OutStandingPage> {
                         // height: Screens.padingHeight(context) * 0.3,
                         width: Screens.width(context) * 0.4),
                   ),
+                   context.read<Outstandingcontroller>().errormsg
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context.read<Outstandingcontroller>().errormsg
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context.read<Outstandingcontroller>().errormsg
+                                                      .contains("Network Issue")
+                                                  ? Container():
               Text("${context.read<Outstandingcontroller>().errormsg}",textAlign: TextAlign.center,),
             ],
           ),):
           
-           Column(
-            //  physics: new NeverScrollableScrollPhysics(),
-            //   controller: context.read<Outstandingcontroller>().pageController,
-            //   onPageChanged: (index){
-            //      setState(() {
-            //     context.read<Outstandingcontroller>().pageChanged = index;
-            //   });
-            //   print(context.read<Outstandingcontroller>().pageChanged);
-            //   },
-            children: [
-           Container(
-            width: Screens.width(context),
-            height: Screens.padingHeight(context)*0.9,
-            // color: Colors.amber,
-            padding: EdgeInsets.symmetric(
-                horizontal: Screens.width(context) * 0.02,
-                vertical: Screens.bodyheight(context) * 0.02),
-            child: Column(
+           SingleChildScrollView(
+             child: Column(
+              //  physics: new NeverScrollableScrollPhysics(),
+              //   controller: context.read<Outstandingcontroller>().pageController,
+              //   onPageChanged: (index){
+              //      setState(() {
+              //     context.read<Outstandingcontroller>().pageChanged = index;
+              //   });
+              //   print(context.read<Outstandingcontroller>().pageChanged);
+              //   },
               children: [
-                Container(
-                  margin: EdgeInsets.symmetric(
-                    horizontal: Screens.width(context) * 0.01,
+                  SizedBox(
+                    height: Screens.padingHeight(context) * 0.008,
                   ),
-                  padding: EdgeInsets.symmetric(
-                      horizontal: Screens.width(context) * 0.03,
-                      vertical: Screens.bodyheight(context) * 0.02),
+                   Container(
+                  width:Screens.width(context) * 0.95,
+                  height: Screens.bodyheight(context) * 0.05,
                   decoration: BoxDecoration(
-                      color: theme.primaryColor.withOpacity(0.05),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.black26)),
-                  width: Screens.width(context),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          child: Text(
-                            "Total Outstanding",
-                            style: theme.textTheme.bodyText1
-                                ?.copyWith(color: theme.primaryColor,fontSize: 15),
-                          ),
-                        ),
-                        Container(
-                          child: Text(
-                            "₹ ${Config.k_m_b_generator22(context.read<Outstandingcontroller>().totaloutstanding!.toString())}",
-                            textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText1?.copyWith(fontSize: 15),
-                          ),
-                        ),
-                        SizedBox(
-                          height: Screens.padingHeight(context) * 0.01,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Text(
-                                "Overdue",
-                                style: theme.textTheme.bodyText1
-                                    ?.copyWith(color:theme.primaryColor,fontSize: 15),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                "Upcoming",
-                                style: theme.textTheme.bodyText1
-                                    ?.copyWith(color: theme.primaryColor,fontSize: 15),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              child: Text(
-                                "₹ ${Config.k_m_b_generator22(context.read<Outstandingcontroller>().overdue!.toString())}",
-                                style: theme.textTheme.bodyText1?.copyWith(),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                "₹ ${Config.k_m_b_generator22(context.read<Outstandingcontroller>().upcoming!.toString())}",
-                                style: theme.textTheme.bodyText1?.copyWith(),
-                              ),
-                            ),
-                          ],
-                        )
-                      ]),
-                ),
-                SizedBox(
-                  height: Screens.padingHeight(context) * 0.008,
-                ),
-             context.read<Outstandingcontroller>().valueDBmodel!.isEmpty?
-             Center(
-              
-              child:Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                                        
-               children: [
-                 InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Image.asset('Assets/no-data.png',
-        //               opacity: AnimationController(
-        //     vsync: this,
-        //     value: 1
-        // ),
-        // color:Colors.transparent,
-                        // animate: true,
-                        // repeat: true,
-                        
-                        height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
-                        ),
+                    color:
+                        theme.primaryColor.withOpacity(0.1), //Colors.grey[200],
+                    borderRadius:
+                        BorderRadius.circular(Screens.width(context) * 0.02),
                   ),
-                 Text("No Outstanding..!!",textAlign: TextAlign.center,),
-               ],
-             )):
-                Expanded(
-                  child: ListView.builder(
-                      itemCount:context.read<Outstandingcontroller>().valueDBmodel.length,
-                      itemBuilder: (BuildContext context, int i) {
-                        return InkWell(
-                          onDoubleTap: (){
-                            setState(() {
-                             context.read<Outstandingcontroller>().        clearontap();
-                             context.read<Outstandingcontroller>().     ontapkpicall(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode!);
-                        
-                            context.read<Outstandingcontroller>().   onDoubletap(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode);
-                            
-                            });
-                        //  context.read<Outstandingcontroller>().     ontapkpicall(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode!);
-                        //  context.read<Outstandingcontroller>().   onDoubletap(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode);
-                            showDialog<dynamic>(context: context, builder: (_){
-                              return Followdialog(outstandingModel:context.read<Outstandingcontroller>().valueDBmodel[i]);
-        
-                            }).then((value){
-                              //  context.read<Outstandingcontroller>().getdbmodel();
-        
-                            });
-        
-                          },
-                          onLongPress: (){
-                            setState(() {
-                             context.read<Outstandingcontroller>().        clearontap();
-                             context.read<Outstandingcontroller>().     ontapkpicall(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode!);
-                        
-                            context.read<Outstandingcontroller>().   onDoubletap(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode);
-                            
-                            });
-                      
-                            showDialog<dynamic>(context: context, builder: (_){
-                              return Followdialog(outstandingModel:context.read<Outstandingcontroller>().valueDBmodel[i]);
-        
-                            }).then((value){
-                              //  context.read<Outstandingcontroller>().getdbmodel();
-        
-                            });
-        
-                          },
-                          child: Container(
-                            // color: Colors.amber,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: Screens.width(context) * 0.01,
-                                vertical: Screens.padingHeight(context) * 0.004),
-                            child: Container(
-                              width: Screens.width(context),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Screens.width(context) * 0.03,
-                                  vertical: Screens.bodyheight(context) * 0.008),
-                              decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: Colors.black26)),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          "Customer Code",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.grey),
-                                        ),
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "Total Outstanding",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.grey),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          "${context.read<Outstandingcontroller>().valueDBmodel[i].customerCode}",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: theme.primaryColor),
-                                        ),
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "${context
-                                                            .read<
-                                                                Outstandingcontroller>()
-                                                            .config.slpitCurrency22(context.read<Outstandingcontroller>().valueDBmodel[i].balanceToPay!.toString()) }",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: theme.primaryColor),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: Screens.padingHeight(context) * 0.01,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          "Customer Name",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.grey),
-                                        ),
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "Amount Paid",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.grey),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          "${context.read<Outstandingcontroller>().valueDBmodel[i].customerName}",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: theme.primaryColor),
-                                        ),
-                                      ),
-                                       Container(
-                                        child: Text(
-                                          "${context
-                                                            .read<
-                                                                Outstandingcontroller>()
-                                                            .config.slpitCurrency22(context.read<Outstandingcontroller>().valueDBmodel[i].amountPaid!.toString())}",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: theme.primaryColor),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: Screens.padingHeight(context) * 0.01,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          "Trans Amount",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: Colors.grey),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          "${context
-                                                            .read<
-                                                                Outstandingcontroller>()
-                                                            .config.slpitCurrency22(context.read<Outstandingcontroller>().valueDBmodel[i].transAmount!.toString())}",
-                                          style: theme.textTheme.bodyText1!
-                                              .copyWith(color: theme.primaryColor),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                  child: TextField(
+                    autocorrect: false,
+                    onChanged: (val) {
+                      context.read<Outstandingcontroller>().filterList(val);
+                    },
+                    controller:
+                        context.read<Outstandingcontroller>().mycontroller[16],
+                    //   onEditingComplete: (){
+                    //     setState(() {
+                    //    if(context.read<OrderNewController>().showItemList == true){
+                    //    context.read<OrderNewController>(). scannerreset();
+                    //     context.read<OrderNewController>().Scancode=context.read<OrderNewController>().mycontroller[12].text;
+                    // context.read<OrderNewController>().scanneddataget(context);
+                    //   }
+                    //     });
+             
+                    //   },
+                    decoration: InputDecoration(
+                      filled: false,
+                      hintText: 'Search Here..',
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {
+                          FocusScopeNode focus = FocusScope.of(context);
+                          if (!focus.hasPrimaryFocus) {
+                            focus.unfocus();
+                          }
+             
+                          // context.read<Outstandingcontroller>().changeVisible();
+                        }, //
+                        color: theme.primaryColor,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 11,
+                        horizontal: 10,
+                      ),
+                    ),
+                  ),
+                ),
+               
+             Container(
+              width: Screens.width(context),
+              height: Screens.padingHeight(context)*0.9,
+              // color: Colors.amber,
+              padding: EdgeInsets.symmetric(
+                  horizontal: Screens.width(context) * 0.02,
+                  vertical: Screens.bodyheight(context) * 0.01),
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                      horizontal: Screens.width(context) * 0.01,
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        horizontal: Screens.width(context) * 0.03,
+                        vertical: Screens.bodyheight(context) * 0.02),
+                    decoration: BoxDecoration(
+                        color: theme.primaryColor.withOpacity(0.05),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.black26)),
+                    width: Screens.width(context),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            child: Text(
+                              "Total Outstanding",
+                              style: theme.textTheme.bodyMedium
+                                  ?.copyWith(color: theme.primaryColor,fontSize: 15),
                             ),
                           ),
-                        );
-                      }),
-                )
+                          Container(
+                            child: Text(
+                              "₹ ${Config.k_m_b_generator22(context.read<Outstandingcontroller>().totaloutstanding!.toString())}",
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyMedium?.copyWith(fontSize: 15),
+                            ),
+                          ),
+                          SizedBox(
+                            height: Screens.padingHeight(context) * 0.01,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Text(
+                                  "Overdue",
+                                  style: theme.textTheme.bodyMedium
+                                      ?.copyWith(color:theme.primaryColor,fontSize: 15),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "Upcoming",
+                                  style: theme.textTheme.bodyMedium
+                                      ?.copyWith(color: theme.primaryColor,fontSize: 15),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                child: Text(
+                                  "₹ ${Config.k_m_b_generator22(context.read<Outstandingcontroller>().overdue!.toString())}",
+                                  style: theme.textTheme.bodyMedium?.copyWith(),
+                                ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "₹ ${Config.k_m_b_generator22(context.read<Outstandingcontroller>().upcoming!.toString())}",
+                                  style: theme.textTheme.bodyMedium?.copyWith(),
+                                ),
+                              ),
+                            ],
+                          )
+                        ]),
+                  ),
+                  
+                  SizedBox(
+                    height: Screens.padingHeight(context) * 0.008,
+                  ),
+               context.read<Outstandingcontroller>().valueDBmodel!.isEmpty?
+               Center(
+                
+                child:Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                                          
+                 children: [
+                   InkWell(
+                      onTap: () {
+                        // HelperFunctions.clearCheckedOnBoardSharedPref();
+                        // HelperFunctions.clearUserLoggedInSharedPref();
+                      },
+                      child: Image.asset('Assets/no-data.png',
+                     //               opacity: AnimationController(
+                     //     vsync: this,
+                     //     value: 1
+                     // ),
+                     // color:Colors.transparent,
+                          // animate: true,
+                          // repeat: true,
+                          
+                          height: Screens.padingHeight(context) * 0.2,
+                          width: Screens.width(context)*0.5
+                          ),
+                    ),
+                   Text("No Outstanding..!!",textAlign: TextAlign.center,),
+                 ],
+               )):
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount:context.read<Outstandingcontroller>().valueDBmodel.length,
+                        itemBuilder: (BuildContext context, int i) {
+                          return InkWell(
+                            onDoubleTap: (){
+                              setState(() {
+                               context.read<Outstandingcontroller>().        clearontap();
+                               context.read<Outstandingcontroller>().     ontapkpicall(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode!);
+                          
+                              context.read<Outstandingcontroller>().   onDoubletap(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode);
+                              
+                              });
+                          //  context.read<Outstandingcontroller>().     ontapkpicall(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode!);
+                          //  context.read<Outstandingcontroller>().   onDoubletap(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode);
+                              showDialog<dynamic>(context: context, builder: (_){
+                                return Followdialog(outstandingModel:context.read<Outstandingcontroller>().valueDBmodel[i]);
+                     
+                              }).then((value){
+                                //  context.read<Outstandingcontroller>().getdbmodel();
+                     
+                              });
+                     
+                            },
+                            onLongPress: (){
+                              setState(() {
+                               context.read<Outstandingcontroller>().        clearontap();
+                               context.read<Outstandingcontroller>().     ontapkpicall(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode!);
+                          
+                              context.read<Outstandingcontroller>().   onDoubletap(context.read<Outstandingcontroller>().valueDBmodel[i].customerCode);
+                              
+                              });
+                        
+                              showDialog<dynamic>(context: context, builder: (_){
+                                return Followdialog(outstandingModel:context.read<Outstandingcontroller>().valueDBmodel[i]);
+                     
+                              }).then((value){
+                                //  context.read<Outstandingcontroller>().getdbmodel();
+                     
+                              });
+                     
+                            },
+                            child: Container(
+                              // color: Colors.amber,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Screens.width(context) * 0.01,
+                                  vertical: Screens.padingHeight(context) * 0.004),
+                              child: Container(
+                                width: Screens.width(context),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Screens.width(context) * 0.03,
+                                    vertical: Screens.bodyheight(context) * 0.008),
+                                decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: BorderRadius.circular(8),
+                                    border: Border.all(color: Colors.black26)),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "Customer Code",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: Colors.grey),
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            "Total Outstanding",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: Colors.grey),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "${context.read<Outstandingcontroller>().valueDBmodel[i].customerCode}",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: theme.primaryColor),
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            "${context
+                                                              .read<
+                                                                  Outstandingcontroller>()
+                                                              .config.slpitCurrency22(context.read<Outstandingcontroller>().valueDBmodel[i].balanceToPay!.toString()) }",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: theme.primaryColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: Screens.padingHeight(context) * 0.01,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "Customer Name",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: Colors.grey),
+                                          ),
+                                        ),
+                                        Container(
+                                          child: Text(
+                                            "Amount Paid",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: Colors.grey),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "${context.read<Outstandingcontroller>().valueDBmodel[i].customerName}",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: theme.primaryColor),
+                                          ),
+                                        ),
+                                         Container(
+                                          child: Text(
+                                            "${context
+                                                              .read<
+                                                                  Outstandingcontroller>()
+                                                              .config.slpitCurrency22(context.read<Outstandingcontroller>().valueDBmodel[i].amountPaid!.toString())}",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: theme.primaryColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: Screens.padingHeight(context) * 0.01,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "Trans Amount",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: Colors.grey),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          child: Text(
+                                            "${context
+                                                              .read<
+                                                                  Outstandingcontroller>()
+                                                              .config.slpitCurrency22(context.read<Outstandingcontroller>().valueDBmodel[i].transAmount!.toString())}",
+                                            style: theme.textTheme.bodyMedium!
+                                                .copyWith(color: theme.primaryColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                  )
+                ],
+              ),
+                       ),
+                //  FilterScreen(), 
               ],
-            ),
-          ),
-              //  FilterScreen(), 
-            ],
-          ),
+                       ),
+           ),
         )
         ,
        

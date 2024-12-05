@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/AccountsController/NewCustomerController.dart';
+import 'package:sellerkit/Controller/AccountsController/newcustomer_controller.dart';
 import '../../Widgets/Appbar.dart';
 import '../../Widgets/Navi3.dart';
 
@@ -111,7 +112,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                   width: Screens.width(context),
                                   child: Text(
                                     "Customer Info",
-                                    style: theme.textTheme.headline6
+                                    style: theme.textTheme.titleLarge
                                         ?.copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -166,7 +167,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelText: 'Mobile*',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -298,7 +299,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                     decoration: InputDecoration(
                                       labelText: 'Customer*',
                                       border: UnderlineInputBorder(),
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -413,7 +414,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                               "${context.watch<NewCustomerContoller>().filterCustomerList[i].cardname}",
                                                               style: theme
                                                                   .textTheme
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   ?.copyWith(
                                                                       color: Colors
                                                                           .black),
@@ -507,7 +508,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                     // },
                                     decoration: InputDecoration(
                                       labelText: 'Contact Name',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -554,7 +555,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelText: 'Alternate Mobile No',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -661,7 +662,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                     },
                                     decoration: InputDecoration(
                                       labelText: 'Email',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder:const UnderlineInputBorder(
                                         borderSide:
@@ -768,9 +769,200 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                     decoration: InputDecoration(
                                       counterText: '',
                                       labelText: 'GST No',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                        //  when the TextFormField in unfocused
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                        //  when the TextFormField in focused
+                                      ),
+                                      border: UnderlineInputBorder(),
+                                      // enabledBorder: UnderlineInputBorder(),
+                                      // focusedBorder: UnderlineInputBorder(),
+                                      errorBorder: UnderlineInputBorder(),
+                                      focusedErrorBorder:
+                                          UnderlineInputBorder(),
+                                    )),
+
+TextFormField(
+                                    controller: context
+                                        .read<NewCustomerContoller>()
+                                        .mycontroller[36],
+                                        onTap: () {
+                                                    if (context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .mycontroller[18]
+                                                            .text
+                                                            .isNotEmpty &&
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statecode
+                                                            .isEmpty) {
+                                                      context
+                                                          .read<
+                                                              NewCustomerContoller>()
+                                                          .ontapvalid(context);
+                                                    } else if (context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .mycontroller[18]
+                                                            .text
+                                                            .isNotEmpty &&
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statecode
+                                                            .isNotEmpty) {
+                                                      setState(() {
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statebool = false;
+                                                      });
+                                                    } else if (context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .mycontroller[24]
+                                                            .text
+                                                            .isNotEmpty &&
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statecode2
+                                                            .isEmpty) {
+                                                      context
+                                                          .read<
+                                                              NewCustomerContoller>()
+                                                          .ontapvalid2(context);
+                                                    } else if (context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .mycontroller[24]
+                                                            .text
+                                                            .isNotEmpty &&
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statecode2
+                                                            .isNotEmpty) {
+                                                      setState(() {
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statebool2 = false;
+                                                      });
+                                                    }
+                                                  },
+                                    validator: (value) {
+                                     
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Credit Limit',
+                                      labelStyle: theme.textTheme.bodyMedium!
+                                          .copyWith(color: Colors.grey),
+                                      enabledBorder:const UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                        //  when the TextFormField in unfocused
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                        //  when the TextFormField in focused
+                                      ),
+                                      border: UnderlineInputBorder(),
+                                      // enabledBorder: UnderlineInputBorder(),
+                                      // focusedBorder: UnderlineInputBorder(),
+                                      errorBorder: UnderlineInputBorder(),
+                                      focusedErrorBorder:
+                                          UnderlineInputBorder(),
+                                    )),
+                                    TextFormField(
+                                    controller: context
+                                        .read<NewCustomerContoller>()
+                                        .mycontroller[37],
+                                        onTap: () {
+                                                    if (context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .mycontroller[18]
+                                                            .text
+                                                            .isNotEmpty &&
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statecode
+                                                            .isEmpty) {
+                                                      context
+                                                          .read<
+                                                              NewCustomerContoller>()
+                                                          .ontapvalid(context);
+                                                    } else if (context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .mycontroller[18]
+                                                            .text
+                                                            .isNotEmpty &&
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statecode
+                                                            .isNotEmpty) {
+                                                      setState(() {
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statebool = false;
+                                                      });
+                                                    } else if (context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .mycontroller[24]
+                                                            .text
+                                                            .isNotEmpty &&
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statecode2
+                                                            .isEmpty) {
+                                                      context
+                                                          .read<
+                                                              NewCustomerContoller>()
+                                                          .ontapvalid2(context);
+                                                    } else if (context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .mycontroller[24]
+                                                            .text
+                                                            .isNotEmpty &&
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statecode2
+                                                            .isNotEmpty) {
+                                                      setState(() {
+                                                        context
+                                                            .read<
+                                                                NewCustomerContoller>()
+                                                            .statebool2 = false;
+                                                      });
+                                                    }
+                                                  },
+                                    validator: (value) {
+                                      
+                                    },
+                                    decoration: InputDecoration(
+                                      labelText: 'Remarks',
+                                      labelStyle: theme.textTheme.bodyMedium!
+                                          .copyWith(color: Colors.grey),
+                                      enabledBorder:const UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.grey),
                                         //  when the TextFormField in unfocused
@@ -819,7 +1011,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                           width: Screens.width(context),
                                           child: Text(
                                             "Billing Address",
-                                            style: theme.textTheme.headline6
+                                            style: theme.textTheme.titleLarge
                                                 ?.copyWith(
                                                     color: theme.primaryColor),
                                           ),
@@ -904,7 +1096,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                             decoration: InputDecoration(
                                               labelText: 'Address1*',
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -1009,7 +1201,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                             decoration: InputDecoration(
                                               labelText: 'Address2*',
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -1143,7 +1335,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -1269,7 +1461,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -1373,7 +1565,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                         //                               "${context.watch<NewCustomerContoller>().filterCustomerList[i].area}",
                                         //                               style: theme
                                         //                                   .textTheme
-                                        //                                   .bodyText1
+                                        //                                   .bodyMedium
                                         //                                   ?.copyWith(
                                         //                                       color: Colors
                                         //                                           .black),
@@ -1471,7 +1663,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                         //                               "${context.watch<NewCustomerContoller>().filterCustomerList[i].city}",
                                         //                               style: theme
                                         //                                   .textTheme
-                                        //                                   .bodyText1
+                                        //                                   .bodyMedium
                                         //                                   ?.copyWith(
                                         //                                       color: Colors
                                         //                                           .black),
@@ -1546,7 +1738,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -1685,7 +1877,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -1798,7 +1990,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                                       "${context.watch<NewCustomerContoller>().filterCustomerList[i].zipcode}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -1833,7 +2025,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                 child: Text(
                                                   "Enter Correct State",
                                                   style: theme
-                                                      .textTheme.bodyText2!
+                                                      .textTheme.bodyMedium!
                                                       .copyWith(
                                                           color: Colors.red,
                                                           fontSize: 12),
@@ -1874,7 +2066,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                 child: Text(
                                                   "Shipping Address",
                                                   style: theme
-                                                      .textTheme.headline6
+                                                      .textTheme.titleLarge
                                                       ?.copyWith(
                                                           color: theme
                                                               .primaryColor),
@@ -1983,7 +2175,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                               // fillColor: Colors.amber,
                                               border: UnderlineInputBorder(),
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -2086,7 +2278,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                               labelText: 'Address2*',
                                               border: UnderlineInputBorder(),
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -2225,7 +2417,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -2351,7 +2543,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -2460,7 +2652,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                                       "${context.watch<NewCustomerContoller>().filterCustomerList[i].area}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -2562,7 +2754,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                                       "${context.watch<NewCustomerContoller>().filterCustomerList[i].city}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -2635,7 +2827,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -2774,7 +2966,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -2814,7 +3006,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                 child: Text(
                                                   "Enter Correct State",
                                                   style: theme
-                                                      .textTheme.bodyText2!
+                                                      .textTheme.bodyMedium!
                                                       .copyWith(
                                                           color: Colors.red,
                                                           fontSize: 12),
@@ -2877,7 +3069,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                               "${context.watch<NewCustomerContoller>().filterstateData[i].stateName}",
                                                               style: theme
                                                                   .textTheme
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   ?.copyWith(
                                                                       color: theme
                                                                           .primaryColor),
@@ -2949,7 +3141,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                                                     child: Text(
                                                       "${context.watch<NewCustomerContoller>().filterstateData[i].stateName}",
                                                       style: theme
-                                                          .textTheme.bodyText1
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith(
                                                               color: theme
                                                                   .primaryColor),
@@ -3028,9 +3220,9 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                   .read<NewCustomerContoller>()
                           //                   .validateGender ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -3070,7 +3262,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("Male",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3115,7 +3307,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("Female",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3160,7 +3352,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("Other",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3195,9 +3387,9 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                   .read<NewCustomerContoller>()
                           //                   .validateAge ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -3237,7 +3429,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("20-30",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3282,7 +3474,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("30-40",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3327,7 +3519,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("40-50",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3372,7 +3564,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //             Text("50>",
                           //                 maxLines: 8,
                           //                 overflow: TextOverflow.ellipsis,
-                          //                 style: theme.textTheme.bodyText1
+                          //                 style: theme.textTheme.bodyMedium
                           //                     ?.copyWith(
                           //                   color: context
                           //                               .watch<
@@ -3407,9 +3599,9 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                   .read<NewCustomerContoller>()
                           //                   .validateComas ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -3449,7 +3641,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("Family",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3494,7 +3686,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("Individual",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3539,7 +3731,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //                 Text("Friends",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -3584,7 +3776,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                           //             Text("Corporate",
                           //                 maxLines: 8,
                           //                 overflow: TextOverflow.ellipsis,
-                          //                 style: theme.textTheme.bodyText1
+                          //                 style: theme.textTheme.bodyMedium
                           //                     ?.copyWith(
                           //                   color: context
                           //                               .watch<
@@ -3737,7 +3929,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                   labelText: 'Company Name',
                 //                                   border: UnderlineInputBorder(),
                 //                                   labelStyle: theme
-                //                                       .textTheme.bodyText1!
+                //                                       .textTheme.bodyMedium!
                 //                                       .copyWith(
                 //                                           color: Colors.grey),
                 //                                   enabledBorder:
@@ -3770,7 +3962,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                 decoration: InputDecoration(
                 //                                   labelText: 'Contact Name',
                 //                                   labelStyle: theme
-                //                                       .textTheme.bodyText1!
+                //                                       .textTheme.bodyMedium!
                 //                                       .copyWith(
                 //                                           color: Colors.grey),
                 //                                   enabledBorder:
@@ -3816,7 +4008,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                 decoration: InputDecoration(
                 //                                   labelText: 'Mobile',
                 //                                   labelStyle: theme
-                //                                       .textTheme.bodyText1!
+                //                                       .textTheme.bodyMedium!
                 //                                       .copyWith(
                 //                                           color: Colors.grey),
                 //                                   enabledBorder:
@@ -3854,7 +4046,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                 decoration: InputDecoration(
                 //                                   labelText: 'Email',
                 //                                   labelStyle: theme
-                //                                       .textTheme.bodyText1!
+                //                                       .textTheme.bodyMedium!
                 //                                       .copyWith(
                 //                                           color: Colors.grey),
                 //                                   enabledBorder:
@@ -3892,7 +4084,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                             //     decoration: InputDecoration(
                 //                             //       labelText: 'Landline',
                 //                             //       labelStyle: theme
-                //                             //           .textTheme.bodyText1!
+                //                             //           .textTheme.bodyMedium!
                 //                             //           .copyWith(
                 //                             //               color: Colors.grey),
                 //                             //       enabledBorder:
@@ -3930,7 +4122,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                 decoration: InputDecoration(
                 //                                   labelText: 'Alternate Mobile Number',
                 //                                   labelStyle: theme
-                //                                       .textTheme.bodyText1!
+                //                                       .textTheme.bodyMedium!
                 //                                       .copyWith(
                 //                                           color: Colors.grey),
                 //                                   enabledBorder:
@@ -3968,7 +4160,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                 decoration: InputDecoration(
                 //                                   labelText: 'GST No',
                 //                                   labelStyle: theme
-                //                                       .textTheme.bodyText1!
+                //                                       .textTheme.bodyMedium!
                 //                                       .copyWith(
                 //                                           color: Colors.grey),
                 //                                   enabledBorder:
@@ -4160,7 +4352,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //         //                           // fillColor: Colors.amber,
                 //         //                           border: UnderlineInputBorder(),
                 //         //                           labelStyle: theme
-                //         //                               .textTheme.bodyText1!
+                //         //                               .textTheme.bodyMedium!
                 //         //                               .copyWith(
                 //         //                                   color: Colors.grey),
                 //         //                           enabledBorder:
@@ -4197,7 +4389,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //         //                           labelText: 'Address2',
                 //         //                           border: UnderlineInputBorder(),
                 //         //                           labelStyle: theme
-                //         //                               .textTheme.bodyText1!
+                //         //                               .textTheme.bodyMedium!
                 //         //                               .copyWith(
                 //         //                                   color: Colors.grey),
                 //         //                           enabledBorder:
@@ -4249,7 +4441,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //         //                                 border:
                 //         //                                     UnderlineInputBorder(),
                 //         //                                 labelStyle: theme
-                //         //                                     .textTheme.bodyText1!
+                //         //                                     .textTheme.bodyMedium!
                 //         //                                     .copyWith(
                 //         //                                         color:
                 //         //                                             Colors.grey),
@@ -4296,7 +4488,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //         //                                 border:
                 //         //                                     UnderlineInputBorder(),
                 //         //                                 labelStyle: theme
-                //         //                                     .textTheme.bodyText1!
+                //         //                                     .textTheme.bodyMedium!
                 //         //                                     .copyWith(
                 //         //                                         color:
                 //         //                                             Colors.grey),
@@ -4354,7 +4546,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //         //                                 border:
                 //         //                                     UnderlineInputBorder(),
                 //         //                                 labelStyle: theme
-                //         //                                     .textTheme.bodyText1!
+                //         //                                     .textTheme.bodyMedium!
                 //         //                                     .copyWith(
                 //         //                                         color:
                 //         //                                             Colors.grey),
@@ -4401,7 +4593,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //         //                                 border:
                 //         //                                     UnderlineInputBorder(),
                 //         //                                 labelStyle: theme
-                //         //                                     .textTheme.bodyText1!
+                //         //                                     .textTheme.bodyMedium!
                 //         //                                     .copyWith(
                 //         //                                         color:
                 //         //                                             Colors.grey),
@@ -4457,7 +4649,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //         //                                 border:
                 //         //                                     UnderlineInputBorder(),
                 //         //                                 labelStyle: theme
-                //         //                                     .textTheme.bodyText1!
+                //         //                                     .textTheme.bodyMedium!
                 //         //                                     .copyWith(
                 //         //                                         color:
                 //         //                                             Colors.grey),
@@ -4508,7 +4700,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //         //                                 border:
                 //         //                                     UnderlineInputBorder(),
                 //         //                                 labelStyle: theme
-                //         //                                     .textTheme.bodyText1!
+                //         //                                     .textTheme.bodyMedium!
                 //         //                                     .copyWith(
                 //         //                                         color:
                 //         //                                             Colors.grey),
@@ -4734,7 +4926,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                           labelText: 'Address1',
                 //                                           labelStyle: theme
                 //                                               .textTheme
-                //                                               .bodyText1!
+                //                                               .bodyMedium!
                 //                                               .copyWith(
                 //                                                   color: Colors
                 //                                                       .grey),
@@ -4806,7 +4998,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                 decoration: InputDecoration(
                 //                                   labelText: 'Address2',
                 //                                   labelStyle: theme
-                //                                       .textTheme.bodyText1!
+                //                                       .textTheme.bodyMedium!
                 //                                       .copyWith(
                 //                                           color: Colors.grey),
                 //                                   enabledBorder:
@@ -4859,7 +5051,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                         border:
                 //                                             UnderlineInputBorder(),
                 //                                         labelStyle: theme
-                //                                             .textTheme.bodyText1!
+                //                                             .textTheme.bodyMedium!
                 //                                             .copyWith(
                 //                                                 color:
                 //                                                     Colors.grey),
@@ -4906,7 +5098,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                         border:
                 //                                             UnderlineInputBorder(),
                 //                                         labelStyle: theme
-                //                                             .textTheme.bodyText1!
+                //                                             .textTheme.bodyMedium!
                 //                                             .copyWith(
                 //                                                 color:
                 //                                                     Colors.grey),
@@ -4966,7 +5158,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                         border:
                 //                                             UnderlineInputBorder(),
                 //                                         labelStyle: theme
-                //                                             .textTheme.bodyText1!
+                //                                             .textTheme.bodyMedium!
                 //                                             .copyWith(
                 //                                                 color:
                 //                                                     Colors.grey),
@@ -5013,7 +5205,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                         border:
                 //                                             UnderlineInputBorder(),
                 //                                         labelStyle: theme
-                //                                             .textTheme.bodyText1!
+                //                                             .textTheme.bodyMedium!
                 //                                             .copyWith(
                 //                                                 color:
                 //                                                     Colors.grey),
@@ -5215,7 +5407,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                           labelText: 'Address1',
                 //                                           labelStyle: theme
                 //                                               .textTheme
-                //                                               .bodyText1!
+                //                                               .bodyMedium!
                 //                                               .copyWith(
                 //                                                   color: Colors
                 //                                                       .grey),
@@ -5288,7 +5480,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                   labelText: 'Address2',
                 //                                   border: UnderlineInputBorder(),
                 //                                   labelStyle: theme
-                //                                       .textTheme.bodyText1!
+                //                                       .textTheme.bodyMedium!
                 //                                       .copyWith(
                 //                                           color: Colors.grey),
                 //                                   enabledBorder:
@@ -5340,7 +5532,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                         border:
                 //                                             UnderlineInputBorder(),
                 //                                         labelStyle: theme
-                //                                             .textTheme.bodyText1!
+                //                                             .textTheme.bodyMedium!
                 //                                             .copyWith(
                 //                                                 color:
                 //                                                     Colors.grey),
@@ -5387,7 +5579,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                         border:
                 //                                             UnderlineInputBorder(),
                 //                                         labelStyle: theme
-                //                                             .textTheme.bodyText1!
+                //                                             .textTheme.bodyMedium!
                 //                                             .copyWith(
                 //                                                 color:
                 //                                                     Colors.grey),
@@ -5445,7 +5637,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                         border:
                 //                                             UnderlineInputBorder(),
                 //                                         labelStyle: theme
-                //                                             .textTheme.bodyText1!
+                //                                             .textTheme.bodyMedium!
                 //                                             .copyWith(
                 //                                                 color:
                 //                                                     Colors.grey),
@@ -5492,7 +5684,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                                         border:
                 //                                             UnderlineInputBorder(),
                 //                                         labelStyle: theme
-                //                                             .textTheme.bodyText1!
+                //                                             .textTheme.bodyMedium!
                 //                                             .copyWith(
                 //                                                 color:
                 //                                                     Colors.grey),
@@ -5603,7 +5795,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                 //                   children: [
                 //                     Text(
                 //                       "Payment Terms",
-                //                       style: theme.textTheme.bodyText1
+                //                       style: theme.textTheme.bodyMedium
                 //                           ?.copyWith(color: Colors.white),
                 //                     ),
                 //                     SizedBox(
@@ -5752,7 +5944,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
                       .toString(),
                   maxLines: 8,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: context
                                 .read<NewCustomerContoller>()
                                 .getisSelectedenquiryReffers ==
@@ -5816,7 +6008,7 @@ class NewCustomerRegState extends State<NewCustomerReg> {
   //                     .toString(),
   //                 maxLines: 8,
   //                 overflow: TextOverflow.ellipsis,
-  //                 style: theme.textTheme.bodyText1?.copyWith(
+  //                 style: theme.textTheme.bodyMedium?.copyWith(
   //                   color: context
   //                               .watch<NewCustomerContoller>()
   //                               .getisSelectedenquiryReffers ==

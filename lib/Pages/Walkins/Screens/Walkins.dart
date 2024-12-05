@@ -5,11 +5,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/WalkinController/WalkinController.dart';
-import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
+import 'package:sellerkit/Controller/WalkinController/walkin_controller.dart';
+import 'package:sellerkit/DBModel/itemmasertdb_model.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 
 import '../../../Widgets/Navi3.dart';
@@ -80,7 +81,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                       children: [
                         Text(
                           "Purpose of visit",
-                          style: theme.textTheme.bodyText1,
+                          style: theme.textTheme.bodyMedium,
                         ),
                         SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
@@ -101,7 +102,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: context
@@ -121,7 +122,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                         maxLines: 8,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            theme.textTheme.bodyText1?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                       .watch<WalkinController>()
                                                       .getisSelectedPurposeOfVisit ==
@@ -141,7 +142,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: context
@@ -161,7 +162,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            theme.textTheme.bodyText1?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                       .watch<WalkinController>()
                                                       .getisSelectedPurposeOfVisit ==
@@ -181,7 +182,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: context
@@ -201,7 +202,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                         textAlign: TextAlign.center,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            theme.textTheme.bodyText1?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                       .watch<WalkinController>()
                                                       .getisSelectedPurposeOfVisit ==
@@ -244,13 +245,13 @@ class _WalkinsPageState extends State<WalkinsPage> {
                       children: [
                         Text(
                           "Division",
-                          style: theme.textTheme.bodyText1,
+                          style: theme.textTheme.bodyMedium,
                         ),
                         SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
                         ),
                          Container(
-                 height: Screens.bodyheight(context) * 0.06,
+                 height: Screens.bodyheight(context) * 0.05,
                  decoration: BoxDecoration(
                    color: theme.primaryColor
                        .withOpacity(0.1), //Colors.grey[200],
@@ -264,7 +265,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                    },
                    decoration: InputDecoration(
                      filled: false,
-                     hintText: 'Search Here!!..',
+                     hintText: 'Search Here..',
                      enabledBorder: InputBorder.none,
                      focusedBorder: InputBorder.none,
                      prefixIcon: IconButton(
@@ -293,9 +294,9 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                 // scrollDirection :Axis.vertical,
                                 shrinkWrap: true,
                                 crossAxisCount: 3, 
-                                 crossAxisSpacing:12.0 ,
-                                 mainAxisSpacing: 12.0,
-                                  childAspectRatio: 2.2,
+                                 crossAxisSpacing:10.0 ,
+                                 mainAxisSpacing: 10.0,
+                                  childAspectRatio: 2.8,
                               children:  listContainersSegment(
                                       theme,
                                       context
@@ -304,506 +305,11 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               
                               ),
                             ),
-                            // Wrap(
-                            //     spacing: 12.0, // width
-                            //     runSpacing: 12.0, // height
-                                // children: 
-                                // listContainersSegment(
-                                //     theme,
-                                //     context
-                                //         .read<WalkinController>()
-                                //         .getsegmentList)
-                                        // ),
-                          
+                            
                         SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
                         ),
-                        // InkWell(
-                        //   onTap: (){
-                        //      context
-                        //                   .read<WalkinController>()
-                        //                   .isselectedSegmentViewAllPage();
-                        //   },
-                        //   child: Container(
-                        //     alignment: Alignment.centerRight,
-                        //     width: Screens.width(context),
-                        //     child: Text(
-                        //       "View All",
-                        //       style: theme.textTheme.bodyText1
-                        //           ?.copyWith(fontSize: 16, color: Colors.grey),
-                        //     ),
-                        //   ),
-                        // ),
-                        //oldcode
-                        //    Row(
-                        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //           children: [
-                        //             InkWell(
-                        //               onTap: () {
-                        //               context.read<WalkinController>().selectDivision("Refrigerator");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color:  context.watch<WalkinController>().
-                        //                     getisSelectedDivision == 'Refrigerator'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Refrigerator",
-                        //                     textAlign: TextAlign.center,
-                        //                         maxLines: 8,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color:  context.watch<WalkinController>().
-                        //                           getisSelectedDivision == 'Refrigerator'
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             InkWell(
-                        //               onTap: () {
-                        //                 context.read<WalkinController>().selectDivision("Washing Machine");
-                        //               },
-                        //               child: Container(
-                        //                width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color: context.watch<WalkinController>()
-                        //                     .getisSelectedDivision == 'Washing Machine'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Washing Machine",
-                        //                     textAlign: TextAlign.center,
-                        //                         maxLines: 8,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color: context.watch<WalkinController>().
-                        //                           getisSelectedDivision == "Washing Machine"
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             InkWell(
-                        //               onTap: () {
-                        //                  context.read<WalkinController>().selectDivision("IT");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color:  context.watch<WalkinController>().
-                        //                     getisSelectedDivision == 'IT'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("IT",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color:  context.watch<WalkinController>().
-                        //                           getisSelectedDivision == "IT"
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //  SizedBox(height: Screens.bodyheight(context)*0.02,),
-                        //  //
-                        //   Row(
-                        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //           children: [
-                        //             InkWell(
-                        //               onTap: () {
-                        //               context.read<WalkinController>().selectDivision("Air Conditioner");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color:  context.watch<WalkinController>().
-                        //                     getisSelectedDivision == 'Air Conditioner'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Air Conditioner",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color:  context.watch<WalkinController>().
-                        //                           getisSelectedDivision == 'Air Conditioner'
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             InkWell(
-                        //               onTap: () {
-                        //                 context.read<WalkinController>().selectDivision("Pannel TV");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color: context.watch<WalkinController>()
-                        //                     .getisSelectedDivision == 'Pannel TV'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Pannel TV",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color: context.watch<WalkinController>().
-                        //                           getisSelectedDivision == "Pannel TV"
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             InkWell(
-                        //               onTap: () {
-                        //                  context.read<WalkinController>().selectDivision("Mobile");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color:  context.watch<WalkinController>().
-                        //                     getisSelectedDivision == 'Mobile'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Mobile",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color:  context.watch<WalkinController>().
-                        //                           getisSelectedDivision == "Mobile"
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //  SizedBox(height: Screens.bodyheight(context)*0.02,),
-                        //    Row(
-                        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //           children: [
-                        //             InkWell(
-                        //               onTap: () {
-                        //               context.read<WalkinController>().selectDivision("Dish Washer");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color:  context.watch<WalkinController>().
-                        //                     getisSelectedDivision == 'Dish Washer'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Dish Washer",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color:  context.watch<WalkinController>().
-                        //                           getisSelectedDivision == 'Dish Washer'
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             InkWell(
-                        //               onTap: () {
-                        //                 context.read<WalkinController>().selectDivision("Home Theater");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color: context.watch<WalkinController>()
-                        //                     .getisSelectedDivision == 'Home Theater'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Home Theater",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color: context.watch<WalkinController>().
-                        //                           getisSelectedDivision == "Home Theater"
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             InkWell(
-                        //               onTap: () {
-                        //                  context.read<WalkinController>().selectDivision("Others");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color:  context.watch<WalkinController>().
-                        //                     getisSelectedDivision == 'Others'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Others",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color:  context.watch<WalkinController>().
-                        //                           getisSelectedDivision == "Others"
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //  SizedBox(height: Screens.bodyheight(context)*0.02,),
-                    
-                        //     Row(
-                        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //           children: [
-                        //             InkWell(
-                        //               onTap: () {
-                        //               context.read<WalkinController>().selectDivision("Furniture");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color:  context.watch<WalkinController>().
-                        //                     getisSelectedDivision == 'Furniture'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Furniture",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color:  context.watch<WalkinController>().
-                        //                           getisSelectedDivision == 'Furniture'
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //             InkWell(
-                        //               onTap: () {
-                        //                 context.read<WalkinController>().selectDivision("Kitchen Appliances");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 // height: Screens.bodyheight(context) * 0.06,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 decoration: BoxDecoration(
-                        //                     color: context.watch<WalkinController>()
-                        //                     .getisSelectedDivision == 'Kitchen Appliances'
-                        //                         ? theme.primaryColor
-                        //                         : Colors.white,
-                        //                     border: Border.all(
-                        //                         color: theme.primaryColor,
-                        //                         width: 1),
-                        //                     borderRadius:
-                        //                         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     Text("Kitchen Appliances",
-                        //                         maxLines: 8,
-                        //                     textAlign: TextAlign.center,
-                        //                         overflow: TextOverflow.ellipsis,
-                        //                         style: theme.textTheme.bodyText1
-                        //                             ?.copyWith(
-                        //                           color: context.watch<WalkinController>().
-                        //                           getisSelectedDivision == "Kitchen Appliances"
-                        //                               ? Colors.white
-                        //                               : theme.primaryColor,
-                        //                         ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //            InkWell(
-                        //               onTap: () {
-                        //                 // context.read<WalkinController>().selectDivision("Others");
-                        //               },
-                        //               child: Container(
-                        //                 width: Screens.width(context) * 0.29,
-                        //                 height: Screens.bodyheight(context) * 0.07,
-                        //                 //  padding: EdgeInsets.all(10),
-                        //                 // decoration: BoxDecoration(
-                        //                 //     color:  context.watch<WalkinController>().
-                        //                 //     getisSelectedDivision == 'Others'
-                        //                 //         ? theme.primaryColor
-                        //                 //         : Colors.white,
-                        //                 //     border: Border.all(
-                        //                 //         color: theme.primaryColor,
-                        //                 //         width: 1),
-                        //                 //     borderRadius:
-                        //                 //         BorderRadius.circular(10)),
-                        //                 child: Column(
-                        //                   mainAxisAlignment:
-                        //                       MainAxisAlignment.center,
-                        //                   children: [
-                        //                     // Text("Others",
-                        //                     //     maxLines: 8,
-                        //                     //     overflow: TextOverflow.ellipsis,
-                        //                     //     style: theme.textTheme.bodyText1
-                        //                     //         ?.copyWith(
-                        //                     //       color:  context.watch<WalkinController>().
-                        //                     //       getisSelectedDivision == "Others"
-                        //                     //           ? Colors.white
-                        //                     //           : theme.primaryColor,
-                        //                     //     ))
-                        //                   ],
-                        //                 ),
-                        //               ),
-                        //             ),
-                        //           ],
-                        //         ),
+                       
                         SizedBox(
                           height: Screens.bodyheight(context) * 0.02,
                         ),
@@ -832,7 +338,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                       children: [
                         Text(
                           "Head count",
-                          style: theme.textTheme.bodyText1,
+                          style: theme.textTheme.bodyMedium,
                         ),
                         SizedBox(
                           height: Screens.bodyheight(context) * 0.01,
@@ -854,7 +360,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: context
@@ -874,7 +380,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                         maxLines: 8,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            theme.textTheme.bodyText1?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                       .watch<WalkinController>()
                                                       .getisSelectedHeadCount ==
@@ -894,7 +400,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: context
@@ -914,7 +420,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                         maxLines: 8,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            theme.textTheme.bodyText1?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                       .watch<WalkinController>()
                                                       .getisSelectedHeadCount ==
@@ -934,7 +440,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: context
@@ -954,7 +460,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                         maxLines: 8,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            theme.textTheme.bodyText1?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                       .watch<WalkinController>()
                                                       .getisSelectedHeadCount ==
@@ -983,7 +489,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: context
@@ -1003,7 +509,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                         maxLines: 8,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            theme.textTheme.bodyText1?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                       .watch<WalkinController>()
                                                       .getisSelectedHeadCount ==
@@ -1023,7 +529,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: context
@@ -1043,7 +549,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                         maxLines: 8,
                                         overflow: TextOverflow.ellipsis,
                                         style:
-                                            theme.textTheme.bodyText1?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                       .watch<WalkinController>()
                                                       .getisSelectedHeadCount ==
@@ -1061,7 +567,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                               },
                               child: Container(
                                 width: Screens.width(context) * 0.29,
-                                height: Screens.bodyheight(context) * 0.07,
+                                height: Screens.bodyheight(context) * 0.05,
                                 //  padding: EdgeInsets.all(10),
                                 // decoration: BoxDecoration(
                                 //     color:  context.watch<WalkinController>().
@@ -1079,7 +585,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                                     // Text("Others",
                                     //     maxLines: 8,
                                     //     overflow: TextOverflow.ellipsis,
-                                    //     style: theme.textTheme.bodyText1
+                                    //     style: theme.textTheme.bodyMedium
                                     //         ?.copyWith(
                                     //       color:  context.watch<WalkinController>().
                                     //       getisSelectedDivision == "Others"
@@ -1204,7 +710,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
               Text("${content[index]}",
                   maxLines: 8,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: isSelected[index] == true
                         ? Colors.white
                         : theme.primaryColor,
@@ -1237,7 +743,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
 
             alignment: Alignment.center,
             width: Screens.width(context) * 0.29,
-            height: Screens.bodyheight(context) * 0.07,
+            height: Screens.bodyheight(context) * 0.05,
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: context.watch<WalkinController>().isSelectedDivision ==
@@ -1253,7 +759,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
                     maxLines: 2,
                     textAlign:TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: context
                                   .watch<WalkinController>()
@@ -1297,7 +803,7 @@ class _WalkinsPageState extends State<WalkinsPage> {
     //             Text(content[index].segment,
     //                 maxLines: 1,
     //                 overflow: TextOverflow.ellipsis,
-    //                 style: theme.textTheme.bodyText1?.copyWith(
+    //                 style: theme.textTheme.bodyMedium?.copyWith(
     //                   fontSize: 10,
     //                   color: context
     //                               .watch<WalkinController>()

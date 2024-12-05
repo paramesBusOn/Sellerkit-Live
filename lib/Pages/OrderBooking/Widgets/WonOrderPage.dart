@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../Constant/Screen.dart';
 import '../../../Constant/Configuration.dart';
-import '../../../Controller/OrderController/TabOrderController.dart';
+import '../../../Controller/OrderController/taborder_controller.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/GetOrderSummary.dart';
 import 'FollowDialog.dart';
@@ -71,7 +71,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                     child: Text(
                       // "Open Orders",
                       "${widget.leadSummaryWon[0].Caption}",
-                      style: widget.theme.textTheme.bodyText1
+                      style: widget.theme.textTheme.bodyMedium
                           ?.copyWith(color: widget.theme.primaryColor),
                     ),
                   ),
@@ -86,7 +86,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                     
                                 //     ),
                             textAlign: TextAlign.end,
-                            // style: widget.theme.textTheme.headline6,
+                            // style: widget.theme.textTheme.titleLarge,
                           )),
                       // Container(
                       //   alignment: Alignment.centerRight,
@@ -110,7 +110,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                     .leadSummaryWon[0].Value!
                                     .toStringAsFixed(0)),
                            
-                            style: widget.theme.textTheme.headline6,
+                            style: widget.theme.textTheme.titleLarge,
                           )
                           ),
                      Container(
@@ -122,7 +122,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                           // Config.k_m_b_generator(widget
                           //     .leadSummaryWon[0].BTG!
                           //     .toStringAsFixed(0)),
-                      style: widget.theme.textTheme.bodyText1,
+                      style: widget.theme.textTheme.bodyMedium,
                     ),
                   )
 
@@ -237,7 +237,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Customer",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -245,7 +245,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -260,7 +260,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                       child: Text(
                                           "${widget.leadWonAllData[i].CustomerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             // fontWeight: FontWeight.bold
                                           )),
@@ -278,7 +278,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                           // .alignDate(
                                           //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             //fontWeight: FontWeight.bold
                                           )),
@@ -297,7 +297,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                       width: Screens.width(context),
                                       child: Text(
                                         "Product",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -305,7 +305,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                       width: Screens.width(context),
                                       // color: Colors.red,
                                       child: Text("${widget.leadWonAllData[i].Product}",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                           //?.copyWith(color: Colors.grey),
                                           ),
                                     ),
@@ -324,7 +324,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                       child: Text(
                                           "Order Date", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -336,7 +336,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                       child: Text(
                                           "Order Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -358,7 +358,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                                   .alignDate(
                                                       "${widget.leadWonAllData[i].DocDate}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   )),
@@ -390,7 +390,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                                         .Value!
                                                         .toStringAsFixed(
                                                             0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     //color:theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
@@ -423,7 +423,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                                     .isEmpty
                                                 ? ''
                                                 : "${widget.leadWonAllData[i].CurrentStatus}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               //color:theme.primaryColor,
                                               color: Colors.yellow[900],
@@ -454,7 +454,7 @@ class _WonOrderPageState extends State<WonOrderPage> {
                                                     .subtractDateTime(
                                                         "${widget.leadWonAllData[i].createdon}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
                                         style:
-                                            widget.theme.textTheme.bodyText2?.copyWith(
+                                            widget.theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey,
                                           // color: Colors.green[700],
                                           // fontWeight: FontWeight.bold

@@ -35,7 +35,7 @@ class HeaderWidget extends StatelessWidget {
             // padding: EdgeInsets.symmetric(horizontal: Screens.width(context)*0.15),
             child: Text(
               "Welcome to the new",
-              style: theme.textTheme.headline5?.copyWith(color: Colors.white),
+              style: theme.textTheme.headlineSmall?.copyWith(color: Colors.white),
             )),
         Container(
             alignment: Alignment.center,
@@ -44,7 +44,7 @@ class HeaderWidget extends StatelessWidget {
             // padding: EdgeInsets.symmetric(horizontal: Screens.width(context)*0.15),
             child: Text(
               "Seller kit",
-              style: theme.textTheme.headline5?.copyWith(color: Colors.white),
+              style: theme.textTheme.headlineSmall?.copyWith(color: Colors.white),
             )),
         SizedBox(height: Screens.padingHeight(context) * 0.1),
         Container(

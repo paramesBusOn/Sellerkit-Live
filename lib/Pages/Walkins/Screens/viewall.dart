@@ -3,8 +3,9 @@
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
 // import 'package:provider/provider.dart';
-// import 'package:sellerkit/Constant/ConstantRoutes.dart';
-// import 'package:sellerkit/Constant/ConstantSapValues.dart';
+// import 'package:sellerkit/Constant/constant_routes.dart';
+// import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 // import 'package:sellerkit/Constant/Screen.dart';
 // import 'package:sellerkit/Controller/WalkinController/WalkinController.dart';
 // import '../../../Constant/padings.dart';
@@ -137,7 +138,7 @@
 //   //               Text(content[index].brand,
 //   //                   maxLines: 1,
 //   //                   overflow: TextOverflow.ellipsis,
-//   //                   style: theme.textTheme.bodyText1?.copyWith(
+//   //                   style: theme.textTheme.bodyMedium?.copyWith(
 //   //                     fontSize: 10,
 //   //                     color: 
 //   //        context.watch<WalkinController>().getviewAll[index].isselected==1             
@@ -181,7 +182,7 @@
 //   //               Text(content[index].category,
 //   //                   maxLines: 1,
 //   //                   overflow: TextOverflow.ellipsis,
-//   //                   style: theme.textTheme.bodyText1?.copyWith(
+//   //                   style: theme.textTheme.bodyMedium?.copyWith(
 //   //                     fontSize: 10,
         
 //   //                    color:
@@ -225,7 +226,7 @@
 //                 Text(content[index].segment,
 //                     maxLines: 1,
 //                     overflow: TextOverflow.ellipsis,
-//                     style: theme.textTheme.bodyText1?.copyWith(
+//                     style: theme.textTheme.bodyMedium?.copyWith(
 //                       fontSize: 10,
 //                       color: 
 //                      context.watch<WalkinController>().isSelectedDivision ==

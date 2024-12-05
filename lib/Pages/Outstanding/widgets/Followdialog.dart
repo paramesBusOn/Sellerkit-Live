@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/OutStandingController/OutStandingController.dart';
-import 'package:sellerkit/DBModel/outstandingDBmodel.dart';
+import 'package:sellerkit/Controller/OutStandingController/outstanding_controller.dart';
+import 'package:sellerkit/DBModel/outstandingdb_model.dart';
 import 'package:sellerkit/Pages/Outstanding/widgets/PDFViewer/PDFViewer/pdfOutStandHelper.dart';
 
 import 'PDFViewer/PDFViewer/OutStandPdf.dart';
@@ -92,42 +92,42 @@ class _FollowdialogState extends State<Followdialog> {
                                   Container(
                                     child: Text(
                                       "Name ",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "${context.watch<Outstandingcontroller>().ontapKpi2[0].CustomerName}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "Phone ",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "${context.watch<Outstandingcontroller>().ontapKpi2[0].CustomerCode}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "City/State ",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "${context.watch<Outstandingcontroller>().ontapKpi2[0].Bil_City},${context.read<Outstandingcontroller>().ontapKpi2[0].Bil_State == null || context.read<Outstandingcontroller>().ontapKpi2[0].Bil_State == "null" ? "" : context.read<Outstandingcontroller>().ontapKpi2[0].Bil_State}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -156,7 +156,7 @@ class _FollowdialogState extends State<Followdialog> {
                                   Container(
                                     child: Text(
                                       "TotalOutStanding",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -166,14 +166,14 @@ class _FollowdialogState extends State<Followdialog> {
                                                           .read<
                                                               Outstandingcontroller>()
                                                           .config.slpitCurrency22(context.watch<Outstandingcontroller>().totaloutstanding.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "Overdue",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -183,14 +183,14 @@ class _FollowdialogState extends State<Followdialog> {
                                                           .read<
                                                               Outstandingcontroller>()
                                                           .config.slpitCurrency22(context.watch<Outstandingcontroller>().overdue.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "Upcoming",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -200,7 +200,7 @@ class _FollowdialogState extends State<Followdialog> {
                                                           .read<
                                                               Outstandingcontroller>()
                                                           .config.slpitCurrency22(context.watch<Outstandingcontroller>().upcoming.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -227,14 +227,14 @@ class _FollowdialogState extends State<Followdialog> {
                 //           Container(
                 //             child: Text(
                 //               "Customer Code",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: Colors.grey),
                 //             ),
                 //           ),
                 //           Container(
                 //             child: Text(
                 //               "Total Outstanding",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: Colors.grey),
                 //             ),
                 //           ),
@@ -246,14 +246,14 @@ class _FollowdialogState extends State<Followdialog> {
                 //           Container(
                 //             child: Text(
                 //               "${widget.outstandingModel.customerCode}",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: theme.primaryColor),
                 //             ),
                 //           ),
                 //           Container(
                 //             child: Text(
                 //               "${widget.outstandingModel.balanceToPay}",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: theme.primaryColor),
                 //             ),
                 //           ),
@@ -268,14 +268,14 @@ class _FollowdialogState extends State<Followdialog> {
                 //           Container(
                 //             child: Text(
                 //               "Customer Name",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: Colors.grey),
                 //             ),
                 //           ),
                 //           Container(
                 //             child: Text(
                 //               "",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: theme.primaryColor),
                 //             ),
                 //           ),
@@ -287,7 +287,7 @@ class _FollowdialogState extends State<Followdialog> {
                 //           Container(
                 //             child: Text(
                 //               "${widget.outstandingModel.customerName}",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: theme.primaryColor),
                 //             ),
                 //           ),
@@ -302,7 +302,7 @@ class _FollowdialogState extends State<Followdialog> {
                 //           Container(
                 //             child: Text(
                 //               "Trans Amount",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: Colors.grey),
                 //             ),
                 //           ),
@@ -314,7 +314,7 @@ class _FollowdialogState extends State<Followdialog> {
                 //           Container(
                 //             child: Text(
                 //               "${widget.outstandingModel.transAmount}",
-                //               style: theme.textTheme.bodyText1!
+                //               style: theme.textTheme.bodyMedium!
                 //                   .copyWith(color: theme.primaryColor),
                 //             ),
                 //           ),
@@ -363,14 +363,14 @@ class _FollowdialogState extends State<Followdialog> {
                                   Container(
                                     child: Text(
                                       "Trans Number",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "Date",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -383,14 +383,14 @@ class _FollowdialogState extends State<Followdialog> {
                                   Container(
                                     child: Text(
                                       "${context.read<Outstandingcontroller>().outstandingkpi[i].TransNum}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "${context.read<Outstandingcontroller>().config.alignDate(context.read<Outstandingcontroller>().outstandingkpi[i].TransDate.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -406,14 +406,14 @@ class _FollowdialogState extends State<Followdialog> {
                                   Container(
                                     child: Text(
                                       "Trans Ref Number",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "Age",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -426,14 +426,14 @@ class _FollowdialogState extends State<Followdialog> {
                                   Container(
                                     child: Text(
                                       "${context.read<Outstandingcontroller>().outstandingkpi[i].TransRef1}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "${context.read<Outstandingcontroller>().outstandingkpi[i].age!.toInt()}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -449,14 +449,14 @@ class _FollowdialogState extends State<Followdialog> {
                                   Container(
                                     child: Text(
                                       "Trans Total",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     child: Text(
                                       "Balance to Pay",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -472,7 +472,7 @@ class _FollowdialogState extends State<Followdialog> {
                                                           .read<
                                                               Outstandingcontroller>()
                                                           .config.slpitCurrency22(context.read<Outstandingcontroller>().outstandingkpi[i].TransAmount!.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),
@@ -482,7 +482,7 @@ class _FollowdialogState extends State<Followdialog> {
                                                           .read<
                                                               Outstandingcontroller>()
                                                           .config.slpitCurrency22(context.read<Outstandingcontroller>().outstandingkpi[i].BalanceToPay!.toString())}",
-                                      style: theme.textTheme.bodyText1!
+                                      style: theme.textTheme.bodyMedium!
                                           .copyWith(color: theme.primaryColor),
                                     ),
                                   ),

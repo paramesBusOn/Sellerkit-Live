@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Models/TargetModel/TargetTableModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 
 class GetTargetTableApi {
   static Future<TargetTableModal> getData(

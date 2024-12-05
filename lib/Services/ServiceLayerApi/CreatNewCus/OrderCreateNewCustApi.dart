@@ -6,8 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderSavePostModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
 import '../../../Constant/Configuration.dart';
-import '../../../Constant/ConstantSapValues.dart';
-import '../../../Models/AddEnqModel/AddEnqModel.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import '../../../Models/AddEnqModel/addenq_model.dart';
 import '../../../Models/PostQueryModel/EnquiriesModel/CustomerCreationModel.dart';
 
 class OrderNewCustCretApi {

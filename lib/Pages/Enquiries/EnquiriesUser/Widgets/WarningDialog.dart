@@ -1,16 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last
 
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Controller/EnquiryController/NewEnqController.dart';
-import '../../../../Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Controller/EnquiryController/newenq_controller.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../../Constant/Screen.dart';
-import '../../../../Controller/EnquiryController/EnquiryMngController.dart';
-import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
-import '../../../../Controller/LeadController/TabLeadController.dart';
 
 class WarningDialog extends StatefulWidget {
   WarningDialog({
@@ -83,7 +77,7 @@ static  String? currentstatus;
                     child: Text(
                   "This Customer has an open ${typeOfDataCus} ..!!",
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     fontSize: 15
                       //color:Colors.green
                       ),
@@ -116,7 +110,7 @@ static  String? currentstatus;
                         //     width: Screens.width(context) * 0.4,
                         child: Text(
                           "Doc Type",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodySmall
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -126,7 +120,7 @@ static  String? currentstatus;
                         //    width: Screens.width(context) * 0.4,
                         child: Text(
                           "Handled By",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodySmall
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -141,7 +135,7 @@ static  String? currentstatus;
                         //    width: Screens.width(context) * 0.4,
                         child: Text(
                             "${LookingFor}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodySmall?.copyWith(
                               // fontSize: 12,
                               color: theme.primaryColor,
                               //  fontWeight: FontWeight.bold
@@ -154,7 +148,7 @@ static  String? currentstatus;
                         child: Text(
                             
                                  "${handledby}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodySmall?.copyWith(
                               fontSize: 12,
                               color: theme.primaryColor,
                               //fontWeight: FontWeight.bold
@@ -175,7 +169,7 @@ static  String? currentstatus;
                         //     width: Screens.width(context) * 0.4,
                         child: Text(
                           "Store",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodySmall
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -185,7 +179,7 @@ static  String? currentstatus;
                         //    width: Screens.width(context) * 0.4,
                         child: Text(
                           "Current Status",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodySmall
                               ?.copyWith(color: Colors.grey),
                         ),
                       ),
@@ -200,7 +194,7 @@ static  String? currentstatus;
                            width: Screens.width(context) * 0.4,
                         child: Text(
                             "${Store}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.primaryColor,
                               fontSize: 12,
                               //  fontWeight: FontWeight.bold
@@ -213,7 +207,7 @@ static  String? currentstatus;
                         child: Text(
                             
                                  "${currentstatus}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.primaryColor,
                               fontSize: 12,
                               //fontWeight: FontWeight.bold
@@ -237,7 +231,7 @@ static  String? currentstatus;
                     child: Text("Do you want to Continue",
                   // "Click open to view this details",
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     fontSize: 15,
                       color:theme.primaryColor
                       ),
@@ -285,7 +279,7 @@ static  String? currentstatus;
                       },
                             child: Text(
                               "No",
-                              style: theme.textTheme.bodyText2
+                              style: theme.textTheme.bodySmall
                                   ?.copyWith(color: Colors.white),
                             )),
                       ),
@@ -311,7 +305,7 @@ static  String? currentstatus;
                       },
                             child: Text(
                               "Yes",
-                              style: theme.textTheme.bodyText2
+                              style: theme.textTheme.bodySmall
                                   ?.copyWith(color: Colors.white),
                             )),
                       ),
@@ -326,7 +320,7 @@ static  String? currentstatus;
                     //   },
                     //   child: Text(
                     //     "No",
-                    //     style: theme.textTheme.bodyText1
+                    //     style: theme.textTheme.bodyMedium
                     //         ?.copyWith(color: Colors.white),
                     //   ),
                     //   style: ButtonStyle(
@@ -341,7 +335,7 @@ static  String? currentstatus;
                     //   },
                     //   child: Text(
                     //     "Yes",
-                    //     style: theme.textTheme.bodyText1
+                    //     style: theme.textTheme.bodyMedium
                     //         ?.copyWith(color: Colors.white),
                     //   ),
                     //   style: ButtonStyle(

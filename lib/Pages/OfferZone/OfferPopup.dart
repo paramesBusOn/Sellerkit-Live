@@ -63,7 +63,7 @@ class DiviceDialogBox extends StatelessWidget {
                             //       children: [
                             //          Text(
                             //           "Offer id",
-                            //           style: theme.textTheme.bodyText1
+                            //           style: theme.textTheme.bodyMedium
                             //               ?.copyWith(color: theme.primaryColor),
                             //         ),
                             //         Text(
@@ -76,7 +76,7 @@ class DiviceDialogBox extends StatelessWidget {
                             //  Column(children: [
                             //    Text(
                             //   "offer",
-                            //   style: theme.textTheme.bodyText1
+                            //   style: theme.textTheme.bodyMedium
                             //       ?.copyWith(color:theme.primaryColor),
                             // ),
                             //    Text(
@@ -93,7 +93,7 @@ class DiviceDialogBox extends StatelessWidget {
                             ),
                               Text(
                               "Offer Products",
-                              style:theme.textTheme.bodyText1
+                              style:theme.textTheme.bodyMedium
                                   ?.copyWith(color:theme.primaryColor),
                             ),
                              Text(
@@ -110,7 +110,7 @@ class DiviceDialogBox extends StatelessWidget {
                             // ),
                             // Text(
                             //   "${popvalues[i].}",
-                            //   style: theme.textTheme.bodyText1?.copyWith(),
+                            //   style: theme.textTheme.bodyMedium?.copyWith(),
                             // ),
                             pardata.offerproductlistdetails!.length >1?     Divider(
                                                   color: theme.primaryColor,
@@ -142,7 +142,7 @@ class DiviceDialogBox extends StatelessWidget {
                         width: Screens.width(context) * 0.55,
                         child: Text(
                           "Offer valid till ${config2.alignDate("${pardata.validTill}")}",
-                          style: theme.textTheme.bodyText1
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.white),
                         ),
                       ),
@@ -155,7 +155,7 @@ class DiviceDialogBox extends StatelessWidget {
                       //   child: 
                       //   Text(
                       //     "${popvalues2[i].incentive}",
-                      //     style: theme.textTheme.bodyText1
+                      //     style: theme.textTheme.bodyMedium
                       //         ?.copyWith(color: Colors.white),
                       //   ),
                       // ),

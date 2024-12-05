@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Constant/menu_auth.dart';
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/GetAllLeadModel.dart';
 import 'package:timeline_tile/timeline_tile.dart';
-import '../../../Controller/OpenLeadController/OpenLeadController.dart';
+import '../../../Controller/OpenLeadController/openlead_controller.dart';
 
 class OpenLeadFDP extends StatefulWidget {
    OpenLeadFDP({Key? key,required this.index, required this.followUPListData}) :super(key: key) ;
@@ -137,7 +138,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                         Container(
                           child: Text(
                             "Update Followup FeedBack",
-                            style: theme.textTheme.bodyText1?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.primaryColor,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -145,7 +146,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                         Container(
                           child: Text(
                             "Click Here",
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           ),
                         ),
@@ -222,8 +223,8 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                       ),
                       onPressed: () {
                         // Navigator.pop(context);
-
-                        context.read<OpenLeadController>().mapValuestoorder2(
+                        if( MenuAuthDetail.Orders == "Y"){
+                          context.read<OpenLeadController>().mapValuestoorder2(
                          widget. followUPListData,context
                             // widget.followUPListData.Phone,
                             // // fUPCon
@@ -235,6 +236,26 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                             // .LeadDocEntry
                             // .toString()
                             );
+
+                        }else{
+                          showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+                        }
+
+                        
                       },
                       child: Text("Convert to Order")),
                 ),
@@ -308,8 +329,8 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                   : ' "Error..!!"',
               style: context.read<OpenLeadController>().getforwardSuccessMsg
                       .contains("Success")
-                  ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-                  : theme.textTheme.headline6?.copyWith(color: Colors.red),
+                  ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+                  : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
             ),
             SizedBox(
               height: Screens.bodyheight(context) * 0.02,
@@ -317,7 +338,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
             Text(
               context.watch<OpenLeadController>().getforwardSuccessMsg,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyText1,
+              style: theme.textTheme.bodyMedium,
             ),
             SizedBox(
               height: Screens.bodyheight(context) * 0.02,
@@ -379,7 +400,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Lead Details",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -418,7 +439,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OpenLeadController>().getleadDeatilsQTHData![0].CardName}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -440,7 +461,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                         .getleadDeatilsQTHData![0].LeadCreatedDate}"
                                         ),
                       textAlign: TextAlign.center,
-                     style: theme.textTheme.bodyText2?.copyWith(),
+                     style: theme.textTheme.bodyMedium?.copyWith(),
                      ),
                    ),
                  )
@@ -453,7 +474,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OpenLeadController>().getleadDeatilsQTHData![0].Address1}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -466,7 +487,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                     "${context.read<OpenLeadController>().getleadDeatilsQTHData![0].DocTotal!.toString()}",
                                   ) +'/-',
 
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -480,7 +501,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OpenLeadController>().getleadDeatilsQTHData![0].Address2}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -488,7 +509,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "# ${context.watch<OpenLeadController>().getleadDeatilsQTHData![0].LeadNum}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -500,7 +521,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OpenLeadController>().getleadDeatilsQTHData![0].City}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -511,7 +532,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                               context.read<OpenLeadController>().config.alignDate3(
                                   "${context.read<OpenLeadController>().getleadDeatilsQTHData![0].LeadCreatedDate}" //.LastFUPUpdate
                                   ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -523,7 +544,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OpenLeadController>().getleadDeatilsQTHData![0].Pincode}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -534,7 +555,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                               context.read<OpenLeadController>().config.alignDate3(
                                   "${context.read<OpenLeadController>().getleadDeatilsQTHData![0].LastFUPUpdate}" //.
                                   ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -567,7 +588,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                         .alignDate(
                                             '${context.watch<OpenLeadController>().getleadDeatilsQTHData![0].nextFollowupDate}'),
                                 textAlign: TextAlign.center,
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 ),
                               ),
@@ -581,7 +602,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                     //     .alignDate(
                                     //         '${context.watch<LeadTabController>().getleadDeatilsQTHData![0].nextFollowupDate}'),
                                 textAlign: TextAlign.center,
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 ),
                               ),
@@ -606,7 +627,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                           child: Text(
                             'Last status # ${context.watch<OpenLeadController>().getleadDeatilsQTHData![0].status}',
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                             ),
                           ),
@@ -668,7 +689,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Product",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -678,7 +699,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Price",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -688,7 +709,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Qty",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -703,7 +724,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
           child: Text(
             '${context.watch<OpenLeadController>().getleadDeatilsQTLData[i].ItemName!}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -717,7 +738,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                 .toStringAsFixed(0)),
             // '${fUPCon.getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -727,7 +748,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
           child: Text(
             '${context.watch<OpenLeadController>().getleadDeatilsQTLData[i].Quantity!.toStringAsFixed(0)}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -790,7 +811,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -801,7 +822,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                       child: Text(
                         // fUPCon.config.alignDate(
                         "By${context.read<OpenLeadController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<OpenLeadController>().getleadDeatilsLeadData[index].FollowMode ==null||context.read<OpenLeadController>().getleadDeatilsLeadData[index].FollowMode =="null"||context.read<OpenLeadController>().getleadDeatilsLeadData[index].FollowMode!.isEmpty?"":  context.read<OpenLeadController>().getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -819,7 +840,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                             child: Text(
                               // fUPCon.config.alignDate(
                               "# ${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -848,7 +869,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                     "${context.read<OpenLeadController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
                                   ),
                                   textAlign:TextAlign.center,
-                              style: theme.textTheme.bodyText2,
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ],
                         )),
@@ -908,7 +929,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -919,7 +940,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                       child: Text(
                         // fUPCon.config.alignDate(
                         "By ${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -937,7 +958,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                               // fUPCon.config.alignDate(
                               "# ${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].Feedback}",
                               style:
-                                  theme.textTheme.bodyText2?.copyWith(
+                                  theme.textTheme.bodyMedium?.copyWith(
                                       // color: theme.primaryColor,
                                       ),
                             ),
@@ -964,7 +985,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                     "${context.read<OpenLeadController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
                                   ),
                                   textAlign:TextAlign.center,
-                              style: theme.textTheme.bodyText2,
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ],
                         )),
@@ -1015,7 +1036,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -1026,7 +1047,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                       child: Text(
                         // fUPCon.config.alignDate(
                         "By ${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -1044,7 +1065,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                               // fUPCon.config.alignDate(
                               "# ${context.watch<OpenLeadController>().getleadDeatilsLeadData[index].Feedback}",
                               style:
-                                  theme.textTheme.bodyText2?.copyWith(
+                                  theme.textTheme.bodyMedium?.copyWith(
                                       // color: theme.primaryColor,
                                       ),
                             ),
@@ -1072,7 +1093,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                     "${context.read<OpenLeadController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
                                   ),
                                   textAlign:TextAlign.center,
-                              style: theme.textTheme.bodyText2,
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ],
                         )),
@@ -1173,7 +1194,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                     child: Text(
                   context.read<OpenLeadController>()
                       .getforwardNextFollowDate!, // "Next Follow up",
-                  style: theme.textTheme.bodyText2?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: context.read<OpenLeadController>()
                             .getforwardNextFollowDate!
                             .contains(" *")
@@ -1203,7 +1224,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                              context.watch<OpenLeadController>()
                                 .getforwardnextWonFD,
                             // fUPCon.getnextFD,
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(), //fontSize: 12
                           ),
                         ),
@@ -1234,7 +1255,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                      context
                                             .read<OpenLeadController>()
                                             .assignVisitTime!, // "Next Follow up",
-                                    style: theme.textTheme.bodyText2?.copyWith(
+                                    style: theme.textTheme.bodyMedium?.copyWith(
                                       color:  context
                                             .read<OpenLeadController>()
                                             .assignVisitTime!.contains(" *")
@@ -1272,7 +1293,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                                             .watch<OpenLeadController>()
                                             .forwaVisitTime,
                                               //fUPCon.getnextFD,
-                                              style: theme.textTheme.bodyText2
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(), //fontSize: 12
                                             ),
                                           ),
@@ -1298,7 +1319,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
                               alignment: Alignment.centerRight,
                               child: Text("${context
                                                 .read<OpenLeadController>()
-                                                .forwarderrorVisitTime}",style: theme.textTheme.bodyText1!.copyWith(
+                                                .forwarderrorVisitTime}",style: theme.textTheme.bodyMedium!.copyWith(
                                 color: Colors.red,
                                 fontSize: 13
                               ),),
@@ -1419,7 +1440,7 @@ class _OpenLeadFDPState extends State<OpenLeadFDP> {
           child: Text(
               context.watch<OpenLeadController>().filteruserLtData[ind].UserName!,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyText1?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color: context.watch<OpenLeadController>()
@@ -1617,7 +1638,7 @@ List<Widget> listContainersCustomerTag(
                       Container(
                         child: Text(
                          context.watch<OpenLeadController>().followup!,
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: context.read<OpenLeadController>().getfollowup!
                                     .contains(" *")
                                 ? Colors.red
@@ -1680,7 +1701,7 @@ List<Widget> listContainersCustomerTag(
                       Container(
                         child: Text(
                           "What is the case status now?",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: theme.primaryColor),
                         ),
                       ),
@@ -1832,7 +1853,7 @@ List<Widget> listContainersCustomerTag(
                                 hint: Text(
                                   context.watch<OpenLeadController>()
                                       .gethinttextforOpenLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: context.read<OpenLeadController>()
                                               .gethinttextforOpenLead!
                                               .contains(" *")
@@ -1888,7 +1909,7 @@ List<Widget> listContainersCustomerTag(
                                 hint: Text(
                                  context.read<OpenLeadController>()
                                       .gethinttextforWonLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: context.read<OpenLeadController>()
                                               .gethinttextforWonLead!
                                               .contains(" *")
@@ -1936,7 +1957,7 @@ List<Widget> listContainersCustomerTag(
                                   hintText: context.read<OpenLeadController>()
                                       .getorderBillRefer!,
                                   hintStyle:
-                                      theme.textTheme.bodyText2?.copyWith(
+                                      theme.textTheme.bodyMedium?.copyWith(
                                     color:context.read<OpenLeadController>()
                                             .getorderBillRefer!
                                             .contains(" *")
@@ -1957,7 +1978,7 @@ List<Widget> listContainersCustomerTag(
                                     child: Text(
                                 context.read<OpenLeadController>()
                                       .getorderBillDate!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color: context.read<OpenLeadController>()
                                             .getorderBillDate!
                                             .contains(" *")
@@ -1994,7 +2015,7 @@ List<Widget> listContainersCustomerTag(
                                            context.watch<OpenLeadController>()
                                                 .getnextWonFD,
                                             //fUPCon.getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -2039,7 +2060,7 @@ List<Widget> listContainersCustomerTag(
                                 hint: Text(
                                  context.read<OpenLeadController>()
                                       .gethinttextforLostLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: context.read<OpenLeadController>()
                                               .gethinttextforLostLead!
                                               .contains(" *")
@@ -2080,7 +2101,7 @@ List<Widget> listContainersCustomerTag(
                         child: Text(
                         context.read<OpenLeadController>()
                               .getfeedbackLead!, // "Feedback",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: context.read<OpenLeadController>()
                                     .getfeedbackLead!
                                     .contains(" *")
@@ -2119,7 +2140,7 @@ List<Widget> listContainersCustomerTag(
                               child: Text(
                             context.read<OpenLeadController>()
                                 .getnextFollowupDate!, // "Next Follow up",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: context.read<OpenLeadController>()
                                       .getnextFollowupDate!
                                       .contains(" *")
@@ -2155,7 +2176,7 @@ List<Widget> listContainersCustomerTag(
                                      context.watch<OpenLeadController>()
                                           .getnextFD,
                                       //fUPCon.getnextFD,
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(), //fontSize: 12
                                     ),
                                   ),
@@ -2189,7 +2210,7 @@ List<Widget> listContainersCustomerTag(
                                    context
                                           .read<OpenLeadController>()
                                           .nextVisitTime!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color:  context
                                           .read<OpenLeadController>()
                                           .nextVisitTime!.contains(" *")
@@ -2230,7 +2251,7 @@ List<Widget> listContainersCustomerTag(
                                           .watch<OpenLeadController>()
                                           .VisitTime,
                                             //fUPCon.getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -2256,7 +2277,7 @@ List<Widget> listContainersCustomerTag(
                               alignment: Alignment.centerRight,
                               child: Text("${context
                                                 .read<OpenLeadController>()
-                                                .errorVisitTime}",style: theme.textTheme.bodyText1!.copyWith(
+                                                .errorVisitTime}",style: theme.textTheme.bodyMedium!.copyWith(
                                 color: Colors.red,
                                 fontSize: 13
                               ),),
@@ -2299,6 +2320,74 @@ List<Widget> listContainersCustomerTag(
       ),
     );
   }
-
+settings(BuildContext context) {
+  final theme = Theme.of(context);
+  return StatefulBuilder(builder: (context, st) {
+    return Container(
+      padding: EdgeInsets.only(
+          top: Screens.padingHeight(context) * 0.01,
+          left: Screens.width(context) * 0.03,
+          right: Screens.width(context) * 0.03,
+          bottom: Screens.padingHeight(context) * 0.01),
+      width: Screens.width(context) * 1.1,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: Screens.width(context),
+              height: Screens.padingHeight(context) * 0.05,
+              color: theme.primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: Screens.padingHeight(context) * 0.02,
+                        right: Screens.padingHeight(context) * 0.02),
+                    // color: Colors.red,
+                    width: Screens.width(context) * 0.5,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Alert",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        size: Screens.padingHeight(context) * 0.025,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+            Container(
+                alignment: Alignment.center,
+                width: Screens.width(context),
+                child: Text('You are not authorised..!!')),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+          ],
+        ),
+      ),
+    );
+  });
+}
 
 }

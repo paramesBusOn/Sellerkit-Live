@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import '../Constant/colorGenarator.dart';
-import '../Constant/colorpalates.dart';
+import '../Constant/color_genarator.dart';
+import '../Constant/color_palates.dart';
 
 ThemeData merronTheme(BuildContext context) {
   return ThemeData(
@@ -43,7 +43,7 @@ ThemeData merronTheme(BuildContext context) {
     //   bodyText1: TextStyle(
     //     fontFamily: 'SEGOEUIL',
     //   ),
-    //   bodyText2: TextStyle(fontFamily: 'SEGOEUIL'),
+    //   bodyMedium: TextStyle(fontFamily: 'SEGOEUIL'),
     //   subtitle1: TextStyle(fontFamily: 'SEGOEUIL'),
     //   subtitle2: TextStyle(fontFamily: 'SEGOEUIL'),
     // ),
@@ -101,7 +101,7 @@ ThemeData blueTheme(BuildContext context) {
       bodyText1: TextStyle(
         fontFamily: 'Segoe',
       ),
-      bodyText2: TextStyle(fontFamily: 'Segoe'),
+      bodyMedium: TextStyle(fontFamily: 'Segoe'),
       subtitle1: TextStyle(fontFamily: 'Segoe'),
       subtitle2: TextStyle(fontFamily: 'Segoe'),
     ),
@@ -151,18 +151,18 @@ ThemeData orangeTheme(BuildContext context) {
                 TextStyle(color: Colors.white, fontFamily: 'Segoe')))),
 
     textTheme: TextTheme(
-      headline3: TextStyle(fontFamily: 'Segoe'),
-      headline1: TextStyle(fontFamily: 'Segoe'),
-      headline2: TextStyle(fontFamily: 'Segoe'),
-      headline4: TextStyle(fontFamily: 'Segoe'),
-      headline5: TextStyle(fontFamily: 'Segoe'),
-      headline6: TextStyle(fontFamily: 'Segoe'),
-      bodyText1: TextStyle(
-        fontFamily: 'Segoe',
-      ),
-      bodyText2: TextStyle(fontFamily: 'Segoe'),
-      subtitle1: TextStyle(fontFamily: 'Segoe'),
-      subtitle2: TextStyle(fontFamily: 'Segoe'),
+      displaySmall: TextStyle(fontFamily: 'Segoe'),
+      displayLarge: TextStyle(fontFamily: 'Segoe'),
+      displayMedium: TextStyle(fontFamily: 'Segoe'),
+      headlineMedium: TextStyle(fontFamily: 'Segoe'),
+      headlineSmall: TextStyle(fontFamily: 'Segoe'),
+      titleLarge: TextStyle(fontFamily: 'Segoe'),
+      // bodyText1: TextStyle(
+      //   fontFamily: 'Segoe',
+      // ),
+      bodyMedium: TextStyle(fontFamily: 'Segoe'),
+      titleMedium: TextStyle(fontFamily: 'Segoe'),
+      titleSmall: TextStyle(fontFamily: 'Segoe'),
     ),
 
     inputDecorationTheme: InputDecorationTheme(
@@ -212,16 +212,18 @@ ThemeData darkTheme (BuildContext context){
             textStyle: MaterialStateProperty.all<TextStyle>(
                 TextStyle(color: Colors.white, fontFamily: 'Segoe')))),
     textTheme: TextTheme(
-      headline3: TextStyle(fontFamily: 'Segoe'),
-      headline1: TextStyle(fontFamily: 'Segoe'),
-      headline2: TextStyle(fontFamily: 'Segoe'),
-      headline4: TextStyle(fontFamily: 'Segoe'),
-      headline5: TextStyle(fontFamily: 'Segoe'),
-      headline6: TextStyle(fontFamily: 'Segoe'),
-      bodyText1: TextStyle(fontFamily: 'Segoe'),
-      bodyText2: TextStyle(fontFamily: 'Segoe'),
-      subtitle1: TextStyle(fontFamily: 'Segoe'),
-      subtitle2: TextStyle(fontFamily: 'Segoe'),
+      displaySmall: TextStyle(fontFamily: 'Segoe'),
+      displayLarge: TextStyle(fontFamily: 'Segoe'),
+      displayMedium: TextStyle(fontFamily: 'Segoe'),
+      headlineMedium: TextStyle(fontFamily: 'Segoe'),
+      headlineSmall: TextStyle(fontFamily: 'Segoe'),
+      titleLarge: TextStyle(fontFamily: 'Segoe'),
+      // bodyText1: TextStyle(
+      //   fontFamily: 'Segoe',
+      // ),
+      bodyMedium: TextStyle(fontFamily: 'Segoe'),
+      titleMedium: TextStyle(fontFamily: 'Segoe'),
+      titleSmall: TextStyle(fontFamily: 'Segoe'),
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(

@@ -3,8 +3,9 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/ConstantSapValues.dart';
-import '../../Models/EarningModel/EarningNewModel.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import '../../Models/EarningModel/earningnew_model.dart';
 
 class Earning1Api {
   static String userid = '';

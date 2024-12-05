@@ -9,7 +9,7 @@ import 'package:sellerkit/Constant/Helper.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Models/onboardModel/onboardmodel.dart';
 import 'package:sellerkit/Services/onboardApi/onboardApi.dart';
-import '../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -301,7 +301,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 //image deco
   PageDecoration getPageDecoration(ThemeData theme) => PageDecoration(
       titleTextStyle:
-          theme.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold),
+          theme.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.bold),
       bodyTextStyle:
           theme.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w300),
 //    imagePadding: EdgeInsets.only(top:Screens.padingHeight(context)*0.1),

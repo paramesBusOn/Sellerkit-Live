@@ -7,8 +7,9 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Pages/Dashboard/widgets/chewievideoplayer.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:swipe_image_gallery/swipe_image_gallery.dart';
@@ -16,7 +17,7 @@ import 'package:video_player/video_player.dart';
 import '../../../Constant/Configuration.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/OfferZoneController/OfferZoneController.dart';
+import '../../../Controller/OfferZoneController/offerzone_controller.dart';
 import '../../../Widgets/Navi3.dart';
 
 class OfferZone extends StatefulWidget {
@@ -104,7 +105,7 @@ class OfferZoneState extends State<OfferZone> {
                                   },
                                   decoration: InputDecoration(
                                     filled: false,
-                                    hintText: 'Search Here!!..',
+                                    hintText: 'Search Here..',
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: InputBorder.none,
                                     prefixIcon: IconButton(
@@ -226,7 +227,7 @@ class OfferZoneState extends State<OfferZone> {
                                                                             .toString(),
                                                                         style: themes
                                                                             .textTheme
-                                                                            .bodyText1
+                                                                            .bodyMedium
                                                                             ?.copyWith(),
                                                                       ),
                                                                     ),
@@ -267,7 +268,7 @@ class OfferZoneState extends State<OfferZone> {
                                                                       //       prdOffZ.getofferviewAll[i].offerDetails.toString(),
                                                                       //   style: themes
                                                                       //       .textTheme
-                                                                      //       .bodyText1
+                                                                      //       .bodyMedium
                                                                       //       ?.copyWith(),
                                                                       //   maxLines: isReadMore
                                                                       //       ? 50
@@ -293,11 +294,11 @@ class OfferZoneState extends State<OfferZone> {
                                                                     //             false
                                                                     //         ? Text(
                                                                     //             "Read More",
-                                                                    //             style: themes.textTheme.bodyText1?.copyWith(color: Colors.blue, decoration: TextDecoration.underline),
+                                                                    //             style: themes.textTheme.bodyMedium?.copyWith(color: Colors.blue, decoration: TextDecoration.underline),
                                                                     //           )
                                                                     //         : Text(
                                                                     //             "Read Less",
-                                                                    //             style: themes.textTheme.bodyText1?.copyWith(color: Colors.blue, decoration: TextDecoration.underline),
+                                                                    //             style: themes.textTheme.bodyMedium?.copyWith(color: Colors.blue, decoration: TextDecoration.underline),
                                                                     //           ),
                                                                     //   ),
                                                                     // ),
@@ -534,7 +535,7 @@ class OfferZoneState extends State<OfferZone> {
                                                                             child:
                                                                                 Text(
                                                                               "Offer valid till ${config2.alignDate("${prdOffZ.getofferviewAll[i].validTill}")}",
-                                                                              style: themes.textTheme.bodyText1?.copyWith(color: Colors.white),
+                                                                              style: themes.textTheme.bodyMedium?.copyWith(color: Colors.white),
                                                                             ),
                                                                           ),
 //                                                                           Container(

@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/OutStandingController/OutStandingController.dart';
+import 'package:sellerkit/Controller/OutStandingController/outstanding_controller.dart';
 
 class navDrawer extends StatefulWidget {
   const navDrawer({Key? key}) : super(key: key);
@@ -55,7 +55,7 @@ class _navDrawerState extends State<navDrawer> {
                         )
            
                        ),
-                       child: Text("Outstanding",style: theme.textTheme.bodyText2!.copyWith(color: Colors.white),),
+                       child: Text("Outstanding",style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),),
                       ),
               Container(
                 width: Screens.width(context),

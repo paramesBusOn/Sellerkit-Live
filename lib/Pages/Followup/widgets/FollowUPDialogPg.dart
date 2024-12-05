@@ -4,11 +4,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Constant/menu_auth.dart';
+import 'package:sellerkit/Controller/FollowupController/followup_controller.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-import '../../../Controller/FollowupController/FollowUPController.dart';
 import '../../../Models/PostQueryModel/FollowUPModel.dart/FollowUPModel.dart';
 
 class FollowUPDialogPG extends StatefulWidget {
@@ -177,7 +179,7 @@ Container callLoadingPage(BuildContext context) {
                         Container(
                           child: Text(
                             "Update Followup FeedBack",
-                            style: theme.textTheme.bodyText1?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.primaryColor,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -185,7 +187,7 @@ Container callLoadingPage(BuildContext context) {
                         Container(
                           child: Text(
                             "Click Here",
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           ),
                         ),
@@ -258,11 +260,29 @@ Container callLoadingPage(BuildContext context) {
                       ),
                       onPressed: () {
                         // Navigator.pop(context);
-
-                        fUPCon.mapValuestoorder2(
+if( MenuAuthDetail.Orders == "Y"){
+ fUPCon.mapValuestoorder2(
                          widget. followUPListData, context
                             
                             );
+}else{
+  showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+}
+                       
                       },
                       child: Text("Convert to Order")),
                 ),
@@ -328,8 +348,8 @@ Container callLoadingPage(BuildContext context) {
                   ? "Success..!!"
                   : ' "Error..!!"',
               style: fUPCon.getforwardSuccessMsg.contains("Success")
-                  ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-                  : theme.textTheme.headline6?.copyWith(color: Colors.red),
+                  ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+                  : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
             ),
             SizedBox(
               height: Screens.bodyheight(context) * 0.02,
@@ -337,7 +357,7 @@ Container callLoadingPage(BuildContext context) {
             Text(
               fUPCon.getforwardSuccessMsg,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyText1,
+              style: theme.textTheme.bodyMedium,
             ),
             SizedBox(
               height: Screens.bodyheight(context) * 0.02,
@@ -400,7 +420,7 @@ Container callLoadingPage(BuildContext context) {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Lead Details",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -442,7 +462,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${fUPCon.getleadDeatilsQTHData![0].CardName}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -460,7 +480,7 @@ Container callLoadingPage(BuildContext context) {
                                 // "2020-05-18T00:00:00"
                                 "${fUPCon.getleadDeatilsQTHData![0].LeadCreatedDate}"),
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2?.copyWith(),
+                            style: theme.textTheme.bodyMedium?.copyWith(),
                           ),
                         ),
                       )
@@ -475,7 +495,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${fUPCon.getleadDeatilsQTHData![0].Address1}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -487,7 +507,7 @@ Container callLoadingPage(BuildContext context) {
                                 "${fUPCon.getleadDeatilsQTHData![0].DocTotal!.toString()}",
                               ) +
                               '/-',
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -503,7 +523,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${fUPCon.getleadDeatilsQTHData![0].Address2}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -511,7 +531,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "# ${fUPCon.getleadDeatilsQTHData![0].LeadNum}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -525,7 +545,7 @@ Container callLoadingPage(BuildContext context) {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${fUPCon.getleadDeatilsQTHData![0].City}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -536,7 +556,7 @@ Container callLoadingPage(BuildContext context) {
                               fUPCon.config.alignDate3(
                                   "${fUPCon.getleadDeatilsQTHData![0].LeadCreatedDate}" //.LastFUPUpdate
                                   ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -556,7 +576,7 @@ Container callLoadingPage(BuildContext context) {
                           width: Screens.width(context) * 0.4,
                           child: Text(
                             "${fUPCon.getleadDeatilsQTHData![0].CardCode}",
-                            style: theme.textTheme.bodyText2?.copyWith(decoration:  TextDecoration.underline,color:Colors.blue),
+                            style: theme.textTheme.bodyMedium?.copyWith(decoration:  TextDecoration.underline,color:Colors.blue),
                           ),
                         ),
                     ),
@@ -568,7 +588,7 @@ Container callLoadingPage(BuildContext context) {
                               fUPCon.config.alignDate3(
                                   "${fUPCon.getleadDeatilsQTHData![0].LastFUPUpdate}" //.
                                   ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -598,7 +618,7 @@ Container callLoadingPage(BuildContext context) {
                                     fUPCon.config.alignDate(
                                         '${fUPCon.getleadDeatilsQTHData[0].nextFollowupDate}'),
                                 textAlign: TextAlign.center,
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 ),
                               ),
@@ -609,7 +629,7 @@ Container callLoadingPage(BuildContext context) {
                                     // fUPCon.config.alignDate(
                                     //     '${fUPCon.getleadDeatilsQTHData[0].nextFollowupDate}'),
                                 textAlign: TextAlign.center,
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 ),
                               ),
@@ -632,7 +652,7 @@ Container callLoadingPage(BuildContext context) {
                               child: Text(
                                 'Last status # ${fUPCon.getleadDeatilsLeadData[fUPCon.getleadDeatilsLeadData.length - 1].Status}',
                                 textAlign: TextAlign.center,
-                                style: theme.textTheme.bodyText2?.copyWith(
+                                style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.primaryColor,
                                 ),
                               ),
@@ -694,7 +714,7 @@ Container callLoadingPage(BuildContext context) {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Product",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -704,7 +724,7 @@ Container callLoadingPage(BuildContext context) {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Price",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -714,7 +734,7 @@ Container callLoadingPage(BuildContext context) {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Qty",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -727,7 +747,7 @@ Container callLoadingPage(BuildContext context) {
           child: Text(
             '${fUPCon.getleadDeatilsQTLData[i].ItemName!}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -739,7 +759,7 @@ Container callLoadingPage(BuildContext context) {
                 fUPCon.getleadDeatilsQTLData[i].Price!.toStringAsFixed(0)),
             // '${fUPCon.getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -749,7 +769,7 @@ Container callLoadingPage(BuildContext context) {
           child: Text(
             '${fUPCon.getleadDeatilsQTLData[i].Quantity!.toStringAsFixed(0)}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -813,7 +833,7 @@ Container callLoadingPage(BuildContext context) {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${fUPCon.getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -824,7 +844,7 @@ Container callLoadingPage(BuildContext context) {
                       child: Text(
                         // fUPCon.config.alignDate(
                         "By ${fUPCon.getleadDeatilsLeadData[index].UpdatedBy} through ${fUPCon.getleadDeatilsLeadData[index].FollowMode ==null||fUPCon.getleadDeatilsLeadData[index].FollowMode =="null"||fUPCon.getleadDeatilsLeadData[index].FollowMode!.isEmpty?"": fUPCon.getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -839,7 +859,7 @@ Container callLoadingPage(BuildContext context) {
                             child: Text(
                               // fUPCon.config.alignDate(
                               "# ${fUPCon.getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -867,7 +887,7 @@ Container callLoadingPage(BuildContext context) {
                           "${fUPCon.getleadDeatilsLeadData[index].Followup_Date_Time}",
                         ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -926,7 +946,7 @@ Container callLoadingPage(BuildContext context) {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${fUPCon.getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -937,7 +957,7 @@ Container callLoadingPage(BuildContext context) {
                       child: Text(
                         // fUPCon.config.alignDate(
                         "By ${fUPCon.getleadDeatilsLeadData[index].UpdatedBy} through ${fUPCon.getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -952,7 +972,7 @@ Container callLoadingPage(BuildContext context) {
                             child: Text(
                               // fUPCon.config.alignDate(
                               "# ${fUPCon.getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -977,7 +997,7 @@ Container callLoadingPage(BuildContext context) {
                           "${fUPCon.getleadDeatilsLeadData[index].Followup_Date_Time}",
                         ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -1029,7 +1049,7 @@ Container callLoadingPage(BuildContext context) {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${fUPCon.getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -1040,7 +1060,7 @@ Container callLoadingPage(BuildContext context) {
                       child: Text(
                         // fUPCon.config.alignDate(
                         "By ${fUPCon.getleadDeatilsLeadData[index].UpdatedBy} through ${fUPCon.getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -1055,7 +1075,7 @@ Container callLoadingPage(BuildContext context) {
                             child: Text(
                               // fUPCon.config.alignDate(
                               "# ${fUPCon.getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -1081,7 +1101,7 @@ Container callLoadingPage(BuildContext context) {
                           "${fUPCon.getleadDeatilsLeadData[index].Followup_Date_Time}",
                         ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -1181,7 +1201,7 @@ Container callLoadingPage(BuildContext context) {
                 Container(
                     child: Text(
                   fUPCon.getforwardNextFollowDate!, // "Next Follow up",
-                  style: theme.textTheme.bodyText2?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: fUPCon.getforwardNextFollowDate!.contains(" *")
                         ? Colors.red
                         : Colors.grey,
@@ -1208,7 +1228,7 @@ Container callLoadingPage(BuildContext context) {
                           child: Text(
                             fUPCon.getforwardnextWonFD,
                             // fUPCon.getnextFD,
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(), //fontSize: 12
                           ),
                         ),
@@ -1239,7 +1259,7 @@ Container callLoadingPage(BuildContext context) {
                                       child: Text(
                                      fUPCon
                                             .assignVisitTime!, // "Next Follow up",
-                                    style: theme.textTheme.bodyText2?.copyWith(
+                                    style: theme.textTheme.bodyMedium?.copyWith(
                                       color:  fUPCon
                                             .assignVisitTime!.contains(" *")
                                           ? Colors.red
@@ -1274,7 +1294,7 @@ Container callLoadingPage(BuildContext context) {
                                                fUPCon
                                             .forwaVisitTime,
                                               //fUPCon.getnextFD,
-                                              style: theme.textTheme.bodyText2
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(), //fontSize: 12
                                             ),
                                           ),
@@ -1296,7 +1316,7 @@ Container callLoadingPage(BuildContext context) {
                               ),
                               fUPCon.iscorectime2==false && fUPCon.forwarderrorVisitTime ==''?Container(): Container(
                               alignment: Alignment.centerRight,
-                              child: Text("${fUPCon.forwarderrorVisitTime}",style: theme.textTheme.bodyText1!.copyWith(
+                              child: Text("${fUPCon.forwarderrorVisitTime}",style: theme.textTheme.bodyMedium!.copyWith(
                                 color: Colors.red,
                                 fontSize: 13
                               ),),
@@ -1401,7 +1421,7 @@ Container callLoadingPage(BuildContext context) {
               borderRadius: BorderRadius.circular(5)),
           child: Text(fUPCon.filteruserLtData[ind].UserName!,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyText1?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color: fUPCon.filteruserLtData[ind].color == 1
@@ -1442,7 +1462,7 @@ Container callLoadingPage(BuildContext context) {
                       Container(
                         child: Text(
                           fUPCon.followup!,
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: fUPCon.getfollowup!.contains(" *")
                                 ? Colors.red
                                 : theme.primaryColor,
@@ -1500,7 +1520,7 @@ Container callLoadingPage(BuildContext context) {
                       Container(
                         child: Text(
                           "What is the case status now?",
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: theme.primaryColor),
                         ),
                       ),
@@ -1634,7 +1654,7 @@ Container callLoadingPage(BuildContext context) {
                               child: DropdownButton(
                                 hint: Text(
                                   fUPCon.gethinttextforOpenLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: fUPCon.gethinttextforOpenLead!
                                               .contains(" *")
                                           ? Colors.red
@@ -1682,7 +1702,7 @@ Container callLoadingPage(BuildContext context) {
                               child: DropdownButton(
                                 hint: Text(
                                   fUPCon.gethinttextforWonLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: fUPCon.gethinttextforWonLead!
                                               .contains(" *")
                                           ? Colors.red
@@ -1724,7 +1744,7 @@ Container callLoadingPage(BuildContext context) {
                                   ),
                                   hintText: fUPCon.getorderBillRefer!,
                                   hintStyle:
-                                      theme.textTheme.bodyText2?.copyWith(
+                                      theme.textTheme.bodyMedium?.copyWith(
                                     color:
                                         fUPCon.getorderBillRefer!.contains(" *")
                                             ? Colors.red
@@ -1743,7 +1763,7 @@ Container callLoadingPage(BuildContext context) {
                                 Container(
                                     child: Text(
                                   fUPCon.getorderBillDate!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color:
                                         fUPCon.getorderBillDate!.contains(" *")
                                             ? Colors.red
@@ -1775,7 +1795,7 @@ Container callLoadingPage(BuildContext context) {
                                           child: Text(
                                             fUPCon.getnextWonFD,
                                             //fUPCon.getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -1817,7 +1837,7 @@ Container callLoadingPage(BuildContext context) {
                               child: DropdownButton(
                                 hint: Text(
                                   fUPCon.gethinttextforLostLead!,
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       color: fUPCon.gethinttextforLostLead!
                                               .contains(" *")
                                           ? Colors.red
@@ -1852,7 +1872,7 @@ Container callLoadingPage(BuildContext context) {
                       Container(
                         child: Text(
                           fUPCon.getfeedbackLead!, // "Feedback",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: fUPCon.getfeedbackLead!.contains(" *")
                                 ? Colors.red
                                 : Colors.grey,
@@ -1888,7 +1908,7 @@ Container callLoadingPage(BuildContext context) {
                                     child: Text(
                                   fUPCon
                                       .getnextFollowupDate!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color: fUPCon.getnextFollowupDate!
                                             .contains(" *")
                                         ? Colors.red
@@ -1920,7 +1940,7 @@ Container callLoadingPage(BuildContext context) {
                                           child: Text(
                                             fUPCon.getnextFD,
                                             //fUPCon.getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -1953,7 +1973,7 @@ Container callLoadingPage(BuildContext context) {
                                     child: Text(
                                   fUPCon
                                       .getnextFollowupTime!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color: fUPCon.getnextFollowupTime!
                                             .contains(" *")
                                         ? Colors.red
@@ -1987,7 +2007,7 @@ Container callLoadingPage(BuildContext context) {
                                           child: Text(
                                             fUPCon.getnextFDTime,
                                             //fUPCon.getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -2012,7 +2032,7 @@ Container callLoadingPage(BuildContext context) {
                           :fUPCon.errorTime.isEmpty?Container():  Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text("${fUPCon.errorTime}",style: theme.textTheme.bodyText2!.copyWith(
+                              Text("${fUPCon.errorTime}",style: theme.textTheme.bodyMedium!.copyWith(
                                 color: Colors.red
                               ) ,),
                             ],
@@ -2028,8 +2048,8 @@ Container callLoadingPage(BuildContext context) {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text('Required Site Visit',
-                                 style:  theme.textTheme.bodyText2?.copyWith(
+                                  Text('Required Sitevisit',
+                                 style:  theme.textTheme.bodyMedium?.copyWith(
                                     color:  Colors.grey,
                                   ), // fontSize: 12
                                 ),
@@ -2054,7 +2074,7 @@ Container callLoadingPage(BuildContext context) {
                                 Container(
                                     child: Text(
                                   fUPCon.getnextVisitDate!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color:
                                         fUPCon.getnextVisitDate!.contains(" *")
                                             ? Colors.red
@@ -2086,7 +2106,7 @@ Container callLoadingPage(BuildContext context) {
                                           child: Text(
                                             fUPCon.visitDt,
                                             //fUPCon.getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -2118,7 +2138,7 @@ Container callLoadingPage(BuildContext context) {
                                 Container(
                                     child: Text(
                                   fUPCon.nextVisitTime!, // "Next Follow up",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                     color: fUPCon.nextVisitTime!.contains(" *")
                                         ? Colors.red
                                         : Colors.grey,
@@ -2151,7 +2171,7 @@ Container callLoadingPage(BuildContext context) {
                                           child: Text(
                                             fUPCon.VisitTime,
                                             //fUPCon.getnextFD,
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(), //fontSize: 12
                                           ),
                                         ),
@@ -2178,7 +2198,7 @@ Container callLoadingPage(BuildContext context) {
                           :fUPCon.errorVisitTime.isEmpty?Text(''):  Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text("${fUPCon.errorVisitTime}",style: theme.textTheme.bodyText2!.copyWith(
+                              Text("${fUPCon.errorVisitTime}",style: theme.textTheme.bodyMedium!.copyWith(
                                 color: Colors.red
                               ) ,),
                             ],
@@ -2353,4 +2373,73 @@ Container callLoadingPage(BuildContext context) {
       ),
     );
   }
+  settings(BuildContext context) {
+  final theme = Theme.of(context);
+  return StatefulBuilder(builder: (context, st) {
+    return Container(
+      padding: EdgeInsets.only(
+          top: Screens.padingHeight(context) * 0.01,
+          left: Screens.width(context) * 0.03,
+          right: Screens.width(context) * 0.03,
+          bottom: Screens.padingHeight(context) * 0.01),
+      width: Screens.width(context) * 1.1,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: Screens.width(context),
+              height: Screens.padingHeight(context) * 0.05,
+              color: theme.primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: Screens.padingHeight(context) * 0.02,
+                        right: Screens.padingHeight(context) * 0.02),
+                    // color: Colors.red,
+                    width: Screens.width(context) * 0.5,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Alert",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        size: Screens.padingHeight(context) * 0.025,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+            Container(
+                alignment: Alignment.center,
+                width: Screens.width(context),
+                child: Text('You are not authorised..!!')),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+          ],
+        ),
+      ),
+    );
+  });
+}
 }

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderCheckListPost.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
@@ -97,7 +97,7 @@ class SiteInSuccessCardState extends State<SiteInSuccessCard> {
                               child: Text(
                             "Site Check-In Created Successfully",
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           )),
                         ),
@@ -111,7 +111,7 @@ class SiteInSuccessCardState extends State<SiteInSuccessCard> {
                           child: Center(
                               child: Text(
                             "Site Check-In Receipt #23212",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ),
@@ -125,7 +125,7 @@ class SiteInSuccessCardState extends State<SiteInSuccessCard> {
                         //   child: Center(
                         //       child: Text(
                         //     "${context.read<NewCollectionContoller>().mycontroller[1].text.toString()}",
-                        //     style: theme.textTheme.bodyText2,
+                        //     style: theme.textTheme.bodyMedium,
                         //     textAlign: TextAlign.center,
                         //   )),
                         // ),
@@ -139,7 +139,7 @@ class SiteInSuccessCardState extends State<SiteInSuccessCard> {
                         //   child: Center(
                         //       child: Text(
                         //     "Card Amount Rs.${context.read<SettlementController>().totalCard()}",
-                        //     style: theme.textTheme.bodyText2,
+                        //     style: theme.textTheme.bodyMedium,
                         //     textAlign: TextAlign.center,
                         //   )),
                         // ),
@@ -177,7 +177,7 @@ class SiteInSuccessCardState extends State<SiteInSuccessCard> {
                         //         },
                         //         child: Text(
                         //           "Print Receipt ",
-                        //           style: theme.textTheme.bodyText2!.copyWith(
+                        //           style: theme.textTheme.bodyMedium!.copyWith(
                         //               decoration: TextDecoration.underline),
                         //           textAlign: TextAlign.center,
                         //         ),
@@ -228,7 +228,7 @@ class SiteInSuccessCardState extends State<SiteInSuccessCard> {
                         //   child: Center(
                         //       child: Text(
                         //     "Delivery Date "+config.alignDate(getsuccessRes!.U_sk_NextFollowDt!).toString(),
-                        //     style: theme.textTheme.bodyText2,
+                        //     style: theme.textTheme.bodyMedium,
                         //     textAlign: TextAlign.center,
                         //   )),
                         // ),
@@ -295,7 +295,7 @@ class SiteInSuccessCardState extends State<SiteInSuccessCard> {
       (index) => Container(
           width: Screens.width(context),
           child: Text(data[index].ItemDescription.toString(),
-              textAlign: TextAlign.center, style: theme.textTheme.bodyText2)),
+              textAlign: TextAlign.center, style: theme.textTheme.bodyMedium)),
     );
   }
 }

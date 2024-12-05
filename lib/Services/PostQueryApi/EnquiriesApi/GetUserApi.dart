@@ -5,7 +5,8 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../Models/PostQueryModel/EnquiriesModel/GetUserModel.dart';
 
 class GetUserApi {

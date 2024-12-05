@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/QuotationController/tabquotescontroller.dart';
+import 'package:sellerkit/Controller/QuotationController/tabquotes_controller.dart';
 import 'package:sellerkit/Models/QuoteModel/quotesgetallModel.dart';
 import 'package:intl/intl.dart';
 
@@ -59,7 +59,7 @@ class _closequoteState extends State<closequote> {
           //       Container(
           //         child: Text("0",
           //           // "${leadSummaryWon[0].Caption}",
-          //           style: widget.theme.textTheme.bodyText1
+          //           style: widget.theme.textTheme.bodyMedium
           //               ?.copyWith(color: widget.theme.primaryColor),
           //         ),
           //       ),
@@ -76,7 +76,7 @@ class _closequoteState extends State<closequote> {
           //                 //NumberFormatter.formatter(leadSummaryWon[0].Value!.toStringAsFixed(0))
           //                 //  context.read<OrderTabController>().config.
           //                 //"₹ ${leadSummaryWon[0].Value}"),
-          //                 style: widget.theme.textTheme.headline6,
+          //                 style: widget.theme.textTheme.titleLarge,
           //               )),
           //           Container(
           //             alignment: Alignment.centerRight,
@@ -95,7 +95,7 @@ class _closequoteState extends State<closequote> {
           //           // +
           //           //     Config.k_m_b_generator(
           //           //         leadSummaryWon[0].Target!.toStringAsFixed(0)),
-          //           //     style: theme.textTheme.bodyText1?.copyWith(
+          //           //     style: theme.textTheme.bodyMedium?.copyWith(
           //           //   //color: Colors.grey
           //           //   fontWeight: FontWeight.w400
           //           // ),
@@ -202,7 +202,7 @@ class _closequoteState extends State<closequote> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Customer",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -210,7 +210,7 @@ class _closequoteState extends State<closequote> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -225,7 +225,7 @@ class _closequoteState extends State<closequote> {
                                       child: Text(
                                           "${widget.leadWonAllData[i].CustomerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             // fontWeight: FontWeight.bold
                                           )),
@@ -243,7 +243,7 @@ class _closequoteState extends State<closequote> {
                                           // .alignDate(
                                           //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             //fontWeight: FontWeight.bold
                                           )),
@@ -262,7 +262,7 @@ class _closequoteState extends State<closequote> {
                                       width: Screens.width(context),
                                       child: Text(
                                         "Product",
-                                        style: widget.theme.textTheme.bodyText2
+                                        style: widget.theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -270,7 +270,7 @@ class _closequoteState extends State<closequote> {
                                       width: Screens.width(context),
                                       // color: Colors.red,
                                       child: Text("${widget.leadWonAllData[i].Product}",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                           //?.copyWith(color: Colors.grey),
                                           ),
                                     ),
@@ -289,7 +289,7 @@ class _closequoteState extends State<closequote> {
                                       child: Text(
                                           "Quotes Date", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -301,7 +301,7 @@ class _closequoteState extends State<closequote> {
                                       child: Text(
                                           "Quotes Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -323,7 +323,7 @@ class _closequoteState extends State<closequote> {
                                                   .alignDate(
                                                       "${widget.leadWonAllData[i].createdon}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   )),
@@ -355,7 +355,7 @@ class _closequoteState extends State<closequote> {
                                                         .Value!
                                                         .toStringAsFixed(
                                                             0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     //color:theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
@@ -388,7 +388,7 @@ class _closequoteState extends State<closequote> {
                                                     .isEmpty
                                                 ? ''
                                                 : "${widget.leadWonAllData[i].Status}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               //color:theme.primaryColor,
                                               color: Colors.yellow[900],
@@ -419,7 +419,7 @@ class _closequoteState extends State<closequote> {
                                                     .alignDate(
                                                         "${widget.leadWonAllData[i].createdon}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
                                         style:
-                                            widget.theme.textTheme.bodyText2?.copyWith(
+                                            widget.theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey,
                                           // color: Colors.green[700],
                                           // fontWeight: FontWeight.bold

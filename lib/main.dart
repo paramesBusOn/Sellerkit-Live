@@ -16,46 +16,47 @@ import 'package:get/get.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Constant/Encripted.dart';
-import 'package:sellerkit/Constant/Helper.dart';
-import 'package:sellerkit/Constant/LocationTrack.dart';
-import 'package:sellerkit/Constant/LocationTrackIos.dart';
-import 'package:sellerkit/Constant/methodchannel.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
+import 'package:sellerkit/Constant/encripted.dart';
+import 'package:sellerkit/Constant/helper.dart';
+import 'package:sellerkit/Constant/location_track.dart';
+import 'package:sellerkit/Constant/location_trackIos.dart';
+import 'package:sellerkit/Constant/method_channel.dart';
 // import 'package:sellerkit/Constant/LocationTrackIos.dart';
-import 'package:sellerkit/Controller/AccountsController/AccountsController.dart';
-import 'package:sellerkit/Controller/AccountsController/NewCustomerController.dart';
-import 'package:sellerkit/Controller/CollectionController/CollectionController.dart';
-import 'package:sellerkit/Controller/CollectionController/NewCollectionEntryCotroller.dart';
-import 'package:sellerkit/Controller/ConfigurationController/ConfigurationController.dart';
-import 'package:sellerkit/Controller/DashBoardController/DashBoardController.dart';
-import 'package:sellerkit/Controller/DayStartEndController/DayStartEndController.dart';
-import 'package:sellerkit/Controller/DownLoadController/DownloadController.dart';
-import 'package:sellerkit/Controller/EarningController/EarningController.dart';
-import 'package:sellerkit/Controller/EnquiryController/EnquiryMngController.dart';
-import 'package:sellerkit/Controller/EnquiryController/EnquiryUserContoller.dart';
-import 'package:sellerkit/Controller/EnquiryController/NewEnqController.dart';
-import 'package:sellerkit/Controller/LeadController/LeadNewController.dart';
-import 'package:sellerkit/Controller/LeaveApproveController/LeaveApproveController.dart';
-import 'package:sellerkit/Controller/LeaveReqController/LeaveReqController.dart';
-import 'package:sellerkit/Controller/NewProfileController/NewProfileController.dart';
-import 'package:sellerkit/Controller/NotificationController/NotificationController.dart';
-import 'package:sellerkit/Controller/OpenLeadController/OpenLeadController.dart';
-import 'package:sellerkit/Controller/OutStandingController/OutStandingController.dart';
-import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
-import 'package:sellerkit/Controller/QuotationController/tabquotescontroller.dart';
-import 'package:sellerkit/Controller/SettlementController/SettlementController.dart';
-import 'package:sellerkit/Controller/SiteInController/SiteInController.dart';
-import 'package:sellerkit/Controller/SiteOutController/SiteOutController.dart';
-import 'package:sellerkit/Controller/StockAvailabilityController/StockListController.dart';
-import 'package:sellerkit/Controller/VisitplanController/NewVisitController.dart';
-import 'package:sellerkit/Controller/VisitplanController/VisitPlanController.dart';
-import 'package:sellerkit/Controller/WalkinController/WalkinController.dart';
-import 'package:sellerkit/Controller/specialpricecontroller/newpagecontroller.dart';
-import 'package:sellerkit/Controller/specialpricecontroller/tabcontroller.dart';
-import 'package:sellerkit/DBHelper/DBHelper.dart';
-import 'package:sellerkit/DBModel/ItemMasertDBModel.dart';
+import 'package:sellerkit/Controller/AccountsController/accounts_controller.dart';
+import 'package:sellerkit/Controller/AccountsController/newcustomer_controller.dart';
+import 'package:sellerkit/Controller/CollectionController/collection_controller.dart';
+import 'package:sellerkit/Controller/CollectionController/newcollectionentry_cotroller.dart';
+import 'package:sellerkit/Controller/ConfigurationController/configuration_controller.dart';
+import 'package:sellerkit/Controller/DashBoardController/dashboard_controller.dart';
+import 'package:sellerkit/Controller/DayStartEndController/daystartend_controller.dart';
+import 'package:sellerkit/Controller/DownLoadController/download_controller.dart';
+import 'package:sellerkit/Controller/EarningController/earning_controller.dart';
+import 'package:sellerkit/Controller/EnquiryController/enquiryuser_contoller.dart';
+import 'package:sellerkit/Controller/EnquiryController/newenq_controller.dart';
+import 'package:sellerkit/Controller/LeadController/leadnew_controller.dart';
+import 'package:sellerkit/Controller/LeaveApproveController/leaveapprove_controller.dart';
+import 'package:sellerkit/Controller/LeaveReqController/leavereq_controller.dart';
+import 'package:sellerkit/Controller/NewProfileController/newprofile_controller.dart';
+import 'package:sellerkit/Controller/NotificationController/notification_controller.dart';
+import 'package:sellerkit/Controller/OpenLeadController/openlead_controller.dart';
+import 'package:sellerkit/Controller/OrderController/ordernew_controller.dart';
+import 'package:sellerkit/Controller/OutStandingController/outstanding_controller.dart';
+import 'package:sellerkit/Controller/QuotationController/newquote_controller.dart';
+import 'package:sellerkit/Controller/QuotationController/tabquotes_controller.dart';
+import 'package:sellerkit/Controller/SettlementController/settlement_controller.dart';
+import 'package:sellerkit/Controller/SiteInController/sitein_controller.dart';
+import 'package:sellerkit/Controller/SiteOutController/siteout_controller.dart';
+import 'package:sellerkit/Controller/StockAvailabilityController/stocklist_controller.dart';
+import 'package:sellerkit/Controller/VisitplanController/newvisit_controller.dart';
+import 'package:sellerkit/Controller/VisitplanController/visitplan_controller.dart';
+import 'package:sellerkit/Controller/WalkinController/walkin_controller.dart';
+import 'package:sellerkit/Controller/specialpricecontroller/newpage_controller.dart';
+import 'package:sellerkit/Controller/specialpricecontroller/tab_controller.dart';
+import 'package:sellerkit/DBHelper/db_helper.dart';
+import 'package:sellerkit/DBModel/itemmasertdb_model.dart';
 import 'package:sellerkit/Models/LoginModel/LoginModel.dart';
 import 'package:sellerkit/Models/PostQueryModel/ItemMasterModelNew.dart/ItemMasterNewModel.dart';
 import 'package:sellerkit/Services/CustomerMasterApi/CustomerMasterApi.dart';
@@ -67,17 +68,16 @@ import 'package:provider/provider.dart';
 import 'package:sellerkit/Widgets/restricted_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
-import 'Constant/AllRoutes.dart';
-import 'Controller/ChangePasswordContoller/ChangepwdCtrl.dart';
-import 'Controller/LeadController/TabLeadController.dart';
-import 'Controller/OrderController/OrderNewController.dart';
-import 'Controller/OrderController/TabOrderController.dart';
-import 'Controller/PriceListController/PriceListController.dart';
-import 'Controller/ReportsController/ReportsController.dart';
-import 'Controller/SiteInController/newcreatesitein.dart';
-import 'Controller/TargetController/TargetController.dart';
-import 'DBHelper/DBOperation.dart';
-import 'DBModel/NotificationModel.dart';
+import 'Constant/all_routes.dart';
+import 'Controller/ChangePasswordContoller/change_pwdctrl.dart';
+import 'Controller/LeadController/tablead_controller.dart';
+import 'Controller/OrderController/taborder_controller.dart';
+import 'Controller/PriceListController/pricelist_controller.dart';
+import 'Controller/ReportsController/reports_controller.dart';
+import 'Controller/SiteInController/newcreate_sitein.dart';
+import 'Controller/TargetController/target_controller.dart';
+import 'DBHelper/db_operation.dart';
+import 'DBModel/notification_model.dart';
 import 'Pages/Configuration/ConfigurationPage.dart';
 import 'Services/LocalNotification/LocalNotification.dart';
 import 'Themes/theme_manager.dart';
@@ -212,7 +212,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   if (message.notification != null) {
     if (message.notification!.title!.contains('logout')) {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.clear();
+      // await prefs.clear();
       final Database db = (await DBHelper.getInstance())!;
       await DBOperation.truncateQuotFilter(db);
       await DBOperation.truncustomerMaster(db);
@@ -447,7 +447,8 @@ onReciveFCM() async {
       print("hhhhhh:::" + message.data['LogoutTypeId'].toString());
       if (message.notification!.title!.contains('logout')) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.clear();
+        // await prefs.clear();
+         await HelperFunctions.clearHost();
         final Database db = (await DBHelper.getInstance())!;
 
         await DBOperation.truncustomerMaster(db);
@@ -1412,7 +1413,14 @@ checkLocation() async {
     } else if (result.name == 'mobile') {
       if (Platform.isAndroid) {
         final MobileNetworkInfo mobileNetworkInfo = MobileNetworkInfo();
-        final String name = await Config.getipaddress();
+        String? name;
+          try{
+  name = await Config.getipaddress();
+
+          }catch(e){
+            print("e"+e.toString());
+          }
+        // final String name = await Config.getipaddress();
 
         // List<String>? wifiiInfo = await config.setNetwork();
         //
@@ -1437,7 +1445,14 @@ checkLocation() async {
     //   ConstantValues.ipname = wifiiInfo[0] == null ? 'null' : wifiiInfo[0];
     // }
     else if (result.name == 'wifi') {
-      String? name = await Config.getipaddress();
+      String? name;
+          try{
+  name = await Config.getipaddress();
+
+          }catch(e){
+            print("e"+e.toString());
+          }
+      // String? name = await Config.getipaddress();
       List<String>? wifiiInfo = await config.setNetwork();
       ConstantValues.ipaddress = name == null ? 'null' : name;
       ConstantValues.ipname = wifiiInfo[0];
@@ -1538,7 +1553,6 @@ class MyApp2State extends State<MyApp2> with WidgetsBindingObserver {
         ChangeNotifierProvider(create: (_) => DownLoadController()),
         ChangeNotifierProvider(create: (_) => PriceListController()),
         ChangeNotifierProvider(create: (_) => StockListController()),
-        ChangeNotifierProvider(create: (_) => EnquiryMangerContoller()),
         ChangeNotifierProvider(create: (_) => EnquiryUserContoller()),
         ChangeNotifierProvider(create: (_) => NewEnqController()),
         ChangeNotifierProvider(create: (_) => WalkinController()),
@@ -1614,7 +1628,6 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DownLoadController()),
         ChangeNotifierProvider(create: (_) => PriceListController()),
         ChangeNotifierProvider(create: (_) => StockListController()),
-        ChangeNotifierProvider(create: (_) => EnquiryMangerContoller()),
         ChangeNotifierProvider(create: (_) => EnquiryUserContoller()),
         ChangeNotifierProvider(create: (_) => NewEnqController()),
         ChangeNotifierProvider(create: (_) => WalkinController()),

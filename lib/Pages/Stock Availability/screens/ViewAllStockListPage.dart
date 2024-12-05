@@ -3,12 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Controller/StockAvailabilityController/stocklist_controller.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/StockAvailabilityController/StockListController.dart';
-import '../../../DBModel/ItemMasertDBModel.dart';
+import '../../../DBModel/itemmasertdb_model.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -97,7 +98,7 @@ class StockListOfDetailsState extends State<StockListOfDetails> {
                    },
                    decoration: InputDecoration(
                      filled: false,
-                     hintText: 'Search Here!!..',
+                     hintText: 'Search Here..',
                      enabledBorder: InputBorder.none,
                      focusedBorder: InputBorder.none,
                      prefixIcon: IconButton(
@@ -198,7 +199,7 @@ class StockListOfDetailsState extends State<StockListOfDetails> {
                 Text(content[index].brand,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: 
          context.watch<StockListController>().searchviewAll[index].isselected==1             
@@ -242,7 +243,7 @@ class StockListOfDetailsState extends State<StockListOfDetails> {
                 Text(content[index].category,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
         
                      color:
@@ -285,7 +286,7 @@ class StockListOfDetailsState extends State<StockListOfDetails> {
                 Text(content[index].segment,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: 
                       context.watch<StockListController>().searchviewAll[index].isselected == 1

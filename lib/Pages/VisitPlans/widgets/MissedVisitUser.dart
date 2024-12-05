@@ -6,7 +6,7 @@ import 'package:sellerkit/Pages/VisitPlans/widgets/followdialog.dart';
 
 import '../../../../Constant/Screen.dart';
 import '../../../Constant/Configuration.dart';
-import '../../../Controller/VisitplanController/VisitPlanController.dart';
+import '../../../Controller/VisitplanController/visitplan_controller.dart';
 // import 'GlobalKeys.dart';
 // import '../../../../Controller/EnquiryController/EnquiryMngController.dart';
 
@@ -107,7 +107,7 @@ showDialog<dynamic>(
                                 width: Screens.width(context) * 0.4,
                                 child: Text(
                                   "Customer",
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.grey),
                                 ),
                               ),
@@ -116,7 +116,7 @@ showDialog<dynamic>(
                                 width: Screens.width(context) * 0.4,
                                 child: Text(
                                   "Date & Time",
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.grey),
                                 ),
                               ),
@@ -129,7 +129,7 @@ showDialog<dynamic>(
                                 width: Screens.width(context) * 0.4,
                                 child: Text(
                                     "${context.watch<VisitplanController>().missedVisitUserdata[i].customername}",
-                                    style: theme.textTheme.bodyText2?.copyWith(
+                                    style: theme.textTheme.bodyMedium?.copyWith(
                                       color: theme.primaryColor,
                                       // fontWeight: FontWeight.bold
                                     )),
@@ -139,7 +139,7 @@ showDialog<dynamic>(
                                 width: Screens.width(context) * 0.4,
                                 child: Text(//
                                     "${config.alignmeetingdate("${context.watch<VisitplanController>().missedVisitUserdata[i].meetingtime}")}",
-                                    style: theme.textTheme.bodyText2?.copyWith(
+                                    style: theme.textTheme.bodyMedium?.copyWith(
                                       color: theme.primaryColor,
                                       //fontWeight: FontWeight.bold
                                     )),
@@ -156,7 +156,7 @@ showDialog<dynamic>(
                                 width: Screens.width(context) * 0.4,
                                 child: Text(
                                   "Purpose",
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.grey),
                                 ),
                               ),
@@ -165,7 +165,7 @@ showDialog<dynamic>(
                                 width: Screens.width(context) * 0.4,
                                 child: Text(
                                   "Area",
-                                  style: theme.textTheme.bodyText2
+                                  style: theme.textTheme.bodyMedium
                                       ?.copyWith(color: Colors.grey),
                                 ),
                               ),
@@ -182,7 +182,7 @@ showDialog<dynamic>(
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                       "${context.watch<VisitplanController>().missedVisitUserdata[i].purposeofvisit}",
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
                                       )),
@@ -195,7 +195,7 @@ showDialog<dynamic>(
                                       "${context.watch<VisitplanController>().missedVisitUserdata[i].area}",
                                       textAlign: TextAlign.right,
                                       //"₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
                                       )),
@@ -218,7 +218,7 @@ showDialog<dynamic>(
                                     child: Text(
                                         "Product",
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey,
                                           // fontWeight: FontWeight.bold
                                         )),
@@ -231,7 +231,7 @@ showDialog<dynamic>(
                                         "${context.watch<VisitplanController>().missedVisitUserdata[i].LookingFor!}",
                                         //"₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: theme.primaryColor,
                                           //fontWeight: FontWeight.bold
                                         )),
@@ -255,7 +255,7 @@ showDialog<dynamic>(
                                     padding:  EdgeInsets.all(Screens.width(context) * 0.01),
                                     child: Text(
                                         "${context.watch<VisitplanController>().missedVisitUserdata[i].visitstatus}",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(
                                                 color: Colors.green[700],
                                                 fontSize: 12

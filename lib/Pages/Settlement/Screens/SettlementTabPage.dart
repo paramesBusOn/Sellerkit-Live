@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Controller/SettlementController/SettlementController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Controller/SettlementController/settlement_controller.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/NEFTTab.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/UPITab.dart';
 import 'package:sellerkit/Pages/Settlement/Widgets/finalshowdata.dart';

@@ -10,7 +10,8 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:pdf/widgets.dart';
 import 'package:printing/printing.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Models/QuoteModel/quotesQth.dart';
 import 'package:sellerkit/Services/customerdetApi/customerdetApi.dart';
 
@@ -569,7 +570,18 @@ class PdfInvoicePdfviewHelper {
   static Widget buildInvoice(List<GetQuotesQTLData> data2, TtfFont font,
       TtfFont Calibrifont, Config config, TtfFont Calibrifontbold) {
       int  i=1;
-    final headers = [
+      List<String> headers = [];
+    if (ConstantValues.quotesdisc!.toLowerCase() == 'n'){
+ headers = [
+      'S.No',
+      'Description',
+      'Qty',
+      'Price',
+      'Tax %',
+      'Total',
+    ];
+    }else{
+ headers = [
       'S.No',
       'Description',
       'Qty',
@@ -579,6 +591,8 @@ class PdfInvoicePdfviewHelper {
       
       'Total',
     ];
+    }
+    
      data2.sort((a, b) => b.BasePrice!.compareTo(a.BasePrice!));
     final data = data2.map((item) {
       
@@ -637,8 +651,19 @@ class PdfInvoicePdfviewHelper {
       }
  
    
-
-      return [
+ if (ConstantValues.quotesdisc!.toLowerCase() == 'n'){
+ return [
+        i++,
+        item.ItemName,
+        item.Quantity!.toInt(),
+       config.slpitCurrencypdf(mrpvalue.round().toStringAsFixed(2)) ,
+        
+        item.TaxCode!.round().toStringAsFixed(2),
+       
+       config.slpitCurrencypdf (item.GrossLineTotal!.round().toStringAsFixed(2)),
+      ];
+ }else{
+ return [
         i++,
         item.ItemName,
         item.Quantity!.toInt(),
@@ -648,6 +673,8 @@ class PdfInvoicePdfviewHelper {
        
        config.slpitCurrencypdf (item.GrossLineTotal!.round().toStringAsFixed(2)),
       ];
+ }
+     
     }).toList();
 
     return Container(

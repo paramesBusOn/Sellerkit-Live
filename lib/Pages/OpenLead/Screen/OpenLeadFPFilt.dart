@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 
 import '../../../Constant/Screen.dart';
-import '../../../Controller/OpenLeadController/OpenLeadController.dart';
+import '../../../Controller/OpenLeadController/openlead_controller.dart';
 import '../Widegts/OpenLeadFDP.dart';
 
 class ListViewOpenLead extends StatefulWidget {
@@ -29,7 +30,8 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
       height: Screens.bodyheight(context),
       padding: EdgeInsets.symmetric(
           horizontal: Screens.width(context) * 0.01,
-          vertical: Screens.bodyheight(context) * 0.01),
+          // vertical: Screens.bodyheight(context) * 0.01
+          ),
       child: GestureDetector(onHorizontalDragUpdate: (details) {
                     // Check if the user is swiping from left to right
                     print(details.primaryDelta);
@@ -221,8 +223,8 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(
-                            // horizontal: Screens.width(context) * 0.02,
-                            vertical: Screens.bodyheight(context) * 0.01),
+                            horizontal: Screens.width(context) * 0.02,
+                            vertical: Screens.bodyheight(context) * 0.005),
                         width: Screens.width(context),
                         // padding: EdgeInsets.symmetric(
                         //     horizontal: Screens.width(context) * 0.02,
@@ -248,7 +250,7 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                           "Customer",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -256,7 +258,7 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                           "",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -271,8 +273,9 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                         child: Text(
                                             "${context.watch<OpenLeadController>().filterleadOpenAllData[index].CustomerName}",
                                             style:
-                                                widget.theme.textTheme.bodyText2?.copyWith(
+                                                widget.theme.textTheme.bodyMedium?.copyWith(
                                               color: widget.theme.primaryColor,
+                                              fontSize: 13
                                             )),
                                       ),
                                       Container(
@@ -281,14 +284,15 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                         child: Text(
                                             "# ${context.watch<OpenLeadController>().filterleadOpenAllData[index].LeadNum}",
                                             style:
-                                                widget.theme.textTheme.bodyText2?.copyWith(
+                                                widget.theme.textTheme.bodyMedium?.copyWith(
                                               color: widget.theme.primaryColor,
+                                              fontSize: 13
                                             )),
                                       ),
                                     ],
                                   ),
                                   SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
+                                    height: Screens.bodyheight(context) * 0.005,
                                   ),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -299,7 +303,7 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                         width: Screens.width(context),
                                         child: Text(
                                           "Product",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -307,12 +311,14 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                         width: Screens.width(context),
                                         child: Text(
                                             "${context.watch<OpenLeadController>().filterleadOpenAllData[index].Product}",
-                                            style: widget.theme.textTheme.bodyText2),
+                                            style: widget.theme.textTheme.bodyMedium?.copyWith(fontSize: 13)
+                                            
+                                            ),
                                       ),
                                     ],
                                   ),
                                   SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
+                                    height: Screens.bodyheight(context) * 0.005,
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -321,15 +327,15 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                       Container(
                                         width: Screens.width(context) * 0.4,
                                         child: Text("Next Follow up",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(color: Colors.grey)),
                                       ),
                                       Container(
                                         width: Screens.width(context) * 0.4,
                                         //color: Colors.red,
                                         alignment: Alignment.centerRight,
-                                        child: Text("Order Value",
-                                            style: widget.theme.textTheme.bodyText2
+                                        child: Text("Lead Value",
+                                            style: widget.theme.textTheme.bodyMedium
                                                 ?.copyWith(color: Colors.grey)),
                                       ),
                                     ],
@@ -351,8 +357,8 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                                 .config
                                                 .alignDate(
                                                     "${context.watch<OpenLeadController>().filterleadOpenAllData[index].NextFollowup}"),
-                                            style: widget.theme.textTheme.bodyText2
-                                                ?.copyWith()),
+                                            style: widget.theme.textTheme.bodyMedium
+                                                ?.copyWith(fontSize: 13)),
                                       ),
                                       InkWell(
                                         onTap: () {},
@@ -365,14 +371,14 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                                   .config
                                                   .slpitCurrency(
                                                       "${context.watch<OpenLeadController>().filterleadOpenAllData[index].Value!.toStringAsFixed(0)}"),
-                                              style: widget.theme.textTheme.bodyText2
-                                                  ?.copyWith()),
+                                              style: widget.theme.textTheme.bodyMedium
+                                                  ?.copyWith(fontSize: 13)),
                                         ),
                                       ),
                                     ],
                                   ),
                                   SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
+                                    height: Screens.bodyheight(context) * 0.005,
                                   ),
                                   Container(
                                     alignment: Alignment.centerLeft,
@@ -395,7 +401,7 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                                               .isEmpty
                                                           ? ''
                                                           : "${context.watch<OpenLeadController>().filterleadOpenAllData[index].LastUpdateMessage} ",
-                                              style: widget.theme.textTheme.bodyText2
+                                              style: widget.theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                 color: Colors.green[700],
                                               )),
@@ -404,7 +410,7 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: Screens.bodyheight(context) * 0.01,
+                                    height: Screens.bodyheight(context) * 0.005,
                                   ),
                                   Container(
                                     alignment: Alignment.centerLeft,
@@ -426,7 +432,7 @@ class _ListViewOpenLeadState extends State<ListViewOpenLead> {
                                                       "${context.watch<OpenLeadController>().filterleadOpenAllData[index].createdDate}")
                                               : '',
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: Colors.grey,
                                           )),
                                     ),

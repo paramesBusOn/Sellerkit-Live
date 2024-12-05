@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/CollectionController/NewCollectionEntryCotroller.dart';
+import 'package:sellerkit/Controller/CollectionController/newcollectionentry_cotroller.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
 
-import '../../../../Models/CollectionModel/CollectionPostModel.dart';
+import '../../../Models/CollectionModel/collectionpost_model.dart';
 
 
 class CollectionSuccessPage extends StatefulWidget {
@@ -100,7 +100,7 @@ class CollectionSuccessPageState extends State<CollectionSuccessPage> {
                               child: Text(
                             "Collection Amount Received",
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2
+                            style: theme.textTheme.bodyMedium
                                 ?.copyWith(color: Colors.grey),
                           )),
                         ),
@@ -114,7 +114,7 @@ class CollectionSuccessPageState extends State<CollectionSuccessPage> {
                           child: Center(
                               child: Text(
                             "Collection Receipt # ${widget.ipaymaster!.docNum}",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ), SizedBox(
@@ -127,7 +127,7 @@ class CollectionSuccessPageState extends State<CollectionSuccessPage> {
                           child: Center(
                               child: Text(
                             "${widget.ipaymaster!.customerName}",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ),
@@ -141,7 +141,7 @@ class CollectionSuccessPageState extends State<CollectionSuccessPage> {
                           child: Center(
                               child: Text(
                             "${widget.ipaymaster!.customercode}",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ),
@@ -158,7 +158,7 @@ class CollectionSuccessPageState extends State<CollectionSuccessPage> {
                                                           .read<
                                                               NewCollectionContoller>()
                                                           .config.slpitCurrency22(widget.ipaymaster!.amountpaid.toString())}",
-                            style: theme.textTheme.bodyText2,
+                            style: theme.textTheme.bodyMedium,
                             textAlign: TextAlign.center,
                           )),
                         ),
@@ -196,7 +196,7 @@ class CollectionSuccessPageState extends State<CollectionSuccessPage> {
                         //         },
                         //         child: Text(
                         //           "Print Receipt ",
-                        //           style: theme.textTheme.bodyText2!.copyWith(
+                        //           style: theme.textTheme.bodyMedium!.copyWith(
                         //               decoration: TextDecoration.underline),
                         //           textAlign: TextAlign.center,
                         //         ),
@@ -247,7 +247,7 @@ class CollectionSuccessPageState extends State<CollectionSuccessPage> {
                         //   child: Center(
                         //       child: Text(
                         //     "Delivery Date "+config.alignDate(getsuccessRes!.U_sk_NextFollowDt!).toString(),
-                        //     style: theme.textTheme.bodyText2,
+                        //     style: theme.textTheme.bodyMedium,
                         //     textAlign: TextAlign.center,
                         //   )),
                         // ),
@@ -314,7 +314,7 @@ class CollectionSuccessPageState extends State<CollectionSuccessPage> {
   //     (index) => Container(
   //         width: Screens.width(context),
   //         child: Text(data[index].ItemDescription.toString(),
-  //             textAlign: TextAlign.center, style: theme.textTheme.bodyText2)),
+  //             textAlign: TextAlign.center, style: theme.textTheme.bodyMedium)),
   //   );
   // }
 }

@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Controller/challengeController/ChallengeController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
+import 'package:sellerkit/Controller/challengeController/challenge_controller.dart';
+import 'package:sellerkit/Models/challengeModel/challenge_model.dart';
 import 'package:sellerkit/Pages/Challenges/Screens/Challengedesc.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import '../../../Constant/Configuration.dart';
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Models/ChallengeModel/challengemodel.dart';
 import '../../../Widgets/Navi3.dart';
 import '../Widgets/SearchWidgets.dart';
 
@@ -118,7 +119,7 @@ class _ChallengesState extends State<Challenges> {
                                                     child: Text(
                                                       "${challegeCon.getchallengedatadetails[i].code}",
                                                       style: theme
-                                                          .textTheme.bodyText1
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith(),
                                                     ),
                                                   ),
@@ -220,7 +221,7 @@ class _ChallengesState extends State<Challenges> {
                                                   child: Text(
                                                     "Created on:${config2.alignDate(challegeCon.getchallengedatadetails[i].createdon.toString())}",
                                                     style: theme
-                                                        .textTheme.bodyText1
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             color: Colors.white),
                                                   ),

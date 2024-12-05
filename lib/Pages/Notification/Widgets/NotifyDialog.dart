@@ -88,7 +88,7 @@ class _FollowDialogState extends State<NotifyDialog> {
                 ),
                   Container(
                     child: Text('${widget.title}',
-                    style: theme.textTheme.bodyText1,
+                    style: theme.textTheme.bodyMedium,
                     ),
                   ),
                    SizedBox(
@@ -96,7 +96,7 @@ class _FollowDialogState extends State<NotifyDialog> {
                    ),
                     Container(
                     child: Text('${widget.descp}',
-                      style: theme.textTheme.bodyText2?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: Colors.grey
                       ),
                       ),
@@ -136,7 +136,7 @@ class _FollowDialogState extends State<NotifyDialog> {
                           },
                           child: Text(
                             "Ok",
-                            // style: theme.textTheme.bodyText2?.copyWith(
+                            // style: theme.textTheme.bodyMedium?.copyWith(
                             //   color: Colors.white,
                             //   fontSize: 14
                             // ),
@@ -272,7 +272,7 @@ class _FollowDialogState extends State<NotifyDialog> {
 //                 ),
 //                   Container(
 //                     child: Text('${widget.title}',
-//                     style: theme.textTheme.bodyText1,
+//                     style: theme.textTheme.bodyMedium,
 //                     ),
 //                   ),
 //                    SizedBox(
@@ -280,7 +280,7 @@ class _FollowDialogState extends State<NotifyDialog> {
 //                    ),
 //                     Container(
 //                     child: Text('${widget.descp}',
-//                       style: theme.textTheme.bodyText2?.copyWith(
+//                       style: theme.textTheme.bodyMedium?.copyWith(
 //                         color: Colors.grey
 //                       ),
 //                       ),
@@ -320,7 +320,7 @@ class _FollowDialogState extends State<NotifyDialog> {
 //                           },
 //                           child: Text(
 //                             "Ok",
-//                             // style: theme.textTheme.bodyText2?.copyWith(
+//                             // style: theme.textTheme.bodyMedium?.copyWith(
 //                             //   color: Colors.white,
 //                             //   fontSize: 14
 //                             // ),

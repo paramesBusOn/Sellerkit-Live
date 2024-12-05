@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Constant/MenuAuth.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
+import 'package:sellerkit/Constant/menu_auth.dart';
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/GetAllOrderModel.dart';
 import 'package:sellerkit/Pages/OrderBooking/Widgets/pdfviewdetail.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/OrderController/TabOrderController.dart';
+import '../../../Controller/OrderController/taborder_controller.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 //import 'package:timelines/timelines.dart';
 
@@ -205,7 +206,7 @@ class _FollowDialogState extends State<FollowDialog> {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Alert",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -240,8 +241,8 @@ class _FollowDialogState extends State<FollowDialog> {
                           .watch<OrderTabController>()
                           .getforwardSuccessMsg
                           .contains("Success")
-                      ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-                      : theme.textTheme.headline6?.copyWith(color: Colors.red),
+                      ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+                      : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
                 ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.02,
@@ -249,7 +250,7 @@ class _FollowDialogState extends State<FollowDialog> {
                 Text(
                   context.watch<OrderTabController>().getforwardSuccessMsg,
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1,
+                  style: theme.textTheme.bodyMedium,
                 ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.02,
@@ -382,7 +383,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                             .read<OrderTabController>()
                                             .getorderBillRefer!,
                                         hintStyle:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                   .read<OrderTabController>()
                                                   .getorderBillRefer!
@@ -429,7 +430,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text('Attachment',
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color: context
                                                                     .read<
@@ -630,7 +631,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                                       child: Text(
                                                     "No Files Selected",
                                                     style: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: context
                                                                         .read<
@@ -1143,7 +1144,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                             .watch<OrderTabController>()
                                             .getorderBillDate!, // "Next Follow up",
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                   .watch<OrderTabController>()
                                                   .getorderBillDate!
@@ -1192,7 +1193,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                                       .getnextWonFD,
                                                   // context.read<OrderTabController>().getnextFD,
                                                   style: theme
-                                                      .textTheme.bodyText2
+                                                      .textTheme.bodyMedium
                                                       ?.copyWith(), //fontSize: 12
                                                 ),
                                               ),
@@ -1257,7 +1258,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                             hintText: context
                                                 .read<OrderTabController>()
                                                 .getorderInvBillRefer!,
-                                            hintStyle: theme.textTheme.bodyText2
+                                            hintStyle: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               color: context
                                                       .read<
@@ -1311,7 +1312,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                             hintText: context
                                                 .read<OrderTabController>()
                                                 .getorderInvvalue!,
-                                            hintStyle: theme.textTheme.bodyText2
+                                            hintStyle: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               color: context
                                                       .read<
@@ -1369,7 +1370,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                               children: [
                                                 Text('Attachment',
                                                     style: theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             color: context
                                                                         .read<
@@ -1566,7 +1567,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                                           child: Text(
                                                         "No Files Selected",
                                                         style: theme.textTheme
-                                                            .bodyText1!
+                                                            .bodyMedium!
                                                             .copyWith(
                                                                 color: context
                                                                             .read<
@@ -2019,7 +2020,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                             context
                                                 .watch<OrderTabController>()
                                                 .getorderInvBillDate!, // "Next Follow up",
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               color: context
                                                       .watch<
@@ -2068,7 +2069,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                                           .getnextInvFD,
                                                       // context.read<OrderTabController>().getnextFD,
                                                       style: theme
-                                                          .textTheme.bodyText2
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith(), //fontSize: 12
                                                     ),
                                                   ),
@@ -2120,7 +2121,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                           context
                                               .watch<OrderTabController>()
                                               .gethinttextforcancel!,
-                                          style: theme.textTheme.bodyText2
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
                                                   color: context
                                                           .watch<
@@ -2170,7 +2171,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                             .watch<OrderTabController>()
                                             .getfeedbackcancel!, // "Feedback",
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: context
                                                   .watch<OrderTabController>()
                                                   .getfeedbackcancel!
@@ -2372,7 +2373,7 @@ class _FollowDialogState extends State<FollowDialog> {
 
                           //  height: Screens.padingHeight(context)*0.2,
                           child: ElevatedButton(
-                            onPressed: widget.leadOpenAllData!.isDelivered ==
+                            onPressed:MenuAuthDetail.isdeliver !='Y'?(){}: widget.leadOpenAllData!.isDelivered ==
                                         1 ||
                                     widget.leadOpenAllData!.isDelivered == 1 &&
                                         widget.leadOpenAllData!.isInvoiced == 1
@@ -2440,7 +2441,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                 Container(
                                   child: Text(
                                     "Delivered",
-                                    style: theme.textTheme.bodyText1!.copyWith(
+                                    style: theme.textTheme.bodyMedium!.copyWith(
                                         color: widget.leadOpenAllData!
                                                         .isDelivered ==
                                                     1 ||
@@ -2463,7 +2464,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         Container(
                           width: Screens.width(context) * 0.35,
                           child: ElevatedButton(
-                            onPressed: widget.leadOpenAllData!.isInvoiced ==
+                            onPressed:MenuAuthDetail.isinvoice !='Y'?(){}:  widget.leadOpenAllData!.isInvoiced ==
                                         1 ||
                                     widget.leadOpenAllData!.isDelivered == 1 &&
                                         widget.leadOpenAllData!.isInvoiced == 1
@@ -2531,7 +2532,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                 ),
                                 Container(
                                   child: Text("Invoice",
-                                      style: theme.textTheme.bodyText1!.copyWith(
+                                      style: theme.textTheme.bodyMedium!.copyWith(
                                           color: widget.leadOpenAllData!
                                                           .isInvoiced ==
                                                       1 ||
@@ -2631,7 +2632,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                 Container(
                                   child: Text(
                                     "Modify",
-                                    style: theme.textTheme.bodyText1!.copyWith(
+                                    style: theme.textTheme.bodyMedium!.copyWith(
                                         color: (widget.leadOpenAllData!
                                                             .isDelivered ==
                                                         0 &&
@@ -2736,7 +2737,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                 Container(
                                   child: Text(
                                     "Cancel",
-                                    style: theme.textTheme.bodyText1!.copyWith(
+                                    style: theme.textTheme.bodyMedium!.copyWith(
                                         color: (widget.leadOpenAllData!
                                                             .isDelivered ==
                                                         0 &&
@@ -2897,7 +2898,7 @@ class _FollowDialogState extends State<FollowDialog> {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Order Details",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -2936,7 +2937,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].CardName}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -2958,7 +2959,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                         // "2020-05-18T00:00:00"
                                         "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].OrderCreatedDate}"),
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyText2?.copyWith(),
+                            style: theme.textTheme.bodyMedium?.copyWith(),
                           ),
                         ),
                       )
@@ -2971,7 +2972,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].Address1}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -2986,7 +2987,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                     "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].DocTotal!.toString()}",
                                   ) +
                               '/-',
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -3000,7 +3001,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].Address2}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -3008,7 +3009,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "# ${context.watch<OrderTabController>().getleadDeatilsQTHData![0].OrderNum}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -3020,7 +3021,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].City}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -3031,7 +3032,7 @@ class _FollowDialogState extends State<FollowDialog> {
                               context.watch<OrderTabController>().config.alignDate3(
                                   "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].OrderCreatedDate}" //.LastFUPUpdate
                                   ),
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -3086,7 +3087,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                 width: Screens.width(context) * 0.4,
                                 child: Text(
                                   "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].CardCode}",
-                                  style: theme.textTheme.bodyText2?.copyWith(
+                                  style: theme.textTheme.bodyMedium?.copyWith(
                                       decoration: TextDecoration.underline,
                                       color: Colors.blue),
                                 ),
@@ -3100,7 +3101,7 @@ class _FollowDialogState extends State<FollowDialog> {
                       //         context.watch<OrderTabController>().config.alignDate3(
                       //             "${context.watch<OrderTabController>().getleadDeatilsQTHData!.LastFUPUpdate}" //.
                       //             ),
-                      //     style: theme.textTheme.bodyText2?.copyWith(),
+                      //     style: theme.textTheme.bodyMedium?.copyWith(),
                       //   ),
                       // ),
                     ],
@@ -3133,7 +3134,7 @@ class _FollowDialogState extends State<FollowDialog> {
                   //           .alignDate(
                   //               '${context.watch<OrderTabController>().getleadDeatilsLeadData[context.watch<OrderTabController>().getleadDeatilsLeadData.length - 1].NextFollowup_Date}'),
                   //   textAlign: TextAlign.center,
-                  //   style: theme.textTheme.bodyText2?.copyWith(
+                  //   style: theme.textTheme.bodyMedium?.copyWith(
                   //     color: theme.primaryColor,
                   //   ),
                   // ),
@@ -3156,7 +3157,7 @@ class _FollowDialogState extends State<FollowDialog> {
                   // child: Text(
                   //   'Last status # ${context.watch<OrderTabController>().getleadDeatilsLeadData[context.watch<OrderTabController>().getleadDeatilsLeadData.length - 1].Status}',
                   //   textAlign: TextAlign.center,
-                  //   style: theme.textTheme.bodyText2?.copyWith(
+                  //   style: theme.textTheme.bodyMedium?.copyWith(
                   //     color: theme.primaryColor,
                   //   ),
                   // ),
@@ -3180,7 +3181,7 @@ class _FollowDialogState extends State<FollowDialog> {
                   //         child: Text(
                   //           'Last status # ${context.watch<OrderTabController>().getleadDeatilsQLData[context.watch<OrderTabController>().getleadDeatilsQLData.length - 1].Status}',
                   //           textAlign: TextAlign.center,
-                  //           style: theme.textTheme.bodyText2?.copyWith(
+                  //           style: theme.textTheme.bodyMedium?.copyWith(
                   //             color: theme.primaryColor,
                   //           ),
                   //         ),
@@ -3214,7 +3215,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                 children: [
                                   Text(
                                     "Delivery Address :",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: theme.primaryColor),
                                   ),
                                   SizedBox(
@@ -3223,7 +3224,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                   ),
                                   Text(
                                     "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].del_Address1}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.black),
                                   ),
                                   SizedBox(
@@ -3232,7 +3233,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                   ),
                                   Text(
                                     "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].del_Address2}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.black),
                                   ),
                                   SizedBox(
@@ -3241,7 +3242,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                   ),
                                   Text(
                                     "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].del_Area}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.black),
                                   ),
                                   SizedBox(
@@ -3250,7 +3251,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                   ),
                                   Text(
                                     "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].del_City}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.black),
                                   ),
                                   SizedBox(
@@ -3259,7 +3260,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                   ),
                                   Text(
                                     "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].del_State}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.black),
                                   ),
                                   SizedBox(
@@ -3268,7 +3269,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                   ),
                                   Text(
                                     "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].del_Pincode}",
-                                    style: theme.textTheme.bodyText1!
+                                    style: theme.textTheme.bodyMedium!
                                         .copyWith(color: Colors.black),
                                   ),
                                 ],
@@ -3289,14 +3290,14 @@ class _FollowDialogState extends State<FollowDialog> {
                                       Container(
                                         child: Text(
                                           "Sub Total",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.grey),
                                         ),
                                       ),
                                       Container(
                                         child: Text(
                                           "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].subtotal!.toString())}",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.black),
                                         ),
                                       ),
@@ -3313,14 +3314,14 @@ class _FollowDialogState extends State<FollowDialog> {
                                       Container(
                                         child: Text(
                                           "Base Amount",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.grey),
                                         ),
                                       ),
                                       Container(
                                         child: Text(
                                           "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].basetotal!.toString())}",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.black),
                                         ),
                                       ),
@@ -3337,14 +3338,14 @@ class _FollowDialogState extends State<FollowDialog> {
                                       Container(
                                         child: Text(
                                           "Tax Amount",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.grey),
                                         ),
                                       ),
                                       Container(
                                         child: Text(
                                           "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].taxAmount!.toString())}",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.black),
                                         ),
                                       ),
@@ -3361,14 +3362,14 @@ class _FollowDialogState extends State<FollowDialog> {
                                       Container(
                                         child: Text(
                                           "Round Off",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.grey),
                                         ),
                                       ),
                                       Container(
                                         child: Text(
                                           "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].RoundOff!.toString())}",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.black),
                                         ),
                                       ),
@@ -3385,14 +3386,14 @@ class _FollowDialogState extends State<FollowDialog> {
                                       Container(
                                         child: Text(
                                           "Total Amount",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.grey),
                                         ),
                                       ),
                                       Container(
                                         child: Text(
                                           "${context.read<OrderTabController>().config.slpitCurrency22(context.watch<OrderTabController>().getleadDeatilsQTHData![0].DocTotal!.toString())}",
-                                          style: theme.textTheme.bodyText1!
+                                          style: theme.textTheme.bodyMedium!
                                               .copyWith(color: Colors.black),
                                         ),
                                       ),
@@ -3439,7 +3440,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                       " by referenced " +
                                       "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].DeliveryNo}" +
                                       "",
-                                  style: theme.textTheme.bodyText1!
+                                  style: theme.textTheme.bodyMedium!
                                       .copyWith(color: Colors.black),
                                 ),
                               )
@@ -3524,7 +3525,7 @@ class _FollowDialogState extends State<FollowDialog> {
                                       " by referenced " +
                                       "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].InvoiceNo}" +
                                       "",
-                                  style: theme.textTheme.bodyText1!
+                                  style: theme.textTheme.bodyMedium!
                                       .copyWith(color: Colors.black),
                                 ),
                               )
@@ -3705,7 +3706,7 @@ class _FollowDialogState extends State<FollowDialog> {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Lead Details",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -3744,7 +3745,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "Customer",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                     ],
@@ -3756,7 +3757,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                             "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].CardName}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                               // fontWeight: FontWeight.bold
                             )),
@@ -3765,7 +3766,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         alignment: Alignment.centerRight,
                         child: Text("",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                             )),
                       ),
@@ -3789,7 +3790,7 @@ class _FollowDialogState extends State<FollowDialog> {
                           child: Text(
                             "${context.watch<OrderTabController>().getleadDeatilsQTHData![0].Address1}\n${context.watch<OrderTabController>().getleadDeatilsQTHData![0].Address2}",
                             //"31 west street \nkottucherry \nkaraikal 609-609 \npondicherry",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.primaryColor,
                             ), // color:  Colors.grey
                           ),
@@ -3815,7 +3816,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "Total Lead Value",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -3823,7 +3824,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "20000.00",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -3840,7 +3841,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "Next Follow up",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       Container(
@@ -3848,7 +3849,7 @@ class _FollowDialogState extends State<FollowDialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "12-08-2022",
-                          style: theme.textTheme.bodyText2?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ),
                         ),
@@ -3903,7 +3904,7 @@ class _FollowDialogState extends State<FollowDialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Product",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -3913,7 +3914,7 @@ class _FollowDialogState extends State<FollowDialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Price",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -3923,7 +3924,7 @@ class _FollowDialogState extends State<FollowDialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Qty",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -3938,7 +3939,7 @@ class _FollowDialogState extends State<FollowDialog> {
           child: Text(
             '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].ItemName!}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -3953,7 +3954,7 @@ class _FollowDialogState extends State<FollowDialog> {
                 .toStringAsFixed(0)),
             // '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -3963,7 +3964,7 @@ class _FollowDialogState extends State<FollowDialog> {
           child: Text(
             '${context.watch<OrderTabController>().getleadDeatilsQTLData[i].Quantity!.toStringAsFixed(0)}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -4019,7 +4020,7 @@ class _FollowDialogState extends State<FollowDialog> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.read<OrderTabController>().getleadDeatilsQTHData![0].reasonType} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -4030,7 +4031,7 @@ class _FollowDialogState extends State<FollowDialog> {
                       child: Text(
                         // context.read<OrderTabController>().config.alignDate(
                         "By ${context.read<OrderTabController>().getleadDeatilsQTHData![0].ordersalesperson} ", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -4049,7 +4050,7 @@ class _FollowDialogState extends State<FollowDialog> {
                     //         child: Text(
                     //           // context.read<OrderTabController>().config.alignDate(
                     //           "# ${context.read<OrderTabController>().getleadDeatilsLeadData[index].Feedback}",
-                    //           style: theme.textTheme.bodyText2?.copyWith(
+                    //           style: theme.textTheme.bodyMedium?.copyWith(
                     //               // color: theme.primaryColor,
                     //               ),
                     //         ),
@@ -4077,7 +4078,7 @@ class _FollowDialogState extends State<FollowDialog> {
                               "${context.read<OrderTabController>().getleadDeatilsQTHData![0].OrderCreatedDate}",
                             ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -4147,7 +4148,7 @@ class _FollowDialogState extends State<FollowDialog> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.read<OrderTabController>().getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -4158,7 +4159,7 @@ class _FollowDialogState extends State<FollowDialog> {
                       child: Text(
                         // context.read<OrderTabController>().config.alignDate(
                         "By ${context.read<OrderTabController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<OrderTabController>().getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -4177,7 +4178,7 @@ class _FollowDialogState extends State<FollowDialog> {
                             child: Text(
                               // context.read<OrderTabController>().config.alignDate(
                               "# ${context.read<OrderTabController>().getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -4202,7 +4203,7 @@ class _FollowDialogState extends State<FollowDialog> {
                               "${context.read<OrderTabController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
                             ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -4263,7 +4264,7 @@ class _FollowDialogState extends State<FollowDialog> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${context.read<OrderTabController>().getleadDeatilsLeadData[index].Status} ",
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ),
                     SizedBox(
@@ -4274,7 +4275,7 @@ class _FollowDialogState extends State<FollowDialog> {
                       child: Text(
                         // context.read<OrderTabController>().config.alignDate(
                         "By ${context.read<OrderTabController>().getleadDeatilsLeadData[index].UpdatedBy} through ${context.read<OrderTabController>().getleadDeatilsLeadData[index].FollowMode}", //),
-                        style: theme.textTheme.bodyText2?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                             // color: theme.primaryColor,
                             ),
                       ),
@@ -4293,7 +4294,7 @@ class _FollowDialogState extends State<FollowDialog> {
                             child: Text(
                               // context.read<OrderTabController>().config.alignDate(
                               "# ${context.read<OrderTabController>().getleadDeatilsLeadData[index].Feedback}",
-                              style: theme.textTheme.bodyText2?.copyWith(
+                              style: theme.textTheme.bodyMedium?.copyWith(
                                   // color: theme.primaryColor,
                                   ),
                             ),
@@ -4319,7 +4320,7 @@ class _FollowDialogState extends State<FollowDialog> {
                               "${context.read<OrderTabController>().getleadDeatilsLeadData[index].Followup_Date_Time}",
                             ),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText2,
+                        style: theme.textTheme.bodyMedium,
                       ),
                     ],
                   )),
@@ -4382,7 +4383,7 @@ class _FollowDialogState extends State<FollowDialog> {
                 context
                     .watch<OrderTabController>()
                     .getforwardNextFollowDate!, // "Next Follow up",
-                style: theme.textTheme.bodyText2?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   color: context
                           .watch<OrderTabController>()
                           .getforwardNextFollowDate!
@@ -4416,7 +4417,7 @@ class _FollowDialogState extends State<FollowDialog> {
                               .watch<OrderTabController>()
                               .getforwardnextWonFD,
                           // context.read<OrderTabController>().getnextFD,
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(), //fontSize: 12
                         ),
                       ),
@@ -4513,7 +4514,7 @@ class _FollowDialogState extends State<FollowDialog> {
           child: Text(
               context.watch<OrderTabController>().getuserLtData[ind].UserName!,
               textAlign: TextAlign.center,
-              style: theme.textTheme.bodyText1?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color: context

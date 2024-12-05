@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/TargetController/TargetController.dart';
-import '../../../Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Controller/TargetController/target_controller.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -118,7 +119,7 @@ class _TargetState extends State<Target> {
                                           .targetCheckDataExcep !=
                                       '')
                               ? Container(
-                                  height: Screens.padingHeight(context),
+                                  height: Screens.padingHeight(context)*0.7,
                                   child: Center(
                                       child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -148,7 +149,7 @@ class _TargetState extends State<Target> {
                                                               0.2,
                                                       width: Screens.width(
                                                               context) *
-                                                          0.5),
+                                                          0.4),
                                                 )
                                               : InkWell(
                                                   onTap: () {},
@@ -161,6 +162,34 @@ class _TargetState extends State<Target> {
                                                               context) *
                                                           0.4),
                                                 ),
+                                      context.watch<TargetTabController>().targetCheckDataExcep
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context.watch<TargetTabController>().targetCheckDataExcep
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context.watch<TargetTabController>().targetCheckDataExcep
+                                                      .contains("Network Issue")
+                                                  ? Container():
                                       Text(
                                         '${context.watch<TargetTabController>().targetCheckDataExcep}',
                                         textAlign: TextAlign.center,
@@ -304,8 +333,8 @@ class _TargetState extends State<Target> {
                                                         ? '${context.watch<TargetTabController>().targetTodayMasterData22[0].targetValue}'
                                                         : '${context.watch<TargetTabController>().targetMonthMasterData22[0].targetValue}',
                                                     style: theme
-                                                        .textTheme.subtitle1
-                                                        // headline6
+                                                        .textTheme.titleMedium
+                                                        // titleLarge
                                                         ?.copyWith(
                                                             // fontSize: 17,
                                                             fontWeight:
@@ -326,7 +355,7 @@ class _TargetState extends State<Target> {
                                                         0
                                                     ? '${context.watch<TargetTabController>().targetTodayMasterData22[0].targetQty}'
                                                     : '${context.watch<TargetTabController>().targetMonthMasterData22[0].targetQty}',
-                                                style: theme.textTheme.bodyText1
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color:
                                                             Colors.grey[600]))
@@ -403,7 +432,7 @@ class _TargetState extends State<Target> {
                                                     ? '${context.watch<TargetTabController>().targetTodayMasterData22[0].achPer}'
                                                     : '${context.watch<TargetTabController>().targetMonthMasterData22[0].achPer}',
                                                 textAlign: TextAlign.center,
-                                                style: theme.textTheme.subtitle1
+                                                style: theme.textTheme.titleMedium
                                                     ?.copyWith(
                                                         fontWeight:
                                                             FontWeight.w500)),
@@ -421,7 +450,7 @@ class _TargetState extends State<Target> {
                                                     ? '${context.watch<TargetTabController>().targetTodayMasterData22[0].achVal}'
                                                     : '${context.watch<TargetTabController>().targetMonthMasterData22[0].achVal}',
                                                 textAlign: TextAlign.center,
-                                                style: theme.textTheme.bodyText1
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color:
                                                             Colors.grey[600]))
@@ -506,7 +535,7 @@ class _TargetState extends State<Target> {
                                                         0
                                                     ? '${context.watch<TargetTabController>().targetTodayMasterData22[0].expClosePerc}'
                                                     : '${context.watch<TargetTabController>().targetMonthMasterData22[0].expClosePerc}',
-                                                style: theme.textTheme.subtitle1
+                                                style: theme.textTheme.titleMedium
                                                     ?.copyWith(
                                                         fontWeight:
                                                             FontWeight.w500)),
@@ -523,7 +552,7 @@ class _TargetState extends State<Target> {
                                                         0
                                                     ? '${context.watch<TargetTabController>().targetTodayMasterData22[0].expCloseVal}'
                                                     : '${context.watch<TargetTabController>().targetMonthMasterData22[0].expCloseVal}',
-                                                style: theme.textTheme.bodyText1
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color:
                                                             Colors.grey[600]))
@@ -600,7 +629,7 @@ class _TargetState extends State<Target> {
                                                     ? '${context.watch<TargetTabController>().targetTodayMasterData22[0].runRatePerc}'
                                                     : '${context.watch<TargetTabController>().targetMonthMasterData22[0].runRatePerc}',
                                                 textAlign: TextAlign.center,
-                                                style: theme.textTheme.subtitle1
+                                                style: theme.textTheme.titleMedium
                                                     ?.copyWith(
                                                         fontWeight:
                                                             FontWeight.w500)),
@@ -618,7 +647,7 @@ class _TargetState extends State<Target> {
                                                     ? '${context.watch<TargetTabController>().targetTodayMasterData22[0].runRateVal}'
                                                     : '${context.watch<TargetTabController>().targetMonthMasterData22[0].runRateVal}',
                                                 textAlign: TextAlign.center,
-                                                style: theme.textTheme.bodyText1
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color:
                                                             Colors.grey[600]))
@@ -720,7 +749,7 @@ class _TargetState extends State<Target> {
   //               ? '${todaykeyss[i].productGroup}'
   //               : '${monthkeyss2[i].productGroup}',
   //           textAlign: TextAlign.left,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -732,7 +761,7 @@ class _TargetState extends State<Target> {
   //               ? '${todaykeyss[i].targetVal}'
   //               : '${monthkeyss2[i].targetVal}',
   //           textAlign: TextAlign.right,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -744,7 +773,7 @@ class _TargetState extends State<Target> {
   //               ? '${todaykeyss[i].achVal}'
   //               : '${monthkeyss2[i].achVal}',
   //           textAlign: TextAlign.right,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -756,7 +785,7 @@ class _TargetState extends State<Target> {
   //               ? '${todaykeyss[i].ach_Perc}'
   //               : '${monthkeyss2[i].ach_Perc}',
   //           textAlign: TextAlign.right,
-  //           style: theme.textTheme.bodyText1?.copyWith(
+  //           style: theme.textTheme.bodyMedium?.copyWith(
   //             color: theme.primaryColor,
   //           ),
   //         ),
@@ -805,7 +834,7 @@ class _TargetState extends State<Target> {
 //         child: Center(
 //           child: Text(
 //             e,
-//             style: theme.textTheme.bodyText1,
+//             style: theme.textTheme.bodyMedium,
 //           ),
 //         ),
 //       );
@@ -818,7 +847,7 @@ class _TargetState extends State<Target> {
 //         child: Center(
 //           child: Text(
 //             e,
-//             style: theme.textTheme.bodyText1?.copyWith(color: Colors.grey),
+//             style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
 //           ),
 //         ),
 //       )

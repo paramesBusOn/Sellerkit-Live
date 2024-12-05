@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import 'package:sellerkit/Controller/FollowupController/followup_controller.dart';
+
 import '../../../Constant/Screen.dart';
-import '../../../Controller/FollowupController/FollowUPController.dart';
 import 'FollowUPDialogPg.dart';
 
 class FollowUPODue extends StatefulWidget {
@@ -70,7 +71,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                       // "#0 Leads are over due for followup",
                       "${widget.prdFUP.getfollowUPKPIOverDue[0].OverdueKPI_Line_1}",
                         textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyText1?.copyWith(fontSize: 15),
+                      style: theme.textTheme.bodyMedium?.copyWith(fontSize: 15),
                     ),
                   ),
                   
@@ -79,7 +80,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                   //   child: Text(
                   //     "1",
                   //     // ${prdFUP.getfollowUPKPIOverDue[0].OverdueKPI_Line_1}",
-                  //     style: theme.textTheme.bodyText2?.copyWith(fontSize: 14),
+                  //     style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14),
                   //   ),
                   // ),
 
@@ -88,7 +89,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                   //   child: Text(
                   //     "1",
                   //     // ${prdFUP.getfollowUPKPIOverDue[0].OverdueKPI_Line_2}",
-                  //     style: theme.textTheme.bodyText2?.copyWith(fontSize: 14),
+                  //     style: theme.textTheme.bodyMedium?.copyWith(fontSize: 14),
                   //   ),
                   // ),
                  
@@ -102,7 +103,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                       // "About 0.00% of your sales target can be acheived by following",
                        "${widget.prdFUP.getfollowUPKPIOverDue[0].OverdueKPI_Line_2}",
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyText2?.copyWith(fontSize: 12),
+                      style: theme.textTheme.bodyMedium?.copyWith(fontSize: 12),
                     ),
                   )
                 ],
@@ -189,7 +190,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                             width: Screens.width(context) * 0.4,
                                             child: Text(
                                               "Customer",
-                                              style: theme.textTheme.bodyText2
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                       color: Colors.grey),
                                             ),
@@ -198,7 +199,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                             width: Screens.width(context) * 0.4,
                                             child: Text(
                                               "",
-                                              style: theme.textTheme.bodyText2
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                       color: Colors.grey),
                                             ),
@@ -213,9 +214,10 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                             width: Screens.width(context) * 0.4,
                                             child: Text(
                                                 "${widget.prdFUP.fupODueListData[index].Customer}",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                   color: theme.primaryColor,
+                                                   fontSize: 13
                                                 )),
                                           ),
                                           Container(
@@ -223,16 +225,17 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                             alignment: Alignment.centerRight,
                                             child: Text(
                                                 "#${widget.prdFUP.fupODueListData[index].LeadDocNum}",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                   color: theme.primaryColor,
+                                                   fontSize: 13
                                                 )),
                                           ),
                                         ],
                                       ),
                                       SizedBox(
                                         height:
-                                            Screens.bodyheight(context) * 0.01,
+                                            Screens.bodyheight(context) * 0.005,
                                       ),
                                       Column(
                                         crossAxisAlignment:
@@ -244,7 +247,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                             width: Screens.width(context),
                                             child: Text(
                                               "Product",
-                                              style: theme.textTheme.bodyText2
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                       color: Colors.grey),
                                             ),
@@ -254,13 +257,15 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                             child: Text(
                                                 "${widget.prdFUP.fupODueListData[index].Product}",
                                                 style:
-                                                    theme.textTheme.bodyText2),
+                                                    theme.textTheme.bodyMedium?.copyWith(
+                                                       fontSize: 13
+                                                    )),
                                           ),
                                         ],
                                       ),
                                       SizedBox(
                                         height:
-                                            Screens.bodyheight(context) * 0.01,
+                                            Screens.bodyheight(context) * 0.005,
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -269,7 +274,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                           Container(
                                             width: Screens.width(context) * 0.4,
                                             child: Text("Next Follow up",
-                                                style: theme.textTheme.bodyText2
+                                                style: theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color: Colors.grey)),
                                           ),
@@ -281,7 +286,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                                     Alignment.centerRight,
                                                 child: Text("Order Value",
                                                     style: theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             color:
                                                                 Colors.grey)),
@@ -291,7 +296,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                           //   //color: Colors.red,
                                           //   alignment: Alignment.centerRight,
                                           //   child: Text("Followup Time",
-                                          //       style: theme.textTheme.bodyText2
+                                          //       style: theme.textTheme.bodyMedium
                                           //           ?.copyWith(
                                           //               color: Colors.grey)),
                                           // ),
@@ -306,8 +311,8 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                             child: Text(
                                                 widget.prdFUP.config.alignDate(
                                                     "${widget.prdFUP.fupODueListData[index].FollowupDate}"),
-                                                style: theme.textTheme.bodyText2
-                                                    ?.copyWith()),
+                                                style: theme.textTheme.bodyMedium
+                                                    ?.copyWith( fontSize: 13)),
                                           ),
                                           InkWell(
                                                 onTap: () {},
@@ -322,8 +327,8 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                                           .slpitCurrency(
                                                               "${widget.prdFUP.fupODueListData[index].DocTotal!.toStringAsFixed(0)}"),
                                                       style: theme
-                                                          .textTheme.bodyText2
-                                                          ?.copyWith()),
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith( fontSize: 13)),
                                                 ),
                                               ),
                                           // InkWell(
@@ -344,7 +349,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                           //                   .alignDateFollowTime(
                                           //                       "${widget.prdFUP.fupODueListData[index].FollowupDate}"),
                                           //               style: theme
-                                          //                   .textTheme.bodyText2
+                                          //                   .textTheme.bodyMedium
                                           //                   ?.copyWith()),
                                           //         ),
                                           // ),
@@ -352,7 +357,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                       ),
                                       SizedBox(
                                         height:
-                                            Screens.bodyheight(context) * 0.01,
+                                            Screens.bodyheight(context) * 0.005,
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -384,7 +389,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                                   child: Text(
                                                       "${widget.prdFUP.fupODueListData[index].LastFollowupStatus}",
                                                       style: theme
-                                                          .textTheme.bodyText2
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith(
                                                         color:
                                                             Colors.green[700],
@@ -406,7 +411,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                       ),
                                       SizedBox(
                                         height:
-                                            Screens.bodyheight(context) * 0.01,
+                                            Screens.bodyheight(context) * 0.005,
                                       ),
                                       Container(
                                         alignment: Alignment.centerLeft,
@@ -430,7 +435,7 @@ class _FollowUPODueState extends State<FollowUPODue> {
                                                   //     .subtractDateTime3(
                                                   //         "${widget.prdFUP.fupODueListData[index].LastFollowupDate}")
                                                   : '',
-                                              style: theme.textTheme.bodyText2
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                 color: Colors.grey,
                                               )),

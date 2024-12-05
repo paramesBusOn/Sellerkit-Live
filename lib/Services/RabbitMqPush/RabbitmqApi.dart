@@ -5,9 +5,10 @@ import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Models/PostQueryModel/LeadsCheckListModel/LeadSavePostModel/LeadSavePostModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/ConstantSapValues.dart';
-import '../../../Models/AddEnqModel/AddEnqModel.dart';
-import '../../Constant/DataBaseConfig.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import '../../Models/AddEnqModel/addenq_model.dart';
+import '../../Constant/database_config.dart';
 import '../../Models/RabiitMqPushModel/RabbitMQModel.dart';
 
 class RaabitMQApi {

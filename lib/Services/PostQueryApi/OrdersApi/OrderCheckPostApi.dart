@@ -7,7 +7,8 @@ import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Models/PostQueryModel/OrdersCheckListModel/GetOrderCheckListModel.dart';
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 
 class OrderCheckPostApi {
   static Future<int> getData(sapUserId,List<OrderCheckData> leadCheckData,int docEntry,int docnum)async {

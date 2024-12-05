@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/LeadController/TabLeadController.dart';
+import '../../../Controller/LeadController/tablead_controller.dart';
 
 class CustomRadioBtn extends StatelessWidget {
   const CustomRadioBtn({
@@ -48,7 +48,7 @@ class CustomRadioBtn extends StatelessWidget {
                 Text(text1,
                     maxLines: 8,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: 
                        context.watch<LeadTabController>().getisSelectedFollowUp ==
                              text1
@@ -82,7 +82,7 @@ class CustomRadioBtn extends StatelessWidget {
                 Text(text2,
                     maxLines: 8,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       color: 
                        context.watch<LeadTabController>().getisSelectedFollowUp ==
                              text2

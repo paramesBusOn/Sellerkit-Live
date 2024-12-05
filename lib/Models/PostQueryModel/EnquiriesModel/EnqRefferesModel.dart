@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_cast
 
 import 'dart:convert';
-import '../../../DBModel/EnqTypeModel.dart';
+import '../../../DBModel/enqtype_model.dart';
 
 class EnqRefferesModal {
 List<EnqRefferesData>? enqReffersdata;

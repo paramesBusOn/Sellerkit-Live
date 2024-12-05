@@ -1,18 +1,19 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Controller/StockAvailabilityController/stocklist_controller.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/StockAvailabilityController/StockListController.dart';
-import '../../../DBModel/ItemMasertDBModel.dart';
+import '../../../DBModel/itemmasertdb_model.dart';
 import '../../../Widgets/Navi3.dart';
 
 class StockAvail extends StatefulWidget {
@@ -201,7 +202,7 @@ class StockAvailState extends State<StockAvail> {
                                           children: [
                                             Text(
                                               "Brand",
-                                              style: theme.textTheme.subtitle1
+                                              style: theme.textTheme.titleMedium
                                                   ?.copyWith(
                                                       color: theme.primaryColor,
                                                       fontWeight: FontWeight.bold),
@@ -250,7 +251,7 @@ class StockAvailState extends State<StockAvail> {
                                           },
                                           child: Text(
                                             "View All",
-                                            style: theme.textTheme.bodyText1
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     fontSize: 16,
                                                     color: Colors.grey),
@@ -286,7 +287,7 @@ class StockAvailState extends State<StockAvail> {
                                     Container(
                                       child: Text(
                                         "Product",
-                                        style: theme.textTheme.subtitle1
+                                        style: theme.textTheme.titleMedium
                                             ?.copyWith(
                                                 color: theme.primaryColor,
                                                 fontWeight: FontWeight.bold),
@@ -321,7 +322,7 @@ class StockAvailState extends State<StockAvail> {
                                         width: Screens.width(context),
                                         child: Text(
                                           "View All",
-                                          style: theme.textTheme.bodyText1
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
                                                   fontSize: 16,
                                                   color: Colors.grey),
@@ -358,7 +359,7 @@ class StockAvailState extends State<StockAvail> {
                                     Container(
                                       child: Text(
                                         "Segment",
-                                        style: theme.textTheme.subtitle1
+                                        style: theme.textTheme.titleMedium
                                             ?.copyWith(
                                                 color: theme.primaryColor,
                                                 fontWeight: FontWeight.bold),
@@ -393,7 +394,7 @@ class StockAvailState extends State<StockAvail> {
                                         width: Screens.width(context),
                                         child: Text(
                                           "View All",
-                                          style: theme.textTheme.bodyText1
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
                                                   fontSize: 16,
                                                   color: Colors.grey),
@@ -424,7 +425,7 @@ class StockAvailState extends State<StockAvail> {
                         //           Container(
                         //             child: Text(
                         //               "Budget",
-                        //               style: theme.textTheme.subtitle1?.copyWith(
+                        //               style: theme.textTheme.titleMedium?.copyWith(
                         //                   color: theme.primaryColor,
                         //                   fontWeight: FontWeight.bold),
                         //             ),
@@ -489,7 +490,7 @@ class StockAvailState extends State<StockAvail> {
                 //       Container(
                 //         child: Text(
                 //           "Spec",
-                //           style: theme.textTheme.subtitle1?.copyWith(
+                //           style: theme.textTheme.titleMedium?.copyWith(
                 //               color: theme.primaryColor,
                 //               fontWeight: FontWeight.bold),
                 //         ),
@@ -539,8 +540,8 @@ class StockAvailState extends State<StockAvail> {
                           onPressed: () {
                           setState(() {
                    context.read<StockListController>().     scannerreset();
-                   qrscannerState.stockscan=true;
-                Navigator.push(context,MaterialPageRoute(builder: (_) => qrscanner()))
+                   QrscannerState.stockscan=true;
+                Navigator.push(context,MaterialPageRoute(builder: (_) => Qrscanner()))
 //                 .then((value){
 // return context.read<StockListController>().scanneddataget(context);
 //                 } 
@@ -624,7 +625,7 @@ class StockAvailState extends State<StockAvail> {
 
   Widget buildSlideLabel(String value, ThemeData theme) => Text(
         value.toString(),
-        style: theme.textTheme.bodyText1?.copyWith(color: Colors.grey),
+        style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
       );
 
   List<Widget> listContainers(
@@ -657,7 +658,7 @@ class StockAvailState extends State<StockAvail> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -694,7 +695,7 @@ class StockAvailState extends State<StockAvail> {
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -738,7 +739,7 @@ class StockAvailState extends State<StockAvail> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -776,7 +777,7 @@ class StockAvailState extends State<StockAvail> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -820,7 +821,7 @@ class StockAvailState extends State<StockAvail> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white
@@ -858,7 +859,7 @@ class StockAvailState extends State<StockAvail> {
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: content[index].isselected == 1
                           ? Colors.white

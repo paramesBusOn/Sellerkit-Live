@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/callNotificationController/callNotificationController.dart';
+import 'package:sellerkit/Controller/callNotificationController/callnotification_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 
@@ -188,7 +188,7 @@ class ShowSearchDialogState extends State<EnqAssignUserDialog> {
                   .UserName!,
               // maxLines: 1,
               //overflow: TextOverflow.ellipsis,
-              style: theme.textTheme.bodyText2?.copyWith(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.normal,
                 fontSize: 12,
                 color:context.watch<CallNotificationController>().filteruserLtData[ind]

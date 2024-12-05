@@ -5,11 +5,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 
 import 'package:intl/intl.dart';
-import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
+import 'package:sellerkit/Controller/QuotationController/newquote_controller.dart';
 
 class openleaddialog extends StatefulWidget {
   const openleaddialog({Key? key}) : super(key: key);
@@ -75,7 +75,7 @@ width: Screens.width(context),
                   topLeft: Radius.circular(10),
                 )), //Radius.circular(6)
               ),
-              child: Text("Open Lead Details",style: theme.textTheme.bodyText1!.copyWith(color: Colors.white),)),
+              child: Text("Open Lead Details",style: theme.textTheme.bodyMedium!.copyWith(color: Colors.white),)),
             ),
            
             Expanded(
@@ -216,7 +216,7 @@ width: Screens.width(context),
                                                       Screens.width(context) * 0.4,
                                                   child: Text(
                                                     "Customer",
-                                                    style: theme.textTheme.bodyText2
+                                                    style: theme.textTheme.bodyMedium
                                                         ?.copyWith(
                                                             color: Colors.grey),
                                                   ),
@@ -226,7 +226,7 @@ width: Screens.width(context),
                                                       Screens.width(context) * 0.4,
                                                   child: Text(
                                                     "",
-                                                    style: theme.textTheme.bodyText2
+                                                    style: theme.textTheme.bodyMedium
                                                         ?.copyWith(
                                                             color: Colors.grey),
                                                   ),
@@ -243,7 +243,7 @@ width: Screens.width(context),
                                                   child: Text(
                                                       "${context.read<NewquoteController>().filterleadOpenAllData[i].CustomerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
                                                       style: 
-                                                          theme.textTheme.bodyText2
+                                                          theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                         color: theme.primaryColor,
                                                         // fontWeight: FontWeight.bold
@@ -262,7 +262,7 @@ width: Screens.width(context),
                                                       // .config
                                                       // .alignDate(
                                                       //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
-                                                      style:theme.textTheme.bodyText2
+                                                      style:theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                         color: theme.primaryColor,
                                                         //fontWeight: FontWeight.bold
@@ -284,7 +284,7 @@ width: Screens.width(context),
                                                   width: Screens.width(context),
                                                   child: Text(
                                                     "Product",
-                                                    style: theme.textTheme.bodyText2
+                                                    style: theme.textTheme.bodyMedium
                                                         ?.copyWith(
                                                             color: Colors.grey),
                                                   ),
@@ -294,7 +294,7 @@ width: Screens.width(context),
                                                   // color: Colors.red,
                                                   child: Text(
                                                       "${context.read<NewquoteController>().filterleadOpenAllData[i].Product}",
-                                                      style: theme.textTheme.bodyText2
+                                                      style: theme.textTheme.bodyMedium
                                                       //?.copyWith(color: Colors.grey),
                                                       ),
                                                 ),
@@ -314,7 +314,7 @@ width: Screens.width(context),
                                                   // color: Colors.red,
                                                   child: Text(
                                                       "Next Follow up", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
-                                                      style: theme.textTheme.bodyText2
+                                                      style: theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                               //color:theme.primaryColor,
                                                               //fontWeight: FontWeight.bold
@@ -327,7 +327,7 @@ width: Screens.width(context),
                                                   alignment: Alignment.centerRight,
                                                   child: Text(
                                                       "Order Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                                      style: theme.textTheme.bodyText2
+                                                      style: theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                               //color:theme.primaryColor,
                                                               //fontWeight: FontWeight.bold
@@ -352,7 +352,7 @@ width: Screens.width(context),
                                                               .config
                                                               .alignDate(
                                                                   "${context.read<NewquoteController>().filterleadOpenAllData[i].NextFollowup}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
-                                                      style: theme.textTheme.bodyText2
+                                                      style: theme.textTheme.bodyMedium
                                                           ?.copyWith(
                                                               //color:theme.primaryColor,
                                                               //fontWeight: FontWeight.bold
@@ -392,7 +392,7 @@ width: Screens.width(context),
                                                                     .toStringAsFixed(
                                                                         0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                                         style: theme
-                                                            .textTheme.bodyText2
+                                                            .textTheme.bodyMedium
                                                             ?.copyWith(
                                                                 //color:theme.primaryColor,
                                                                 //fontWeight: FontWeight.bold
@@ -432,7 +432,7 @@ width: Screens.width(context),
                                                             ? ''
                                                             : "${context.read<NewquoteController>().filterleadOpenAllData[i].LastUpdateMessage}",
                                                         style: theme
-                                                            .textTheme.bodyText2
+                                                            .textTheme.bodyMedium
                                                             ?.copyWith(
                                                           //color:theme.primaryColor,
                                                           color: Colors.green[700],
@@ -466,7 +466,7 @@ width: Screens.width(context),
                                                                 .config
                                                                 .alignDate(
                                                                     "${context.read<NewquoteController>().filterleadOpenAllData[i].createdDate}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
-                                                    style: theme.textTheme.bodyText2
+                                                    style: theme.textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: Colors.grey,
                                                       // color: Colors.green[700],

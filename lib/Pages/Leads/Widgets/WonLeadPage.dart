@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../../Constant/Screen.dart';
 import '../../../Constant/Configuration.dart';
-import '../../../Controller/LeadController/TabLeadController.dart';
+import '../../../Controller/LeadController/tablead_controller.dart';
 import '../../../Models/PostQueryModel/LeadsCheckListModel/GetAllLeadModel.dart';
 import '../../../Models/PostQueryModel/LeadsCheckListModel/GetLeadSummary.dart';
 
@@ -62,7 +62,7 @@ class WonLeadPage extends StatelessWidget {
                     Container(
                       child: Text(
                         "${leadSummaryWon[0].Caption}",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: theme.primaryColor),
                       ),
                     ),
@@ -74,7 +74,7 @@ class WonLeadPage extends StatelessWidget {
                     leadSummaryWon[0].Target!.toString()
                         // Config.k_m_b_generator(
                         //     leadSummaryWon[0].Target!.toStringAsFixed(0)),
-                    //     style: theme.textTheme.bodyText1?.copyWith(
+                    //     style: theme.textTheme.bodyMedium?.copyWith(
                     //   //color: Colors.grey
                     //   fontWeight: FontWeight.w400
                     // ),
@@ -94,7 +94,7 @@ class WonLeadPage extends StatelessWidget {
                           //NumberFormatter.formatter(leadSummaryWon[0].Value!.toStringAsFixed(0))
                           //  context.read<LeadTabController>().config.
                           //"₹ ${leadSummaryWon[0].Value}"),
-                          style: theme.textTheme.headline6,
+                          style: theme.textTheme.titleLarge,
                         )),
                          Container(
                     alignment: Alignment.centerRight,
@@ -105,7 +105,7 @@ class WonLeadPage extends StatelessWidget {
                               .toString(),
                           // Config.k_m_b_generator(leadSummaryWon[0].btg!
                           //     .toStringAsFixed(0)),
-                      style: theme.textTheme.bodyText1,
+                      style: theme.textTheme.bodyMedium,
                     ),
                   )
                   
@@ -190,7 +190,7 @@ class WonLeadPage extends StatelessWidget {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "Customer",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -198,7 +198,7 @@ class WonLeadPage extends StatelessWidget {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                         "",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -213,8 +213,9 @@ class WonLeadPage extends StatelessWidget {
                                       child: Text(
                                           "${leadWonAllData[i].CustomerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                             color: theme.primaryColor,
+                                             fontSize: 13
                                             // fontWeight: FontWeight.bold
                                           )),
                                     ),
@@ -231,15 +232,16 @@ class WonLeadPage extends StatelessWidget {
                                           // .alignDate(
                                           //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                             color: theme.primaryColor,
+                                             fontSize: 13
                                             //fontWeight: FontWeight.bold
                                           )),
                                     ),
                                   ],
                                 ),
                                 SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
+                                  height: Screens.bodyheight(context) * 0.005,
                                 ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -250,7 +252,7 @@ class WonLeadPage extends StatelessWidget {
                                       width: Screens.width(context),
                                       child: Text(
                                         "Product",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -258,14 +260,17 @@ class WonLeadPage extends StatelessWidget {
                                       width: Screens.width(context),
                                       // color: Colors.red,
                                       child: Text("${leadWonAllData[i].Product}",
-                                          style: theme.textTheme.bodyText2
-                                          //?.copyWith(color: Colors.grey),
+                                          style: theme.textTheme.bodyMedium
+                                          ?.copyWith(
+                                             fontSize: 13
+                                            // color: Colors.grey
+                                            ),
                                           ),
                                     ),
                                   ],
                                 ),
                                 SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
+                                  height: Screens.bodyheight(context) * 0.005,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -277,7 +282,7 @@ class WonLeadPage extends StatelessWidget {
                                       child: Text(
                                           "Next Follow up", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -287,9 +292,9 @@ class WonLeadPage extends StatelessWidget {
                                       //color: Colors.red,
                                       alignment: Alignment.centerRight,
                                       child: Text(
-                                          "Order Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
+                                          "Lead Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   color: Colors.grey)),
@@ -311,7 +316,8 @@ class WonLeadPage extends StatelessWidget {
                                                   .alignDate(
                                                       "${leadWonAllData[i].NextFollowup}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                           style:
-                                              theme.textTheme.bodyText2?.copyWith(
+                                              theme.textTheme.bodyMedium?.copyWith(
+                                                 fontSize: 13
                                                   //color:theme.primaryColor,
                                                   //fontWeight: FontWeight.bold
                                                   )),
@@ -343,8 +349,9 @@ class WonLeadPage extends StatelessWidget {
                                                         .Value!
                                                         .toStringAsFixed(
                                                             0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
+                                                   fontSize: 13
                                                     //color:theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
                                                     )),
@@ -353,7 +360,7 @@ class WonLeadPage extends StatelessWidget {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
+                                  height: Screens.bodyheight(context) * 0.005,
                                 ),
                                 Container(
                                   alignment: Alignment.centerLeft,
@@ -376,7 +383,7 @@ class WonLeadPage extends StatelessWidget {
                                                     .isEmpty
                                                 ? ''
                                                 : "${leadWonAllData[i].LastUpdateMessage}",
-                                            style: theme.textTheme.bodyText2
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                               //color:theme.primaryColor,
                                               color: Colors.yellow[900],
@@ -407,7 +414,7 @@ class WonLeadPage extends StatelessWidget {
                                                     .alignDate(
                                                         "${leadWonAllData[i].createdDate}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey,
                                           // color: Colors.green[700],
                                           // fontWeight: FontWeight.bold

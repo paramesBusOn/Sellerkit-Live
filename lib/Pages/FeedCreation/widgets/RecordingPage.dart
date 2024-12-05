@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../Controller/FeedCreationcontroller/CameraController.dart';
+import '../../../Controller/FeedCreationcontroller/camera_controller.dart';
 import 'CameraPage.dart';
 
 class CameraPage extends StatefulWidget {

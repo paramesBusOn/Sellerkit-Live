@@ -9,7 +9,8 @@ import 'package:sellerkit/Services/URL/LocalUrl.dart';
 
 import 'package:sellerkit/Constant/Configuration.dart';
 
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 
 class CancelVisitApi {
   static Future<cancelModel> getData(

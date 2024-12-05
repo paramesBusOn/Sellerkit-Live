@@ -5,11 +5,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import '../../../../Constant/Screen.dart';
 import '../../../Constant/Configuration.dart';
-import '../../../Controller/LeadController/TabLeadController.dart';
+import '../../../Controller/LeadController/tablead_controller.dart';
 import '../../../Models/PostQueryModel/LeadsCheckListModel/GetAllLeadModel.dart';
 import '../../../Models/PostQueryModel/LeadsCheckListModel/GetLeadSummary.dart';
 import 'FollowDialog.dart';
@@ -106,7 +107,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                       Container(
                         child: Text(
                           "${widget.leadSummaryOpen[0].Caption}",
-                          style: widget.theme.textTheme.bodyText1
+                          style: widget.theme.textTheme.bodyMedium
                               ?.copyWith(color: widget.theme.primaryColor),
                         ),
                       ),
@@ -138,7 +139,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                     .leadSummaryOpen[0].Value!
                                     .toStringAsFixed(0)),
                            
-                            style: widget.theme.textTheme.headline6,
+                            style: widget.theme.textTheme.titleLarge,
                           )
                           ),
                      Container(
@@ -151,7 +152,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                           // Config.k_m_b_generator(widget
                           //     .leadSummaryOpen[0].btg!
                           //     .toStringAsFixed(0)),
-                      style: widget.theme.textTheme.bodyText1,
+                      style: widget.theme.textTheme.bodyMedium,
                     ),
                   )
 
@@ -264,7 +265,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                               child: Text(
                                                 "Customer",
                                                 style: widget
-                                                    .theme.textTheme.bodyText2
+                                                    .theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -275,7 +276,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                               child: Text(
                                                 "",
                                                 style: widget
-                                                    .theme.textTheme.bodyText2
+                                                    .theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -292,10 +293,11 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                               child: Text(
                                                   "${widget.leadOpenAllData[i].CustomerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                     color: widget
                                                         .theme.primaryColor,
+                                                        fontSize: 13
                                                     // fontWeight: FontWeight.bold
                                                   )),
                                             ),
@@ -313,10 +315,11 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                                   // .alignDate(
                                                   //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                     color: widget
                                                         .theme.primaryColor,
+                                                         fontSize: 13
                                                     //fontWeight: FontWeight.bold
                                                   )),
                                             ),
@@ -324,7 +327,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                         ),
                                         SizedBox(
                                           height: Screens.bodyheight(context) *
-                                              0.01,
+                                              0.005,
                                         ),
                                         Column(
                                           crossAxisAlignment:
@@ -337,8 +340,9 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                               child: Text(
                                                 "Product",
                                                 style: widget
-                                                    .theme.textTheme.bodyText2
+                                                    .theme.textTheme.bodyMedium
                                                     ?.copyWith(
+                                                      
                                                         color: Colors.grey),
                                               ),
                                             ),
@@ -348,15 +352,18 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                               child: Text(
                                                   "${widget.leadOpenAllData[i].Product}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
-                                                  //?.copyWith(color: Colors.grey),
+                                                      .theme.textTheme.bodyMedium
+                                                  ?.copyWith(
+                                                     fontSize: 13
+                                                    // color: Colors.grey
+                                                  ),
                                                   ),
                                             ),
                                           ],
                                         ),
                                         SizedBox(
                                           height: Screens.bodyheight(context) *
-                                              0.01,
+                                              0.005,
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -369,7 +376,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                               child: Text(
                                                   "Next Follow up", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color:theme.primaryColor,
                                                           //fontWeight: FontWeight.bold
@@ -381,9 +388,9 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                               //color: Colors.red,
                                               alignment: Alignment.centerRight,
                                               child: Text(
-                                                  "Order Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
+                                                  "Lead Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color:theme.primaryColor,
                                                           //fontWeight: FontWeight.bold
@@ -409,8 +416,9 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                                           .alignDate(
                                                               "${widget.leadOpenAllData[i].NextFollowup}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
+                                                         fontSize: 13
                                                           //color:theme.primaryColor,
                                                           //fontWeight: FontWeight.bold
                                                           )),
@@ -450,8 +458,9 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                                                 .toStringAsFixed(
                                                                     0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
+                                                           fontSize: 13
                                                             //color:theme.primaryColor,
                                                             //fontWeight: FontWeight.bold
                                                             )),
@@ -474,7 +483,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                               //   //    // width: Screens.width(context) * 0.1,
                               //   //       child: Text(
                               //   //           "",
-                              //   //           style: widget.theme.textTheme.bodyText2?.copyWith(
+                              //   //           style: widget.theme.textTheme.bodyMedium?.copyWith(
                               //   //               color: Colors.grey,
                               //   //               fontSize: 12,
       
@@ -486,7 +495,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                               // ),
                                         SizedBox(
                                           height: Screens.bodyheight(context) *
-                                              0.01,
+                                              0.005,
                                         ),
                                         Container(
                                           alignment: Alignment.centerLeft,
@@ -519,7 +528,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                                             ? ''
                                                             : "${widget.leadOpenAllData[i].LastUpdateMessage}",
                                                         style: widget.theme
-                                                            .textTheme.bodyText2
+                                                            .textTheme.bodyMedium
                                                             ?.copyWith(
                                                           //color:theme.primaryColor,
                                                           color: Colors.green[700],
@@ -540,7 +549,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                       ),
                                     child:
                                          Text(
-                                            "${widget.leadOpenAllData[i].InterestLevel.toString()}", style: widget.theme.textTheme.bodyText2?.copyWith(
+                                            "${widget.leadOpenAllData[i].InterestLevel.toString()}", style: widget.theme.textTheme.bodyMedium?.copyWith(
                                                fontSize: 12,
                                                 color:Colors.grey,
                                                 fontStyle: FontStyle.italic
@@ -586,7 +595,7 @@ class _OpenLeadPageState extends State<OpenLeadPage> {
                                                         //     .subtractDTWith2(
                                                         //         "${widget.leadOpenAllData[i].updatedDate}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
                                                 style: widget
-                                                    .theme.textTheme.bodyText2
+                                                    .theme.textTheme.bodyMedium
                                                     ?.copyWith(
                                                   color: Colors.grey,
                                                   // color: Colors.green[700],

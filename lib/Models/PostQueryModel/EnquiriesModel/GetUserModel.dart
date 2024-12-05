@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import '../../../DBModel/EnqTypeModel.dart';
+import '../../../DBModel/enqtype_model.dart';
 
 class UserListModal {
 List<UserListData>? userLtData;

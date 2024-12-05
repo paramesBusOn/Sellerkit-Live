@@ -7,10 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/QuotationController/newquotecontroller.dart';
+import 'package:sellerkit/Controller/QuotationController/newquote_controller.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
 
 import '../../Widgets/Appbar.dart';
@@ -178,7 +179,7 @@ setState(() {
                           children: [
                             Text(
                               "Payment Terms",
-                              style: theme.textTheme.bodyText1
+                              style: theme.textTheme.bodyMedium
                                   ?.copyWith(color: Colors.white),
                             ),
                             SizedBox(
@@ -189,7 +190,7 @@ setState(() {
                             //     children: [
                             //       Text(
                             //         "Required Referral*",
-                            //         style: theme.textTheme.bodyText1
+                            //         style: theme.textTheme.bodyMedium
                             //             ?.copyWith(color: Colors.white),
                             //       ),
                             //     ],
@@ -241,7 +242,7 @@ setState(() {
                           //   decoration: InputDecoration(
                           //       hintText: 'Plan of Purchase Date*', //
                           //        border: UnderlineInputBorder(),
-                          //         labelStyle: theme.textTheme.bodyText1!
+                          //         labelStyle: theme.textTheme.bodyMedium!
                           //             .copyWith(color: Colors.grey),
                           //         enabledBorder: UnderlineInputBorder(
                           //           borderSide: BorderSide(color: Colors.grey),
@@ -273,7 +274,7 @@ setState(() {
                               decoration: InputDecoration(
                                   labelText: 'Delivery Due Date*', //
                                   border: UnderlineInputBorder(),
-                                  labelStyle: theme.textTheme.bodyText1!
+                                  labelStyle: theme.textTheme.bodyMedium!
                                       .copyWith(color: Colors.grey),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: Colors.grey),
@@ -309,7 +310,7 @@ setState(() {
                             decoration: InputDecoration(
                                 labelText: 'Payment Due Date*', //
                                 border: UnderlineInputBorder(),
-                                labelStyle: theme.textTheme.bodyText1!
+                                labelStyle: theme.textTheme.bodyMedium!
                                     .copyWith(color: Colors.grey),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
@@ -344,7 +345,7 @@ setState(() {
                               decoration: InputDecoration(
                                 labelText: 'Customer PO Reference',
                                 border: UnderlineInputBorder(),
-                                labelStyle: theme.textTheme.bodyText1!
+                                labelStyle: theme.textTheme.bodyMedium!
                                     .copyWith(color: Colors.grey),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
@@ -403,7 +404,7 @@ setState(() {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text('Attachment',
-                                    style: theme.textTheme.subtitle1?.copyWith(
+                                    style: theme.textTheme.titleMedium?.copyWith(
                                         color: context
                                                     .read<NewquoteController>()
                                                     .fileValidation ==
@@ -575,7 +576,7 @@ setState(() {
                                             Center(
                                                 child: Text(
                                               "No Files Selected",
-                                              style: theme.textTheme.bodyText1!
+                                              style: theme.textTheme.bodyMedium!
                                                   .copyWith(
                                                       color: context
                                                                   .read<
@@ -1063,7 +1064,7 @@ setState(() {
                           "Total Quotes Value Rs.${context.read<NewquoteController>().getTotalOrderAmount()}",
                           maxLines: 8,
                           overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodyText1?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ))
                     ],
@@ -1187,7 +1188,7 @@ setState(() {
                   //     },
                   decoration: InputDecoration(
                     filled: false,
-                    hintText: 'Search Here!!..',
+                    hintText: 'Search Here..',
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     suffixIcon: IconButton(
@@ -1216,8 +1217,8 @@ setState(() {
               onPressed: (){
                 setState(() {
                    context.read<NewquoteController>().     scannerreset();
-                   qrscannerState.quotescan=true;
-                Navigator.push(context,MaterialPageRoute(builder: (_) => qrscanner()))
+                   QrscannerState.quotescan=true;
+                Navigator.push(context,MaterialPageRoute(builder: (_) => Qrscanner()))
 //                 .then((value){
 // return context.read<NewquoteController>().scanneddataget(context);
 //                 } 
@@ -1251,6 +1252,11 @@ setState(() {
                               .read<NewquoteController>()
                               .showBottomSheetInsert(context, i);
                         },
+                        onLongPress: (){
+                           context
+                                      .read<NewquoteController>()
+                                      .  onvisiblefeature(i);
+                        },
                         child: Card(
                           elevation: 5,
                           child: Container(
@@ -1268,10 +1274,10 @@ setState(() {
                                     SizedBox(
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
-                                          "Item code: ${context.read<NewquoteController>().getAllProductDetails[i].itemCode}",
-                                          style: theme.textTheme.bodyText1
+                                          "Item Code: ${context.read<NewquoteController>().getAllProductDetails[i].itemCode}",
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
-                                                  color: theme.primaryColor)),
+                                                  color: theme.primaryColor,fontSize: 13)),
                                     ),
                                     Container(
                                       alignment: Alignment.centerRight,
@@ -1286,7 +1292,7 @@ setState(() {
                                                     .getAllProductDetails[i]
                                                     .refreshedRecordDate!),
                                       
-                                        style: theme.textTheme.bodyText1
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -1304,11 +1310,11 @@ setState(() {
                                   alignment: Alignment.centerLeft,
                                   width: Screens.width(context) * 0.4,
                                   child: Text("Product",
-                                      style: theme.textTheme.bodyText1
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey)),
                                 ),
                                 SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
+                                  height: Screens.bodyheight(context) * 0.005,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -1318,8 +1324,9 @@ setState(() {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                           "${context.read<NewquoteController>().getAllProductDetails[i].itemName}",
-                                          style: theme.textTheme.bodyText1
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
+                                                fontSize: 13
                                                   //color: theme.primaryColor
                                                   )),
                                     ),
@@ -1332,7 +1339,7 @@ setState(() {
                                           width: Screens.width(context) * 0.1,
                                           child: Text(
                                             "₹ ",
-                                            style: theme.textTheme.bodyText1
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(color: Colors.grey),
                                           ),
                                         ),
@@ -1343,7 +1350,7 @@ setState(() {
                                             "${context
                                     .read<NewquoteController>()
                                     .config.slpitCurrency22(context.read<NewquoteController>().getAllProductDetails[i].sp.toString())}",
-                                            style: theme.textTheme.bodyText1
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     color: theme.primaryColor),
                                           ),
@@ -1352,6 +1359,95 @@ setState(() {
                                     ),
                                   ],
                                 ),
+                             context.watch<NewquoteController>().getAllProductDetails[i].isselected==0?Container():     Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  Screens.width(context) * 0.05),
+                                          child: Divider(
+                                            color: Colors.grey[400],
+                                          ),
+                                        ),
+                           context.watch<NewquoteController>().getAllProductDetails[i].isselected==0?Container():      Container(
+                                          width: Screens.width(context) ,
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                            Text("Features",style:  theme.textTheme.bodyMedium
+                                                  ?.copyWith(color: theme.primaryColor),),
+                                        Row(children: [
+                                          // Container(
+                                          //   // color:Colors.amber,
+                                          //   width: Screens.width(context) * 0.3,
+                                          //   child: Text("BrandCode",style: theme.textTheme.bodyMedium
+                                          //         ?.copyWith(color: Colors.grey)),
+                                          // ),
+                                   context.watch<NewquoteController>().getAllProductDetails[i].brandCode!.isEmpty?Container():       Container(
+                                             width: Screens.width(context) * 0.7,
+                                            child: Text("* ${context.watch<NewquoteController>().getAllProductDetails[i].brandCode}", style: theme.textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                          //color: theme.primaryColor
+                                                          ),),
+                                          ),
+                                        ],),
+                                         Row(children: [
+                                          // Container(
+                                          //    width: Screens.width(context) * 0.3,
+                                          //   child: Text("ItemDescription",style: theme.textTheme.bodyMedium
+                                          //         ?.copyWith(color: Colors.grey)),
+                                          // ),
+                                  context.watch<NewquoteController>().getAllProductDetails[i].itemDescription!.isEmpty?Container():        Container(
+                                             width: Screens.width(context) * 0.7,
+                                            child: Text("* ${context.watch<NewquoteController>().getAllProductDetails[i].itemDescription}", style: theme.textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                          //color: theme.primaryColor
+                                                          )),
+                                          ),
+                                        ],),
+                                        Row(children: [
+                                          // Container(
+                                          //    width: Screens.width(context) * 0.3,
+                                          //   child: Text("Specification",style: theme.textTheme.bodyMedium
+                                          //         ?.copyWith(color: Colors.grey)),
+                                          // ),
+                                      context.watch<NewquoteController>().getAllProductDetails[i].specification!.isEmpty?Container():    Container(
+                                             width: Screens.width(context) * 0.7,
+                                            child: Text("* ${context.watch<NewquoteController>().getAllProductDetails[i].specification}", style: theme.textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                          //color: theme.primaryColor
+                                                          )),
+                                          ),
+                                        ],),
+                                        Row(children: [
+                                          // Container(
+                                          //   width: Screens.width(context) * 0.3,
+                                          //   child: Text("Clasification",style: theme.textTheme.bodyMedium
+                                          //         ?.copyWith(color: Colors.grey)),
+                                          // ),
+                                 context.watch<NewquoteController>().getAllProductDetails[i].clasification!.isEmpty?Container():         Container(
+                                             width: Screens.width(context) * 0.7,
+                                            child: Text("* ${context.watch<NewquoteController>().getAllProductDetails[i].clasification}", style: theme.textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                          //color: theme.primaryColor
+                                                          )),
+                                          ),
+                                        ],),
+                                         Row(children: [
+                                          // Container(
+                                          //    width: Screens.width(context) * 0.3,
+                                          //   child: Text("Color",style: theme.textTheme.bodyMedium
+                                          //         ?.copyWith(color: Colors.grey)),
+                                          // ),
+                                         context.watch<NewquoteController>().getAllProductDetails[i].color!.isEmpty?Container(): Container(
+                                            width: Screens.width(context) * 0.7,
+                                            child: Text("* ${context.watch<NewquoteController>().getAllProductDetails[i].color}", style: theme.textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                          //color: theme.primaryColor
+                                                          )),
+                                          ),
+                                        ],)
+                                          ]
+                                          ,
+                                          )),
                               ],
                             ),
                           ),
@@ -1383,10 +1479,10 @@ setState(() {
                                                 .toString(),
                                         style: TextStyle(
                                           color: theme.primaryColor,
-                                          fontSize: 15.0,
+                                          fontSize: 13.0,
                                         )),
                                   ),
-                                  SizedBox(height: 10.0),
+                                  SizedBox(height: 5.0),
                                   Row(
                                     children: [
                                       Text("Product",
@@ -1396,7 +1492,7 @@ setState(() {
                                           )),
                                     ],
                                   ),
-                                  SizedBox(height: 10.0),
+                                  SizedBox(height: 5.0),
                                   Container(
                                     // width: Screens.width(context)*0.8,
                                     ///  color: Colors.red,
@@ -1407,10 +1503,10 @@ setState(() {
                                             .ItemDescription!,
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 15.0,
+                                          fontSize: 13.0,
                                         )),
                                   ),
-                                  SizedBox(height: 10.0),
+                                  SizedBox(height: 5.0),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -1424,7 +1520,7 @@ setState(() {
                                                   .toString(),
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 15.0,
+                                            fontSize: 13.0,
                                           )),
                                       // SizedBox(
                                       //     width: Screens.bodyheight(context) /
@@ -1440,7 +1536,7 @@ setState(() {
                                                   .toString()),  
                                           style: TextStyle(
                                             color: Colors.black,
-                                            fontSize: 15.0,
+                                            fontSize: 13.0,
                                           )),
                                     ],
                                   ),
@@ -1470,7 +1566,7 @@ setState(() {
                                
 
                                       ],):Container(),
-                                  SizedBox(height: 10),
+                                  SizedBox(height: 5),
                                   Padding(
                                     padding:
                                         EdgeInsets.only(left: 40, right: 40),
@@ -1731,7 +1827,7 @@ InkWell FirstPage(
                                   width: Screens.width(context),
                                   child: Text(
                                     "Customer Info",
-                                    style: theme.textTheme.headline6
+                                    style: theme.textTheme.titleLarge
                                         ?.copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -1783,7 +1879,7 @@ InkWell FirstPage(
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelText: 'Mobile*',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -1912,7 +2008,7 @@ InkWell FirstPage(
                                     decoration: InputDecoration(
                                       labelText: 'Customer*',
                                       border: UnderlineInputBorder(),
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -2027,7 +2123,7 @@ InkWell FirstPage(
                                                               "${context.watch<NewquoteController>().filterCustomerList[i].cardname}",
                                                               style: theme
                                                                   .textTheme
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   ?.copyWith(
                                                                       color: Colors
                                                                           .black),
@@ -2121,7 +2217,7 @@ InkWell FirstPage(
                                     // },
                                     decoration: InputDecoration(
                                       labelText: 'Contact Name',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -2168,7 +2264,7 @@ InkWell FirstPage(
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelText: 'Alternate Mobile No',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -2275,7 +2371,7 @@ InkWell FirstPage(
                                     },
                                     decoration: InputDecoration(
                                       labelText: 'Email',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -2389,7 +2485,7 @@ validator: (value) {
                                     decoration: InputDecoration(
                                       counterText: '',
                                       labelText: 'GST No',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -2431,7 +2527,7 @@ validator: (value) {
                                                                      //   context
                                                                      //       .watch<NewEnqController>()
                                                                      //       .gethinttextforOpenLead!,
-                                                                     //   style: theme.textTheme.bodyText2?.copyWith(
+                                                                     //   style: theme.textTheme.bodyMedium?.copyWith(
                                                                      //       color: context
                                                                      //               .watch<NewEnqController>()
                                                                      //               .gethinttextforOpenLead!
@@ -2499,7 +2595,7 @@ validator: (value) {
                                           width: Screens.width(context),
                                           child: Text(
                                             "Billing Address",
-                                            style: theme.textTheme.headline6
+                                            style: theme.textTheme.titleLarge
                                                 ?.copyWith(
                                                     color: theme.primaryColor),
                                           ),
@@ -2584,7 +2680,7 @@ validator: (value) {
                                             decoration: InputDecoration(
                                               labelText: 'Address1*',
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -2689,7 +2785,7 @@ validator: (value) {
                                             decoration: InputDecoration(
                                               labelText: 'Address2*',
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -2823,7 +2919,7 @@ validator: (value) {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -2949,7 +3045,7 @@ validator: (value) {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -3053,7 +3149,7 @@ validator: (value) {
                                         //                               "${context.watch<NewquoteController>().filterCustomerList[i].area}",
                                         //                               style: theme
                                         //                                   .textTheme
-                                        //                                   .bodyText1
+                                        //                                   .bodyMedium
                                         //                                   ?.copyWith(
                                         //                                       color: Colors
                                         //                                           .black),
@@ -3151,7 +3247,7 @@ validator: (value) {
                                         //                               "${context.watch<NewquoteController>().filterCustomerList[i].city}",
                                         //                               style: theme
                                         //                                   .textTheme
-                                        //                                   .bodyText1
+                                        //                                   .bodyMedium
                                         //                                   ?.copyWith(
                                         //                                       color: Colors
                                         //                                           .black),
@@ -3226,7 +3322,7 @@ validator: (value) {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -3365,7 +3461,7 @@ validator: (value) {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -3478,7 +3574,7 @@ validator: (value) {
                                                                       "${context.watch<NewquoteController>().filterCustomerList[i].zipcode}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -3513,7 +3609,7 @@ validator: (value) {
                                                 child: Text(
                                                   "Enter Correct State",
                                                   style: theme
-                                                      .textTheme.bodyText2!
+                                                      .textTheme.bodyMedium!
                                                       .copyWith(
                                                           color: Colors.red,
                                                           fontSize: 12),
@@ -3554,7 +3650,7 @@ validator: (value) {
                                                 child: Text(
                                                   "Shipping Address",
                                                   style: theme
-                                                      .textTheme.headline6
+                                                      .textTheme.titleLarge
                                                       ?.copyWith(
                                                           color: theme
                                                               .primaryColor),
@@ -3663,7 +3759,7 @@ validator: (value) {
                                               // fillColor: Colors.amber,
                                               border: UnderlineInputBorder(),
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -3766,7 +3862,7 @@ validator: (value) {
                                               labelText: 'Address2*',
                                               border: UnderlineInputBorder(),
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -3905,7 +4001,7 @@ validator: (value) {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -4031,7 +4127,7 @@ validator: (value) {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -4140,7 +4236,7 @@ validator: (value) {
                                                                       "${context.watch<NewquoteController>().filterCustomerList[i].area}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -4242,7 +4338,7 @@ validator: (value) {
                                                                       "${context.watch<NewquoteController>().filterCustomerList[i].city}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -4315,7 +4411,7 @@ validator: (value) {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -4454,7 +4550,7 @@ validator: (value) {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -4494,7 +4590,7 @@ validator: (value) {
                                                 child: Text(
                                                   "Enter Correct State",
                                                   style: theme
-                                                      .textTheme.bodyText2!
+                                                      .textTheme.bodyMedium!
                                                       .copyWith(
                                                           color: Colors.red,
                                                           fontSize: 12),
@@ -4557,7 +4653,7 @@ validator: (value) {
                                                               "${context.watch<NewquoteController>().filterstateData[i].stateName}",
                                                               style: theme
                                                                   .textTheme
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   ?.copyWith(
                                                                       color: theme
                                                                           .primaryColor),
@@ -4629,7 +4725,7 @@ validator: (value) {
                                                     child: Text(
                                                       "${context.watch<NewquoteController>().filterstateData[i].stateName}",
                                                       style: theme
-                                                          .textTheme.bodyText1
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith(
                                                               color: theme
                                                                   .primaryColor),
@@ -4708,9 +4804,9 @@ validator: (value) {
                           //                   .read<NewquoteController>()
                           //                   .validateGender ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -4750,7 +4846,7 @@ validator: (value) {
                           //                 Text("Male",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -4795,7 +4891,7 @@ validator: (value) {
                           //                 Text("Female",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -4840,7 +4936,7 @@ validator: (value) {
                           //                 Text("Other",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -4875,9 +4971,9 @@ validator: (value) {
                           //                   .read<NewquoteController>()
                           //                   .validateAge ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -4917,7 +5013,7 @@ validator: (value) {
                           //                 Text("20-30",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -4962,7 +5058,7 @@ validator: (value) {
                           //                 Text("30-40",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -5007,7 +5103,7 @@ validator: (value) {
                           //                 Text("40-50",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -5052,7 +5148,7 @@ validator: (value) {
                           //             Text("50>",
                           //                 maxLines: 8,
                           //                 overflow: TextOverflow.ellipsis,
-                          //                 style: theme.textTheme.bodyText1
+                          //                 style: theme.textTheme.bodyMedium
                           //                     ?.copyWith(
                           //                   color: context
                           //                               .watch<
@@ -5087,9 +5183,9 @@ validator: (value) {
                           //                   .read<NewquoteController>()
                           //                   .validateComas ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -5129,7 +5225,7 @@ validator: (value) {
                           //                 Text("Family",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -5174,7 +5270,7 @@ validator: (value) {
                           //                 Text("Individual",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -5219,7 +5315,7 @@ validator: (value) {
                           //                 Text("Friends",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -5264,7 +5360,7 @@ validator: (value) {
                           //             Text("Corporate",
                           //                 maxLines: 8,
                           //                 overflow: TextOverflow.ellipsis,
-                          //                 style: theme.textTheme.bodyText1
+                          //                 style: theme.textTheme.bodyMedium
                           //                     ?.copyWith(
                           //                   color: context
                           //                               .watch<
@@ -5377,7 +5473,7 @@ validator: (value) {
                                      
 //                                       child: Text(
 //                                         "Lead No",
-//                                         style: theme.textTheme.bodyText1!
+//                                         style: theme.textTheme.bodyMedium!
 //                                               .copyWith(color:theme.primaryColor),
 //                                       ),
 //                                     ),
@@ -5388,7 +5484,7 @@ validator: (value) {
                                      
 //                                       child: Text(
 //                                         ":",
-//                                         style: theme.textTheme.bodyText1!
+//                                         style: theme.textTheme.bodyMedium!
 //                                               .copyWith(color: theme.primaryColor),
 //                                       ),
 //                                     ),  SizedBox(
@@ -5400,7 +5496,7 @@ validator: (value) {
 //                                         "${context
 //                                         .read<NewquoteController>()
 //                                         .leadnum}",
-//                                         style: theme.textTheme.bodyText1!
+//                                         style: theme.textTheme.bodyMedium!
 //                                               .copyWith(color: theme.primaryColor),
 //                                       ),
 //                                     ),
@@ -5420,7 +5516,7 @@ validator: (value) {
 //                                   width: Screens.width(context),
 //                                   child: Text(
 //                                     "Customer Info",
-//                                     style: theme.textTheme.headline6
+//                                     style: theme.textTheme.titleLarge
 //                                         ?.copyWith(color: theme.primaryColor),
 //                                   ),
 //                                 ),
@@ -5456,7 +5552,7 @@ validator: (value) {
 //                                     keyboardType: TextInputType.number,
 //                                     decoration: InputDecoration(
 //                                       labelText: 'Mobile*',
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -5525,7 +5621,7 @@ validator: (value) {
 //                                     decoration: InputDecoration(
 //                                       labelText: 'Customer',
 //                                       border: UnderlineInputBorder(),
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -5640,7 +5736,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].cardname}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -5667,7 +5763,7 @@ validator: (value) {
 //                                     // },
 //                                     decoration: InputDecoration(
 //                                       labelText: 'Contact Name*',
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -5704,7 +5800,7 @@ validator: (value) {
 //                                     keyboardType: TextInputType.number,
 //                                     decoration: InputDecoration(
 //                                       labelText: 'Alternate Mobile No',
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -5744,7 +5840,7 @@ validator: (value) {
 //                                     },
 //                                     decoration: InputDecoration(
 //                                       labelText: 'Email',
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -5780,7 +5876,7 @@ validator: (value) {
 //                                     decoration: InputDecoration(
 //                                       counterText: '',
 //                                       labelText: 'GST No',
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -5823,7 +5919,7 @@ validator: (value) {
 //                                   width: Screens.width(context),
 //                                   child: Text(
 //                                     "Billing Address",
-//                                     style: theme.textTheme.headline6
+//                                     style: theme.textTheme.titleLarge
 //                                         ?.copyWith(color: theme.primaryColor),
 //                                   ),
 //                                 ),
@@ -5839,7 +5935,7 @@ validator: (value) {
 //                                     },
 //                                     decoration: InputDecoration(
 //                                       labelText: 'Address1*',
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -5873,7 +5969,7 @@ validator: (value) {
 //                                     // },
 //                                     decoration: InputDecoration(
 //                                       labelText: 'Address2*',
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -5938,7 +6034,7 @@ validator: (value) {
 //                                             labelText: 'Area*',
 //                                             border: UnderlineInputBorder(),
 //                                             labelStyle: theme
-//                                                 .textTheme.bodyText1!
+//                                                 .textTheme.bodyMedium!
 //                                                 .copyWith(color: Colors.grey),
 //                                             enabledBorder: UnderlineInputBorder(
 //                                               borderSide: BorderSide(
@@ -5994,7 +6090,7 @@ validator: (value) {
 //                                             labelText: 'City*',
 //                                             border: UnderlineInputBorder(),
 //                                             labelStyle: theme
-//                                                 .textTheme.bodyText1!
+//                                                 .textTheme.bodyMedium!
 //                                                 .copyWith(color: Colors.grey),
 //                                             enabledBorder: UnderlineInputBorder(
 //                                               borderSide: BorderSide(
@@ -6094,7 +6190,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].area}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -6192,7 +6288,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].city}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -6257,7 +6353,7 @@ validator: (value) {
 //                                             labelText: 'Pincode*',
 //                                             border: UnderlineInputBorder(),
 //                                             labelStyle: theme
-//                                                 .textTheme.bodyText1!
+//                                                 .textTheme.bodyMedium!
 //                                                 .copyWith(color: Colors.grey),
 //                                             enabledBorder: UnderlineInputBorder(
 //                                               borderSide: BorderSide(
@@ -6313,7 +6409,7 @@ validator: (value) {
 //                                             labelText: 'State',
 //                                             border: UnderlineInputBorder(),
 //                                             labelStyle: theme
-//                                                 .textTheme.bodyText1!
+//                                                 .textTheme.bodyMedium!
 //                                                 .copyWith(color: Colors.grey),
 //                                             enabledBorder: UnderlineInputBorder(
 //                                               borderSide: BorderSide(
@@ -6416,7 +6512,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].zipcode}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -6514,7 +6610,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].state}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -6559,7 +6655,7 @@ validator: (value) {
 //                                         width: Screens.width(context) * 0.5,
 //                                         child: Text(
 //                                           "Shipping Address",
-//                                           style: theme.textTheme.headline6
+//                                           style: theme.textTheme.titleLarge
 //                                               ?.copyWith(
 //                                                   color: theme.primaryColor),
 //                                         ),
@@ -6596,7 +6692,7 @@ validator: (value) {
 //                                       labelText: 'Address1*',
 //                                       // fillColor: Colors.amber,
 //                                       border: UnderlineInputBorder(),
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -6628,7 +6724,7 @@ validator: (value) {
 //                                     decoration: InputDecoration(
 //                                       labelText: 'Address2*',
 //                                       border: UnderlineInputBorder(),
-//                                       labelStyle: theme.textTheme.bodyText1!
+//                                       labelStyle: theme.textTheme.bodyMedium!
 //                                           .copyWith(color: Colors.grey),
 //                                       enabledBorder: UnderlineInputBorder(
 //                                         borderSide:
@@ -6690,7 +6786,7 @@ validator: (value) {
 //                                             labelText: 'Area*',
 //                                             border: UnderlineInputBorder(),
 //                                             labelStyle: theme
-//                                                 .textTheme.bodyText1!
+//                                                 .textTheme.bodyMedium!
 //                                                 .copyWith(color: Colors.grey),
 //                                             enabledBorder: UnderlineInputBorder(
 //                                               borderSide: BorderSide(
@@ -6746,7 +6842,7 @@ validator: (value) {
 //                                             labelText: 'City*',
 //                                             border: UnderlineInputBorder(),
 //                                             labelStyle: theme
-//                                                 .textTheme.bodyText1!
+//                                                 .textTheme.bodyMedium!
 //                                                 .copyWith(color: Colors.grey),
 //                                             enabledBorder: UnderlineInputBorder(
 //                                               borderSide: BorderSide(
@@ -6846,7 +6942,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].area}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -6944,7 +7040,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].city}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -7009,7 +7105,7 @@ validator: (value) {
 //                                             labelText: 'Pincode*',
 //                                             border: UnderlineInputBorder(),
 //                                             labelStyle: theme
-//                                                 .textTheme.bodyText1!
+//                                                 .textTheme.bodyMedium!
 //                                                 .copyWith(color: Colors.grey),
 //                                             enabledBorder: UnderlineInputBorder(
 //                                               borderSide: BorderSide(
@@ -7065,7 +7161,7 @@ validator: (value) {
 //                                             labelText: 'State*',
 //                                             border: UnderlineInputBorder(),
 //                                             labelStyle: theme
-//                                                 .textTheme.bodyText1!
+//                                                 .textTheme.bodyMedium!
 //                                                 .copyWith(color: Colors.grey),
 //                                             enabledBorder: UnderlineInputBorder(
 //                                               borderSide: BorderSide(
@@ -7168,7 +7264,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].zipcode}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -7266,7 +7362,7 @@ validator: (value) {
 //                                                               "${context.watch<NewquoteController>().filterCustomerList[i].state}",
 //                                                               style: theme
 //                                                                   .textTheme
-//                                                                   .bodyText1
+//                                                                   .bodyMedium
 //                                                                   ?.copyWith(
 //                                                                       color: Colors
 //                                                                           .black),
@@ -7379,7 +7475,7 @@ validator: (value) {
                       .toString(),
                   maxLines: 8,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: context
                                 .read<NewquoteController>()
                                 .isSelectedpaymentTermsCode ==

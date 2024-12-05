@@ -3,12 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Constant/padings.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
-import '../../../Controller/ScoreCardController/Scorecardcontroller.dart';
+import '../../../Controller/ScoreCardController/scorecard_controller.dart';
 import '../../../Widgets/Navi3.dart';
 import '../Widgets/PositionWidgets.dart';
 
@@ -227,7 +228,7 @@ class _ScoreCardScreenOneState extends State<ScoreCardScreenOne> {
                       //                                             .toString(),
                       //                                         style: theme
                       //                                             .textTheme
-                      //                                             .subtitle1),
+                      //                                             .titleMedium),
                       //                                   ),
                       //                                   Row(
                       //                                     children: [
@@ -288,7 +289,7 @@ class MonthToperWidget extends StatelessWidget {
             decoration: BoxDecoration(color: theme.primaryColor),
             child: Text(
               prdFUP.getmonthScore1Data[0].title.toString(),
-              style: theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
             )),
         SizedBox(
           height: Screens.bodyheight(context) * 0.01,
@@ -323,7 +324,7 @@ class MonthToperWidget extends StatelessWidget {
                     Container(
                       child: Text(
                         keyss1[index].rank.toString(),
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: theme.primaryColor),
                       ),
                     ),
@@ -331,7 +332,7 @@ class MonthToperWidget extends StatelessWidget {
                       child: Text(
                         keyss1[index].name.toString(),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: theme.primaryColor),
                       ),
                     ),
@@ -368,7 +369,7 @@ class BranchToperWidget extends StatelessWidget {
             decoration: BoxDecoration(color: theme.primaryColor),
             child: Text(
               prdFUP.getbranchScore2Data[0].title.toString(),
-              style: theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
             )),
         SizedBox(
           height: Screens.bodyheight(context) * 0.01,
@@ -407,14 +408,14 @@ class BranchToperWidget extends StatelessWidget {
                     Container(
                       child: Text(
                         keys2[index].rank.toString(),
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: theme.primaryColor),
                       ),
                     ),
                     Container(
                       child: Text(
                         keys2[index].name.toString(),
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: theme.primaryColor),
                       ),
                     ),
@@ -455,7 +456,7 @@ class SpecialPerformerWidget extends StatelessWidget {
             decoration: BoxDecoration(color: theme.primaryColor),
             child: Text(
               prdFUP.getspecialScore3Data[0].title.toString(),
-              style: theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
             )),
         SizedBox(
           height: Screens.bodyheight(context) * 0.01,
@@ -495,7 +496,7 @@ class SpecialPerformerWidget extends StatelessWidget {
                     Container(
                       child: Text(
                         keyss3[index].rank.toString(),
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: theme.primaryColor),
                       ),
                     ),
@@ -503,7 +504,7 @@ class SpecialPerformerWidget extends StatelessWidget {
                       child: Text(
                         keyss3[index].name.toString(),
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: theme.primaryColor),
                       ),
                     ),

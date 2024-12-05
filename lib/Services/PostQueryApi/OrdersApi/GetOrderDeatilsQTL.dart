@@ -3,7 +3,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/DataBaseConfig.dart';
+import '../../../Constant/database_config.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/GetOrderDetailsQTL.dart';
 import 'package:sellerkit/main.dart';
 

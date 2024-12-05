@@ -5,14 +5,15 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Pages/VisitPlans/widgets/followdialog.dart';
 
 import '../../../../Constant/Screen.dart';
 // import '../../../../Controller/EnquiryController/EnquiryMngController.dart';
 // import '../../../../Controller/EnquiryController/EnquiryUserContoller.dart';
-import '../../../Controller/VisitplanController/VisitPlanController.dart';
+import '../../../Controller/VisitplanController/visitplan_controller.dart';
 
 class OpenVisitPage extends StatefulWidget {
   const OpenVisitPage({
@@ -124,7 +125,7 @@ showDialog<dynamic>(
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Customer",
-                                    style: widget.theme.textTheme.bodyText2
+                                    style: widget.theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -133,7 +134,7 @@ showDialog<dynamic>(
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Date & Time",
-                                    style: widget.theme.textTheme.bodyText2
+                                    style: widget.theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -146,7 +147,7 @@ showDialog<dynamic>(
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                       "${context.watch<VisitplanController>().openVisitData[i].customername}",
-                                      style: widget.theme.textTheme.bodyText2?.copyWith(
+                                      style: widget.theme.textTheme.bodyMedium?.copyWith(
                                         color: widget.theme.primaryColor,
                                         // fontWeight: FontWeight.bold
                                       )),
@@ -156,7 +157,7 @@ showDialog<dynamic>(
                                   width: Screens.width(context) * 0.42,
                                   child: Text(
                                       "${config.alignmeetingdate(context.watch<VisitplanController>().openVisitData[i].meetingtime.toString())}",
-                                      style: widget.theme.textTheme.bodyText2?.copyWith(
+                                      style: widget.theme.textTheme.bodyMedium?.copyWith(
                                         color: widget.theme.primaryColor,
                                         //fontWeight: FontWeight.bold
                                       )),
@@ -173,7 +174,7 @@ showDialog<dynamic>(
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Purpose",
-                                    style: widget.theme.textTheme.bodyText2
+                                    style: widget.theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -182,7 +183,7 @@ showDialog<dynamic>(
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Area",
-                                    style: widget.theme.textTheme.bodyText2
+                                    style: widget.theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -201,7 +202,7 @@ showDialog<dynamic>(
                                     context.watch<VisitplanController>().openVisitData[i].purposeofvisit=='null'||context.watch<VisitplanController>().openVisitData[i].purposeofvisit!.isEmpty?Text(''):
                                     Text(
                                         "${context.watch<VisitplanController>().openVisitData[i].purposeofvisit}",
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                           color: widget.theme.primaryColor,
                                           //fontWeight: FontWeight.bold
                                         )),
@@ -216,7 +217,7 @@ showDialog<dynamic>(
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 3,
                                         //"₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                        style: widget.theme.textTheme.bodyText2?.copyWith(
+                                        style: widget.theme.textTheme.bodyMedium?.copyWith(
                                           color: widget.theme.primaryColor,
                                           //fontWeight: FontWeight.bold
                                         )),
@@ -239,7 +240,7 @@ showDialog<dynamic>(
                                       child: Text(
                                           "Product",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: Colors.grey,
                                             // fontWeight: FontWeight.bold
                                           )),
@@ -252,7 +253,7 @@ showDialog<dynamic>(
                                           "${context.watch<VisitplanController>().openVisitData[i].LookingFor!}",
                                           //"₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: widget.theme.primaryColor,
                                             //fontWeight: FontWeight.bold
                                           )),
@@ -276,7 +277,7 @@ showDialog<dynamic>(
                                       padding:  EdgeInsets.all(Screens.width(context) * 0.01),
                                       child: Text(
                                           "${context.watch<VisitplanController>().openVisitData[i].visitstatus}",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                               ?.copyWith(
                                                   color: Colors.green[700],
                                                   fontSize: 12

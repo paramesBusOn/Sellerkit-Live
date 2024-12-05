@@ -1,13 +1,13 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Constant/padings.dart';
-import 'package:sellerkit/Controller/CollectionController/CollectionController.dart';
+import 'package:sellerkit/Controller/CollectionController/collection_controller.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
 import 'package:sellerkit/main.dart';
 
@@ -37,7 +37,7 @@ class _CollectionsState extends State<Collections>
 
   void _handleTabChange() {
     setState(() {
-     context.read<ColletionContoller>(). mycontroller[0].text ='';
+      context.read<ColletionContoller>().mycontroller[0].text = '';
     });
   }
 
@@ -91,8 +91,8 @@ class _CollectionsState extends State<Collections>
                               color: Colors.grey.withOpacity(0.7),
                               spreadRadius: 3,
                               blurRadius: 4,
-                              offset:
-                                  const Offset(0, 3), // changes position of shadow
+                              offset: const Offset(
+                                  0, 3), // changes position of shadow
                             ),
                           ]),
                       child: TextField(
@@ -137,7 +137,8 @@ class _CollectionsState extends State<Collections>
                 ),
               ),
             ),
-            title: GestureDetector(onTap: () {}, child: const Text('Collection')),
+            title:
+                GestureDetector(onTap: () {}, child: const Text('Collection')),
           ),
           // :AppBar(
           //    backgroundColor: theme.primaryColor,
@@ -145,14 +146,14 @@ class _CollectionsState extends State<Collections>
           // drawer: drawer3(context),
           body: GestureDetector(
             onHorizontalDragUpdate: (details) {
-                    // Check if the user is swiping from left to right
-                    print(details.primaryDelta);
-                    if (details.primaryDelta! > ConstantValues.slidevalue!) {
-                      setState(() {
-                        Get.offAllNamed(ConstantRoutes.dashboard);
-                      });
-                    }
-                  },
+              // Check if the user is swiping from left to right
+              print(details.primaryDelta);
+              if (details.primaryDelta! > ConstantValues.slidevalue!) {
+                setState(() {
+                  Get.offAllNamed(ConstantRoutes.dashboard);
+                });
+              }
+            },
             child: TabBarView(
               controller: controller,
               children: [
@@ -162,7 +163,7 @@ class _CollectionsState extends State<Collections>
                             .collectionGetList
                             .isNotEmpty &&
                         context.watch<ColletionContoller>().errormsg == '')
-                    ? Un_Settled(context, theme,controller!.index.toString())
+                    ? Un_Settled(context, theme, controller!.index.toString())
                     : (context.watch<ColletionContoller>().preogress == false &&
                             context
                                 .watch<ColletionContoller>()
@@ -171,40 +172,88 @@ class _CollectionsState extends State<Collections>
                             context.watch<ColletionContoller>().errormsg != '')
                         ? Center(
                             child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                     
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                 context.watch<ColletionContoller>().lottie!.isEmpty?Container():
-                                context.watch<ColletionContoller>().lottie!.isNotEmpty && context.watch<ColletionContoller>().lottie!.contains(".png")?     InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Image.asset('${context.watch<ColletionContoller>().lottie}',
-        //               opacity: AnimationController(
-        //     vsync: this,
-        //     value: 1
-        // ),
-        // color:Colors.transparent,
-                        // animate: true,
-                        // repeat: true,
-                        
-                        height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
-                        ),
-                  ):              InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Lottie.asset('${context.watch<ColletionContoller>().lottie}',
-                        animate: true,
-                        repeat: true,
-                        // height: Screens.padingHeight(context) * 0.3,
-                        width: Screens.width(context) * 0.4),
-                  ),
+                                context
+                                        .watch<ColletionContoller>()
+                                        .lottie!
+                                        .isEmpty
+                                    ? Container()
+                                    : context
+                                                .watch<ColletionContoller>()
+                                                .lottie!
+                                                .isNotEmpty &&
+                                            context
+                                                .watch<ColletionContoller>()
+                                                .lottie!
+                                                .contains(".png")
+                                        ? InkWell(
+                                            onTap: () {
+                                              // HelperFunctions.clearCheckedOnBoardSharedPref();
+                                              // HelperFunctions.clearUserLoggedInSharedPref();
+                                            },
+                                            child: Image.asset(
+                                                '${context.watch<ColletionContoller>().lottie}',
+                                                //               opacity: AnimationController(
+                                                //     vsync: this,
+                                                //     value: 1
+                                                // ),
+                                                // color:Colors.transparent,
+                                                // animate: true,
+                                                // repeat: true,
+
+                                                height: Screens.padingHeight(
+                                                        context) *
+                                                    0.2,
+                                                width: Screens.width(context) *
+                                                    0.4),
+                                          )
+                                        : InkWell(
+                                            onTap: () {
+                                              // HelperFunctions.clearCheckedOnBoardSharedPref();
+                                              // HelperFunctions.clearUserLoggedInSharedPref();
+                                            },
+                                            child: Lottie.asset(
+                                                '${context.watch<ColletionContoller>().lottie}',
+                                                animate: true,
+                                                repeat: true,
+                                                // height: Screens.padingHeight(context) * 0.3,
+                                                width: Screens.width(context) *
+                                                    0.4),
+                                          ),
+                                          context.watch<ColletionContoller>().errormsg!
+                                                  .contains("Network Issue")
+                                              ? Container(
+                                                  child: Text(
+                                                  "NO INTERNET CONNECTION",
+                                                  style: theme
+                                                      .textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: theme
+                                                              .primaryColor),
+                                                ))
+                                              : Container(),
+                                          context.watch<ColletionContoller>().errormsg!
+                                                  .contains("Network Issue")
+                                              ? Container(
+                                                  child: Text(
+                                                  "You are not connected to internet. Please connect to the internet and try again.",
+                                                  textAlign: TextAlign.center,
+                                                  style: theme
+                                                      .textTheme.bodyMedium!
+                                                      .copyWith(),
+                                                ))
+                                              : Container(),
+                                         context.watch<ColletionContoller>().errormsg!
+                                                  .contains("Network Issue")
+                                              ? Container()
+                                              :
                                 Text(
-                                    '${context.watch<ColletionContoller>().errormsg}',textAlign: TextAlign.center,),
+                                  '${context.watch<ColletionContoller>().errormsg}',
+                                  textAlign: TextAlign.center,
+                                ),
                               ],
                             ),
                           )
@@ -216,7 +265,7 @@ class _CollectionsState extends State<Collections>
                             .collectionGetList
                             .isNotEmpty &&
                         context.watch<ColletionContoller>().errormsg == '')
-                    ? settled(context, theme,controller!.index.toString())
+                    ? settled(context, theme, controller!.index.toString())
                     : (context.watch<ColletionContoller>().preogress == false &&
                             context
                                 .watch<ColletionContoller>()
@@ -225,40 +274,87 @@ class _CollectionsState extends State<Collections>
                             context.watch<ColletionContoller>().errormsg != '')
                         ? Center(
                             child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                     
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                 context.watch<ColletionContoller>().lottie!.isEmpty?Container():
-                                context.watch<ColletionContoller>().lottie!.isNotEmpty && context.watch<ColletionContoller>().lottie!.contains(".png")?     InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Image.asset('${context.watch<ColletionContoller>().lottie}',
-        //               opacity: AnimationController(
-        //     vsync: this,
-        //     value: 1
-        // ),
-        // color:Colors.transparent,
-                        // animate: true,
-                        // repeat: true,
-                        
-                        height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
-                        ),
-                  ):              InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Lottie.asset('${context.watch<ColletionContoller>().lottie}',
-                        animate: true,
-                        repeat: true,
-                        // height: Screens.padingHeight(context) * 0.3,
-                        width: Screens.width(context) * 0.4),
-                  ),
-                                Text(
-                                    '${context.watch<ColletionContoller>().errormsg}',textAlign: TextAlign.center,),
+                                context
+                                        .watch<ColletionContoller>()
+                                        .lottie!
+                                        .isEmpty
+                                    ? Container()
+                                    : context
+                                                .watch<ColletionContoller>()
+                                                .lottie!
+                                                .isNotEmpty &&
+                                            context
+                                                .watch<ColletionContoller>()
+                                                .lottie!
+                                                .contains(".png")
+                                        ? InkWell(
+                                            onTap: () {
+                                              // HelperFunctions.clearCheckedOnBoardSharedPref();
+                                              // HelperFunctions.clearUserLoggedInSharedPref();
+                                            },
+                                            child: Image.asset(
+                                                '${context.watch<ColletionContoller>().lottie}',
+                                                //               opacity: AnimationController(
+                                                //     vsync: this,
+                                                //     value: 1
+                                                // ),
+                                                // color:Colors.transparent,
+                                                // animate: true,
+                                                // repeat: true,
+
+                                                height: Screens.padingHeight(
+                                                        context) *
+                                                    0.2,
+                                                width: Screens.width(context) *
+                                                    0.5),
+                                          )
+                                        : InkWell(
+                                            onTap: () {
+                                              // HelperFunctions.clearCheckedOnBoardSharedPref();
+                                              // HelperFunctions.clearUserLoggedInSharedPref();
+                                            },
+                                            child: Lottie.asset(
+                                                '${context.watch<ColletionContoller>().lottie}',
+                                                animate: true,
+                                                repeat: true,
+                                                // height: Screens.padingHeight(context) * 0.3,
+                                                width: Screens.width(context) *
+                                                    0.4),
+                                          ),
+                              context.watch<ColletionContoller>().errormsg!
+                                                  .contains("Network Issue")
+                                              ? Container(
+                                                  child: Text(
+                                                  "NO INTERNET CONNECTION",
+                                                  style: theme
+                                                      .textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: theme
+                                                              .primaryColor),
+                                                ))
+                                              : Container(),
+                                          context.watch<ColletionContoller>().errormsg!
+                                                  .contains("Network Issue")
+                                              ? Container(
+                                                  child: Text(
+                                                  "You are not connected to internet. Please connect to the internet and try again.",
+                                                  textAlign: TextAlign.center,
+                                                  style: theme
+                                                      .textTheme.bodyMedium!
+                                                      .copyWith(),
+                                                ))
+                                              : Container(),
+                                         context.watch<ColletionContoller>().errormsg!
+                                                  .contains("Network Issue")
+                                              ? Container()
+                                              :  Text(
+                                  '${context.watch<ColletionContoller>().errormsg}',
+                                  textAlign: TextAlign.center,
+                                ),
                               ],
                             ),
                           )
@@ -283,7 +379,8 @@ class _CollectionsState extends State<Collections>
           )),
     );
   }
-Container settled(BuildContext context, ThemeData theme,String tabvalue) {
+
+  Container settled(BuildContext context, ThemeData theme, String tabvalue) {
     return Container(
       width: Screens.width(context),
       height: Screens.bodyheight(context),
@@ -303,24 +400,23 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Image.asset('Assets/no-data.png',
-        //               opacity: AnimationController(
-        //     vsync: this,
-        //     value: 1
-        // ),
-        // color:Colors.transparent,
-                        // animate: true,
-                        // repeat: true,
-                        
-                        height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                          onTap: () {
+                            // HelperFunctions.clearCheckedOnBoardSharedPref();
+                            // HelperFunctions.clearUserLoggedInSharedPref();
+                          },
+                          child: Image.asset('Assets/no-data.png',
+                              //               opacity: AnimationController(
+                              //     vsync: this,
+                              //     value: 1
+                              // ),
+                              // color:Colors.transparent,
+                              // animate: true,
+                              // repeat: true,
+
+                              height: Screens.padingHeight(context) * 0.2,
+                              width: Screens.width(context) * 0.5),
                         ),
-                  ),
-                        const Text("No Data..",textAlign: TextAlign.center),
+                        const Text("No Data..", textAlign: TextAlign.center),
                       ],
                     ),
                   )
@@ -336,10 +432,9 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                     itemBuilder: (BuildContext context, int i) {
                       return Container(
                         width: Screens.width(context),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Screens.width(context) * 0.02,
-                                  vertical:
-                                      Screens.bodyheight(context) * 0.006),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Screens.width(context) * 0.02,
+                            vertical: Screens.bodyheight(context) * 0.006),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -350,19 +445,19 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                       i,
                                       context
                                           .read<ColletionContoller>()
-                                          .filetercollectionGetListClose[i],tabvalue);
+                                          .filetercollectionGetListClose[i],
+                                      tabvalue);
                             });
                           },
                           child: Container(
                             padding: EdgeInsets.all(
                                 Screens.bodyheight(context) * 0.005),
-                           decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(8),
-                                        border:
-                                            Border.all(color: Colors.black26)
-                                        // border: Border(bottom: BorderSide(color: Colors.black38))
-                                        ),
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.black26)
+                                // border: Border(bottom: BorderSide(color: Colors.black38))
+                                ),
                             child: Column(
                               children: [
                                 IntrinsicHeight(
@@ -383,14 +478,17 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               alignment: Alignment.topLeft,
                                               // color:
                                               //     Colors.amber,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Customer",
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: Colors.grey),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
                                             ),
                                             Container(
@@ -400,18 +498,21 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               // color:
                                               //     Colors.amber,
                                               alignment: Alignment.topLeft,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "${context.watch<ColletionContoller>().filetercollectionGetListClose[i].customerName}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: theme.primaryColor),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color:
+                                                            theme.primaryColor),
                                                 // "${AccountsData[i].street}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardcode}",
                                                 textAlign: TextAlign.left,
                                               ),
                                             ),
-                                            
                                           ],
                                         ),
                                       ),
@@ -428,14 +529,17 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               alignment: Alignment.topRight,
                                               // color:
                                               //     Colors.amber,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Doc Num",
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: Colors.grey),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
                                             ),
                                             Container(
@@ -445,18 +549,21 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               // color:
                                               //     Colors.amber,
                                               alignment: Alignment.topRight,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "${context.watch<ColletionContoller>().filetercollectionGetListClose[i].docNum}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: theme.primaryColor),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color:
+                                                            theme.primaryColor),
                                                 // "${AccountsData[i].street}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardcode}",
                                                 textAlign: TextAlign.left,
                                               ),
                                             ),
-                                            
                                           ],
                                         ),
                                       ),
@@ -481,14 +588,17 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               alignment: Alignment.topLeft,
                                               // color:
                                               //     Colors.amber,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Payment Mode",
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: Colors.grey),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
                                             ),
                                             Container(
@@ -498,18 +608,21 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               // color:
                                               //     Colors.amber,
                                               alignment: Alignment.topLeft,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "${context.watch<ColletionContoller>().getPaymentMode(context.watch<ColletionContoller>().filetercollectionGetListClose[i])}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: theme.primaryColor),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color:
+                                                            theme.primaryColor),
                                                 // "${AccountsData[i].street}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardcode}",
                                                 textAlign: TextAlign.left,
                                               ),
                                             ),
-                                            
                                           ],
                                         ),
                                       ),
@@ -526,14 +639,17 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               alignment: Alignment.topRight,
                                               // color:
                                               //     Colors.amber,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Doc Date",
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: Colors.grey),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
                                             ),
                                             Container(
@@ -543,18 +659,21 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               // color:
                                               //     Colors.amber,
                                               alignment: Alignment.topRight,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "${config.alignDate(context.watch<ColletionContoller>().filetercollectionGetListClose[i].docDate!)}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: theme.primaryColor),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color:
+                                                            theme.primaryColor),
                                                 // "${AccountsData[i].street}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardcode}",
                                                 textAlign: TextAlign.left,
                                               ),
                                             ),
-                                            
                                           ],
                                         ),
                                       ),
@@ -579,14 +698,17 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               alignment: Alignment.topLeft,
                                               // color:
                                               //     Colors.amber,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Address",
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: Colors.grey),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
                                             ),
                                             Container(
@@ -596,18 +718,21 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               // color:
                                               //     Colors.amber,
                                               alignment: Alignment.topLeft,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "${context.watch<ColletionContoller>().filetercollectionGetListClose[i].bil_Address1}, ${context.watch<ColletionContoller>().filetercollectionGetListClose[i].bil_City}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: theme.primaryColor),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color:
+                                                            theme.primaryColor),
                                                 // "${AccountsData[i].street}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardcode}",
                                                 textAlign: TextAlign.left,
                                               ),
                                             ),
-                                            
                                           ],
                                         ),
                                       ),
@@ -624,14 +749,17 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               alignment: Alignment.topRight,
                                               // color:
                                               //     Colors.amber,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
                                                 "Paid Amount",
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: Colors.grey),
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color: Colors.grey),
                                               ),
                                             ),
                                             Container(
@@ -641,29 +769,27 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               // color:
                                               //     Colors.amber,
                                               alignment: Alignment.topRight,
-                                
-                                              width: Screens.width(context) * 0.4,
+
+                                              width:
+                                                  Screens.width(context) * 0.4,
                                               child: Text(
-                                                "${context
-                                                          .read<
-                                                              ColletionContoller>()
-                                                          .config.slpitCurrency22(context.watch<ColletionContoller>().filetercollectionGetListClose[i].amountpaid!.toString())}",
-                                                style: theme.textTheme.bodyText1!
-                                                    .copyWith(color: theme.primaryColor),
+                                                "${context.read<ColletionContoller>().config.slpitCurrency22(context.watch<ColletionContoller>().filetercollectionGetListClose[i].amountpaid!.toString())}",
+                                                style: theme
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        color:
+                                                            theme.primaryColor),
                                                 // "${AccountsData[i].street}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardcode}",
                                                 textAlign: TextAlign.left,
                                               ),
                                             ),
-                                            
                                           ],
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-
-                                
                               ],
                             ),
                           ),
@@ -751,7 +877,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
   //                                           "${context.watch<ColletionContoller>().filetercollectionGetListClose[i].customerName}",
   //                                           // "${AccountsData[i].cardname}",
   //                                           // "${prdACC.getAccountsDataFilter[i].cardname}",
-  //                                           style: theme.textTheme.bodyText1
+  //                                           style: theme.textTheme.bodyMedium
   //                                               ?.copyWith(),
   //                                         ),
   //                                       ),
@@ -787,7 +913,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
   //                                           alignment: Alignment.centerRight,
   //                                           child: Text(
   //                                             "${context.read<ColletionContoller>().filetercollectionGetListClose[i].docNum}",
-  //                                             style: theme.textTheme.bodyText1
+  //                                             style: theme.textTheme.bodyMedium
   //                                                 ?.copyWith(),
   //                                           ),
   //                                         ),
@@ -798,7 +924,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
   //                                           alignment: Alignment.centerRight,
   //                                           child: Text(
   //                                             "${config.alignDate(context.watch<ColletionContoller>().filetercollectionGetListClose[i].docDate!)}",
-  //                                             style: theme.textTheme.bodyText1
+  //                                             style: theme.textTheme.bodyMedium
   //                                                 ?.copyWith(),
   //                                           ),
   //                                         )
@@ -826,7 +952,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
   //                                       width: Screens.width(context) * 0.4,
   //                                       child: Text(
   //                                         "${context.watch<ColletionContoller>().filetercollectionGetListClose[i].bil_Address1} ${context.watch<ColletionContoller>().filetercollectionGetListClose[i].bil_City}",
-  //                                         style: theme.textTheme.bodyText1
+  //                                         style: theme.textTheme.bodyMedium
   //                                             ?.copyWith(),
   //                                       ),
   //                                     ),
@@ -840,7 +966,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
   //                                       child: Text(
   //                                           '${context.watch<ColletionContoller>().filetercollectionGetListClose[i].amountpaid!}',
   //                                           // "23-Jun-2023 10:40 PM",
-  //                                           style: theme.textTheme.bodyText1),
+  //                                           style: theme.textTheme.bodyMedium),
   //                                     ),
   //                                   ],
   //                                 ),
@@ -858,7 +984,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
   //   );
   // }
 
-  Container Un_Settled(BuildContext context, ThemeData theme,String tabvalue) {
+  Container Un_Settled(BuildContext context, ThemeData theme, String tabvalue) {
     return Container(
       width: Screens.width(context),
       height: Screens.bodyheight(context),
@@ -875,26 +1001,26 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                     .isEmpty
                 ? Center(
                     child: Column(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [ InkWell(
-                    onTap: () {
-                      // HelperFunctions.clearCheckedOnBoardSharedPref();
-                      // HelperFunctions.clearUserLoggedInSharedPref();
-                    },
-                    child: Image.asset('Assets/no-data.png',
-        //               opacity: AnimationController(
-        //     vsync: this,
-        //     value: 1
-        // ),
-        // color:Colors.transparent,
-                        // animate: true,
-                        // repeat: true,
-                        
-                        height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            // HelperFunctions.clearCheckedOnBoardSharedPref();
+                            // HelperFunctions.clearUserLoggedInSharedPref();
+                          },
+                          child: Image.asset('Assets/no-data.png',
+                              //               opacity: AnimationController(
+                              //     vsync: this,
+                              //     value: 1
+                              // ),
+                              // color:Colors.transparent,
+                              // animate: true,
+                              // repeat: true,
+
+                              height: Screens.padingHeight(context) * 0.2,
+                              width: Screens.width(context) * 0.5),
                         ),
-                  ),
-                        const Text("No Data..",textAlign: TextAlign.center),
+                        const Text("No Data..", textAlign: TextAlign.center),
                       ],
                     ),
                   )
@@ -910,11 +1036,9 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                     itemBuilder: (BuildContext context, int i) {
                       return Container(
                         width: Screens.width(context),
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Screens.width(context) * 0.02,
-                                  vertical:
-                                      Screens.bodyheight(context) * 0.006),
-                      
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Screens.width(context) * 0.02,
+                            vertical: Screens.bodyheight(context) * 0.006),
                         child: GestureDetector(
                           onTap: () {
                             setState(() {
@@ -925,11 +1049,12 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                       i,
                                       context
                                           .read<ColletionContoller>()
-                                          .filetercollectionGetListOpen[i],tabvalue);
+                                          .filetercollectionGetListOpen[i],
+                                      tabvalue);
                             });
                           },
-                          onDoubleTap: (){
-                             setState(() {
+                          onDoubleTap: () {
+                            setState(() {
                               context
                                   .read<ColletionContoller>()
                                   .showDialogColllection(
@@ -937,19 +1062,19 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                       i,
                                       context
                                           .read<ColletionContoller>()
-                                          .filetercollectionGetListOpen[i],tabvalue);
+                                          .filetercollectionGetListOpen[i],
+                                      tabvalue);
                             });
                           },
                           child: Container(
                             padding: EdgeInsets.all(
                                 Screens.bodyheight(context) * 0.005),
-                             decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                        borderRadius: BorderRadius.circular(8),
-                                        border:
-                                            Border.all(color: Colors.black26)
-                                        // border: Border(bottom: BorderSide(color: Colors.black38))
-                                        ),
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.black26)
+                                // border: Border(bottom: BorderSide(color: Colors.black38))
+                                ),
                             child: Column(
                               children: [
                                 IntrinsicHeight(
@@ -978,7 +1103,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -996,7 +1121,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               child: Text(
                                                 "${context.watch<ColletionContoller>().filetercollectionGetListOpen[i].customerName}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color:
                                                             theme.primaryColor),
@@ -1029,7 +1154,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -1047,7 +1172,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               child: Text(
                                                 "${context.watch<ColletionContoller>().filetercollectionGetListOpen[i].docNum}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color:
                                                             theme.primaryColor),
@@ -1088,7 +1213,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -1106,7 +1231,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               child: Text(
                                                 "${context.watch<ColletionContoller>().getPaymentMode(context.watch<ColletionContoller>().filetercollectionGetListOpen[i])}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color:
                                                             theme.primaryColor),
@@ -1139,7 +1264,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -1156,26 +1281,30 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                                   Screens.width(context) * 0.4,
                                               child: Text(
                                                 context
+                                                                .watch<
+                                                                    ColletionContoller>()
+                                                                .filetercollectionGetListOpen[
+                                                                    i]
+                                                                .docDate ==
+                                                            null ||
+                                                        context
                                                             .watch<
                                                                 ColletionContoller>()
                                                             .filetercollectionGetListOpen[
                                                                 i]
-                                                            .docDate ==
-                                                        null||    context
-                                                            .watch<
-                                                                ColletionContoller>()
-                                                            .filetercollectionGetListOpen[
-                                                                i]
-                                                            .docDate!.isEmpty||    context
-                                                            .watch<
-                                                                ColletionContoller>()
-                                                            .filetercollectionGetListOpen[
-                                                                i]
-                                                            .docDate=='null'
+                                                            .docDate!
+                                                            .isEmpty ||
+                                                        context
+                                                                .watch<
+                                                                    ColletionContoller>()
+                                                                .filetercollectionGetListOpen[
+                                                                    i]
+                                                                .docDate ==
+                                                            'null'
                                                     ? ''
                                                     : "${config.alignDate(context.read<ColletionContoller>().filetercollectionGetListOpen[i].docDate!)}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color:
                                                             theme.primaryColor),
@@ -1216,7 +1345,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -1234,7 +1363,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               child: Text(
                                                 "${context.watch<ColletionContoller>().filetercollectionGetListOpen[i].bil_Address1}, ${context.watch<ColletionContoller>().filetercollectionGetListOpen[i].bil_City}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color:
                                                             theme.primaryColor),
@@ -1267,7 +1396,7 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                                 // "${AccountsData[i].cardname}",
                                                 // "${prdACC.getAccountsDataFilter[i].cardname}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color: Colors.grey),
                                               ),
@@ -1283,12 +1412,9 @@ Container settled(BuildContext context, ThemeData theme,String tabvalue) {
                                               width:
                                                   Screens.width(context) * 0.4,
                                               child: Text(
-                                                "${context
-                                                          .read<
-                                                              ColletionContoller>()
-                                                          .config.slpitCurrency22(context.watch<ColletionContoller>().filetercollectionGetListOpen[i].amountpaid!.toString())}",
+                                                "${context.read<ColletionContoller>().config.slpitCurrency22(context.watch<ColletionContoller>().filetercollectionGetListOpen[i].amountpaid!.toString())}",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color:
                                                             theme.primaryColor),

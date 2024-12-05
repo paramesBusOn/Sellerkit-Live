@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'package:sellerkit/Controller/ReportsController/ReportsController.dart';
-import 'package:sellerkit/DBModel/ReportsModel/LeadAnalysisModel.dart';
-import '../../DBModel/ReportsModel/LeadAnalysViewDB.dart';
-import '../../DBModel/ReportsModel/LeadQueryDB.dart';
-import '../../DBModel/ReportsModel/LeadReportModel.dart';
+import 'package:sellerkit/Controller/ReportsController/reports_controller.dart';
+import 'package:sellerkit/DBModel/ReportsModel/leadanalysis_model.dart';
+import '../../DBModel/ReportsModel/leadanalysview_db.dart';
+import '../../DBModel/ReportsModel/leadquery_db.dart';
+import '../../DBModel/ReportsModel/leadreport_model.dart';
 import 'TestReportModel.dart';
 
 class LeadAnalysisModel {

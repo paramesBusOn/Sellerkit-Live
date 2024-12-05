@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Constant/padings.dart';
-import 'package:sellerkit/Controller/specialpricecontroller/newpagecontroller.dart';
+import 'package:sellerkit/Controller/specialpricecontroller/newpage_controller.dart';
 import 'package:sellerkit/Widgets/Appbar.dart';
 import 'package:sellerkit/Widgets/Navi3.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
@@ -75,7 +76,10 @@ context.read<NewpriceController>(). itemvisible();
    
 }
 onreqpercent()async{
-  if(context.read<NewpriceController>().mycontroller[11].text.isEmpty){
+if(ConstantValues.splpricelogic!.toLowerCase() !='slab'){
+
+  }else{
+if(context.read<NewpriceController>().mycontroller[11].text.isEmpty){
     context.read<NewpriceController>().  mycontroller[9].clear();
     }
   if(context.read<NewpriceController>().mycontroller[3].text.isNotEmpty &&context.read<NewpriceController>().mycontroller[11].text.isNotEmpty){
@@ -83,10 +87,15 @@ onreqpercent()async{
   await context.read<NewpriceController>().percentagecalculation(context.read<NewpriceController>().mycontroller[6].text,context.read<NewpriceController>().mycontroller[11].text,'');
     context.read<NewpriceController>().Approvergetcall();
   }
+  }
+  
   
 }
 onreqprice()async{
-  if(context.read<NewpriceController>().mycontroller[7].text.isEmpty){
+  if(ConstantValues.splpricelogic!.toLowerCase() =='slab'){
+
+  }else{
+ if(context.read<NewpriceController>().mycontroller[7].text.isEmpty){
     context.read<NewpriceController>().  mycontroller[9].clear();
     }
   if(context.read<NewpriceController>().mycontroller[3].text.isNotEmpty &&context.read<NewpriceController>().mycontroller[7].text.isNotEmpty){
@@ -94,6 +103,8 @@ onreqprice()async{
    
     context.read<NewpriceController>().Approvergetcall();
   }
+  }
+ 
   
 }
 
@@ -292,8 +303,8 @@ onreqprice()async{
               onPressed: (){
                 setState(() {
                    context.read<NewpriceController>().     scannerreset();
-                   qrscannerState.spreqscan=true;
-                Navigator.push(context,MaterialPageRoute(builder: (_) => qrscanner()))
+                   QrscannerState.spreqscan=true;
+                Navigator.push(context,MaterialPageRoute(builder: (_) => Qrscanner()))
 //                 .then((value){
 // return context.read<LeadNewController>().scanneddataget(context);
 //                 } 
@@ -442,10 +453,13 @@ SizedBox(
                               
                               //                           },
                                
-                                onTap: (){
+                                onTap:ConstantValues.splpricelogic!.toLowerCase() =='slab'?(){
+                                  log('jjjjjj');
+                                }: (){
+                                   log('jjjjjjkkkkkkk');
                                   context.read<NewpriceController>().checkitemcodeselect();
                                 },
-                                readOnly:context.watch<NewpriceController>().isselectitem==false?false:true ,
+                                readOnly:ConstantValues.splpricelogic!.toLowerCase() =='slab'?true: context.watch<NewpriceController>().isselectitem==false?false:true ,
                                  keyboardType:  TextInputType.numberWithOptions(decimal: true),
                                   inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.allow(
@@ -472,10 +486,10 @@ SizedBox(
                                   return null;
                                 },
                                
-                                onTap: (){
+                                onTap:ConstantValues.splpricelogic!.toLowerCase() !='slab'?(){}: (){
                                   context.read<NewpriceController>().checkitemcodeselect();
                                 },
-                                readOnly:context.watch<NewpriceController>().isselectitem==false?false:true ,
+                                readOnly:ConstantValues.splpricelogic!.toLowerCase() !='slab'?true: context.watch<NewpriceController>().isselectitem==false?false:true ,
                                  keyboardType:  TextInputType.numberWithOptions(decimal: true),
                                   inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.allow(
@@ -510,7 +524,7 @@ SizedBox(
 //                          child: Column(
 //                           crossAxisAlignment: CrossAxisAlignment.start,
 //                           children: [
-//                           Text('Price Slab',style: theme.textTheme.bodyText2!.copyWith(color: Colors.grey[800],fontSize: 15),),
+//                           Text('Price Slab',style: theme.textTheme.bodyMedium!.copyWith(color: Colors.grey[800],fontSize: 15),),
 //                           SizedBox(
 //                             height: Screens.bodyheight(context) * 0.007,
 //                           ),
@@ -538,7 +552,7 @@ SizedBox(
 //                                         context.read<NewpriceController>().   addvalue(context.read<NewpriceController>().planof[i].name);             
 //                                            }, child: Text(
 //                                             context.watch<NewpriceController>().planof[i].name.toString(),
-//                                             style: theme.textTheme.bodyText2!.copyWith(color: 
+//                                             style: theme.textTheme.bodyMedium!.copyWith(color: 
 //                                             context.watch<NewpriceController>().isselectedprice.toString() ==
 //                                             context.watch<NewpriceController>().planof[i].name.toString()?theme.primaryColor:theme.primaryColor),
 //                                             ))

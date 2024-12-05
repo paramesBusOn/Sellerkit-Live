@@ -2,12 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/PriceListController/PriceListController.dart';
-import '../../../DBModel/ItemMasertDBModel.dart';
+import '../../../Controller/PriceListController/pricelist_controller.dart';
+import '../../../DBModel/itemmasertdb_model.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -95,7 +96,7 @@ key: scaffoldKey,
                    },
                    decoration: InputDecoration(
                      filled: false,
-                     hintText: 'Search Here!!..',
+                     hintText: 'Search Here..',
                      enabledBorder: InputBorder.none,
                      focusedBorder: InputBorder.none,
                      prefixIcon: IconButton(
@@ -218,7 +219,7 @@ key: scaffoldKey,
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: context
                                   .watch<PriceListController>()
@@ -268,7 +269,7 @@ key: scaffoldKey,
                     maxLines: 2,
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: theme.textTheme.bodyText1?.copyWith(
+                    style: theme.textTheme.bodyMedium?.copyWith(
                       fontSize: 10,
                       color: context
                                   .watch<PriceListController>()
@@ -317,7 +318,7 @@ key: scaffoldKey,
                   maxLines: 2,
                     textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     fontSize: 10,
                     color: context
                                 .watch<PriceListController>()

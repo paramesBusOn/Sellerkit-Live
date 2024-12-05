@@ -22,7 +22,7 @@ class ContentCard extends StatelessWidget {
         children: [
           Container(
             child: Text(heading,//heading
-            style: theme.textTheme.subtitle1?.copyWith(color: Colors.white,fontWeight: FontWeight.bold),),
+            style: theme.textTheme.titleMedium?.copyWith(color: Colors.white,fontWeight: FontWeight.bold),),
           ),
           SizedBox(height: Screens.bodyheight(context)*0.005,),
            Container(

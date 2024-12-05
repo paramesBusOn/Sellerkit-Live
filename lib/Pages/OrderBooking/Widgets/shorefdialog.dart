@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/OrderController/OrderNewController.dart';
+import 'package:sellerkit/Controller/OrderController/ordernew_controller.dart';
 import '../../../../Constant/Screen.dart';
 
 
@@ -17,8 +17,8 @@ class ShowSearchDialogState extends State<ShowSearchDialog> {
     final theme = Theme.of(context);
     return AlertDialog(
             content:  Container(
-              width: Screens.width(context),
-              height: Screens.bodyheight(context)*0.5,
+              width: Screens.width(context)*0.5,
+              height: Screens.bodyheight(context)*0.40,
               child: Column(
                 children: [
                    TextFormField(

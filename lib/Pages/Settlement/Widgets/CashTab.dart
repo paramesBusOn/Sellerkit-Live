@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 
 import '../../../../Constant/Screen.dart';
-import '../../../Controller/SettlementController/SettlementController.dart';
+import '../../../Controller/SettlementController/settlement_controller.dart';
 import 'SettlementPdfHelper.dart';
 
 class CashTabPage extends StatefulWidget {
@@ -80,7 +81,7 @@ class _CashTabPageState extends State<CashTabPage> {
                         // repeat: true,
                         
                         height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                        width: Screens.width(context)*0.4
                         ),
                   ):              InkWell(
                     onTap: () {
@@ -93,6 +94,34 @@ class _CashTabPageState extends State<CashTabPage> {
                         // height: Screens.padingHeight(context) * 0.3,
                         width: Screens.width(context) * 0.4),
                   ),
+                   context.watch<SettlementController>().errormsg!
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style:widget. theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color:widget. theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                              context.watch<SettlementController>().errormsg!
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style:widget. theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                              context.watch<SettlementController>().errormsg!
+                                                      .contains("Network Issue")
+                                                  ? Container():
                               Text(
                                   '${context.watch<SettlementController>().errormsg}',textAlign: TextAlign.center,),
                             ],
@@ -189,7 +218,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                 child: Text(
                                                   "Customer",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.grey),
                                                 ),
@@ -202,7 +231,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                 child: Text(
                                                   "# ${context.watch<SettlementController>().settelGetListCash[i].DocNum}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.grey),
                                                 ),
@@ -219,7 +248,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                 child: Text(
                                                     "${context.watch<SettlementController>().settelGetListCash[i].CustomerName}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -234,7 +263,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                 child: Text(
                                                     '${context.watch<SettlementController>().config.alignDateT(context.watch<SettlementController>().settelGetListCash[i].DocDate.toString())}',
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -258,7 +287,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                 child: Text(
                                                   "Total Amount",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.grey),
                                                 ),
@@ -271,7 +300,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                 child: Text(
                                                   "${context.watch<SettlementController>().settelGetListCash[i].Mode}",
                                                   style: widget
-                                                      .theme.textTheme.bodyText2
+                                                      .theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.grey),
                                                 ),
@@ -291,7 +320,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                               SettlementController>()
                                                           .config.slpitCurrency22(context.watch<SettlementController>().settelGetListCash[i].totalAmount!.toString())}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -311,7 +340,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                           .config.slpitCurrency22(context.watch<SettlementController>().settelGetListCash[i].Amount.toString())}',
                                                     //"₹ ${context.watch<EnquiryMangerContoller>().getopenEnqData[i].PotentialValue}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -356,7 +385,7 @@ class _CashTabPageState extends State<CashTabPage> {
                                                     '${context.watch<SettlementController>().settelGetListCash[i].ref}',
                                                     //"₹ ${context.watch<EnquiryMangerContoller>().getopenEnqData[i].PotentialValue}",
                                                     style: widget.theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                       color: widget
                                                           .theme.primaryColor,
@@ -396,7 +425,7 @@ class _CashTabPageState extends State<CashTabPage> {
                           "Cash Total Rs.${context.watch<SettlementController>().totalcash()}",
                           maxLines: 8,
                           overflow: TextOverflow.ellipsis,
-                          style: widget.theme.textTheme.bodyText1?.copyWith(
+                          style: widget.theme.textTheme.bodyMedium?.copyWith(
                             color: widget.theme.primaryColor,
                           ))
                     ],

@@ -43,7 +43,7 @@ class ThemeSettingState extends State<ThemeSetting> {
                     Container(
                       child: Text(
                         "Merron",
-                        style: theme.textTheme.subtitle1?.copyWith(),
+                        style: theme.textTheme.titleMedium?.copyWith(),
                       ),
                     ),
                     Container(
@@ -72,7 +72,7 @@ class ThemeSettingState extends State<ThemeSetting> {
                     Container(
                       child: Text(
                         "Blue",
-                        style: theme.textTheme.subtitle1?.copyWith(),
+                        style: theme.textTheme.titleMedium?.copyWith(),
                       ),
                     ),
                     Container(
@@ -100,7 +100,7 @@ class ThemeSettingState extends State<ThemeSetting> {
                     Container(
                       child: Text(
                         "Orange",
-                        style: theme.textTheme.subtitle1?.copyWith(),
+                        style: theme.textTheme.titleMedium?.copyWith(),
                       ),
                     ),
                     Container(

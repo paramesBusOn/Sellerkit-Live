@@ -1,9 +1,9 @@
 // ignore_for_file: unnecessary_string_interpolations, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:sellerkit/Controller/FollowupController/followup_controller.dart';
 
 import '../../../Constant/Screen.dart';
-import '../../../Controller/FollowupController/FollowUPController.dart';
 import 'FollowUPDialogPg.dart';
 
 class FollowUPComming extends StatelessWidget {
@@ -47,7 +47,7 @@ class FollowUPComming extends StatelessWidget {
                         // #0 Leads are over due for followup",
                         "${prdFUP.getfollowUPKPIupcoming[0].OverdueKPI_Line_1}",
                           textAlign: TextAlign.center,
-                        style: theme.textTheme.bodyText1?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                           fontSize: 15
                         ),
                         ),
@@ -56,7 +56,7 @@ class FollowUPComming extends StatelessWidget {
                 //   width: Screens.width(context) ,
                 //   child: Text("1",
                 //   // ${prdFUP.getfollowUPKPIOverDue[0].UpcomingKPI_Line_1}",
-                //   style: theme.textTheme.bodyText2?.copyWith(
+                //   style: theme.textTheme.bodyMedium?.copyWith(
                 //     fontSize: 14
                 //   ),
                 //   ),
@@ -69,7 +69,7 @@ class FollowUPComming extends StatelessWidget {
                     "${prdFUP.getfollowUPKPIupcoming[0].OverdueKPI_Line_2}",
                   //  ${prdFUP.getfollowUPKPIOverDue[0].UpcomingKPI_SmallLine_1}",
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText2?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     fontSize: 12
                   ),
                   ),
@@ -147,7 +147,7 @@ class FollowUPComming extends StatelessWidget {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                       "Customer",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -155,7 +155,7 @@ class FollowUPComming extends StatelessWidget {
                                     width: Screens.width(context) * 0.4,
                                     child: Text(
                                       "",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey),
                                     ),
                                   ),
@@ -169,8 +169,9 @@ class FollowUPComming extends StatelessWidget {
                                     child: Text(
                                         "${prdFUP.fupUpcmListData[index].Customer}",
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: theme.primaryColor,
+                                           fontSize: 13
                                         )),
                                   ),
                                   Container(
@@ -178,14 +179,15 @@ class FollowUPComming extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: Text("#${prdFUP.fupUpcmListData[index].LeadDocNum}",
                                         style:
-                                            theme.textTheme.bodyText2?.copyWith(
+                                            theme.textTheme.bodyMedium?.copyWith(
                                           color: theme.primaryColor,
+                                           fontSize: 13
                                         )),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height: Screens.bodyheight(context) * 0.01,
+                                height: Screens.bodyheight(context) * 0.005,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,19 +197,19 @@ class FollowUPComming extends StatelessWidget {
                                     width: Screens.width(context),
                                     child: Text(
                                       "Product",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey),
                                     ),
                                   ),
                                   Container(
                                     width: Screens.width(context),
                                     child: Text("${prdFUP.fupUpcmListData[index].Product}",
-                                        style: theme.textTheme.bodyText2),
+                                        style: theme.textTheme.bodyMedium?.copyWith( fontSize: 13)),
                                   ),
                                 ],
                               ),
                               SizedBox(
-                                height: Screens.bodyheight(context) * 0.01,
+                                height: Screens.bodyheight(context) * 0.005,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -215,7 +217,7 @@ class FollowUPComming extends StatelessWidget {
                                   Container(
                                     width: Screens.width(context) * 0.4,
                                     child: Text("Next Follow up",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey)),
                                   ),
                                   Container(
@@ -223,7 +225,7 @@ class FollowUPComming extends StatelessWidget {
                                     // color: Colors.red,
                                     alignment: Alignment.centerRight,
                                     child: Text("Order Value",
-                                        style: theme.textTheme.bodyText2
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey)),
                                   ),
                                   // Container(
@@ -231,7 +233,7 @@ class FollowUPComming extends StatelessWidget {
                                   //   //color: Colors.red,
                                   //   alignment: Alignment.centerRight,
                                   //   child: Text("Followup Time",
-                                  //       style: theme.textTheme.bodyText2
+                                  //       style: theme.textTheme.bodyMedium
                                   //           ?.copyWith(color: Colors.grey)),
                                   // ),
                                 ],
@@ -244,8 +246,8 @@ class FollowUPComming extends StatelessWidget {
                                     child: Text(
                                       prdFUP.config.alignDate(
                                       "${prdFUP.fupUpcmListData[index].FollowupDate}"),
-                                        style: theme.textTheme.bodyText2
-                                            ?.copyWith()),
+                                        style: theme.textTheme.bodyMedium
+                                            ?.copyWith( fontSize: 13)),
                                   ),
                                   InkWell(
                                     onTap: () {},
@@ -254,8 +256,8 @@ class FollowUPComming extends StatelessWidget {
                                       width: Screens.width(context) * 0.3,
                                       child: Text(
                                         prdFUP.config.slpitCurrency("${prdFUP.fupUpcmListData[index].DocTotal!.toStringAsFixed(0)}"),
-                                          style: theme.textTheme.bodyText2
-                                              ?.copyWith()),
+                                          style: theme.textTheme.bodyMedium
+                                              ?.copyWith( fontSize: 13)),
                                     ),
                                   ),
                                   // InkWell(
@@ -267,14 +269,14 @@ class FollowUPComming extends StatelessWidget {
                                   //     width: Screens.width(context) * 0.4,
                                   //     child: Text(
                                   //       prdFUP.config.alignDateFollowTime("${prdFUP.fupUpcmListData[index].FollowupDate}"),
-                                  //         style: theme.textTheme.bodyText2
+                                  //         style: theme.textTheme.bodyMedium
                                   //             ?.copyWith()),
                                   //   ),
                                   // ),
                                 ],
                               ),
                               SizedBox(
-                                height: Screens.bodyheight(context) * 0.01,
+                                height: Screens.bodyheight(context) * 0.005,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -295,7 +297,7 @@ class FollowUPComming extends StatelessWidget {
                                               borderRadius: BorderRadius.circular(4)),
                                           child: Text("${prdFUP.fupUpcmListData[index].LastFollowupStatus}",
                                               style:
-                                                  theme.textTheme.bodyText2?.copyWith(
+                                                  theme.textTheme.bodyMedium?.copyWith(
                                                 color: Colors.green[700],
                                               )),
                                         ),
@@ -309,7 +311,7 @@ class FollowUPComming extends StatelessWidget {
                                   //   // color: Colors.red,
                                   //   alignment: Alignment.centerRight,
                                   //   child: Text("Order Value",
-                                  //       style: theme.textTheme.bodyText2
+                                  //       style: theme.textTheme.bodyMedium
                                   //           ?.copyWith(color: Colors.grey)),
                                   // ),
                                 // InkWell(
@@ -319,7 +321,7 @@ class FollowUPComming extends StatelessWidget {
                                 //       width: Screens.width(context) * 0.3,
                                 //       child: Text(
                                 //         prdFUP.config.slpitCurrency("${prdFUP.fupUpcmListData[index].DocTotal!.toStringAsFixed(0)}"),
-                                //           style: theme.textTheme.bodyText2
+                                //           style: theme.textTheme.bodyMedium
                                 //               ?.copyWith()),
                                 //     ),
                                 //   ),
@@ -331,7 +333,7 @@ class FollowUPComming extends StatelessWidget {
                               ),
 
                               SizedBox(
-                                height: Screens.bodyheight(context) * 0.01,
+                                height: Screens.bodyheight(context) * 0.005,
                               ),
                               Container(
                                 alignment: Alignment.centerLeft,
@@ -347,7 +349,7 @@ class FollowUPComming extends StatelessWidget {
                                                               "${prdFUP.fupUpcmListData[index].CretedDate}")
                                   // prdFUP.config.subtractDateTime3("${prdFUP.fupUpcmListData[index].LastFollowupDate}")
                                    :'',
-                                      style: theme.textTheme.bodyText2?.copyWith(
+                                      style: theme.textTheme.bodyMedium?.copyWith(
                                         color: Colors.grey,
                                       )),
                                 ),

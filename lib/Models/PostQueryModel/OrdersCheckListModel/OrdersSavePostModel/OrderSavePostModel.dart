@@ -555,6 +555,153 @@ class DocumentLines {
     };
     return map;
   }
+
+  Map<String, dynamic> tojasongift() {
+    Map<String, dynamic> map = {
+      "itemCode": ItemCode!.replaceAll("'", "''").trim(),
+  "itemName": ItemDescription!.replaceAll("'", "''").trim(),
+  "quantity": Quantity,
+  "price": Price,
+  "itemType": itemtype,
+  "storeCode": storecode
+      
+      
+    };
+    return map;
+  }
+}
+
+
+class DocumentLines2 {
+  int? id;
+  int? docEntry;
+  int? linenum;
+  String? ItemCode;
+  String? ItemDescription;
+  double? Quantity;
+  double? Price;
+  double? TaxCode;
+  String? TaxLiable;
+  double? LineTotal;
+  String? deliveryfrom;
+  String? storecode;
+  double? BasePrice;
+  double? sp;
+  double? MRP;
+  double? slpprice;
+  double? storestock;
+  double? whsestock;
+  bool? isfixedprice;
+  bool? allownegativestock;
+  bool? alloworderbelowcost;
+  String? complementary;
+  String? couponcode;
+  String? partcode;
+   String? partname;
+   String? itemtype;
+   bool? linkeditems;
+    int? bundleId;
+   int? OfferSetup_Id;
+   List<giftoffers>? giftitems;
+
+  DocumentLines2(
+      {
+        this.linkeditems,
+        this.itemtype,
+         this.OfferSetup_Id,
+        this.giftitems,
+        this.partcode,
+      this.couponcode,
+      this.complementary,
+      this.MRP,
+      this.alloworderbelowcost,
+      this.allownegativestock,
+      this.isfixedprice,
+      this.whsestock,
+      this.storestock,
+      this.slpprice,
+      this.sp,
+      required this.id,
+      this.storecode,
+      this.deliveryfrom,
+       this.bundleId,
+      required this.docEntry,
+      required this.linenum,
+      required this.ItemCode,
+      required this.ItemDescription,
+      required this.Quantity,
+      required this.LineTotal,
+      required this.Price,
+      required this.TaxCode,
+      this.partname,
+      this.TaxLiable,
+      this.BasePrice});
+
+  factory DocumentLines2.fromJson(Map<String, dynamic> jsons) {
+    return DocumentLines2(
+      MRP: jsons['MRP'],
+      BasePrice: jsons['BasePrice'],
+      id: jsons['id'],
+      docEntry: jsons['DocEntry'],
+      linenum: jsons['LineNum'],
+      ItemCode: jsons['ItemCode'],
+      ItemDescription: jsons['ItemName'],
+      LineTotal: jsons['GrossLineTotal'],
+      Price: jsons['Price'] ?? 0.00,
+      Quantity: jsons['Quantity'],
+      TaxCode: jsons['TaxRate'],
+      TaxLiable: jsons['taxLiable'],
+    );
+  }
+
+  Map<String, dynamic> tojason() {
+    Map<String, dynamic> map = {
+      "offerId":OfferSetup_Id,
+      "id": id,
+      "docEntry": docEntry,
+      "lineNum": linenum,
+      "itemCode": ItemCode,
+      "itemDescription": ItemDescription,
+      "quantity": Quantity!,
+      "lineTotal": LineTotal!,
+      "price": Price,
+      "taxCode": TaxCode,
+      "taxLiable": TaxLiable,
+    };
+    return map;
+  }
+
+  Map<String, dynamic> tojason2() {
+    Map<String, dynamic> map = {
+       "bundleId": bundleId,
+      "offerId":OfferSetup_Id,
+      "itemcode": ItemCode!.replaceAll("'", "''").trim(),
+      "itemname": ItemDescription!.replaceAll("'", "''").trim(),
+      "quantity": Quantity!,
+      "price": Price,
+      "storecode": storecode,
+      "deliveryfrom": deliveryfrom,
+      "couponcode": couponcode,
+      "partnercode": partcode,
+      "itemtype":itemtype
+      
+    };
+    return map;
+  }
+
+  Map<String, dynamic> tojasongift() {
+    Map<String, dynamic> map = {
+      "itemCode": ItemCode!.replaceAll("'", "''").trim(),
+  "itemName": ItemDescription!.replaceAll("'", "''").trim(),
+  "quantity": Quantity,
+  "price": Price,
+  "itemType": itemtype,
+  "storeCode": storecode
+      
+      
+    };
+    return map;
+  }
 }
 class giftoffers{
   String? itemtype;

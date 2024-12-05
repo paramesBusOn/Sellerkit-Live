@@ -1,18 +1,21 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+import 'package:sellerkit/Pages/Accounts/screens/accoounts_details.dart';
+
 import '../../../Constant/Screen.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/AccountsController/AccountsController.dart';
-import '../../../Models/AccountsModel/AccountsModel.dart';
+import 'package:sellerkit/Controller/AccountsController/accounts_controller.dart';
+import '../../../Models/AccountsModel/accounts_model.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
-import 'AccoountsDetails.dart';
 
 class Accounts extends StatefulWidget {
   const Accounts({Key? key}) : super(key: key);
@@ -106,7 +109,7 @@ class _AccountsState extends State<Accounts> {
                           },
                           decoration: InputDecoration(
                             filled: false,
-                            hintText: 'Search Here!!..',
+                            hintText: 'Search Here..',
                             enabledBorder: InputBorder.none,
                             focusedBorder: InputBorder.none,
                             suffixIcon: IconButton(
@@ -199,8 +202,8 @@ class _AccountsState extends State<Accounts> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                          
                                       children: [
-                                         context.watch<AccountsContoller>().lottie!.isEmpty?Container():
-                                context.watch<AccountsContoller>().lottie!.isNotEmpty && context.watch<AccountsContoller>().lottie!.contains(".png")?     InkWell(
+                                         context.watch<AccountsContoller>().lottie.isEmpty?Container():
+                                context.watch<AccountsContoller>().lottie.isNotEmpty && context.watch<AccountsContoller>().lottie.contains(".png")?     InkWell(
                     onTap: () {
                       // HelperFunctions.clearCheckedOnBoardSharedPref();
                       // HelperFunctions.clearUserLoggedInSharedPref();
@@ -215,7 +218,7 @@ class _AccountsState extends State<Accounts> {
                         // repeat: true,
                         
                         height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                        width: Screens.width(context)*0.4
                         ),
                   ):              InkWell(
                     onTap: () {
@@ -228,6 +231,41 @@ class _AccountsState extends State<Accounts> {
                         // height: Screens.padingHeight(context) * 0.3,
                         width: Screens.width(context) * 0.4),
                   ),
+                  context
+                                            .read<AccountsContoller>()
+                                            .getErrorMsg
+                                                  .contains("Network Issue")
+                                              ? Container(
+                                                  child: Text(
+                                                  "NO INTERNET CONNECTION",
+                                                  style: theme
+                                                      .textTheme.bodyMedium
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: theme
+                                                              .primaryColor),
+                                                ))
+                                              : Container(),
+                                          context
+                                            .read<AccountsContoller>()
+                                            .getErrorMsg
+                                                  .contains("Network Issue")
+                                              ? Container(
+                                                  child: Text(
+                                                  "You are not connected to internet. Please connect to the internet and try again.",
+                                                  textAlign: TextAlign.center,
+                                                  style: theme
+                                                      .textTheme.bodyMedium!
+                                                      .copyWith(),
+                                                ))
+                                              : Container(),
+                                         context
+                                            .read<AccountsContoller>()
+                                            .getErrorMsg
+                                                  .contains("Network Issue")
+                                              ? Container()
+                                              :
                                         Text(context
                                             .read<AccountsContoller>()
                                             .getErrorMsg,textAlign: TextAlign.center,),
@@ -266,7 +304,7 @@ class _AccountsState extends State<Accounts> {
                                           width: Screens.width(context),
                                           child: GestureDetector(
                                             onTap: () {
-                                              AccountsDetailsState.i = i;
+                                             
                                               context
                                                   .read<AccountsContoller>()
                                                   .loadmore();
@@ -288,11 +326,11 @@ class _AccountsState extends State<Accounts> {
                                                       .read<AccountsContoller>()
                                                       .getAccountsDataFilter[i]
                                                       .CustomerName!.toString());
-                                              // AccountsDetailsState
-                                              //         .data =
-                                              //     "Balamurugan";
-                                              Get.toNamed(
-                                                  ConstantRoutes.accountsDetails);
+                                              //  AccountsDetailspageState.i = i;
+                                              // log("ffff::"+i.toString()+"aa"+AccountsDetailspageState.i.toString());
+                                             Navigator.push(context,MaterialPageRoute(builder: (context)=> AccountsDetailspage(i: i,)));
+                                              // Get.toNamed(
+                                              //     ConstantRoutes.accountsDetails);
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -313,7 +351,7 @@ class _AccountsState extends State<Accounts> {
                                                         child: Text(
                                                           "Customer",
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   color: Colors
                                                                       .grey),
@@ -333,7 +371,7 @@ class _AccountsState extends State<Accounts> {
                                         ),
                                                                         child:
                                          Text(
-                                            "VIP", style:theme.textTheme.bodyText2?.copyWith(
+                                            "VIP", style:theme.textTheme.bodyMedium?.copyWith(
                                                fontSize: 12,
                                                 color:Colors.green[700],
                                                 fontStyle: FontStyle.italic
@@ -358,7 +396,7 @@ class _AccountsState extends State<Accounts> {
                                                         child: Text(
                                                             "${context.watch<AccountsContoller>().getAccountsDataFilter[i].CustomerName}",
                                                             style: theme.textTheme
-                                                                .bodyText2
+                                                                .bodyMedium
                                                                 ?.copyWith(
                                                               color: theme
                                                                   .primaryColor,
@@ -387,7 +425,7 @@ class _AccountsState extends State<Accounts> {
                                                         child: Text(
                                                           "Mobile",
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   color: Colors
                                                                       .grey),
@@ -401,7 +439,7 @@ class _AccountsState extends State<Accounts> {
                                                       //   child: Text(
                                                       //     "Email",
                                                       //     style: theme
-                                                      //         .textTheme.bodyText2
+                                                      //         .textTheme.bodyMedium
                                                       //         ?.copyWith(
                                                       //             color: Colors
                                                       //                 .grey),
@@ -416,7 +454,7 @@ class _AccountsState extends State<Accounts> {
                                                       //   child: Text(
                                                       //     "City",
                                                       //     style: theme
-                                                      //         .textTheme.bodyText2
+                                                      //         .textTheme.bodyMedium
                                                       //         ?.copyWith(
                                                       //             color: Colors
                                                       //                 .grey),
@@ -438,7 +476,7 @@ class _AccountsState extends State<Accounts> {
                                                         child: Text(
                                                             '${context.watch<AccountsContoller>().getAccountsDataFilter[i].CustomerCode}',
                                                             style: theme.textTheme
-                                                                .bodyText2
+                                                                .bodyMedium
                                                                 ?.copyWith(
                                                               color: theme
                                                                   .primaryColor,
@@ -457,7 +495,7 @@ class _AccountsState extends State<Accounts> {
                                                                        // width: Screens.width(context) * 0.1,
                                         child: Text(
                                           "${context.watch<AccountsContoller>().getAccountsDataFilter[i].CustomerGroup}",
-                                          style: theme.textTheme.bodyText2?.copyWith(
+                                          style: theme.textTheme.bodyMedium?.copyWith(
                                               color: Colors.grey,
                                               fontSize: 12,
                                           
@@ -476,7 +514,7 @@ class _AccountsState extends State<Accounts> {
                                                       //   child: Text(
                                                       //       '${context.watch<AccountsContoller>().getAccountsDataFilter[i].Bil_City}',
                                                       //       style: theme.textTheme
-                                                      //           .bodyText2
+                                                      //           .bodyMedium
                                                       //           ?.copyWith(
                                                       //         color: theme
                                                       //             .primaryColor,
@@ -502,7 +540,7 @@ class _AccountsState extends State<Accounts> {
                                                         child: Text(
                                                           "Address",
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   color: Colors
                                                                       .grey),
@@ -523,7 +561,7 @@ class _AccountsState extends State<Accounts> {
                                                         child: Text(
                                                             "${context.watch<AccountsContoller>().getAccountsDataFilter[i].Bil_Address1} ${context.watch<AccountsContoller>().getAccountsDataFilter[i].Bil_Address2} ${context.watch<AccountsContoller>().getAccountsDataFilter[i].Bil_City}",
                                                             style: theme.textTheme
-                                                                .bodyText2
+                                                                .bodyMedium
                                                                 ?.copyWith(
                                                               color: theme
                                                                   .primaryColor,
@@ -546,7 +584,7 @@ class _AccountsState extends State<Accounts> {
                                                           .config.alignDate(context.watch<AccountsContoller>().getAccountsDataFilter[i].UpdatedOn.toString()) }",
                                                           
                                                     style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   color: Colors
                                                                       .grey),
@@ -588,7 +626,7 @@ class _AccountsState extends State<Accounts> {
                                         //                                // width: Screens.width(context) * 0.1,
                                         // child: Text(
                                         //   "${context.watch<AccountsContoller>().getAccountsDataFilter[i].CustomerGroup}",
-                                        //   style: theme.textTheme.bodyText2?.copyWith(
+                                        //   style: theme.textTheme.bodyMedium?.copyWith(
                                         //       color: Colors.grey,
                                         //       fontSize: 12,
                                           

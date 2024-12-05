@@ -5,11 +5,12 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 
 import 'package:intl/intl.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/OrderController/TabOrderController.dart';
-import 'package:sellerkit/Controller/QuotationController/tabquotescontroller.dart';
+import 'package:sellerkit/Controller/OrderController/taborder_controller.dart';
+import 'package:sellerkit/Controller/QuotationController/tabquotes_controller.dart';
 import 'package:sellerkit/Models/QuoteModel/quotesgetallModel.dart';
 import 'package:sellerkit/Pages/Quoatation/tabquote/widgets/followdialog.dart';
 
@@ -76,7 +77,7 @@ class _openquoteState extends State<openquote> {
             //       Container(
             //         child: Text("Open Orders",
             //           // "${widget.leadSummaryOpen[0].Caption}",
-            //           style: widget.theme.textTheme.bodyText1
+            //           style: widget.theme.textTheme.bodyMedium
             //               ?.copyWith(color: widget.theme.primaryColor),
             //         ),
             //       ),
@@ -90,7 +91,7 @@ class _openquoteState extends State<openquote> {
             //                     // Config.k_m_b_generator(
             //                     //     widget.leadSummaryOpen[0].Value!.toStringAsFixed(0)),
                             
-            //                 style: widget.theme.textTheme.headline6,
+            //                 style: widget.theme.textTheme.titleLarge,
             //               )),
             //           Container(
             //             alignment: Alignment.centerRight,
@@ -108,7 +109,7 @@ class _openquoteState extends State<openquote> {
             //           "Target ₹ " ,
             //               // Config.k_m_b_generator(
             //               //     widget.leadSummaryOpen[0].Target!.toStringAsFixed(0)),
-            //           //     style: theme.textTheme.bodyText1?.copyWith(
+            //           //     style: theme.textTheme.bodyMedium?.copyWith(
             //           //   //color: Colors.grey
             //           //   fontWeight: FontWeight.w400
             //           // ),
@@ -217,7 +218,7 @@ class _openquoteState extends State<openquote> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                           "Customer",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -225,7 +226,7 @@ class _openquoteState extends State<openquote> {
                                         width: Screens.width(context) * 0.4,
                                         child: Text(
                                           "",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -240,7 +241,7 @@ class _openquoteState extends State<openquote> {
                                         child: Text(
                                             "${widget.leadOpenAllData[i].CustomerName}", //  "${context.watch<EnquiryUserContoller>().getopenEnqData[i].CardName}",
                                             style:
-                                                widget.theme.textTheme.bodyText2?.copyWith(
+                                                widget.theme.textTheme.bodyMedium?.copyWith(
                                               color: widget.theme.primaryColor,
                                               // fontWeight: FontWeight.bold
                                             )),
@@ -258,7 +259,7 @@ class _openquoteState extends State<openquote> {
                                             // .alignDate(
                                             //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].EnqDate}"),
                                             style:
-                                                widget.theme.textTheme.bodyText2?.copyWith(
+                                                widget.theme.textTheme.bodyMedium?.copyWith(
                                               color: widget.theme.primaryColor,
                                               //fontWeight: FontWeight.bold
                                             )),
@@ -277,7 +278,7 @@ class _openquoteState extends State<openquote> {
                                         width: Screens.width(context),
                                         child: Text(
                                           "Product",
-                                          style: widget.theme.textTheme.bodyText2
+                                          style: widget.theme.textTheme.bodyMedium
                                               ?.copyWith(color: Colors.grey),
                                         ),
                                       ),
@@ -286,7 +287,7 @@ class _openquoteState extends State<openquote> {
                                         // color: Colors.red,
                                         child: Text(
                                         "${widget.leadOpenAllData[i].Product}",
-                                            style: widget.theme.textTheme.bodyText2
+                                            style: widget.theme.textTheme.bodyMedium
                                             //?.copyWith(color: Colors.grey),
                                             ),
                                       ),
@@ -305,7 +306,7 @@ class _openquoteState extends State<openquote> {
                                         child: Text(
                                             "Quotes Date", //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                             style:
-                                                widget.theme.textTheme.bodyText2?.copyWith(
+                                                widget.theme.textTheme.bodyMedium?.copyWith(
                                                     //color:theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
                                                     color: Colors.grey)),
@@ -317,7 +318,7 @@ class _openquoteState extends State<openquote> {
                                         child: Text(
                                             "Quotes Value", //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
                                             style:
-                                                widget.theme.textTheme.bodyText2?.copyWith(
+                                                widget.theme.textTheme.bodyMedium?.copyWith(
                                                     //color:theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
                                                     color: Colors.grey)),
@@ -339,7 +340,7 @@ class _openquoteState extends State<openquote> {
                                                     .alignDate(
                                                         "${widget.leadOpenAllData[i].createdon}"), //  "Looking for ${context.watch<EnquiryUserContoller>().getopenEnqData[i].Lookingfor}",
                                             style:
-                                                widget.theme.textTheme.bodyText2?.copyWith(
+                                                widget.theme.textTheme.bodyMedium?.copyWith(
                                                     //color:theme.primaryColor,
                                                     //fontWeight: FontWeight.bold
                                                     )),
@@ -371,7 +372,7 @@ class _openquoteState extends State<openquote> {
                                                           .Value!
                                                           .toStringAsFixed(
                                                               0)), //  "₹ ${context.watch<EnquiryUserContoller>().getopenEnqData[i].PotentialValue}",
-                                              style: widget.theme.textTheme.bodyText2
+                                              style: widget.theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                       //color:theme.primaryColor,
                                                       //fontWeight: FontWeight.bold
@@ -404,7 +405,7 @@ class _openquoteState extends State<openquote> {
                                                       .isEmpty
                                                   ? ''
                                                   : "${widget.leadOpenAllData[i].OrderStatus}",
-                                              style: widget.theme.textTheme.bodyText2
+                                              style: widget.theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                                 //color:theme.primaryColor,
                                                 color: Colors.green[700],
@@ -435,7 +436,7 @@ class _openquoteState extends State<openquote> {
                                                       .alignDate(
                                                           "${widget.leadOpenAllData[i].createdon}"), //     "${context.watch<EnquiryUserContoller>().getopenEnqData[i].Status}",
                                           style:
-                                              widget.theme.textTheme.bodyText2?.copyWith(
+                                              widget.theme.textTheme.bodyMedium?.copyWith(
                                             color: Colors.grey,
                                             // color: Colors.green[700],
                                             // fontWeight: FontWeight.bold

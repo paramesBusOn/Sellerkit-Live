@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../Constant/Screen.dart';
-import '../../../Controller/ScoreCardController/Scorecardcontroller.dart';
+import '../../../Controller/ScoreCardController/scorecard_controller.dart';
 
 class PositionWidget extends StatelessWidget {
   PositionWidget({
@@ -26,7 +26,7 @@ class PositionWidget extends StatelessWidget {
             // context
             //     .watch<ScoreCardController>()
             prdFUP.getlistViewData[0].title.toString(),
-            style: theme.textTheme.bodyText1?.copyWith(color: Colors.white),
+            style: theme.textTheme.bodyMedium?.copyWith(color: Colors.white),
           )),
       SizedBox(
         height: Screens.bodyheight(context) * 0.02,
@@ -42,7 +42,7 @@ class PositionWidget extends StatelessWidget {
               width: Screens.width(context) * 0.4,
               child: Text(
                 prdFUP.getlistViewData[0].name.toString(),
-                style: theme.textTheme.subtitle1?.copyWith(
+                style: theme.textTheme.titleMedium?.copyWith(
                     color: theme.primaryColor, fontWeight: FontWeight.bold),
               ),
             ),
@@ -52,7 +52,7 @@ class PositionWidget extends StatelessWidget {
               child: Text(
                 prdFUP.configg
                     .subtractDateTime("${prdFUP.getlistViewData[0].date}"),
-                style: theme.textTheme.bodyText2?.copyWith(color: Colors.grey),
+                style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
               ),
             ),
           ],

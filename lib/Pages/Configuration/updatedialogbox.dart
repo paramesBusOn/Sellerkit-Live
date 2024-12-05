@@ -6,15 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Controller/ConfigurationController/ConfigurationController.dart';
-import 'package:sellerkit/DBHelper/DBOperation.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
+import 'package:sellerkit/Controller/ConfigurationController/configuration_controller.dart';
+import 'package:sellerkit/DBHelper/db_operation.dart';
 import 'package:sellerkit/Pages/Configuration/ConfigurationPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../Constant/Screen.dart';
-import '../../DBHelper/DBHelper.dart';
+import '../../DBHelper/db_helper.dart';
 
 class Upgraderdialogbox extends StatefulWidget {
   Upgraderdialogbox({
@@ -68,7 +69,7 @@ class ShowSearchDialogState extends State<Upgraderdialogbox> {
             ),
             Text(
               "There is a new version of the app",
-              style: theme.textTheme.bodyText1,
+              style: theme.textTheme.bodyMedium,
             ),
             IntrinsicHeight(
               child: Row(

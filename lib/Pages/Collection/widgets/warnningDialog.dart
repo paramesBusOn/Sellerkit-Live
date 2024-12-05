@@ -96,7 +96,7 @@ class _FollowUPDialogPGState extends State<warningDialog> {
                         Container(
                           child: Text(
                             "${widget.msg}",
-                            style: theme.textTheme.bodyText1?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.primaryColor,
                                 fontWeight: FontWeight.w400),
                           ),
@@ -104,7 +104,7 @@ class _FollowUPDialogPGState extends State<warningDialog> {
                         // Container(
                         //   child: Text(
                         //     "Click Here",
-                        //     style: theme.textTheme.bodyText2
+                        //     style: theme.textTheme.bodyMedium
                         //         ?.copyWith(color: Colors.grey),
                         //   ),
                         // ),

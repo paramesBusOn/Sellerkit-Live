@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:sellerkit/DBModel/EnqTypeModel.dart';
+import 'package:sellerkit/DBModel/enqtype_model.dart';
 
 class OfferZoneModel {
   List<OfferZoneData>? offerZoneData1;

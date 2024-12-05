@@ -5,12 +5,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import 'package:sellerkit/Constant/Screen.dart';
 import 'package:sellerkit/Pages/PriceAvailability/Screen/showdialogst.dart';
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../Constant/padings.dart';
-import '../../../Controller/PriceListController/PriceListController.dart';
+import '../../../Controller/PriceListController/pricelist_controller.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
 
@@ -97,7 +98,7 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                      },
                      decoration: InputDecoration(
                        filled: false,
-                       hintText: 'Search Here!!..',
+                       hintText: 'Search Here..',
                        enabledBorder: InputBorder.none,
                        focusedBorder: InputBorder.none,
                        prefixIcon: IconButton(
@@ -235,27 +236,27 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                             SizedBox(
                                               width: Screens.width(context) * 0.4,
                                               child: Text(
-                                                  "Item code: ${context.watch<PriceListController>().getlistPriceAvail[i].itemCode}",
-                                                  style: theme.textTheme.bodyText1
+                                                  "Item Code: ${context.watch<PriceListController>().getlistPriceAvail[i].itemCode}",
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color:
-                                                              theme.primaryColor)),
+                                                              theme.primaryColor,fontSize: 13)),
                                             ),
                                             Container(
                                               alignment: Alignment.centerRight,
                                               width: Screens.width(context) * 0.4,
                                               child: Column(
                                                 children: [
-                                                   Text("Store code: ${context.watch<PriceListController>().getlistPriceAvail[i].storeCode}",
-                                                    style: theme.textTheme.bodyText1
+                                                   Text("Store Code: ${context.watch<PriceListController>().getlistPriceAvail[i].storeCode}",
+                                                    style: theme.textTheme.bodyMedium
                                                         ?.copyWith( color:
-                                                              theme.primaryColor),),
+                                                              theme.primaryColor,fontSize: 13),),
                                                   Text(
                                                     context.watch<PriceListController>().subtractDateTime(context.watch<PriceListController>().getlistPriceAvail[i].refreshedRecordDate!),
                                             // "Store code: ${context.watch<PriceListController>().getlistPriceAvail[i].storeCode}",
                                                    
                                              //   " ${context.watch<PriceListController>().getlistPriceAvail[i].refreshedRecordDate}",
-                                                    style: theme.textTheme.bodyText1
+                                                    style: theme.textTheme.bodyMedium
                                                         ?.copyWith(color: Colors.grey),
                                                   ),
                                                 ],
@@ -275,26 +276,27 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                           alignment: Alignment.centerLeft,
                                           width: Screens.width(context) * 0.4,
                                           child: Text("Product",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(color: Colors.grey)),
                                         ),
                                         SizedBox(
                                           height:
-                                              Screens.bodyheight(context) * 0.01,
+                                              Screens.bodyheight(context) * 0.005,
                                         ),
                                            Container(
                                             //  color: Colors.red,
                                               width: Screens.width(context) ,
                                               child: Text(
                                                   "${context.watch<PriceListController>().getlistPriceAvail[i].itemName}",
-                                                  style: theme.textTheme.bodyText1
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
+                                                        fontSize: 13
                                                           //color: theme.primaryColor
                                                           )),
                                             ),
                                              SizedBox(
                                           height:
-                                              Screens.bodyheight(context) * 0.01,
+                                              Screens.bodyheight(context) * 0.005,
                                         ),
                                         Row(
                                           mainAxisAlignment:
@@ -306,7 +308,7 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                               ConstantValues.sapUserType.toLowerCase()=='manager'?
                                               "${context.watch<PriceListController>().getlistPriceAvail[i].mgrPrice}"
                                            :'', 
-                                             style: theme.textTheme.bodyText1
+                                             style: theme.textTheme.bodyMedium
                                                   ?.copyWith(
                                               color:
                                                   theme.primaryColor),
@@ -317,7 +319,7 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                                alignment: Alignment.centerRight,
                                                child: Text(
                                                  "${context.watch<PriceListController>().config.slpitCurrency22(context.watch<PriceListController>().getlistPriceAvail[i].sp.toString())}",
-                                                 style: theme.textTheme.bodyText1
+                                                 style: theme.textTheme.bodyMedium
                                                      ?.copyWith(
                                                  color:
                                                      theme.primaryColor),
@@ -340,13 +342,13 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                            Text("Features",style:  theme.textTheme.bodyText1
+                                            Text("Features",style:  theme.textTheme.bodyMedium
                                                   ?.copyWith(color: theme.primaryColor),),
                                         Row(children: [
                                           
                                        context.watch<PriceListController>().getlistPriceAvail[i].brandCode!.isEmpty?Container():   Container(
                                              width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].brandCode}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].brandCode}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           ),),
@@ -356,7 +358,7 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                           
                                     context.watch<PriceListController>().getlistPriceAvail[i].itemDescription!.isEmpty?Container():      Container(
                                              width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].itemDescription}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].itemDescription}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           )),
@@ -365,12 +367,12 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                         Row(children: [
                                           // Container(
                                           //    width: Screens.width(context) * 0.3,
-                                          //   child: Text("Specification",style: theme.textTheme.bodyText1
+                                          //   child: Text("Specification",style: theme.textTheme.bodyMedium
                                           //         ?.copyWith(color: Colors.grey)),
                                           // ),
                                     context.watch<PriceListController>().getlistPriceAvail[i].specification!.isEmpty?Container():      Container(
                                              width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].specification}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].specification}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           )),
@@ -379,12 +381,12 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                         Row(children: [
                                           // Container(
                                           //   width: Screens.width(context) * 0.3,
-                                          //   child: Text("Clasification",style: theme.textTheme.bodyText1
+                                          //   child: Text("Clasification",style: theme.textTheme.bodyMedium
                                           //         ?.copyWith(color: Colors.grey)),
                                           // ),
                                   context.watch<PriceListController>().getlistPriceAvail[i].clasification!.isEmpty?Container():        Container(
                                              width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].clasification}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].clasification}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           )),
@@ -393,12 +395,12 @@ class PriceAvailability2State extends State<ListPriceAvailability> {
                                          Row(children: [
                                           // Container(
                                           //    width: Screens.width(context) * 0.3,
-                                          //   child: Text("Color",style: theme.textTheme.bodyText1
+                                          //   child: Text("Color",style: theme.textTheme.bodyMedium
                                           //         ?.copyWith(color: Colors.grey)),
                                           // ),
                                    context.watch<PriceListController>().getlistPriceAvail[i].color!.isEmpty?Container():       Container(
                                             width: Screens.width(context) * 0.7,
-                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].color}", style: theme.textTheme.bodyText1
+                                            child: Text("* ${context.watch<PriceListController>().getlistPriceAvail[i].color}", style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           //color: theme.primaryColor
                                                           )),

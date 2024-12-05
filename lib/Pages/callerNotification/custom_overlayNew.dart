@@ -13,7 +13,8 @@
 // import 'package:get/get.dart';
 // import 'package:get/get_utils/src/extensions/string_extensions.dart';
 // import 'package:provider/provider.dart';
-// import 'package:sellerkit/Constant/ConstantSapValues.dart';
+// import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 // import 'package:sellerkit/Constant/Helper.dart';
 // import 'package:sellerkit/Constant/Screen.dart';
 // import 'package:sellerkit/Constant/Utils.dart';
@@ -2072,7 +2073,7 @@
 //     Container(
 //                         child: Text(
 //                           followup!,
-//                           style: theme.textTheme.bodyText2?.copyWith(
+//                           style: theme.textTheme.bodyMedium?.copyWith(
 //                             color: getfollowup!.contains(" *")
 //                                 ? Colors.red
 //                                 : theme.primaryColor,
@@ -2097,7 +2098,7 @@
 //                       Container(
 //                         child: Text(
 //                           "What is the case status now?",
-//                           style: theme.textTheme.bodyText2
+//                           style: theme.textTheme.bodyMedium
 //                               ?.copyWith(color: theme.primaryColor),
 //                         ),
 //                       ),
@@ -2142,7 +2143,7 @@
 //                               child: DropdownButton(
 //                                 hint: Text(
 //                                   gethinttextforOpenLead!,
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                       color: gethinttextforOpenLead!
 //                                               .contains(" *")
 //                                           ? Colors.red
@@ -2191,7 +2192,7 @@
 //                               child: DropdownButton(
 //                                 hint: Text(
 //                                   gethinttextforWonLead!,
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                       color:gethinttextforWonLead!
 //                                               .contains(" *")
 //                                           ? Colors.red
@@ -2246,7 +2247,7 @@
 //                             //       ),
 //                             //       hintText: callCon.getorderBillRefer!,
 //                             //       hintStyle:
-//                             //           theme.textTheme.bodyText2?.copyWith(
+//                             //           theme.textTheme.bodyMedium?.copyWith(
 //                             //         color:
 //                             //             callCon.getorderBillRefer!.contains(" *")
 //                             //                 ? Colors.red
@@ -2265,7 +2266,7 @@
 //                                 Container(
 //                                     child: Text(
 //                                  getorderBillDate!, // "Next Follow up",
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                     color:
 //                                         getorderBillDate!.contains(" *")
 //                                             ? Colors.red
@@ -2297,7 +2298,7 @@
 //                                           child: Text(
 //                                             getnextWonFD,
 //                                             //callCon.getnextFD,
-//                                             style: theme.textTheme.bodyText2
+//                                             style: theme.textTheme.bodyMedium
 //                                                 ?.copyWith(), //fontSize: 12
 //                                           ),
 //                                         ),
@@ -2340,7 +2341,7 @@
 //                               child: DropdownButton(
 //                                 hint: Text(
 //                                   gethinttextforLostLead!,
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                       color:gethinttextforLostLead!
 //                                               .contains(" *")
 //                                           ? Colors.red
@@ -2376,7 +2377,7 @@
 //  ,Container(
 //                         child: Text(
 //                           getfeedbackLead!, // "Feedback",
-//                           style: theme.textTheme.bodyText2?.copyWith(
+//                           style: theme.textTheme.bodyMedium?.copyWith(
 //                             color: getfeedbackLead!.contains(" *")
 //                                 ? Colors.red
 //                                 : Colors.grey,
@@ -2413,7 +2414,7 @@
 //                                 Container(
 //                                     child: Text(
 //                                  getnextFollowupDate!, // "Next Follow up",
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                     color: getnextFollowupDate!
 //                                             .contains(" *")
 //                                         ? Colors.red
@@ -2445,7 +2446,7 @@
 //                                           child: Text(
 //                                            getnextFD,
 //                                             //fUPCon.getnextFD,
-//                                             style: theme.textTheme.bodyText2
+//                                             style: theme.textTheme.bodyMedium
 //                                                 ?.copyWith(), //fontSize: 12
 //                                           ),
 //                                         ),
@@ -2477,7 +2478,7 @@
 //                                 Container(
 //                                     child: Text(
 //                                   getnextFollowupTime!, // "Next Follow up",
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                     color: getnextFollowupTime!
 //                                             .contains(" *")
 //                                         ? Colors.red
@@ -2511,7 +2512,7 @@
 //                                           child: Text(
 //                                             getnextFDTime,
 //                                             //fUPCon.getnextFD,
-//                                             style: theme.textTheme.bodyText2
+//                                             style: theme.textTheme.bodyMedium
 //                                                 ?.copyWith(), //fontSize: 12
 //                                           ),
 //                                         ),
@@ -2536,7 +2537,7 @@
 //                           :errorTime.isEmpty?Container():  Row(
 //                             mainAxisAlignment: MainAxisAlignment.end,
 //                             children: [
-//                               Text("${errorTime}",style: theme.textTheme.bodyText2!.copyWith(
+//                               Text("${errorTime}",style: theme.textTheme.bodyMedium!.copyWith(
 //                                 color: Colors.red
 //                               ) ,),
 //                             ],
@@ -2553,7 +2554,7 @@
 //                                 mainAxisAlignment: MainAxisAlignment.end,
 //                                 children: [
 //                                   Text('Required Site Visit',
-//                                  style:  theme.textTheme.bodyText2?.copyWith(
+//                                  style:  theme.textTheme.bodyMedium?.copyWith(
 //                                     color:  Colors.grey,
 //                                   ), // fontSize: 12
 //                                 ),
@@ -2578,7 +2579,7 @@
 //                                 Container(
 //                                     child: Text(
 //                                   getnextVisitDate!, // "Next Follow up",
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                     color:
 //                                         getnextVisitDate!.contains(" *")
 //                                             ? Colors.red
@@ -2610,7 +2611,7 @@
 //                                           child: Text(
 //                                             visitDt,
 //                                             //fUPCon.getnextFD,
-//                                             style: theme.textTheme.bodyText2
+//                                             style: theme.textTheme.bodyMedium
 //                                                 ?.copyWith(), //fontSize: 12
 //                                           ),
 //                                         ),
@@ -2642,7 +2643,7 @@
 //                                 Container(
 //                                     child: Text(
 //                                  nextVisitTime!, // "Next Follow up",
-//                                   style: theme.textTheme.bodyText2?.copyWith(
+//                                   style: theme.textTheme.bodyMedium?.copyWith(
 //                                     color: nextVisitTime!.contains(" *")
 //                                         ? Colors.red
 //                                         : Colors.grey,
@@ -2675,7 +2676,7 @@
 //                                           child: Text(
 //                                             VisitTime,
 //                                             //fUPCon.getnextFD,
-//                                             style: theme.textTheme.bodyText2
+//                                             style: theme.textTheme.bodyMedium
 //                                                 ?.copyWith(), //fontSize: 12
 //                                           ),
 //                                         ),
@@ -2702,7 +2703,7 @@
 //                           :errorVisitTime.isEmpty?Text(''):  Row(
 //                             mainAxisAlignment: MainAxisAlignment.end,
 //                             children: [
-//                               Text("${errorVisitTime}",style: theme.textTheme.bodyText2!.copyWith(
+//                               Text("${errorVisitTime}",style: theme.textTheme.bodyMedium!.copyWith(
 //                                 color: Colors.red
 //                               ) ,),
 //                             ],

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'FeedCrtController.dart';
+import 'feedcrt_controller.dart';
 
 class VideoPage extends StatefulWidget {
   final String filePath;

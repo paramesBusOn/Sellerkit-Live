@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Configuration.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/SiteOutController/SiteOutController.dart';
-import '../../../Constant/ConstantRoutes.dart';
+import 'package:sellerkit/Constant/menu_auth.dart';
+import 'package:sellerkit/Controller/SiteOutController/siteout_controller.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
 import '../../../Models/PostQueryModel/OrdersCheckListModel/OrdersSavePostModel/OrderCheckListPost.dart';
 import '../../../Widgets/Appbar.dart';
 import '../../../Widgets/Navi3.dart';
@@ -106,7 +107,7 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                                         child: Text(
                                       "Site Checked-Out Successfully",
                                       textAlign: TextAlign.center,
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(color: theme.primaryColor),
                                     )),
                                   ),
@@ -135,10 +136,29 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                                                     .watch<SiteOutController>()
                                                     .valueLead,
                                                 onToggle: (val) {
-                                                  context
+                                                   if( MenuAuthDetail.Leads == "Y"){
+                                                    context
                                                       .read<SiteOutController>()
                                                       .checkboxselectLead(val,
                                                           mobileno.toString());
+                                                   }else{
+                                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings2(context));
+                                        });
+                                                   }
+                                                  
                                                   //  print(val);
                                                   // setState(() {
                                                   //   switched = val;
@@ -175,10 +195,31 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                                                     .watch<SiteOutController>()
                                                     .valueOrder,
                                                 onToggle: (val) {
-                                                  context
+                                                  if( MenuAuthDetail.Orders == "Y"){
+                                                     context
                                                       .read<SiteOutController>()
                                                       .checkboxselectOrder(val,
                                                           mobileno.toString());
+
+                                                  }else{
+                                                     showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings2(context));
+                                        });
+
+                                                  }
+                                                 
                                                   //  print(val);
                                                   // setState(() {
                                                   //   switched = val;
@@ -215,10 +256,30 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                                                     .watch<SiteOutController>()
                                                     .valuecollection,
                                                 onToggle: (val) {
-                                                  context
+                                                  if( MenuAuthDetail.Collection == "Y"){
+                                                     context
                                                       .read<SiteOutController>()
                                                       .checkboxselectCollection(val,
                                                           mobileno.toString());
+
+                                                  }else{
+                                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings2(context));
+                                        });
+                                                  }
+                                                 
                                                   //  print(val);
                                                   // setState(() {
                                                   //   switched = val;
@@ -377,7 +438,7 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                               //   child: Center(
                               //       child: Text(
                               //     "Site Check-Out #23212",
-                              //     style: theme.textTheme.bodyText2,
+                              //     style: theme.textTheme.bodyMedium,
                               //     textAlign: TextAlign.center,
                               //   )),
                               // ),
@@ -391,7 +452,7 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                               //   child: Center(
                               //       child: Text(
                               //     "${context.read<NewCollectionContoller>().mycontroller[1].text.toString()}",
-                              //     style: theme.textTheme.bodyText2,
+                              //     style: theme.textTheme.bodyMedium,
                               //     textAlign: TextAlign.center,
                               //   )),
                               // ),
@@ -405,7 +466,7 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                               //   child: Center(
                               //       child: Text(
                               //     "Card Amount Rs.${context.read<SettlementController>().totalCard()}",
-                              //     style: theme.textTheme.bodyText2,
+                              //     style: theme.textTheme.bodyMedium,
                               //     textAlign: TextAlign.center,
                               //   )),
                               // ),
@@ -443,7 +504,7 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                               //         },
                               //         child: Text(
                               //           "Print Receipt ",
-                              //           style: theme.textTheme.bodyText2!.copyWith(
+                              //           style: theme.textTheme.bodyMedium!.copyWith(
                               //               decoration: TextDecoration.underline),
                               //           textAlign: TextAlign.center,
                               //         ),
@@ -494,7 +555,7 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
                               //   child: Center(
                               //       child: Text(
                               //     "Delivery Date "+config.alignDate(getsuccessRes!.U_sk_NextFollowDt!).toString(),
-                              //     style: theme.textTheme.bodyText2,
+                              //     style: theme.textTheme.bodyMedium,
                               //     textAlign: TextAlign.center,
                               //   )),
                               // ),
@@ -596,7 +657,76 @@ class SiteOutSuccessCardState extends State<SiteOutSuccessCard> {
       (index) => Container(
           width: Screens.width(context),
           child: Text(data[index].ItemDescription.toString(),
-              textAlign: TextAlign.center, style: theme.textTheme.bodyText2)),
+              textAlign: TextAlign.center, style: theme.textTheme.bodyMedium)),
     );
   }
+  settings2(BuildContext context) {
+  final theme = Theme.of(context);
+  return StatefulBuilder(builder: (context, st) {
+    return Container(
+      padding: EdgeInsets.only(
+          top: Screens.padingHeight(context) * 0.01,
+          left: Screens.width(context) * 0.03,
+          right: Screens.width(context) * 0.03,
+          bottom: Screens.padingHeight(context) * 0.01),
+      width: Screens.width(context) * 1.1,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: Screens.width(context),
+              height: Screens.padingHeight(context) * 0.05,
+              color: theme.primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: Screens.padingHeight(context) * 0.02,
+                        right: Screens.padingHeight(context) * 0.02),
+                    // color: Colors.red,
+                    width: Screens.width(context) * 0.5,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Alert",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        size: Screens.padingHeight(context) * 0.025,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+            Container(
+                alignment: Alignment.center,
+                width: Screens.width(context),
+                child: Text('You are not authorised..!!')),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+          ],
+        ),
+      ),
+    );
+  });
+}
 }

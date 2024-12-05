@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../Constant/Screen.dart';
-import '../../../Controller/SettlementController/SettlementController.dart';
+import '../../../Controller/SettlementController/settlement_controller.dart';
 import 'SettlementPdfHelper.dart';
 
 class ChequeTabPage extends StatelessWidget {
@@ -62,7 +62,7 @@ class ChequeTabPage extends StatelessWidget {
                         // repeat: true,
                         
                         height: Screens.padingHeight(context) * 0.2,
-                        width: Screens.width(context)*0.5
+                        width: Screens.width(context)*0.4
                         ),
                   ):              InkWell(
                     onTap: () {
@@ -75,6 +75,34 @@ class ChequeTabPage extends StatelessWidget {
                         // height: Screens.padingHeight(context) * 0.3,
                         width: Screens.width(context) * 0.4),
                   ),
+                   context.watch<SettlementController>().errormsg!
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "NO INTERNET CONNECTION",
+                                                      style: theme
+                                                          .textTheme.bodyMedium
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: theme
+                                                                  .primaryColor),
+                                                    )
+                                                  : Container(),
+                                               context.watch<SettlementController>().errormsg!
+                                                      .contains("Network Issue")
+                                                  ? Text(
+                                                      "You are not connected to internet. Please connect to the internet and try again.",
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: theme
+                                                          .textTheme.bodyMedium!
+                                                          .copyWith(),
+                                                    )
+                                                  : Container(),
+                                               context.watch<SettlementController>().errormsg!
+                                                      .contains("Network Issue")
+                                                  ? Container():
                               Text(
                                   '${context.watch<SettlementController>().errormsg}',textAlign: TextAlign.center,),
                             ],
@@ -153,7 +181,7 @@ class ChequeTabPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Customer",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -162,7 +190,7 @@ class ChequeTabPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "# ${context.watch<SettlementController>().settelGetListCheque[i].DocNum}",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -175,7 +203,7 @@ class ChequeTabPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                       "${context.watch<SettlementController>().settelGetListCheque[i].CustomerName}",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                         color: theme.primaryColor,
                                         // fontWeight: FontWeight.bold
@@ -185,7 +213,7 @@ class ChequeTabPage extends StatelessWidget {
                                   alignment: Alignment.centerRight,
                                   width: Screens.width(context) * 0.4,
                                   child: Text('${ context.watch<SettlementController>().config.alignDateT( context.watch<SettlementController>().settelGetListCheque[i].DocDate.toString())}',
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
@@ -203,7 +231,7 @@ class ChequeTabPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "Total Amount",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -212,7 +240,7 @@ class ChequeTabPage extends StatelessWidget {
                                   width: Screens.width(context) * 0.4,
                                   child: Text(
                                     "${context.watch<SettlementController>().settelGetListCheque[i].Mode}",
-                                    style: theme.textTheme.bodyText2
+                                    style: theme.textTheme.bodyMedium
                                         ?.copyWith(color: Colors.grey),
                                   ),
                                 ),
@@ -227,7 +255,7 @@ class ChequeTabPage extends StatelessWidget {
                                                           .read<
                                                               SettlementController>()
                                                           .config.slpitCurrency22(context.watch<SettlementController>().settelGetListCheque[i].totalAmount!.toString())}",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
@@ -242,7 +270,7 @@ class ChequeTabPage extends StatelessWidget {
                                                               SettlementController>()
                                                           .config.slpitCurrency22(context.watch<SettlementController>().settelGetListCheque[i].Amount!.toString())}',
                                       //"₹ ${context.watch<EnquiryMangerContoller>().getopenEnqData[i].PotentialValue}",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
@@ -270,7 +298,7 @@ class ChequeTabPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(5)),
                                   child: Text('${context.watch<SettlementController>().settelGetListCheque[i].ref}',
                                       //"₹ ${context.watch<EnquiryMangerContoller>().getopenEnqData[i].PotentialValue}",
-                                      style: theme.textTheme.bodyText2
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(
                                         color: theme.primaryColor,
                                         //fontWeight: FontWeight.bold
@@ -307,7 +335,7 @@ class ChequeTabPage extends StatelessWidget {
                     Text("Cheque Total Rs.${context.watch<SettlementController>().totalCheque()}",
                         maxLines: 8,
                         overflow: TextOverflow.ellipsis,
-                        style: theme.textTheme.bodyText1?.copyWith(
+                        style: theme.textTheme.bodyMedium?.copyWith(
                           color: theme.primaryColor,
                         ))
                   ],

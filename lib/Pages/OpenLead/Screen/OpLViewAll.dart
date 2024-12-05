@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import '../../../Constant/Screen.dart';
-import '../../../Controller/OpenLeadController/OpenLeadController.dart';
+import '../../../Controller/OpenLeadController/openlead_controller.dart';
 
 class OPLViewALL extends StatefulWidget {
    OPLViewALL({
@@ -92,7 +93,7 @@ class _OPLViewALLState extends State<OPLViewALL> {
             child: Text(openLeadController.getviewData[index].discColumn!,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: theme.textTheme.bodyText1?.copyWith(
+                style: theme.textTheme.bodyMedium?.copyWith(
                   fontSize: 12,
                   color:openLeadController.getviewData[index].color == 1
                       ? Colors.white

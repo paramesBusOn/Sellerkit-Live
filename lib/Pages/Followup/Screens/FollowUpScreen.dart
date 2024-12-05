@@ -73,7 +73,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
                       SizedBox(height: Screens.bodyheight(context)*0.02,),
                       Container(
                           width: Screens.width(context), child: Text("Today - ${now.MEd}",
-                          style: theme.textTheme.bodyText1?.copyWith(color: Colors.grey),
+                          style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
                           )),
                       Expanded(child: ListView.builder(
                         itemCount: 10,
@@ -110,7 +110,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
                                  // height: Screens.bodyheight(context)*0.05,
                                  // color: Colors.yellow,
                                         child: Text("26m",textAlign: TextAlign.center,
-                                        style: theme.textTheme.bodyText2?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey
                                         ),
                                         ),
@@ -128,12 +128,12 @@ class _FollowUpPageState extends State<FollowUpPage> {
                                     children: [
                                       Container(child: Text('5:00 pm',
                                      /// textAlign:TextAlign.center,
-                                        style: theme.textTheme.bodyText2?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.grey
                                         ),)),
                                       Container(child: Text('Call with sam',
                                      //  textAlign:TextAlign.center,
-                                        style: theme.textTheme.bodyText1?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                          // color: Colors.grey
                                         ),
                                       )),
@@ -156,7 +156,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
                                   ),
                                   child: Text("G",
                                     textAlign:TextAlign.center,
-                                        style: theme.textTheme.bodyText2?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.white
                                         ),),
                                      )  ,
@@ -170,7 +170,7 @@ class _FollowUpPageState extends State<FollowUpPage> {
                                   ),
                                   child: Text("G",
                                     textAlign:TextAlign.center,
-                                        style: theme.textTheme.bodyText2?.copyWith(
+                                        style: theme.textTheme.bodyMedium?.copyWith(
                                           color: Colors.white
                                         ),),
                                      )  ,

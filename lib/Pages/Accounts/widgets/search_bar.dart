@@ -1,7 +1,8 @@
  import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sellerkit/Controller/AccountsController/accounts_controller.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/AccountsController/AccountsController.dart';
+import 'package:sellerkit/Controller/AccountsController/accounts_controller.dart';
 
 class SearchbarWidget extends StatelessWidget {
   const SearchbarWidget({
@@ -36,7 +37,7 @@ class SearchbarWidget extends StatelessWidget {
         },
         decoration: InputDecoration(
           filled: false,
-          hintText: 'Search Here!!..',
+          hintText: 'Search Here..',
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           suffixIcon: IconButton(

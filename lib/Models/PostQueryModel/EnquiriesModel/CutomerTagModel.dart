@@ -2,7 +2,7 @@
 
 import 'dart:convert';
 
-import '../../../DBModel/EnqTypeModel.dart';
+import '../../../DBModel/enqtype_model.dart';
 // import '../../../DBModel/EnqTypeModel.dart';
 
 class CustomerTagTypeModal {

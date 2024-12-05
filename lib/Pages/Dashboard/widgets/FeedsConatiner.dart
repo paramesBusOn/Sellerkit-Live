@@ -97,7 +97,7 @@
 //                           width: Screens.width(context) * 0.8,
 //                           child: Text(
 //                             "${widget.feedData.leadcheckdata2!.CreatedBy}",
-//                             style: theme.textTheme.bodyText2?.copyWith(),
+//                             style: theme.textTheme.bodyMedium?.copyWith(),
 //                           ),
 //                         ),
 //                         Container(
@@ -108,7 +108,7 @@
 //                           child: Text(
 //                             widget.pvdDSBD.config
 //                                 .subtractDateTime(widget.feedData.leadcheckdata2!.CreatedDate!),
-//                             style: theme.textTheme.bodyText2
+//                             style: theme.textTheme.bodyMedium
 //                                 ?.copyWith(color: Colors.grey),
 //                           ),
 //                         ),
@@ -130,13 +130,13 @@
 //                     alignment: Alignment.centerLeft,
 //                     child: Text(
 //                       "${widget.feedData.leadcheckdata2!.Title}",
-//                       style: theme.textTheme.subtitle1,
+//                       style: theme.textTheme.titleMedium,
 //                     ),
 //                   ),
 //                   ExpandableText(
 //                     '${widget.feedData.leadcheckdata2!.Description}',
 //                     style:
-//                         theme.textTheme.bodyText2?.copyWith(color: Colors.grey),
+//                         theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
 //                     expandText: 'more',
 //                     collapseText: 'less',
 //                     maxLines: 2,
@@ -231,7 +231,7 @@
 //                                                       child: Text(
 //                                                     widget.feedData.leadcheckdata2!.Title!,
 //                                                     style: theme
-//                                                         .textTheme.bodyText2,
+//                                                         .textTheme.bodyMedium,
 //                                                     textAlign: TextAlign.center,
 //                                                   ))),
 //                                             ])
@@ -273,7 +273,7 @@
 //                                                           child: Text(
 //                                                         widget.feedData.leadcheckdata2!.Title!,
 //                                                         style: theme.textTheme
-//                                                             .bodyText2,
+//                                                             .bodyMedium,
 //                                                         textAlign:
 //                                                             TextAlign.center,
 //                                                       ))),
@@ -321,7 +321,7 @@
 //                                                                 .Title!,
 //                                                             style: theme
 //                                                                 .textTheme
-//                                                                 .bodyText2,
+//                                                                 .bodyMedium,
 //                                                             textAlign: TextAlign
 //                                                                 .center,
 //                                                           ))),
@@ -372,7 +372,7 @@
 //                                                                    .leadcheckdata2! .Title!,
 //                                                                 style: theme
 //                                                                     .textTheme
-//                                                                     .bodyText2,
+//                                                                     .bodyMedium,
 //                                                                 textAlign:
 //                                                                     TextAlign
 //                                                                         .center,
@@ -714,7 +714,7 @@
 //                                   ? '\u{1F44D}'
 //                                   :  String.fromCharCode(int.parse(widget.feedData.Reaction!.toString())),
 //                              // context.watch<FeedsControoler>().getSelectedEmoji,
-//                               style: theme.textTheme.headline6,
+//                               style: theme.textTheme.titleLarge,
 //                             ), //1f44c
 //                           ),
 //                         ),

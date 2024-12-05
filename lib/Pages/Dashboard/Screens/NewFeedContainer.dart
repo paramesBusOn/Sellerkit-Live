@@ -14,7 +14,7 @@ import 'package:sellerkit/Pages/Dashboard/widgets/videoplayer2.dart';
 import 'package:swipe_image_gallery/swipe_image_gallery.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../Constant/Screen.dart';
-import '../../../Controller/DashBoardController/DashBoardController.dart';
+import '../../../Controller/DashBoardController/dashboard_controller.dart';
 import '../../../Models/PostQueryModel/FeedsModel/FeedsModel.dart';
 import '../../../Widgets/NetworkPDFViewer.dart';
 //import 'package:simple_url_preview/simple_url_preview.dart';
@@ -114,7 +114,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
                               width: Screens.width(context) * 0.8,
                               child: Text(
                                 "${widget.feedData.createdUserName}",
-                                style: theme.textTheme.bodyText2?.copyWith(),
+                                style: theme.textTheme.bodyMedium?.copyWith(),
                               ),
                             ),
                             Container(
@@ -125,7 +125,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
                               child: Text(
                                 widget.pvdDSBD.config.subtractDateTime(widget
                                     .feedData.leadcheckdata2!.CreatedDate!),
-                                style: theme.textTheme.bodyText2
+                                style: theme.textTheme.bodyMedium
                                     ?.copyWith(color: Colors.grey),
                               ),
                             ),
@@ -153,7 +153,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
                           alignment: Alignment.centerLeft,
                           child: Text(
                             "${widget.feedData.leadcheckdata2!.Title}",
-                            style: theme.textTheme.subtitle1,
+                            style: theme.textTheme.titleMedium,
                           ),
                         ),
                       ),
@@ -161,7 +161,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
                         alignment: Alignment.centerLeft,
                         child: ExpandableText(
                           '${widget.feedData.leadcheckdata2!.Description}',
-                          style: theme.textTheme.bodyText2
+                          style: theme.textTheme.bodyMedium
                               ?.copyWith(color: Colors.grey),
                           expandText: 'more',
                           collapseText: 'less',
@@ -1859,7 +1859,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
                                               //         child: Text(
                                               //       widget.feedData.leadcheckdata2!.Title!,
                                               //       style: theme
-                                              //           .textTheme.bodyText2,
+                                              //           .textTheme.bodyMedium,
                                               //       textAlign: TextAlign.center,
                                               //     ))),
                                             ]
@@ -2197,7 +2197,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
                                           .feedData.Reaction!
                                           .toString())),
                                   // context.watch<FeedsControoler>().getSelectedEmoji,
-                                  style: theme.textTheme.headline6,
+                                  style: theme.textTheme.titleLarge,
                                 ), //1f44c
                               ),
                             ),
@@ -2379,7 +2379,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                               width: Screens.width(context) * 0.8,
 //                               child: Text(
 //                                 "${widget.feedData.leadcheckdata2!.CreatedBy}",
-//                                 style: theme.textTheme.bodyText2?.copyWith(),
+//                                 style: theme.textTheme.bodyMedium?.copyWith(),
 //                               ),
 //                             ),
 //                             Container(
@@ -2390,7 +2390,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                               child: Text(
 //                                 widget.pvdDSBD.config.subtractDateTime(widget
 //                                     .feedData.leadcheckdata2!.CreatedDate!),
-//                                 style: theme.textTheme.bodyText2
+//                                 style: theme.textTheme.bodyMedium
 //                                     ?.copyWith(color: Colors.grey),
 //                               ),
 //                             ),
@@ -2418,7 +2418,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                           alignment: Alignment.centerLeft,
 //                           child: Text(
 //                             "${widget.feedData.leadcheckdata2!.Title}",
-//                             style: theme.textTheme.subtitle1,
+//                             style: theme.textTheme.titleMedium,
 //                           ),
 //                         ),
 //                       ),
@@ -2426,7 +2426,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                         alignment: Alignment.centerLeft,
 //                         child: ExpandableText(
 //                           '${widget.feedData.leadcheckdata2!.Description}',
-//                           style: theme.textTheme.bodyText2
+//                           style: theme.textTheme.bodyMedium
 //                               ?.copyWith(color: Colors.grey),
 //                           expandText: 'more',
 //                           collapseText: 'less',
@@ -2675,7 +2675,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                       child: Text(
 //                                                     widget.feedData.leadcheckdata2!.Title!,
 //                                                     style: theme
-//                                                         .textTheme.bodyText2,
+//                                                         .textTheme.bodyMedium,
 //                                                     textAlign: TextAlign.center,
 //                                                   ))),
 //                                             ])
@@ -2717,7 +2717,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                           child: Text(
 //                                                         widget.feedData.leadcheckdata2!.Title!,
 //                                                         style: theme.textTheme
-//                                                             .bodyText2,
+//                                                             .bodyMedium,
 //                                                         textAlign:
 //                                                             TextAlign.center,
 //                                                       ))),
@@ -2765,7 +2765,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                 .Title!,
 //                                                             style: theme
 //                                                                 .textTheme
-//                                                                 .bodyText2,
+//                                                                 .bodyMedium,
 //                                                             textAlign: TextAlign
 //                                                                 .center,
 //                                                           ))),
@@ -2816,7 +2816,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                    .leadcheckdata2! .Title!,
 //                                                                 style: theme
 //                                                                     .textTheme
-//                                                                     .bodyText2,
+//                                                                     .bodyMedium,
 //                                                                 textAlign:
 //                                                                     TextAlign
 //                                                                         .center,
@@ -3006,7 +3006,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                       child: Text(
 //                                                     widget.feedData.leadcheckdata2!.Title!,
 //                                                     style: theme
-//                                                         .textTheme.bodyText2,
+//                                                         .textTheme.bodyMedium,
 //                                                     textAlign: TextAlign.center,
 //                                                   ))),
 //                                             ])
@@ -3048,7 +3048,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                           child: Text(
 //                                                         widget.feedData.leadcheckdata2!.Title!,
 //                                                         style: theme.textTheme
-//                                                             .bodyText2,
+//                                                             .bodyMedium,
 //                                                         textAlign:
 //                                                             TextAlign.center,
 //                                                       ))),
@@ -3096,7 +3096,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                 .Title!,
 //                                                             style: theme
 //                                                                 .textTheme
-//                                                                 .bodyText2,
+//                                                                 .bodyMedium,
 //                                                             textAlign: TextAlign
 //                                                                 .center,
 //                                                           ))),
@@ -3147,7 +3147,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                    .leadcheckdata2! .Title!,
 //                                                                 style: theme
 //                                                                     .textTheme
-//                                                                     .bodyText2,
+//                                                                     .bodyMedium,
 //                                                                 textAlign:
 //                                                                     TextAlign
 //                                                                         .center,
@@ -3370,7 +3370,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                       child: Text(
 //                                                     widget.feedData.leadcheckdata2!.Title!,
 //                                                     style: theme
-//                                                         .textTheme.bodyText2,
+//                                                         .textTheme.bodyMedium,
 //                                                     textAlign: TextAlign.center,
 //                                                   ))),
 //                                             ])
@@ -3412,7 +3412,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                           child: Text(
 //                                                         widget.feedData.leadcheckdata2!.Title!,
 //                                                         style: theme.textTheme
-//                                                             .bodyText2,
+//                                                             .bodyMedium,
 //                                                         textAlign:
 //                                                             TextAlign.center,
 //                                                       ))),
@@ -3460,7 +3460,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                 .Title!,
 //                                                             style: theme
 //                                                                 .textTheme
-//                                                                 .bodyText2,
+//                                                                 .bodyMedium,
 //                                                             textAlign: TextAlign
 //                                                                 .center,
 //                                                           ))),
@@ -3511,7 +3511,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                    .leadcheckdata2! .Title!,
 //                                                                 style: theme
 //                                                                     .textTheme
-//                                                                     .bodyText2,
+//                                                                     .bodyMedium,
 //                                                                 textAlign:
 //                                                                     TextAlign
 //                                                                         .center,
@@ -3706,7 +3706,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                       child: Text(
 //                                                     widget.feedData.leadcheckdata2!.Title!,
 //                                                     style: theme
-//                                                         .textTheme.bodyText2,
+//                                                         .textTheme.bodyMedium,
 //                                                     textAlign: TextAlign.center,
 //                                                   ))),
 //                                             ])
@@ -3748,7 +3748,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                           child: Text(
 //                                                         widget.feedData.leadcheckdata2!.Title!,
 //                                                         style: theme.textTheme
-//                                                             .bodyText2,
+//                                                             .bodyMedium,
 //                                                         textAlign:
 //                                                             TextAlign.center,
 //                                                       ))),
@@ -3796,7 +3796,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                 .Title!,
 //                                                             style: theme
 //                                                                 .textTheme
-//                                                                 .bodyText2,
+//                                                                 .bodyMedium,
 //                                                             textAlign: TextAlign
 //                                                                 .center,
 //                                                           ))),
@@ -3847,7 +3847,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                    .leadcheckdata2! .Title!,
 //                                                                 style: theme
 //                                                                     .textTheme
-//                                                                     .bodyText2,
+//                                                                     .bodyMedium,
 //                                                                 textAlign:
 //                                                                     TextAlign
 //                                                                         .center,
@@ -4227,7 +4227,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                       child: Text(
 //                                                     widget.feedData.leadcheckdata2!.Title!,
 //                                                     style: theme
-//                                                         .textTheme.bodyText2,
+//                                                         .textTheme.bodyMedium,
 //                                                     textAlign: TextAlign.center,
 //                                                   ))),
 //                                             ])
@@ -4269,7 +4269,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                           child: Text(
 //                                                         widget.feedData.leadcheckdata2!.Title!,
 //                                                         style: theme.textTheme
-//                                                             .bodyText2,
+//                                                             .bodyMedium,
 //                                                         textAlign:
 //                                                             TextAlign.center,
 //                                                       ))),
@@ -4317,7 +4317,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                 .Title!,
 //                                                             style: theme
 //                                                                 .textTheme
-//                                                                 .bodyText2,
+//                                                                 .bodyMedium,
 //                                                             textAlign: TextAlign
 //                                                                 .center,
 //                                                           ))),
@@ -4368,7 +4368,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                                                    .leadcheckdata2! .Title!,
 //                                                                 style: theme
 //                                                                     .textTheme
-//                                                                     .bodyText2,
+//                                                                     .bodyMedium,
 //                                                                 textAlign:
 //                                                                     TextAlign
 //                                                                         .center,
@@ -4635,7 +4635,7 @@ class FeedContainerNewState extends State<FeedContainerNew> {
 //                                           .feedData.Reaction!
 //                                           .toString())),
 //                                   // context.watch<FeedsControoler>().getSelectedEmoji,
-//                                   style: theme.textTheme.headline6,
+//                                   style: theme.textTheme.titleLarge,
 //                                 ), //1f44c
 //                               ),
 //                             ),

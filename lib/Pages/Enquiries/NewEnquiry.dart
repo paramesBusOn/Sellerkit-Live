@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
-import 'package:sellerkit/Controller/EnquiryController/NewEnqController.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
+import 'package:sellerkit/Controller/EnquiryController/newenq_controller.dart';
 import 'package:sellerkit/Pages/Enquiries/EnquiriesUser/Widgets/enqAsign2.dart';
 import '../../Constant/Screen.dart';
-import '../../Constant/ShowSearchDialog.dart';
+import '../../Constant/show_searchdialog.dart';
 import '../../Constant/padings.dart';
 import '../../Widgets/Appbar.dart';
 import '../../Widgets/Navi3.dart';
@@ -770,7 +771,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                     child: Text(
                                                       "Enter Correct State",
                                                       style: theme
-                                                          .textTheme.bodyText2!
+                                                          .textTheme.bodyMedium!
                                                           .copyWith(
                                                               color: Colors.red,
                                                               fontSize: 12),
@@ -936,7 +937,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                               child: DropdownButtonFormField(
                                                 decoration: InputDecoration(
                                                   // hintText: 'Email',
-                                                  labelText: 'Level of Interest',
+                                                  labelText: 'Level Of Interest',
                                                   border: UnderlineInputBorder(),
                                                   enabledBorder:
                                                       UnderlineInputBorder(),
@@ -951,7 +952,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                 //   context
                                                 //       .watch<NewEnqController>()
                                                 //       .gethinttextforOpenLead!,
-                                                //   style: theme.textTheme.bodyText2?.copyWith(
+                                                //   style: theme.textTheme.bodyMedium?.copyWith(
                                                 //       color: context
                                                 //               .watch<NewEnqController>()
                                                 //               .gethinttextforOpenLead!
@@ -1013,7 +1014,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                 //   context
                                                 //       .watch<NewEnqController>()
                                                 //       .gethinttextforOpenLead!,
-                                                //   style: theme.textTheme.bodyText2?.copyWith(
+                                                //   style: theme.textTheme.bodyMedium?.copyWith(
                                                 //       color: context
                                                 //               .watch<NewEnqController>()
                                                 //               .gethinttextforOpenLead!
@@ -1110,7 +1111,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                                   "${context.watch<NewEnqController>().filterstateData[i].stateName}",
                                                                   style: theme
                                                                       .textTheme
-                                                                      .bodyText1
+                                                                      .bodyMedium
                                                                       ?.copyWith(
                                                                           color: theme
                                                                               .primaryColor),
@@ -1435,7 +1436,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                           children: [
                                             Text(
                                               "Refferal",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(color: Colors.white),
                                             ),
                                             SizedBox(
@@ -1475,7 +1476,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                           children: [
                                             Text(
                                               "Required Enquiry Refferal*",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(color: Colors.red),
                                             ),
                                           ],
@@ -1517,7 +1518,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                               children: [
                                                 Text(
                                                   "Enquiry Type",
-                                                  style: theme.textTheme.bodyText1
+                                                  style: theme.textTheme.bodyMedium
                                                       ?.copyWith(
                                                           color: Colors.white),
                                                 ),
@@ -1550,7 +1551,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                           children: [
                                             Text(
                                               "Required Enquiry Type*",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(color: Colors.red),
                                             ),
                                           ],
@@ -1587,9 +1588,9 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                     MainAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    "Required SiteVisit",
+                                                    "Required Sitevisit",
                                                     style: theme
-                                                        .textTheme.bodyText1
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                           // color: theme.primaryColor
                                                             color: Colors.white
@@ -1689,7 +1690,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                           cursorColor:
                                                               Colors.grey,
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   backgroundColor:
                                                                       Colors
@@ -1851,7 +1852,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                           cursorColor:
                                                               Colors.grey,
                                                           style: theme
-                                                              .textTheme.bodyText2
+                                                              .textTheme.bodyMedium
                                                               ?.copyWith(
                                                                   backgroundColor:
                                                                       Colors
@@ -2121,7 +2122,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                             //Reminder
                                             Text(
                                               "Reminder On*",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(color: Colors.white),
                                             ),
     
@@ -2186,7 +2187,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                     // controller: posC.mycontroller[24],
                                                     cursorColor: Colors.grey,
                                                     style: theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             backgroundColor:
                                                                 Colors.white),
@@ -2335,7 +2336,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                                     // controller: posC.mycontroller[24],
                                                     cursorColor: Colors.grey,
                                                     style: theme
-                                                        .textTheme.bodyText2
+                                                        .textTheme.bodyMedium
                                                         ?.copyWith(
                                                             backgroundColor:
                                                                 Colors.white),
@@ -2491,6 +2492,9 @@ class NewEnquiryState extends State<NewEnquiry> {
                                           ],
                                         ),
                                       ),
+                                   
+                                   
+                                   
                                       Visibility(
                                         visible: context
                                             .read<NewEnqController>()
@@ -2499,7 +2503,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                                           children: [
                                             Text(
                                               "${context.read<NewEnqController>().isremaider}",
-                                              style: theme.textTheme.bodyText1
+                                              style: theme.textTheme.bodyMedium
                                                   ?.copyWith(color: Colors.red),
                                             ),
                                           ],
@@ -2594,7 +2598,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                   maxLines: 8,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: context
                                 .watch<NewEnqController>()
                                 .getisSelectedenquirytype ==
@@ -2659,7 +2663,7 @@ class NewEnquiryState extends State<NewEnquiry> {
                   maxLines: 8,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.bodyText1?.copyWith(
+                  style: theme.textTheme.bodyMedium?.copyWith(
                     color: context
                                 .watch<NewEnqController>()
                                 .getisSelectedenquiryReffers ==

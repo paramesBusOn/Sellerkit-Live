@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:sellerkit/DBModel/outstandingDBmodel.dart';
-import 'package:sellerkit/DBModel/outstandinglinechild.dart';
+import 'package:sellerkit/DBModel/outstandingdb_model.dart';
+import 'package:sellerkit/DBModel/outstanding_linechild.dart';
 class outsatandingmodel {
   outstandingheader? outstandhead;
   String? exception;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Controller/DownLoadController/DownloadController.dart';
-import 'package:sellerkit/Controller/OfferZoneController/OfferZoneController.dart';
+import 'package:sellerkit/Controller/OfferZoneController/offerzone_controller.dart';
 
 import '../../../Constant/Screen.dart';
 
@@ -27,7 +26,7 @@ class SearchWidget extends StatelessWidget {
         },
         decoration: InputDecoration(
           filled: false,
-          hintText: 'Search Here!!..',
+          hintText: 'Search Here..',
           enabledBorder: InputBorder.none,
           focusedBorder: InputBorder.none,
           prefixIcon: IconButton(

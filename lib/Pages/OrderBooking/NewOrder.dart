@@ -7,11 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sellerkit/Constant/ConstantRoutes.dart';
-import 'package:sellerkit/Constant/ConstantSapValues.dart';
+import 'package:sellerkit/Constant/constant_routes.dart';
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
+
 import 'package:sellerkit/Constant/Screen.dart';
+import 'package:sellerkit/Controller/OrderController/ordernew_controller.dart';
 import 'package:sellerkit/Widgets/qrpage.dart';
-import '../../Controller/OrderController/OrderNewController.dart';
 import '../../Widgets/Appbar.dart';
 import '../../Widgets/Navi3.dart';
 
@@ -194,7 +195,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           children: [
                             Text(
                               "Payment Terms *",
-                              style: theme.textTheme.bodyText1
+                              style: theme.textTheme.bodyMedium
                                   ?.copyWith(color: Colors.white),
                             ),
                             SizedBox(
@@ -205,7 +206,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             //     children: [
                             //       Text(
                             //         "Required Referral*",
-                            //         style: theme.textTheme.bodyText1
+                            //         style: theme.textTheme.bodyMedium
                             //             ?.copyWith(color: Colors.white),
                             //       ),
                             //     ],
@@ -251,7 +252,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             //                : (value) {},
                             //            decoration: InputDecoration(
                             //              labelText: 'NEFT Reference',
-                            //              labelStyle: theme.textTheme.bodyText1!
+                            //              labelStyle: theme.textTheme.bodyMedium!
                             //                  .copyWith(color: Colors.grey),
                             //              enabledBorder: UnderlineInputBorder(
                             //                borderSide: BorderSide(color: Colors.grey),
@@ -290,7 +291,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             //             : (value) {},
                             //         decoration: InputDecoration(
                             //           labelText: 'UPI Reference',
-                            //           labelStyle: theme.textTheme.bodyText1!
+                            //           labelStyle: theme.textTheme.bodyMedium!
                             //               .copyWith(color: Colors.grey),
                             //           enabledBorder: UnderlineInputBorder(
                             //             borderSide: BorderSide(color: Colors.grey),
@@ -329,7 +330,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             //             : (value) {},
                             //         decoration: InputDecoration(
                             //           labelText: 'Card Reference',
-                            //           labelStyle: theme.textTheme.bodyText1!
+                            //           labelStyle: theme.textTheme.bodyMedium!
                             //               .copyWith(color: Colors.grey),
                             //           enabledBorder: UnderlineInputBorder(
                             //             borderSide: BorderSide(color: Colors.grey),
@@ -368,7 +369,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             //     //     // },
                             //     //     decoration: InputDecoration(
                             //     //   labelText: 'Cheque No',
-                            //     //   labelStyle: theme.textTheme.bodyText1!
+                            //     //   labelStyle: theme.textTheme.bodyMedium!
                             //     //       .copyWith(color: Colors.grey),
                             //     //   enabledBorder: UnderlineInputBorder(
                             //     //     borderSide: BorderSide(color: Colors.grey),
@@ -406,7 +407,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             //             readOnly: true,
                             //         decoration: InputDecoration(
                             //           labelText: 'Cheque Date',
-                            //           labelStyle: theme.textTheme.bodyText1!
+                            //           labelStyle: theme.textTheme.bodyMedium!
                             //               .copyWith(color: Colors.grey),
                             //           enabledBorder: UnderlineInputBorder(
                             //             borderSide: BorderSide(color: Colors.grey),
@@ -438,7 +439,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             //             : (value) {},
                             //         decoration: InputDecoration(
                             //           labelText: 'Cheque Reference',
-                            //           labelStyle: theme.textTheme.bodyText1!
+                            //           labelStyle: theme.textTheme.bodyMedium!
                             //               .copyWith(color: Colors.grey),
                             //           enabledBorder: UnderlineInputBorder(
                             //             borderSide: BorderSide(color: Colors.grey),
@@ -477,7 +478,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             //     // },
                             //     decoration: InputDecoration(
                             //       labelText: 'Remarks',
-                            //       labelStyle: theme.textTheme.bodyText1!
+                            //       labelStyle: theme.textTheme.bodyMedium!
                             //           .copyWith(color: Colors.grey),
                             //       enabledBorder: UnderlineInputBorder(
                             //         borderSide: BorderSide(color: Colors.grey),
@@ -529,7 +530,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             decoration: InputDecoration(
                                 labelText: 'Delivery Due Date*', //
                                 border: UnderlineInputBorder(),
-                                labelStyle: theme.textTheme.bodyText1!
+                                labelStyle: theme.textTheme.bodyMedium!
                                     .copyWith(color: Colors.grey),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
@@ -564,7 +565,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             decoration: InputDecoration(
                                 labelText: 'Payment Due Date*', //
                                 border: UnderlineInputBorder(),
-                                labelStyle: theme.textTheme.bodyText1!
+                                labelStyle: theme.textTheme.bodyMedium!
                                     .copyWith(color: Colors.grey),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(color: Colors.grey),
@@ -599,7 +600,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             decoration: InputDecoration(
                               labelText: 'Customer PO Reference',
                               border: UnderlineInputBorder(),
-                              labelStyle: theme.textTheme.bodyText1!
+                              labelStyle: theme.textTheme.bodyMedium!
                                   .copyWith(color: Colors.grey),
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.grey),
@@ -658,7 +659,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text('Attachment',
-                                      style: theme.textTheme.subtitle1?.copyWith(
+                                      style: theme.textTheme.titleMedium?.copyWith(
                                           color: context
                                                       .read<
                                                           OrderNewController>()
@@ -837,7 +838,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                   child: Text(
                                                 "No Files Selected",
                                                 style: theme
-                                                    .textTheme.bodyText1!
+                                                    .textTheme.bodyMedium!
                                                     .copyWith(
                                                         color: context
                                                                     .read<
@@ -1016,7 +1017,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                 .split('/')
                                                                 .last,
                                                           )),
-                                                      Container(
+                                                      SizedBox(
                                                           width: Screens.width(
                                                                   context) *
                                                               0.1,
@@ -1352,18 +1353,18 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                   child: Text(
                                                       "${context.read<OrderNewController>().postpaymentdata[ind].paymodename}",
                                                       style: theme
-                                                          .textTheme.bodyText1
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith())),
                                               Container(
                                                   child: Text(":",
                                                       style: theme
-                                                          .textTheme.bodyText1
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith())),
                                               Container(
                                                   child: Text(
                                                       " ${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().postpaymentdata[ind].amount.toString())}",
                                                       style: theme
-                                                          .textTheme.bodyText1
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith())),
                                             ],
                                           ),
@@ -1417,7 +1418,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           "Total Order Value Rs.${context.read<OrderNewController>().getTotalGrossAmount()}",
                           maxLines: 8,
                           overflow: TextOverflow.ellipsis,
-                          style: theme.textTheme.bodyText1?.copyWith(
+                          style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.primaryColor,
                           ))
                     ],
@@ -1528,7 +1529,7 @@ class OrderBookNewState extends State<OrderBookNew> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Attachment',
-                  style: theme.textTheme.subtitle1?.copyWith(
+                  style: theme.textTheme.titleMedium?.copyWith(
                       color:
                           context.read<OrderNewController>().fileValidation2 ==
                                   true
@@ -1657,7 +1658,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           Center(
                               child: Text(
                             "No Files Selected",
-                            style: theme.textTheme.bodyText1!.copyWith(
+                            style: theme.textTheme.bodyMedium!.copyWith(
                                 color: context
                                             .read<OrderNewController>()
                                             .fileValidation2 ==
@@ -1870,7 +1871,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                   //   },
                   decoration: InputDecoration(
                     filled: false,
-                    hintText: 'Search Here!!..',
+                    hintText: 'Search Here..',
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     suffixIcon: IconButton(
@@ -1899,11 +1900,11 @@ class OrderBookNewState extends State<OrderBookNew> {
                           onPressed: () {
                             setState(() {
                               context.read<OrderNewController>().scannerreset();
-                              qrscannerState.orderscan = true;
+                              QrscannerState.orderscan = true;
                               Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (_) => qrscanner()))
+                                          builder: (_) => Qrscanner()))
 //                 .then((value){
 // return context.read<OrderNewController>().scanneddataget(context);
 //                 }
@@ -1958,8 +1959,9 @@ class OrderBookNewState extends State<OrderBookNew> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                           "Item code: ${context.read<OrderNewController>().getAllProductDetails[i].itemCode}",
-                                          style: theme.textTheme.bodyText1
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
+                                                fontSize: 13,
                                                   color: theme.primaryColor)),
                                     ),
                                     Container(
@@ -1981,7 +1983,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                         //         .read<OrderNewController>()
                                         //         .getAllProductDetails[i]
                                         //         .refreshedRecordDate!),
-                                        style: theme.textTheme.bodyText1
+                                        style: theme.textTheme.bodyMedium
                                             ?.copyWith(color: Colors.grey),
                                       ),
                                     ),
@@ -1999,11 +2001,11 @@ class OrderBookNewState extends State<OrderBookNew> {
                                   alignment: Alignment.centerLeft,
                                   width: Screens.width(context) * 0.4,
                                   child: Text("Product",
-                                      style: theme.textTheme.bodyText1
+                                      style: theme.textTheme.bodyMedium
                                           ?.copyWith(color: Colors.grey)),
                                 ),
                                 SizedBox(
-                                  height: Screens.bodyheight(context) * 0.01,
+                                  height: Screens.bodyheight(context) * 0.005,
                                 ),
                                 Row(
                                   mainAxisAlignment:
@@ -2013,8 +2015,9 @@ class OrderBookNewState extends State<OrderBookNew> {
                                       width: Screens.width(context) * 0.4,
                                       child: Text(
                                           "${context.read<OrderNewController>().getAllProductDetails[i].itemName}",
-                                          style: theme.textTheme.bodyText1
+                                          style: theme.textTheme.bodyMedium
                                               ?.copyWith(
+                                                fontSize: 13,
                                                   //color: theme.primaryColor
                                                   )),
                                     ),
@@ -2027,7 +2030,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                           width: Screens.width(context) * 0.1,
                                           child: Text(
                                             "₹ ",
-                                            style: theme.textTheme.bodyText1
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(color: Colors.grey),
                                           ),
                                         ),
@@ -2036,7 +2039,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                           //width: Screens.width(context) * 0.2,
                                           child: Text(
                                             "${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getAllProductDetails[i].sp.toString())}",
-                                            style: theme.textTheme.bodyText1
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     color: theme.primaryColor),
                                           ),
@@ -2053,7 +2056,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     ? SizedBox(
                                         // width: Screens.width(context) * 0.4,
                                         child: Text("(Bundled)",
-                                            style: theme.textTheme.bodyText1
+                                            style: theme.textTheme.bodyMedium
                                                 ?.copyWith(
                                                     color: theme.primaryColor
                                                     )),
@@ -2145,12 +2148,21 @@ class OrderBookNewState extends State<OrderBookNew> {
                                         ),
                                         SizedBox(height: 7.0),
                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text("Product",
                                                 style: TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 13.0,
                                                 )),
+                                         context.read<OrderNewController>().getProduct[index].itemtype!.toLowerCase() =='v'?      
+                                        Container(
+                                          padding: EdgeInsets.only(left: Screens.width(context)*0.01),
+                                              child:Image.asset("Assets/gift2.png",height: Screens.padingHeight(context)*0.035,)
+                                            //    Text(
+                                            //       "(Value Based Gift)",style:theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColor)),
+                                            )
+                                            :Container(),
                                           ],
                                         ),
                                         SizedBox(height: 7.0),
@@ -2182,7 +2194,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                         .toStringAsFixed(0),
                                                 style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 15.0,
+                                                  fontSize: 13.0,
                                                 )),
                                             // SizedBox(
                                             //     width: Screens.bodyheight(context) /
@@ -2201,7 +2213,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                             .toString()),
                                                 style: TextStyle(
                                                   color: Colors.black,
-                                                  fontSize: 15.0,
+                                                  fontSize: 13.0,
                                                 )),
                                           ],
                                         ),
@@ -2426,6 +2438,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                      Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
+                                        
                                      context.read<OrderNewController>().getProduct[index].itemtype!.toLowerCase() =='b'?      Container(
                                               child: Text(
                                                   "(Bundled)",style:theme.textTheme.bodyMedium!.copyWith(color: theme.primaryColor)),
@@ -2508,19 +2521,38 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                         .getProduct[
                                                                             index]
                                                                         .bundleId);
+                                                          }else if(context
+                                                                  .read<
+                                                                      OrderNewController>()
+                                                                  .getProduct[
+                                                                      index]
+                                                                  .itemtype!
+                                                                  .toLowerCase() ==
+                                                              'v'){
+                                                                context
+                                                                .read<
+                                                                    OrderNewController>()
+                                                                .deletevaluebased();
+
                                                           } else {
+                                                            
                                                             context
                                                                 .read<
                                                                     OrderNewController>()
                                                                 .getProduct
                                                                 .removeAt(
                                                                     index);
+                                                                     context
+                                                              .read<
+                                                                  OrderNewController>()
+                                                              . deletevaluebased();
                                                           }
                                                           context
                                                               .read<
                                                                   OrderNewController>()
                                                               .postpaymentdata
                                                               .clear();
+                                                            
                                                           context
                                                               .read<
                                                                   OrderNewController>()
@@ -2554,7 +2586,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                         color: Colors.red,
                                                       )),
                                                   SizedBox(width: 10.0),
-                                                  GestureDetector(
+                                      context.read<OrderNewController>().getProduct[index].itemtype!.toLowerCase() =='v'? Container():            GestureDetector(
                                                       onTap: () {
                                                         context
                                                             .read<
@@ -2740,7 +2772,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                             alignment: Alignment.centerRight,
                             width: Screens.width(context) * 0.32,
                             child: Text(
-                                "${context.read<OrderNewController>().getTotalOrderAmount()}",
+                                "${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getTotalOrderAmount().toString())}",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15.0,
@@ -2770,7 +2802,37 @@ class OrderBookNewState extends State<OrderBookNew> {
                             alignment: Alignment.centerRight,
                             width: Screens.width(context) * 0.32,
                             child: Text(
-                                "${context.read<OrderNewController>().getTotalTaxAmount()}",
+                                "${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().getTotalTaxAmount().toString())}",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.0,
+                                )),
+                          ),
+                        ],
+                      ),
+                       Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            // color:Colors.red,
+
+                            width: Screens.width(context) * 0.45,
+                            alignment: Alignment.centerRight,
+                            child: Text("Roundoff  :",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15.0,
+                                )),
+                          ),
+                          //  Text("",style: TextStyle(
+                          //                    color: Colors.black,
+                          //                    fontSize: 15.0,
+                          //                  )),
+                          Container(
+                            alignment: Alignment.centerRight,
+                            width: Screens.width(context) * 0.32,
+                            child: Text(
+                                "${context.read<OrderNewController>().getroundoffdiff()}",
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 15.0,
@@ -2844,7 +2906,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                       //     duration: Duration(milliseconds: 250),
                       //     curve: Curves.bounceIn);
 
-                      context.read<OrderNewController>().seconPageBtnClicked();
+                      context.read<OrderNewController>().seconPageBtnClicked(theme ,context);
                       log("oldcutomer: " +
                           context
                               .read<OrderNewController>()
@@ -3071,7 +3133,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                   width: Screens.width(context),
                                   child: Text(
                                     "Customer Info",
-                                    style: theme.textTheme.headline6
+                                    style: theme.textTheme.titleLarge
                                         ?.copyWith(color: theme.primaryColor),
                                   ),
                                 ),
@@ -3125,7 +3187,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelText: 'Mobile*',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -3242,7 +3304,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     decoration: InputDecoration(
                                       labelText: 'Customer*',
                                       border: UnderlineInputBorder(),
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -3357,7 +3419,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                               "${context.watch<OrderNewController>().filterCustomerList[i].cardname}",
                                                               style: theme
                                                                   .textTheme
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   ?.copyWith(
                                                                       color: Colors
                                                                           .black),
@@ -3439,7 +3501,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     // },
                                     decoration: InputDecoration(
                                       labelText: 'Contact Name',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -3486,7 +3548,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       labelText: 'Alternate Mobile No',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -3581,7 +3643,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     },
                                     decoration: InputDecoration(
                                       labelText: 'Email',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -3683,7 +3745,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     decoration: InputDecoration(
                                       counterText: '',
                                       labelText: 'GST No',
-                                      labelStyle: theme.textTheme.bodyText1!
+                                      labelStyle: theme.textTheme.bodyMedium!
                                           .copyWith(color: Colors.grey),
                                       enabledBorder: UnderlineInputBorder(
                                         borderSide:
@@ -3724,7 +3786,7 @@ class OrderBookNewState extends State<OrderBookNew> {
 //                                                                      //   context
 //                                                                      //       .watch<NewEnqController>()
 //                                                                      //       .gethinttextforOpenLead!,
-//                                                                      //   style: theme.textTheme.bodyText2?.copyWith(
+//                                                                      //   style: theme.textTheme.bodyMedium?.copyWith(
 //                                                                      //       color: context
 //                                                                      //               .watch<NewEnqController>()
 //                                                                      //               .gethinttextforOpenLead!
@@ -3784,7 +3846,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                     //   context
                                     //       .watch<NewEnqController>()
                                     //       .gethinttextforOpenLead!,
-                                    //   style: theme.textTheme.bodyText2?.copyWith(
+                                    //   style: theme.textTheme.bodyMedium?.copyWith(
                                     //       color: context
                                     //               .watch<NewEnqController>()
                                     //               .gethinttextforOpenLead!
@@ -3849,7 +3911,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                           width: Screens.width(context),
                                           child: Text(
                                             "Billing Address",
-                                            style: theme.textTheme.headline6
+                                            style: theme.textTheme.titleLarge
                                                 ?.copyWith(
                                                     color: theme.primaryColor),
                                           ),
@@ -3932,7 +3994,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                             decoration: InputDecoration(
                                               labelText: 'Address1*',
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -4035,7 +4097,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                             decoration: InputDecoration(
                                               labelText: 'Address2*',
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -4169,7 +4231,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -4295,7 +4357,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -4399,7 +4461,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                         //                               "${context.watch<OrderNewController>().filterCustomerList[i].area}",
                                         //                               style: theme
                                         //                                   .textTheme
-                                        //                                   .bodyText1
+                                        //                                   .bodyMedium
                                         //                                   ?.copyWith(
                                         //                                       color: Colors
                                         //                                           .black),
@@ -4497,7 +4559,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                         //                               "${context.watch<OrderNewController>().filterCustomerList[i].city}",
                                         //                               style: theme
                                         //                                   .textTheme
-                                        //                                   .bodyText1
+                                        //                                   .bodyMedium
                                         //                                   ?.copyWith(
                                         //                                       color: Colors
                                         //                                           .black),
@@ -4573,7 +4635,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -4720,7 +4782,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -4833,7 +4895,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                       "${context.watch<OrderNewController>().filterCustomerList[i].zipcode}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -4868,7 +4930,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                 child: Text(
                                                   "Enter Correct State",
                                                   style: theme
-                                                      .textTheme.bodyText2!
+                                                      .textTheme.bodyMedium!
                                                       .copyWith(
                                                           color: Colors.red,
                                                           fontSize: 12),
@@ -4909,7 +4971,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                 child: Text(
                                                   "Shipping Address",
                                                   style: theme
-                                                      .textTheme.headline6
+                                                      .textTheme.titleLarge
                                                       ?.copyWith(
                                                           color: theme
                                                               .primaryColor),
@@ -5016,7 +5078,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                               // fillColor: Colors.amber,
                                               border: UnderlineInputBorder(),
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -5117,7 +5179,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                               labelText: 'Address2*',
                                               border: UnderlineInputBorder(),
                                               labelStyle: theme
-                                                  .textTheme.bodyText1!
+                                                  .textTheme.bodyMedium!
                                                   .copyWith(color: Colors.grey),
                                               enabledBorder:
                                                   UnderlineInputBorder(
@@ -5256,7 +5318,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -5382,7 +5444,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -5491,7 +5553,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                       "${context.watch<OrderNewController>().filterCustomerList[i].area}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -5593,7 +5655,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                                       "${context.watch<OrderNewController>().filterCustomerList[i].city}",
                                                                       style: theme
                                                                           .textTheme
-                                                                          .bodyText1
+                                                                          .bodyMedium
                                                                           ?.copyWith(
                                                                               color: Colors.black),
                                                                     ),
@@ -5667,7 +5729,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -5806,7 +5868,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     border:
                                                         UnderlineInputBorder(),
                                                     labelStyle: theme
-                                                        .textTheme.bodyText1!
+                                                        .textTheme.bodyMedium!
                                                         .copyWith(
                                                             color: Colors.grey),
                                                     enabledBorder:
@@ -5846,7 +5908,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                 child: Text(
                                                   "Enter Correct State",
                                                   style: theme
-                                                      .textTheme.bodyText2!
+                                                      .textTheme.bodyMedium!
                                                       .copyWith(
                                                           color: Colors.red,
                                                           fontSize: 12),
@@ -5909,7 +5971,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                               "${context.watch<OrderNewController>().filterstateData[i].stateName}",
                                                               style: theme
                                                                   .textTheme
-                                                                  .bodyText1
+                                                                  .bodyMedium
                                                                   ?.copyWith(
                                                                       color: theme
                                                                           .primaryColor),
@@ -5981,7 +6043,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                                                     child: Text(
                                                       "${context.watch<OrderNewController>().filterstateData[i].stateName}",
                                                       style: theme
-                                                          .textTheme.bodyText1
+                                                          .textTheme.bodyMedium
                                                           ?.copyWith(
                                                               color: theme
                                                                   .primaryColor),
@@ -6060,9 +6122,9 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                   .read<OrderNewController>()
                           //                   .validateGender ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -6102,7 +6164,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("Male",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6147,7 +6209,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("Female",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6192,7 +6254,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("Other",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6227,9 +6289,9 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                   .read<OrderNewController>()
                           //                   .validateAge ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -6269,7 +6331,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("20-30",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6314,7 +6376,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("30-40",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6359,7 +6421,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("40-50",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6404,7 +6466,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //             Text("50>",
                           //                 maxLines: 8,
                           //                 overflow: TextOverflow.ellipsis,
-                          //                 style: theme.textTheme.bodyText1
+                          //                 style: theme.textTheme.bodyMedium
                           //                     ?.copyWith(
                           //                   color: context
                           //                               .watch<
@@ -6439,9 +6501,9 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                   .read<OrderNewController>()
                           //                   .validateComas ==
                           //               true
-                          //           ? theme.textTheme.bodyText1
+                          //           ? theme.textTheme.bodyMedium
                           //               ?.copyWith(color: Colors.red)
-                          //           : theme.textTheme.bodyText1,
+                          //           : theme.textTheme.bodyMedium,
                           //     ),
                           //     SizedBox(
                           //       height: Screens.bodyheight(context) * 0.01,
@@ -6481,7 +6543,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("Family",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6526,7 +6588,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("Individual",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6571,7 +6633,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //                 Text("Friends",
                           //                     maxLines: 8,
                           //                     overflow: TextOverflow.ellipsis,
-                          //                     style: theme.textTheme.bodyText1
+                          //                     style: theme.textTheme.bodyMedium
                           //                         ?.copyWith(
                           //                       color: context
                           //                                   .watch<
@@ -6616,7 +6678,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           //             Text("Corporate",
                           //                 maxLines: 8,
                           //                 overflow: TextOverflow.ellipsis,
-                          //                 style: theme.textTheme.bodyText1
+                          //                 style: theme.textTheme.bodyMedium
                           //                     ?.copyWith(
                           //                   color: context
                           //                               .watch<
@@ -6714,7 +6776,7 @@ class OrderBookNewState extends State<OrderBookNew> {
   //                     .toString(),
   //                 maxLines: 8,
   //                 overflow: TextOverflow.ellipsis,
-  //                 style: theme.textTheme.bodyText1?.copyWith(
+  //                 style: theme.textTheme.bodyMedium?.copyWith(
   //                   color: context
   //                               .read<OrderNewController>()
   //                               .getisSelectedenquiryReffers ==
@@ -6782,7 +6844,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                           ""
                   ? Text(
                       "Rs.${context.read<OrderNewController>().config.slpitCurrency22(context.read<OrderNewController>().paymode[index].amount.toString())}",
-                      style: theme.textTheme.bodyText1?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: context
                                     .read<OrderNewController>()
                                     .paymode[index]
@@ -6797,7 +6859,7 @@ class OrderBookNewState extends State<OrderBookNew> {
                       maxLines: 8,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyText1?.copyWith(
+                      style: theme.textTheme.bodyMedium?.copyWith(
                         color: context
                                     .read<OrderNewController>()
                                     .paymode[index]
@@ -6824,13 +6886,13 @@ class OrderBookNewState extends State<OrderBookNew> {
                             ""
                     ? Text(
                         "${context.read<OrderNewController>().paymode[index].ModeName}",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: theme.primaryColor, fontSize: 10))
                     : Text(""))
             //  Positioned(
             //     top: Screens.padingHeight(context)*0.005,
             //     left:Screens.width(context)*0.01,
-            //     child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""?Text("Rs.${context.read<OrderNewController>().paymode[index].amount}",style:theme.textTheme.bodyText1?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
+            //     child: context.read<OrderNewController>().paymode[index].amount !=null && context.read<OrderNewController>().paymode[index].amount !=""?Text("Rs.${context.read<OrderNewController>().paymode[index].amount}",style:theme.textTheme.bodyMedium?.copyWith(color:theme.primaryColor,fontSize: 10)):Text("")
             //     )
           ],
         ),

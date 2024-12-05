@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sellerkit/Constant/Screen.dart';
-import 'package:sellerkit/Controller/specialpricecontroller/tabcontroller.dart';
+import 'package:sellerkit/Constant/menu_auth.dart';
+import 'package:sellerkit/Controller/specialpricecontroller/tab_controller.dart';
 import 'package:sellerkit/Models/specialpriceModel/GetAllSPModel.dart';
 
 class Followdialog extends StatefulWidget {
@@ -98,7 +99,7 @@ class _FollowdialogState extends State<Followdialog> {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Alert",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -133,8 +134,8 @@ class _FollowdialogState extends State<Followdialog> {
                           .watch<tabpriceController>()
                           .forwardSuccessMsg
                           .contains("Success")
-                      ? theme.textTheme.headline6?.copyWith(color: Colors.green)
-                      : theme.textTheme.headline6?.copyWith(color: Colors.red),
+                      ? theme.textTheme.titleLarge?.copyWith(color: Colors.green)
+                      : theme.textTheme.titleLarge?.copyWith(color: Colors.red),
                 ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.01,
@@ -142,7 +143,7 @@ class _FollowdialogState extends State<Followdialog> {
                 Text(
                   context.watch<tabpriceController>().forwardSuccessMsg,
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.bodyText1,
+                  style: theme.textTheme.bodyMedium,
                 ),
                 SizedBox(
                   height: Screens.bodyheight(context) * 0.02,
@@ -158,6 +159,9 @@ class _FollowdialogState extends State<Followdialog> {
                       ),
                       onPressed: () {
                         Navigator.pop(context);
+                        context
+                                        .read<tabpriceController>()
+                                        .refershAfterClosedialog();
                       },
                       child: Text(
                         "Ok",
@@ -207,7 +211,7 @@ class _FollowdialogState extends State<Followdialog> {
                   Container(
                     alignment: Alignment.center,
                     child: Text("Special Price Details",
-                        style: theme.textTheme.bodyText1
+                        style: theme.textTheme.bodyMedium
                             ?.copyWith(color: Colors.white)),
                   ),
                   InkWell(
@@ -250,7 +254,7 @@ class _FollowdialogState extends State<Followdialog> {
                         alignment: Alignment.topLeft,
                         child: Text(
                           "${widget.getalldata.CustomerName}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       widget.getalldata.CreatedOn == null ||
@@ -276,7 +280,7 @@ class _FollowdialogState extends State<Followdialog> {
                                               // "2020-05-18T00:00:00"
                                               "${widget.getalldata.CreatedOn}"),
                                   textAlign: TextAlign.center,
-                                  style: theme.textTheme.bodyText2?.copyWith(),
+                                  style: theme.textTheme.bodyMedium?.copyWith(),
                                 ),
                               ),
                             )
@@ -311,7 +315,7 @@ class _FollowdialogState extends State<Followdialog> {
                           width: Screens.width(context) * 0.35,
                           child: Text(
                             "${widget.getalldata.CustomerCode}",
-                            style: theme.textTheme.bodyText2?.copyWith(
+                            style: theme.textTheme.bodyMedium?.copyWith(
                                 decoration: TextDecoration.underline,
                                 color: Colors.blue),
                           ),
@@ -323,7 +327,7 @@ class _FollowdialogState extends State<Followdialog> {
                         width: Screens.width(context) * 0.4,
                         child: Text(
                           "# ${widget.getalldata.DocEntry}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       // Container(
@@ -338,7 +342,7 @@ class _FollowdialogState extends State<Followdialog> {
                       //               "${widget.getalldata.SP}",
                       //             ) +
                       //         '/-',
-                      //     style: theme.textTheme.bodyText2?.copyWith(
+                      //     style: theme.textTheme.bodyMedium?.copyWith(
                       //       color: theme.primaryColor,
                       //     ),
                       //   ),
@@ -369,7 +373,7 @@ class _FollowdialogState extends State<Followdialog> {
                   //       width: Screens.width(context) * 0.4,
                   //       child: Text(
                   //         "",
-                  //         style: theme.textTheme.bodyText2?.copyWith(),
+                  //         style: theme.textTheme.bodyMedium?.copyWith(),
                   //       ),
                   //     ),
                   //     Container(
@@ -377,7 +381,7 @@ class _FollowdialogState extends State<Followdialog> {
                   //       width: Screens.width(context) * 0.4,
                   //       child: Text(
                   //         "# ${widget.getalldata.DocEntry}",
-                  //         style: theme.textTheme.bodyText2?.copyWith(),
+                  //         style: theme.textTheme.bodyMedium?.copyWith(),
                   //       ),
                   //     ),
                   //   ],
@@ -408,7 +412,7 @@ class _FollowdialogState extends State<Followdialog> {
                           "Requested Date: ${context
                                                       .read<tabpriceController>()
                                                       .config.alignDate(widget.getalldata.RequestDate.toString())}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       // Container(
@@ -419,7 +423,7 @@ class _FollowdialogState extends State<Followdialog> {
                       //         context.watch<tabpriceController>().config.alignDate3(
                       //             "${widget.getalldata.CreatedOn}" //.LastFUPUpdate
                       //             ),
-                      //     style: theme.textTheme.bodyText2?.copyWith(),
+                      //     style: theme.textTheme.bodyMedium?.copyWith(),
                       //   ),
                       // ),
                     ],
@@ -448,7 +452,7 @@ class _FollowdialogState extends State<Followdialog> {
                       //   //  width: Screens.width(context) * 0.35,
                       //   child: Text(
                       //     "Required Price : ${context.read<tabpriceController>().config.slpitCurrency22(widget.getalldata.RP.toString())}",
-                      //     style: theme.textTheme.bodyText2?.copyWith(),
+                      //     style: theme.textTheme.bodyMedium?.copyWith(),
                       //   ),
                       // ),
 
@@ -457,7 +461,7 @@ class _FollowdialogState extends State<Followdialog> {
                         //  width: Screens.width(context) * 0.35,
                         child: Text(
                           "User Type : ${widget.getalldata.UserType.toString()}",
-                          style: theme.textTheme.bodyText2?.copyWith(),
+                          style: theme.textTheme.bodyMedium?.copyWith(),
                         ),
                       ),
                       // Container(
@@ -469,7 +473,7 @@ class _FollowdialogState extends State<Followdialog> {
                       //         // context.watch<LeadTabController>().config.alignDate3(
                       //         //     "${context.watch<LeadTabController>().getleadDeatilsQTHData![0].LastFUPUpdate}" //.
                       //         //     ),
-                      //     style: theme.textTheme.bodyText2?.copyWith(),
+                      //     style: theme.textTheme.bodyMedium?.copyWith(),
                       //   ),
                       // ),
                     ],
@@ -506,7 +510,7 @@ class _FollowdialogState extends State<Followdialog> {
                             //         // )
                             //         }
                                     // ",
-                            style: theme.textTheme.bodyText2?.copyWith(color: Colors.grey),
+                            style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey),
                           ),
                         ),
                       // ),
@@ -527,7 +531,7 @@ class _FollowdialogState extends State<Followdialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Product",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -537,7 +541,7 @@ class _FollowdialogState extends State<Followdialog> {
       //   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       //   child: Text(
       //     "Price",
-      //     style: theme.textTheme.bodyText1
+      //     style: theme.textTheme.bodyMedium
       //         ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
       //     textAlign: TextAlign.left,
       //   ),
@@ -547,7 +551,7 @@ class _FollowdialogState extends State<Followdialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Qty",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -560,7 +564,7 @@ class _FollowdialogState extends State<Followdialog> {
           child: Text(
             '${widget.getalldata.ItemName}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -571,7 +575,7 @@ class _FollowdialogState extends State<Followdialog> {
         //     "${context.read<tabpriceController>().config.slpitCurrency22(widget.getalldata.SP!.toString())}",
         //     // '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
         //     textAlign: TextAlign.left,
-        //     style: theme.textTheme.bodyText1?.copyWith(
+        //     style: theme.textTheme.bodyMedium?.copyWith(
         //       color: theme.primaryColor,
         //     ),
         //   ),
@@ -581,7 +585,7 @@ class _FollowdialogState extends State<Followdialog> {
           child: Text(
             '${widget.getalldata.Quantity}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -606,7 +610,7 @@ class _FollowdialogState extends State<Followdialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "SP",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -616,7 +620,7 @@ class _FollowdialogState extends State<Followdialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Requested Price",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -626,7 +630,7 @@ class _FollowdialogState extends State<Followdialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Dis %",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -639,7 +643,7 @@ class _FollowdialogState extends State<Followdialog> {
           child: Text(
             "${context.read<tabpriceController>().config.slpitCurrency22(widget.getalldata.SP!.toString())}",
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -654,7 +658,7 @@ class _FollowdialogState extends State<Followdialog> {
             
             // '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -665,7 +669,7 @@ class _FollowdialogState extends State<Followdialog> {
             "${context
                             .read<tabpriceController>().Discountcalculation(widget.getalldata.RP, widget.getalldata.SP)}" ,
             textAlign: TextAlign.center,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -687,7 +691,7 @@ class _FollowdialogState extends State<Followdialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "Slab",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.left,
         ),
@@ -697,7 +701,7 @@ class _FollowdialogState extends State<Followdialog> {
         padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
         child: Text(
           "APM",
-          style: theme.textTheme.bodyText1
+          style: theme.textTheme.bodyMedium
               ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -707,7 +711,7 @@ class _FollowdialogState extends State<Followdialog> {
       //   padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       //   child: Text(
       //     "Qty",
-      //     style: theme.textTheme.bodyText1
+      //     style: theme.textTheme.bodyMedium
       //         ?.copyWith(fontWeight: FontWeight.normal, color: Colors.white),
       //     textAlign: TextAlign.left,
       //   ),
@@ -720,7 +724,7 @@ class _FollowdialogState extends State<Followdialog> {
           child: Text(
             '${widget.getalldata.UserType}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -731,7 +735,7 @@ class _FollowdialogState extends State<Followdialog> {
             "${context.read<tabpriceController>().config.slpitCurrency22(widget.getalldata.SP!.toString())}",
             // '${context.watch<LeadTabController>().getleadDeatilsQTLData[i].Price!.toStringAsFixed(2)}',
             textAlign: TextAlign.left,
-            style: theme.textTheme.bodyText1?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.primaryColor,
             ),
           ),
@@ -741,7 +745,7 @@ class _FollowdialogState extends State<Followdialog> {
         //   child: Text(
         //     '${widget.getalldata.Quantity}',
         //     textAlign: TextAlign.center,
-        //     style: theme.textTheme.bodyText1?.copyWith(
+        //     style: theme.textTheme.bodyMedium?.copyWith(
         //       color: theme.primaryColor,
         //     ),
         //   ),
@@ -791,10 +795,30 @@ approvedialog( ThemeData theme) {
                     // width: Screens.width(context) * 0.35,
                     child: ElevatedButton(
                         onPressed: () {
-                          setState(() {
+                           if( MenuAuthDetail.Orders == "Y"){
+                             setState(() {
                           context.read<tabpriceController>().   covertToorder(widget.getalldata);
                            
                           });
+
+                           }else{
+                             showDialog(
+                                        context: context,
+                                        barrierDismissible: true,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                          Radius.circular(4))),
+                                              contentPadding: EdgeInsets.all(0),
+                                              insetPadding: EdgeInsets.all(
+                                                  Screens.bodyheight(context) *
+                                                      0.02),
+                                              content: settings(context));
+                                        });
+                           }
+                         
                         },
                         child: const Text("Convert to order"))),
                
@@ -971,4 +995,74 @@ approvedialog( ThemeData theme) {
       ),
     );
   }
+
+  settings(BuildContext context) {
+  final theme = Theme.of(context);
+  return StatefulBuilder(builder: (context, st) {
+    return Container(
+      padding: EdgeInsets.only(
+          top: Screens.padingHeight(context) * 0.01,
+          left: Screens.width(context) * 0.03,
+          right: Screens.width(context) * 0.03,
+          bottom: Screens.padingHeight(context) * 0.01),
+      width: Screens.width(context) * 1.1,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              width: Screens.width(context),
+              height: Screens.padingHeight(context) * 0.05,
+              color: theme.primaryColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(
+                        left: Screens.padingHeight(context) * 0.02,
+                        right: Screens.padingHeight(context) * 0.02),
+                    // color: Colors.red,
+                    width: Screens.width(context) * 0.5,
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      "Alert",
+                      style: theme.textTheme.bodyMedium
+                          ?.copyWith(color: Colors.white),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.close,
+                        size: Screens.padingHeight(context) * 0.025,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+            Container(
+                alignment: Alignment.center,
+                width: Screens.width(context),
+                child: Text('You are not authorised..!!')),
+            SizedBox(
+              height: Screens.bodyheight(context) * 0.02,
+            ),
+          ],
+        ),
+      ),
+    );
+  });
+}
 }

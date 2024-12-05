@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:sellerkit/Services/URL/LocalUrl.dart';
-import '../../../Constant/ConstantSapValues.dart';
+
+import 'package:sellerkit/Constant/constant_sapvalues.dart';
 import '../../../Models/PostQueryModel/WalkinModel.dart/WalkinModel.dart';
 import '../../../main.dart';
 
@@ -23,7 +24,7 @@ class WalkinApi {
           },
           body: jsonEncode({
             "id": 0,
-  "slpCode": "${ConstantValues.slpcode}",
+  "slpCode": "${ConstantValues.Usercode}",
   "purposeofvisit": "$purposeOFVisit",
   "division": "$division",
   "headCount": headcount,
